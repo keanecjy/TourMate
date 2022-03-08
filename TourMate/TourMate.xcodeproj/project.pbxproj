@@ -134,6 +134,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B99D966927D73508009B66AE /* Build configuration list for PBXNativeTarget "TourMate" */;
 			buildPhases = (
+				B99D967227D73643009B66AE /* ShellScript */,
 				B99D964127D73503009B66AE /* Sources */,
 				B99D964227D73503009B66AE /* Frameworks */,
 				B99D964327D73503009B66AE /* Resources */,
@@ -251,6 +252,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B99D967227D73643009B66AE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B99D964127D73503009B66AE /* Sources */ = {
