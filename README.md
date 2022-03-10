@@ -24,6 +24,7 @@ Run the following command to setup the project.
 
 ```bash
 
+sudo gem install cocoapods
 pod install
 
 ```
