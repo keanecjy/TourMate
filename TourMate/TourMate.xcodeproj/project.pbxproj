@@ -24,6 +24,14 @@
 		B99D965A27D73508009B66AE /* TourMateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D965927D73508009B66AE /* TourMateTests.swift */; };
 		B99D966427D73508009B66AE /* TourMateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D966327D73508009B66AE /* TourMateUITests.swift */; };
 		B99D966627D73508009B66AE /* TourMateUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D966527D73508009B66AE /* TourMateUITestsLaunchTests.swift */; };
+		B99D967A27D9C43B009B66AE /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D967927D9C43B009B66AE /* Model.swift */; };
+		B99D967C27D9C890009B66AE /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D967B27D9C890009B66AE /* Trip.swift */; };
+		B99D967E27D9D82C009B66AE /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D967D27D9D82C009B66AE /* Plan.swift */; };
+		B99D968027D9DF0B009B66AE /* Accommodation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D967F27D9DF0B009B66AE /* Accommodation.swift */; };
+		B99D968227D9DF30009B66AE /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D968127D9DF30009B66AE /* Activity.swift */; };
+		B99D968427D9DF5E009B66AE /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D968327D9DF5E009B66AE /* Restaurant.swift */; };
+		B99D968627D9DF70009B66AE /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D968527D9DF70009B66AE /* Transport.swift */; };
+		B99D968827D9DF80009B66AE /* Flight.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D968727D9DF80009B66AE /* Flight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +72,14 @@
 		B99D965F27D73508009B66AE /* TourMateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TourMateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B99D966327D73508009B66AE /* TourMateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourMateUITests.swift; sourceTree = "<group>"; };
 		B99D966527D73508009B66AE /* TourMateUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourMateUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B99D967927D9C43B009B66AE /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		B99D967B27D9C890009B66AE /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		B99D967D27D9D82C009B66AE /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
+		B99D967F27D9DF0B009B66AE /* Accommodation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accommodation.swift; sourceTree = "<group>"; };
+		B99D968127D9DF30009B66AE /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		B99D968327D9DF5E009B66AE /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		B99D968527D9DF70009B66AE /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
+		B99D968727D9DF80009B66AE /* Flight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,9 +130,9 @@
 		B99D964727D73503009B66AE /* TourMate */ = {
 			isa = PBXGroup;
 			children = (
+				B99D967827D9C3B2009B66AE /* Models */,
 				B99D964827D73503009B66AE /* TourMateApp.swift */,
 				B99D964A27D73503009B66AE /* ContentView.swift */,
-				95CB3F6827D8E79A0086E9E3 /* MockModel.swift */,
 				95CB3F6F27D8E79C0086E9E3 /* TripsView.swift */,
 				95CB3F6727D8E79A0086E9E3 /* TripCardView.swift */,
 				95CB3F7027D8E79C0086E9E3 /* TripView.swift */,
@@ -155,6 +171,22 @@
 				B99D966527D73508009B66AE /* TourMateUITestsLaunchTests.swift */,
 			);
 			path = TourMateUITests;
+			sourceTree = "<group>";
+		};
+		B99D967827D9C3B2009B66AE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B99D967927D9C43B009B66AE /* Model.swift */,
+				95CB3F6827D8E79A0086E9E3 /* MockModel.swift */,
+				B99D967B27D9C890009B66AE /* Trip.swift */,
+				B99D967D27D9D82C009B66AE /* Plan.swift */,
+				B99D967F27D9DF0B009B66AE /* Accommodation.swift */,
+				B99D968127D9DF30009B66AE /* Activity.swift */,
+				B99D968327D9DF5E009B66AE /* Restaurant.swift */,
+				B99D968527D9DF70009B66AE /* Transport.swift */,
+				B99D968727D9DF80009B66AE /* Flight.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,18 +340,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B99D968227D9DF30009B66AE /* Activity.swift in Sources */,
 				B99D964B27D73503009B66AE /* ContentView.swift in Sources */,
 				95CB3F7227D8E79C0086E9E3 /* MockModel.swift in Sources */,
 				95CB3F7827D8E79C0086E9E3 /* PackingListView.swift in Sources */,
 				95CB3F7A27D8E79C0086E9E3 /* TripView.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
+				B99D967A27D9C43B009B66AE /* Model.swift in Sources */,
+				B99D968427D9DF5E009B66AE /* Restaurant.swift in Sources */,
 				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
 				95CB3F7327D8E79C0086E9E3 /* ItineraryView.swift in Sources */,
 				95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */,
 				95CB3F7527D8E79C0086E9E3 /* PlanView.swift in Sources */,
+				B99D968827D9DF80009B66AE /* Flight.swift in Sources */,
 				95CB3F7927D8E79C0086E9E3 /* TripsView.swift in Sources */,
+				B99D968027D9DF0B009B66AE /* Accommodation.swift in Sources */,
+				B99D968627D9DF70009B66AE /* Transport.swift in Sources */,
+				B99D967C27D9C890009B66AE /* Trip.swift in Sources */,
 				95CB3F7127D8E79C0086E9E3 /* TripCardView.swift in Sources */,
+				B99D967E27D9D82C009B66AE /* Plan.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
