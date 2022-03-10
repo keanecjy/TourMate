@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0092523627DA573500F4F029 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092522F27DA573500F4F029 /* TitleView.swift */; };
+		0092523727DA573500F4F029 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523027DA573500F4F029 /* LogInView.swift */; };
+		0092523827DA573500F4F029 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523127DA573500F4F029 /* LaunchView.swift */; };
+		0092523927DA573500F4F029 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523227DA573500F4F029 /* RegisterView.swift */; };
+		0092523A27DA573500F4F029 /* InputSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523427DA573500F4F029 /* InputSecureField.swift */; };
+		0092523B27DA573500F4F029 /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523527DA573500F4F029 /* InputTextField.swift */; };
+		0092523E27DA574800F4F029 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523D27DA574800F4F029 /* AuthenticationController.swift */; };
 		194E6318F1A4F53AD0673038 /* Pods_TourMateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */; };
 		43CA47F6D2378990F041943C /* Pods_TourMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */; };
 		4CF9138927DA2FA9004FB6FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */; };
@@ -56,6 +63,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0092522F27DA573500F4F029 /* TitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		0092523027DA573500F4F029 /* LogInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		0092523127DA573500F4F029 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		0092523227DA573500F4F029 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		0092523427DA573500F4F029 /* InputSecureField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputSecureField.swift; sourceTree = "<group>"; };
+		0092523527DA573500F4F029 /* InputTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
+		0092523D27DA574800F4F029 /* AuthenticationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
 		02A86F1890351A432B17B67E /* Pods-TourMateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.release.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.release.xcconfig"; sourceTree = "<group>"; };
 		1DBB3372EFB870D2316CAA4E /* Pods-TourMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate.release.xcconfig"; path = "Target Support Files/Pods-TourMate/Pods-TourMate.release.xcconfig"; sourceTree = "<group>"; };
 		4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -124,6 +138,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0092522E27DA573500F4F029 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				0092522F27DA573500F4F029 /* TitleView.swift */,
+				0092523027DA573500F4F029 /* LogInView.swift */,
+				0092523127DA573500F4F029 /* LaunchView.swift */,
+				0092523227DA573500F4F029 /* RegisterView.swift */,
+				0092523327DA573500F4F029 /* TextViews */,
+			);
+			name = Launch;
+			path = TourMate/Launch;
+			sourceTree = SOURCE_ROOT;
+		};
+		0092523327DA573500F4F029 /* TextViews */ = {
+			isa = PBXGroup;
+			children = (
+				0092523427DA573500F4F029 /* InputSecureField.swift */,
+				0092523527DA573500F4F029 /* InputTextField.swift */,
+			);
+			path = TextViews;
+			sourceTree = "<group>";
+		};
+		0092523C27DA574800F4F029 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0092523D27DA574800F4F029 /* AuthenticationController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		06B0DB20F39120EB04B061FB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +206,8 @@
 		B99D964727D73503009B66AE /* TourMate */ = {
 			isa = PBXGroup;
 			children = (
+				0092523C27DA574800F4F029 /* Controllers */,
+				0092522E27DA573500F4F029 /* Launch */,
 				B99D967827D9C3B2009B66AE /* Models */,
 				B99D964827D73503009B66AE /* TourMateApp.swift */,
 				B99D964A27D73503009B66AE /* ContentView.swift */,
@@ -206,16 +252,6 @@
 			path = TourMateUITests;
 			sourceTree = "<group>";
 		};
-		C2DB33638D74EE6BDC08DA21 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */,
-				BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */,
-				AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		B99D967827D9C3B2009B66AE /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +266,16 @@
 				B99D968727D9DF80009B66AE /* Flight.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C2DB33638D74EE6BDC08DA21 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */,
+				BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */,
+				AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -493,12 +539,16 @@
 				B99D964B27D73503009B66AE /* ContentView.swift in Sources */,
 				95CB3F7227D8E79C0086E9E3 /* MockModel.swift in Sources */,
 				95CB3F7827D8E79C0086E9E3 /* PackingListView.swift in Sources */,
+				0092523A27DA573500F4F029 /* InputSecureField.swift in Sources */,
 				95CB3F7A27D8E79C0086E9E3 /* TripView.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				B99D967A27D9C43B009B66AE /* Model.swift in Sources */,
+				0092523E27DA574800F4F029 /* AuthenticationController.swift in Sources */,
+				0092523727DA573500F4F029 /* LogInView.swift in Sources */,
 				B99D968427D9DF5E009B66AE /* Restaurant.swift in Sources */,
 				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
+				0092523827DA573500F4F029 /* LaunchView.swift in Sources */,
 				95CB3F7327D8E79C0086E9E3 /* ItineraryView.swift in Sources */,
 				95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */,
 				95CB3F7527D8E79C0086E9E3 /* PlanView.swift in Sources */,
@@ -506,7 +556,10 @@
 				95CB3F7927D8E79C0086E9E3 /* TripsView.swift in Sources */,
 				B99D968027D9DF0B009B66AE /* Accommodation.swift in Sources */,
 				B99D968627D9DF70009B66AE /* Transport.swift in Sources */,
+				0092523627DA573500F4F029 /* TitleView.swift in Sources */,
 				B99D967C27D9C890009B66AE /* Trip.swift in Sources */,
+				0092523B27DA573500F4F029 /* InputTextField.swift in Sources */,
+				0092523927DA573500F4F029 /* RegisterView.swift in Sources */,
 				95CB3F7127D8E79C0086E9E3 /* TripCardView.swift in Sources */,
 				B99D967E27D9D82C009B66AE /* Plan.swift in Sources */,
 			);
