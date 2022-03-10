@@ -13,7 +13,7 @@ struct PlansListView: View {
 
     typealias Day = (date: Date, plans: [Plan])
     var days: [Day] {
-        let sortedPlans = model.trips[id].plans.sorted { (plan1, plan2) in
+        let sortedPlans = model.trips[id].plans.sorted { plan1, plan2 in
             plan1.startDate < plan2.startDate
         }
         let plansByDay: [Date: [Plan]] = sortedPlans.reduce(into: [:]) { acc, cur in
@@ -32,7 +32,7 @@ struct PlansListView: View {
 
     var body: some View {
 
-        return LazyVStack {
+        LazyVStack {
             ForEach(days, id: \.date) { day in
                 VStack(alignment: .leading) {
                     PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)

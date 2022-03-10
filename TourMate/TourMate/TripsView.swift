@@ -12,7 +12,7 @@ struct TripsView: View {
 
     func getDateString(id: Int) -> String {
         let trip = model.trips[id]
-        let sortedPlans = trip.plans.sorted { (plan1, plan2) in
+        let sortedPlans = trip.plans.sorted { plan1, plan2 in
             plan1.startDate < plan2.startDate
         }
         var startDateString = "Unknown"
