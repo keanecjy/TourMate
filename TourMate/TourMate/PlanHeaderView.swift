@@ -31,7 +31,7 @@ struct PlanHeaderView: View {
 
 struct PlanHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        PlanHeaderView(date: Date(timeIntervalSince1970: 1651442400),
+        PlanHeaderView(date: Date(timeIntervalSince1970: 1_651_442_400),
                        timeZone: TimeZone(abbreviation: "PST")!)
     }
 }

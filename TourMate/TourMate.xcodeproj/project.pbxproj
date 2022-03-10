@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		194E6318F1A4F53AD0673038 /* Pods_TourMateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */; };
+		43CA47F6D2378990F041943C /* Pods_TourMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */; };
+		4CF9138927DA2FA9004FB6FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */; };
 		95CB3F7127D8E79C0086E9E3 /* TripCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6727D8E79A0086E9E3 /* TripCardView.swift */; };
 		95CB3F7227D8E79C0086E9E3 /* MockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6827D8E79A0086E9E3 /* MockModel.swift */; };
 		95CB3F7327D8E79C0086E9E3 /* ItineraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6927D8E79A0086E9E3 /* ItineraryView.swift */; };
@@ -17,6 +20,7 @@
 		95CB3F7827D8E79C0086E9E3 /* PackingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6E27D8E79B0086E9E3 /* PackingListView.swift */; };
 		95CB3F7927D8E79C0086E9E3 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6F27D8E79C0086E9E3 /* TripsView.swift */; };
 		95CB3F7A27D8E79C0086E9E3 /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F7027D8E79C0086E9E3 /* TripView.swift */; };
+		98749CC17E54B0DD3FD6544B /* Pods_TourMate_TourMateUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */; };
 		B99D964927D73503009B66AE /* TourMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D964827D73503009B66AE /* TourMateApp.swift */; };
 		B99D964B27D73503009B66AE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D964A27D73503009B66AE /* ContentView.swift */; };
 		B99D964D27D73507009B66AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B99D964C27D73507009B66AE /* Assets.xcassets */; };
@@ -52,6 +56,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02A86F1890351A432B17B67E /* Pods-TourMateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.release.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.release.xcconfig"; sourceTree = "<group>"; };
+		1DBB3372EFB870D2316CAA4E /* Pods-TourMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate.release.xcconfig"; path = "Target Support Files/Pods-TourMate/Pods-TourMate.release.xcconfig"; sourceTree = "<group>"; };
+		4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F0AD6F3D818D6A89B4B41BF /* Pods-TourMate-TourMateUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.release.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.release.xcconfig"; sourceTree = "<group>"; };
 		95CB3F6727D8E79A0086E9E3 /* TripCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripCardView.swift; sourceTree = "<group>"; };
 		95CB3F6827D8E79A0086E9E3 /* MockModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockModel.swift; sourceTree = "<group>"; };
 		95CB3F6927D8E79A0086E9E3 /* ItineraryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItineraryView.swift; sourceTree = "<group>"; };
@@ -62,6 +71,7 @@
 		95CB3F6E27D8E79B0086E9E3 /* PackingListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackingListView.swift; sourceTree = "<group>"; };
 		95CB3F6F27D8E79C0086E9E3 /* TripsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
 		95CB3F7027D8E79C0086E9E3 /* TripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
+		AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B99D964527D73503009B66AE /* TourMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TourMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B99D964827D73503009B66AE /* TourMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourMateApp.swift; sourceTree = "<group>"; };
 		B99D964A27D73503009B66AE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,6 +90,10 @@
 		B99D968327D9DF5E009B66AE /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		B99D968527D9DF70009B66AE /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
 		B99D968727D9DF80009B66AE /* Flight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flight.swift; sourceTree = "<group>"; };
+		BB95BCAE2E240926ED846BB1 /* Pods-TourMateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.debug.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate_TourMateUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD5431EEBB0D43FA279D8E8A /* Pods-TourMate-TourMateUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.debug.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FB5F528176089FDEB5E4EC7D /* Pods-TourMate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate.debug.xcconfig"; path = "Target Support Files/Pods-TourMate/Pods-TourMate.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43CA47F6D2378990F041943C /* Pods_TourMate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				194E6318F1A4F53AD0673038 /* Pods_TourMateTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,12 +117,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98749CC17E54B0DD3FD6544B /* Pods_TourMate_TourMateUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06B0DB20F39120EB04B061FB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FB5F528176089FDEB5E4EC7D /* Pods-TourMate.debug.xcconfig */,
+				1DBB3372EFB870D2316CAA4E /* Pods-TourMate.release.xcconfig */,
+				CD5431EEBB0D43FA279D8E8A /* Pods-TourMate-TourMateUITests.debug.xcconfig */,
+				8F0AD6F3D818D6A89B4B41BF /* Pods-TourMate-TourMateUITests.release.xcconfig */,
+				BB95BCAE2E240926ED846BB1 /* Pods-TourMateTests.debug.xcconfig */,
+				02A86F1890351A432B17B67E /* Pods-TourMateTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B99D963C27D73503009B66AE = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +144,8 @@
 				B99D965827D73508009B66AE /* TourMateTests */,
 				B99D966227D73508009B66AE /* TourMateUITests */,
 				B99D964627D73503009B66AE /* Products */,
+				06B0DB20F39120EB04B061FB /* Pods */,
+				C2DB33638D74EE6BDC08DA21 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,6 +174,7 @@
 				95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */,
 				95CB3F6B27D8E79B0086E9E3 /* PlanView.swift */,
 				95CB3F6E27D8E79B0086E9E3 /* PackingListView.swift */,
+				4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */,
 				B99D964C27D73507009B66AE /* Assets.xcassets */,
 				B99D964E27D73507009B66AE /* Preview Content */,
 			);
@@ -173,6 +206,16 @@
 			path = TourMateUITests;
 			sourceTree = "<group>";
 		};
+		C2DB33638D74EE6BDC08DA21 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */,
+				BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */,
+				AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B99D967827D9C3B2009B66AE /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,10 +239,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B99D966927D73508009B66AE /* Build configuration list for PBXNativeTarget "TourMate" */;
 			buildPhases = (
+				0D46DCDDF5BCBE35181D4692 /* [CP] Check Pods Manifest.lock */,
 				B99D967227D73643009B66AE /* ShellScript */,
 				B99D964127D73503009B66AE /* Sources */,
 				B99D964227D73503009B66AE /* Frameworks */,
 				B99D964327D73503009B66AE /* Resources */,
+				4AFD7B378296A0205E403052 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -214,6 +259,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B99D966C27D73508009B66AE /* Build configuration list for PBXNativeTarget "TourMateTests" */;
 			buildPhases = (
+				9140EC5B4F81AFF2FA618526 /* [CP] Check Pods Manifest.lock */,
 				B99D965127D73508009B66AE /* Sources */,
 				B99D965227D73508009B66AE /* Frameworks */,
 				B99D965327D73508009B66AE /* Resources */,
@@ -232,9 +278,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B99D966F27D73508009B66AE /* Build configuration list for PBXNativeTarget "TourMateUITests" */;
 			buildPhases = (
+				46E5ACFF3910FD56B99D597C /* [CP] Check Pods Manifest.lock */,
 				B99D965B27D73508009B66AE /* Sources */,
 				B99D965C27D73508009B66AE /* Frameworks */,
 				B99D965D27D73508009B66AE /* Resources */,
+				12491CC7A79A5388DC9B1C95 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -296,6 +344,7 @@
 			files = (
 				B99D965027D73507009B66AE /* Preview Assets.xcassets in Resources */,
 				B99D964D27D73507009B66AE /* Assets.xcassets in Resources */,
+				4CF9138927DA2FA9004FB6FD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +365,106 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0D46DCDDF5BCBE35181D4692 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TourMate-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		12491CC7A79A5388DC9B1C95 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		46E5ACFF3910FD56B99D597C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TourMate-TourMateUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4AFD7B378296A0205E403052 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TourMate/Pods-TourMate-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TourMate/Pods-TourMate-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TourMate/Pods-TourMate-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9140EC5B4F81AFF2FA618526 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TourMateTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B99D967227D73643009B66AE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -331,7 +480,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -514,6 +663,7 @@
 		};
 		B99D966A27D73508009B66AE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB5F528176089FDEB5E4EC7D /* Pods-TourMate.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -543,6 +693,7 @@
 		};
 		B99D966B27D73508009B66AE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1DBB3372EFB870D2316CAA4E /* Pods-TourMate.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -572,6 +723,7 @@
 		};
 		B99D966D27D73508009B66AE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB95BCAE2E240926ED846BB1 /* Pods-TourMateTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -591,6 +743,7 @@
 		};
 		B99D966E27D73508009B66AE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02A86F1890351A432B17B67E /* Pods-TourMateTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -610,6 +763,7 @@
 		};
 		B99D967027D73508009B66AE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD5431EEBB0D43FA279D8E8A /* Pods-TourMate-TourMateUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -627,6 +781,7 @@
 		};
 		B99D967127D73508009B66AE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F0AD6F3D818D6A89B4B41BF /* Pods-TourMate-TourMateUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

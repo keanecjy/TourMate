@@ -66,8 +66,8 @@ struct PlanView: View {
 struct PlanView_Previews: PreviewProvider {
     static var previews: some View {
         PlanView(title: "Visit Venice Beach",
-                 startDate: Date(timeIntervalSince1970: 1651442400),
-                 endDate: Date(timeIntervalSince1970: 1651453200),
+                 startDate: Date(timeIntervalSince1970: 1_651_442_400),
+                 endDate: Date(timeIntervalSince1970: 1_651_453_200),
                  timeZone: TimeZone(abbreviation: "PST")!)
     }
 }
