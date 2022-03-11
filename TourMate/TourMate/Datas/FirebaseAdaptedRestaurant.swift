@@ -20,4 +20,3 @@ struct FirebaseAdaptedRestaurant: FirebaseAdaptedPlan {
     var phone: Int?
     var website: String?
 }
-
