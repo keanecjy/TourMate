@@ -14,24 +14,14 @@ struct LaunchView: View {
                 VStack {
                     Spacer()
 
-                    TitleView()
+                    TourMateTitleView()
 
                     Spacer()
 
                     NavigationLink {
                         LogInView()
                     } label: {
-                        Group {
-                            Text("Log In")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                            .padding()
-                        }
-                        .frame(maxWidth: geometry.size.width / 5.0)
-                        .background(.blue)
-                        .cornerRadius(20)
-                        .shadow(color: .gray, radius: 5.0, x: 3.0, y: 4.0)
-                        .padding()
+                        LogInTitleView(maxWidth: geometry.size.width / 5.0)
                     }
 
                     NavigationLink {

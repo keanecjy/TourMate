@@ -37,7 +37,7 @@ struct RegisterView: View {
             VStack {
                 Spacer()
 
-                TitleView()
+                TourMateTitleView()
 
                 Spacer()
 

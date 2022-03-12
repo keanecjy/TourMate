@@ -35,7 +35,7 @@ struct LogInView: View {
             VStack(alignment: .center) {
                 Spacer()
 
-                TitleView()
+                TourMateTitleView()
 
                 Spacer()
 
