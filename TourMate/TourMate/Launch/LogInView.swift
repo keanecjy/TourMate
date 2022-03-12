@@ -18,14 +18,6 @@ struct LogInView: View {
         email.isEmpty || password.isEmpty || pageIsDisabled
     }
 
-    var logInButtonColor: Color {
-        if logInButtonDisabled {
-            return .gray
-        } else {
-            return .blue
-        }
-    }
-
     var opacity: Double {
         if pageIsDisabled {
             return 0.5
@@ -48,18 +40,10 @@ struct LogInView: View {
 
                     InputSecureField(title: "Password", textField: $password)
 
-                    Button(action: onLogInButtonPressed) {
-                        Text("Log In")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .padding()
-                    }
-                    .frame(maxWidth: geometry.size.width / 5.0)
-                    .background(logInButtonColor)
-                    .cornerRadius(20)
-                    .shadow(color: .gray, radius: 5.0, x: 3.0, y: 4.0)
-                    .padding()
-                    .disabled(logInButtonDisabled)
+                    SubmitButton(onPress: onLogInButtonPressed,
+                                 title: "Log In",
+                                 maxWidth: geometry.size.width / 5.0,
+                                 isDisabled: logInButtonDisabled)
                 }
                 .frame(maxWidth: geometry.size.width / 2.0)
                 .disabled(pageIsDisabled)

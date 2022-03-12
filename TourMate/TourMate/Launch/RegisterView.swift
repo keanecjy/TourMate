@@ -22,14 +22,6 @@ struct RegisterView: View {
         email.isEmpty || password.isEmpty || confirmPassword.isEmpty || pageIsDisabled
     }
 
-    var registerButtonColor: Color {
-        if registerButtonDisabled {
-            return .gray
-        } else {
-            return .blue
-        }
-    }
-
     var opacity: Double {
         if pageIsDisabled {
             return 0.5
@@ -56,18 +48,10 @@ struct RegisterView: View {
 
                     InputSecureField(title: "Confirm Password *", textField: $confirmPassword)
 
-                    Button(action: onRegisterButtonPressed) {
-                        Text("Register")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .padding()
-                    }
-                    .frame(maxWidth: geometry.size.width / 5.0)
-                    .background(registerButtonColor)
-                    .cornerRadius(20)
-                    .shadow(color: .gray, radius: 5.0, x: 3.0, y: 4.0)
-                    .padding()
-                    .disabled(registerButtonDisabled)
+                    SubmitButton(onPress: onRegisterButtonPressed,
+                                 title: "Register",
+                                 maxWidth: geometry.size.width / 5.0,
+                                 isDisabled: registerButtonDisabled)
 
                 }
                 .frame(maxWidth: geometry.size.width / 2.0)
@@ -77,12 +61,10 @@ struct RegisterView: View {
                 if showWarning {
                     Text(warningMessage)
                         .foregroundColor(.red)
-                        .padding()
                 }
 
                 if pageIsDisabled {
                     ProgressView("Registering...")
-                        .padding()
                 }
 
                 Spacer()
