@@ -56,7 +56,7 @@ struct FirebaseAuthenticationManager: AuthenticationManager {
         } catch {
             let errorCode = AuthErrorCode(rawValue: error._code)
             switch errorCode {
-            case .invalidEmail, .wrongPassword:
+            case .userNotFound, .invalidEmail, .wrongPassword:
                 errorMessage = "Invalid Email or Password"
             case .userDisabled:
                 errorMessage = "User Account is disabled"
