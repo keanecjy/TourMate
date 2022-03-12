@@ -17,6 +17,7 @@
 		00F83BB827DC46E4003A28AA /* SubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BB727DC46E4003A28AA /* SubmitButton.swift */; };
 		00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BBF27DC528F003A28AA /* FirebaseAuthenticationManager.swift */; };
 		00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BC127DC5296003A28AA /* AuthenticationManager.swift */; };
+		00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BC627DC62BF003A28AA /* LogOutView.swift */; };
 		194E6318F1A4F53AD0673038 /* Pods_TourMateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */; };
 		43CA47F6D2378990F041943C /* Pods_TourMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */; };
 		4CF9138927DA2FA9004FB6FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */; };
@@ -76,6 +77,7 @@
 		00F83BB727DC46E4003A28AA /* SubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitButton.swift; sourceTree = "<group>"; };
 		00F83BBF27DC528F003A28AA /* FirebaseAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationManager.swift; sourceTree = "<group>"; };
 		00F83BC127DC5296003A28AA /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		00F83BC627DC62BF003A28AA /* LogOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutView.swift; sourceTree = "<group>"; };
 		02A86F1890351A432B17B67E /* Pods-TourMateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.release.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.release.xcconfig"; sourceTree = "<group>"; };
 		1DBB3372EFB870D2316CAA4E /* Pods-TourMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate.release.xcconfig"; path = "Target Support Files/Pods-TourMate/Pods-TourMate.release.xcconfig"; sourceTree = "<group>"; };
 		4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				0092523127DA573500F4F029 /* LaunchView.swift */,
+				00F83BC627DC62BF003A28AA /* LogOutView.swift */,
 				0092523027DA573500F4F029 /* LogInView.swift */,
 				0092523227DA573500F4F029 /* RegisterView.swift */,
 				00F83BB927DC4AB4003A28AA /* Misc */,
@@ -183,13 +186,13 @@
 			path = Misc;
 			sourceTree = "<group>";
 		};
-		00F83BBA27DC4F2E003A28AA /* Authentication */ = {
+		00F83BBA27DC4F2E003A28AA /* AuthenticationManager */ = {
 			isa = PBXGroup;
 			children = (
 				00F83BBF27DC528F003A28AA /* FirebaseAuthenticationManager.swift */,
 				00F83BC127DC5296003A28AA /* AuthenticationManager.swift */,
 			);
-			path = Authentication;
+			path = AuthenticationManager;
 			sourceTree = "<group>";
 		};
 		06B0DB20F39120EB04B061FB /* Pods */ = {
@@ -230,7 +233,7 @@
 		B99D964727D73503009B66AE /* TourMate */ = {
 			isa = PBXGroup;
 			children = (
-				00F83BBA27DC4F2E003A28AA /* Authentication */,
+				00F83BBA27DC4F2E003A28AA /* AuthenticationManager */,
 				0092523C27DA574800F4F029 /* Controllers */,
 				0092522E27DA573500F4F029 /* Launch */,
 				B99D967827D9C3B2009B66AE /* Models */,
@@ -561,6 +564,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B99D968227D9DF30009B66AE /* Activity.swift in Sources */,
+				00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */,
 				B99D964B27D73503009B66AE /* ContentView.swift in Sources */,
 				95CB3F7227D8E79C0086E9E3 /* MockModel.swift in Sources */,
 				95CB3F7827D8E79C0086E9E3 /* PackingListView.swift in Sources */,

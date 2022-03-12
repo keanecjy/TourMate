@@ -13,6 +13,11 @@ struct LogInView: View {
     @State var email = ""
     @State var password = ""
     @State var pageIsDisabled = false
+    @State var showWarning = false
+    @State var warningMessage = ""
+
+    @State var hasLoggedIn = false
+    @StateObject private var model = MockModel()
 
     var logInButtonDisabled: Bool {
         email.isEmpty || password.isEmpty || pageIsDisabled
@@ -49,31 +54,56 @@ struct LogInView: View {
                 .disabled(pageIsDisabled)
                 .opacity(opacity)
 
+                if showWarning {
+                    Text(warningMessage)
+                        .foregroundColor(.red)
+                }
+
                 if pageIsDisabled {
                     ProgressView("Logging In...")
                         .padding()
                 }
 
                 Spacer()
+
+                NavigationLink(isActive: $hasLoggedIn) {
+                    ContentView()
+                        .environmentObject(model)
+                        .navigationBarHidden(true)
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    EmptyView()
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
     }
 
-    private func onLogInButtonPressed() {
+    private func onLogInButtonPressed() async {
         // Removes focus on Textfields and closes keyboard
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
 
         guard self.pageIsDisabled == false else {
             return
         }
-
+        self.warningMessage = ""
+        self.showWarning = false
         self.pageIsDisabled = true
+
         let inputEmail = email
         let inputPassword = password
 
-        authenticationController.logIn(email: inputEmail, password: inputPassword)
+        let (hasLoggedIn, errorMessage) = await authenticationController.logIn(email: inputEmail,
+                                                                               password: inputPassword)
 
+        guard hasLoggedIn else {
+            self.warningMessage = errorMessage
+            self.showWarning = true
+            self.pageIsDisabled = false
+            return
+        }
+
+        self.hasLoggedIn = true
         self.pageIsDisabled = false
     }
 }

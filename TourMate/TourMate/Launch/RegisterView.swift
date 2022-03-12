@@ -18,6 +18,9 @@ struct RegisterView: View {
     @State var showWarning = false
     @State var warningMessage = ""
 
+    @State var hasRegistered = false
+    @StateObject private var model = MockModel()
+
     var registerButtonDisabled: Bool {
         email.isEmpty || password.isEmpty || confirmPassword.isEmpty || pageIsDisabled
     }
@@ -68,6 +71,15 @@ struct RegisterView: View {
                 }
 
                 Spacer()
+
+                NavigationLink(isActive: $hasRegistered) {
+                    ContentView()
+                        .environmentObject(model)
+                        .navigationBarHidden(true)
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    EmptyView()
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
@@ -75,7 +87,7 @@ struct RegisterView: View {
 
     private func onRegisterButtonPressed() async {
         // Removes focus on Textfields and closes keyboard
-        await UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
 
         guard self.pageIsDisabled == false else {
             return
@@ -108,8 +120,7 @@ struct RegisterView: View {
             return
         }
 
-        // user is registered
-
+        self.hasRegistered = true
         self.pageIsDisabled = false
     }
 }
