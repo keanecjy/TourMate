@@ -19,13 +19,13 @@ struct LaunchView: View {
                     Spacer()
 
                     NavigationLink {
-                        LogInView()
+                        AuthenticationView(authType: .logIn)
                     } label: {
                         LogInTitleView(maxWidth: geometry.size.width / 5.0)
                     }
 
                     NavigationLink {
-                        RegisterView()
+                        AuthenticationView(authType: .register)
                     } label: {
                         Text("Don't have an account? Register here!")
                             .foregroundColor(.blue)
