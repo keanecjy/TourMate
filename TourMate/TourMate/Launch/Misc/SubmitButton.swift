@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SubmitButton: View {
-    var onPress: () -> Void
+    var onPress: () async -> Void
     var title: String
     var maxWidth: Double
     var isDisabled: Bool
@@ -22,7 +22,11 @@ struct SubmitButton: View {
     }
 
     var body: some View {
-        Button(action: onPress) {
+        Button {
+            Task {
+                await onPress()
+            }
+        } label: {
             Text(title)
             .font(.title2)
             .foregroundColor(.white)

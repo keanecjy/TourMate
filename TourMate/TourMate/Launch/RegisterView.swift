@@ -73,9 +73,9 @@ struct RegisterView: View {
         }
     }
 
-    private func onRegisterButtonPressed() {
+    private func onRegisterButtonPressed() async {
         // Removes focus on Textfields and closes keyboard
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        await UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
 
         guard self.pageIsDisabled == false else {
             return
@@ -97,9 +97,18 @@ struct RegisterView: View {
             return
         }
 
-        authenticationController.register(email: inputEmail,
-                                          password: inputPassword,
-                                          displayName: inputDisplayName)
+        let (hasRegistered, errorMessage) = await authenticationController.register(email: inputEmail,
+                                                                                    password: inputPassword,
+                                                                                    displayName: inputDisplayName)
+
+        guard hasRegistered else {
+            self.warningMessage = errorMessage
+            self.showWarning = true
+            self.pageIsDisabled = false
+            return
+        }
+
+        // user is registered
 
         self.pageIsDisabled = false
     }
