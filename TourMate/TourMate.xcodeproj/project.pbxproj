@@ -212,6 +212,7 @@
 		0092523C27DA574800F4F029 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4CB954E527DE0066001410AD /* UserPersistenceController.swift */,
 				0092523D27DA574800F4F029 /* AuthenticationController.swift */,
 				4C725BBF27DC8B01006BA654 /* PersistenceController.swift */,
 			);
@@ -282,31 +283,6 @@
 			path = PersistenceManager;
 			sourceTree = "<group>";
 		};
-		4CB954E127DE0027001410AD /* User */ = {
-			isa = PBXGroup;
-			children = (
-				4CB954E227DE002D001410AD /* Model */,
-				4CB954E427DE0037001410AD /* Controller */,
-			);
-			path = User;
-			sourceTree = "<group>";
-		};
-		4CB954E227DE002D001410AD /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				4CB954DF27DDFFC7001410AD /* User.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		4CB954E427DE0037001410AD /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				4CB954E527DE0066001410AD /* UserPersistenceController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
 		B93B488E27DA7D4000478B7B /* Datas */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,7 +325,6 @@
 		B99D964727D73503009B66AE /* TourMate */ = {
 			isa = PBXGroup;
 			children = (
-				4CB954E127DE0027001410AD /* User */,
 				B93B488E27DA7D4000478B7B /* Datas */,
 				4CB954CA27DDC06C001410AD /* PersistenceManager */,
 				00F83BBA27DC4F2E003A28AA /* AuthenticationManager */,
@@ -402,6 +377,7 @@
 		B99D967827D9C3B2009B66AE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4CB954DF27DDFFC7001410AD /* User.swift */,
 				B99D967927D9C43B009B66AE /* Model.swift */,
 				95CB3F6827D8E79A0086E9E3 /* MockModel.swift */,
 				B99D967B27D9C890009B66AE /* Trip.swift */,

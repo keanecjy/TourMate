@@ -8,15 +8,15 @@
 import Firebase
 
 struct FirebasePersistenceManager<T: Codable>: PersistenceManager {
-    var collectionId: String
-    
+    let collectionId: String
+
     private let db = Firestore.firestore()
-    
+
     @MainActor
-    func fetchItems(field: String, id: String) async -> (trips: [T], errorMessage: String) {
+    func fetchItems(field: String, id: String) async -> (items: [T], errorMessage: String) {
         var items: [T] = []
         var errorMessage = ""
-        
+
         do {
             let query = db.collection(collectionId).whereField(field, arrayContains: id)
             let documents = try await query.getDocuments().documents
@@ -24,15 +24,15 @@ struct FirebasePersistenceManager<T: Codable>: PersistenceManager {
         } catch {
             errorMessage = "Error fetching \(T.self): \(error)"
         }
-        
+
         return (items, errorMessage)
     }
-    
+
     @MainActor
     func addItem(item: T) async -> (hasAddedItem: Bool, errorMessage: String) {
         var hasAddedItem = false
         var errorMessage = ""
-        
+
         do {
             let newItemRef = try db.collection(collectionId).addDocument(from: item)
             hasAddedItem = true
@@ -40,15 +40,15 @@ struct FirebasePersistenceManager<T: Codable>: PersistenceManager {
         } catch {
             errorMessage = "[FirebasePersistenceManager] Error adding \(T.self): \(error)"
         }
-        
+
         return (hasAddedItem, errorMessage)
     }
-    
+
     @MainActor
     func deleteItem(id: String) async -> (hasDeletedItem: Bool, errorMessage: String) {
         var hasDeletedItem = false
         var errorMessage: String = ""
-        
+
         do {
             let deletedItemRef = db.collection(collectionId).document(id)
             try await deletedItemRef.delete()
@@ -57,10 +57,10 @@ struct FirebasePersistenceManager<T: Codable>: PersistenceManager {
         } catch {
             errorMessage = "[FirebasePersistenceManager] Error deleting \(T.self): \(error)"
         }
-        
+
         return (hasDeletedItem, errorMessage)
     }
-    
+
     @MainActor
     func updateItem(item: T) async -> (hasUpdatedItem: Bool, errorMessage: String) {
         let (hasAddedItem, errorMessage) = await addItem(item: item)

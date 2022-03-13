@@ -8,36 +8,38 @@
 import FirebaseFirestoreSwift
 
 struct FirebaseAdaptedUser: Codable {
-    @DocumentID var id: String?
-    var name: String
-    var email: String
-    var userId: String
-    var tripIds: [String]
+    init(id: String, name: String, email: String, password: String) {
+        self.name = name
+        self.email = email
+        self.password = password
+    }
     
+    @DocumentID var id: String?
+    let name: String
+    let email: String
+    let password: String
+
     private enum FirebaseAdapterUserKeys: String, CodingKey {
         case id
         case name
         case email
-        case userId
-        case tripIds
+        case password
     }
-    
+
     // TODO: Clean up / Merge with Firebase AdaptedTrip
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: FirebaseAdapterUserKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
         self.email = try container.decode(String.self, forKey: .email)
-        self.userId = try container.decode(String.self, forKey: .userId)
-        self.tripIds = try container.decode(Array.self, forKey: .tripIds)
+        self.password = try container.decode(String.self, forKey: .password)
     }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: FirebaseAdapterUserKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
         try container.encode(email, forKey: .email)
-        try container.encode(userId, forKey: .userId)
-        try container.encode(tripIds, forKey: .tripIds)
+        try container.encode(password, forKey: .password)
     }
 }
