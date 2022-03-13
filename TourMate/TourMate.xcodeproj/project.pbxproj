@@ -269,7 +269,7 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B93B488E27DA7D4000478B7B /* Datas */ = {
+		B93B488E27DA7D4000478B7B /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
 				B93B488F27DA7D4F00478B7B /* FirebaseAdaptedTrip.swift */,
@@ -282,7 +282,7 @@
 				B93B489D27DAEE7300478B7B /* FirebaseAdaptedTransport.swift */,
 				B93B489F27DAEEF600478B7B /* FirebaseAdaptedFlight.swift */,
 			);
-			path = Datas;
+			path = DataModels;
 			sourceTree = "<group>";
 		};
 		B967C33627DDCF5F0023B34D /* PlanViews */ = {
@@ -322,6 +322,22 @@
 			path = TripViews;
 			sourceTree = "<group>";
 		};
+		B967C34327DDF4290023B34D /* DomainModels */ = {
+			isa = PBXGroup;
+			children = (
+				B99D967927D9C43B009B66AE /* Model.swift */,
+				95CB3F6827D8E79A0086E9E3 /* MockModel.swift */,
+				B99D967B27D9C890009B66AE /* Trip.swift */,
+				B99D967D27D9D82C009B66AE /* Plan.swift */,
+				B99D967F27D9DF0B009B66AE /* Accommodation.swift */,
+				B99D968127D9DF30009B66AE /* Activity.swift */,
+				B99D968327D9DF5E009B66AE /* Restaurant.swift */,
+				B99D968527D9DF70009B66AE /* Transport.swift */,
+				B99D968727D9DF80009B66AE /* Flight.swift */,
+			);
+			path = DomainModels;
+			sourceTree = "<group>";
+		};
 		B99D963C27D73503009B66AE = {
 			isa = PBXGroup;
 			children = (
@@ -349,7 +365,6 @@
 			children = (
 				B967C34227DDF3350023B34D /* TripViews */,
 				B967C33627DDCF5F0023B34D /* PlanViews */,
-				B93B488E27DA7D4000478B7B /* Datas */,
 				00F83BBA27DC4F2E003A28AA /* AuthenticationManager */,
 				0092523C27DA574800F4F029 /* Controllers */,
 				0092522E27DA573500F4F029 /* AuthenticationViews */,
@@ -391,15 +406,8 @@
 		B99D967827D9C3B2009B66AE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B99D967927D9C43B009B66AE /* Model.swift */,
-				95CB3F6827D8E79A0086E9E3 /* MockModel.swift */,
-				B99D967B27D9C890009B66AE /* Trip.swift */,
-				B99D967D27D9D82C009B66AE /* Plan.swift */,
-				B99D967F27D9DF0B009B66AE /* Accommodation.swift */,
-				B99D968127D9DF30009B66AE /* Activity.swift */,
-				B99D968327D9DF5E009B66AE /* Restaurant.swift */,
-				B99D968527D9DF70009B66AE /* Transport.swift */,
-				B99D968727D9DF80009B66AE /* Flight.swift */,
+				B93B488E27DA7D4000478B7B /* DataModels */,
+				B967C34327DDF4290023B34D /* DomainModels */,
 			);
 			path = Models;
 			sourceTree = "<group>";
