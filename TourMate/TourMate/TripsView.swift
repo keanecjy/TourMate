@@ -46,8 +46,8 @@ struct TripsView: View {
             .navigationTitle("Trips")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        print("Add trip unimplemented")
+                    NavigationLink {
+                        TripFormView()
                     } label: {
                         Image(systemName: "plus")
                     }

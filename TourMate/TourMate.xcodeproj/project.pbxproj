@@ -46,6 +46,7 @@
 		B93B489C27DAEDD800478B7B /* FirebaseAdaptedRestaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B489B27DAEDD700478B7B /* FirebaseAdaptedRestaurant.swift */; };
 		B93B489E27DAEE7400478B7B /* FirebaseAdaptedTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B489D27DAEE7300478B7B /* FirebaseAdaptedTransport.swift */; };
 		B93B48A027DAEEF600478B7B /* FirebaseAdaptedFlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B489F27DAEEF600478B7B /* FirebaseAdaptedFlight.swift */; };
+		B967C33327DDB7B20023B34D /* TripFromView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B967C33227DDB7B20023B34D /* TripFromView.swift */; };
 		B99D964927D73503009B66AE /* TourMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D964827D73503009B66AE /* TourMateApp.swift */; };
 		B99D964B27D73503009B66AE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D964A27D73503009B66AE /* ContentView.swift */; };
 		B99D964D27D73507009B66AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B99D964C27D73507009B66AE /* Assets.xcassets */; };
@@ -122,6 +123,7 @@
 		B93B489B27DAEDD700478B7B /* FirebaseAdaptedRestaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedRestaurant.swift; sourceTree = "<group>"; };
 		B93B489D27DAEE7300478B7B /* FirebaseAdaptedTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedTransport.swift; sourceTree = "<group>"; };
 		B93B489F27DAEEF600478B7B /* FirebaseAdaptedFlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedFlight.swift; sourceTree = "<group>"; };
+		B967C33227DDB7B20023B34D /* TripFromView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripFromView.swift; sourceTree = "<group>"; };
 		B99D964527D73503009B66AE /* TourMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TourMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B99D964827D73503009B66AE /* TourMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourMateApp.swift; sourceTree = "<group>"; };
 		B99D964A27D73503009B66AE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */,
 				B99D964C27D73507009B66AE /* Assets.xcassets */,
 				B99D964E27D73507009B66AE /* Preview Content */,
+				B967C33227DDB7B20023B34D /* TripFromView.swift */,
 			);
 			path = TourMate;
 			sourceTree = "<group>";
@@ -646,7 +649,6 @@
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				B99D967A27D9C43B009B66AE /* Model.swift in Sources */,
 				0092523E27DA574800F4F029 /* AuthenticationController.swift in Sources */,
-				0092523727DA573500F4F029 /* LogInView.swift in Sources */,
 				B93B489227DA867100478B7B /* FirebaseAdaptedPlanType.swift in Sources */,
 				B99D968427D9DF5E009B66AE /* Restaurant.swift in Sources */,
 				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
@@ -668,12 +670,12 @@
 				0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */,
 				B99D967C27D9C890009B66AE /* Trip.swift in Sources */,
 				0092523B27DA573500F4F029 /* InputTextField.swift in Sources */,
-				0092523927DA573500F4F029 /* RegisterView.swift in Sources */,
 				B93B489C27DAEDD800478B7B /* FirebaseAdaptedRestaurant.swift in Sources */,
 				00F83BB827DC46E4003A28AA /* AuthPageSubmitButton.swift in Sources */,
 				00F83BDD27DC8D5A003A28AA /* AuthenticationType.swift in Sources */,
 				95CB3F7127D8E79C0086E9E3 /* TripCardView.swift in Sources */,
 				B93B489427DA87A300478B7B /* FirebaseAdaptedPlan.swift in Sources */,
+				B967C33327DDB7B20023B34D /* TripFromView.swift in Sources */,
 				B93B489A27DAEC5000478B7B /* FirebaseAdaptedActivity.swift in Sources */,
 				B99D967E27D9D82C009B66AE /* Plan.swift in Sources */,
 				B93B489827DA8D7D00478B7B /* AnyFirebaseAdaptedPlan.swift in Sources */,
