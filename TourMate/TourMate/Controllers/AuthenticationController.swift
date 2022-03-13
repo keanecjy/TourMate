@@ -24,9 +24,13 @@ struct AuthenticationController {
             return (hasRegistered, errorMessage)
         }
 
-        return await userPersistenceController.addUser(name: displayName, email: email, password: password)
+        await logIn(email: email, password: password)
+
+        let user = User(name: displayName, email: email, password: password)
+        return await userPersistenceController.addUser(user)
     }
 
+    @discardableResult
     func logIn(email: String, password: String) async -> (hasLoggedIn: Bool, errorMessage: String) {
 
         guard validateCredentials(email: email, password: password) else {
@@ -39,7 +43,6 @@ struct AuthenticationController {
     }
 
     func logOut() async -> (hasLoggedOut: Bool, errorMessage: String) {
-
         let (hasLoggedOut, errorMessage) = await authenticationManager.logOutUser()
         return (hasLoggedOut, errorMessage)
     }
