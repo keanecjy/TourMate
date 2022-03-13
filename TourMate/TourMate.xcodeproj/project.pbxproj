@@ -7,13 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0092523627DA573500F4F029 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092522F27DA573500F4F029 /* TitleView.swift */; };
-		0092523727DA573500F4F029 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523027DA573500F4F029 /* LogInView.swift */; };
+		0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092522F27DA573500F4F029 /* TourMateTitleView.swift */; };
 		0092523827DA573500F4F029 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523127DA573500F4F029 /* LaunchView.swift */; };
-		0092523927DA573500F4F029 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523227DA573500F4F029 /* RegisterView.swift */; };
 		0092523A27DA573500F4F029 /* InputSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523427DA573500F4F029 /* InputSecureField.swift */; };
 		0092523B27DA573500F4F029 /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523527DA573500F4F029 /* InputTextField.swift */; };
 		0092523E27DA574800F4F029 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523D27DA574800F4F029 /* AuthenticationController.swift */; };
+		00F83BB827DC46E4003A28AA /* AuthPageSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BB727DC46E4003A28AA /* AuthPageSubmitButton.swift */; };
+		00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BBF27DC528F003A28AA /* FirebaseAuthenticationManager.swift */; };
+		00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BC127DC5296003A28AA /* AuthenticationManager.swift */; };
+		00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BC627DC62BF003A28AA /* LogOutView.swift */; };
+		00F83BC927DC777C003A28AA /* LogInTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BC827DC777C003A28AA /* LogInTitleView.swift */; };
+		00F83BCD27DC7F3C003A28AA /* HomeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BCC27DC7F3C003A28AA /* HomeNavigationView.swift */; };
+		00F83BD027DC81B3003A28AA /* AuthPageStatusDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BCF27DC81B3003A28AA /* AuthPageStatusDisplay.swift */; };
+		00F83BD527DC8607003A28AA /* AuthPageRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BD427DC8607003A28AA /* AuthPageRegister.swift */; };
+		00F83BD727DC893E003A28AA /* AuthPageLogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BD627DC893E003A28AA /* AuthPageLogIn.swift */; };
+		00F83BDB27DC8D34003A28AA /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BDA27DC8D34003A28AA /* AuthenticationView.swift */; };
+		00F83BDD27DC8D5A003A28AA /* AuthenticationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BDC27DC8D5A003A28AA /* AuthenticationType.swift */; };
 		194E6318F1A4F53AD0673038 /* Pods_TourMateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */; };
 		43CA47F6D2378990F041943C /* Pods_TourMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */; };
 		4CF9138927DA2FA9004FB6FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */; };
@@ -72,13 +81,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0092522F27DA573500F4F029 /* TitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
-		0092523027DA573500F4F029 /* LogInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		0092522F27DA573500F4F029 /* TourMateTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourMateTitleView.swift; sourceTree = "<group>"; };
 		0092523127DA573500F4F029 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
-		0092523227DA573500F4F029 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		0092523427DA573500F4F029 /* InputSecureField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputSecureField.swift; sourceTree = "<group>"; };
 		0092523527DA573500F4F029 /* InputTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
 		0092523D27DA574800F4F029 /* AuthenticationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
+		00F83BB727DC46E4003A28AA /* AuthPageSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPageSubmitButton.swift; sourceTree = "<group>"; };
+		00F83BBF27DC528F003A28AA /* FirebaseAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationManager.swift; sourceTree = "<group>"; };
+		00F83BC127DC5296003A28AA /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		00F83BC627DC62BF003A28AA /* LogOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutView.swift; sourceTree = "<group>"; };
+		00F83BC827DC777C003A28AA /* LogInTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInTitleView.swift; sourceTree = "<group>"; };
+		00F83BCC27DC7F3C003A28AA /* HomeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationView.swift; sourceTree = "<group>"; };
+		00F83BCF27DC81B3003A28AA /* AuthPageStatusDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPageStatusDisplay.swift; sourceTree = "<group>"; };
+		00F83BD427DC8607003A28AA /* AuthPageRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPageRegister.swift; sourceTree = "<group>"; };
+		00F83BD627DC893E003A28AA /* AuthPageLogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPageLogIn.swift; sourceTree = "<group>"; };
+		00F83BDA27DC8D34003A28AA /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		00F83BDC27DC8D5A003A28AA /* AuthenticationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationType.swift; sourceTree = "<group>"; };
 		02A86F1890351A432B17B67E /* Pods-TourMateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.release.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.release.xcconfig"; sourceTree = "<group>"; };
 		1DBB3372EFB870D2316CAA4E /* Pods-TourMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate.release.xcconfig"; path = "Target Support Files/Pods-TourMate/Pods-TourMate.release.xcconfig"; sourceTree = "<group>"; };
 		4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -156,17 +174,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0092522E27DA573500F4F029 /* Launch */ = {
+		0092522E27DA573500F4F029 /* AuthenticationViews */ = {
 			isa = PBXGroup;
 			children = (
-				0092522F27DA573500F4F029 /* TitleView.swift */,
-				0092523027DA573500F4F029 /* LogInView.swift */,
-				0092523127DA573500F4F029 /* LaunchView.swift */,
-				0092523227DA573500F4F029 /* RegisterView.swift */,
+				00F83BCE27DC7FC1003A28AA /* Launch */,
+				00F83BB927DC4AB4003A28AA /* AuthPageViews */,
+				00F83BC627DC62BF003A28AA /* LogOutView.swift */,
 				0092523327DA573500F4F029 /* TextViews */,
 			);
-			name = Launch;
-			path = TourMate/Launch;
+			name = AuthenticationViews;
+			path = TourMate/AuthenticationViews;
 			sourceTree = SOURCE_ROOT;
 		};
 		0092523327DA573500F4F029 /* TextViews */ = {
@@ -184,6 +201,47 @@
 				0092523D27DA574800F4F029 /* AuthenticationController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		00F83BB927DC4AB4003A28AA /* AuthPageViews */ = {
+			isa = PBXGroup;
+			children = (
+				00F83BDA27DC8D34003A28AA /* AuthenticationView.swift */,
+				00F83BDC27DC8D5A003A28AA /* AuthenticationType.swift */,
+				00F83BE227DC90B5003A28AA /* Components */,
+			);
+			path = AuthPageViews;
+			sourceTree = "<group>";
+		};
+		00F83BBA27DC4F2E003A28AA /* AuthenticationManager */ = {
+			isa = PBXGroup;
+			children = (
+				00F83BBF27DC528F003A28AA /* FirebaseAuthenticationManager.swift */,
+				00F83BC127DC5296003A28AA /* AuthenticationManager.swift */,
+			);
+			path = AuthenticationManager;
+			sourceTree = "<group>";
+		};
+		00F83BCE27DC7FC1003A28AA /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				0092523127DA573500F4F029 /* LaunchView.swift */,
+				0092522F27DA573500F4F029 /* TourMateTitleView.swift */,
+				00F83BC827DC777C003A28AA /* LogInTitleView.swift */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		00F83BE227DC90B5003A28AA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				00F83BD627DC893E003A28AA /* AuthPageLogIn.swift */,
+				00F83BD427DC8607003A28AA /* AuthPageRegister.swift */,
+				00F83BB727DC46E4003A28AA /* AuthPageSubmitButton.swift */,
+				00F83BCF27DC81B3003A28AA /* AuthPageStatusDisplay.swift */,
+				00F83BCC27DC7F3C003A28AA /* HomeNavigationView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		06B0DB20F39120EB04B061FB /* Pods */ = {
@@ -241,8 +299,9 @@
 			isa = PBXGroup;
 			children = (
 				B93B488E27DA7D4000478B7B /* Datas */,
+				00F83BBA27DC4F2E003A28AA /* AuthenticationManager */,
 				0092523C27DA574800F4F029 /* Controllers */,
-				0092522E27DA573500F4F029 /* Launch */,
+				0092522E27DA573500F4F029 /* AuthenticationViews */,
 				B99D967827D9C3B2009B66AE /* Models */,
 				B99D964827D73503009B66AE /* TourMateApp.swift */,
 				B99D964A27D73503009B66AE /* ContentView.swift */,
@@ -571,12 +630,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				B99D968227D9DF30009B66AE /* Activity.swift in Sources */,
+				00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */,
 				B99D964B27D73503009B66AE /* ContentView.swift in Sources */,
+				00F83BD727DC893E003A28AA /* AuthPageLogIn.swift in Sources */,
 				95CB3F7227D8E79C0086E9E3 /* MockModel.swift in Sources */,
 				95CB3F7827D8E79C0086E9E3 /* PackingListView.swift in Sources */,
+				00F83BC927DC777C003A28AA /* LogInTitleView.swift in Sources */,
+				00F83BCD27DC7F3C003A28AA /* HomeNavigationView.swift in Sources */,
+				00F83BD027DC81B3003A28AA /* AuthPageStatusDisplay.swift in Sources */,
 				0092523A27DA573500F4F029 /* InputSecureField.swift in Sources */,
+				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				95CB3F7A27D8E79C0086E9E3 /* TripView.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
+				00F83BDB27DC8D34003A28AA /* AuthenticationView.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				B99D967A27D9C43B009B66AE /* Model.swift in Sources */,
 				0092523E27DA574800F4F029 /* AuthenticationController.swift in Sources */,
@@ -585,8 +651,12 @@
 				B99D968427D9DF5E009B66AE /* Restaurant.swift in Sources */,
 				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
 				B93B489627DA895400478B7B /* FirebaseAdaptedAccommodation.swift in Sources */,
+				B99D968427D9DF5E009B66AE /* Restaurant.swift in Sources */,
+				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
+				00F83BD527DC8607003A28AA /* AuthPageRegister.swift in Sources */,
 				0092523827DA573500F4F029 /* LaunchView.swift in Sources */,
 				95CB3F7327D8E79C0086E9E3 /* ItineraryView.swift in Sources */,
+				00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */,
 				95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */,
 				95CB3F7527D8E79C0086E9E3 /* PlanView.swift in Sources */,
 				B93B489E27DAEE7400478B7B /* FirebaseAdaptedTransport.swift in Sources */,
@@ -595,11 +665,13 @@
 				95CB3F7927D8E79C0086E9E3 /* TripsView.swift in Sources */,
 				B99D968027D9DF0B009B66AE /* Accommodation.swift in Sources */,
 				B99D968627D9DF70009B66AE /* Transport.swift in Sources */,
-				0092523627DA573500F4F029 /* TitleView.swift in Sources */,
+				0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */,
 				B99D967C27D9C890009B66AE /* Trip.swift in Sources */,
 				0092523B27DA573500F4F029 /* InputTextField.swift in Sources */,
 				0092523927DA573500F4F029 /* RegisterView.swift in Sources */,
 				B93B489C27DAEDD800478B7B /* FirebaseAdaptedRestaurant.swift in Sources */,
+				00F83BB827DC46E4003A28AA /* AuthPageSubmitButton.swift in Sources */,
+				00F83BDD27DC8D5A003A28AA /* AuthenticationType.swift in Sources */,
 				95CB3F7127D8E79C0086E9E3 /* TripCardView.swift in Sources */,
 				B93B489427DA87A300478B7B /* FirebaseAdaptedPlan.swift in Sources */,
 				B93B489A27DAEC5000478B7B /* FirebaseAdaptedActivity.swift in Sources */,

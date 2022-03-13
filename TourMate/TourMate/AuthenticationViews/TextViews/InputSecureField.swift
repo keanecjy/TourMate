@@ -61,8 +61,8 @@ struct InputSecureField: View {
     }
 }
 
-struct SecureInputField_Previews: PreviewProvider {
-    static var previews: some View {
-        InputSecureField(title: "Password", textField: LogInView().$password)
-    }
-}
+// struct SecureInputField_Previews: PreviewProvider {
+//    static var previews: some View {
+//        InputSecureField(title: "Password", textField: LogInView().$password)
+//    }
+// }

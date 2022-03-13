@@ -8,8 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var showWarning = false
+    @State var warningMessage: String = ""
+    @State var hasLoggedOut = false
+
     var body: some View {
-        TripsView()
+        NavigationView {
+            VStack {
+                LogOutView(showWarning: $showWarning,
+                           warningMessage: $warningMessage,
+                           hasLoggedOut: $hasLoggedOut)
+
+                TripsView()
+
+                NavigationLink(isActive: $hasLoggedOut) {
+                    LaunchView()
+                        .navigationBarHidden(true)
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    EmptyView()
+                }
+            }
+        }
+        .navigationViewStyle(.stack)
     }
 }
 

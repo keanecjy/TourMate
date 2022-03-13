@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TitleView: View {
+struct TourMateTitleView: View {
     let titleFontSize = 64.0
     let colorPrimary = Color.blue
     let colorSecondary = Color.teal
@@ -36,6 +36,6 @@ struct TitleView: View {
 
 struct TitleView_Previews: PreviewProvider {
     static var previews: some View {
-        TitleView()
+        TourMateTitleView()
     }
 }
