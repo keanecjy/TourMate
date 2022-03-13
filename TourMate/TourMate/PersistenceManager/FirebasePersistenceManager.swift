@@ -7,7 +7,7 @@
 
 import Firebase
 
-struct FirebasePersistenceManager<T: Codable>: PersistenceManager {
+struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
     let collectionId: String
 
     private let db = Firestore.firestore()
@@ -29,12 +29,13 @@ struct FirebasePersistenceManager<T: Codable>: PersistenceManager {
     }
 
     @MainActor
-    func addItem(item: T) async -> (hasAddedItem: Bool, errorMessage: String) {
+    func addItem(id: String, item: T) async -> (hasAddedItem: Bool, errorMessage: String) {
         var hasAddedItem = false
         var errorMessage = ""
 
         do {
-            let newItemRef = try db.collection(collectionId).addDocument(from: item)
+            let newItemRef = db.collection(collectionId).document(id)
+            try newItemRef.setData(from: item)
             hasAddedItem = true
             print("[FirebasePersistenceManager] Added \(T.self): \(newItemRef)")
         } catch {
@@ -62,8 +63,8 @@ struct FirebasePersistenceManager<T: Codable>: PersistenceManager {
     }
 
     @MainActor
-    func updateItem(item: T) async -> (hasUpdatedItem: Bool, errorMessage: String) {
-        let (hasAddedItem, errorMessage) = await addItem(item: item)
+    func updateItem(id: String, item: T) async -> (hasUpdatedItem: Bool, errorMessage: String) {
+        let (hasAddedItem, errorMessage) = await addItem(id: id, item: item)
         return (hasAddedItem, errorMessage)
     }
 }

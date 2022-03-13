@@ -8,22 +8,20 @@
 import FirebaseFirestore
 
 class PersistenceController {
-    // func fetchTrip(docId: String) {
-    // }
-    // 
-    // func addTrip(trip: Trip) {
-    //     
-    // }
-    // 
-    // func updateTrip(docId: String, trip: Trip) {
-    //     
-    // }
-    // 
-    // func deleteTrip(docId: String, trip: Trip) {
-    //     
-    // }
-    // 
-    // func deleteTrip(docId: String, trip: Trip) {
-    //     
-    // }
+    func fetchTrip(docId: String) {
+
+    }
+
+    func addTrip(trip: Trip) {
+
+    }
+
+    func updateTrip(trip: Trip) {
+
+    }
+
+    func deleteTrip(trip: Trip) {
+
+    }
+
 }

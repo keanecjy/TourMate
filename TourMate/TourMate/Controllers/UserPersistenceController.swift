@@ -6,37 +6,37 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 struct UserPersistenceController {
-    let firebasePersistenceManager =
-    FirebasePersistenceManager<FirebaseAdaptedUser>(collectionId: FirebaseConfig.userCollectionId)
-    
-    func addUser(name: String, email: String, password: String) async -> (hasAddedItem: Bool, errorMessage: String) {
-        let user = User(id: UUID().uuidString, name: name, email: email, password: password)
+    let firebasePersistenceManager = FirebasePersistenceManager<FirebaseAdaptedUser>(
+        collectionId: FirebaseConfig.userCollectionId)
+
+    func addUser(name: String, email: String, password: String) async -> (Bool, String) {
+        let user = User(name: name, email: email, password: password)
         let adaptedUser = user.toData()
         return await firebasePersistenceManager.addItem(item: adaptedUser)
     }
 
-    func getUser(email: String) async -> (user: User?, errorMessage: String) {
-        let (adaptedUsers, error)  = await firebasePersistenceManager.fetchItems(field: "email", id: email)
-        guard let adapterUser = adaptedUsers.first else {
-            return (nil, error)
+    func deleteUser() async -> (Bool, String) {
+        guard let user = Auth.auth().currentUser,
+              let email = user.email
+        else {
+            return (false, "User is not logged in")
         }
-        
-        return (adapterUser.toItem(), error)
+        return await firebasePersistenceManager.deleteItem(id: email)
     }
-    
-    func deleteUser(user: User)
+
 }
 
-fileprivate extension User {
-    func toData() -> FirebaseAdaptedUser {
+extension User {
+    fileprivate func toData() -> FirebaseAdaptedUser {
         FirebaseAdaptedUser(id: self.email, name: self.name, email: self.email, password: self.password)
     }
 }
 
-fileprivate extension FirebaseAdaptedUser {
-    func toItem() -> User {
-        User(id: self.id!, name: self.name, email: self.email, password: self.password)
+extension FirebaseAdaptedUser {
+    fileprivate func toItem() -> User {
+        User(name: self.name, email: self.email, password: self.password)
     }
 }
