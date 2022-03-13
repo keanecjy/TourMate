@@ -18,9 +18,9 @@ struct TourMateApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            LaunchView()
-            ContentView()
-                .environmentObject(model)
+            LaunchView()
+//            ContentView()
+//                .environmentObject(model)
         }
     }
 }
