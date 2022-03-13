@@ -27,6 +27,7 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
         }
     }
 
+    @MainActor
     func fetchItem(id: String) async -> (item: T?, errorMessage: String) {
         do {
             let itemRef = db.collection(collectionId).document(id)
@@ -42,9 +43,20 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
     }
 
     @MainActor
-    func fetchItems(field: String, id: String) async -> (items: [T], errorMessage: String) {
+    func fetchItems(field: String, arrayContains id: String) async -> (items: [T], errorMessage: String) {
+        let query = db.collection(collectionId).whereField(field, arrayContains: id)
+        return await fetchItems(from: query)
+    }
+
+    @MainActor
+    func fetchItems(field: String, isEqualTo id: String) async -> (items: [T], errorMessage: String) {
+        let query = db.collection(collectionId).whereField(field, isEqualTo: id)
+        return await fetchItems(from: query)
+    }
+
+    @MainActor
+    private func fetchItems(from query: Query) async -> (items: [T], errorMessage: String) {
         do {
-            let query = db.collection(collectionId).whereField(field, arrayContains: id)
             let documents = try await query.getDocuments().documents
             let items = documents.compactMap({ try? $0.data(as: T.self) })
 
