@@ -6,7 +6,7 @@
 //
 
 final class FirebaseConfig {
-    static let accountCollectionId = "account"
+    static let userCollectionId = "users"
     static let tripCollectionId = "trips"
     static let planCollectionId = "plans"
     static let planDetailsCollectionId = "plandetails"

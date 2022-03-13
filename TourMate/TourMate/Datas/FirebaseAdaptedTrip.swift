@@ -12,7 +12,7 @@ struct FirebaseAdaptedTrip: Codable {
     @DocumentID var id: String?
     var name: String
     var imageUrl: String
-    var plans: [String]
+    var planIds: [String]
 
     private enum FirebaseAdaptedTripKeys: String, CodingKey {
         case id
@@ -26,7 +26,7 @@ struct FirebaseAdaptedTrip: Codable {
         self.id = try container.decode(String.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
         self.imageUrl = try container.decode(String.self, forKey: .imageUrl)
-        self.plans = try container.decode(Array.self, forKey: .plans)
+        self.planIds = try container.decode(Array.self, forKey: .plans)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -34,6 +34,6 @@ struct FirebaseAdaptedTrip: Codable {
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
         try container.encode(imageUrl, forKey: .imageUrl)
-        try container.encode(plans, forKey: .plans)
+        try container.encode(planIds, forKey: .plans)
     }
 }
