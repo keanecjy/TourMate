@@ -8,7 +8,7 @@
 import Foundation
 
 struct FirebaseAdaptedRestaurant: FirebaseAdaptedPlan {
-    static var type = FirebaseAdaptedPlanType.firebaseAdaptedRestaurant
+    static let type = FirebaseAdaptedPlanType.firebaseAdaptedRestaurant
 
     var id: Int
     var name: String
