@@ -15,7 +15,6 @@ struct NewPlan {
     let endDate: Date
     let timeZone: TimeZone
     let imageUrl: String
-    
     let status: PlanStatus
     let creationDate: Date
     let modificationDate: Date
