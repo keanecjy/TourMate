@@ -9,13 +9,24 @@ import SwiftUI
 
 struct TripView: View {
     @EnvironmentObject var model: MockModel
+
     @State var id: Int
+    @State private var isActive = false
 
     var body: some View {
         let trip = model.trips[id]
 
         return ItineraryView(id: id)
             .navigationTitle(trip.name)
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    NavigationLink(isActive: $isActive) {
+                        AddPlanView(isActive: $isActive)
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
     }
 }
 
