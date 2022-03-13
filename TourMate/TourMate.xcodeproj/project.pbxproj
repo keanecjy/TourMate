@@ -33,7 +33,6 @@
 		95CB3F7527D8E79C0086E9E3 /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6B27D8E79B0086E9E3 /* PlanView.swift */; };
 		95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */; };
 		95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */; };
-		95CB3F7827D8E79C0086E9E3 /* PackingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6E27D8E79B0086E9E3 /* PackingListView.swift */; };
 		95CB3F7927D8E79C0086E9E3 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6F27D8E79C0086E9E3 /* TripsView.swift */; };
 		95CB3F7A27D8E79C0086E9E3 /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F7027D8E79C0086E9E3 /* TripView.swift */; };
 		98749CC17E54B0DD3FD6544B /* Pods_TourMate_TourMateUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */; };
@@ -110,7 +109,6 @@
 		95CB3F6B27D8E79B0086E9E3 /* PlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
 		95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardView.swift; sourceTree = "<group>"; };
 		95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlansListView.swift; sourceTree = "<group>"; };
-		95CB3F6E27D8E79B0086E9E3 /* PackingListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackingListView.swift; sourceTree = "<group>"; };
 		95CB3F6F27D8E79C0086E9E3 /* TripsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
 		95CB3F7027D8E79C0086E9E3 /* TripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -315,7 +313,6 @@
 				95CB3F6A27D8E79B0086E9E3 /* PlanHeaderView.swift */,
 				95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */,
 				95CB3F6B27D8E79B0086E9E3 /* PlanView.swift */,
-				95CB3F6E27D8E79B0086E9E3 /* PackingListView.swift */,
 				4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */,
 				B99D964C27D73507009B66AE /* Assets.xcassets */,
 				B99D964E27D73507009B66AE /* Preview Content */,
@@ -637,7 +634,6 @@
 				B99D964B27D73503009B66AE /* ContentView.swift in Sources */,
 				00F83BD727DC893E003A28AA /* AuthPageLogIn.swift in Sources */,
 				95CB3F7227D8E79C0086E9E3 /* MockModel.swift in Sources */,
-				95CB3F7827D8E79C0086E9E3 /* PackingListView.swift in Sources */,
 				00F83BC927DC777C003A28AA /* LogInTitleView.swift in Sources */,
 				00F83BCD27DC7F3C003A28AA /* HomeNavigationView.swift in Sources */,
 				00F83BD027DC81B3003A28AA /* AuthPageStatusDisplay.swift in Sources */,

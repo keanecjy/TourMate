@@ -14,19 +14,8 @@ struct TripView: View {
     var body: some View {
         let trip = model.trips[id]
 
-        return TabView {
-            ItineraryView(id: id)
-                .tabItem {
-                    Image(systemName: "menucard.fill")
-                    Text("Itinerary")
-                }
-            PackingListView()
-                .tabItem {
-                    Image(systemName: "list.bullet.rectangle.portrait.fill")
-                    Text("Packing List")
-                }
-        }
-        .navigationTitle(trip.name)
+        return ItineraryView(id: id)
+            .navigationTitle(trip.name)
     }
 }
 
