@@ -13,6 +13,7 @@ target 'TourMate' do
   
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
   
   target 'TourMateTests' do
     inherit! :search_paths
