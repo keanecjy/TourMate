@@ -11,6 +11,7 @@ struct PlansListView: View {
     @EnvironmentObject var model: MockModel
     @State var id: Int
 
+    // TODO: Fetch Plans using trip id
     typealias Day = (date: Date, plans: [Plan])
     var days: [Day] {
         let sortedPlans = model.trips[id].plans.sorted { plan1, plan2 in
