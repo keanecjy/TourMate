@@ -288,6 +288,18 @@
 		B967C33627DDCF5F0023B34D /* PlanViews */ = {
 			isa = PBXGroup;
 			children = (
+				95CB3F6A27D8E79B0086E9E3 /* PlanHeaderView.swift */,
+				95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */,
+				95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */,
+				95CB3F6B27D8E79B0086E9E3 /* PlanView.swift */,
+				B967C34127DDF2A30023B34D /* FormViews */,
+			);
+			path = PlanViews;
+			sourceTree = "<group>";
+		};
+		B967C34127DDF2A30023B34D /* FormViews */ = {
+			isa = PBXGroup;
+			children = (
 				B967C33427DDCA4D0023B34D /* AddPlanView.swift */,
 				B967C33727DDCF7A0023B34D /* AccommodationFormView.swift */,
 				B967C33927DDD71B0023B34D /* ActivityFormView.swift */,
@@ -295,7 +307,19 @@
 				B967C33D27DDE9BC0023B34D /* TransportFormView.swift */,
 				B967C33F27DDEC7A0023B34D /* FlightFormView.swift */,
 			);
-			path = PlanViews;
+			path = FormViews;
+			sourceTree = "<group>";
+		};
+		B967C34227DDF3350023B34D /* TripViews */ = {
+			isa = PBXGroup;
+			children = (
+				95CB3F6F27D8E79C0086E9E3 /* TripsView.swift */,
+				95CB3F6727D8E79A0086E9E3 /* TripCardView.swift */,
+				95CB3F7027D8E79C0086E9E3 /* TripView.swift */,
+				95CB3F6927D8E79A0086E9E3 /* ItineraryView.swift */,
+				B967C33227DDB7B20023B34D /* TripFromView.swift */,
+			);
+			path = TripViews;
 			sourceTree = "<group>";
 		};
 		B99D963C27D73503009B66AE = {
@@ -323,6 +347,7 @@
 		B99D964727D73503009B66AE /* TourMate */ = {
 			isa = PBXGroup;
 			children = (
+				B967C34227DDF3350023B34D /* TripViews */,
 				B967C33627DDCF5F0023B34D /* PlanViews */,
 				B93B488E27DA7D4000478B7B /* Datas */,
 				00F83BBA27DC4F2E003A28AA /* AuthenticationManager */,
@@ -331,18 +356,9 @@
 				B99D967827D9C3B2009B66AE /* Models */,
 				B99D964827D73503009B66AE /* TourMateApp.swift */,
 				B99D964A27D73503009B66AE /* ContentView.swift */,
-				95CB3F6F27D8E79C0086E9E3 /* TripsView.swift */,
-				95CB3F6727D8E79A0086E9E3 /* TripCardView.swift */,
-				95CB3F7027D8E79C0086E9E3 /* TripView.swift */,
-				95CB3F6927D8E79A0086E9E3 /* ItineraryView.swift */,
-				95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */,
-				95CB3F6A27D8E79B0086E9E3 /* PlanHeaderView.swift */,
-				95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */,
-				95CB3F6B27D8E79B0086E9E3 /* PlanView.swift */,
 				4CF9138827DA2FA8004FB6FD /* GoogleService-Info.plist */,
 				B99D964C27D73507009B66AE /* Assets.xcassets */,
 				B99D964E27D73507009B66AE /* Preview Content */,
-				B967C33227DDB7B20023B34D /* TripFromView.swift */,
 			);
 			path = TourMate;
 			sourceTree = "<group>";
