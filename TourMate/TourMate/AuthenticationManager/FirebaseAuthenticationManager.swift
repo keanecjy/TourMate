@@ -41,6 +41,7 @@ struct FirebaseAuthenticationManager: AuthenticationManager {
         return (hasRegistered, errorMessage)
     }
 
+    @discardableResult
     @MainActor
     func logInUser(email: String, password: String) async -> (hasLoggedIn: Bool, errorMessage: String) {
         guard isValidEmail(email) else {

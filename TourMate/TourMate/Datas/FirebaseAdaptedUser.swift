@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 struct FirebaseAdaptedUser: FirebaseAdaptedData {
     static let type = FirebaseAdaptedType.firebaseAdaptedUser
 
-    var id: String
+    let id: String
     let name: String
     let email: String
     let password: String
