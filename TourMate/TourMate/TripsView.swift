@@ -10,6 +10,7 @@ import SwiftUI
 struct TripsView: View {
     @EnvironmentObject var model: MockModel
 
+    // TODO: Fetch Trips using userId (email)
     func getDateString(id: Int) -> String {
         let trip = model.trips[id]
         let sortedPlans = trip.plans.sorted { plan1, plan2 in
