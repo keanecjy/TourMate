@@ -9,24 +9,24 @@ import SwiftUI
 
 struct TripView: View {
     @EnvironmentObject var model: MockModel
+
     @State var id: Int
+    @State private var isActive = false
 
     var body: some View {
         let trip = model.trips[id]
 
-        return TabView {
-            ItineraryView(id: id)
-                .tabItem {
-                    Image(systemName: "menucard.fill")
-                    Text("Itinerary")
+        return ItineraryView(id: id)
+            .navigationTitle(trip.name)
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    NavigationLink(isActive: $isActive) {
+                        AddPlanView(isActive: $isActive)
+                    } label: {
+                        Image(systemName: "plus")
+                    }
                 }
-            PackingListView()
-                .tabItem {
-                    Image(systemName: "list.bullet.rectangle.portrait.fill")
-                    Text("Packing List")
-                }
-        }
-        .navigationTitle(trip.name)
+            }
     }
 }
 
