@@ -5,6 +5,8 @@
 //  Created by Keane Chan on 13/3/22.
 //
 
+// Adapted from
+// https://stackoverflow.com/questions/44441223/encode-decode-array-of-types-conforming-to-protocol-with-jsonencoderter
 struct AnyFirebaseAdaptedData: Codable {
     var base: FirebaseAdaptedData
 

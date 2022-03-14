@@ -26,6 +26,7 @@
 		194E6318F1A4F53AD0673038 /* Pods_TourMateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */; };
 		43CA47F6D2378990F041943C /* Pods_TourMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */; };
 		4C4539B627DE456800AB8384 /* TripPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4539B527DE456800AB8384 /* TripPersistenceController.swift */; };
+		4C8639A027DF32FE000566FB /* FirebasePlanType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C86399F27DF32FE000566FB /* FirebasePlanType.swift */; };
 		4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954D127DDE039001410AD /* FirebaseConfig.swift */; };
 		4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954D927DDF499001410AD /* FirebaseAdaptedUser.swift */; };
 		4CB954DC27DDFAA8001410AD /* FirebasePersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954DB27DDFAA8001410AD /* FirebasePersistenceManager.swift */; };
@@ -54,10 +55,8 @@
 		95CB3F7A27D8E79C0086E9E3 /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F7027D8E79C0086E9E3 /* TripView.swift */; };
 		98749CC17E54B0DD3FD6544B /* Pods_TourMate_TourMateUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */; };
 		B93B489027DA7D4F00478B7B /* FirebaseAdaptedTrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B488F27DA7D4F00478B7B /* FirebaseAdaptedTrip.swift */; };
-		B93B489227DA867100478B7B /* FirebaseAdaptedPlanType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B489127DA867100478B7B /* FirebaseAdaptedPlanType.swift */; };
 		B93B489427DA87A300478B7B /* FirebaseAdaptedPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B489327DA87A300478B7B /* FirebaseAdaptedPlan.swift */; };
 		B93B489627DA895400478B7B /* FirebaseAdaptedAccommodation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B489527DA895400478B7B /* FirebaseAdaptedAccommodation.swift */; };
-		B93B489827DA8D7D00478B7B /* AnyFirebaseAdaptedPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B489727DA8D7D00478B7B /* AnyFirebaseAdaptedPlan.swift */; };
 		B93B489A27DAEC5000478B7B /* FirebaseAdaptedActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B489927DAEC5000478B7B /* FirebaseAdaptedActivity.swift */; };
 		B93B489C27DAEDD800478B7B /* FirebaseAdaptedRestaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B489B27DAEDD700478B7B /* FirebaseAdaptedRestaurant.swift */; };
 		B93B489E27DAEE7400478B7B /* FirebaseAdaptedTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B489D27DAEE7300478B7B /* FirebaseAdaptedTransport.swift */; };
@@ -116,6 +115,7 @@
 		02A86F1890351A432B17B67E /* Pods-TourMateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.release.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.release.xcconfig"; sourceTree = "<group>"; };
 		1DBB3372EFB870D2316CAA4E /* Pods-TourMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate.release.xcconfig"; path = "Target Support Files/Pods-TourMate/Pods-TourMate.release.xcconfig"; sourceTree = "<group>"; };
 		4C4539B527DE456800AB8384 /* TripPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPersistenceController.swift; sourceTree = "<group>"; };
+		4C86399F27DF32FE000566FB /* FirebasePlanType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlanType.swift; sourceTree = "<group>"; };
 		4CB954D127DDE039001410AD /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		4CB954D927DDF499001410AD /* FirebaseAdaptedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedUser.swift; sourceTree = "<group>"; };
 		4CB954DB27DDFAA8001410AD /* FirebasePersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePersistenceManager.swift; sourceTree = "<group>"; };
@@ -146,10 +146,8 @@
 		95CB3F7027D8E79C0086E9E3 /* TripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B93B488F27DA7D4F00478B7B /* FirebaseAdaptedTrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedTrip.swift; sourceTree = "<group>"; };
-		B93B489127DA867100478B7B /* FirebaseAdaptedPlanType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedPlanType.swift; sourceTree = "<group>"; };
 		B93B489327DA87A300478B7B /* FirebaseAdaptedPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedPlan.swift; sourceTree = "<group>"; };
 		B93B489527DA895400478B7B /* FirebaseAdaptedAccommodation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedAccommodation.swift; sourceTree = "<group>"; };
-		B93B489727DA8D7D00478B7B /* AnyFirebaseAdaptedPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyFirebaseAdaptedPlan.swift; sourceTree = "<group>"; };
 		B93B489927DAEC5000478B7B /* FirebaseAdaptedActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedActivity.swift; sourceTree = "<group>"; };
 		B93B489B27DAEDD700478B7B /* FirebaseAdaptedRestaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedRestaurant.swift; sourceTree = "<group>"; };
 		B93B489D27DAEE7300478B7B /* FirebaseAdaptedTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedTransport.swift; sourceTree = "<group>"; };
@@ -306,8 +304,6 @@
 			isa = PBXGroup;
 			children = (
 				B93B488F27DA7D4F00478B7B /* FirebaseAdaptedTrip.swift */,
-				B93B489127DA867100478B7B /* FirebaseAdaptedPlanType.swift */,
-				B93B489727DA8D7D00478B7B /* AnyFirebaseAdaptedPlan.swift */,
 				B93B489327DA87A300478B7B /* FirebaseAdaptedPlan.swift */,
 				B93B489527DA895400478B7B /* FirebaseAdaptedAccommodation.swift */,
 				B93B489927DAEC5000478B7B /* FirebaseAdaptedActivity.swift */,
@@ -318,6 +314,7 @@
 				4CB954E927DE3EBC001410AD /* AnyFirebaseAdaptedData.swift */,
 				4CB954ED27DE3FE1001410AD /* FirebaseAdaptedData.swift */,
 				4CB954EB27DE3F08001410AD /* FirebaseAdaptedType.swift */,
+				4C86399F27DF32FE000566FB /* FirebasePlanType.swift */,
 			);
 			path = Datas;
 			sourceTree = "<group>";
@@ -711,7 +708,6 @@
 				B99D967A27D9C43B009B66AE /* Model.swift in Sources */,
 				0092523E27DA574800F4F029 /* AuthenticationController.swift in Sources */,
 				4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */,
-				B93B489227DA867100478B7B /* FirebaseAdaptedPlanType.swift in Sources */,
 				B99D968427D9DF5E009B66AE /* Restaurant.swift in Sources */,
 				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
 				B93B489627DA895400478B7B /* FirebaseAdaptedAccommodation.swift in Sources */,
@@ -742,11 +738,11 @@
 				00F83BB827DC46E4003A28AA /* AuthPageSubmitButton.swift in Sources */,
 				00F83BDD27DC8D5A003A28AA /* AuthenticationType.swift in Sources */,
 				4CB954DC27DDFAA8001410AD /* FirebasePersistenceManager.swift in Sources */,
+				4C8639A027DF32FE000566FB /* FirebasePlanType.swift in Sources */,
 				95CB3F7127D8E79C0086E9E3 /* TripCardView.swift in Sources */,
 				B93B489427DA87A300478B7B /* FirebaseAdaptedPlan.swift in Sources */,
 				B93B489A27DAEC5000478B7B /* FirebaseAdaptedActivity.swift in Sources */,
 				B99D967E27D9D82C009B66AE /* Plan.swift in Sources */,
-				B93B489827DA8D7D00478B7B /* AnyFirebaseAdaptedPlan.swift in Sources */,
 				B93B489027DA7D4F00478B7B /* FirebaseAdaptedTrip.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

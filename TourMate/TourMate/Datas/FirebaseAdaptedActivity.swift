@@ -8,16 +8,17 @@
 import Foundation
 
 struct FirebaseAdaptedActivity: FirebaseAdaptedPlan {
-    static let type = FirebaseAdaptedPlanType.firebaseAdaptedActivity
+    static let type = FirebaseAdaptedType.firebaseAdaptedActivity
 
-    var id: Int
-    var name: String
-    var startDate: Date
-    var endDate: Date?
-    var timeZone: TimeZone
-    var imageUrl: String
-    var venue: String?
-    var address: String?
-    var phone: Int?
-    var website: String?
+    let id: String
+    let name: String
+    let planType: FirebasePlanType
+    let startDate: Date
+    let endDate: Date?
+    let timeZone: TimeZone
+    let imageUrl: String
+    let venue: String?
+    let address: String?
+    let phone: Int?
+    let website: String?
 }
