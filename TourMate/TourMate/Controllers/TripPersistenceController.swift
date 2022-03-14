@@ -12,7 +12,7 @@ struct TripPersistenceController {
         collectionId: FirebaseConfig.tripCollectionId)
 
     func addTrip(trip: NewTrip) async -> (Bool, String) {
-        return await firebasePersistenceManager.addItem(id: trip.id, item: trip.toData())
+        await firebasePersistenceManager.addItem(id: trip.id, item: trip.toData())
     }
 
     func fetchTrip() async -> ([NewTrip], String) {
@@ -27,11 +27,11 @@ struct TripPersistenceController {
     }
 
     func deleteTrip(trip: NewTrip) async -> (Bool, String) {
-        return await firebasePersistenceManager.deleteItem(id: trip.id)
+        await firebasePersistenceManager.deleteItem(id: trip.id)
     }
 
     func updateTrip(trip: NewTrip) async -> (Bool, String) {
-        return await firebasePersistenceManager.updateItem(id: trip.id, item: trip.toData())
+        await firebasePersistenceManager.updateItem(id: trip.id, item: trip.toData())
     }
 }
 

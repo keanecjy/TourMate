@@ -7,6 +7,6 @@
 
 final class Constants {
     private init() {}
-    
+
     static let messageUserNotLoggedIn = "User is not logged in"
 }

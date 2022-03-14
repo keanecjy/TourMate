@@ -17,7 +17,7 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
         guard Auth.auth().currentUser != nil else {
             return (false, Constants.messageUserNotLoggedIn)
         }
-        
+
         do {
             let itemRef = db.collection(collectionId).document(id)
             try itemRef.setData(from: item)
@@ -36,7 +36,7 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
         guard Auth.auth().currentUser != nil else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
-        
+
         do {
             let itemRef = db.collection(collectionId).document(id)
             let item = try await itemRef.getDocument().data(as: T.self)
@@ -86,7 +86,7 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
         guard Auth.auth().currentUser != nil else {
             return (false, Constants.messageUserNotLoggedIn)
         }
-        
+
         do {
             let deletedItemRef = db.collection(collectionId).document(id)
             try await deletedItemRef.delete()
