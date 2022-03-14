@@ -21,25 +21,21 @@ struct UserPersistenceController {
         }
 
         let adaptedUser = user.toData()
-        return await firebasePersistenceManager.addItem(id: email, item: adaptedUser)
+        return await firebasePersistenceManager.addItem(id: currentUser.uid, item: adaptedUser)
     }
 
     func deleteUser() async -> (Bool, String) {
-        guard let user = Auth.auth().currentUser,
-              let email = user.email
-        else {
+        guard let currentUser = Auth.auth().currentUser else {
             return (false, "User is not logged in")
         }
-        return await firebasePersistenceManager.deleteItem(id: email)
+        return await firebasePersistenceManager.deleteItem(id: currentUser.uid)
     }
 
     func getUser() async -> (User?, String) {
-        guard let user = Auth.auth().currentUser,
-              let email = user.email
-        else {
+        guard let currentUser = Auth.auth().currentUser else {
             return (nil, "User is not logged in")
         }
-        let (adaptedUser, errorMessage) = await firebasePersistenceManager.fetchItem(id: email)
+        let (adaptedUser, errorMessage) = await firebasePersistenceManager.fetchItem(id: currentUser.uid)
         return (adaptedUser?.toItem(), errorMessage)
     }
 
@@ -47,12 +43,12 @@ struct UserPersistenceController {
 
 extension User {
     fileprivate func toData() -> FirebaseAdaptedUser {
-        FirebaseAdaptedUser(id: email, name: name, email: email, password: password)
+        FirebaseAdaptedUser(id: email, name: name, email: email)
     }
 }
 
 extension FirebaseAdaptedUser {
     fileprivate func toItem() -> User {
-        User(name: name, email: email, password: password)
+        User(name: name, email: email)
     }
 }
