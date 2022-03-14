@@ -14,6 +14,10 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
 
     @MainActor
     func addItem(id: String, item: T) async -> (hasAddedItem: Bool, errorMessage: String) {
+        guard Auth.auth().currentUser != nil else {
+            return (false, "User is not logged in")
+        }
+        
         do {
             let itemRef = db.collection(collectionId).document(id)
             try itemRef.setData(from: item)
@@ -29,6 +33,10 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
 
     @MainActor
     func fetchItem(id: String) async -> (item: T?, errorMessage: String) {
+        guard Auth.auth().currentUser != nil else {
+            return (nil, "User is not logged in")
+        }
+        
         do {
             let itemRef = db.collection(collectionId).document(id)
             let item = try await itemRef.getDocument().data(as: T.self)
@@ -56,6 +64,10 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
 
     @MainActor
     private func fetchItems(from query: Query) async -> (items: [T], errorMessage: String) {
+        guard Auth.auth().currentUser != nil else {
+            return ([], "User is not logged in")
+        }
+
         do {
             let documents = try await query.getDocuments().documents
             let items = documents.compactMap({ try? $0.data(as: T.self) })
@@ -71,6 +83,10 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
 
     @MainActor
     func deleteItem(id: String) async -> (hasDeletedItem: Bool, errorMessage: String) {
+        guard Auth.auth().currentUser != nil else {
+            return (false, "User is not logged in")
+        }
+        
         do {
             let deletedItemRef = db.collection(collectionId).document(id)
             try await deletedItemRef.delete()
