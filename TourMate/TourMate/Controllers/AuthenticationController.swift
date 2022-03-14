@@ -24,9 +24,7 @@ struct AuthenticationController {
             return (hasRegistered, errorMessage)
         }
 
-        await logIn(email: email, password: password)
-
-        let user = User(name: displayName, email: email, password: password)
+        let user = User(name: displayName, email: email)
         return await userPersistenceController.addUser(user)
     }
 
