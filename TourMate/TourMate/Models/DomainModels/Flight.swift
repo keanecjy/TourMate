@@ -17,9 +17,9 @@ struct Flight: Plan {
     var airline: String
     var flightNumber: Int
     var seats: String?
-    var departingLocation: String?
-    var departingTerminal: String?
-    var departingGate: String?
+    var departureLocation: String?
+    var departureTerminal: String?
+    var departureGate: String?
     var arrivalLocation: String?
     var arrivalTerminal: String?
     var arrivalGate: String?
