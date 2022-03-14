@@ -17,7 +17,7 @@ struct UserPersistenceController {
               let email = currentUser.email,
               email == user.email
         else {
-            return (false, "User is not logged in")
+            return (false, Constants.messageUserNotLoggedIn)
         }
 
         let adaptedUser = user.toData()
@@ -26,14 +26,14 @@ struct UserPersistenceController {
 
     func deleteUser() async -> (Bool, String) {
         guard let currentUser = Auth.auth().currentUser else {
-            return (false, "User is not logged in")
+            return (false, Constants.messageUserNotLoggedIn)
         }
         return await firebasePersistenceManager.deleteItem(id: currentUser.uid)
     }
 
     func getUser() async -> (User?, String) {
         guard let currentUser = Auth.auth().currentUser else {
-            return (nil, "User is not logged in")
+            return (nil, Constants.messageUserNotLoggedIn)
         }
         let (adaptedUser, errorMessage) = await firebasePersistenceManager.fetchItem(id: currentUser.uid)
         return (adaptedUser?.toItem(), errorMessage)

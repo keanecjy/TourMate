@@ -15,7 +15,7 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
     @MainActor
     func addItem(id: String, item: T) async -> (hasAddedItem: Bool, errorMessage: String) {
         guard Auth.auth().currentUser != nil else {
-            return (false, "User is not logged in")
+            return (false, Constants.messageUserNotLoggedIn)
         }
         
         do {
@@ -34,7 +34,7 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
     @MainActor
     func fetchItem(id: String) async -> (item: T?, errorMessage: String) {
         guard Auth.auth().currentUser != nil else {
-            return (nil, "User is not logged in")
+            return (nil, Constants.messageUserNotLoggedIn)
         }
         
         do {
@@ -65,7 +65,7 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
     @MainActor
     private func fetchItems(from query: Query) async -> (items: [T], errorMessage: String) {
         guard Auth.auth().currentUser != nil else {
-            return ([], "User is not logged in")
+            return ([], Constants.messageUserNotLoggedIn)
         }
 
         do {
@@ -84,7 +84,7 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
     @MainActor
     func deleteItem(id: String) async -> (hasDeletedItem: Bool, errorMessage: String) {
         guard Auth.auth().currentUser != nil else {
-            return (false, "User is not logged in")
+            return (false, Constants.messageUserNotLoggedIn)
         }
         
         do {
