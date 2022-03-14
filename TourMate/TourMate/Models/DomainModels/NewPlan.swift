@@ -18,4 +18,9 @@ struct NewPlan {
     let status: PlanStatus
     let creationDate: Date
     let modificationDate: Date
+    
+    // Currently unused
+    let upVote: Int
+    let downVote: Int
+    let comments: [Comments]
 }
