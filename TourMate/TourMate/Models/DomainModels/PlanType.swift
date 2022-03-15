@@ -2,10 +2,10 @@
 //  PlanType.swift
 //  TourMate
 //
-//  Created by Keane Chan on 14/3/22.
+//  Created by Keane Chan on 15/3/22.
 //
 
-enum FirebasePlanType: String, Codable {
+enum PlanType: String {
     case accommodation
     case activity
     case restaurant

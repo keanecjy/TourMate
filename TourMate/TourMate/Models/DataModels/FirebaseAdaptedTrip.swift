@@ -11,10 +11,12 @@ struct FirebaseAdaptedTrip: FirebaseAdaptedData {
     static let type = FirebaseAdaptedType.firebaseAdaptedTrip
 
     let id: String
-    let userIds: [String]
-    let userNames: [String]
     let name: String
-    let imageUrl: String
+    let startDate: Date
+    let endDate: Date
+    let imageUrl: String?
+    let userIds: [String]
+    let invitedUserIds: [String]
     let creationDate: Date
     let modificationDate: Date
 }

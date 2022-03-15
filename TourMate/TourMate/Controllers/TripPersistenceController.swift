@@ -37,14 +37,16 @@ struct TripPersistenceController {
 
 extension NewTrip {
     fileprivate func toData() -> FirebaseAdaptedTrip {
-        FirebaseAdaptedTrip(id: id, userIds: userIds, userNames: userNames, name: name,
-                            imageUrl: imageUrl, creationDate: creationDate, modificationDate: modificationDate)
+        FirebaseAdaptedTrip(id: id, name: name, startDate: startDate, endDate: endDate,
+                            imageUrl: imageUrl, userIds: userIds, invitedUserIds: invitedUserIds,
+                            creationDate: creationDate, modificationDate: modificationDate)
     }
 }
 
 extension FirebaseAdaptedTrip {
     fileprivate func toItem() -> NewTrip {
-        NewTrip(id: id, userIds: userIds, userNames: userNames, name: name,
-                imageUrl: imageUrl, creationDate: creationDate, modificationDate: modificationDate)
+        NewTrip(id: id, name: name, startDate: startDate, endDate: endDate,
+                imageUrl: imageUrl, userIds: userIds, invitedUserIds: invitedUserIds,
+                creationDate: creationDate, modificationDate: modificationDate)
     }
 }

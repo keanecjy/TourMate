@@ -25,6 +25,7 @@
 		00F83BDD27DC8D5A003A28AA /* AuthenticationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BDC27DC8D5A003A28AA /* AuthenticationType.swift */; };
 		194E6318F1A4F53AD0673038 /* Pods_TourMateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */; };
 		43CA47F6D2378990F041943C /* Pods_TourMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */; };
+		4C4299B727E0E8B6001FD45B /* PlanType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4299B627E0E8B6001FD45B /* PlanType.swift */; };
 		4C4539B627DE456800AB8384 /* TripPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4539B527DE456800AB8384 /* TripPersistenceController.swift */; };
 		4C8639A027DF32FE000566FB /* FirebasePlanType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C86399F27DF32FE000566FB /* FirebasePlanType.swift */; };
 		4C8639A327DF37DA000566FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8639A227DF37DA000566FB /* Constants.swift */; };
@@ -120,6 +121,7 @@
 		00F83BDC27DC8D5A003A28AA /* AuthenticationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationType.swift; sourceTree = "<group>"; };
 		02A86F1890351A432B17B67E /* Pods-TourMateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.release.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.release.xcconfig"; sourceTree = "<group>"; };
 		1DBB3372EFB870D2316CAA4E /* Pods-TourMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate.release.xcconfig"; path = "Target Support Files/Pods-TourMate/Pods-TourMate.release.xcconfig"; sourceTree = "<group>"; };
+		4C4299B627E0E8B6001FD45B /* PlanType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanType.swift; sourceTree = "<group>"; };
 		4C4539B527DE456800AB8384 /* TripPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPersistenceController.swift; sourceTree = "<group>"; };
 		4C86399F27DF32FE000566FB /* FirebasePlanType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlanType.swift; sourceTree = "<group>"; };
 		4C8639A227DF37DA000566FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -302,45 +304,46 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-        4C8639A127DF37D3000566FB /* Constants */ = {
-            isa = PBXGroup;
-            children = (
-                4C8639A227DF37DA000566FB /* Constants.swift */,
-            );
-            path = Constants;
-            sourceTree = "<group>";
-        };
-        4C8639A627DF3F13000566FB /* DomainModels */ = {
-            isa = PBXGroup;
-            children = (
-                4CB954DF27DDFFC7001410AD /* User.swift */,
-                B99D967927D9C43B009B66AE /* Model.swift */,
-                95CB3F6827D8E79A0086E9E3 /* MockModel.swift */,
-                B99D967B27D9C890009B66AE /* Trip.swift */,
-                4CCBBD1827DE626800F9C250 /* NewTrip.swift */,
-                B99D967D27D9D82C009B66AE /* Plan.swift */,
-                B99D967F27D9DF0B009B66AE /* Accommodation.swift */,
-                B99D968127D9DF30009B66AE /* Activity.swift */,
-                B99D968327D9DF5E009B66AE /* Restaurant.swift */,
-                B99D968527D9DF70009B66AE /* Transport.swift */,
-                B99D968727D9DF80009B66AE /* Flight.swift */,
-                4CCBBD1C27DE672000F9C250 /* NewPlan.swift */,
-                4CCBBD1E27DE67B400F9C250 /* PlanStatus.swift */,
-                4CCBBD2227DE687A00F9C250 /* Comments.swift */,
-            );
-            path = DomainModels;
-            sourceTree = "<group>";
-        };
-        4CB954CA27DDC06C001410AD /* PersistenceManager */ = {
-            isa = PBXGroup;
-            children = (
-                4CB954DB27DDFAA8001410AD /* FirebasePersistenceManager.swift */,
-                4CB954D127DDE039001410AD /* FirebaseConfig.swift */,
-                4CB954DD27DDFDB2001410AD /* PersistenceManager.swift */,
-            );
-            path = PersistenceManager;
-            sourceTree = "<group>";
-        };
+		4C8639A127DF37D3000566FB /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				4C8639A227DF37DA000566FB /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		4C8639A627DF3F13000566FB /* DomainModels */ = {
+			isa = PBXGroup;
+			children = (
+				4CB954DF27DDFFC7001410AD /* User.swift */,
+				B99D967927D9C43B009B66AE /* Model.swift */,
+				95CB3F6827D8E79A0086E9E3 /* MockModel.swift */,
+				B99D967B27D9C890009B66AE /* Trip.swift */,
+				4CCBBD1827DE626800F9C250 /* NewTrip.swift */,
+				B99D967D27D9D82C009B66AE /* Plan.swift */,
+				B99D967F27D9DF0B009B66AE /* Accommodation.swift */,
+				B99D968127D9DF30009B66AE /* Activity.swift */,
+				B99D968327D9DF5E009B66AE /* Restaurant.swift */,
+				B99D968527D9DF70009B66AE /* Transport.swift */,
+				B99D968727D9DF80009B66AE /* Flight.swift */,
+				4CCBBD1C27DE672000F9C250 /* NewPlan.swift */,
+				4CCBBD1E27DE67B400F9C250 /* PlanStatus.swift */,
+				4CCBBD2227DE687A00F9C250 /* Comments.swift */,
+				4C4299B627E0E8B6001FD45B /* PlanType.swift */,
+			);
+			path = DomainModels;
+			sourceTree = "<group>";
+		};
+		4CB954CA27DDC06C001410AD /* PersistenceManager */ = {
+			isa = PBXGroup;
+			children = (
+				4CB954DB27DDFAA8001410AD /* FirebasePersistenceManager.swift */,
+				4CB954D127DDE039001410AD /* FirebaseConfig.swift */,
+				4CB954DD27DDFDB2001410AD /* PersistenceManager.swift */,
+			);
+			path = PersistenceManager;
+			sourceTree = "<group>";
+		};
 		B93B488E27DA7D4000478B7B /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -753,6 +756,7 @@
 				95CB3F7327D8E79C0086E9E3 /* ItineraryView.swift in Sources */,
 				4CCBBD1D27DE672000F9C250 /* NewPlan.swift in Sources */,
 				B967C33C27DDE3C20023B34D /* RestaurantFormView.swift in Sources */,
+				4C4299B727E0E8B6001FD45B /* PlanType.swift in Sources */,
 				00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */,
 				4CB954E027DDFFC7001410AD /* User.swift in Sources */,
 				4CCBBD2327DE687B00F9C250 /* Comments.swift in Sources */,

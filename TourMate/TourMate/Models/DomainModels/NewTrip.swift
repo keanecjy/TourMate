@@ -9,30 +9,37 @@ import Foundation
 
 struct NewTrip {
     let id: String
-    let userIds: [String]
-    let userNames: [String]
-    let name: String
-    let imageUrl: String
+    var name: String
+    var startDate: Date
+    var endDate: Date
+    var imageUrl: String?
+    var userIds: [String]
+    var invitedUserIds: [String]
     let creationDate: Date
-    let modificationDate: Date
+    var modificationDate: Date
 
-    init(id: String, userIds: [String], userNames: [String], name: String, imageUrl: String,
+    init(id: String, name: String, startDate: Date, endDate: Date, imageUrl: String?,
+         userIds: [String], invitedUserIds: [String],
          creationDate: Date, modificationDate: Date) {
         self.id = id
-        self.userIds = userIds
-        self.userNames = userNames
         self.name = name
+        self.startDate = startDate
+        self.endDate = endDate
         self.imageUrl = imageUrl
+        self.userIds = userIds
+        self.invitedUserIds = invitedUserIds
         self.creationDate = creationDate
         self.modificationDate = modificationDate
     }
 
-    init(userIds: [String], userNames: [String], name: String, imageUrl: String) {
-        self.id = UUID().uuidString
-        self.userIds = userIds
-        self.userNames = userNames
+    init(id: String, name: String, startDate: Date, endDate: Date, imageUrl: String?, userId: String) {
+        self.id = id
         self.name = name
+        self.startDate = startDate
+        self.endDate = endDate
         self.imageUrl = imageUrl
+        self.userIds = [userId]
+        self.invitedUserIds = []
         self.creationDate = Date.now
         self.modificationDate = Date.now
     }
