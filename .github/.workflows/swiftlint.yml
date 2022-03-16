@@ -18,7 +18,8 @@ jobs:
   SwiftLint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Set up repository
+        uses: actions/checkout@v2
       
       - name: Lint code using SwiftLint
         working-directory: ./TourMate
