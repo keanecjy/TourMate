@@ -8,13 +8,18 @@
 import Foundation
 
 struct Flight: Plan {
-    var id: Int
+    var id: String
     var tripId: String
+    var planType: PlanType
     var name: String = "Flight"
     var startDate: Date
     var endDate: Date?
     var timeZone: TimeZone
     var imageUrl: String
+    var status: PlanStatus
+    var creationDate: Date
+    var modificationDate: Date
+
     var airline: String
     var flightNumber: Int
     var seats: String?

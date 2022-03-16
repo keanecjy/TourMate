@@ -5,7 +5,7 @@
 //  Created by Keane Chan on 14/3/22.
 //
 
-struct Comments {
+struct Comment {
     let name: String
     let message: String
     let upVote: Int
