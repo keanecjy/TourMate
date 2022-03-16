@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct PlansListView: View {
-    @EnvironmentObject var model: MockModel
-    @State var id: Int
 
-    // TODO: Fetch Plans using trip id
+    private var plans: [Plan]
+
+    init(_ plans: [Plan]) {
+        self.plans = plans
+    }
+
     typealias Day = (date: Date, plans: [Plan])
     var days: [Day] {
-        let sortedPlans = model.trips[id].plans.sorted { plan1, plan2 in
+        let sortedPlans = plans.sorted { plan1, plan2 in
             plan1.startDate < plan2.startDate
         }
         let plansByDay: [Date: [Plan]] = sortedPlans.reduce(into: [:]) { acc, cur in
@@ -59,8 +62,8 @@ struct PlansListView: View {
     }
 }
 
-struct PlansListView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlansListView(id: 0).environmentObject(MockModel())
-    }
-}
+// struct PlansListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PlansListView(id: 0).environmentObject(MockModel())
+//    }
+// }

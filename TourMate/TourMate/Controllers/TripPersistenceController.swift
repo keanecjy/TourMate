@@ -11,11 +11,11 @@ struct TripPersistenceController {
     let firebasePersistenceManager = FirebasePersistenceManager<FirebaseAdaptedTrip>(
         collectionId: FirebaseConfig.tripCollectionId)
 
-    func addTrip(trip: NewTrip) async -> (Bool, String) {
+    func addTrip(trip: Trip) async -> (Bool, String) {
         await firebasePersistenceManager.addItem(id: trip.id, item: trip.toData())
     }
 
-    func fetchTrip() async -> ([NewTrip], String) {
+    func fetchTrip() async -> ([Trip], String) {
         guard let user = Auth.auth().currentUser else {
             return ([], Constants.messageUserNotLoggedIn)
         }
@@ -26,27 +26,27 @@ struct TripPersistenceController {
         return (trips, errorMessage)
     }
 
-    func deleteTrip(trip: NewTrip) async -> (Bool, String) {
+    func deleteTrip(trip: Trip) async -> (Bool, String) {
         await firebasePersistenceManager.deleteItem(id: trip.id)
     }
 
-    func updateTrip(trip: NewTrip) async -> (Bool, String) {
+    func updateTrip(trip: Trip) async -> (Bool, String) {
         await firebasePersistenceManager.updateItem(id: trip.id, item: trip.toData())
     }
 }
 
-extension NewTrip {
+extension Trip {
     fileprivate func toData() -> FirebaseAdaptedTrip {
-        FirebaseAdaptedTrip(id: id, name: name, startDate: startDate, endDate: endDate,
-                            imageUrl: imageUrl, userIds: userIds, invitedUserIds: invitedUserIds,
+        FirebaseAdaptedTrip(id: id, name: name, startDate: startDate, endDate: endDate, timeZone: timeZone,
+                            imageUrl: imageUrl, attendeesUserIds: attendeesUserIds, invitedUserIds: invitedUserIds,
                             creationDate: creationDate, modificationDate: modificationDate)
     }
 }
 
 extension FirebaseAdaptedTrip {
-    fileprivate func toItem() -> NewTrip {
-        NewTrip(id: id, name: name, startDate: startDate, endDate: endDate,
-                imageUrl: imageUrl, userIds: userIds, invitedUserIds: invitedUserIds,
-                creationDate: creationDate, modificationDate: modificationDate)
+    fileprivate func toItem() -> Trip {
+        Trip(id: id, name: name, startDate: startDate, endDate: endDate, timeZone: timeZone,
+             imageUrl: imageUrl, attendeesUserIds: attendeesUserIds, invitedUserIds: invitedUserIds,
+             creationDate: creationDate, modificationDate: modificationDate)
     }
 }

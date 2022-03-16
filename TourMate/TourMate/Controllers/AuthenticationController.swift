@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 struct AuthenticationController {
     let authenticationManager: AuthenticationManager = FirebaseAuthenticationManager()
@@ -24,7 +25,11 @@ struct AuthenticationController {
             return (hasRegistered, errorMessage)
         }
 
-        let user = User(name: displayName, email: email)
+        guard let currentUserId = Auth.auth().currentUser?.uid else {
+            return (false, Constants.messageUserNotLoggedIn)
+        }
+
+        let user = User(id: currentUserId, name: displayName, email: email)
         return await userPersistenceController.addUser(user)
     }
 
