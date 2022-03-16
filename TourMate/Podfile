@@ -24,8 +24,17 @@ target 'TourMate' do
     # Pods for testing
   end
   
-  # Fix build failing for M1 Mac
   post_install do |installer|
+    # Speed up Xcode Build
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        if config.name == 'Debug'
+          config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)', '-Onone']
+          config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Owholemodule'
+        end
+      end
+    end
+    # Fix build failing for M1 Mac
     installer.pods_project.build_configurations.each do |config|
       config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
     end
