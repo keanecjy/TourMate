@@ -1,0 +1,25 @@
+name: Lint code
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/swiftlint.yml"
+      - "./TourMate/swiftlint.yml"
+      - "./TourMate/**/*.swift"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/swiftlint.yml"
+      - "./TourMate/swiftlint.yml"
+      - "./TourMate/**/*.swift"
+
+jobs:
+  SwiftLint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Lint code using SwiftLint
+        working-directory: ./TourMate
+        uses: norio-nomura/action-swiftlint@3.2.1
