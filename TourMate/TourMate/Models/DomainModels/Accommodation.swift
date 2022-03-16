@@ -9,6 +9,7 @@ import Foundation
 
 struct Accommodation: Plan {
     var id: Int
+    var tripId: String
     var name: String = "Accommodation"
     var startDate: Date
     var endDate: Date?

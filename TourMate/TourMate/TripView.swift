@@ -10,28 +10,64 @@ import SwiftUI
 struct TripView: View {
     @EnvironmentObject var model: MockModel
 
-    @State var id: Int
     @State private var isActive = false
 
-    var body: some View {
-        let trip = model.trips[id]
+    private var trip: Trip
 
-        return ItineraryView(id: id)
-            .navigationTitle(trip.name)
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    NavigationLink(isActive: $isActive) {
-                        AddPlanView(isActive: $isActive)
-                    } label: {
-                        Image(systemName: "plus")
-                    }
+    init(_ trip: Trip) {
+        self.trip = trip
+    }
+
+    var plans: [Plan] {
+        model.getPlans(forTripId: trip.id)
+    }
+
+    var dateString: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeZone = trip.timeZone
+        let startDateString = dateFormatter.string(from: trip.startDate)
+        let endDateString = dateFormatter.string(from: trip.endDate)
+        return startDateString + " - " + endDateString
+    }
+
+    var body: some View {
+        ScrollView {
+            LazyVStack {
+                Text(dateString)
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding([.bottom, .horizontal])
+
+                AsyncImage(url: URL(string: trip.imageUrl!)) {
+                    image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 200, alignment: .center)
+                        .clipped()
+                } placeholder: {
+                    Color.gray
+                }
+
+                PlansListView(model.getPlans(forTripId: trip.id))
+            }
+        }
+        .navigationTitle(trip.name)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                NavigationLink(isActive: $isActive) {
+                    AddPlanView(isActive: $isActive)
+                } label: {
+                    Image(systemName: "plus")
                 }
             }
+        }
     }
 }
 
-struct TripView_Previews: PreviewProvider {
-    static var previews: some View {
-        TripView(id: 0).environmentObject(MockModel())
-    }
-}
+// struct TripView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TripView(trip).environmentObject(MockModel())
+//    }
+// }

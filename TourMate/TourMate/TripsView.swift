@@ -10,22 +10,18 @@ import SwiftUI
 struct TripsView: View {
     @EnvironmentObject var model: MockModel
 
-    // TODO: Fetch Trips using userId
-    func getDateString(id: Int) -> String {
-        let trip = model.trips[id]
-        let sortedPlans = trip.plans.sorted { plan1, plan2 in
-            plan1.startDate < plan2.startDate
-        }
-        var startDateString = "Unknown"
-        var endDateString = "Unknown"
-        if let firstPlan = sortedPlans.first, let lastPlan = sortedPlans.last {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .full
-            dateFormatter.timeZone = firstPlan.timeZone
-            startDateString = dateFormatter.string(from: firstPlan.startDate)
-            dateFormatter.timeZone = lastPlan.timeZone
-            endDateString = dateFormatter.string(from: lastPlan.endDate ?? lastPlan.startDate)
-        }
+    /// Fetch Trips using userId
+    func getTrips(forUserId userId: String) -> [Trip] {
+        model.getTrips(forUserId: userId)
+    }
+
+    func getDateString(tripId: String) -> String {
+        let trip = model.getTrip(withTripId: tripId)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeZone = trip.timeZone
+        let startDateString = dateFormatter.string(from: trip.startDate)
+        let endDateString = dateFormatter.string(from: trip.endDate)
         return startDateString + " - " + endDateString
     }
 
@@ -35,11 +31,11 @@ struct TripsView: View {
                 LazyVStack {
                     ForEach(model.trips, id: \.id) { trip in
                         NavigationLink {
-                            TripView(id: trip.id)
+                            TripView(model.getTrip(withTripId: trip.id))
                         } label: {
                             TripCardView(title: trip.name,
-                                         subtitle: getDateString(id: trip.id),
-                                         imageUrl: trip.imageUrl)
+                                         subtitle: getDateString(tripId: trip.id),
+                                         imageUrl: trip.imageUrl!)
                         }
                     }
                 }
@@ -53,6 +49,9 @@ struct TripsView: View {
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .onAppear {
+
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

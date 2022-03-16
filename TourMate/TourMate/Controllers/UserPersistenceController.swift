@@ -43,12 +43,12 @@ struct UserPersistenceController {
 
 extension User {
     fileprivate func toData() -> FirebaseAdaptedUser {
-        FirebaseAdaptedUser(id: email, name: name, email: email)
+        FirebaseAdaptedUser(id: id, name: name, email: email)
     }
 }
 
 extension FirebaseAdaptedUser {
     fileprivate func toItem() -> User {
-        User(name: name, email: email)
+        User(id: id, name: name, email: email)
     }
 }

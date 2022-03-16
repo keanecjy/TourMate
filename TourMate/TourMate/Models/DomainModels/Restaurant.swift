@@ -9,6 +9,7 @@ import Foundation
 
 struct Restaurant: Plan {
     var id: Int
+    var tripId: String
     var name: String
     var startDate: Date
     var endDate: Date?
