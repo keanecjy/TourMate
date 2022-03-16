@@ -5,7 +5,7 @@
 //  Created by Tan Rui Quan on 11/3/22.
 //
 
-import FirebaseFirestoreSwift
+import Foundation
 
 struct FirebaseAdaptedTrip: FirebaseAdaptedData {
     static let type = FirebaseAdaptedType.firebaseAdaptedTrip

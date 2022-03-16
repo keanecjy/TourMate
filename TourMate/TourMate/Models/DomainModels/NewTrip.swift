@@ -32,6 +32,7 @@ struct NewTrip {
         self.modificationDate = modificationDate
     }
 
+    // For initialization
     init(id: String, name: String, startDate: Date, endDate: Date, imageUrl: String?, userId: String) {
         self.id = id
         self.name = name
