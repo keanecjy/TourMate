@@ -48,8 +48,10 @@ jobs:
         run: |
           pod repo update
           pod install
+          
       - name: Build
         run: xcodebuild -workspace TourMate.xcworkspace -scheme TourMate -configuration Release -sdk ipadsimulator -destination "platform=$platform,name=$device"
+        
       - name: Test
         run: xcodebuild -workspace TourMate.xcworkspace -scheme TourMate -sdk ipadsimulator -destination "platform=$platform,name=$device" test
 
