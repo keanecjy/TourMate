@@ -7,7 +7,7 @@
 
 import FirebaseAuth
 
-struct TripPersistenceController {
+struct TripPersistenceController: TripPersistenceControllerProtocol {
     let firebasePersistenceManager = FirebasePersistenceManager<FirebaseAdaptedTrip>(
         collectionId: FirebaseConfig.tripCollectionId)
 
@@ -15,7 +15,7 @@ struct TripPersistenceController {
         await firebasePersistenceManager.addItem(id: trip.id, item: trip.toData())
     }
 
-    func fetchTrip() async -> ([Trip], String) {
+    func fetchTrips() async -> ([Trip], String) {
         guard let user = Auth.auth().currentUser else {
             return ([], Constants.messageUserNotLoggedIn)
         }

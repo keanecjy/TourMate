@@ -8,15 +8,9 @@
 import SwiftUI
 
 struct TripsView: View {
-    @EnvironmentObject var model: MockModel
+    @StateObject var viewModel: TripsViewModel = TripsViewModel()
 
-    /// Fetch Trips using userId
-    func getTrips(forUserId userId: String) -> [Trip] {
-        model.getTrips(forUserId: userId)
-    }
-
-    func getDateString(tripId: String) -> String {
-        let trip = model.getTrip(withTripId: tripId)
+    func getDateString(trip: Trip) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeZone = trip.timeZone
@@ -26,40 +20,37 @@ struct TripsView: View {
     }
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-                LazyVStack {
-                    ForEach(model.trips, id: \.id) { trip in
-                        NavigationLink {
-                            TripView(model.getTrip(withTripId: trip.id))
-                        } label: {
-                            TripCardView(title: trip.name,
-                                         subtitle: getDateString(tripId: trip.id),
-                                         imageUrl: trip.imageUrl!)
-                        }
-                    }
-                }
-            }
-            .navigationTitle("Trips")
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
+        ScrollView {
+            LazyVStack {
+                ForEach(viewModel.trips, id: \.id) { trip in
                     NavigationLink {
-                        TripFormView()
+                        TripView(trip)
                     } label: {
-                        Image(systemName: "plus")
+                        TripCardView(title: trip.name,
+                                     subtitle: getDateString(trip: trip),
+                                     imageUrl: trip.imageUrl!)
                     }
                 }
-            }
-            .onAppear {
-
             }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationTitle("Trips")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                NavigationLink {
+                    TripFormView()
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .task {
+            await viewModel.fetchTrips()
+        }
     }
 }
 
 struct TripsView_Previews: PreviewProvider {
     static var previews: some View {
-        TripsView().environmentObject(MockModel())
+        TripsView(viewModel: TripsViewModel(tripService: MockTripPersistenceController()))
     }
 }
