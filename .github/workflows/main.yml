@@ -48,8 +48,8 @@ jobs:
           pod install
           
       - name: Build
-        run: xcodebuild -workspace TourMate.xcworkspace -scheme TourMate -configuration Release -sdk ipadsimulator -destination "platform=$platform,name=$device"
+        run: xcodebuild -workspace TourMate.xcworkspace -scheme TourMate -configuration Release -sdk iphonesimulator -destination "platform=$platform,name=$device"
         
       - name: Test
-        run: xcodebuild -workspace TourMate.xcworkspace -scheme TourMate -sdk ipadsimulator -destination "platform=$platform,name=$device" test
+        run: xcodebuild -workspace TourMate.xcworkspace -scheme TourMate -sdk iphonesimulator -destination "platform=$platform,name=$device" test
 
