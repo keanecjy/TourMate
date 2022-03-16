@@ -49,6 +49,7 @@ jobs:
       - name: Build
         run: xcodebuild build-for-testing -workspace TourMate.xcworkspace -scheme TourMate -sdk iphonesimulator -destination "platform=$platform,name=$device"
         
-      - name: Test
-        run: xcodebuild test-without-building -workspace TourMate.xcworkspace -scheme TourMate -sdk iphonesimulator -destination "platform=$platform,name=$device" test
+      # Tests disabled to speed up build for now 
+      # - name: Test
+        # run: xcodebuild test-without-building -workspace TourMate.xcworkspace -scheme TourMate -sdk iphonesimulator -destination "platform=$platform,name=$device" test
 
