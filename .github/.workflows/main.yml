@@ -2,7 +2,7 @@ name: Test And Lint
 
 on:
   push:
-    branches: [main]
+    branches: [main, setup-ci]
     paths:
       - ".github/workflows/main.yml"
       - "./TourMate/**/*.swift"

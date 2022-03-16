@@ -2,7 +2,7 @@ name: Lint code
 
 on:
   push:
-    branches: [main]
+    branches: [main, setup-ci]
     paths:
       - ".github/workflows/swiftlint.yml"
       - "./TourMate/swiftlint.yml"
