@@ -1,4 +1,4 @@
-name: Xcode Build and Test 
+name: Xcode Build and Test
 
 on:
   push:
@@ -14,11 +14,6 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        scheme: ['TourMate', 'TourMateTests', 'TourMateUITests']
-        workspace: ['TourMate']
-        command: ['build-for-testing', 'test-without-building', 'test-without-building']
 
     runs-on: macos-latest
 
@@ -52,4 +47,8 @@ jobs:
           pod install
           
       - name: Build
-        run: xcodebuild ${{ matrix.command }} -workspace ${{ matrix.workspace }}.xcworkspace -scheme ${{ matrix.scheme }} -destination "platform=$platform,name=$device"
+        run: xcodebuild build-for-testing -workspace TourMate.xcworkspace -scheme TourMate -sdk iphonesimulator -destination "platform=$platform,name=$device"
+        
+      - name: Test
+        run: xcodebuild test-without-building -workspace TourMate.xcworkspace -scheme TourMate -sdk iphonesimulator -destination "platform=$platform,name=$device" test
+
