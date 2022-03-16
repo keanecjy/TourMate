@@ -6,8 +6,6 @@
 //
 
 import FirebaseAuth
-import CloudKit
-import Foundation
 
 struct TripPersistenceController {
     let firebasePersistenceManager = FirebasePersistenceManager<FirebaseAdaptedTrip>(

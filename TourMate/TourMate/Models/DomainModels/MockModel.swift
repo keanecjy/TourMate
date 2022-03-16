@@ -61,7 +61,7 @@ final class MockModel: ObservableObject {
             Trip(id: "1", name: "Winter in Japan",
                  startDate: Date(timeIntervalSince1970: 1_651_442_400),
                  endDate: Date(timeIntervalSince1970: 1_651_480_400),
-                 imageUrl: "https://source.unsplash.com/qxstzQ__HMk",
+                 imageUrl: "https://source.unsplash.com/pT0qBgNa0VU",
                  creatorUserId: "0")
         ]
     }
