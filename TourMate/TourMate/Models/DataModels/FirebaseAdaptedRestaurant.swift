@@ -8,15 +8,23 @@
 import Foundation
 
 struct FirebaseAdaptedRestaurant: FirebaseAdaptedPlan {
-    static let type = FirebaseAdaptedPlanType.firebaseAdaptedRestaurant
+    static let type = FirebaseAdaptedType.firebaseAdaptedRestaurant
 
-    var id: Int
-    var name: String
-    var startDate: Date
-    var endDate: Date?
-    var timeZone: TimeZone
-    var imageUrl: String
-    var address: String?
-    var phone: Int?
-    var website: String?
+    // Plan Fields
+    let id: String
+    let tripId: String
+    let name: String
+    let planType: FirebasePlanType
+    let startDate: Date
+    let endDate: Date
+    let timeZone: TimeZone
+    let imageUrl: String?
+    let status: String
+    let creationDate: Date
+    let modificationDate: Date
+
+    // Unique Fields
+    let address: String?
+    let phone: Int?
+    let website: String?
 }

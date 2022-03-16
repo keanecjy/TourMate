@@ -1,21 +1,25 @@
 //
-//  FirebaseAdaptedPlanType.swift
+//  FirebaseAdaptedType.swift
 //  TourMate
 //
-//  Created by Tan Rui Quan on 11/3/22.
+//  Created by Keane Chan on 13/3/22.
 //
 
-import Foundation
-
-enum FirebaseAdaptedPlanType: String, Codable {
+enum FirebaseAdaptedType: String, Codable {
+    case firebaseAdaptedUser
+    case firebaseAdaptedTrip
     case firebaseAdaptedAccommodation
     case firebaseAdaptedActivity
     case firebaseAdaptedRestaurant
     case firebaseAdaptedTransport
     case firebaseAdaptedFlight
 
-    var metatype: FirebaseAdaptedPlan.Type {
+    var metatype: FirebaseAdaptedData.Type {
         switch self {
+        case .firebaseAdaptedUser:
+            return FirebaseAdaptedUser.self
+        case .firebaseAdaptedTrip:
+            return FirebaseAdaptedTrip.self
         case .firebaseAdaptedAccommodation:
             return FirebaseAdaptedAccommodation.self
         case .firebaseAdaptedActivity:

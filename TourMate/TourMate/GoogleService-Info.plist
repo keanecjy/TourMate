@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1036316234831-qab4gk7k156rd8deeqcahr7kn3h3kgs1.apps.googleusercontent.com</string>
+	<string>546814687385-oc12q8hv0h0fbe5p4688v3epmbc8g0fa.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1036316234831-qab4gk7k156rd8deeqcahr7kn3h3kgs1</string>
+	<string>com.googleusercontent.apps.546814687385-oc12q8hv0h0fbe5p4688v3epmbc8g0fa</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDUL_sV34f75KJ5i-rkoj7plI4leySv0R8</string>
+	<string>AIzaSyAXpeB02Agx_dG15_V4rLu-Xc0b73Ka9KA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1036316234831</string>
+	<string>546814687385</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.TourMate</string>
 	<key>PROJECT_ID</key>
-	<string>tourmate-ce567</string>
+	<string>tourmate-ff2a2</string>
 	<key>STORAGE_BUCKET</key>
-	<string>tourmate-ce567.appspot.com</string>
+	<string>tourmate-ff2a2.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1036316234831:ios:ae753d68a327a4a393463a</string>
+	<string>1:546814687385:ios:6176d7c9a187b88e106008</string>
 </dict>
 </plist>

@@ -9,6 +9,7 @@ import Foundation
 
 struct AuthenticationController {
     let authenticationManager: AuthenticationManager = FirebaseAuthenticationManager()
+    let userPersistenceController = UserPersistenceController()
 
     func register(email: String, password: String, displayName: String) async
     -> (hasRegistered: Bool, errorMessage: String) {
@@ -19,9 +20,15 @@ struct AuthenticationController {
 
         let (hasRegistered, errorMessage) = await authenticationManager.registerUser(email: email,
                                                                                      password: password)
-        return (hasRegistered, errorMessage)
+        guard hasRegistered else {
+            return (hasRegistered, errorMessage)
+        }
+
+        let user = User(name: displayName, email: email)
+        return await userPersistenceController.addUser(user)
     }
 
+    @discardableResult
     func logIn(email: String, password: String) async -> (hasLoggedIn: Bool, errorMessage: String) {
 
         guard validateCredentials(email: email, password: password) else {
@@ -34,7 +41,6 @@ struct AuthenticationController {
     }
 
     func logOut() async -> (hasLoggedOut: Bool, errorMessage: String) {
-
         let (hasLoggedOut, errorMessage) = await authenticationManager.logOutUser()
         return (hasLoggedOut, errorMessage)
     }

@@ -7,12 +7,15 @@
 
 import Foundation
 
-protocol FirebaseAdaptedPlan: Codable {
-    static var type: FirebaseAdaptedPlanType { get }
-    var id: Int { get set }
-    var name: String { get set }
-    var startDate: Date { get set }
-    var endDate: Date? { get set }
-    var timeZone: TimeZone { get set }
-    var imageUrl: String { get set }
+protocol FirebaseAdaptedPlan: FirebaseAdaptedData {
+    var tripId: String { get }
+    var name: String { get }
+    var planType: FirebasePlanType { get }
+    var startDate: Date { get }
+    var endDate: Date { get }
+    var timeZone: TimeZone { get }
+    var imageUrl: String? { get }
+    var status: String { get }
+    var creationDate: Date { get }
+    var modificationDate: Date { get }
 }

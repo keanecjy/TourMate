@@ -8,18 +8,26 @@
 import Foundation
 
 struct FirebaseAdaptedTransport: FirebaseAdaptedPlan {
-    static let type = FirebaseAdaptedPlanType.firebaseAdaptedTransport
+    static let type = FirebaseAdaptedType.firebaseAdaptedTransport
 
-    var id: Int
-    var name: String
-    var startDate: Date
-    var endDate: Date?
-    var timeZone: TimeZone
-    var imageUrl: String
-    var departureLocation: String?
-    var departureAddress: String?
-    var arrivalLocation: String?
-    var arrivalAddress: String?
-    var vehicleDescription: String?
-    var numberOfPassengers: Int?
+    // Plan Fields
+    let id: String
+    let tripId: String
+    let name: String
+    let planType: FirebasePlanType
+    let startDate: Date
+    let endDate: Date
+    let timeZone: TimeZone
+    let imageUrl: String?
+    let status: String
+    let creationDate: Date
+    let modificationDate: Date
+
+    // Unique Fields
+    let departureLocation: String?
+    let departureAddress: String?
+    let arrivalLocation: String?
+    let arrivalAddress: String?
+    let vehicleDescription: String?
+    let numberOfPassengers: Int?
 }
