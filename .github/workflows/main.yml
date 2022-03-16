@@ -1,0 +1,55 @@
+name: Xcode Build and Test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/main.yml"
+      - "./TourMate/**/*.swift"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/main.yml"
+      - "./TourMate/**/*.swift"
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    env:
+      platform: iOS Simulator
+      device: iPad Air (4th generation)
+    
+    defaults:
+      run:
+        working-directory: ./TourMate
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v2
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1.4.0
+        with:
+          xcode-version: "13.2.1"
+
+      - name: Cache Pods
+        uses: actions/cache@v2
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Pod Install
+        run: |
+          pod install
+          
+      - name: Build
+        run: xcodebuild -workspace TourMate.xcworkspace -scheme TourMate -sdk iphonesimulator -destination "platform=$platform,name=$device"
+        
+      # Tests disabled to speed up build for now 
+      # - name: Test
+        # run: xcodebuild test-without-building -workspace TourMate.xcworkspace -scheme TourMate -sdk iphonesimulator -destination "platform=$platform,name=$device" test
+

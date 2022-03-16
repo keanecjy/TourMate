@@ -1,4 +1,7 @@
 # TourMate
+[![SwiftLint](https://github.com/Vielheim/TourMate/actions/workflows/swiftlint.yml/badge.svg)](https://github.com/Vielheim/TourMate/actions/workflows/swiftlint.yml)
+[![Xcode Tests](https://github.com/Vielheim/TourMate/actions/workflows/main.yml/badge.svg)](https://github.com/Vielheim/TourMate/actions/workflows/main.yml)
+
 CS3217 Team Project
 
 ## Getting Started
