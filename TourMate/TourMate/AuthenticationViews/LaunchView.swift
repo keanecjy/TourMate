@@ -9,35 +9,38 @@ import SwiftUI
 
 struct LaunchView: View {
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                Spacer()
+        NavigationView {
+            GeometryReader { geometry in
+                VStack {
+                    Spacer()
 
-                TourMateTitleView()
+                    TourMateTitleView()
 
-                Spacer()
+                    Spacer()
 
-                AuthenticationSubmitButton(onPress: onGoogleLogInButtonPressed,
-                                           title: "Log In Google",
-                                           maxWidth: geometry.size.width / 5.0,
-                                           isDisabled: false)
+                    AuthenticationSubmitButton(onPress: onGoogleLogInButtonPressed,
+                                               title: "Log In Google",
+                                               maxWidth: geometry.size.width / 5.0,
+                                               isDisabled: false)
 
-                NavigationLink {
-                    AuthenticationView(authType: .logIn)
-                } label: {
-                    LogInTitleView(maxWidth: geometry.size.width / 5.0)
+                    NavigationLink {
+                        AuthenticationView(authType: .logIn)
+                    } label: {
+                        LogInTitleView(maxWidth: geometry.size.width / 5.0)
+                    }
+
+                    NavigationLink {
+                        AuthenticationView(authType: .register)
+                    } label: {
+                        RegisterTitleView()
+                    }
+
+                    Spacer()
                 }
-
-                NavigationLink {
-                    AuthenticationView(authType: .register)
-                } label: {
-                    RegisterTitleView()
-                }
-
-                Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
+        .navigationViewStyle(.stack)
     }
 
     private func onGoogleLogInButtonPressed() {
