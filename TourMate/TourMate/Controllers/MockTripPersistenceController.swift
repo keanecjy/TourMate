@@ -8,7 +8,7 @@
 import Foundation
 
 struct MockTripPersistenceController: TripPersistenceControllerProtocol {
-    
+
     var trips: [Trip] = [
         Trip(id: "0", name: "West Coast Summer",
              startDate: Date(timeIntervalSince1970: 1_651_442_400),
@@ -21,11 +21,11 @@ struct MockTripPersistenceController: TripPersistenceControllerProtocol {
              imageUrl: "https://source.unsplash.com/pT0qBgNa0VU",
              creatorUserId: "0")
     ]
-    
+
     func fetchTrips() -> ([Trip], String) {
-        return (trips, "")
+        (trips, "")
     }
-  
+
     mutating func addTrip(trip: Trip) -> (Bool, String) {
         trips.append(trip)
         return (true, "")

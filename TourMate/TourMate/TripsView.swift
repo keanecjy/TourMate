@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TripsView: View {
-    @StateObject var viewModel: TripsViewModel = TripsViewModel()
+    @StateObject var viewModel = TripsViewModel()
 
     func getDateString(trip: Trip) -> String {
         let dateFormatter = DateFormatter()
