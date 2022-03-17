@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct AuthPageLogIn: View {
-    let authenticationController = AuthenticationController()
+struct LogInFormView: View {
+    let authenticationController = AuthenticationController.singleton
 
     @State var email = ""
     @State var password = ""
@@ -36,10 +36,10 @@ struct AuthPageLogIn: View {
 
             InputSecureField(title: "Password", textField: $password)
 
-            AuthPageSubmitButton(onPress: generateOnPress(logInAuthAction),
-                                 title: "Log In",
-                                 maxWidth: containerSize.width / 5.0,
-                                 isDisabled: logInButtonDisabled)
+            AuthenticationSubmitButton(onPress: generateOnPress(logInAuthAction),
+                                       title: "Log In",
+                                       maxWidth: containerSize.width / 5.0,
+                                       isDisabled: logInButtonDisabled)
         }
         .frame(maxWidth: containerSize.width / 2.0)
         .disabled(pageIsDisabled)

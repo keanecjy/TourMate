@@ -8,37 +8,38 @@
 import SwiftUI
 
 struct LogOutView: View {
-    let authenticationController = AuthenticationController()
 
-    @Binding var showWarning: Bool
-    @Binding var warningMessage: String
+    let authenticationController = AuthenticationController.singleton
+    let containerSize: CGSize
 
-    @Binding var hasLoggedOut: Bool
+    @State var warningMessage: String = ""
+    @State var isDisabled = false
 
     var body: some View {
-        Button {
-            Task {
-                await onLogOutButtonPressed()
-            }
-        } label: {
-            Text("Log Out")
-                .foregroundColor(.blue)
+        VStack(alignment: .center) {
+            AuthenticationSubmitButton(onPress: onLogOutButtonPressed,
+                                       title: "Log Out",
+                                       maxWidth: containerSize.width / 5.0,
+                                       isDisabled: isDisabled)
+
+            AuthenticationStatusView(warningMessage: $warningMessage,
+                                     pageIsDisabled: $isDisabled,
+                                     progressMessage: "Logging Out...")
         }
+
     }
 
     private func onLogOutButtonPressed() async {
+        self.warningMessage = ""
+        isDisabled = true
+
         let (hasLoggedOut, errorMessage) = await authenticationController.logOut()
 
-        self.warningMessage = ""
-        self.showWarning = false
+        isDisabled = false
 
-        guard hasLoggedOut else {
+        if !hasLoggedOut {
             self.warningMessage = errorMessage
-            self.showWarning = true
-            return
         }
-
-        self.hasLoggedOut = true
     }
 }
 

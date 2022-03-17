@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AuthPageSubmitButton: View {
+struct AuthenticationSubmitButton: View {
     var onPress: () async -> Void
     var title: String
     var maxWidth: Double
@@ -43,6 +43,6 @@ struct AuthPageSubmitButton: View {
 
 struct SubmitButton_Previews: PreviewProvider {
     static var previews: some View {
-        AuthPageSubmitButton(onPress: {}, title: "Log In", maxWidth: 100.0, isDisabled: false)
+        AuthenticationSubmitButton(onPress: {}, title: "Log In", maxWidth: 100.0, isDisabled: false)
     }
 }

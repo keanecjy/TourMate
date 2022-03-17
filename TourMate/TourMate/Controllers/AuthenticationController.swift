@@ -26,6 +26,7 @@ final class AuthenticationController: ObservableObject {
         self.userIsLoggedIn = hasUser
     }
 
+    // TODO: Discuss atomicity
     func register(email: String, password: String, displayName: String) async
     -> (hasRegistered: Bool, errorMessage: String) {
 
@@ -33,10 +34,10 @@ final class AuthenticationController: ObservableObject {
             return (false, "Email or Password cannot be empty or contain spaces!")
         }
 
-        let (hasRegistered, errorMessage) = await authenticationManager.registerUser(email: email,
-                                                                                     password: password)
+        let (hasRegistered, registerErrorMessage) = await authenticationManager.registerUser(email: email,
+                                                                                             password: password)
         guard hasRegistered else {
-            return (hasRegistered, errorMessage)
+            return (hasRegistered, registerErrorMessage)
         }
 
         guard let currentUserId = Auth.auth().currentUser?.uid else {
@@ -44,7 +45,13 @@ final class AuthenticationController: ObservableObject {
         }
 
         let user = User(id: currentUserId, name: displayName, email: email)
-        return await userPersistenceController.addUser(user)
+        let (hasCreatedUser, createUserErrorMessage) = await userPersistenceController.addUser(user)
+
+        if hasCreatedUser {
+            self.userIsLoggedIn = true
+        }
+
+        return (hasCreatedUser, createUserErrorMessage)
     }
 
     @discardableResult
@@ -56,11 +63,21 @@ final class AuthenticationController: ObservableObject {
 
         let (hasLoggedIn, errorMessage) = await authenticationManager.logInUser(email: email,
                                                                                 password: password)
+
+        if hasLoggedIn {
+            self.userIsLoggedIn = true
+        }
+
         return (hasLoggedIn, errorMessage)
     }
 
     func logOut() async -> (hasLoggedOut: Bool, errorMessage: String) {
         let (hasLoggedOut, errorMessage) = await authenticationManager.logOutUser()
+
+        if hasLoggedOut {
+            self.userIsLoggedIn = false
+        }
+
         return (hasLoggedOut, errorMessage)
     }
 

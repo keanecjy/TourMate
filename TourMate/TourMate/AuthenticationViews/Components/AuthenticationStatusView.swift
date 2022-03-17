@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-struct AuthPageStatusDisplay: View {
-    @Binding var showWarning: Bool
+struct AuthenticationStatusView: View {
     @Binding var warningMessage: String
     @Binding var pageIsDisabled: Bool
     var progressMessage: String
 
     var body: some View {
         VStack {
-            if showWarning {
+            if !warningMessage.isEmpty {
                 Text(warningMessage)
                     .foregroundColor(.red)
             }

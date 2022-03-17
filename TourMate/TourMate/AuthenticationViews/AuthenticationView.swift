@@ -9,10 +9,7 @@ import SwiftUI
 
 struct AuthenticationView: View {
     @State var pageIsDisabled = false
-    @State var showWarning = false
     @State var warningMessage = ""
-
-    @State var redirectPage = false
 
     let authType: AuthenticationType
 
@@ -24,15 +21,16 @@ struct AuthenticationView: View {
         }
     }
 
+    // Views where the actual log in and registration happens
     @ViewBuilder
     func generateForm(type: AuthenticationType, containerSize: CGSize) -> some View {
         switch type {
         case .logIn:
-            AuthPageLogIn(pageIsDisabled: $pageIsDisabled,
+            LogInFormView(pageIsDisabled: $pageIsDisabled,
                           containerSize: containerSize,
                           generateOnPress: generateOnPress)
         case .register:
-            AuthPageRegister(pageIsDisabled: $pageIsDisabled,
+            RegisterFormView(pageIsDisabled: $pageIsDisabled,
                              containerSize: containerSize,
                              generateOnPress: generateOnPress)
         }
@@ -49,14 +47,11 @@ struct AuthenticationView: View {
 
                 generateForm(type: authType, containerSize: geometry.size)
 
-                AuthPageStatusDisplay(showWarning: $showWarning,
-                                      warningMessage: $warningMessage,
-                                      pageIsDisabled: $pageIsDisabled,
-                                      progressMessage: progressMessage)
+                AuthenticationStatusView(warningMessage: $warningMessage,
+                                         pageIsDisabled: $pageIsDisabled,
+                                         progressMessage: progressMessage)
 
                 Spacer()
-
-                HomeNavigationView(isActive: $redirectPage)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
@@ -82,23 +77,21 @@ struct AuthenticationView: View {
             return false
         }
 
-        setPageStatusDisplay(warningMessage: "", showWarning: false, disablePage: true)
+        setPageStatusDisplay(warningMessage: "", disablePage: true)
         return true
     }
 
     private func tearDownOnButtonPressed(actionSuccess: Bool, errorMessage: String) {
         guard actionSuccess else {
-            setPageStatusDisplay(warningMessage: errorMessage, showWarning: true, disablePage: false)
+            setPageStatusDisplay(warningMessage: errorMessage, disablePage: false)
             return
         }
 
-        setPageStatusDisplay(warningMessage: "", showWarning: false, disablePage: false)
-        self.redirectPage = true
+        setPageStatusDisplay(warningMessage: "", disablePage: false)
     }
 
-    private func setPageStatusDisplay(warningMessage: String, showWarning: Bool, disablePage: Bool) {
+    private func setPageStatusDisplay(warningMessage: String, disablePage: Bool) {
         self.warningMessage = warningMessage
-        self.showWarning = showWarning
         self.pageIsDisabled = disablePage
     }
 }

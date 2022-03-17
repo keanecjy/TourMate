@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct AuthPageRegister: View {
-    let authenticationController = AuthenticationController()
+struct RegisterFormView: View {
+    let authenticationController = AuthenticationController.singleton
 
     @State var email = ""
     @State var displayName = ""
@@ -42,10 +42,10 @@ struct AuthPageRegister: View {
 
             InputSecureField(title: "Confirm Password *", textField: $confirmPassword)
 
-            AuthPageSubmitButton(onPress: generateOnPress(register),
-                                 title: "Register",
-                                 maxWidth: containerSize.width / 5.0,
-                                 isDisabled: registerButtonDisabled)
+            AuthenticationSubmitButton(onPress: generateOnPress(register),
+                                       title: "Register",
+                                       maxWidth: containerSize.width / 5.0,
+                                       isDisabled: registerButtonDisabled)
 
         }
         .frame(maxWidth: containerSize.width / 2.0)

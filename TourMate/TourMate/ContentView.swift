@@ -8,29 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var showWarning = false
-    @State var warningMessage: String = ""
-    @State var hasLoggedOut = false
+    @EnvironmentObject var model: MockModel
 
+    // There is a SwiftUI bug with the NavBar.
+    // When you switch between tabs, a space will appear where the nav bar is supposed to be
+    // To remove it, I disabled the NavBar for the SettingsView
     var body: some View {
-        NavigationView {
-            VStack {
-                LogOutView(showWarning: $showWarning,
-                           warningMessage: $warningMessage,
-                           hasLoggedOut: $hasLoggedOut)
-
-                TripsView()
-
-                NavigationLink(isActive: $hasLoggedOut) {
-                    LaunchView()
-                        .navigationBarHidden(true)
-                        .navigationBarBackButtonHidden(true)
-                } label: {
-                    EmptyView()
+        TabView {
+            TripsView()
+                .environmentObject(model)
+                .tabItem {
+                    Label("Trips", systemImage: "paperplane.fill")
                 }
-            }
+
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gearshape.fill")
+                }
+                .navigationTitle("") // swiftUI bug. we need to set the title
+                .navigationBarHidden(true) // before we can hide the navBar
+                .navigationBarBackButtonHidden(true)
         }
-        .navigationViewStyle(.stack)
     }
 }
 
