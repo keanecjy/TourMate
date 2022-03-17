@@ -17,6 +17,11 @@ struct LogOutView: View {
 
     var body: some View {
         VStack(alignment: .center) {
+            AuthenticationSubmitButton(onPress: onGoogleLogoutButtonPressed,
+                                       title: "Log Out Google",
+                                       maxWidth: containerSize.width / 5.0,
+                                       isDisabled: isDisabled)
+
             AuthenticationSubmitButton(onPress: onLogOutButtonPressed,
                                        title: "Log Out",
                                        maxWidth: containerSize.width / 5.0,
@@ -40,6 +45,10 @@ struct LogOutView: View {
         if !hasLoggedOut {
             self.warningMessage = errorMessage
         }
+    }
+
+    private func onGoogleLogoutButtonPressed() {
+        authenticationController.logOutWIthGoogle()
     }
 }
 
