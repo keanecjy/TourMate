@@ -8,9 +8,23 @@
 import Foundation
 import FirebaseAuth
 
-struct AuthenticationController {
-    let authenticationManager: AuthenticationManager = FirebaseAuthenticationManager()
-    let userPersistenceController = UserPersistenceController()
+final class AuthenticationController: ObservableObject {
+
+    static let singleton = AuthenticationController()
+
+    @Published var userIsLoggedIn: Bool
+    private let authenticationManager: AuthenticationManager = FirebaseAuthenticationManager()
+    private let userPersistenceController = UserPersistenceController()
+
+    private init() {
+        self.userIsLoggedIn = false
+    }
+
+    func checkIfUserIsLoggedIn() async {
+        let (user, _) = await userPersistenceController.getUser()
+        let hasUser = user != nil
+        self.userIsLoggedIn = hasUser
+    }
 
     func register(email: String, password: String, displayName: String) async
     -> (hasRegistered: Bool, errorMessage: String) {
@@ -50,11 +64,11 @@ struct AuthenticationController {
         return (hasLoggedOut, errorMessage)
     }
 
-    func validateCredentials(email: String, password: String) -> Bool {
+    private func validateCredentials(email: String, password: String) -> Bool {
         validateField(email) && validateField(password)
     }
 
-    func validateField(_ field: String) -> Bool {
+    private func validateField(_ field: String) -> Bool {
         let isNotEmpty = !field.isEmpty
         let notContainsSpaces = field.rangeOfCharacter(from: .whitespacesAndNewlines) == nil
 
