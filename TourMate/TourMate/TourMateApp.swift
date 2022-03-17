@@ -21,35 +21,18 @@ struct TourMateApp: App {
 
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                VStack {
+            if authenticationController.userIsLoggedIn {
+                ContentView()
+                    .environmentObject(model)
+            } else {
                     LaunchView()
-
-                    if displayProgressBar {
-                        ProgressView()
+                    .onAppear {
+                        Task {
+                            displayProgressBar = true
+                            await authenticationController.checkIfUserIsLoggedIn()
+                            displayProgressBar = false
+                        }
                     }
-
-                    // Because it binds to the controller's state, it will auto-navigate
-                    // when user is logged in (via register/log in)
-                    // it will auto bring the user back here if the user is logged out
-                    NavigationLink(isActive: $authenticationController.userIsLoggedIn) {
-                        ContentView()
-                            .environmentObject(model)
-                            .navigationTitle("") // swiftUI bug. we need to set the title
-                            .navigationBarHidden(true) // before we can hide the navBar
-                            .navigationBarBackButtonHidden(true)
-                    } label: {
-                        EmptyView()
-                    }
-                }
-            }
-            .navigationViewStyle(.stack)
-            .onAppear {
-                Task {
-                    displayProgressBar = true
-                    await authenticationController.checkIfUserIsLoggedIn()
-                    displayProgressBar = false
-                }
             }
         }
     }
