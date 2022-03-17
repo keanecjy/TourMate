@@ -32,6 +32,7 @@ struct TripsView: View {
                     ForEach(model.trips, id: \.id) { trip in
                         NavigationLink {
                             TripView(model.getTrip(withTripId: trip.id))
+                                .environmentObject(model)
                         } label: {
                             TripCardView(title: trip.name,
                                          subtitle: getDateString(tripId: trip.id),
@@ -50,11 +51,8 @@ struct TripsView: View {
                     }
                 }
             }
-            .onAppear {
-
-            }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(.stack)
     }
 }
 
