@@ -94,6 +94,7 @@ final class AuthenticationController: ObservableObject {
         return isNotEmpty && notContainsSpaces
     }
 
+    // TODO: Abstract responsibilities to AuthenticationManager
     func logInWithGoogle() {
         if GIDSignIn.sharedInstance.hasPreviousSignIn() {
             GIDSignIn.sharedInstance.restorePreviousSignIn { [self] user, error in
