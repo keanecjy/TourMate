@@ -8,19 +8,11 @@
 import SwiftUI
 
 struct TripView: View {
-    @EnvironmentObject var model: MockModel
+    @StateObject var plansViewModel: PlansViewModel
 
     @State private var isActive = false
 
-    private var trip: Trip
-
-    init(_ trip: Trip) {
-        self.trip = trip
-    }
-
-    var plans: [Plan] {
-        model.getPlans(forTripId: trip.id)
-    }
+    let trip: Trip
 
     var dateString: String {
         let dateFormatter = DateFormatter()
@@ -50,7 +42,7 @@ struct TripView: View {
                     Color.gray
                 }
 
-                PlansListView(model.getPlans(forTripId: trip.id))
+                PlansListView(plansViewModel.plans)
             }
         }
         .navigationTitle(trip.name)
@@ -62,6 +54,9 @@ struct TripView: View {
                     Image(systemName: "plus")
                 }
             }
+        }
+        .onAppear {
+            plansViewModel.tripId = trip.id
         }
     }
 }

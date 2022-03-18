@@ -81,6 +81,8 @@
 		B99D968427D9DF5E009B66AE /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D968327D9DF5E009B66AE /* Restaurant.swift */; };
 		B99D968627D9DF70009B66AE /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D968527D9DF70009B66AE /* Transport.swift */; };
 		B99D968827D9DF80009B66AE /* Flight.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D968727D9DF80009B66AE /* Flight.swift */; };
+		B9A04FA427E364AB007D4303 /* PlansViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FA327E364AB007D4303 /* PlansViewModel.swift */; };
+		B9A04FA627E42234007D4303 /* PlanPersistenceControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FA527E42234007D4303 /* PlanPersistenceControllerProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +183,8 @@
 		B99D968327D9DF5E009B66AE /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		B99D968527D9DF70009B66AE /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
 		B99D968727D9DF80009B66AE /* Flight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flight.swift; sourceTree = "<group>"; };
+		B9A04FA327E364AB007D4303 /* PlansViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansViewModel.swift; sourceTree = "<group>"; };
+		B9A04FA527E42234007D4303 /* PlanPersistenceControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanPersistenceControllerProtocol.swift; sourceTree = "<group>"; };
 		BB95BCAE2E240926ED846BB1 /* Pods-TourMateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.debug.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate_TourMateUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD5431EEBB0D43FA279D8E8A /* Pods-TourMate-TourMateUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.debug.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -263,6 +267,7 @@
 				0092523D27DA574800F4F029 /* AuthenticationController.swift */,
 				4C4539B527DE456800AB8384 /* TripPersistenceController.swift */,
 				4CCBBD1A27DE651F00F9C250 /* PlanPersistenceController.swift */,
+				B9A04FA527E42234007D4303 /* PlanPersistenceControllerProtocol.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 		B99D964727D73503009B66AE /* TourMate */ = {
 			isa = PBXGroup;
 			children = (
+				B9A04FA227E3645A007D4303 /* Plan */,
 				004981AC27E3237A007BDB2E /* Info.plist */,
 				4C8639A127DF37D3000566FB /* Constants */,
 				4CB954CA27DDC06C001410AD /* PersistenceManager */,
@@ -399,7 +405,6 @@
 				B967C33227DDB7B20023B34D /* TripFormView.swift */,
 				95CB3F6A27D8E79B0086E9E3 /* PlanHeaderView.swift */,
 				95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */,
-				95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */,
 				95CB3F6B27D8E79B0086E9E3 /* PlanView.swift */,
 				B967C33427DDCA4D0023B34D /* AddPlanView.swift */,
 				B967C33727DDCF7A0023B34D /* AccommodationFormView.swift */,
@@ -446,6 +451,15 @@
 				B93B488E27DA7D4000478B7B /* DataModels */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		B9A04FA227E3645A007D4303 /* Plan */ = {
+			isa = PBXGroup;
+			children = (
+				95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */,
+				B9A04FA327E364AB007D4303 /* PlansViewModel.swift */,
+			);
+			path = Plan;
 			sourceTree = "<group>";
 		};
 		C2DB33638D74EE6BDC08DA21 /* Frameworks */ = {
@@ -717,6 +731,7 @@
 			files = (
 				B99D968227D9DF30009B66AE /* Activity.swift in Sources */,
 				00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */,
+				B9A04FA627E42234007D4303 /* PlanPersistenceControllerProtocol.swift in Sources */,
 				4CB954EC27DE3F08001410AD /* FirebaseAdaptedType.swift in Sources */,
 				4CCBBD1F27DE67B400F9C250 /* PlanStatus.swift in Sources */,
 				B99D964B27D73503009B66AE /* ContentView.swift in Sources */,
@@ -736,6 +751,7 @@
 				95CB3F7A27D8E79C0086E9E3 /* TripView.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
 				00F83BDB27DC8D34003A28AA /* AuthenticationView.swift in Sources */,
+				B9A04FA427E364AB007D4303 /* PlansViewModel.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				B99D967A27D9C43B009B66AE /* Model.swift in Sources */,
 				0092523E27DA574800F4F029 /* AuthenticationController.swift in Sources */,
