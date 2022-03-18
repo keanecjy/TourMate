@@ -12,18 +12,18 @@ class TripsViewModel: ObservableObject {
     @Published private(set) var trips: [Trip]
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
-    let tripService: TripPersistenceControllerProtocol
+    let tripController: TripController
 
-    init(tripService: TripPersistenceControllerProtocol = TripPersistenceController()) {
+    init(tripController: TripController = FirebaseTripController()) {
         self.trips = []
         self.isLoading = false
         self.hasError = false
-        self.tripService = tripService
+        self.tripController = tripController
     }
 
     func fetchTrips() async {
         self.isLoading = true
-        let (trips, errorMessage) = await tripService.fetchTrips()
+        let (trips, errorMessage) = await tripController.fetchTrips()
         guard errorMessage == "" else {
             self.isLoading = false
             self.hasError = true

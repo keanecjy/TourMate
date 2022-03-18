@@ -1,5 +1,5 @@
 //
-//  MockTripPersistenceController.swift
+//  MockTripController.swift
 //  TourMate
 //
 //  Created by Rayner Lim on 17/3/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MockTripPersistenceController: TripPersistenceControllerProtocol {
+struct MockTripController: TripController {
 
     var trips: [Trip] = [
         Trip(id: "0", name: "West Coast Summer",

@@ -1,5 +1,5 @@
 //
-//  TripPersistenceControllerProtocol.swift
+//  TripController.swift
 //  TourMate
 //
 //  Created by Rayner Lim on 17/3/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol TripPersistenceControllerProtocol {
+protocol TripController {
     func fetchTrips() async -> ([Trip], String)
 
     mutating func addTrip(trip: Trip) async -> (Bool, String)

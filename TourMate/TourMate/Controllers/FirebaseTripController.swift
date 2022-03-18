@@ -1,5 +1,5 @@
 //
-//  TripPersistenceController.swift
+//  FirebaseTripController.swift
 //  TourMate
 //
 //  Created by Keane Chan on 13/3/22.
@@ -7,7 +7,7 @@
 
 import FirebaseAuth
 
-struct TripPersistenceController: TripPersistenceControllerProtocol {
+struct FirebaseTripController: TripController {
     let firebasePersistenceManager = FirebasePersistenceManager<FirebaseAdaptedTrip>(
         collectionId: FirebaseConfig.tripCollectionId)
 
