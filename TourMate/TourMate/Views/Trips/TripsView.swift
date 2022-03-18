@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TripsView: View {
     @StateObject var viewModel = TripsViewModel()
+    @State private var isShowingAddTripSheet = false
 
     func getDateString(trip: Trip) -> String {
         let dateFormatter = DateFormatter()
@@ -26,9 +27,9 @@ struct TripsView: View {
                     NavigationLink {
                         TripView(trip)
                     } label: {
-                        TripCardView(title: trip.name,
-                                     subtitle: getDateString(trip: trip),
-                                     imageUrl: trip.imageUrl!)
+                        TripCard(title: trip.name,
+                                 subtitle: getDateString(trip: trip),
+                                 imageUrl: trip.imageUrl!)
                     }
                 }
             }
@@ -36,10 +37,17 @@ struct TripsView: View {
         .navigationTitle("Trips")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                NavigationLink {
-                    TripFormView()
+                Button {
+                    isShowingAddTripSheet.toggle()
                 } label: {
                     Image(systemName: "plus")
+                }
+                .sheet(isPresented: $isShowingAddTripSheet) {
+                    Task {
+                        await viewModel.fetchTrips()
+                    }
+                } content: {
+                    AddTripView()
                 }
             }
         }
@@ -51,6 +59,6 @@ struct TripsView: View {
 
 struct TripsView_Previews: PreviewProvider {
     static var previews: some View {
-        TripsView(viewModel: TripsViewModel(tripService: MockTripPersistenceController()))
+        TripsView(viewModel: TripsViewModel(tripController: MockTripController()))
     }
 }

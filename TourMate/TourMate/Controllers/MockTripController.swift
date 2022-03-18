@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct MockTripController: TripController {
-
+class MockTripController: TripController {
     var trips: [Trip] = [
         Trip(id: "0", name: "West Coast Summer",
              startDate: Date(timeIntervalSince1970: 1_651_442_400),
@@ -26,17 +25,17 @@ struct MockTripController: TripController {
         (trips, "")
     }
 
-    mutating func addTrip(trip: Trip) -> (Bool, String) {
+    func addTrip(trip: Trip) -> (Bool, String) {
         trips.append(trip)
         return (true, "")
     }
 
-    mutating func deleteTrip(trip: Trip) -> (Bool, String) {
+    func deleteTrip(trip: Trip) -> (Bool, String) {
         trips = trips.filter({ $0.id != trip.id })
         return (true, "")
     }
 
-    mutating func updateTrip(trip: Trip) -> (Bool, String) {
+    func updateTrip(trip: Trip) -> (Bool, String) {
         guard let index = trips.firstIndex(where: { $0.id == trip.id }) else {
             return(false, "Trip with tripId: \(trip.id) should exist")
         }
