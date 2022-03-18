@@ -18,22 +18,7 @@ struct LaunchView: View {
 
                     Spacer()
 
-                    AuthenticationSubmitButton(onPress: onGoogleLogInButtonPressed,
-                                               title: "Log In Google",
-                                               maxWidth: geometry.size.width / 5.0,
-                                               isDisabled: false)
-
-                    NavigationLink {
-                        AuthenticationView(authType: .logIn)
-                    } label: {
-                        LogInTitleView(maxWidth: geometry.size.width / 5.0)
-                    }
-
-                    NavigationLink {
-                        AuthenticationView(authType: .register)
-                    } label: {
-                        RegisterTitleView()
-                    }
+                    LogInView(containerSize: geometry.size)
 
                     Spacer()
                 }
@@ -44,7 +29,7 @@ struct LaunchView: View {
     }
 
     private func onGoogleLogInButtonPressed() {
-        AuthenticationController.singleton.logInWithGoogle()
+        AuthenticationController.singleton.logIn()
     }
 }
 

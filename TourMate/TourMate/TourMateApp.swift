@@ -13,8 +13,6 @@ struct TourMateApp: App {
     @StateObject private var model = MockModel()
     @StateObject private var authenticationController = AuthenticationController.singleton
 
-    @State private var displayProgressBar = false
-
     init() {
         FirebaseApp.configure()
     }
@@ -25,13 +23,9 @@ struct TourMateApp: App {
                 ContentView()
                     .environmentObject(model)
             } else {
-                    LaunchView()
+                LaunchView()
                     .onAppear {
-                        Task {
-                            displayProgressBar = true
-                            await authenticationController.checkIfUserIsLoggedIn()
-                            displayProgressBar = false
-                        }
+                        authenticationController.checkIfUserIsLoggedIn()
                     }
             }
         }
