@@ -28,6 +28,7 @@ struct FirebaseTripController: TripController {
         }
 
         let trips = adaptedTrips.map({ $0.toItem() })
+            .sorted(by: { $0.startDate > $1.startDate })
         return (trips, errorMessage)
     }
 
