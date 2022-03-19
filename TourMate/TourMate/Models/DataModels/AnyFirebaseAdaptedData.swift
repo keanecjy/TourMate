@@ -26,7 +26,7 @@ struct AnyFirebaseAdaptedData: Codable {
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: AnyFirebaseAdaptedDataKeys.self)
-        try container.encode(type(of: base).type, forKey: .type)
+        try container.encode(base.getType(), forKey: .type)
         try base.encode(to: container.superEncoder(forKey: .base))
     }
 }

@@ -8,12 +8,13 @@
 import Foundation
 
 struct Transport: Plan {
+    let planType: PlanType = .transport
+
     var id: String
     var tripId: String
-    var planType: PlanType
     var name: String = "Transport"
     var startDate: Date
-    var endDate: Date?
+    var endDate: Date
     var timeZone: TimeZone
     var imageUrl: String
     var status: PlanStatus

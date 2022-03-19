@@ -18,8 +18,10 @@
 		00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BC627DC62BF003A28AA /* LogOutView.swift */; };
 		194E6318F1A4F53AD0673038 /* Pods_TourMateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB85743BC6986C526A7FF232 /* Pods_TourMateTests.framework */; };
 		43CA47F6D2378990F041943C /* Pods_TourMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */; };
-		4C4299B727E0E8B6001FD45B /* PlanType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4299B627E0E8B6001FD45B /* PlanType.swift */; };
-		4C4539B627DE456800AB8384 /* FirebaseTripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4539B527DE456800AB8384 /* FirebaseTripController.swift */; };
+		4C3BB2E427E6051C0022C3C1 /* FirebaseTripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E327E6051C0022C3C1 /* FirebaseTripController.swift */; };
+		4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */; };
+		4C6D1B9F27E6239600D34087 /* PlanPersistenceControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6D1B9E27E6239600D34087 /* PlanPersistenceControllerProtocol.swift */; };
+		4C6D1BA127E627A900D34087 /* PlanType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6D1BA027E627A900D34087 /* PlanType.swift */; };
 		4C8639A027DF32FE000566FB /* FirebasePlanType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C86399F27DF32FE000566FB /* FirebasePlanType.swift */; };
 		4C8639A327DF37DA000566FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8639A227DF37DA000566FB /* Constants.swift */; };
 		4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954D127DDE039001410AD /* FirebaseConfig.swift */; };
@@ -111,8 +113,10 @@
 		00F83BC627DC62BF003A28AA /* LogOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutView.swift; sourceTree = "<group>"; };
 		02A86F1890351A432B17B67E /* Pods-TourMateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.release.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.release.xcconfig"; sourceTree = "<group>"; };
 		1DBB3372EFB870D2316CAA4E /* Pods-TourMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate.release.xcconfig"; path = "Target Support Files/Pods-TourMate/Pods-TourMate.release.xcconfig"; sourceTree = "<group>"; };
-		4C4299B627E0E8B6001FD45B /* PlanType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanType.swift; sourceTree = "<group>"; };
-		4C4539B527DE456800AB8384 /* FirebaseTripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTripController.swift; sourceTree = "<group>"; };
+		4C3BB2E327E6051C0022C3C1 /* FirebaseTripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTripController.swift; sourceTree = "<group>"; };
+		4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAdapter.swift; sourceTree = "<group>"; };
+		4C6D1B9E27E6239600D34087 /* PlanPersistenceControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanPersistenceControllerProtocol.swift; sourceTree = "<group>"; };
+		4C6D1BA027E627A900D34087 /* PlanType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanType.swift; sourceTree = "<group>"; };
 		4C86399F27DF32FE000566FB /* FirebasePlanType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlanType.swift; sourceTree = "<group>"; };
 		4C8639A227DF37DA000566FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4CB954D127DDE039001410AD /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
@@ -226,12 +230,13 @@
 		0092523C27DA574800F4F029 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4C3BB2E327E6051C0022C3C1 /* FirebaseTripController.swift */,
 				4CB954E527DE0066001410AD /* UserPersistenceController.swift */,
 				0092523D27DA574800F4F029 /* AuthenticationController.swift */,
 				95FAE40C27E247F800F4AB01 /* TripController.swift */,
-				4C4539B527DE456800AB8384 /* FirebaseTripController.swift */,
 				95FAE40A27E245D200F4AB01 /* MockTripController.swift */,
 				4CCBBD1A27DE651F00F9C250 /* PlanPersistenceController.swift */,
+				4C6D1B9E27E6239600D34087 /* PlanPersistenceControllerProtocol.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -267,6 +272,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		4C3BB2E727E60DCA0022C3C1 /* Adapter */ = {
+			isa = PBXGroup;
+			children = (
+				4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */,
+			);
+			path = Adapter;
+			sourceTree = "<group>";
+		};
 		4C8639A127DF37D3000566FB /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,7 +303,7 @@
 				B99D968727D9DF80009B66AE /* Flight.swift */,
 				4CCBBD1E27DE67B400F9C250 /* PlanStatus.swift */,
 				4CCBBD2227DE687A00F9C250 /* Comment.swift */,
-				4C4299B627E0E8B6001FD45B /* PlanType.swift */,
+				4C6D1BA027E627A900D34087 /* PlanType.swift */,
 			);
 			path = DomainModels;
 			sourceTree = "<group>";
@@ -452,6 +465,7 @@
 		B99D967827D9C3B2009B66AE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4C3BB2E727E60DCA0022C3C1 /* Adapter */,
 				4C8639A627DF3F13000566FB /* DomainModels */,
 				B93B488E27DA7D4000478B7B /* DataModels */,
 			);
@@ -728,6 +742,7 @@
 				953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */,
 				B99D968227D9DF30009B66AE /* Activity.swift in Sources */,
 				95EB6A8C27E45B53008C1103 /* AddTripViewModel.swift in Sources */,
+				4C3BB2E427E6051C0022C3C1 /* FirebaseTripController.swift in Sources */,
 				00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */,
 				4CB954EC27DE3F08001410AD /* FirebaseAdaptedType.swift in Sources */,
 				4CCBBD1F27DE67B400F9C250 /* PlanStatus.swift in Sources */,
@@ -739,14 +754,14 @@
 				95CB3F7227D8E79C0086E9E3 /* MockModel.swift in Sources */,
 				95EB6A9227E4B3F4008C1103 /* EditTripViewModel.swift in Sources */,
 				953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */,
+				4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */,
 				B967C33A27DDD71C0023B34D /* ActivityFormView.swift in Sources */,
 				95FAE40B27E245D200F4AB01 /* MockTripController.swift in Sources */,
 				95EB6A9027E4B3E3008C1103 /* EditTripView.swift in Sources */,
 				95FAE40927E2447400F4AB01 /* TripsViewModel.swift in Sources */,
 				4CB954EA27DE3EBC001410AD /* AnyFirebaseAdaptedData.swift in Sources */,
-				4C4539B627DE456800AB8384 /* FirebaseTripController.swift in Sources */,
 				4CB954EA27DE3EBC001410AD /* AnyFirebaseAdaptedData.swift in Sources */,
-				4C4539B627DE456800AB8384 /* FirebaseTripController.swift in Sources */,
+				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
@@ -760,11 +775,12 @@
 				B99D968427D9DF5E009B66AE /* Restaurant.swift in Sources */,
 				953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */,
 				B967C33E27DDE9BD0023B34D /* TransportFormView.swift in Sources */,
+				4C6D1B9F27E6239600D34087 /* PlanPersistenceControllerProtocol.swift in Sources */,
+				4C6D1BA127E627A900D34087 /* PlanType.swift in Sources */,
 				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
 				B967C33527DDCA4E0023B34D /* AddPlanView.swift in Sources */,
 				0092523827DA573500F4F029 /* LaunchView.swift in Sources */,
 				B967C33C27DDE3C20023B34D /* RestaurantFormView.swift in Sources */,
-				4C4299B727E0E8B6001FD45B /* PlanType.swift in Sources */,
 				00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */,
 				4CB954E027DDFFC7001410AD /* User.swift in Sources */,
 				4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */,

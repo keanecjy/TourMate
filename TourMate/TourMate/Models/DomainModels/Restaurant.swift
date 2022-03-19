@@ -8,12 +8,13 @@
 import Foundation
 
 struct Restaurant: Plan {
+    let planType: PlanType = .restaurant
+
     var id: String
     var tripId: String
-    var planType: PlanType
     var name: String
     var startDate: Date
-    var endDate: Date?
+    var endDate: Date
     var timeZone: TimeZone
     var imageUrl: String
     var status: PlanStatus

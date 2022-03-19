@@ -8,20 +8,21 @@
 import Foundation
 
 struct Flight: Plan {
+    let planType: PlanType = .flight
+
     var id: String
     var tripId: String
-    var planType: PlanType
     var name: String = "Flight"
     var startDate: Date
-    var endDate: Date?
+    var endDate: Date
     var timeZone: TimeZone
     var imageUrl: String
     var status: PlanStatus
     var creationDate: Date
     var modificationDate: Date
 
-    var airline: String
-    var flightNumber: Int
+    var airline: String?
+    var flightNumber: Int?
     var seats: String?
     var departureLocation: String?
     var departureTerminal: String?
