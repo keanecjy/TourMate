@@ -13,11 +13,7 @@ struct TripView: View {
     @State private var isActive = false
     @State private var isShowingEditTripSheet = false
 
-    private var trip: Trip
-
-    init(trip: Trip) {
-        self.trip = trip
-    }
+    var trip: Trip
 
     var dateString: String {
         let dateFormatter = DateFormatter()
@@ -48,7 +44,7 @@ struct TripView: View {
                     }
                 }
 
-                PlansListView(plansViewModel.plans)
+                PlansListView(plansViewModel: plansViewModel)
             }
         }
         .navigationTitle(trip.name)
@@ -70,11 +66,9 @@ struct TripView: View {
                 }
             }
         }
-        .onAppear {
-            plansViewModel.tripId = trip.id
-        }
         .task {
             await plansViewModel.fetchPlans()
+            print("[TripView] Fetched: \(plansViewModel.plans)")
         }
     }
 }

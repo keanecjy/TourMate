@@ -33,7 +33,7 @@ struct ActivityFormView: View {
                                 name: eventName,
                                 startDate: startDate,
                                 endDate: endDate,
-                                timeZone: timeZone,
+                                startTimeZone: timeZone,
                                 status: status,
                                 creationDate: creationDate,
                                 modificationDate: creationDate,

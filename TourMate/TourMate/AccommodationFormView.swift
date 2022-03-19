@@ -32,7 +32,7 @@ struct AccommodationFormView: View {
                                           name: accommodationName,
                                           startDate: checkInDate,
                                           endDate: checkOutDate,
-                                          timeZone: timeZone,
+                                          startTimeZone: timeZone,
                                           status: status,
                                           creationDate: creationDate,
                                           modificationDate: creationDate,

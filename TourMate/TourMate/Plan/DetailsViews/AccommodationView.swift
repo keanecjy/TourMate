@@ -8,69 +8,90 @@
 import SwiftUI
 
 struct AccommodationView: View {
-    let accommodation: Accommodation
+    @StateObject var accommodationViewModel: PlanViewModel<Accommodation>
+    @State private var isShowingEditPlanSheet = false
 
     func getDateString(_ date: Date) -> String {
+        guard let accommodation = accommodationViewModel.plan else {
+            return ""
+        }
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = accommodation.timeZone
+        dateFormatter.timeZone = accommodation.startTimeZone
         return dateFormatter.string(from: date)
     }
 
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
-                // Start time
+            if let accommodation = accommodationViewModel.plan {
                 VStack(alignment: .leading) {
-                    Text("From")
-                        .font(.caption)
-                    Text(getDateString(accommodation.startDate))
-                        .font(.headline)
-
-                    if let endDate = accommodation.endDate {
-                        Text("To")
-                            .font(.caption)
-                        Text(getDateString(endDate))
-                            .font(.headline)
-                    }
-                }
-                .padding()
-
-                // Adress
-                if let address = accommodation.address {
+                    // Start time
                     VStack(alignment: .leading) {
-                        Text("Address")
+                        Text("From")
                             .font(.caption)
-                        Text(address)
-                    }
-                    .padding()
-                }
+                        Text(getDateString(accommodation.startDate))
+                            .font(.headline)
 
-                // Phone number
-                if let phone = accommodation.phone {
-                    HStack {
-                        Image(systemName: "phone.fill")
-                        Text(phone)
+                        if let endDate = accommodation.endDate {
+                            Text("To")
+                                .font(.caption)
+                            Text(getDateString(endDate))
+                                .font(.headline)
+                        }
                     }
                     .padding()
-                }
 
-                // Website
-                if let website = accommodation.website {
-                    HStack {
-                        Image(systemName: "globe.americas.fill")
-                        Text(website)
+                    // Address
+                    if let address = accommodation.address {
+                        VStack(alignment: .leading) {
+                            Text("Address")
+                                .font(.caption)
+                            Text(address)
+                        }
+                        .padding()
                     }
-                    .padding()
+
+                    // Phone number
+                    if let phone = accommodation.phone {
+                        HStack {
+                            Image(systemName: "phone.fill")
+                            Text(phone)
+                        }
+                        .padding()
+                    }
+
+                    // Website
+                    if let website = accommodation.website {
+                        HStack {
+                            Image(systemName: "globe.americas.fill")
+                            Text(website)
+                        }
+                        .padding()
+                    }
+
+                    Spacer()
                 }
 
                 Spacer()
             }
-
-            Spacer()
         }
-        .navigationBarTitle(accommodation.name)
+        .navigationBarTitle(accommodationViewModel.plan?.name ?? "Accommodation")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    isShowingEditPlanSheet.toggle()
+                } label: {
+                    Image(systemName: "pencil")
+                }
+                .sheet(isPresented: $isShowingEditPlanSheet) {
+                    Text("Present Restaurant Edit View")
+                }
+            }
+        }
+        .task {
+            await accommodationViewModel.fetchPlan()
+        }
     }
 }
 

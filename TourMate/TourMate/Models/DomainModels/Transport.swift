@@ -8,13 +8,15 @@
 import Foundation
 
 struct Transport: Plan {
+
     var id: String
     var tripId: String
     var planType: PlanType
     var name: String = "Transportation"
     var startDate: Date
     var endDate: Date?
-    var timeZone: TimeZone
+    var startTimeZone: TimeZone
+    var endTimeZone: TimeZone?
     var imageUrl: String?
     var status: PlanStatus
     var creationDate: Date

@@ -40,7 +40,6 @@
 		953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E827E5BFC7000DF0C2 /* TripCard.swift */; };
 		953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570EA27E5BFD1000DF0C2 /* AddTripView.swift */; };
 		953570ED27E5BFDE000DF0C2 /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570EC27E5BFDE000DF0C2 /* TripView.swift */; };
-		95CB3F7227D8E79C0086E9E3 /* MockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6827D8E79A0086E9E3 /* MockModel.swift */; };
 		95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6A27D8E79B0086E9E3 /* PlanHeaderView.swift */; };
 		95CB3F7527D8E79C0086E9E3 /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6B27D8E79B0086E9E3 /* PlanView.swift */; };
 		95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */; };
@@ -88,6 +87,7 @@
 		B9A04FB527E591A0007D4303 /* FlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FB427E5919F007D4303 /* FlightView.swift */; };
 		B9A04FB727E591BE007D4303 /* RestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FB627E591BD007D4303 /* RestaurantView.swift */; };
 		B9A04FB927E591F2007D4303 /* TransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FB827E591F2007D4303 /* TransportView.swift */; };
+		B9A1037C27E61E9200829BF4 /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,7 +144,6 @@
 		953570E827E5BFC7000DF0C2 /* TripCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripCard.swift; sourceTree = "<group>"; };
 		953570EA27E5BFD1000DF0C2 /* AddTripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTripView.swift; sourceTree = "<group>"; };
 		953570EC27E5BFDE000DF0C2 /* TripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
-		95CB3F6827D8E79A0086E9E3 /* MockModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockModel.swift; sourceTree = "<group>"; };
 		95CB3F6A27D8E79B0086E9E3 /* PlanHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanHeaderView.swift; sourceTree = "<group>"; };
 		95CB3F6B27D8E79B0086E9E3 /* PlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
 		95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardView.swift; sourceTree = "<group>"; };
@@ -195,6 +194,7 @@
 		B9A04FB427E5919F007D4303 /* FlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightView.swift; sourceTree = "<group>"; };
 		B9A04FB627E591BD007D4303 /* RestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantView.swift; sourceTree = "<group>"; };
 		B9A04FB827E591F2007D4303 /* TransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportView.swift; sourceTree = "<group>"; };
+		B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModel.swift; sourceTree = "<group>"; };
 		BB95BCAE2E240926ED846BB1 /* Pods-TourMateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.debug.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate_TourMateUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD5431EEBB0D43FA279D8E8A /* Pods-TourMate-TourMateUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.debug.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -300,7 +300,6 @@
 			children = (
 				4CB954DF27DDFFC7001410AD /* User.swift */,
 				B99D967927D9C43B009B66AE /* Model.swift */,
-				95CB3F6827D8E79A0086E9E3 /* MockModel.swift */,
 				4CCBBD1827DE626800F9C250 /* Trip.swift */,
 				B99D967D27D9D82C009B66AE /* Plan.swift */,
 				B99D967F27D9DF0B009B66AE /* Accommodation.swift */,
@@ -485,6 +484,7 @@
 				B9A04FA327E364AB007D4303 /* PlansViewModel.swift */,
 				B9A04FA927E4F584007D4303 /* AddPlanViewModel.swift */,
 				B9A04FB127E590AD007D4303 /* DetailsViews */,
+				B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -781,7 +781,6 @@
 				4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */,
 				4CB954E627DE0066001410AD /* UserPersistenceController.swift in Sources */,
 				4CCBBD1927DE626800F9C250 /* Trip.swift in Sources */,
-				95CB3F7227D8E79C0086E9E3 /* MockModel.swift in Sources */,
 				95EB6A9227E4B3F4008C1103 /* EditTripViewModel.swift in Sources */,
 				953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */,
 				B967C33A27DDD71C0023B34D /* ActivityFormView.swift in Sources */,
@@ -792,10 +791,9 @@
 				4C4539B627DE456800AB8384 /* FirebaseTripController.swift in Sources */,
 				4CB954EA27DE3EBC001410AD /* AnyFirebaseAdaptedData.swift in Sources */,
 				B9A04FB727E591BE007D4303 /* RestaurantView.swift in Sources */,
-				4C4539B627DE456800AB8384 /* TripPersistenceController.swift in Sources */,
+				4C4539B627DE456800AB8384 /* FirebaseTripController.swift in Sources */,
 				B9A04FAC27E5567F007D4303 /* MockPlanController.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
-				95CB3F7A27D8E79C0086E9E3 /* TripView.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
 				B9A04FA427E364AB007D4303 /* PlansViewModel.swift in Sources */,
 				4C4539B627DE456800AB8384 /* FirebaseTripController.swift in Sources */,
@@ -838,6 +836,7 @@
 				B967C34027DDEC7A0023B34D /* FlightFormView.swift in Sources */,
 				0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */,
 				B93B489C27DAEDD800478B7B /* FirebaseAdaptedRestaurant.swift in Sources */,
+				B9A1037C27E61E9200829BF4 /* PlanViewModel.swift in Sources */,
 				4CCBBD1B27DE651F00F9C250 /* PlanPersistenceController.swift in Sources */,
 				4C8639A327DF37DA000566FB /* Constants.swift in Sources */,
 				00F83BB827DC46E4003A28AA /* AuthenticationButton.swift in Sources */,

@@ -38,7 +38,7 @@ struct TransportFormView: View {
                                   name: carrierName,
                                   startDate: departureDate,
                                   endDate: arrivalDate,
-                                  timeZone: timeZone,
+                                  startTimeZone: timeZone,
                                   status: status,
                                   creationDate: creationDate,
                                   modificationDate: creationDate,

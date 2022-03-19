@@ -30,7 +30,7 @@ struct RestaurantFormView: View {
                                     planType: .restaurant,
                                     name: restaurantName,
                                     startDate: date,
-                                    timeZone: timeZone,
+                                    startTimeZone: timeZone,
                                     status: status,
                                     creationDate: creationDate,
                                     modificationDate: creationDate,

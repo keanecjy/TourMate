@@ -10,6 +10,8 @@ import Foundation
 protocol PlanPersistenceControllerProtocol {
     func fetchPlans(withTripId tripId: String) async -> ([Plan], String)
 
+    func fetchPlan(withPlanId planId: String) async -> (Plan?, String)
+
     func addPlan(plan: Plan) async -> (Bool, String)
 
     func deletePlan(plan: Plan) async -> (Bool, String)

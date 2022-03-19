@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var model: MockModel
 
     var body: some View {
         TabView {
             TripsView()
-                .environmentObject(model)
                 .tabItem {
                     Label("Trips", systemImage: "paperplane.fill")
                 }
@@ -28,6 +26,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(MockModel())
+        ContentView()
     }
 }

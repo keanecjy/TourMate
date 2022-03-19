@@ -8,20 +8,15 @@
 import SwiftUI
 
 struct PlansListView: View {
-
-    private var plans: [Plan]
-
-    init(_ plans: [Plan]) {
-        self.plans = plans
-    }
+    @ObservedObject var plansViewModel: PlansViewModel
 
     typealias Day = (date: Date, plans: [Plan])
     var days: [Day] {
-        let sortedPlans = plans.sorted { plan1, plan2 in
+        let sortedPlans = plansViewModel.plans.sorted { plan1, plan2 in
             plan1.startDate < plan2.startDate
         }
         let plansByDay: [Date: [Plan]] = sortedPlans.reduce(into: [:]) { acc, cur in
-            let components = Calendar.current.dateComponents(in: cur.timeZone, from: cur.startDate)
+            let components = Calendar.current.dateComponents(in: cur.startTimeZone, from: cur.startDate)
             let dateComponents = DateComponents(year: components.year,
                                                 month: components.month,
                                                 day: components.day)
@@ -37,30 +32,20 @@ struct PlansListView: View {
     func createPlanView(_ plan: Plan) -> some View {
         switch plan.planType {
         case .accommodation:
-            guard let accommodation = plan as? Accommodation else {
-                preconditionFailure()
-            }
-            return AnyView(AccommodationView(accommodation: accommodation))
+            let accommodationViewModel = PlanViewModel<Accommodation>(planId: plan.id)
+            return AnyView(AccommodationView(accommodationViewModel: accommodationViewModel))
         case .activity:
-            guard let activity = plan as? Activity else {
-                preconditionFailure()
-            }
-            return AnyView(ActivityView(activity: activity))
+            let activityViewModel = PlanViewModel<Activity>(planId: plan.id)
+            return AnyView(ActivityView(activityViewModel: activityViewModel))
         case .restaurant:
-            guard let restaurant = plan as? Restaurant else {
-                preconditionFailure()
-            }
-            return AnyView(RestaurantView(restaurant: restaurant))
+            let restaurantViewModel = PlanViewModel<Restaurant>(planId: plan.id)
+            return AnyView(RestaurantView(restaurantViewModel: restaurantViewModel))
         case .transport:
-            guard let transport = plan as? Transport else {
-                preconditionFailure()
-            }
-            return AnyView(TransportView(transport: transport))
+            let transportViewModel = PlanViewModel<Transport>(planId: plan.id)
+            return AnyView(TransportView(transportViewModel: transportViewModel))
         case .flight:
-            guard let flight = plan as? Flight else {
-                preconditionFailure()
-            }
-            return AnyView(FlightView(flight: flight))
+            let flightViewModel = PlanViewModel<Flight>(planId: plan.id)
+            return AnyView(FlightView(flightViewModel: flightViewModel))
         }
     }
 
@@ -78,7 +63,7 @@ struct PlansListView: View {
                             PlanCardView(title: plan.name,
                                          startDate: plan.startDate,
                                          endDate: plan.endDate,
-                                         timeZone: plan.timeZone)
+                                         timeZone: plan.startTimeZone)
                         }
                         .buttonStyle(PlainButtonStyle())
                     }

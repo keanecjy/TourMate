@@ -8,80 +8,90 @@
 import SwiftUI
 
 struct TransportView: View {
-    let transport: Transport
+    @StateObject var transportViewModel: PlanViewModel<Transport>
+    @State private var isShowingEditPlanSheet = false
 
     func getDateString(_ date: Date) -> String {
+        guard let transport = transportViewModel.plan else {
+            return ""
+        }
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = transport.timeZone
+        dateFormatter.timeZone = transport.startTimeZone
         return dateFormatter.string(from: date)
     }
 
     var departureInfo: some View {
         VStack(alignment: .leading) {
-            Text("DEPARTURE INFO")
-                .font(.title)
-            Text("Departure Time")
-                .font(.caption)
-            Text(getDateString(transport.startDate))
-                .font(.headline)
-
-            if let location = transport.departureLocation {
-                Text("Location")
+            if let transport = transportViewModel.plan {
+                Text("DEPARTURE INFO")
+                    .font(.title)
+                Text("Departure Time")
                     .font(.caption)
-                Text(location)
-            }
+                Text(getDateString(transport.startDate))
+                    .font(.headline)
 
-            if let address = transport.departureAddress {
-                Text("Address")
-                    .font(.caption)
-                Text(address)
+                if let location = transport.departureLocation {
+                    Text("Location")
+                        .font(.caption)
+                    Text(location)
+                }
+
+                if let address = transport.departureAddress {
+                    Text("Address")
+                        .font(.caption)
+                    Text(address)
+                }
             }
         }
     }
 
     var arrivalInfo: some View {
         VStack(alignment: .leading) {
-            Text("ARRIVAL INFO")
-                .font(.title)
+            if let transport = transportViewModel.plan {
+                Text("ARRIVAL INFO")
+                    .font(.title)
 
-            if let endDate = transport.endDate {
-                Text("Arrival Time")
-                    .font(.caption)
-                Text(getDateString(endDate))
-                    .font(.headline)
-            }
+                if let endDate = transport.endDate {
+                    Text("Arrival Time")
+                        .font(.caption)
+                    Text(getDateString(endDate))
+                        .font(.headline)
+                }
 
-            if let location = transport.arrivalLocation {
-                Text("Location")
-                    .font(.caption)
-                Text(location)
-            }
+                if let location = transport.arrivalLocation {
+                    Text("Location")
+                        .font(.caption)
+                    Text(location)
+                }
 
-            if let address = transport.arrivalAddress {
-                Text("Address")
-                    .font(.caption)
-                Text(address)
+                if let address = transport.arrivalAddress {
+                    Text("Address")
+                        .font(.caption)
+                    Text(address)
+                }
             }
         }
     }
 
     var transportationDetails: some View {
         VStack(alignment: .leading) {
-            Text("TRANSPORTATION DETAILS")
-                .font(.title)
+            if let transport = transportViewModel.plan {
+                Text("TRANSPORTATION DETAILS")
+                    .font(.title)
 
-            if let vehicleDescription = transport.vehicleDescription {
-                Text("Description")
-                    .font(.caption)
-                Text(vehicleDescription)
-            }
+                if let vehicleDescription = transport.vehicleDescription {
+                    Text("Description")
+                        .font(.caption)
+                    Text(vehicleDescription)
+                }
 
-            if let numberOfPassengers = transport.numberOfPassengers {
-                Text("Number of Passengers")
-                    .font(.caption)
-                Text(numberOfPassengers)
+                if let numberOfPassengers = transport.numberOfPassengers {
+                    Text("Number of Passengers")
+                        .font(.caption)
+                    Text(numberOfPassengers)
+                }
             }
         }
     }
@@ -97,7 +107,22 @@ struct TransportView: View {
             Spacer()
         }
         .padding()
-        .navigationBarTitle(transport.name)
+        .navigationBarTitle(transportViewModel.plan?.name ?? "Transport")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    isShowingEditPlanSheet.toggle()
+                } label: {
+                    Image(systemName: "pencil")
+                }
+                .sheet(isPresented: $isShowingEditPlanSheet) {
+                    Text("Present Transport Edit View")
+                }
+            }
+        }
+        .task {
+            await transportViewModel.fetchPlan()
+        }
     }
 }
 
