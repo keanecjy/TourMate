@@ -6,23 +6,45 @@
 //
 class PlanAdapter {
     static func toAdaptedPlan(plan: Plan) -> FirebaseAdaptedPlan {
-        plan.toData()
+        guard let planType = FirebaseAdaptedType(rawValue: plan.planType.rawValue) else {
+            preconditionFailure()
+        }
+
+        // Will always match correctly since type is a constant value
+        switch planType {
+        case .accommodation:
+            return (plan as! Accommodation).toData()
+        case .activity:
+            return (plan as! Activity).toData()
+        case .restaurant:
+            return (plan as! Restaurant).toData()
+        case .transport:
+            return (plan as! Transport).toData()
+        case .flight:
+            return (plan as! Flight).toData()
+        default:
+            preconditionFailure()
+        }
     }
 
     static func toPlan(adaptedPlan: FirebaseAdaptedPlan) -> Plan {
-        adaptedPlan.toItem()
-    }
-}
+        guard let planType = PlanType(rawValue: adaptedPlan.getType().rawValue) else {
+            preconditionFailure()
+        }
 
-extension Plan {
-    fileprivate func toData() -> FirebaseAdaptedPlan {
-        fatalError("Should not be called since this is a protocol")
-    }
-}
-
-extension FirebaseAdaptedPlan {
-    fileprivate func toItem() -> Plan {
-        fatalError("Should not be called since this is a protocol")
+        // Will always match correctly since type is a constant value
+        switch planType {
+        case .accommodation:
+            return (adaptedPlan as! FirebaseAdaptedAccommodation).toItem()
+        case .activity:
+            return (adaptedPlan as! FirebaseAdaptedActivity).toItem()
+        case .restaurant:
+            return (adaptedPlan as! FirebaseAdaptedRestaurant).toItem()
+        case .transport:
+            return (adaptedPlan as! FirebaseAdaptedTransport).toItem()
+        case .flight:
+            return (adaptedPlan as! FirebaseAdaptedFlight).toItem()
+        }
     }
 }
 
@@ -74,7 +96,7 @@ extension Flight {
                               startDate: startDate, endDate: endDate,
                               timeZone: timeZone, imageUrl: imageUrl, status: status.rawValue,
                               creationDate: creationDate, modificationDate: modificationDate,
-                              airline: airline, flightNumber: flightNumber ?? 0, seats: seats,
+                              airline: airline, flightNumber: flightNumber, seats: seats,
                               departureLocation: departureLocation, departureTerminal: departureTerminal,
                               departureGate: departureGate,
                               arrivalLocation: arrivalLocation, arrivalTerminal: arrivalTerminal,
@@ -103,7 +125,7 @@ extension FirebaseAdaptedActivity {
 }
 
 extension FirebaseAdaptedRestaurant {
-    fileprivate func toRestaurant() -> Restaurant {
+    fileprivate func toItem() -> Restaurant {
         Restaurant(id: id, tripId: tripId, name: name,
                    startDate: startDate, endDate: endDate,
                    timeZone: timeZone, imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
