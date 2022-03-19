@@ -7,14 +7,25 @@
 
 import FirebaseAuth
 
-struct PlanPersistenceController {
+struct PlanPersistenceController: PlanPersistenceControllerProtocol {
+    
     let firebasePersistenceManager = FirebasePersistenceManager(collectionId: FirebaseConfig.planCollectionId)
 
     func addPlan(plan: Plan) async -> (Bool, String) {
         await firebasePersistenceManager.addItem(id: plan.id, item: PlanAdapter.toAdaptedPlan(plan: plan))
     }
+    
+    func fetchPlan(withPlanId planId: String) async -> (Plan, String) {
+        let (adaptedPlan, errorMessage) = await firebasePersistenceManager.fetchItem(id: planId)
+        guard let adaptedPlan = adaptedPlan as? FirebaseAdaptedPlan else {
+            preconditionFailure()
+        }
+        
+        let plan = PlanAdapter.toPlan(adaptedPlan: adaptedPlan)
+        return (plan, errorMessage)
+    }
 
-    func fetchPlans(tripId: String) async -> ([Plan], String) {
+    func fetchPlans(withTripId tripId: String) async -> ([Plan], String) {
         let (adaptedPlans, errorMessage) = await firebasePersistenceManager
             .fetchItems(field: "tripId", isEqualTo: tripId)
 
