@@ -1,13 +1,13 @@
 //
-//  LogOutView.swift
+//  LogInView.swift
 //  TourMate
 //
-//  Created by Terence Ho on 12/3/22.
+//  Created by Terence Ho on 18/3/22.
 //
 
 import SwiftUI
 
-struct LogOutView: View {
+struct LogInView: View {
     let authenticationController = AuthenticationController.singleton
     let containerSize: CGSize
 
@@ -15,20 +15,20 @@ struct LogOutView: View {
 
     var body: some View {
         VStack(alignment: .center) {
-            AuthenticationButton(onPress: onGoogleLogoutButtonPressed,
-                                 title: "Log Out Google",
+            AuthenticationButton(onPress: onGoogleLogInButtonPressed,
+                                 title: "Log In Google",
                                  maxWidth: containerSize.width / 5.0,
                                  isDisabled: isDisabled)
         }
     }
 
-    private func onGoogleLogoutButtonPressed() {
-        authenticationController.logOut()
+    private func onGoogleLogInButtonPressed() {
+        authenticationController.logIn()
     }
 }
 
-// struct LogOutView_Previews: PreviewProvider {
+// struct LogInView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        LogOutView()
+//        LogInView()
 //    }
 // }

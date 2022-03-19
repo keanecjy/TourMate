@@ -21,39 +21,42 @@ struct TripsView: View {
     }
 
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(viewModel.trips, id: \.id) { trip in
-                    NavigationLink {
-                        TripView(trip)
+        NavigationView {
+            ScrollView {
+                LazyVStack {
+                    ForEach(viewModel.trips, id: \.id) { trip in
+                        NavigationLink {
+                            TripView(trip: trip)
+                        } label: {
+                            TripCard(title: trip.name,
+                                     subtitle: getDateString(trip: trip),
+                                     imageUrl: trip.imageUrl ?? "")
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Trips")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        isShowingAddTripSheet.toggle()
                     } label: {
-                        TripCard(title: trip.name,
-                                 subtitle: getDateString(trip: trip),
-                                 imageUrl: trip.imageUrl!)
+                        Image(systemName: "plus")
+                    }
+                    .sheet(isPresented: $isShowingAddTripSheet) {
+                        Task {
+                            await viewModel.fetchTrips()
+                        }
+                    } content: {
+                        AddTripView()
                     }
                 }
             }
-        }
-        .navigationTitle("Trips")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    isShowingAddTripSheet.toggle()
-                } label: {
-                    Image(systemName: "plus")
-                }
-                .sheet(isPresented: $isShowingAddTripSheet) {
-                    Task {
-                        await viewModel.fetchTrips()
-                    }
-                } content: {
-                    AddTripView()
-                }
+            .task {
+                await viewModel.fetchTrips()
             }
         }
-        .task {
-            await viewModel.fetchTrips()
-        }
+        .navigationViewStyle(.stack)
     }
 }
 

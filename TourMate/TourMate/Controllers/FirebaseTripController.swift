@@ -28,7 +28,6 @@ struct FirebaseTripController: TripController {
         }
 
         let trips = adaptedTrips.map({ $0.toItem() })
-        print(trips)
         return (trips, errorMessage)
     }
 

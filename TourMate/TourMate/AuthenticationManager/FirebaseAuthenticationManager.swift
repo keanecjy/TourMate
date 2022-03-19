@@ -6,96 +6,73 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseAuth
+import GoogleSignIn
 
 // https://peterfriese.dev/posts/firebase-async-calls-swift/
 struct FirebaseAuthenticationManager: AuthenticationManager {
 
-    @MainActor
-    func registerUser(email: String, password: String) async -> (hasRegistered: Bool, errorMessage: String) {
-        guard isValidEmail(email) else {
-            return (false, "Invalid Email")
-        }
-
-        var hasRegistered = false
-        var errorMessage = ""
-
-        do {
-            try await Auth.auth().createUser(withEmail: email, password: password)
-            hasRegistered = true
-        } catch {
-            let errorCode = AuthErrorCode(rawValue: error._code)
-            switch errorCode {
-            case .invalidEmail:
-                errorMessage = "Invalid Email or Password"
-            case .emailAlreadyInUse:
-                errorMessage = "Email is already in use"
-            case .weakPassword:
-                errorMessage = "Password is too weak. Please use a stronger password"
-            default:
-                errorMessage = "Unable to register, please try again later"
-            }
-            print(error)
-        }
-
-        return (hasRegistered, errorMessage)
+    func checkIfUserIsLoggedIn() -> Bool {
+        Auth.auth().currentUser != nil
     }
 
-    @discardableResult
-    @MainActor
-    func logInUser(email: String, password: String) async -> (hasLoggedIn: Bool, errorMessage: String) {
-        guard isValidEmail(email) else {
-            return (false, "Invalid Email")
-        }
-
-        var hasLoggedIn = false
-        var errorMessage = ""
-
-        do {
-            try await Auth.auth().signIn(withEmail: email, password: password)
-            hasLoggedIn = true
-        } catch {
-            let errorCode = AuthErrorCode(rawValue: error._code)
-            switch errorCode {
-            case .userNotFound, .invalidEmail, .wrongPassword:
-                errorMessage = "Invalid Email or Password"
-            case .userDisabled:
-                errorMessage = "User Account is disabled"
-            default:
-                errorMessage = "Unable to log in, please try again later"
+    func logIn() {
+        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
+            GIDSignIn.sharedInstance.restorePreviousSignIn { [self] user, error in
+                authenticateUserWithFirebase(for: user, with: error)
             }
-            print(error)
-        }
+        } else {
+            guard let clientID = FirebaseApp.app()?.options.clientID else {
+                print("[FirebaseAuthenticationManager] Unable to get ClientID")
+                return
+            }
 
-        return (hasLoggedIn, errorMessage)
+            let configuration = GIDConfiguration(clientID: clientID)
+
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+                print("[FirebaseAuthenticationManager] Unable to get window scene")
+                return
+            }
+
+            guard let rootViewController = windowScene.windows.first?.rootViewController else {
+                print("[FirebaseAuthenticationManager] Unable to get window scene")
+                return
+            }
+
+            GIDSignIn.sharedInstance.signIn(with: configuration, presenting: rootViewController) { [self] user, error in
+                authenticateUserWithFirebase(for: user, with: error)
+            }
+        }
     }
 
-    @MainActor
-    func logOutUser() async -> (hasLoggedOut: Bool, errorMessage: String) {
-        var hasLoggedOut = false
-        var errorMessage = ""
+    func logOut() {
+        GIDSignIn.sharedInstance.signOut()
 
         do {
             try Auth.auth().signOut()
-            hasLoggedOut = true
         } catch {
-            errorMessage = "Unable to log out, please try again later"
-            print(error)
+            print("[FirebaseAuthenticationManager] Firebase log out failed: \(error.localizedDescription)")
         }
-
-        return (hasLoggedOut, errorMessage)
     }
 
-    // https://stackoverflow.com/questions/25471114/how-to-validate-an-e-mail-address-in-swift
-    func isValidEmail(_ email: String) -> Bool {
-        do {
-            // swiftlint:disable:next line_length
-            let pattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
-            let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
-            let match = regex.firstMatch(in: email.self, options: [], range: NSRange(location: 0, length: email.count))
-            return match != nil
-        } catch {
-            return false
+    private func authenticateUserWithFirebase(for user: GIDGoogleUser?, with googleAuthError: Error?) {
+        if let error = googleAuthError {
+            print("[FirebaseAuthenticationManager] Google authentication failed: \(error.localizedDescription)")
+            return
+        }
+
+        guard let authentication = user?.authentication, let idToken = authentication.idToken else {
+            print("[FirebaseAuthenticationManager] Unable to locate user authentication credentials")
+            return
+        }
+
+        let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
+
+        Auth.auth().signIn(with: credential) { _, error in
+            if let error = error {
+                print("[FirebaseAuthenticationManager] Firebase authentication failed: \(error.localizedDescription)")
+            }
         }
     }
 }
