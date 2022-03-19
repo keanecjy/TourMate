@@ -13,12 +13,12 @@ struct FirebaseAdaptedRestaurant: FirebaseAdaptedPlan {
     // Plan Fields
     let id: String
     let tripId: String
-    let name: String
     let planType: FirebasePlanType
+    let name: String
     let startDate: Date
     let endDate: Date
     let timeZone: TimeZone
-    let imageUrl: String?
+    let imageUrl: String
     let status: String
     let creationDate: Date
     let modificationDate: Date

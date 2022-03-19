@@ -13,7 +13,7 @@ struct Accommodation: Plan {
     var planType: PlanType
     var name: String = "Accommodation"
     var startDate: Date
-    var endDate: Date?
+    var endDate: Date
     var timeZone: TimeZone
     var imageUrl: String
     var status: PlanStatus

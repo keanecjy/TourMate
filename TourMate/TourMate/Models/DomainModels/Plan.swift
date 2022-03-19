@@ -13,7 +13,7 @@ protocol Plan {
     var planType: PlanType { get set }
     var name: String { get set }
     var startDate: Date { get set }
-    var endDate: Date? { get set }
+    var endDate: Date { get set }
     var timeZone: TimeZone { get set }
     var imageUrl: String { get set }
     var status: PlanStatus { get set }

@@ -13,12 +13,12 @@ struct FirebaseAdaptedFlight: FirebaseAdaptedPlan {
     // Plan Fields
     let id: String
     let tripId: String
-    let name: String
     let planType: FirebasePlanType
+    let name: String
     let startDate: Date
     let endDate: Date
     let timeZone: TimeZone
-    let imageUrl: String?
+    let imageUrl: String
     let status: String
     let creationDate: Date
     let modificationDate: Date
@@ -27,9 +27,9 @@ struct FirebaseAdaptedFlight: FirebaseAdaptedPlan {
     var airline: String
     var flightNumber: Int
     var seats: String?
-    var departingLocation: String?
-    var departingTerminal: String?
-    var departingGate: String?
+    var departureLocation: String?
+    var departureTerminal: String?
+    var departureGate: String?
     var arrivalLocation: String?
     var arrivalTerminal: String?
     var arrivalGate: String?

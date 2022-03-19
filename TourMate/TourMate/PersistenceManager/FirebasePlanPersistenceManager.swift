@@ -7,7 +7,7 @@
 
 import Firebase
 
-struct FirebasePlanPersistenceManager<FirebaseAdaptedData> {
+struct FirebasePlanPersistenceManager {
     let collectionId: String = FirebaseConfig.planCollectionId
 
     private let db = Firestore.firestore()
@@ -17,7 +17,9 @@ struct FirebasePlanPersistenceManager<FirebaseAdaptedData> {
         let query = db.collection(collectionId).whereField("tripId", isEqualTo: tripId)
         do {
             let documents = try await query.getDocuments().documents
-            let items = documents.compactMap({ convertPlan($0) })   
+            let items = documents
+                .compactMap({ convertPlan($0) })
+                .sorted(by: { p1, p2 in p1.creationDate < p2.creationDate })
             return (items, "")
         } catch {
             let errorMessage = "[FirebasePlanPersistenceManager] Error fetching Plans: \(error)"
