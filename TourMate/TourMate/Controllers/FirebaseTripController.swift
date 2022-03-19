@@ -23,7 +23,6 @@ struct FirebaseTripController: TripController {
         let (adaptedTrips, errorMessage) = await firebasePersistenceManager
             .fetchItems(field: "attendeesUserIds", arrayContains: user.uid)
         let trips = adaptedTrips.map({ $0.toItem() })
-        print(trips)
         return (trips, errorMessage)
     }
 

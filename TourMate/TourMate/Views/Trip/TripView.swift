@@ -11,10 +11,11 @@ struct TripView: View {
     @EnvironmentObject var model: MockModel
 
     @State private var isActive = false
+    @State private var isShowingEditTripSheet = false
 
     private var trip: Trip
 
-    init(_ trip: Trip) {
+    init(trip: Trip) {
         self.trip = trip
     }
 
@@ -39,8 +40,7 @@ struct TripView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.bottom, .horizontal])
 
-                AsyncImage(url: URL(string: trip.imageUrl!)) {
-                    image in
+                AsyncImage(url: URL(string: trip.imageUrl!)) { image in
                     image
                         .resizable()
                         .scaledToFill()
@@ -55,7 +55,16 @@ struct TripView: View {
         }
         .navigationTitle(trip.name)
         .toolbar {
-            ToolbarItem(placement: .primaryAction) {
+            ToolbarItemGroup(placement: .primaryAction) {
+                Button {
+                    isShowingEditTripSheet.toggle()
+                } label: {
+                    Image(systemName: "pencil")
+                }
+                .sheet(isPresented: $isShowingEditTripSheet) {
+                    EditTripView(trip: trip)
+                }
+
                 NavigationLink(isActive: $isActive) {
                     AddPlanView(isActive: $isActive)
                 } label: {

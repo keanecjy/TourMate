@@ -25,7 +25,7 @@ struct TripsView: View {
             LazyVStack {
                 ForEach(viewModel.trips, id: \.id) { trip in
                     NavigationLink {
-                        TripView(trip)
+                        TripView(trip: trip)
                     } label: {
                         TripCard(title: trip.name,
                                  subtitle: getDateString(trip: trip),

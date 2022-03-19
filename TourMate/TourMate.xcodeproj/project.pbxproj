@@ -52,6 +52,8 @@
 		95CB3F7927D8E79C0086E9E3 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6F27D8E79C0086E9E3 /* TripsView.swift */; };
 		95CB3F7A27D8E79C0086E9E3 /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F7027D8E79C0086E9E3 /* TripView.swift */; };
 		95EB6A8C27E45B53008C1103 /* AddTripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6A8B27E45B52008C1103 /* AddTripViewModel.swift */; };
+		95EB6A9027E4B3E3008C1103 /* EditTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6A8F27E4B3E3008C1103 /* EditTripView.swift */; };
+		95EB6A9227E4B3F4008C1103 /* EditTripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6A9127E4B3F4008C1103 /* EditTripViewModel.swift */; };
 		95FAE40927E2447400F4AB01 /* TripsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FAE40827E2447400F4AB01 /* TripsViewModel.swift */; };
 		95FAE40B27E245D200F4AB01 /* MockTripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FAE40A27E245D200F4AB01 /* MockTripController.swift */; };
 		95FAE40D27E247F800F4AB01 /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FAE40C27E247F800F4AB01 /* TripController.swift */; };
@@ -151,6 +153,8 @@
 		95CB3F6F27D8E79C0086E9E3 /* TripsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
 		95CB3F7027D8E79C0086E9E3 /* TripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		95EB6A8B27E45B52008C1103 /* AddTripViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTripViewModel.swift; sourceTree = "<group>"; };
+		95EB6A8F27E4B3E3008C1103 /* EditTripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditTripView.swift; path = TourMate/Views/EditTrip/EditTripView.swift; sourceTree = SOURCE_ROOT; };
+		95EB6A9127E4B3F4008C1103 /* EditTripViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditTripViewModel.swift; path = TourMate/Views/EditTrip/EditTripViewModel.swift; sourceTree = SOURCE_ROOT; };
 		95FAE40827E2447400F4AB01 /* TripsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewModel.swift; sourceTree = "<group>"; };
 		95FAE40A27E245D200F4AB01 /* MockTripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTripController.swift; sourceTree = "<group>"; };
 		95FAE40C27E247F800F4AB01 /* TripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripController.swift; sourceTree = "<group>"; };
@@ -370,8 +374,27 @@
 			children = (
 				9538546027E449CC00AFDED8 /* Trips */,
 				9538546127E449E500AFDED8 /* AddTrip */,
+				95EB6A8E27E4B3CD008C1103 /* EditTrip */,
+				95EB6A8D27E4B3A8008C1103 /* Trip */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		95EB6A8D27E4B3A8008C1103 /* Trip */ = {
+			isa = PBXGroup;
+			children = (
+				95CB3F7027D8E79C0086E9E3 /* TripView.swift */,
+			);
+			path = Trip;
+			sourceTree = "<group>";
+		};
+		95EB6A8E27E4B3CD008C1103 /* EditTrip */ = {
+			isa = PBXGroup;
+			children = (
+				95EB6A9127E4B3F4008C1103 /* EditTripViewModel.swift */,
+				95EB6A8F27E4B3E3008C1103 /* EditTripView.swift */,
+			);
+			path = EditTrip;
 			sourceTree = "<group>";
 		};
 		B93B488E27DA7D4000478B7B /* DataModels */ = {
@@ -427,7 +450,6 @@
 				B99D964827D73503009B66AE /* TourMateApp.swift */,
 				B99D964A27D73503009B66AE /* ContentView.swift */,
 				9538546727E45A3E00AFDED8 /* Views */,
-				95CB3F7027D8E79C0086E9E3 /* TripView.swift */,
 				95CB3F6A27D8E79B0086E9E3 /* PlanHeaderView.swift */,
 				95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */,
 				95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */,
@@ -757,9 +779,11 @@
 				00F83BD727DC893E003A28AA /* AuthPageLogIn.swift in Sources */,
 				4CCBBD1927DE626800F9C250 /* Trip.swift in Sources */,
 				95CB3F7227D8E79C0086E9E3 /* MockModel.swift in Sources */,
+				95EB6A9227E4B3F4008C1103 /* EditTripViewModel.swift in Sources */,
 				B967C33A27DDD71C0023B34D /* ActivityFormView.swift in Sources */,
 				00F83BC927DC777C003A28AA /* LogInTitleView.swift in Sources */,
 				95FAE40B27E245D200F4AB01 /* MockTripController.swift in Sources */,
+				95EB6A9027E4B3E3008C1103 /* EditTripView.swift in Sources */,
 				95FAE40927E2447400F4AB01 /* TripsViewModel.swift in Sources */,
 				00F83BCD27DC7F3C003A28AA /* HomeNavigationView.swift in Sources */,
 				4CB954EA27DE3EBC001410AD /* AnyFirebaseAdaptedData.swift in Sources */,
