@@ -10,6 +10,7 @@ import Foundation
 protocol Plan {
     var id: String { get }
     var tripId: String { get }
+    var planType: PlanType { get }
     var name: String { get set }
     var startDate: Date { get set }
     var endDate: Date { get set }

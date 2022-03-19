@@ -53,6 +53,6 @@ class FirebaseAdaptedRestaurant: FirebaseAdaptedPlan {
     }
 
     override func getType() -> FirebaseAdaptedType {
-        FirebaseAdaptedType.firebaseAdaptedRestaurant
+        FirebaseAdaptedType.restaurant
     }
 }

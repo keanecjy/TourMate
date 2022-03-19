@@ -70,6 +70,6 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
     }
 
     override func getType() -> FirebaseAdaptedType {
-        FirebaseAdaptedType.firebaseAdaptedTransport
+        FirebaseAdaptedType.transport
     }
 }

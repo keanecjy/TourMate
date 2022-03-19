@@ -8,6 +8,8 @@
 import Foundation
 
 struct Transport: Plan {
+    let planType: PlanType = .transport
+
     var id: String
     var tripId: String
     var name: String = "Transport"

@@ -87,6 +87,6 @@ class FirebaseAdaptedFlight: FirebaseAdaptedPlan {
     }
 
     override func getType() -> FirebaseAdaptedType {
-        FirebaseAdaptedType.firebaseAdaptedFlight
+        FirebaseAdaptedType.flight
     }
 }

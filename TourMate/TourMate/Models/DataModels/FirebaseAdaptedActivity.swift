@@ -57,6 +57,6 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
     }
 
     override func getType() -> FirebaseAdaptedType {
-        FirebaseAdaptedType.firebaseAdaptedActivity
+        FirebaseAdaptedType.activity
     }
 }

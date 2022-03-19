@@ -8,6 +8,8 @@
 import Foundation
 
 struct Restaurant: Plan {
+    let planType: PlanType = .restaurant
+
     var id: String
     var tripId: String
     var name: String
