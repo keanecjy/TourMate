@@ -10,7 +10,6 @@ import Foundation
 struct Activity: Plan {
     var id: String
     var tripId: String
-    var planType: PlanType
     var name: String = "Activity"
     var startDate: Date
     var endDate: Date

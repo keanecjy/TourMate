@@ -10,7 +10,6 @@ import Foundation
 struct Flight: Plan {
     var id: String
     var tripId: String
-    var planType: PlanType
     var name: String = "Flight"
     var startDate: Date
     var endDate: Date
@@ -20,8 +19,8 @@ struct Flight: Plan {
     var creationDate: Date
     var modificationDate: Date
 
-    var airline: String
-    var flightNumber: Int
+    var airline: String?
+    var flightNumber: Int?
     var seats: String?
     var departureLocation: String?
     var departureTerminal: String?

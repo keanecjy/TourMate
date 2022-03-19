@@ -18,7 +18,7 @@ struct FirebaseAdaptedTrip: FirebaseAdaptedData {
     let invitedUserIds: [String]
     let creationDate: Date
     let modificationDate: Date
-    
+
     func getType() -> FirebaseAdaptedType {
         FirebaseAdaptedType.firebaseAdaptedTrip
     }

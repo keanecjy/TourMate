@@ -18,7 +18,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     let status: String
     let creationDate: Date
     let modificationDate: Date
-    
+
     private enum CodingKeys: String, CodingKey {
         case id
         case tripId
@@ -31,7 +31,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         case creationDate
         case modificationDate
     }
-    
+
     init(id: String, tripId: String, name: String,
          startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String,
          status: String, creationDate: Date, modificationDate: Date) {
@@ -46,7 +46,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         self.creationDate = creationDate
         self.modificationDate = modificationDate
     }
-    
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
@@ -60,7 +60,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         creationDate = try container.decode(Date.self, forKey: .creationDate)
         modificationDate = try container.decode(Date.self, forKey: .modificationDate)
     }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
@@ -74,9 +74,9 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         try container.encode(creationDate, forKey: .creationDate)
         try container.encode(modificationDate, forKey: .modificationDate)
     }
-    
+
     func getType() -> FirebaseAdaptedType {
         preconditionFailure()
     }
-    
+
 }

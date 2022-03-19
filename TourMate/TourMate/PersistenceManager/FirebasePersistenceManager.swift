@@ -54,6 +54,8 @@ struct FirebasePersistenceManager: PersistenceManager {
     @MainActor
     func fetchItems(field: String, arrayContains id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
         // Might want to remove the hard coding here in the future
+        // TODO: See if we can not use the super.decoder / super.encoder
+        // https://stackoverflow.com/questions/44441223/encode-decode-array-of-types-conforming-to-protocol-with-jsonencoderter
         let query = db.collection(collectionId).whereField(FieldPath(["base", field]), arrayContains: id)
         return await fetchItems(from: query)
     }
