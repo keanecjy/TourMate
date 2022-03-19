@@ -58,6 +58,7 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        
         try container.encode(departureLocation, forKey: .departureLocation)
         try container.encode(departureAddress, forKey: .departureAddress)
         try container.encode(arrivalLocation, forKey: .arrivalLocation)

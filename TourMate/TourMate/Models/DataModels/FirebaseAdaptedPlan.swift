@@ -64,7 +64,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(tripId, forKey: .id)
+        try container.encode(tripId, forKey: .tripId)
         try container.encode(name, forKey: .name)
         try container.encode(startDate, forKey: .startDate)
         try container.encode(endDate, forKey: .endDate)
