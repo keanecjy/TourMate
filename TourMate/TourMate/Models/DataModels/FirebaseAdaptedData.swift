@@ -8,6 +8,6 @@
 import Foundation
 
 protocol FirebaseAdaptedData: Codable {
-    static var type: FirebaseAdaptedType { get }
+    func getType() -> FirebaseAdaptedType
     var id: String { get }
 }

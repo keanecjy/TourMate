@@ -7,15 +7,36 @@
 
 import Foundation
 
-protocol FirebaseAdaptedPlan: FirebaseAdaptedData {
-    var tripId: String { get }
-    var planType: FirebasePlanType { get }
-    var name: String { get }
-    var startDate: Date { get }
-    var endDate: Date { get }
-    var timeZone: TimeZone { get }
-    var imageUrl: String { get }
-    var status: String { get }
-    var creationDate: Date { get }
-    var modificationDate: Date { get }
+class FirebaseAdaptedPlan: FirebaseAdaptedData {
+    let id: String
+    let tripId: String
+    let planType: FirebasePlanType
+    let name: String
+    let startDate: Date
+    let endDate: Date
+    let timeZone: TimeZone
+    let imageUrl: String
+    let status: String
+    let creationDate: Date
+    let modificationDate: Date
+
+    init(id: String, tripId: String, planType: FirebasePlanType, name: String,
+         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String,
+         status: String, creationDate: Date, modificationDate: Date) {
+        self.id = id
+        self.tripId = tripId
+        self.planType = planType
+        self.name = name
+        self.startDate = startDate
+        self.endDate = endDate
+        self.timeZone = timeZone
+        self.imageUrl = imageUrl
+        self.status = status
+        self.creationDate = creationDate
+        self.modificationDate = modificationDate
+    }
+
+    func getType() -> FirebaseAdaptedType {
+        fatalError("Not called")
+    }
 }
