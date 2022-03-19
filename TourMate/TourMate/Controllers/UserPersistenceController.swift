@@ -9,7 +9,7 @@ import Foundation
 import FirebaseAuth
 
 struct UserPersistenceController {
-    let firebasePersistenceManager = FirebasePersistenceManager<FirebaseAdaptedUser>(
+    let firebasePersistenceManager = FirebasePersistenceManager(
         collectionId: FirebaseConfig.userCollectionId)
 
     func addUser(_ user: User) async -> (Bool, String) {
@@ -36,7 +36,12 @@ struct UserPersistenceController {
             return (nil, Constants.messageUserNotLoggedIn)
         }
         let (adaptedUser, errorMessage) = await firebasePersistenceManager.fetchItem(id: currentUser.uid)
-        return (adaptedUser?.toItem(), errorMessage)
+
+        guard let adaptedUser = adaptedUser as? FirebaseAdaptedUser else {
+            preconditionFailure()
+        }
+
+        return (adaptedUser.toItem(), errorMessage)
     }
 
 }
