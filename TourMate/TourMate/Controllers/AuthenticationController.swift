@@ -8,56 +8,43 @@
 import Foundation
 import FirebaseAuth
 
-struct AuthenticationController {
-    let authenticationManager: AuthenticationManager = FirebaseAuthenticationManager()
-    let userPersistenceController = UserPersistenceController()
+// https://blog.codemagic.io/google-sign-in-firebase-authentication-using-swift/
+final class AuthenticationController: ObservableObject {
 
-    func register(email: String, password: String, displayName: String) async
-    -> (hasRegistered: Bool, errorMessage: String) {
+    static let singleton = AuthenticationController()
 
-        guard validateCredentials(email: email, password: password) else {
-            return (false, "Email or Password cannot be empty or contain spaces!")
+    @Published private(set) var userIsLoggedIn: Bool
+    private let authenticationManager: AuthenticationManager = FirebaseAuthenticationManager()
+    private var authStateListenerHandle: AuthStateDidChangeListenerHandle?
+
+    private init() {
+        self.userIsLoggedIn = false
+
+        authStateListenerHandle = Auth.auth().addStateDidChangeListener { _, user in
+            if user != nil {
+                self.userIsLoggedIn = true
+            } else {
+                self.userIsLoggedIn = false
+            }
         }
-
-        let (hasRegistered, errorMessage) = await authenticationManager.registerUser(email: email,
-                                                                                     password: password)
-        guard hasRegistered else {
-            return (hasRegistered, errorMessage)
-        }
-
-        guard let currentUserId = Auth.auth().currentUser?.uid else {
-            return (false, Constants.messageUserNotLoggedIn)
-        }
-
-        let user = User(id: currentUserId, name: displayName, email: email)
-        return await userPersistenceController.addUser(user)
     }
 
-    @discardableResult
-    func logIn(email: String, password: String) async -> (hasLoggedIn: Bool, errorMessage: String) {
-
-        guard validateCredentials(email: email, password: password) else {
-            return (false, "Email or Password cannot be empty or contain spaces!")
+    deinit {
+        if let handle = authStateListenerHandle {
+            Auth.auth().removeStateDidChangeListener(handle)
         }
-
-        let (hasLoggedIn, errorMessage) = await authenticationManager.logInUser(email: email,
-                                                                                password: password)
-        return (hasLoggedIn, errorMessage)
     }
 
-    func logOut() async -> (hasLoggedOut: Bool, errorMessage: String) {
-        let (hasLoggedOut, errorMessage) = await authenticationManager.logOutUser()
-        return (hasLoggedOut, errorMessage)
+    func checkIfUserIsLoggedIn() {
+        let hasLoggedInUser = authenticationManager.checkIfUserIsLoggedIn()
+        self.userIsLoggedIn = hasLoggedInUser
     }
 
-    func validateCredentials(email: String, password: String) -> Bool {
-        validateField(email) && validateField(password)
+    func logIn() {
+        authenticationManager.logIn()
     }
 
-    func validateField(_ field: String) -> Bool {
-        let isNotEmpty = !field.isEmpty
-        let notContainsSpaces = field.rangeOfCharacter(from: .whitespacesAndNewlines) == nil
-
-        return isNotEmpty && notContainsSpaces
+    func logOut() {
+        authenticationManager.logOut()
     }
 }

@@ -8,29 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var showWarning = false
-    @State var warningMessage: String = ""
-    @State var hasLoggedOut = false
+    @EnvironmentObject var model: MockModel
 
     var body: some View {
-        NavigationView {
-            VStack {
-                LogOutView(showWarning: $showWarning,
-                           warningMessage: $warningMessage,
-                           hasLoggedOut: $hasLoggedOut)
-
-                TripsView()
-
-                NavigationLink(isActive: $hasLoggedOut) {
-                    LaunchView()
-                        .navigationBarHidden(true)
-                        .navigationBarBackButtonHidden(true)
-                } label: {
-                    EmptyView()
+        TabView {
+            TripsView()
+                .environmentObject(model)
+                .tabItem {
+                    Label("Trips", systemImage: "paperplane.fill")
                 }
-            }
+
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gearshape.fill")
+                }
         }
-        .navigationViewStyle(.stack)
     }
 }
 

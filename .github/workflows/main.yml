@@ -3,14 +3,8 @@ name: Xcode Build and Test
 on:
   push:
     branches: [main]
-    paths:
-      - ".github/workflows/main.yml"
-      - "./TourMate/**/*.swift"
   pull_request:
     branches: [main]
-    paths:
-      - ".github/workflows/main.yml"
-      - "./TourMate/**/*.swift"
 
 jobs:
   build:
