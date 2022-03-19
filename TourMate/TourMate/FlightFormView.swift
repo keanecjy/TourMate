@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct FlightFormView: View {
+    @StateObject var addPlanViewModel = AddPlanViewModel()
+
     @Binding var isActive: Bool
 
+    let tripId: String
+
+    @State private var isConfirmed = true
     @State private var departureDate = Date()
     @State private var arrivalDate = Date()
     @State private var airline = ""
@@ -24,9 +29,35 @@ struct FlightFormView: View {
     @State private var arrivalTerminal = ""
     @State private var arrivalGate = ""
 
+    private func createFlight() -> Flight {
+        let planId = tripId + UUID().uuidString
+        let timeZone = TimeZone.current
+        let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
+        let creationDate = Date()
+        let flight = Flight(id: planId, tripId: tripId,
+                            planType: .flight,
+                            startDate: departureDate,
+                            endDate: arrivalDate,
+                            timeZone: timeZone,
+                            status: status,
+                            creationDate: creationDate,
+                            modificationDate: creationDate,
+                            airline: airline,
+                            flightNumber: flightNumber,
+                            seats: seats,
+                            departureLocation: departureLocation,
+                            departureTerminal: departureTerminal,
+                            departureGate: departureGate,
+                            arrivalLocation: arrivalLocation,
+                            arrivalTerminal: arrivalTerminal,
+                            arrivalGate: arrivalGate)
+        return flight
+    }
+
     var body: some View {
         Form {
             Section {
+                Toggle("Confirmed?", isOn: $isConfirmed)
                 TextField("Airline", text: $airline)
                 TextField("Flight Number", text: $flightNumber)
                 TextField("Seats", text: $seats)
@@ -51,12 +82,14 @@ struct FlightFormView: View {
         .navigationTitle("Flight")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem {
-                Button {
-                    isActive = false
-                } label: {
-                    Text("Save")
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Save") {
+                    Task {
+                        await addPlanViewModel.addPlan(createFlight())
+                        isActive = false
+                    }
                 }
+                .disabled(addPlanViewModel.isLoading || addPlanViewModel.hasError)
             }
         }
     }

@@ -10,7 +10,7 @@ import SwiftUI
 struct TripView: View {
     @StateObject var plansViewModel: PlansViewModel
 
-    @State private var isActive = false
+    @State var isActive = false
 
     let trip: Trip
 
@@ -49,7 +49,7 @@ struct TripView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 NavigationLink(isActive: $isActive) {
-                    AddPlanView(isActive: $isActive)
+                    AddPlanView(isActive: $isActive, trip: trip)
                 } label: {
                     Image(systemName: "plus")
                 }
@@ -57,6 +57,9 @@ struct TripView: View {
         }
         .onAppear {
             plansViewModel.tripId = trip.id
+        }
+        .task {
+            await plansViewModel.fetchPlans()
         }
     }
 }

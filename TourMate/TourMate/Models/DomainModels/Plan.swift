@@ -15,7 +15,7 @@ protocol Plan {
     var startDate: Date { get set }
     var endDate: Date? { get set }
     var timeZone: TimeZone { get set }
-    var imageUrl: String { get set }
+    var imageUrl: String? { get set }
     var status: PlanStatus { get set }
     var creationDate: Date { get }
     var modificationDate: Date { get }
