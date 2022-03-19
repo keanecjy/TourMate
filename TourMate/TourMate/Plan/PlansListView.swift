@@ -34,6 +34,36 @@ struct PlansListView: View {
         }
     }
 
+    func createPlanView(_ plan: Plan) -> some View {
+        switch plan.planType {
+        case .accommodation:
+            guard let accommodation = plan as? Accommodation else {
+                preconditionFailure()
+            }
+            return AnyView(AccommodationView(accommodation: accommodation))
+        case .activity:
+            guard let activity = plan as? Activity else {
+                preconditionFailure()
+            }
+            return AnyView(ActivityView(activity: activity))
+        case .restaurant:
+            guard let restaurant = plan as? Restaurant else {
+                preconditionFailure()
+            }
+            return AnyView(RestaurantView(restaurant: restaurant))
+        case .transport:
+            guard let transport = plan as? Transport else {
+                preconditionFailure()
+            }
+            return AnyView(TransportView(transport: transport))
+        case .flight:
+            guard let flight = plan as? Flight else {
+                preconditionFailure()
+            }
+            return AnyView(FlightView(flight: flight))
+        }
+    }
+
     var body: some View {
 
         LazyVStack {
@@ -43,10 +73,7 @@ struct PlansListView: View {
 
                     ForEach(day.plans, id: \.id) { plan in
                         NavigationLink {
-                            PlanView(title: plan.name,
-                                     startDate: plan.startDate,
-                                     endDate: plan.endDate,
-                                     timeZone: plan.timeZone)
+                            createPlanView(plan)
                         } label: {
                             PlanCardView(title: plan.name,
                                          startDate: plan.startDate,

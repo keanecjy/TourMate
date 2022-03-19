@@ -11,7 +11,7 @@ struct Transport: Plan {
     var id: String
     var tripId: String
     var planType: PlanType
-    var name: String = "Transport"
+    var name: String = "Transportation"
     var startDate: Date
     var endDate: Date?
     var timeZone: TimeZone

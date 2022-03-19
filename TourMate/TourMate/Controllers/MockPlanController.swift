@@ -50,7 +50,7 @@ class MockPlanController: PlanPersistenceControllerProtocol {
                   arrivalLocation: "Kyoto",
                   vehicleDescription: "Departures every 30 minutes",
                   numberOfPassengers: "1"),
-        Flight(id: "3", tripId: "1", planType: .flight, name: "Flight to Japan",
+        Flight(id: "4", tripId: "1", planType: .flight, name: "Flight to Japan",
                startDate: Date(timeIntervalSince1970: 1_651_440_400),
                endDate: Date(timeIntervalSince1970: 1_651_460_400),
                timeZone: TimeZone(abbreviation: "MST")!,
