@@ -1,5 +1,5 @@
 //
-//  TripPersistenceController.swift
+//  FirebaseTripController.swift
 //  TourMate
 //
 //  Created by Keane Chan on 13/3/22.
@@ -7,21 +7,26 @@
 
 import FirebaseAuth
 
-struct TripPersistenceController {
-    let firebasePersistenceManager = FirebasePersistenceManager<FirebaseAdaptedTrip>(
+struct FirebaseTripController: TripController {
+    let firebasePersistenceManager = FirebasePersistenceManager(
         collectionId: FirebaseConfig.tripCollectionId)
 
     func addTrip(trip: Trip) async -> (Bool, String) {
         await firebasePersistenceManager.addItem(id: trip.id, item: trip.toData())
     }
 
-    func fetchTrip() async -> ([Trip], String) {
+    func fetchTrips() async -> ([Trip], String) {
         guard let user = Auth.auth().currentUser else {
             return ([], Constants.messageUserNotLoggedIn)
         }
 
         let (adaptedTrips, errorMessage) = await firebasePersistenceManager
-            .fetchItems(field: "userIds", arrayContains: user.uid)
+            .fetchItems(field: "attendeesUserIds", arrayContains: user.uid)
+
+        guard let adaptedTrips = adaptedTrips as? [FirebaseAdaptedTrip] else {
+            preconditionFailure()
+        }
+
         let trips = adaptedTrips.map({ $0.toItem() })
         return (trips, errorMessage)
     }
