@@ -7,20 +7,21 @@
 
 import Firebase
 
-struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
+struct FirebasePersistenceManager: PersistenceManager {
     let collectionId: String
 
     private let db = Firestore.firestore()
 
     @MainActor
-    func addItem(id: String, item: T) async -> (hasAddedItem: Bool, errorMessage: String) {
+    func addItem<T: FirebaseAdaptedData>(id: String, item: T) async -> (hasAddedItem: Bool, errorMessage: String) {
         guard Auth.auth().currentUser != nil else {
             return (false, Constants.messageUserNotLoggedIn)
         }
 
         do {
             let itemRef = db.collection(collectionId).document(id)
-            try itemRef.setData(from: item)
+            let any = AnyFirebaseAdaptedData(item)
+            try itemRef.setData(from: any)
 
             print("[FirebasePersistenceManager] Added \(T.self): \(itemRef)")
 
@@ -32,51 +33,51 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
     }
 
     @MainActor
-    func fetchItem(id: String) async -> (item: T?, errorMessage: String) {
+    func fetchItem(id: String) async -> (item: FirebaseAdaptedData?, errorMessage: String) {
         guard Auth.auth().currentUser != nil else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
         do {
             let itemRef = db.collection(collectionId).document(id)
-            let item = try await itemRef.getDocument().data(as: T.self)
+            let item = try await itemRef.getDocument().data(as: AnyFirebaseAdaptedData.self).map { $0.base }
 
-            print("[FirebasePersistenceManager] Fetched \(T.self): \(itemRef)")
+            print("[FirebasePersistenceManager] Fetched: \(itemRef)")
 
             return (item, "")
         } catch {
-            let errorMessage = "[FirebasePersistenceManager] Error fetching \(T.self): \(error)"
+            let errorMessage = "[FirebasePersistenceManager] Error fetching: \(error)"
             return (nil, errorMessage)
         }
     }
 
     @MainActor
-    func fetchItems(field: String, arrayContains id: String) async -> (items: [T], errorMessage: String) {
+    func fetchItems(field: String, arrayContains id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
         let query = db.collection(collectionId).whereField(field, arrayContains: id)
         return await fetchItems(from: query)
     }
 
     @MainActor
-    func fetchItems(field: String, isEqualTo id: String) async -> (items: [T], errorMessage: String) {
+    func fetchItems(field: String, isEqualTo id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
         let query = db.collection(collectionId).whereField(field, isEqualTo: id)
         return await fetchItems(from: query)
     }
 
     @MainActor
-    private func fetchItems(from query: Query) async -> (items: [T], errorMessage: String) {
+    private func fetchItems(from query: Query) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
         guard Auth.auth().currentUser != nil else {
             return ([], Constants.messageUserNotLoggedIn)
         }
 
         do {
             let documents = try await query.getDocuments().documents
-            let items = documents.compactMap({ try? $0.data(as: T.self) })
+            let items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
 
-            print("[FirebasePersistenceManager] Fetched \(T.self): \(query)")
+            print("[FirebasePersistenceManager] Fetched: \(query)")
 
             return (items, "")
         } catch {
-            let errorMessage = "[FirebasePersistenceManager] Error fetching \(T.self): \(error)"
+            let errorMessage = "[FirebasePersistenceManager] Error fetching: \(error)"
             return ([], errorMessage)
         }
     }
@@ -91,17 +92,17 @@ struct FirebasePersistenceManager<T: FirebaseAdaptedData>: PersistenceManager {
             let deletedItemRef = db.collection(collectionId).document(id)
             try await deletedItemRef.delete()
 
-            print("[FirebasePersistenceManager] Deleted \(T.self): \(deletedItemRef)")
+            print("[FirebasePersistenceManager] Deleted \(FirebaseAdaptedData.self): \(deletedItemRef)")
 
             return (true, "")
         } catch {
-            let errorMessage = "[FirebasePersistenceManager] Error deleting \(T.self): \(error)"
+            let errorMessage = "[FirebasePersistenceManager] Error deleting: \(error)"
             return (false, errorMessage)
         }
     }
 
     @MainActor
-    func updateItem(id: String, item: T) async -> (hasUpdatedItem: Bool, errorMessage: String) {
+    func updateItem<T: FirebaseAdaptedData>(id: String, item: T) async -> (hasUpdatedItem: Bool, errorMessage: String) {
         let (hasAddedItem, errorMessage) = await addItem(id: id, item: item)
         return (hasAddedItem, errorMessage)
     }

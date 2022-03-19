@@ -8,7 +8,7 @@
 import FirebaseAuth
 
 struct FirebaseTripController: TripController {
-    let firebasePersistenceManager = FirebasePersistenceManager<FirebaseAdaptedTrip>(
+    let firebasePersistenceManager = FirebasePersistenceManager(
         collectionId: FirebaseConfig.tripCollectionId)
 
     func addTrip(trip: Trip) async -> (Bool, String) {
@@ -22,6 +22,11 @@ struct FirebaseTripController: TripController {
 
         let (adaptedTrips, errorMessage) = await firebasePersistenceManager
             .fetchItems(field: "attendeesUserIds", arrayContains: user.uid)
+
+        guard let adaptedTrips = adaptedTrips as? [FirebaseAdaptedTrip] else {
+            preconditionFailure()
+        }
+
         let trips = adaptedTrips.map({ $0.toItem() })
         return (trips, errorMessage)
     }
