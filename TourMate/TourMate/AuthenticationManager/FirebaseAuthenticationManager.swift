@@ -69,7 +69,24 @@ struct FirebaseAuthenticationManager: AuthenticationManager {
 
         let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
 
-        Auth.auth().signIn(with: credential) { _, error in
+        Auth.auth().signIn(with: credential) { authResult, error in
+            if let result = authResult,
+               let userAdditionalInfo = result.additionalUserInfo {
+
+                let user = result.user
+                if userAdditionalInfo.isNewUser, let name = user.displayName, let email = user.email {
+                    let newUser = User(id: user.uid, name: name, email: email)
+
+                    Task {
+                        let (success, errorMessage) = await UserPersistenceController().addUser(newUser)
+
+                        if !success {
+                            print("[FirebaseAuthenticationManager] User creation failed: \(errorMessage)")
+                        }
+                    }
+                }
+            }
+
             if let error = error {
                 print("[FirebaseAuthenticationManager] Firebase authentication failed: \(error.localizedDescription)")
             }

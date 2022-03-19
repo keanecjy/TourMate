@@ -10,9 +10,14 @@ import SwiftUI
 struct TripView: View {
     @StateObject var plansViewModel: PlansViewModel
 
-    @State var isActive = false
+    @State private var isActive = false
+    @State private var isShowingEditTripSheet = false
 
-    let trip: Trip
+    private var trip: Trip
+
+    init(trip: Trip) {
+        self.trip = trip
+    }
 
     var dateString: String {
         let dateFormatter = DateFormatter()
@@ -31,15 +36,16 @@ struct TripView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.bottom, .horizontal])
 
-                AsyncImage(url: URL(string: trip.imageUrl!)) {
-                    image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 200, alignment: .center)
-                        .clipped()
-                } placeholder: {
-                    Color.gray
+                if let imageUrl = trip.imageUrl {
+                    AsyncImage(url: URL(string: imageUrl)) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 200, alignment: .center)
+                            .clipped()
+                    } placeholder: {
+                        Color.gray
+                    }
                 }
 
                 PlansListView(plansViewModel.plans)
@@ -47,7 +53,16 @@ struct TripView: View {
         }
         .navigationTitle(trip.name)
         .toolbar {
-            ToolbarItem(placement: .primaryAction) {
+            ToolbarItemGroup(placement: .primaryAction) {
+                Button {
+                    isShowingEditTripSheet.toggle()
+                } label: {
+                    Image(systemName: "pencil")
+                }
+                .sheet(isPresented: $isShowingEditTripSheet) {
+                    EditTripView(trip: trip)
+                }
+
                 NavigationLink(isActive: $isActive) {
                     AddPlanView(isActive: $isActive, trip: trip)
                 } label: {

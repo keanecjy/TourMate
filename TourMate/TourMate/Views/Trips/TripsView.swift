@@ -8,15 +8,10 @@
 import SwiftUI
 
 struct TripsView: View {
-    @EnvironmentObject var model: MockModel
+    @StateObject var viewModel = TripsViewModel()
+    @State private var isShowingAddTripSheet = false
 
-    /// Fetch Trips using userId
-    func getTrips(forUserId userId: String) -> [Trip] {
-        model.getTrips(forUserId: userId)
-    }
-
-    func getDateString(tripId: String) -> String {
-        let trip = model.getTrip(withTripId: tripId)
+    func getDateString(trip: Trip) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeZone = trip.timeZone
@@ -29,13 +24,13 @@ struct TripsView: View {
         NavigationView {
             ScrollView {
                 LazyVStack {
-                    ForEach(model.trips, id: \.id) { trip in
+                    ForEach(viewModel.trips, id: \.id) { trip in
                         NavigationLink {
                             TripView(plansViewModel: PlansViewModel(tripId: trip.id), trip: trip)
                         } label: {
-                            TripCardView(title: trip.name,
-                                         subtitle: getDateString(tripId: trip.id),
-                                         imageUrl: trip.imageUrl!)
+                            TripCard(title: trip.name,
+                                     subtitle: getDateString(trip: trip),
+                                     imageUrl: trip.imageUrl ?? "")
                         }
                     }
                 }
@@ -43,12 +38,22 @@ struct TripsView: View {
             .navigationTitle("Trips")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    NavigationLink {
-                        TripFormView()
+                    Button {
+                        isShowingAddTripSheet.toggle()
                     } label: {
                         Image(systemName: "plus")
                     }
+                    .sheet(isPresented: $isShowingAddTripSheet) {
+                        Task {
+                            await viewModel.fetchTrips()
+                        }
+                    } content: {
+                        AddTripView()
+                    }
                 }
+            }
+            .task {
+                await viewModel.fetchTrips()
             }
         }
         .navigationViewStyle(.stack)
@@ -57,6 +62,6 @@ struct TripsView: View {
 
 struct TripsView_Previews: PreviewProvider {
     static var previews: some View {
-        TripsView().environmentObject(MockModel())
+        TripsView(viewModel: TripsViewModel(tripController: MockTripController()))
     }
 }
