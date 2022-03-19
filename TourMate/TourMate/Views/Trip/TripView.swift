@@ -40,14 +40,16 @@ struct TripView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.bottom, .horizontal])
 
-                AsyncImage(url: URL(string: trip.imageUrl!)) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 200, alignment: .center)
-                        .clipped()
-                } placeholder: {
-                    Color.gray
+                if let imageUrl = trip.imageUrl {
+                    AsyncImage(url: URL(string: imageUrl)) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 200, alignment: .center)
+                            .clipped()
+                    } placeholder: {
+                        Color.gray
+                    }
                 }
 
                 PlansListView(model.getPlans(forTripId: trip.id))

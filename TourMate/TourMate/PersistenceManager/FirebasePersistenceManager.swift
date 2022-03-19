@@ -53,8 +53,9 @@ struct FirebasePersistenceManager: PersistenceManager {
 
     @MainActor
     func fetchItems(field: String, arrayContains id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
+        let q = db.collection(collectionId).whereField(FieldPath(["base", field]), arrayContains: id)
         let query = db.collection(collectionId).whereField(field, arrayContains: id)
-        return await fetchItems(from: query)
+        return await fetchItems(from: q)
     }
 
     @MainActor
