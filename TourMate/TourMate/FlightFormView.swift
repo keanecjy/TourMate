@@ -35,7 +35,6 @@ struct FlightFormView: View {
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
         let flight = Flight(id: planId, tripId: tripId,
-                            planType: .flight,
                             startDate: departureDate,
                             endDate: arrivalDate,
                             startTimeZone: timeZone,

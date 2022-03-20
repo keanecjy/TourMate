@@ -28,10 +28,10 @@ struct FlightView: View {
                 Text("Flight Info").font(.title)
                 Text("Airline")
                     .font(.caption)
-                Text(flight.airline)
+                Text(flight.airline ?? "airline")
                 Text("Flight number")
                     .font(.caption)
-                Text(flight.flightNumber)
+                Text(flight.flightNumber ?? "flight number")
                 if let seats = flight.seats {
                     Text("Seats")
                         .font(.caption)

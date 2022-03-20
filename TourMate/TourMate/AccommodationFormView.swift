@@ -28,7 +28,6 @@ struct AccommodationFormView: View {
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
         let accommodation = Accommodation(id: planId, tripId: tripId,
-                                          planType: .accommodation,
                                           name: accommodationName,
                                           startDate: checkInDate,
                                           endDate: checkOutDate,

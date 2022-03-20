@@ -16,7 +16,8 @@ struct RestaurantFormView: View {
 
     @State private var isConfirmed = true
     @State private var restaurantName = ""
-    @State private var date = Date()
+    @State private var startDate = Date()
+    @State private var endDate = Date()
     @State private var address = ""
     @State private var phone = ""
     @State private var website = ""
@@ -27,9 +28,9 @@ struct RestaurantFormView: View {
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
         let restaurant = Restaurant(id: planId, tripId: tripId,
-                                    planType: .restaurant,
                                     name: restaurantName,
-                                    startDate: date,
+                                    startDate: startDate,
+                                    endDate: endDate,
                                     startTimeZone: timeZone,
                                     status: status,
                                     creationDate: creationDate,
@@ -45,7 +46,10 @@ struct RestaurantFormView: View {
             Toggle("Confirmed?", isOn: $isConfirmed)
             TextField("Restaurant Name", text: $restaurantName)
             DatePicker("Date",
-                       selection: $date,
+                       selection: $startDate,
+                       displayedComponents: [.date, .hourAndMinute])
+            DatePicker("Date",
+                       selection: $endDate,
                        displayedComponents: [.date, .hourAndMinute])
             TextField("Address", text: $address)
             TextField("Phone", text: $phone)

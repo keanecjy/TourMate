@@ -14,7 +14,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     let startDate: Date
     let endDate: Date
     let timeZone: TimeZone
-    let imageUrl: String
+    let imageUrl: String?
     let status: String
     let creationDate: Date
     let modificationDate: Date
@@ -33,7 +33,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     }
 
     init(id: String, tripId: String, name: String,
-         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String,
+         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String?,
          status: String, creationDate: Date, modificationDate: Date) {
         self.id = id
         self.tripId = tripId

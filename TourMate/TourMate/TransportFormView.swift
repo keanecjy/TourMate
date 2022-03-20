@@ -34,7 +34,6 @@ struct TransportFormView: View {
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
         let transport = Transport(id: planId, tripId: tripId,
-                                  planType: .transport,
                                   name: carrierName,
                                   startDate: departureDate,
                                   endDate: arrivalDate,

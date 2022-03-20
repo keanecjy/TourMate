@@ -17,13 +17,13 @@ struct Flight: Plan {
     var endDate: Date
     var startTimeZone: TimeZone
     var endTimeZone: TimeZone?
-    var imageUrl: String
+    var imageUrl: String?
     var status: PlanStatus
     var creationDate: Date
     var modificationDate: Date
 
     var airline: String?
-    var flightNumber: Int?
+    var flightNumber: String?
     var seats: String?
     var departureLocation: String?
     var departureTerminal: String?

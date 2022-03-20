@@ -9,7 +9,7 @@ import Foundation
 
 class FirebaseAdaptedFlight: FirebaseAdaptedPlan {
     var airline: String?
-    var flightNumber: Int?
+    var flightNumber: String?
     var seats: String?
     var departureLocation: String?
     var departureTerminal: String?
@@ -31,9 +31,9 @@ class FirebaseAdaptedFlight: FirebaseAdaptedPlan {
     }
 
     init(id: String, tripId: String, name: String,
-         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String,
+         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String?,
          status: String, creationDate: Date, modificationDate: Date,
-         airline: String?, flightNumber: Int?, seats: String?,
+         airline: String?, flightNumber: String?, seats: String?,
          departureLocation: String?, departureTerminal: String?,
          departureGate: String?, arrivalLocation: String?,
          arrivalTerminal: String?, arrivalGate: String?) {
@@ -59,7 +59,7 @@ class FirebaseAdaptedFlight: FirebaseAdaptedPlan {
         try super.init(from: superDecoder)
 
         airline = try container.decode(String.self, forKey: .airline)
-        flightNumber = try container.decode(Int.self, forKey: .flightNumber)
+        flightNumber = try container.decode(String.self, forKey: .flightNumber)
         seats = try container.decode(String.self, forKey: .seats)
         departureLocation = try container.decode(String.self, forKey: .departureLocation)
         departureTerminal = try container.decode(String.self, forKey: .departureTerminal)

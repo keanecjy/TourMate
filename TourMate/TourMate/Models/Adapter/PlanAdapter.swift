@@ -52,7 +52,7 @@ extension Accommodation {
     fileprivate func toData() -> FirebaseAdaptedAccommodation {
         FirebaseAdaptedAccommodation(id: id, tripId: tripId, name: name,
                                      startDate: startDate, endDate: endDate,
-                                     timeZone: timeZone, imageUrl: imageUrl, status: status.rawValue,
+                                     timeZone: startTimeZone, imageUrl: imageUrl, status: status.rawValue,
                                      creationDate: creationDate, modificationDate: modificationDate,
                                      address: address, phone: phone, website: website)
     }
@@ -62,7 +62,7 @@ extension Activity {
     fileprivate func toData() -> FirebaseAdaptedActivity {
         FirebaseAdaptedActivity(id: id, tripId: tripId, name: name,
                                 startDate: startDate, endDate: endDate,
-                                timeZone: timeZone, imageUrl: imageUrl, status: status.rawValue,
+                                timeZone: startTimeZone, imageUrl: imageUrl, status: status.rawValue,
                                 creationDate: creationDate, modificationDate: modificationDate,
                                 venue: venue, address: address, phone: phone, website: website)
     }
@@ -72,7 +72,7 @@ extension Restaurant {
     fileprivate func toData() -> FirebaseAdaptedRestaurant {
         FirebaseAdaptedRestaurant(id: id, tripId: tripId, name: name,
                                   startDate: startDate, endDate: endDate,
-                                  timeZone: timeZone, imageUrl: imageUrl, status: status.rawValue,
+                                  timeZone: startTimeZone, imageUrl: imageUrl, status: status.rawValue,
                                   creationDate: creationDate, modificationDate: modificationDate,
                                   address: address, phone: phone, website: website)
     }
@@ -82,7 +82,7 @@ extension Transport {
     fileprivate func toData() -> FirebaseAdaptedTransport {
         FirebaseAdaptedTransport(id: id, tripId: tripId, name: name,
                                  startDate: startDate, endDate: endDate,
-                                 timeZone: timeZone, imageUrl: imageUrl, status: status.rawValue,
+                                 timeZone: startTimeZone, imageUrl: imageUrl, status: status.rawValue,
                                  creationDate: creationDate, modificationDate: modificationDate,
                                  departureLocation: departureLocation, departureAddress: departureAddress,
                                  arrivalLocation: arrivalLocation, arrivalAddress: arrivalAddress,
@@ -94,7 +94,7 @@ extension Flight {
     fileprivate func toData() -> FirebaseAdaptedFlight {
         FirebaseAdaptedFlight(id: id, tripId: tripId, name: name,
                               startDate: startDate, endDate: endDate,
-                              timeZone: timeZone, imageUrl: imageUrl, status: status.rawValue,
+                              timeZone: startTimeZone, imageUrl: imageUrl, status: status.rawValue,
                               creationDate: creationDate, modificationDate: modificationDate,
                               airline: airline, flightNumber: flightNumber, seats: seats,
                               departureLocation: departureLocation, departureTerminal: departureTerminal,
@@ -108,7 +108,7 @@ extension FirebaseAdaptedAccommodation {
     fileprivate func toItem() -> Accommodation {
         Accommodation(id: id, tripId: tripId, name: name,
                       startDate: startDate, endDate: endDate,
-                      timeZone: timeZone, imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
+                      startTimeZone: timeZone, imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
                       creationDate: creationDate, modificationDate: modificationDate,
                       address: address, phone: phone, website: website)
     }
@@ -118,7 +118,7 @@ extension FirebaseAdaptedActivity {
     fileprivate func toItem() -> Activity {
         Activity(id: id, tripId: tripId, name: name,
                  startDate: startDate, endDate: endDate,
-                 timeZone: timeZone, imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
+                 startTimeZone: timeZone, imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
                  creationDate: creationDate, modificationDate: modificationDate,
                  venue: venue, address: address, phone: phone, website: website)
     }
@@ -128,7 +128,7 @@ extension FirebaseAdaptedRestaurant {
     fileprivate func toItem() -> Restaurant {
         Restaurant(id: id, tripId: tripId, name: name,
                    startDate: startDate, endDate: endDate,
-                   timeZone: timeZone, imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
+                   startTimeZone: timeZone, imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
                    creationDate: creationDate, modificationDate: modificationDate,
                    address: address, phone: phone, website: website)
     }
@@ -138,7 +138,7 @@ extension FirebaseAdaptedTransport {
     fileprivate func toItem() -> Transport {
         Transport(id: id, tripId: tripId, name: name,
                   startDate: startDate, endDate: endDate,
-                  timeZone: timeZone, imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
+                  startTimeZone: timeZone, imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
                   creationDate: creationDate, modificationDate: modificationDate,
                   departureLocation: departureLocation, departureAddress: departureAddress,
                   arrivalLocation: arrivalLocation, arrivalAddress: arrivalAddress,
@@ -150,7 +150,7 @@ extension FirebaseAdaptedFlight {
     fileprivate func toItem() -> Flight {
         Flight(id: id, tripId: tripId, name: name,
                startDate: startDate, endDate: endDate,
-               timeZone: timeZone, imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
+               startTimeZone: timeZone, imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
                creationDate: creationDate, modificationDate: modificationDate,
                airline: airline, flightNumber: flightNumber, seats: seats, departureLocation: departureLocation,
                departureTerminal: departureTerminal, departureGate: departureGate, arrivalLocation: arrivalLocation,

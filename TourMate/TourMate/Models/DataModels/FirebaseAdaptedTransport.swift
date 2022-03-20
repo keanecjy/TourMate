@@ -13,7 +13,7 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
     var arrivalLocation: String?
     var arrivalAddress: String?
     var vehicleDescription: String?
-    var numberOfPassengers: Int?
+    var numberOfPassengers: String?
 
     private enum CodingKeys: String, CodingKey {
         case departureLocation
@@ -25,11 +25,11 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
     }
 
     init(id: String, tripId: String, name: String,
-         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String,
+         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String?,
          status: String, creationDate: Date, modificationDate: Date,
          departureLocation: String?, departureAddress: String?,
          arrivalLocation: String?, arrivalAddress: String?,
-         vehicleDescription: String?, numberOfPassengers: Int?) {
+         vehicleDescription: String?, numberOfPassengers: String?) {
 
         self.departureLocation = departureLocation
         self.departureAddress = departureAddress
@@ -53,12 +53,12 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
         arrivalLocation = try container.decode(String.self, forKey: .arrivalLocation)
         arrivalAddress = try container.decode(String.self, forKey: .arrivalAddress)
         vehicleDescription = try container.decode(String.self, forKey: .vehicleDescription)
-        numberOfPassengers = try container.decode(Int.self, forKey: .numberOfPassengers)
+        numberOfPassengers = try container.decode(String.self, forKey: .numberOfPassengers)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        
+
         try container.encode(departureLocation, forKey: .departureLocation)
         try container.encode(departureAddress, forKey: .departureAddress)
         try container.encode(arrivalLocation, forKey: .arrivalLocation)
