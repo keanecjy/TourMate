@@ -10,17 +10,10 @@ import SwiftUI
 struct ContentView: View {
 
     var body: some View {
-        TabView {
+        NavigationView {
             TripsView()
-                .tabItem {
-                    Label("Trips", systemImage: "paperplane.fill")
-                }
-
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gearshape.fill")
-                }
         }
+        .navigationViewStyle(.stack)
     }
 }
 

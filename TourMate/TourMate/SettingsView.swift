@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center) {
                 Spacer()
-
-                Text("Settings")
-                    .font(.largeTitle)
 
                 LogOutView(containerSize: geometry.size)
 

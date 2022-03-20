@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlansListView: View {
     @StateObject var plansViewModel: PlansViewModel
-    
+
     init(tripId: String) {
         self._plansViewModel = StateObject(wrappedValue: PlansViewModel(tripId: tripId))
     }

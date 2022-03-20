@@ -73,7 +73,7 @@ struct TripView: View {
                 Button {
                     isShowingEditTripSheet.toggle()
                 } label: {
-                    Image(systemName: "pencil")
+                    Image(systemName: "pencil").contentShape(Rectangle())
                 }
                 .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
@@ -87,7 +87,7 @@ struct TripView: View {
                 NavigationLink(isActive: $isAddPlanViewActive) {
                     AddPlanView(isActive: $isAddPlanViewActive, trip: viewModel.trip)
                 } label: {
-                    Image(systemName: "plus")
+                    Image(systemName: "plus").contentShape(Rectangle())
                 }
                 .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
             }
