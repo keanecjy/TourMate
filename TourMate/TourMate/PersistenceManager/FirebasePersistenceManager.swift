@@ -59,9 +59,12 @@ struct FirebasePersistenceManager: PersistenceManager {
         return await fetchItems(from: query)
     }
 
+    // TODO: How to fix the fieldpath issue
+    // Trips: Document > Base
+    // Plans: Document > Base > Super
     @MainActor
     func fetchItems(field: String, isEqualTo id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
-        let query = db.collection(collectionId).whereField(FieldPath(["base", field]), isEqualTo: id)
+        let query = db.collection(collectionId).whereField(FieldPath(["base", "super", field]), isEqualTo: id) // added super for testing plans. will not work with trips
         return await fetchItems(from: query)
     }
 
