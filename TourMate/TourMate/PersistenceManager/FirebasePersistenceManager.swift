@@ -64,7 +64,8 @@ struct FirebasePersistenceManager: PersistenceManager {
     // Plans: Document > Base > Super
     @MainActor
     func fetchItems(field: String, isEqualTo id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
-        let query = db.collection(collectionId).whereField(FieldPath(["base", "super", field]), isEqualTo: id) // added super for testing plans. will not work with trips
+        // added super for testing plans. will not work with trips
+        let query = db.collection(collectionId).whereField(FieldPath(["base", "super", field]), isEqualTo: id)
         return await fetchItems(from: query)
     }
 
