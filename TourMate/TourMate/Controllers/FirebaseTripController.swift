@@ -29,9 +29,7 @@ struct FirebaseTripController: TripController {
 
         // unable to typecast
         guard let adaptedTrips = adaptedTrips as? [FirebaseAdaptedTrip] else {
-            preconditionFailure()
-            // Alternative:
-            // return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
+             return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
         }
 
         let trips = adaptedTrips.map({ $0.toItem() })

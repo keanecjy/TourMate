@@ -25,9 +25,7 @@ struct PlanPersistenceController: PlanPersistenceControllerProtocol {
 
         // unable to typecast
         guard let adaptedPlans = adaptedPlans as? [FirebaseAdaptedPlan] else {
-            preconditionFailure()
-            // Alternative
-            // return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedPlan")
+             return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedPlan")
         }
 
         let plans = adaptedPlans.map({ PlanAdapter.toPlan(adaptedPlan: $0) })
