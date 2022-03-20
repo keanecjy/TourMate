@@ -49,13 +49,14 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+
         id = try container.decode(String.self, forKey: .id)
         tripId = try container.decode(String.self, forKey: .tripId)
         name = try container.decode(String.self, forKey: .name)
         startDate = try container.decode(Date.self, forKey: .startDate)
         endDate = try container.decode(Date.self, forKey: .endDate)
         timeZone = try container.decode(TimeZone.self, forKey: .timeZone)
-        imageUrl = try container.decode(String.self, forKey: .imageUrl)
+        imageUrl = try container.decode(String?.self, forKey: .imageUrl)
         status = try container.decode(String.self, forKey: .status)
         creationDate = try container.decode(Date.self, forKey: .creationDate)
         modificationDate = try container.decode(Date.self, forKey: .modificationDate)
