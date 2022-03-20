@@ -40,7 +40,7 @@ struct TripView: View {
         Group {
             if viewModel.hasError {
                 Text("Error occurred")
-            } else if viewModel.isLoading {
+            } else if viewModel.isLoading || viewModel.isDeleted {
                 ProgressView()
             } else {
                 ScrollView {
