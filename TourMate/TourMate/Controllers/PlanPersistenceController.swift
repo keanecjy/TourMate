@@ -16,21 +16,16 @@ struct PlanPersistenceController: PlanPersistenceControllerProtocol {
     }
 
     func fetchPlans(withTripId tripId: String) async -> ([Plan], String) {
-        let (adaptedPlans, errorMessage) = await firebasePersistenceManager
+        let (adaptedPlans, errorMessage): ([FirebaseAdaptedPlan], String) = await firebasePersistenceManager
             .fetchItems(field: "tripId", isEqualTo: tripId)
-
-        guard let adaptedPlans = adaptedPlans as? [FirebaseAdaptedPlan] else {
-            preconditionFailure()
-        }
 
         let plans = adaptedPlans.map({ PlanAdapter.toPlan(adaptedPlan: $0) })
         return (plans, errorMessage)
     }
 
     func fetchPlan(withPlanId planId: String) async -> (Plan?, String) {
-        let (adaptedPlan, errorMessage) = await firebasePersistenceManager.fetchItem(id: planId)
-
-        guard let adaptedPlan = adaptedPlan as? FirebaseAdaptedPlan else {
+        let (adaptedPlan, errorMessage): (FirebaseAdaptedPlan?, String) = await firebasePersistenceManager.fetchItem(id: planId)
+        guard let adaptedPlan = adaptedPlan else {
             return (nil, errorMessage)
         }
 

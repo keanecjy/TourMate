@@ -33,14 +33,14 @@ struct FirebasePersistenceManager: PersistenceManager {
     }
 
     @MainActor
-    func fetchItem(id: String) async -> (item: FirebaseAdaptedData?, errorMessage: String) {
+    func fetchItem<T: FirebaseAdaptedData>(id: String) async -> (item: T?, errorMessage: String) {
         guard Auth.auth().currentUser != nil else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
         do {
             let itemRef = db.collection(collectionId).document(id)
-            let item = try await itemRef.getDocument().data(as: AnyFirebaseAdaptedData.self).map { $0.base }
+            let item = try await itemRef.getDocument().data(as: T.self)
 
             print("[FirebasePersistenceManager] Fetched: \(itemRef)")
 
@@ -52,7 +52,7 @@ struct FirebasePersistenceManager: PersistenceManager {
     }
 
     @MainActor
-    func fetchItems(field: String, arrayContains id: String) async -> (items: [FirebaseAdaptedData],
+    func fetchItems<T: FirebaseAdaptedData>(field: String, arrayContains id: String) async -> (items: [T],
                                                                        errorMessage: String) {
         // Might want to remove the hard coding here in the future
         let query = db.collection(collectionId).whereField(FieldPath(["base", field]), arrayContains: id)
@@ -60,20 +60,20 @@ struct FirebasePersistenceManager: PersistenceManager {
     }
 
     @MainActor
-    func fetchItems(field: String, isEqualTo id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
+    func fetchItems<T: FirebaseAdaptedData>(field: String, isEqualTo id: String) async -> (items: [T], errorMessage: String) {
         let query = db.collection(collectionId).whereField(FieldPath(["base", field]), isEqualTo: id)
         return await fetchItems(from: query)
     }
 
     @MainActor
-    private func fetchItems(from query: Query) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
+    private func fetchItems<T: FirebaseAdaptedData>(from query: Query) async -> (items: [T], errorMessage: String) {
         guard Auth.auth().currentUser != nil else {
             return ([], Constants.messageUserNotLoggedIn)
         }
 
         do {
             let documents = try await query.getDocuments().documents
-            let items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
+            let items = documents.compactMap({ try? $0.data(as: T.self) })
 
             print("[FirebasePersistenceManager] Fetched: \(query)")
 

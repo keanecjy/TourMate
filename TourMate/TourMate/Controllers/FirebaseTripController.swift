@@ -20,12 +20,8 @@ struct FirebaseTripController: TripController {
             return ([], Constants.messageUserNotLoggedIn)
         }
 
-        let (adaptedTrips, errorMessage) = await firebasePersistenceManager
+        let (adaptedTrips, errorMessage): ([FirebaseAdaptedTrip], String) = await firebasePersistenceManager
             .fetchItems(field: "attendeesUserIds", arrayContains: user.uid)
-
-        guard let adaptedTrips = adaptedTrips as? [FirebaseAdaptedTrip] else {
-            preconditionFailure()
-        }
 
         let trips = adaptedTrips.map({ $0.toItem() })
             .sorted(by: { $0.startDate > $1.startDate })

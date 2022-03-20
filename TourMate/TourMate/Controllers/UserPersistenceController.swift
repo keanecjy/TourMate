@@ -35,12 +35,10 @@ struct UserPersistenceController {
         guard let currentUser = Auth.auth().currentUser else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
-        let (adaptedUser, errorMessage) = await firebasePersistenceManager.fetchItem(id: currentUser.uid)
-
-        guard let adaptedUser = adaptedUser as? FirebaseAdaptedUser else {
-            preconditionFailure()
+        let (adaptedUser, errorMessage): (FirebaseAdaptedUser?, String) = await firebasePersistenceManager.fetchItem(id: currentUser.uid)
+        guard let adaptedUser = adaptedUser else {
+            return (nil, Constants.messageUserNotLoggedIn)
         }
-
         return (adaptedUser.toItem(), errorMessage)
     }
 
