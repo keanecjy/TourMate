@@ -38,11 +38,14 @@ struct FirebaseTripController: TripController {
         }
 
         let (adaptedTrip, errorMessage) = await firebasePersistenceManager.fetchItem(id: tripId)
+        guard errorMessage.isEmpty else {
+           return (nil, errorMessage)
+        }
         guard let adaptedTrip = adaptedTrip as? FirebaseAdaptedTrip else {
-            return (nil, errorMessage)
+            return (nil, "[FirebaseTripController] Error converting FirebaseAdaptedData into FirebaseAdaptedTrip")
         }
         guard adaptedTrip.attendeesUserIds.contains(user.uid) else {
-            return (nil, errorMessage)
+            return (nil, "[FirebaseTripController] Error user \(user.uid) is not an attendee of trip \(tripId)")
         }
 
         let trip = adaptedTrip.toItem()
