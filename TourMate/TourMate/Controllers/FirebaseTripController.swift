@@ -37,8 +37,8 @@ struct FirebaseTripController: TripController {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
-        let (adaptedTrip, errorMessage): (FirebaseAdaptedTrip?, String) = await firebasePersistenceManager.fetchItemOfType(id: tripId)
-        guard let adaptedTrip = adaptedTrip else {
+        let (adaptedTrip, errorMessage) = await firebasePersistenceManager.fetchItem(id: tripId)
+        guard let adaptedTrip = adaptedTrip as? FirebaseAdaptedTrip else {
             return (nil, errorMessage)
         }
         guard adaptedTrip.attendeesUserIds.contains(user.uid) else {

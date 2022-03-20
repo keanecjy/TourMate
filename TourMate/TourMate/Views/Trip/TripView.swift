@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TripView: View {
+    @Environment(\.dismiss) var dismiss
+
     @StateObject var plansViewModel: PlansViewModel
     @StateObject var viewModel: TripViewModel
 
@@ -28,56 +30,71 @@ struct TripView: View {
         return startDateString + " - " + endDateString
     }
 
+    func refreshTrip() async {
+        await viewModel.fetchTrip()
+        if viewModel.isDeleted {
+            dismiss()
+        }
+    }
+
+    @ViewBuilder
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                Text(dateString)
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding([.bottom, .horizontal])
+        if viewModel.hasError {
+            Text("Error occurred")
+        } else {
+            ScrollView {
+                VStack {
+                    Text(dateString)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding([.bottom, .horizontal])
 
-                if let imageUrl = viewModel.trip.imageUrl {
-                    AsyncImage(url: URL(string: imageUrl)) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 200, alignment: .center)
-                            .clipped()
-                    } placeholder: {
-                        Color.gray
+                    if let imageUrl = viewModel.trip.imageUrl {
+                        AsyncImage(url: URL(string: imageUrl)) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 200, alignment: .center)
+                                .clipped()
+                        } placeholder: {
+                            Color.gray
+                        }
                     }
-                }
 
-                PlansListView(plansViewModel: plansViewModel)
-            }
-        }
-        .navigationTitle(viewModel.trip.name)
-        .toolbar {
-            ToolbarItemGroup(placement: .primaryAction) {
-                Button {
-                    isShowingEditTripSheet.toggle()
-                } label: {
-                    Image(systemName: "pencil")
-                }
-                .sheet(isPresented: $isShowingEditTripSheet) {
-                    EditTripView(trip: viewModel.trip)
-                }
-
-                NavigationLink(isActive: $isActive) {
-                    AddPlanView(isActive: $isActive, trip: viewModel.trip)
-                } label: {
-                    Image(systemName: "plus")
+                    PlansListView(plansViewModel: plansViewModel)
                 }
             }
-        }
-        .task {
-            /*
-            await viewModel.refreshTrip()
-            print("[TripView] Refreshed trip: \(viewModel.trip)")
-            */
+            .navigationTitle(viewModel.trip.name)
+            .toolbar {
+                ToolbarItemGroup(placement: .primaryAction) {
+                    Button {
+                        isShowingEditTripSheet.toggle()
+                    } label: {
+                        Image(systemName: "pencil")
+                    }
+                    .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
+                    .sheet(isPresented: $isShowingEditTripSheet) {
+                        Task {
+                            await refreshTrip()
+                        }
+                    } content: {
+                        EditTripView(viewModel: viewModel)
+                    }
 
-            await plansViewModel.fetchPlans()
-            print("[TripView] Fetched: \(plansViewModel.plans)")
+                    NavigationLink(isActive: $isActive) {
+                        AddPlanView(isActive: $isActive, trip: viewModel.trip)
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
+                }
+            }
+            .task {
+                await refreshTrip()
+
+                await plansViewModel.fetchPlans()
+                print("[TripView] Fetched plans: \(plansViewModel.plans)")
+            }
         }
     }
 }

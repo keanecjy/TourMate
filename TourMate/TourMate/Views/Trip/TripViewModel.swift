@@ -11,17 +11,19 @@ import Foundation
 class TripViewModel: ObservableObject {
     @Published var trip: Trip
     @Published private(set) var isLoading: Bool
+    @Published private(set) var isDeleted: Bool
     @Published private(set) var hasError: Bool
     let tripController: TripController
 
     init(trip: Trip, tripController: TripController = FirebaseTripController()) {
         self.trip = trip
         self.isLoading = false
+        self.isDeleted = false
         self.hasError = false
         self.tripController = tripController
     }
 
-    func refreshTrip() async {
+    func fetchTrip() async {
         self.isLoading = true
         let (trip, errorMessage) = await tripController.fetchTrip(withTripId: trip.id)
         guard let trip = trip, errorMessage.isEmpty else {
@@ -39,16 +41,14 @@ class TripViewModel: ObservableObject {
         }
     }
 
-    func deleteTrip(id: String,
-                    name: String,
-                    startDate: Date,
-                    endDate: Date,
-                    imageUrl: String? = nil) async {
+    func deleteTrip() async {
         await modifyTrip { trip in
-            await tripController.deleteTrip(trip: trip)
+            let (hasDeleted, errorMessage) = await tripController.deleteTrip(trip: trip)
+            self.isDeleted = hasDeleted
+            return (hasDeleted, errorMessage)
         }
     }
-    
+
     private func modifyTrip(modifyFunction: (Trip) async -> (Bool, String)) async {
         self.isLoading = true
         let (hasModifiedTrip, tripErrorMessage) = await modifyFunction(trip)

@@ -9,24 +9,9 @@ import SwiftUI
 
 struct EditTripView: View {
 
-    let trip: Trip
-
     @Environment(\.dismiss) var dismiss
 
-    @StateObject var viewModel = EditTripViewModel()
-
-    @State private var tripName: String
-    @State private var startDate: Date
-    @State private var endDate: Date
-    @State private var imageUrl: String
-
-    init(trip: Trip) {
-        self.trip = trip
-        self._tripName = State(initialValue: trip.name)
-        self._startDate = State(initialValue: trip.startDate)
-        self._endDate = State(initialValue: trip.endDate)
-        self._imageUrl = State(initialValue: trip.imageUrl ?? "")
-    }
+    @ObservedObject var viewModel: TripViewModel
 
     var body: some View {
         NavigationView {
@@ -35,18 +20,18 @@ struct EditTripView: View {
                     Text("Error occurred")
                 } else {
                     Form {
-                        TextField("Trip Name", text: $tripName)
+                        TextField("Trip Name", text: $viewModel.trip.name)
                         DatePicker(
                             "Start Date",
-                            selection: $startDate,
+                            selection: $viewModel.trip.startDate,
                             displayedComponents: [.date]
                         )
                         DatePicker(
                             "End Date",
-                            selection: $endDate,
+                            selection: $viewModel.trip.endDate,
                             displayedComponents: [.date]
                         )
-                        TextField("Image URL", text: $imageUrl)
+                        TextField("Image URL", text: $viewModel.trip.imageUrl ?? "")
                     }
                 }
             }
@@ -56,11 +41,7 @@ struct EditTripView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") {
                         Task {
-                            await viewModel.updateTrip(id: trip.id,
-                                                       name: tripName,
-                                                       startDate: startDate,
-                                                       endDate: endDate,
-                                                       imageUrl: imageUrl)
+                            await viewModel.updateTrip()
                             dismiss()
                         }
                     }
@@ -75,23 +56,13 @@ struct EditTripView: View {
                 ToolbarItem(placement: .bottomBar) {
                     Button("Delete Trip", role: .destructive) {
                         Task {
-                            await viewModel.deleteTrip(id: trip.id,
-                                                       name: tripName,
-                                                       startDate: startDate,
-                                                       endDate: endDate,
-                                                       imageUrl: imageUrl)
+                            await viewModel.deleteTrip()
                             dismiss()
                         }
                     }
                     .disabled(viewModel.isLoading || viewModel.hasError)
                 }
             }
-        }
-        .onAppear {
-            tripName = trip.name
-            startDate = trip.startDate
-            endDate = trip.endDate
-            imageUrl = trip.imageUrl ?? ""
         }
     }
 }
