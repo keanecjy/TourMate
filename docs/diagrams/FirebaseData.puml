@@ -1,0 +1,114 @@
+@startuml
+
+class FirebaseAdaptedAccommodation {
+    + address: String?
+    + phone: String?
+    + website: String?
+
+    + getType() -> FirebaseAdaptedType
+}
+
+class FirebaseAdaptedActivity {
+    + venue: String?
+    + address: String?
+    + phone: String?
+    + website: String?
+
+    + getType() -> FirebaseAdaptedType
+}
+
+class FirebaseAdaptedRestaurant {
+    + address: String?
+    + phone: String?
+    + website: String?
+    
+    + getType() -> FirebaseAdaptedType
+}
+
+class FirebaseAdaptedTransport {
+    + departureLocation: String?
+    + departureAddress: String?
+    + arrivalLocation: String?
+    + arrivalAddress: String?
+    + vehicleDescription: String?
+    + numberOfPassengers: String?
+
+    + getType() -> FirebaseAdaptedType
+}
+
+class FirebaseAdaptedFlight {
+    + airline: String?
+    + flightNumber: String?
+    + seats: String?
+    + departureLocation: String?
+    + departureTerminal: String?
+    + departureGate: String?
+    + arrivalLocation: String?
+    + arrivalTerminal: String?
+    + arrivalGate: String?
+
+    + getType() -> FirebaseAdaptedType
+}
+
+class FirebaseAdaptedPlan {
+    + id: String
+    + tripId: String
+    + startDate: Date
+    + name: String
+    + endDate: Date
+    + timeZone: TimeZone
+    + imageUrl: String?
+    + status: String
+    + creationDate: Date
+    + modificationDate: Date
+
+    + getType() -> FirebaseAdaptedType
+}
+
+class FirebaseAdaptedUser {
+    + id: String
+    + name: String
+    + email: String
+}
+
+class FirebaseAdaptedTrip {
+    + id: String
+    + name: String
+    + startDate: Date
+    + endDate: Date
+    + timeZone: TimeZone
+    + imageUrl: String?
+    + attendeesUserIds: [String]
+    + invitedUserIds: [String]
+    + creationDate: Date
+    + modificationDate: Date
+}
+
+interface FirebaseAdaptedData <<protocol>> {
+    + id: String { get }
+    + getType() -> FirebaseAdaptedType
+}
+
+enum FirebaseAdaptedType <<enum>> {
+    firebaseAdaptedUser
+    firebaseAdaptedTrip
+    accommodation
+    activity
+    restaurant
+    transport
+    flight
+}
+
+interface Codable {}
+
+FirebaseAdaptedAccommodation --|> FirebaseAdaptedPlan
+FirebaseAdaptedActivity --|> FirebaseAdaptedPlan
+FirebaseAdaptedRestaurant --|> FirebaseAdaptedPlan
+FirebaseAdaptedTransport --|> FirebaseAdaptedPlan
+FirebaseAdaptedFlight -right-|> FirebaseAdaptedPlan
+FirebaseAdaptedPlan --|> FirebaseAdaptedData
+FirebaseAdaptedUser --|> FirebaseAdaptedData
+FirebaseAdaptedTrip --|> FirebaseAdaptedData
+FirebaseAdaptedData -right-|> Codable
+
+@enduml
