@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LogInView: View {
-    let authenticationController = AuthenticationController.singleton
+    let authenticationController = FirebaseAuthenticationController.singleton
     let containerSize: CGSize
 
     @State private var isDisabled = false

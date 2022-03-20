@@ -1,5 +1,5 @@
 //
-//  PlanPersistenceControllerProtocol.swift
+//  PlanController.swift
 //  TourMate
 //
 //  Created by Tan Rui Quan on 18/3/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PlanPersistenceControllerProtocol {
+protocol PlanController {
     func fetchPlans(withTripId tripId: String) async -> ([Plan], String)
 
     func fetchPlan(withPlanId planId: String) async -> (Plan?, String)

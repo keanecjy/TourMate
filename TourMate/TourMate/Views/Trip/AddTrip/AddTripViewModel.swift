@@ -12,10 +12,10 @@ class AddTripViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
     let tripController: TripController
-    let userController: UserPersistenceController
+    let userController: UserController
 
     init(tripController: TripController = FirebaseTripController(),
-         userController: UserPersistenceController = UserPersistenceController()) {
+         userController: UserController = FirebaseUserController()) {
         self.isLoading = false
         self.hasError = false
         self.tripController = tripController

@@ -10,7 +10,7 @@ import Firebase
 
 @main
 struct TourMateApp: App {
-    @StateObject private var authenticationController = AuthenticationController.singleton
+    @StateObject private var authenticationController = FirebaseAuthenticationController.singleton
 
     init() {
         FirebaseApp.configure()

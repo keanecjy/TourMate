@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MockPlanController: PlanPersistenceControllerProtocol {
+class MockPlanController: PlanController {
 
     static let creationDate = Date(timeIntervalSince1970: 1_651_400_000)
 
