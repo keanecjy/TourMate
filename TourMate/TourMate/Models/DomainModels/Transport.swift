@@ -8,16 +8,16 @@
 import Foundation
 
 struct Transport: Plan {
+    let planType: PlanType = .transport
 
     var id: String
     var tripId: String
-    var planType: PlanType
-    var name: String = "Transportation"
+    var name: String = "Transport"
     var startDate: Date
-    var endDate: Date?
+    var endDate: Date
     var startTimeZone: TimeZone
     var endTimeZone: TimeZone?
-    var imageUrl: String?
+    var imageUrl: String
     var status: PlanStatus
     var creationDate: Date
     var modificationDate: Date

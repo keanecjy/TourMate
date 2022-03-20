@@ -8,8 +8,6 @@
 import Foundation
 
 struct FirebaseAdaptedTrip: FirebaseAdaptedData {
-    static let type = FirebaseAdaptedType.firebaseAdaptedTrip
-
     let id: String
     let name: String
     let startDate: Date
@@ -20,4 +18,8 @@ struct FirebaseAdaptedTrip: FirebaseAdaptedData {
     let invitedUserIds: [String]
     let creationDate: Date
     let modificationDate: Date
+
+    func getType() -> FirebaseAdaptedType {
+        FirebaseAdaptedType.firebaseAdaptedTrip
+    }
 }
