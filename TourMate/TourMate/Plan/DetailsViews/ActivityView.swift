@@ -104,7 +104,6 @@ struct ActivityView: View {
                         Task {
                             await activityViewModel.fetchPlan()
 
-                            print("plan \(activityViewModel.plan)")
                             if activityViewModel.plan == nil {
                                 dismiss()
                             }

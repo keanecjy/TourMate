@@ -26,12 +26,28 @@ class PlanViewModel<T: Plan>: ObservableObject {
     func fetchPlan() async {
         self.isLoading = true
         let (plan, errorMessage) = await planController.fetchPlan(withPlanId: planId)
+
+        guard errorMessage.isEmpty else {
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+
+        // no plans fetched
+        guard plan != nil else {
+            self.plan = nil
+            self.isLoading = false
+            return
+        }
+
+        // cannot cast fetched Plan into specific T-Plan
         guard let plan = plan as? T,
               errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
             return
         }
+
         self.plan = plan
         self.isLoading = false
     }
