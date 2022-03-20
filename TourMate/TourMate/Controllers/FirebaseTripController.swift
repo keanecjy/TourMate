@@ -27,6 +27,20 @@ struct FirebaseTripController: TripController {
             .sorted(by: { $0.startDate > $1.startDate })
         return (trips, errorMessage)
     }
+    
+    func fetchTrip(withTripId tripId: String) async -> (Trip?, String) {
+        guard (Auth.auth().currentUser != nil) else {
+            return (nil, Constants.messageUserNotLoggedIn)
+        }
+        
+        let (adaptedTrip, errorMessage): (FirebaseAdaptedTrip?, String) = await firebasePersistenceManager.fetchItem(id: tripId)
+        guard let adaptedTrip = adaptedTrip else {
+            return (nil, errorMessage)
+        }
+
+        let trip = adaptedTrip.toItem()
+        return (trip, errorMessage)
+    }
 
     func deleteTrip(trip: Trip) async -> (Bool, String) {
         await firebasePersistenceManager.deleteItem(id: trip.id)

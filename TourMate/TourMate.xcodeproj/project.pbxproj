@@ -248,10 +248,10 @@
 		0092523C27DA574800F4F029 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4C3BB2E327E6051C0022C3C1 /* FirebaseTripController.swift */,
 				4CB954E527DE0066001410AD /* UserPersistenceController.swift */,
 				0092523D27DA574800F4F029 /* AuthenticationController.swift */,
 				95FAE40C27E247F800F4AB01 /* TripController.swift */,
+				4C3BB2E327E6051C0022C3C1 /* FirebaseTripController.swift */,
 				95FAE40A27E245D200F4AB01 /* MockTripController.swift */,
 				4CCBBD1A27DE651F00F9C250 /* PlanPersistenceController.swift */,
 				B9A04FA527E42234007D4303 /* PlanPersistenceControllerProtocol.swift */,
@@ -806,12 +806,10 @@
 				4CB954EA27DE3EBC001410AD /* AnyFirebaseAdaptedData.swift in Sources */,
 				4CB954EA27DE3EBC001410AD /* AnyFirebaseAdaptedData.swift in Sources */,
 				B9A04FB727E591BE007D4303 /* RestaurantView.swift in Sources */,
-				4C4539B627DE456800AB8384 /* FirebaseTripController.swift in Sources */,
 				B9A04FAC27E5567F007D4303 /* MockPlanController.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
 				B9A04FA427E364AB007D4303 /* PlansViewModel.swift in Sources */,
-				4C4539B627DE456800AB8384 /* FirebaseTripController.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
