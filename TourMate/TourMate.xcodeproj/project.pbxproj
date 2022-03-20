@@ -237,6 +237,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00582F7327E70F49008756E9 /* EditViews */ = {
+			isa = PBXGroup;
+			children = (
+				00582F6F27E70C97008756E9 /* EditActivityView.swift */,
+			);
+			path = EditViews;
+			sourceTree = "<group>";
+		};
 		0092522E27DA573500F4F029 /* AuthenticationViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +510,7 @@
 				B9A04FA327E364AB007D4303 /* PlansViewModel.swift */,
 				B9A04FA927E4F584007D4303 /* AddPlanViewModel.swift */,
 				00582F7127E70C9D008756E9 /* EditPlanViewModel.swift */,
+				00582F7327E70F49008756E9 /* EditViews */,
 				B9A04FB127E590AD007D4303 /* DetailsViews */,
 				B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */,
 			);
@@ -512,7 +521,6 @@
 			isa = PBXGroup;
 			children = (
 				B9A04FAF27E5875A007D4303 /* ActivityView.swift */,
-				00582F6F27E70C97008756E9 /* EditActivityView.swift */,
 				B9A04FB827E591F2007D4303 /* TransportView.swift */,
 				B9A04FB227E5911E007D4303 /* AccommodationView.swift */,
 				B9A04FB427E5919F007D4303 /* FlightView.swift */,
