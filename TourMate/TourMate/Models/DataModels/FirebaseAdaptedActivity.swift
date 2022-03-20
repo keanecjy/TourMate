@@ -37,13 +37,14 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        venue = try container.decode(String?.self, forKey: .venue)
+        address = try container.decode(String?.self, forKey: .address)
+        phone = try container.decode(String?.self, forKey: .phone)
+        website = try container.decode(String?.self, forKey: .website)
+
         let superDecoder = try container.superDecoder()
         try super.init(from: superDecoder)
-
-        venue = try container.decode(String.self, forKey: .venue)
-        address = try container.decode(String.self, forKey: .address)
-        phone = try container.decode(String.self, forKey: .phone)
-        website = try container.decode(String.self, forKey: .website)
     }
 
     override func encode(to encoder: Encoder) throws {
