@@ -92,7 +92,7 @@ struct EditAccommodationView: View {
                             .disabled(viewModel.isLoading)
                         }
                         ToolbarItem(placement: .bottomBar) {
-                            Button("Delete Trip", role: .destructive) {
+                            Button("Delete Accommodation", role: .destructive) {
                                 Task {
                                     await viewModel.deletePlan(plan: createUpdatedAccommodation())
                                     dismiss()

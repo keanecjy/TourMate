@@ -91,7 +91,7 @@ struct EditRestaurantView: View {
                             .disabled(viewModel.isLoading)
                         }
                         ToolbarItem(placement: .bottomBar) {
-                            Button("Delete Trip", role: .destructive) {
+                            Button("Delete Restaurant", role: .destructive) {
                                 Task {
                                     await viewModel.deletePlan(plan: createUpdatedRestaurant())
                                     dismiss()
