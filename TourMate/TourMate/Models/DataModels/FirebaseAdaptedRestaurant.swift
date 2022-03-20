@@ -9,7 +9,7 @@ import Foundation
 
 class FirebaseAdaptedRestaurant: FirebaseAdaptedPlan {
     var address: String?
-    var phone: Int?
+    var phone: String?
     var website: String?
 
     private enum CodingKeys: String, CodingKey {
@@ -19,9 +19,9 @@ class FirebaseAdaptedRestaurant: FirebaseAdaptedPlan {
     }
 
     init(id: String, tripId: String, name: String,
-         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String,
+         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String?,
          status: String, creationDate: Date, modificationDate: Date,
-         address: String?, phone: Int?, website: String?) {
+         address: String?, phone: String?, website: String?) {
 
         self.address = address
         self.phone = phone
@@ -38,13 +38,13 @@ class FirebaseAdaptedRestaurant: FirebaseAdaptedPlan {
         try super.init(from: superDecoder)
 
         address = try container.decode(String.self, forKey: .address)
-        phone = try container.decode(Int.self, forKey: .phone)
+        phone = try container.decode(String.self, forKey: .phone)
         website = try container.decode(String.self, forKey: .website)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        
+
         try container.encode(address, forKey: .address)
         try container.encode(phone, forKey: .phone)
         try container.encode(website, forKey: .website)

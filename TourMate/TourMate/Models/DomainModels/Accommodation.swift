@@ -15,13 +15,14 @@ struct Accommodation: Plan {
     var name: String = "Accommodation"
     var startDate: Date
     var endDate: Date
-    var timeZone: TimeZone
-    var imageUrl: String
+    var startTimeZone: TimeZone
+    var endTimeZone: TimeZone?
+    var imageUrl: String?
     var status: PlanStatus
     var creationDate: Date
     var modificationDate: Date
 
     var address: String?
-    var phone: Int?
+    var phone: String?
     var website: String?
 }

@@ -8,20 +8,12 @@
 import SwiftUI
 
 struct TripView: View {
-    @EnvironmentObject var model: MockModel
+    @StateObject var plansViewModel: PlansViewModel
 
     @State private var isActive = false
     @State private var isShowingEditTripSheet = false
 
-    private var trip: Trip
-
-    init(trip: Trip) {
-        self.trip = trip
-    }
-
-    var plans: [Plan] {
-        model.getPlans(forTripId: trip.id)
-    }
+    var trip: Trip
 
     var dateString: String {
         let dateFormatter = DateFormatter()
@@ -52,7 +44,7 @@ struct TripView: View {
                     }
                 }
 
-                PlansListView(model.getPlans(forTripId: trip.id))
+                PlansListView(plansViewModel: plansViewModel)
             }
         }
         .navigationTitle(trip.name)
@@ -68,11 +60,15 @@ struct TripView: View {
                 }
 
                 NavigationLink(isActive: $isActive) {
-                    AddPlanView(isActive: $isActive)
+                    AddPlanView(isActive: $isActive, trip: trip)
                 } label: {
                     Image(systemName: "plus")
                 }
             }
+        }
+        .task {
+            await plansViewModel.fetchPlans()
+            print("[TripView] Fetched: \(plansViewModel.plans)")
         }
     }
 }

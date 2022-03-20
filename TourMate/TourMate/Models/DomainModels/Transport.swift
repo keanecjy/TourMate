@@ -15,8 +15,9 @@ struct Transport: Plan {
     var name: String = "Transport"
     var startDate: Date
     var endDate: Date
-    var timeZone: TimeZone
-    var imageUrl: String
+    var startTimeZone: TimeZone
+    var endTimeZone: TimeZone?
+    var imageUrl: String?
     var status: PlanStatus
     var creationDate: Date
     var modificationDate: Date
@@ -26,5 +27,5 @@ struct Transport: Plan {
     var arrivalLocation: String?
     var arrivalAddress: String?
     var vehicleDescription: String?
-    var numberOfPassengers: Int?
+    var numberOfPassengers: String?
 }

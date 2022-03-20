@@ -10,13 +10,13 @@ import Foundation
 class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
     var venue: String?
     var address: String?
-    var phone: Int?
+    var phone: String?
     var website: String?
 
     init(id: String, tripId: String, name: String,
-         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String,
+         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String?,
          status: String, creationDate: Date, modificationDate: Date, venue: String?,
-         address: String?, phone: Int?, website: String?) {
+         address: String?, phone: String?, website: String?) {
 
         self.venue = venue
         self.address = address
@@ -42,13 +42,13 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
 
         venue = try container.decode(String.self, forKey: .venue)
         address = try container.decode(String.self, forKey: .address)
-        phone = try container.decode(Int.self, forKey: .phone)
+        phone = try container.decode(String.self, forKey: .phone)
         website = try container.decode(String.self, forKey: .website)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        
+
         try container.encode(venue, forKey: .venue)
         try container.encode(address, forKey: .address)
         try container.encode(phone, forKey: .phone)

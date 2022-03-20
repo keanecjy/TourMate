@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct AddPlanView: View {
+
     @Binding var isActive: Bool
+
+    let trip: Trip
 
     var body: some View {
         List {
@@ -24,7 +27,7 @@ struct AddPlanView: View {
 
     var accommodation: some View {
         NavigationLink {
-            AccommodationFormView(isActive: $isActive)
+            AccommodationFormView(isActive: $isActive, tripId: trip.id)
         } label: {
             Text("Accommodation")
         }
@@ -32,7 +35,7 @@ struct AddPlanView: View {
 
     var activity: some View {
         NavigationLink {
-            ActivityFormView(isActive: $isActive)
+            ActivityFormView(isActive: $isActive, tripId: trip.id)
         } label: {
             Text("Activity")
         }
@@ -40,7 +43,7 @@ struct AddPlanView: View {
 
     var restaurant: some View {
         NavigationLink {
-            RestaurantFormView(isActive: $isActive)
+            RestaurantFormView(isActive: $isActive, tripId: trip.id)
         } label: {
             Text("Restaurant")
         }
@@ -48,7 +51,7 @@ struct AddPlanView: View {
 
     var transport: some View {
         NavigationLink {
-            TransportFormView(isActive: $isActive)
+            TransportFormView(isActive: $isActive, tripId: trip.id)
         } label: {
             Text("Transportation")
         }
@@ -56,7 +59,7 @@ struct AddPlanView: View {
 
     var flight: some View {
         NavigationLink {
-            FlightFormView(isActive: $isActive)
+            FlightFormView(isActive: $isActive, tripId: trip.id)
         } label: {
             Text("Flight")
         }

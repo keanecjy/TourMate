@@ -10,7 +10,6 @@ import Firebase
 
 @main
 struct TourMateApp: App {
-    @StateObject private var model = MockModel()
     @StateObject private var authenticationController = AuthenticationController.singleton
 
     init() {
@@ -21,7 +20,6 @@ struct TourMateApp: App {
         WindowGroup {
             if authenticationController.userIsLoggedIn {
                 ContentView()
-                    .environmentObject(model)
             } else {
                 LaunchView()
                     .onAppear {

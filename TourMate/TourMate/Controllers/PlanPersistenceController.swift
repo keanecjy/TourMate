@@ -5,6 +5,8 @@
 //  Created by Keane Chan on 14/3/22.
 //
 
+import FirebaseAuth
+
 struct PlanPersistenceController: PlanPersistenceControllerProtocol {
 
     let firebasePersistenceManager = FirebasePersistenceManager(collectionId: FirebaseConfig.planCollectionId)
