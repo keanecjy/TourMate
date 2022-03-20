@@ -11,6 +11,8 @@ struct FlightView: View {
     @StateObject var flightViewModel: PlanViewModel<Flight>
     @State private var isShowingEditPlanSheet = false
 
+    @Environment(\.dismiss) var dismiss
+
     func getDateString(_ date: Date) -> String {
         guard let flight = flightViewModel.plan else {
             return ""
@@ -107,31 +109,56 @@ struct FlightView: View {
     }
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                flightInfo.padding()
-                departureInfo.padding()
-                arrivalInfo.padding()
+        if flightViewModel.hasError {
+            Text("Error occurred")
+        } else {
+            HStack {
+                VStack(alignment: .leading) {
+                    flightInfo.padding()
+                    departureInfo.padding()
+                    arrivalInfo.padding()
+                    Spacer()
+                }
                 Spacer()
             }
-            Spacer()
-        }
-        .padding()
-        .navigationTitle(flightViewModel.plan?.name ?? "Flight")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    isShowingEditPlanSheet.toggle()
-                } label: {
-                    Image(systemName: "pencil")
-                }
-                .sheet(isPresented: $isShowingEditPlanSheet) {
-                    Text("Present Flight Edit View")
+            .padding()
+            .navigationTitle(flightViewModel.plan?.name ?? "Flight")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        isShowingEditPlanSheet.toggle()
+                    } label: {
+                        Image(systemName: "pencil")
+                    }
+                    .sheet(isPresented: $isShowingEditPlanSheet) {
+                        // Edit Plan
+                        // After edit -> fetch Plan
+                        // If nothing is fetched -> dismiss this view
+
+                        // on dismiss
+                        Task {
+                            await flightViewModel.fetchPlan()
+
+                            // TODO: UI Fix
+                            // There is a lag between setting the plan to nil
+                            // And when we dismiss this view
+                            // Maybe need to see how to change the logic
+                            if flightViewModel.plan == nil {
+                                dismiss()
+                            }
+                        }
+                    } content: {
+                        if let flight = flightViewModel.plan {
+                            EditFlightView(flight: flight)
+                        } else {
+                            Text("Error")
+                        }
+                    }
                 }
             }
-        }
-        .task {
-            await flightViewModel.fetchPlan()
+            .task {
+                await flightViewModel.fetchPlan()
+            }
         }
     }
 }

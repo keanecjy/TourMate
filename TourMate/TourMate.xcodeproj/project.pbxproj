@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004981AA27E2FF3C007BDB2E /* SettingsView.swift */; };
+		00582F7027E70C97008756E9 /* EditActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F6F27E70C97008756E9 /* EditActivityView.swift */; };
+		00582F7227E70C9D008756E9 /* EditPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F7127E70C9D008756E9 /* EditPlanViewModel.swift */; };
+		00582F7527E74590008756E9 /* EditFlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F7427E74590008756E9 /* EditFlightView.swift */; };
+		00582F7727E74597008756E9 /* EditTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F7627E74597008756E9 /* EditTransportView.swift */; };
+		00582F7927E745A3008756E9 /* EditAccommodationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F7827E745A3008756E9 /* EditAccommodationView.swift */; };
+		00582F7B27E745B0008756E9 /* EditRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F7A27E745B0008756E9 /* EditRestaurantView.swift */; };
 		0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092522F27DA573500F4F029 /* TourMateTitleView.swift */; };
 		0092523827DA573500F4F029 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523127DA573500F4F029 /* LaunchView.swift */; };
 		0092523E27DA574800F4F029 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523D27DA574800F4F029 /* AuthenticationController.swift */; };
@@ -113,6 +119,12 @@
 /* Begin PBXFileReference section */
 		004981AA27E2FF3C007BDB2E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		004981AC27E3237A007BDB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		00582F6F27E70C97008756E9 /* EditActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityView.swift; sourceTree = "<group>"; };
+		00582F7127E70C9D008756E9 /* EditPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewModel.swift; sourceTree = "<group>"; };
+		00582F7427E74590008756E9 /* EditFlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlightView.swift; sourceTree = "<group>"; };
+		00582F7627E74597008756E9 /* EditTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransportView.swift; sourceTree = "<group>"; };
+		00582F7827E745A3008756E9 /* EditAccommodationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccommodationView.swift; sourceTree = "<group>"; };
+		00582F7A27E745B0008756E9 /* EditRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRestaurantView.swift; sourceTree = "<group>"; };
 		0092522F27DA573500F4F029 /* TourMateTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourMateTitleView.swift; sourceTree = "<group>"; };
 		0092523127DA573500F4F029 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		0092523D27DA574800F4F029 /* AuthenticationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
@@ -235,6 +247,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00582F7327E70F49008756E9 /* EditViews */ = {
+			isa = PBXGroup;
+			children = (
+				00582F6F27E70C97008756E9 /* EditActivityView.swift */,
+				00582F7427E74590008756E9 /* EditFlightView.swift */,
+				00582F7627E74597008756E9 /* EditTransportView.swift */,
+				00582F7827E745A3008756E9 /* EditAccommodationView.swift */,
+				00582F7A27E745B0008756E9 /* EditRestaurantView.swift */,
+			);
+			path = EditViews;
+			sourceTree = "<group>";
+		};
 		0092522E27DA573500F4F029 /* AuthenticationViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -500,6 +524,8 @@
 				95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */,
 				B9A04FA327E364AB007D4303 /* PlansViewModel.swift */,
 				B9A04FA927E4F584007D4303 /* AddPlanViewModel.swift */,
+				00582F7127E70C9D008756E9 /* EditPlanViewModel.swift */,
+				00582F7327E70F49008756E9 /* EditViews */,
 				B9A04FB127E590AD007D4303 /* DetailsViews */,
 				B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */,
 			);
@@ -786,9 +812,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9A04FB927E591F2007D4303 /* TransportView.swift in Sources */,
+				00582F7B27E745B0008756E9 /* EditRestaurantView.swift in Sources */,
 				953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */,
 				B99D968227D9DF30009B66AE /* Activity.swift in Sources */,
 				95EB6A8C27E45B53008C1103 /* AddTripViewModel.swift in Sources */,
+				00582F7727E74597008756E9 /* EditTransportView.swift in Sources */,
 				4C3BB2E427E6051C0022C3C1 /* FirebaseTripController.swift in Sources */,
 				00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */,
 				B9A04FA627E42234007D4303 /* PlanPersistenceControllerProtocol.swift in Sources */,
@@ -797,6 +825,7 @@
 				B99D964B27D73503009B66AE /* ContentView.swift in Sources */,
 				004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */,
 				4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */,
+				00582F7927E745A3008756E9 /* EditAccommodationView.swift in Sources */,
 				4CB954E627DE0066001410AD /* UserPersistenceController.swift in Sources */,
 				4CCBBD1927DE626800F9C250 /* Trip.swift in Sources */,
 				953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */,
@@ -815,6 +844,7 @@
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
+				00582F7227E70C9D008756E9 /* EditPlanViewModel.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				B99D967A27D9C43B009B66AE /* Model.swift in Sources */,
 				0092523E27DA574800F4F029 /* AuthenticationController.swift in Sources */,
@@ -831,6 +861,7 @@
 				953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */,
 				B967C33E27DDE9BD0023B34D /* TransportFormView.swift in Sources */,
 				4C6D1B9F27E6239600D34087 /* PlanPersistenceControllerProtocol.swift in Sources */,
+				00582F7527E74590008756E9 /* EditFlightView.swift in Sources */,
 				4C6D1BA127E627A900D34087 /* PlanType.swift in Sources */,
 				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
 				B967C33527DDCA4E0023B34D /* AddPlanView.swift in Sources */,
@@ -839,6 +870,7 @@
 				00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */,
 				4CB954E027DDFFC7001410AD /* User.swift in Sources */,
 				4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */,
+				00582F7027E70C97008756E9 /* EditActivityView.swift in Sources */,
 				95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */,
 				4CB954DE27DDFDB2001410AD /* PersistenceManager.swift in Sources */,
 				B9A04FB527E591A0007D4303 /* FlightView.swift in Sources */,
