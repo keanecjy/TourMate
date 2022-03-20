@@ -52,6 +52,25 @@ struct FirebasePersistenceManager: PersistenceManager {
     }
 
     @MainActor
+    func fetchItemOfType<T: FirebaseAdaptedData>(id: String) async -> (item: T?, errorMessage: String) {
+        guard Auth.auth().currentUser != nil else {
+            return (nil, Constants.messageUserNotLoggedIn)
+        }
+
+        do {
+            let itemRef = db.collection(collectionId).document(id)
+            let item = try await itemRef.getDocument().data(as: T.self)
+
+            print("[FirebasePersistenceManager] Fetched: \(itemRef)")
+
+            return (item, "")
+        } catch {
+            let errorMessage = "[FirebasePersistenceManager] Error fetching: \(error)"
+            return (nil, errorMessage)
+        }
+    }
+
+    @MainActor
     func fetchItems(field: String, arrayContains id: String) async -> (items: [FirebaseAdaptedData],
                                                                        errorMessage: String) {
         // Might want to remove the hard coding here in the future

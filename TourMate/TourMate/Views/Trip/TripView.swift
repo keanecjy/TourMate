@@ -9,18 +9,22 @@ import SwiftUI
 
 struct TripView: View {
     @StateObject var plansViewModel: PlansViewModel
+    @StateObject var viewModel: TripViewModel
 
     @State private var isActive = false
     @State private var isShowingEditTripSheet = false
 
-    var trip: Trip
+    init(trip: Trip) {
+        self._plansViewModel = StateObject(wrappedValue: PlansViewModel(tripId: trip.id))
+        self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
+    }
 
     var dateString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
-        dateFormatter.timeZone = trip.timeZone
-        let startDateString = dateFormatter.string(from: trip.startDate)
-        let endDateString = dateFormatter.string(from: trip.endDate)
+        dateFormatter.timeZone = viewModel.trip.timeZone
+        let startDateString = dateFormatter.string(from: viewModel.trip.startDate)
+        let endDateString = dateFormatter.string(from: viewModel.trip.endDate)
         return startDateString + " - " + endDateString
     }
 
@@ -32,7 +36,7 @@ struct TripView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.bottom, .horizontal])
 
-                if let imageUrl = trip.imageUrl {
+                if let imageUrl = viewModel.trip.imageUrl {
                     AsyncImage(url: URL(string: imageUrl)) { image in
                         image
                             .resizable()
@@ -47,7 +51,7 @@ struct TripView: View {
                 PlansListView(plansViewModel: plansViewModel)
             }
         }
-        .navigationTitle(trip.name)
+        .navigationTitle(viewModel.trip.name)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
                 Button {
@@ -56,17 +60,22 @@ struct TripView: View {
                     Image(systemName: "pencil")
                 }
                 .sheet(isPresented: $isShowingEditTripSheet) {
-                    EditTripView(trip: trip)
+                    EditTripView(trip: viewModel.trip)
                 }
 
                 NavigationLink(isActive: $isActive) {
-                    AddPlanView(isActive: $isActive, trip: trip)
+                    AddPlanView(isActive: $isActive, trip: viewModel.trip)
                 } label: {
                     Image(systemName: "plus")
                 }
             }
         }
         .task {
+            /*
+            await viewModel.refreshTrip()
+            print("[TripView] Refreshed trip: \(viewModel.trip)")
+            */
+
             await plansViewModel.fetchPlans()
             print("[TripView] Fetched: \(plansViewModel.plans)")
         }
