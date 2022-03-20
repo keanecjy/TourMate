@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct EditTripView: View {
-
     @Environment(\.dismiss) var dismiss
 
-    @ObservedObject var viewModel: TripViewModel
+    @StateObject var viewModel: TripViewModel
+
+    init(trip: Trip) {
+        self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
+    }
 
     var body: some View {
         NavigationView {

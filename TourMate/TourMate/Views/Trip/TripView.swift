@@ -13,7 +13,7 @@ struct TripView: View {
     @StateObject var plansViewModel: PlansViewModel
     @StateObject var viewModel: TripViewModel
 
-    @State private var isActive = false
+    @State private var isAddPlanViewActive = false
     @State private var isShowingEditTripSheet = false
 
     init(trip: Trip) {
@@ -39,62 +39,66 @@ struct TripView: View {
 
     @ViewBuilder
     var body: some View {
-        if viewModel.hasError {
-            Text("Error occurred")
-        } else {
-            ScrollView {
-                VStack {
-                    Text(dateString)
-                        .font(.headline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding([.bottom, .horizontal])
+        Group {
+            if viewModel.hasError {
+                Text("Error occurred")
+            } else if viewModel.isLoading {
+                ProgressView()
+            } else {
+                ScrollView {
+                    VStack {
+                        Text(dateString)
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding([.bottom, .horizontal])
 
-                    if let imageUrl = viewModel.trip.imageUrl {
-                        AsyncImage(url: URL(string: imageUrl)) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(height: 200, alignment: .center)
-                                .clipped()
-                        } placeholder: {
-                            Color.gray
+                        if let imageUrl = viewModel.trip.imageUrl {
+                            AsyncImage(url: URL(string: imageUrl)) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(height: 200, alignment: .center)
+                                    .clipped()
+                            } placeholder: {
+                                Color.gray
+                            }
                         }
-                    }
 
-                    PlansListView(plansViewModel: plansViewModel)
+                        PlansListView(plansViewModel: plansViewModel)
+                    }
                 }
             }
-            .navigationTitle(viewModel.trip.name)
-            .toolbar {
-                ToolbarItemGroup(placement: .primaryAction) {
-                    Button {
-                        isShowingEditTripSheet.toggle()
-                    } label: {
-                        Image(systemName: "pencil")
-                    }
-                    .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
-                    .sheet(isPresented: $isShowingEditTripSheet) {
-                        Task {
-                            await refreshTrip()
-                        }
-                    } content: {
-                        EditTripView(viewModel: viewModel)
-                    }
-
-                    NavigationLink(isActive: $isActive) {
-                        AddPlanView(isActive: $isActive, trip: viewModel.trip)
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                    .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
+        }
+        .navigationTitle(viewModel.trip.name)
+        .toolbar {
+            ToolbarItemGroup(placement: .primaryAction) {
+                Button {
+                    isShowingEditTripSheet.toggle()
+                } label: {
+                    Image(systemName: "pencil")
                 }
-            }
-            .task {
-                await refreshTrip()
+                .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
+                .sheet(isPresented: $isShowingEditTripSheet) {
+                    Task {
+                        await refreshTrip()
+                    }
+                } content: {
+                    EditTripView(trip: viewModel.trip)
+                }
 
-                await plansViewModel.fetchPlans()
-                print("[TripView] Fetched plans: \(plansViewModel.plans)")
+                NavigationLink(isActive: $isAddPlanViewActive) {
+                    AddPlanView(isActive: $isAddPlanViewActive, trip: viewModel.trip)
+                } label: {
+                    Image(systemName: "plus")
+                }
+                .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
             }
+        }
+        .task {
+            await refreshTrip()
+
+            await plansViewModel.fetchPlans()
+            print("[TripView] Fetched plans: \(plansViewModel.plans)")
         }
     }
 }

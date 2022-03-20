@@ -26,7 +26,12 @@ class TripViewModel: ObservableObject {
     func fetchTrip() async {
         self.isLoading = true
         let (trip, errorMessage) = await tripController.fetchTrip(withTripId: trip.id)
-        guard let trip = trip, errorMessage.isEmpty else {
+        guard let trip = trip else {
+            self.isDeleted = true
+            self.hasError = true
+            return
+        }
+        guard errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
             return

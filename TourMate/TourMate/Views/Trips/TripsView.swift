@@ -22,15 +22,23 @@ struct TripsView: View {
 
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVStack {
-                    ForEach(viewModel.trips, id: \.id) { trip in
-                        NavigationLink {
-                            TripView(trip: trip)
-                        } label: {
-                            TripCard(title: trip.name,
-                                     subtitle: getDateString(trip: trip),
-                                     imageUrl: trip.imageUrl ?? "")
+            Group {
+                if viewModel.hasError {
+                    Text("Error occurred")
+                } else if viewModel.isLoading {
+                    ProgressView()
+                } else {
+                    ScrollView {
+                        LazyVStack {
+                            ForEach(viewModel.trips, id: \.id) { trip in
+                                NavigationLink {
+                                    TripView(trip: trip)
+                                } label: {
+                                    TripCard(title: trip.name,
+                                             subtitle: getDateString(trip: trip),
+                                             imageUrl: trip.imageUrl ?? "")
+                                }
+                            }
                         }
                     }
                 }
@@ -43,6 +51,7 @@ struct TripsView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
+                    .disabled(viewModel.isLoading || viewModel.hasError)
                     .sheet(isPresented: $isShowingAddTripSheet) {
                         Task {
                             await viewModel.fetchTrips()
