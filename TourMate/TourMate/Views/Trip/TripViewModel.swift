@@ -36,27 +36,25 @@ class TripViewModel: ObservableObject {
     }
 
     func updateTrip() async {
-        await modifyTrip { trip in
-            await tripController.updateTrip(trip: trip)
-        }
-    }
-
-    func deleteTrip() async {
-        await modifyTrip { trip in
-            let (hasDeleted, errorMessage) = await tripController.deleteTrip(trip: trip)
-            self.isDeleted = hasDeleted
-            return (hasDeleted, errorMessage)
-        }
-    }
-
-    private func modifyTrip(modifyFunction: (Trip) async -> (Bool, String)) async {
         self.isLoading = true
-        let (hasModifiedTrip, tripErrorMessage) = await modifyFunction(trip)
-        guard hasModifiedTrip, tripErrorMessage.isEmpty else {
+        let (hasUpdated, errorMessage) = await tripController.updateTrip(trip: trip)
+        guard hasUpdated, errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
             return
         }
+        self.isLoading = false
+    }
+
+    func deleteTrip() async {
+        self.isLoading = true
+        let (hasDeleted, errorMessage) = await tripController.deleteTrip(trip: trip)
+        guard hasDeleted, errorMessage.isEmpty else {
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+        self.isDeleted = true
         self.isLoading = false
     }
 }
