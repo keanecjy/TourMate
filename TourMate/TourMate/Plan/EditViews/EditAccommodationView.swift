@@ -73,7 +73,7 @@ struct EditAccommodationView: View {
                         TextField("Phone", text: $phone)
                         TextField("website", text: $website)
                     }
-                    .navigationTitle("Edit Activity")
+                    .navigationTitle("Edit Accommodation")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .confirmationAction) {
