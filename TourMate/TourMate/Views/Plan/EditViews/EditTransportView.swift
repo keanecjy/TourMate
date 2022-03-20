@@ -117,7 +117,7 @@ struct EditTransportView: View {
                             .disabled(viewModel.isLoading)
                         }
                         ToolbarItem(placement: .bottomBar) {
-                            Button("Delete Trip", role: .destructive) {
+                            Button("Delete Transportation", role: .destructive) {
                                 Task {
                                     await viewModel.deletePlan(plan: createUpdatedTransport())
                                     dismiss()

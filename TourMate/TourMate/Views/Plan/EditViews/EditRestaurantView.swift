@@ -72,7 +72,7 @@ struct EditRestaurantView: View {
                         TextField("Phone", text: $phone)
                         TextField("website", text: $website)
                     }
-                    .navigationTitle("Edit Activity")
+                    .navigationTitle("Edit Restaurant")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .confirmationAction) {
@@ -91,7 +91,7 @@ struct EditRestaurantView: View {
                             .disabled(viewModel.isLoading)
                         }
                         ToolbarItem(placement: .bottomBar) {
-                            Button("Delete Trip", role: .destructive) {
+                            Button("Delete Restaurant", role: .destructive) {
                                 Task {
                                     await viewModel.deletePlan(plan: createUpdatedRestaurant())
                                     dismiss()
