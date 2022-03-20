@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct PlansListView: View {
-    @ObservedObject var plansViewModel: PlansViewModel
+    @StateObject var plansViewModel: PlansViewModel
+    
+    init(tripId: String) {
+        self._plansViewModel = StateObject(wrappedValue: PlansViewModel(tripId: tripId))
+    }
 
     typealias Day = (date: Date, plans: [Plan])
     var days: [Day] {
@@ -70,6 +74,10 @@ struct PlansListView: View {
                 }
                 .padding()
             }
+        }
+        .task {
+            await plansViewModel.fetchPlans()
+            print("[TripView] Fetched plans: \(plansViewModel.plans)")
         }
     }
 }

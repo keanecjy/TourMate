@@ -10,14 +10,12 @@ import SwiftUI
 struct TripView: View {
     @Environment(\.dismiss) var dismiss
 
-    @StateObject var plansViewModel: PlansViewModel
     @StateObject var viewModel: TripViewModel
 
     @State private var isAddPlanViewActive = false
     @State private var isShowingEditTripSheet = false
 
     init(trip: Trip) {
-        self._plansViewModel = StateObject(wrappedValue: PlansViewModel(tripId: trip.id))
         self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
     }
 
@@ -64,7 +62,7 @@ struct TripView: View {
                             }
                         }
 
-                        PlansListView(plansViewModel: plansViewModel)
+                        PlansListView(tripId: viewModel.trip.id)
                     }
                 }
             }
@@ -96,9 +94,6 @@ struct TripView: View {
         }
         .task {
             await refreshTrip()
-
-            await plansViewModel.fetchPlans()
-            print("[TripView] Fetched plans: \(plansViewModel.plans)")
         }
     }
 }
