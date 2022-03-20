@@ -104,6 +104,10 @@ struct ActivityView: View {
                         Task {
                             await activityViewModel.fetchPlan()
 
+                            // TODO: UI Fix
+                            // There is a lag between setting the plan to nil
+                            // And when we dismiss this view
+                            // Maybe need to see how to change the logic
                             if activityViewModel.plan == nil {
                                 dismiss()
                             }
