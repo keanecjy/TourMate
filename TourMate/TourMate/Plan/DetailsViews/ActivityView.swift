@@ -92,6 +92,9 @@ struct ActivityView: View {
                 }
                 .sheet(isPresented: $isShowingEditPlanSheet) {
                     Text("Present Activity Edit View")
+                    // Edit Plan
+                    // After edit -> fetch Plan
+                    // If nothing is fetched -> dismiss this view
                 }
             }
         }

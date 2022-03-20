@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004981AA27E2FF3C007BDB2E /* SettingsView.swift */; };
+		00582F7027E70C97008756E9 /* EditActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F6F27E70C97008756E9 /* EditActivityView.swift */; };
+		00582F7227E70C9D008756E9 /* EditPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F7127E70C9D008756E9 /* EditPlanViewModel.swift */; };
 		0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092522F27DA573500F4F029 /* TourMateTitleView.swift */; };
 		0092523827DA573500F4F029 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523127DA573500F4F029 /* LaunchView.swift */; };
 		0092523E27DA574800F4F029 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523D27DA574800F4F029 /* AuthenticationController.swift */; };
@@ -112,6 +114,8 @@
 /* Begin PBXFileReference section */
 		004981AA27E2FF3C007BDB2E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		004981AC27E3237A007BDB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		00582F6F27E70C97008756E9 /* EditActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityView.swift; sourceTree = "<group>"; };
+		00582F7127E70C9D008756E9 /* EditPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewModel.swift; sourceTree = "<group>"; };
 		0092522F27DA573500F4F029 /* TourMateTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourMateTitleView.swift; sourceTree = "<group>"; };
 		0092523127DA573500F4F029 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		0092523D27DA574800F4F029 /* AuthenticationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
@@ -497,6 +501,7 @@
 				95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */,
 				B9A04FA327E364AB007D4303 /* PlansViewModel.swift */,
 				B9A04FA927E4F584007D4303 /* AddPlanViewModel.swift */,
+				00582F7127E70C9D008756E9 /* EditPlanViewModel.swift */,
 				B9A04FB127E590AD007D4303 /* DetailsViews */,
 				B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */,
 			);
@@ -507,6 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				B9A04FAF27E5875A007D4303 /* ActivityView.swift */,
+				00582F6F27E70C97008756E9 /* EditActivityView.swift */,
 				B9A04FB827E591F2007D4303 /* TransportView.swift */,
 				B9A04FB227E5911E007D4303 /* AccommodationView.swift */,
 				B9A04FB427E5919F007D4303 /* FlightView.swift */,
@@ -806,15 +812,14 @@
 				4CB954EA27DE3EBC001410AD /* AnyFirebaseAdaptedData.swift in Sources */,
 				4CB954EA27DE3EBC001410AD /* AnyFirebaseAdaptedData.swift in Sources */,
 				B9A04FB727E591BE007D4303 /* RestaurantView.swift in Sources */,
-				4C4539B627DE456800AB8384 /* FirebaseTripController.swift in Sources */,
 				B9A04FAC27E5567F007D4303 /* MockPlanController.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
 				B9A04FA427E364AB007D4303 /* PlansViewModel.swift in Sources */,
-				4C4539B627DE456800AB8384 /* FirebaseTripController.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
+				00582F7227E70C9D008756E9 /* EditPlanViewModel.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				B99D967A27D9C43B009B66AE /* Model.swift in Sources */,
 				0092523E27DA574800F4F029 /* AuthenticationController.swift in Sources */,
@@ -837,6 +842,7 @@
 				00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */,
 				4CB954E027DDFFC7001410AD /* User.swift in Sources */,
 				4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */,
+				00582F7027E70C97008756E9 /* EditActivityView.swift in Sources */,
 				95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */,
 				4CB954DE27DDFDB2001410AD /* PersistenceManager.swift in Sources */,
 				B9A04FB527E591A0007D4303 /* FlightView.swift in Sources */,
