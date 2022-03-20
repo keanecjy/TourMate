@@ -23,13 +23,18 @@ struct FirebaseTripController: TripController {
         let (adaptedTrips, errorMessage) = await firebasePersistenceManager
             .fetchItems(field: "attendeesUserIds", arrayContains: user.uid)
 
+        guard errorMessage.isEmpty else {
+            return ([], errorMessage)
+        }
+
+        // unable to typecast
         guard let adaptedTrips = adaptedTrips as? [FirebaseAdaptedTrip] else {
-            preconditionFailure()
+             return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
         }
 
         let trips = adaptedTrips.map({ $0.toItem() })
             .sorted(by: { $0.startDate > $1.startDate })
-        return (trips, errorMessage)
+        return (trips, "")
     }
 
     func fetchTrip(withTripId tripId: String) async -> (Trip?, String) {
