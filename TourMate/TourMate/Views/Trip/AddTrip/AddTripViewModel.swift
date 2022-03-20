@@ -15,7 +15,7 @@ class AddTripViewModel: ObservableObject {
     let userController: UserController
 
     init(tripController: TripController = FirebaseTripController(),
-         userController: UserController = UserController()) {
+         userController: UserController = FirebaseUserController()) {
         self.isLoading = false
         self.hasError = false
         self.tripController = tripController

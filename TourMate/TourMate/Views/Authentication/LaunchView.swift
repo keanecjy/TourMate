@@ -29,7 +29,7 @@ struct LaunchView: View {
     }
 
     private func onGoogleLogInButtonPressed() {
-        AuthenticationController.singleton.logIn()
+        FirebaseAuthenticationController.singleton.logIn()
     }
 }
 
