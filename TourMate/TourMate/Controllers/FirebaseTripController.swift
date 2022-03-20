@@ -32,6 +32,26 @@ struct FirebaseTripController: TripController {
         return (trips, errorMessage)
     }
 
+    func fetchTrip(withTripId tripId: String) async -> (Trip?, String) {
+        guard let user = Auth.auth().currentUser else {
+            return (nil, Constants.messageUserNotLoggedIn)
+        }
+
+        let (adaptedTrip, errorMessage) = await firebasePersistenceManager.fetchItem(id: tripId)
+        guard errorMessage.isEmpty else {
+           return (nil, errorMessage)
+        }
+        guard let adaptedTrip = adaptedTrip as? FirebaseAdaptedTrip else {
+            return (nil, "[FirebaseTripController] Error converting FirebaseAdaptedData into FirebaseAdaptedTrip")
+        }
+        guard adaptedTrip.attendeesUserIds.contains(user.uid) else {
+            return (nil, "[FirebaseTripController] Error user \(user.uid) is not an attendee of trip \(tripId)")
+        }
+
+        let trip = adaptedTrip.toItem()
+        return (trip, errorMessage)
+    }
+
     func deleteTrip(trip: Trip) async -> (Bool, String) {
         await firebasePersistenceManager.deleteItem(id: trip.id)
     }

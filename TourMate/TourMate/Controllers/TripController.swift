@@ -10,6 +10,8 @@ import Foundation
 protocol TripController {
     func fetchTrips() async -> ([Trip], String)
 
+    func fetchTrip(withTripId: String) async -> (Trip?, String)
+
     func addTrip(trip: Trip) async -> (Bool, String)
 
     func deleteTrip(trip: Trip) async -> (Bool, String)

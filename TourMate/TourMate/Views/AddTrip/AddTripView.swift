@@ -23,6 +23,8 @@ struct AddTripView: View {
             Group {
                 if viewModel.hasError {
                     Text("Error occurred")
+                } else if viewModel.isLoading {
+                    ProgressView()
                 } else {
                     Form {
                         TextField("Trip Name", text: $tripName)

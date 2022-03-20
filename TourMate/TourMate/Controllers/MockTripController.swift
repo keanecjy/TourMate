@@ -25,6 +25,11 @@ class MockTripController: TripController {
         (trips, "")
     }
 
+    func fetchTrip(withTripId tripId: String) -> (Trip?, String) {
+        let trip = trips.first(where: { $0.id == tripId })
+        return (trip, "")
+    }
+
     func addTrip(trip: Trip) -> (Bool, String) {
         trips.append(trip)
         return (true, "")

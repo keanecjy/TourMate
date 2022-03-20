@@ -8,67 +8,92 @@
 import SwiftUI
 
 struct TripView: View {
-    @StateObject var plansViewModel: PlansViewModel
+    @Environment(\.dismiss) var dismiss
 
-    @State private var isActive = false
+    @StateObject var viewModel: TripViewModel
+
+    @State private var isAddPlanViewActive = false
     @State private var isShowingEditTripSheet = false
 
-    var trip: Trip
+    init(trip: Trip) {
+        self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
+    }
 
     var dateString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
-        dateFormatter.timeZone = trip.timeZone
-        let startDateString = dateFormatter.string(from: trip.startDate)
-        let endDateString = dateFormatter.string(from: trip.endDate)
+        dateFormatter.timeZone = viewModel.trip.timeZone
+        let startDateString = dateFormatter.string(from: viewModel.trip.startDate)
+        let endDateString = dateFormatter.string(from: viewModel.trip.endDate)
         return startDateString + " - " + endDateString
     }
 
-    var body: some View {
-        ScrollView {
-            LazyVStack {
-                Text(dateString)
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding([.bottom, .horizontal])
+    func refreshTrip() async {
+        await viewModel.fetchTrip()
+        if viewModel.isDeleted {
+            dismiss()
+        }
+    }
 
-                if let imageUrl = trip.imageUrl {
-                    AsyncImage(url: URL(string: imageUrl)) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 200, alignment: .center)
-                            .clipped()
-                    } placeholder: {
-                        Color.gray
+    @ViewBuilder
+    var body: some View {
+        Group {
+            if viewModel.hasError {
+                Text("Error occurred")
+            } else if viewModel.isLoading || viewModel.isDeleted {
+                ProgressView()
+            } else {
+                ScrollView {
+                    VStack {
+                        Text(dateString)
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding([.bottom, .horizontal])
+
+                        if let imageUrl = viewModel.trip.imageUrl {
+                            AsyncImage(url: URL(string: imageUrl)) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(height: 200, alignment: .center)
+                                    .clipped()
+                            } placeholder: {
+                                Color.gray
+                            }
+                        }
+
+                        PlansListView(tripId: viewModel.trip.id)
                     }
                 }
-
-                PlansListView(plansViewModel: plansViewModel)
             }
         }
-        .navigationTitle(trip.name)
+        .navigationTitle(viewModel.trip.name)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
                 Button {
                     isShowingEditTripSheet.toggle()
                 } label: {
-                    Image(systemName: "pencil")
+                    Image(systemName: "pencil").contentShape(Rectangle())
                 }
+                .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
-                    EditTripView(trip: trip)
+                    Task {
+                        await refreshTrip()
+                    }
+                } content: {
+                    EditTripView(trip: viewModel.trip)
                 }
 
-                NavigationLink(isActive: $isActive) {
-                    AddPlanView(isActive: $isActive, trip: trip)
+                NavigationLink(isActive: $isAddPlanViewActive) {
+                    AddPlanView(isActive: $isAddPlanViewActive, trip: viewModel.trip)
                 } label: {
-                    Image(systemName: "plus")
+                    Image(systemName: "plus").contentShape(Rectangle())
                 }
+                .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
             }
         }
         .task {
-            await plansViewModel.fetchPlans()
-            print("[TripView] Fetched: \(plansViewModel.plans)")
+            await refreshTrip()
         }
     }
 }
