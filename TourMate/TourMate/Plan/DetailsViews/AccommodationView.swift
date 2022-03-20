@@ -11,6 +11,8 @@ struct AccommodationView: View {
     @StateObject var accommodationViewModel: PlanViewModel<Accommodation>
     @State private var isShowingEditPlanSheet = false
 
+    @Environment(\.dismiss) var dismiss
+
     func getDateString(_ date: Date) -> String {
         guard let accommodation = accommodationViewModel.plan else {
             return ""
@@ -23,74 +25,99 @@ struct AccommodationView: View {
     }
 
     var body: some View {
-        HStack {
-            if let accommodation = accommodationViewModel.plan {
-                VStack(alignment: .leading) {
-                    // Start time
+        if accommodationViewModel.hasError {
+            Text("Error occurred")
+        } else {
+            HStack {
+                if let accommodation = accommodationViewModel.plan {
                     VStack(alignment: .leading) {
-                        Text("From")
-                            .font(.caption)
-                        Text(getDateString(accommodation.startDate))
-                            .font(.headline)
-
-                        if let endDate = accommodation.endDate {
-                            Text("To")
-                                .font(.caption)
-                            Text(getDateString(endDate))
-                                .font(.headline)
-                        }
-                    }
-                    .padding()
-
-                    // Address
-                    if let address = accommodation.address {
+                        // Start time
                         VStack(alignment: .leading) {
-                            Text("Address")
+                            Text("From")
                                 .font(.caption)
-                            Text(address)
-                        }
-                        .padding()
-                    }
+                            Text(getDateString(accommodation.startDate))
+                                .font(.headline)
 
-                    // Phone number
-                    if let phone = accommodation.phone {
-                        HStack {
-                            Image(systemName: "phone.fill")
-                            Text(phone)
+                            if let endDate = accommodation.endDate {
+                                Text("To")
+                                    .font(.caption)
+                                Text(getDateString(endDate))
+                                    .font(.headline)
+                            }
                         }
                         .padding()
-                    }
 
-                    // Website
-                    if let website = accommodation.website {
-                        HStack {
-                            Image(systemName: "globe.americas.fill")
-                            Text(website)
+                        // Address
+                        if let address = accommodation.address {
+                            VStack(alignment: .leading) {
+                                Text("Address")
+                                    .font(.caption)
+                                Text(address)
+                            }
+                            .padding()
                         }
-                        .padding()
+
+                        // Phone number
+                        if let phone = accommodation.phone {
+                            HStack {
+                                Image(systemName: "phone.fill")
+                                Text(phone)
+                            }
+                            .padding()
+                        }
+
+                        // Website
+                        if let website = accommodation.website {
+                            HStack {
+                                Image(systemName: "globe.americas.fill")
+                                Text(website)
+                            }
+                            .padding()
+                        }
+
+                        Spacer()
                     }
 
                     Spacer()
                 }
+            }
+            .navigationBarTitle(accommodationViewModel.plan?.name ?? "Accommodation")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        isShowingEditPlanSheet.toggle()
+                    } label: {
+                        Image(systemName: "pencil")
+                    }
+                    .sheet(isPresented: $isShowingEditPlanSheet) {
+                        // Edit Plan
+                        // After edit -> fetch Plan
+                        // If nothing is fetched -> dismiss this view
 
-                Spacer()
-            }
-        }
-        .navigationBarTitle(accommodationViewModel.plan?.name ?? "Accommodation")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    isShowingEditPlanSheet.toggle()
-                } label: {
-                    Image(systemName: "pencil")
+                        // on dismiss
+                        Task {
+                            await accommodationViewModel.fetchPlan()
+
+                            // TODO: UI Fix
+                            // There is a lag between setting the plan to nil
+                            // And when we dismiss this view
+                            // Maybe need to see how to change the logic
+                            if accommodationViewModel.plan == nil {
+                                dismiss()
+                            }
+                        }
+                    } content: {
+                        if let accommodation = accommodationViewModel.plan {
+                            EditAccommodationView(accommodation: accommodation)
+                        } else {
+                            Text("Error")
+                        }
+                    }
                 }
-                .sheet(isPresented: $isShowingEditPlanSheet) {
-                    Text("Present Restaurant Edit View")
-                }
             }
-        }
-        .task {
-            await accommodationViewModel.fetchPlan()
+            .task {
+                await accommodationViewModel.fetchPlan()
+            }
         }
     }
 }

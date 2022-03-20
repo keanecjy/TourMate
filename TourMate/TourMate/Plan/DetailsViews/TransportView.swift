@@ -11,6 +11,8 @@ struct TransportView: View {
     @StateObject var transportViewModel: PlanViewModel<Transport>
     @State private var isShowingEditPlanSheet = false
 
+    @Environment(\.dismiss) var dismiss
+
     func getDateString(_ date: Date) -> String {
         guard let transport = transportViewModel.plan else {
             return ""
@@ -97,31 +99,56 @@ struct TransportView: View {
     }
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                departureInfo.padding()
-                arrivalInfo.padding()
-                transportationDetails.padding()
+        if transportViewModel.hasError {
+            Text("Error occurred")
+        } else {
+            HStack {
+                VStack(alignment: .leading) {
+                    departureInfo.padding()
+                    arrivalInfo.padding()
+                    transportationDetails.padding()
+                    Spacer()
+                }
                 Spacer()
             }
-            Spacer()
-        }
-        .padding()
-        .navigationBarTitle(transportViewModel.plan?.name ?? "Transport")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    isShowingEditPlanSheet.toggle()
-                } label: {
-                    Image(systemName: "pencil")
-                }
-                .sheet(isPresented: $isShowingEditPlanSheet) {
-                    Text("Present Transport Edit View")
+            .padding()
+            .navigationBarTitle(transportViewModel.plan?.name ?? "Transport")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        isShowingEditPlanSheet.toggle()
+                    } label: {
+                        Image(systemName: "pencil")
+                    }
+                    .sheet(isPresented: $isShowingEditPlanSheet) {
+                        // Edit Plan
+                        // After edit -> fetch Plan
+                        // If nothing is fetched -> dismiss this view
+
+                        // on dismiss
+                        Task {
+                            await transportViewModel.fetchPlan()
+
+                            // TODO: UI Fix
+                            // There is a lag between setting the plan to nil
+                            // And when we dismiss this view
+                            // Maybe need to see how to change the logic
+                            if transportViewModel.plan == nil {
+                                dismiss()
+                            }
+                        }
+                    } content: {
+                        if let transport = transportViewModel.plan {
+                            EditTransportView(transport: transport)
+                        } else {
+                            Text("Error")
+                        }
+                    }
                 }
             }
-        }
-        .task {
-            await transportViewModel.fetchPlan()
+            .task {
+                await transportViewModel.fetchPlan()
+            }
         }
     }
 }
