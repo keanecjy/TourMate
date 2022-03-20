@@ -12,9 +12,9 @@ class AddPlanViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
-    let planController: PlanPersistenceControllerProtocol
+    let planController: PlanController
 
-    init(planController: PlanPersistenceControllerProtocol = PlanPersistenceController()) {
+    init(planController: PlanController = FirebasePlanController()) {
         self.isLoading = false
         self.hasError = false
         self.planController = planController
