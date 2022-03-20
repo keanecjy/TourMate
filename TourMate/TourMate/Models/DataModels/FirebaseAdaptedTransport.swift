@@ -45,15 +45,16 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        departureLocation = try container.decode(String?.self, forKey: .departureLocation)
+        departureAddress = try container.decode(String?.self, forKey: .departureAddress)
+        arrivalLocation = try container.decode(String?.self, forKey: .arrivalLocation)
+        arrivalAddress = try container.decode(String?.self, forKey: .arrivalAddress)
+        vehicleDescription = try container.decode(String?.self, forKey: .vehicleDescription)
+        numberOfPassengers = try container.decode(String?.self, forKey: .numberOfPassengers)
+
         let superDecoder = try container.superDecoder()
         try super.init(from: superDecoder)
-
-        departureLocation = try container.decode(String.self, forKey: .departureLocation)
-        departureAddress = try container.decode(String.self, forKey: .departureAddress)
-        arrivalLocation = try container.decode(String.self, forKey: .arrivalLocation)
-        arrivalAddress = try container.decode(String.self, forKey: .arrivalAddress)
-        vehicleDescription = try container.decode(String.self, forKey: .vehicleDescription)
-        numberOfPassengers = try container.decode(String.self, forKey: .numberOfPassengers)
     }
 
     override func encode(to encoder: Encoder) throws {

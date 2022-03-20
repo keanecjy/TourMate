@@ -16,7 +16,7 @@ class PlansViewModel: ObservableObject {
     let planController: PlanPersistenceControllerProtocol
     var tripId: String
 
-    init(planController: PlanPersistenceControllerProtocol = MockPlanController(), tripId: String = "") {
+    init(planController: PlanPersistenceControllerProtocol = PlanPersistenceController(), tripId: String = "") {
         self.plans = []
         self.isLoading = false
         self.hasError = false

@@ -14,7 +14,7 @@ class AddPlanViewModel: ObservableObject {
 
     let planController: PlanPersistenceControllerProtocol
 
-    init(planController: PlanPersistenceControllerProtocol = MockPlanController()) {
+    init(planController: PlanPersistenceControllerProtocol = PlanPersistenceController()) {
         self.isLoading = false
         self.hasError = false
         self.planController = planController

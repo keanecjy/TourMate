@@ -55,18 +55,19 @@ class FirebaseAdaptedFlight: FirebaseAdaptedPlan {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        airline = try container.decode(String?.self, forKey: .airline)
+        flightNumber = try container.decode(String?.self, forKey: .flightNumber)
+        seats = try container.decode(String?.self, forKey: .seats)
+        departureLocation = try container.decode(String?.self, forKey: .departureLocation)
+        departureTerminal = try container.decode(String?.self, forKey: .departureTerminal)
+        departureGate = try container.decode(String?.self, forKey: .departureGate)
+        arrivalLocation = try container.decode(String?.self, forKey: .arrivalLocation)
+        arrivalTerminal = try container.decode(String?.self, forKey: .arrivalTerminal)
+        arrivalGate = try container.decode(String?.self, forKey: .arrivalGate)
+
         let superDecoder = try container.superDecoder()
         try super.init(from: superDecoder)
-
-        airline = try container.decode(String.self, forKey: .airline)
-        flightNumber = try container.decode(String.self, forKey: .flightNumber)
-        seats = try container.decode(String.self, forKey: .seats)
-        departureLocation = try container.decode(String.self, forKey: .departureLocation)
-        departureTerminal = try container.decode(String.self, forKey: .departureTerminal)
-        departureGate = try container.decode(String.self, forKey: .departureGate)
-        arrivalLocation = try container.decode(String.self, forKey: .arrivalLocation)
-        arrivalTerminal = try container.decode(String.self, forKey: .arrivalTerminal)
-        arrivalGate = try container.decode(String.self, forKey: .arrivalGate)
     }
 
     override func encode(to encoder: Encoder) throws {
