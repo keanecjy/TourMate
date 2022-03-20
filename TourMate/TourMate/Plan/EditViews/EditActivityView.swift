@@ -95,7 +95,7 @@ struct EditActivityView: View {
                             .disabled(viewModel.isLoading)
                         }
                         ToolbarItem(placement: .bottomBar) {
-                            Button("Delete Trip", role: .destructive) {
+                            Button("Delete Activity", role: .destructive) {
                                 Task {
                                     await viewModel.deletePlan(plan: createUpdatedActivity())
                                     dismiss()
