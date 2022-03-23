@@ -40,8 +40,8 @@ jobs:
         run: |
           pod install
           
-      - name: Build
-        run: xcodebuild -workspace TourMate.xcworkspace -scheme TourMate -sdk iphonesimulator -destination "platform=$platform,name=$device"
+      - name: Build and Test
+        run: xcodebuild test -workspace TourMate.xcworkspace -scheme TourMate -sdk iphonesimulator -destination "platform=$platform,name=$device"
         
       # Tests disabled to speed up build for now 
       # - name: Test
