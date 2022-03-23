@@ -6,23 +6,54 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 class AddTripViewModel: ObservableObject {
-    @Published private(set) var isLoading: Bool
-    @Published private(set) var hasError: Bool
+    @Published private(set) var isLoading = false
+    @Published private(set) var hasError = false
+
+    @Published var tripName = ""
+    @Published var startDate = Date()
+    @Published var endDate = Date()
+    @Published var imageUrl = ""
+    @Published var isTripNameValid = false
+    @Published var isTripDurationValid = true
+    @Published var canAddTrip = false
+
+    var invalidDurationPrompt: String {
+        isTripDurationValid ? "" : "Start date can not be after end data"
+    }
+
     let tripController: TripController
     let userController: UserController
 
+    private var cancellableSet: Set<AnyCancellable> = []
+
     init(tripController: TripController = FirebaseTripController(),
          userController: UserController = FirebaseUserController()) {
-        self.isLoading = false
-        self.hasError = false
         self.tripController = tripController
         self.userController = userController
+
+        $tripName
+            .map({ !$0.isEmpty })
+            .assign(to: \.isTripNameValid, on: self)
+            .store(in: &cancellableSet)
+
+        Publishers
+            .CombineLatest($startDate, $endDate)
+            .map({ $0 <= $1 })
+            .assign(to: \.isTripDurationValid, on: self)
+            .store(in: &cancellableSet)
+
+        Publishers
+            .CombineLatest($isTripNameValid, $isTripDurationValid)
+            .map({ $0 && $1 })
+            .assign(to: \.canAddTrip, on: self)
+            .store(in: &cancellableSet)
     }
 
-    func addTrip(name: String, startDate: Date, endDate: Date, imageUrl: String? = nil) async {
+    func addTrip() async {
         self.isLoading = true
         let (user, userErrorMessage) = await userController.getUser()
         guard let user = user, userErrorMessage.isEmpty else {
@@ -32,7 +63,7 @@ class AddTripViewModel: ObservableObject {
         }
         let uuid = UUID().uuidString
         let trip = Trip(id: uuid,
-                        name: name,
+                        name: tripName,
                         startDate: startDate,
                         endDate: endDate,
                         imageUrl: imageUrl,

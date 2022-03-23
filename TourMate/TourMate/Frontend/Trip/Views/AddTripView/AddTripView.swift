@@ -13,11 +13,6 @@ struct AddTripView: View {
 
     @StateObject var viewModel = AddTripViewModel()
 
-    @State private var tripName = ""
-    @State private var startDate = Date()
-    @State private var endDate = Date()
-    @State private var imageUrl = ""
-
     var body: some View {
         NavigationView {
             Group {
@@ -26,19 +21,24 @@ struct AddTripView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    Form {
-                        TextField("Trip Name", text: $tripName)
-                        DatePicker(
-                            "Start Date",
-                            selection: $startDate,
-                            displayedComponents: [.date]
-                        )
-                        DatePicker(
-                            "End Date",
-                            selection: $endDate,
-                            displayedComponents: [.date]
-                        )
-                        TextField("Image URL", text: $imageUrl)
+                    VStack {
+                        Text(viewModel.invalidDurationPrompt)
+                            .foregroundColor(.red)
+                            .font(.caption)
+                        Form {
+                            TextField("Trip Name*", text: $viewModel.tripName)
+                            DatePicker(
+                                "Start Date",
+                                selection: $viewModel.startDate,
+                                displayedComponents: [.date]
+                            )
+                            DatePicker(
+                                "End Date",
+                                selection: $viewModel.endDate,
+                                displayedComponents: [.date]
+                            )
+                            TextField("Image URL", text: $viewModel.imageUrl)
+                        }
                     }
                 }
             }
@@ -48,14 +48,11 @@ struct AddTripView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {
                         Task {
-                            await viewModel.addTrip(name: tripName,
-                                                    startDate: startDate,
-                                                    endDate: endDate,
-                                                    imageUrl: imageUrl)
+                            await viewModel.addTrip()
                             dismiss()
                         }
                     }
-                    .disabled(viewModel.isLoading || viewModel.hasError)
+                    .disabled(!viewModel.canAddTrip || viewModel.isLoading || viewModel.hasError)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {
