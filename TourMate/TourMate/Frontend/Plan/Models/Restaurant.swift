@@ -12,7 +12,7 @@ struct Restaurant: Plan {
 
     var id: String
     var tripId: String
-    var name: String
+    var name: String = "Restaurant"
     var startDate: Date
     var endDate: Date
     var startTimeZone: TimeZone
