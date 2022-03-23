@@ -71,9 +71,13 @@ struct FirebaseAuthenticationManager: AuthenticationManager {
 
         Auth.auth().signIn(with: credential) { authResult, error in
 
-            if let error = error {
-                print("[FirebaseAuthenticationManager] Firebase authentication failed: \(error.localizedDescription)")
-            } else if let result = authResult {
+            guard error == nil else {
+                let errorMessage = error?.localizedDescription ?? ""
+                print("[FirebaseAuthenticationManager] Firebase authentication failed: \(errorMessage)")
+                return
+            }
+
+            if let result = authResult {
 
                 let user = result.user
 
