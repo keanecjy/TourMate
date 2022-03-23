@@ -43,8 +43,7 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
         phone = try container.decode(String?.self, forKey: .phone)
         website = try container.decode(String?.self, forKey: .website)
 
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+        try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
@@ -55,8 +54,7 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
         try container.encode(phone, forKey: .phone)
         try container.encode(website, forKey: .website)
 
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        try super.encode(to: encoder)
     }
 
     override func getType() -> FirebaseAdaptedType {

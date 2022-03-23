@@ -11,7 +11,8 @@ protocol PersistenceManager {
 
     func fetchItem(id: String) async -> (item: FirebaseAdaptedData?, errorMessage: String)
 
-    func fetchItems(field: String, arrayContains id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String)
+    func fetchItems(field: String, arrayContains id: String) async -> (items: [FirebaseAdaptedData],
+                                                                            errorMessage: String)
 
     func fetchItems(field: String, isEqualTo id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String)
 

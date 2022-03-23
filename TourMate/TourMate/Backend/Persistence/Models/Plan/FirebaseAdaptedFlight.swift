@@ -66,8 +66,7 @@ class FirebaseAdaptedFlight: FirebaseAdaptedPlan {
         arrivalTerminal = try container.decode(String?.self, forKey: .arrivalTerminal)
         arrivalGate = try container.decode(String?.self, forKey: .arrivalGate)
 
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+        try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
@@ -83,8 +82,7 @@ class FirebaseAdaptedFlight: FirebaseAdaptedPlan {
         try container.encode(arrivalTerminal, forKey: .arrivalTerminal)
         try container.encode(arrivalGate, forKey: .arrivalGate)
 
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        try super.encode(to: encoder)
     }
 
     override func getType() -> FirebaseAdaptedType {
