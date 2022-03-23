@@ -21,24 +21,21 @@ struct AddTripView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    VStack {
-                        Text(viewModel.invalidDurationPrompt)
-                            .foregroundColor(.red)
-                            .font(.caption)
-                        Form {
-                            TextField("Trip Name*", text: $viewModel.tripName)
-                            DatePicker(
-                                "Start Date",
-                                selection: $viewModel.startDate,
-                                displayedComponents: [.date]
-                            )
-                            DatePicker(
-                                "End Date",
-                                selection: $viewModel.endDate,
-                                displayedComponents: [.date]
-                            )
-                            TextField("Image URL", text: $viewModel.imageUrl)
-                        }
+                    Form {
+                        TextField("Trip Name*", text: $viewModel.tripName)
+                        DatePicker(
+                            "Start Date",
+                            selection: $viewModel.startDate,
+                            in: Date()...,
+                            displayedComponents: [.date]
+                        )
+                        DatePicker(
+                            "End Date",
+                            selection: $viewModel.endDate,
+                            in: viewModel.fromStartDate,
+                            displayedComponents: [.date]
+                        )
+                        TextField("Image URL", text: $viewModel.imageUrl)
                     }
                 }
             }

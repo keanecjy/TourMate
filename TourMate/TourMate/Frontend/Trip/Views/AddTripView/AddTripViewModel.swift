@@ -18,12 +18,8 @@ class AddTripViewModel: ObservableObject {
     @Published var endDate = Date()
     @Published var imageUrl = ""
     @Published var isTripNameValid = false
-    @Published var isTripDurationValid = true
+    @Published var fromStartDate = Date()...
     @Published var canAddTrip = false
-
-    var invalidDurationPrompt: String {
-        isTripDurationValid ? "" : "Start date can not be after end data"
-    }
 
     let tripController: TripController
     let userController: UserController
@@ -40,15 +36,12 @@ class AddTripViewModel: ObservableObject {
             .assign(to: \.isTripNameValid, on: self)
             .store(in: &cancellableSet)
 
-        Publishers
-            .CombineLatest($startDate, $endDate)
-            .map({ $0 <= $1 })
-            .assign(to: \.isTripDurationValid, on: self)
+        $startDate
+            .map({ $0... })
+            .assign(to: \.fromStartDate, on: self)
             .store(in: &cancellableSet)
 
-        Publishers
-            .CombineLatest($isTripNameValid, $isTripDurationValid)
-            .map({ $0 && $1 })
+        $isTripNameValid
             .assign(to: \.canAddTrip, on: self)
             .store(in: &cancellableSet)
     }
