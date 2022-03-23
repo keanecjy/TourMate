@@ -11,6 +11,7 @@ struct FirebaseAdaptedUser: FirebaseAdaptedData {
     let id: String
     let name: String
     let email: String
+    let imageUrl: String
 
     func getType() -> FirebaseAdaptedType {
         FirebaseAdaptedType.firebaseAdaptedUser
