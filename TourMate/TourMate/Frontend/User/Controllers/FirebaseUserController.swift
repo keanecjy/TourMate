@@ -9,8 +9,10 @@ import Foundation
 import FirebaseAuth
 
 struct FirebaseUserController: UserController {
-    let firebasePersistenceManager = FirebasePersistenceManager(
+    private let firebasePersistenceManager = FirebasePersistenceManager(
         collectionId: FirebaseConfig.userCollectionId)
+
+    private let userAdapter = UserAdapter()
 
     func addUser(_ user: User) async -> (Bool, String) {
         guard let currentUser = Auth.auth().currentUser,
@@ -20,7 +22,7 @@ struct FirebaseUserController: UserController {
             return (false, Constants.messageUserNotLoggedIn)
         }
 
-        let adaptedUser = user.toData()
+        let adaptedUser = userAdapter.toAdaptedUser(user: user)
         return await firebasePersistenceManager.addItem(id: currentUser.uid, item: adaptedUser)
     }
 
@@ -41,19 +43,7 @@ struct FirebaseUserController: UserController {
             preconditionFailure()
         }
 
-        return (adaptedUser.toItem(), errorMessage)
+        return (userAdapter.toUser(adaptedUser: adaptedUser), errorMessage)
     }
 
-}
-
-extension User {
-    fileprivate func toData() -> FirebaseAdaptedUser {
-        FirebaseAdaptedUser(id: id, name: name, email: email, imageUrl: imageUrl)
-    }
-}
-
-extension FirebaseAdaptedUser {
-    fileprivate func toItem() -> User {
-        User(id: id, name: name, email: email, imageUrl: imageUrl)
-    }
 }

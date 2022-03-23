@@ -4,8 +4,11 @@
 //
 //  Created by Keane Chan on 19/3/22.
 //
+
 class PlanAdapter {
-    static func toAdaptedPlan(plan: Plan) -> FirebaseAdaptedPlan {
+    init() {}
+
+    func toAdaptedPlan(plan: Plan) -> FirebaseAdaptedPlan {
         guard let planType = FirebaseAdaptedType(rawValue: plan.planType.rawValue) else {
             preconditionFailure()
         }
@@ -27,7 +30,7 @@ class PlanAdapter {
         }
     }
 
-    static func toPlan(adaptedPlan: FirebaseAdaptedPlan) -> Plan {
+    func toPlan(adaptedPlan: FirebaseAdaptedPlan) -> Plan {
         guard let planType = PlanType(rawValue: adaptedPlan.getType().rawValue) else {
             preconditionFailure()
         }

@@ -42,6 +42,8 @@
 		4CCBBD1B27DE651F00F9C250 /* FirebasePlanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD1A27DE651F00F9C250 /* FirebasePlanController.swift */; };
 		4CCBBD1F27DE67B400F9C250 /* PlanStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD1E27DE67B400F9C250 /* PlanStatus.swift */; };
 		4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD2227DE687A00F9C250 /* Comment.swift */; };
+		4CE02B8B27EAE93900480D73 /* TripAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE02B8A27EAE93900480D73 /* TripAdapter.swift */; };
+		4CE02B8D27EAE9CD00480D73 /* UserAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE02B8C27EAE9CD00480D73 /* UserAdapter.swift */; };
 		953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E627E5BFBF000DF0C2 /* TripsView.swift */; };
 		953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E827E5BFC7000DF0C2 /* TripCard.swift */; };
 		953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570EA27E5BFD1000DF0C2 /* AddTripView.swift */; };
@@ -151,6 +153,8 @@
 		4CCBBD1A27DE651F00F9C250 /* FirebasePlanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlanController.swift; sourceTree = "<group>"; };
 		4CCBBD1E27DE67B400F9C250 /* PlanStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStatus.swift; sourceTree = "<group>"; };
 		4CCBBD2227DE687A00F9C250 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		4CE02B8A27EAE93900480D73 /* TripAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdapter.swift; sourceTree = "<group>"; };
+		4CE02B8C27EAE9CD00480D73 /* UserAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAdapter.swift; sourceTree = "<group>"; };
 		720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0AD6F3D818D6A89B4B41BF /* Pods-TourMate-TourMateUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.release.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.release.xcconfig"; sourceTree = "<group>"; };
 		953570E627E5BFBF000DF0C2 /* TripsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
@@ -618,6 +622,8 @@
 			isa = PBXGroup;
 			children = (
 				4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */,
+				4CE02B8A27EAE93900480D73 /* TripAdapter.swift */,
+				4CE02B8C27EAE9CD00480D73 /* UserAdapter.swift */,
 			);
 			path = Adapters;
 			sourceTree = "<group>";
@@ -1048,6 +1054,7 @@
 				4CB954EC27DE3F08001410AD /* FirebaseAdaptedType.swift in Sources */,
 				4CCBBD1F27DE67B400F9C250 /* PlanStatus.swift in Sources */,
 				B99D964B27D73503009B66AE /* ContentView.swift in Sources */,
+				4CE02B8B27EAE93900480D73 /* TripAdapter.swift in Sources */,
 				004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */,
 				4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */,
 				00582F7927E745A3008756E9 /* EditAccommodationView.swift in Sources */,
@@ -1081,6 +1088,7 @@
 				B967C33E27DDE9BD0023B34D /* TransportFormView.swift in Sources */,
 				00582F7527E74590008756E9 /* EditFlightView.swift in Sources */,
 				4C6D1BA127E627A900D34087 /* PlanType.swift in Sources */,
+				4CE02B8D27EAE9CD00480D73 /* UserAdapter.swift in Sources */,
 				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
 				B967C33527DDCA4E0023B34D /* AddPlanView.swift in Sources */,
 				0092523827DA573500F4F029 /* LaunchView.swift in Sources */,
