@@ -23,7 +23,7 @@ struct FirebasePersistenceManager: PersistenceManager {
             let any = AnyFirebaseAdaptedData(item)
             try itemRef.setData(from: any)
 
-            print("[FirebasePersistenceManager] Added \(T.self): \(itemRef)")
+            print("[FirebasePersistenceManager] Added \(T.self): \(item)")
 
             return (true, "")
         } catch {
@@ -42,7 +42,7 @@ struct FirebasePersistenceManager: PersistenceManager {
             let itemRef = db.collection(collectionId).document(id)
             let item = try await itemRef.getDocument().data(as: AnyFirebaseAdaptedData.self).map { $0.base }
 
-            print("[FirebasePersistenceManager] Fetched: \(itemRef)")
+            print("[FirebasePersistenceManager] Fetched Item: \(id)")
 
             return (item, "")
         } catch {
@@ -53,19 +53,21 @@ struct FirebasePersistenceManager: PersistenceManager {
 
     @MainActor
     func fetchItems(field: String, arrayContains id: String) async -> (items: [FirebaseAdaptedData],
-                                                                       errorMessage: String) {
+                                                                            errorMessage: String) {
         // Might want to remove the hard coding here in the future
-        let query = db.collection(collectionId).whereField(FieldPath(["base", field]), arrayContains: id)
+        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
+
+        print("[FirebasePersistenceManager] Fetched Items with Field: \(field), arrayContains: \(id)")
+
         return await fetchItems(from: query)
     }
 
-    // TODO: How to fix the fieldpath issue
-    // Trips: Document > Base
-    // Plans: Document > Base > Super
     @MainActor
     func fetchItems(field: String, isEqualTo id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
-        // added super for testing plans. will not work with trips
-        let query = db.collection(collectionId).whereField(FieldPath(["base", "super", field]), isEqualTo: id)
+        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), isEqualTo: id)
+
+        print("[FirebasePersistenceManager] Fetched Items with Field: \(field), isEqualTo: \(id)")
+
         return await fetchItems(from: query)
     }
 
@@ -78,8 +80,6 @@ struct FirebasePersistenceManager: PersistenceManager {
         do {
             let documents = try await query.getDocuments().documents
             let items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
-
-            print("[FirebasePersistenceManager] Fetched: \(query)")
 
             return (items, "")
         } catch {
@@ -98,7 +98,7 @@ struct FirebasePersistenceManager: PersistenceManager {
             let deletedItemRef = db.collection(collectionId).document(id)
             try await deletedItemRef.delete()
 
-            print("[FirebasePersistenceManager] Deleted \(FirebaseAdaptedData.self): \(deletedItemRef)")
+            print("[FirebasePersistenceManager] Deleted \(FirebaseAdaptedData.self): \(id)")
 
             return (true, "")
         } catch {
