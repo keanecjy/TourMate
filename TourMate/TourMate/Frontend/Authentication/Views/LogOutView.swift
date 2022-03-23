@@ -16,7 +16,7 @@ struct LogOutView: View {
     var body: some View {
         VStack(alignment: .center) {
             AuthenticationButton(onPress: onGoogleLogoutButtonPressed,
-                                 title: "Log Out Google",
+                                 title: "Log Out",
                                  maxWidth: containerSize.width / 5.0,
                                  isDisabled: isDisabled)
         }
