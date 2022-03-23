@@ -23,7 +23,7 @@ struct FirebasePersistenceManager: PersistenceManager {
             let any = AnyFirebaseAdaptedData(item)
             try itemRef.setData(from: any)
 
-            print("[FirebasePersistenceManager] Added \(T.self): \(item)")
+            print("[FirebasePersistenceManager] Added or Updated \(T.self): \(id)")
 
             return (true, "")
         } catch {
