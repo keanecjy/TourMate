@@ -48,12 +48,12 @@ struct FirebaseUserController: UserController {
 
 extension User {
     fileprivate func toData() -> FirebaseAdaptedUser {
-        FirebaseAdaptedUser(id: id, name: name, email: email)
+        FirebaseAdaptedUser(id: id, name: name, email: email, imageUrl: imageUrl)
     }
 }
 
 extension FirebaseAdaptedUser {
     fileprivate func toItem() -> User {
-        User(id: id, name: name, email: email)
+        User(id: id, name: name, email: email, imageUrl: imageUrl)
     }
 }

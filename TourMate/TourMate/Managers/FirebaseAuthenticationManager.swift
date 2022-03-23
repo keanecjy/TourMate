@@ -70,12 +70,24 @@ struct FirebaseAuthenticationManager: AuthenticationManager {
         let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
 
         Auth.auth().signIn(with: credential) { authResult, error in
-            if let result = authResult,
-               let userAdditionalInfo = result.additionalUserInfo {
+
+            guard error == nil else {
+                let errorMessage = error?.localizedDescription ?? ""
+                print("[FirebaseAuthenticationManager] Firebase authentication failed: \(errorMessage)")
+                return
+            }
+
+            if let result = authResult {
 
                 let user = result.user
-                if userAdditionalInfo.isNewUser, let name = user.displayName, let email = user.email {
-                    let newUser = User(id: user.uid, name: name, email: email)
+
+                if let name = user.displayName,
+                   let email = user.email {
+
+                    // Update imageURL if exists
+                    let imageUrl = user.photoURL?.absoluteString ?? ""
+
+                    let newUser = User(id: user.uid, name: name, email: email, imageUrl: imageUrl)
 
                     Task {
                         let (success, errorMessage) = await FirebaseUserController().addUser(newUser)
@@ -85,10 +97,6 @@ struct FirebaseAuthenticationManager: AuthenticationManager {
                         }
                     }
                 }
-            }
-
-            if let error = error {
-                print("[FirebaseAuthenticationManager] Firebase authentication failed: \(error.localizedDescription)")
             }
         }
     }
