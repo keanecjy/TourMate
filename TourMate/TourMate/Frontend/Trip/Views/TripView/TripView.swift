@@ -1,5 +1,5 @@
 //
-//  TripDetailView.swift
+//  TripView.swift
 //  Tourmate
 //
 //  Created by Rayner Lim on 7/3/22.
