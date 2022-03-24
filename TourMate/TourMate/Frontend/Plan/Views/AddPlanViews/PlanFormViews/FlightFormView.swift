@@ -31,23 +31,21 @@ struct FlightFormView: View {
 
     private func createFlight() -> Flight {
         let planId = tripId + UUID().uuidString
-        let timeZone = TimeZone.current
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
         let flight = Flight(id: planId, tripId: tripId,
-                            startDate: departureDate,
-                            endDate: arrivalDate,
-                            startTimeZone: timeZone,
+                            startDateTime: DateTime(date: departureDate),
+                            endDateTime: DateTime(date: arrivalDate),
+                            startLocation: departureLocation,
+                            endLocation: arrivalLocation,
                             status: status,
                             creationDate: creationDate,
                             modificationDate: creationDate,
                             airline: airline,
                             flightNumber: flightNumber,
                             seats: seats,
-                            departureLocation: departureLocation,
                             departureTerminal: departureTerminal,
                             departureGate: departureGate,
-                            arrivalLocation: arrivalLocation,
                             arrivalTerminal: arrivalTerminal,
                             arrivalGate: arrivalGate)
         return flight

@@ -24,18 +24,16 @@ struct AccommodationFormView: View {
 
     private func createAccommodation() -> Accommodation {
         let planId = tripId + UUID().uuidString
-        let timeZone = TimeZone.current
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
-        let creationDate = Date()
-        let accommodation = Accommodation(id: planId, tripId: tripId,
-                                          name: accommodationName,
-                                          startDate: checkInDate,
-                                          endDate: checkOutDate,
-                                          startTimeZone: timeZone,
+        let accommodation = Accommodation(id: planId,
+                                          tripId: tripId,
+                                          name: accommodationName.isEmpty ? "Accommodation" : accommodationName,
+                                          startDateTime: DateTime(date: checkInDate),
+                                          endDateTime: DateTime(date: checkOutDate),
+                                          startLocation: address,
                                           status: status,
-                                          creationDate: creationDate,
-                                          modificationDate: creationDate,
-                                          address: address,
+                                          creationDate: Date(),
+                                          modificationDate: Date(),
                                           phone: phone,
                                           website: website)
         return accommodation

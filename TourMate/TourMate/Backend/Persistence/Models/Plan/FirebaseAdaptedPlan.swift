@@ -11,9 +11,10 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     let id: String
     let tripId: String
     let name: String
-    let startDate: Date
-    let endDate: Date
-    let timeZone: TimeZone
+    let startDateTime: FirebaseAdaptedDateTime
+    let endDateTime: FirebaseAdaptedDateTime
+    let startLocation: String
+    let endLocation: String?
     let imageUrl: String?
     let status: String
     let creationDate: Date
@@ -23,9 +24,10 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         case id
         case tripId
         case name
-        case startDate
-        case endDate
-        case timeZone
+        case startDateTime
+        case endDateTime
+        case startLocation
+        case endLocation
         case imageUrl
         case status
         case creationDate
@@ -33,14 +35,18 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     }
 
     init(id: String, tripId: String, name: String,
-         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String?,
-         status: String, creationDate: Date, modificationDate: Date) {
+         startDateTime: FirebaseAdaptedDateTime,
+         endDateTime: FirebaseAdaptedDateTime,
+         startLocation: String, endLocation: String?,
+         imageUrl: String?, status: String,
+         creationDate: Date, modificationDate: Date) {
         self.id = id
         self.tripId = tripId
         self.name = name
-        self.startDate = startDate
-        self.endDate = endDate
-        self.timeZone = timeZone
+        self.startDateTime = startDateTime
+        self.endDateTime = endDateTime
+        self.startLocation = startLocation
+        self.endLocation = endLocation
         self.imageUrl = imageUrl
         self.status = status
         self.creationDate = creationDate
@@ -53,9 +59,10 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         id = try container.decode(String.self, forKey: .id)
         tripId = try container.decode(String.self, forKey: .tripId)
         name = try container.decode(String.self, forKey: .name)
-        startDate = try container.decode(Date.self, forKey: .startDate)
-        endDate = try container.decode(Date.self, forKey: .endDate)
-        timeZone = try container.decode(TimeZone.self, forKey: .timeZone)
+        startDateTime = try container.decode(FirebaseAdaptedDateTime.self, forKey: .startDateTime)
+        endDateTime = try container.decode(FirebaseAdaptedDateTime.self, forKey: .endDateTime)
+        startLocation = try container.decode(String.self, forKey: .startLocation)
+        endLocation = try container.decode(String.self, forKey: .endLocation)
         imageUrl = try container.decode(String?.self, forKey: .imageUrl)
         status = try container.decode(String.self, forKey: .status)
         creationDate = try container.decode(Date.self, forKey: .creationDate)
@@ -68,9 +75,10 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         try container.encode(id, forKey: .id)
         try container.encode(tripId, forKey: .tripId)
         try container.encode(name, forKey: .name)
-        try container.encode(startDate, forKey: .startDate)
-        try container.encode(endDate, forKey: .endDate)
-        try container.encode(timeZone, forKey: .timeZone)
+        try container.encode(startDateTime, forKey: .startDateTime)
+        try container.encode(endDateTime, forKey: .endDateTime)
+        try container.encode(startLocation, forKey: .startLocation)
+        try container.encode(endLocation, forKey: .endLocation)
         try container.encode(imageUrl, forKey: .imageUrl)
         try container.encode(status, forKey: .status)
         try container.encode(creationDate, forKey: .creationDate)
@@ -78,7 +86,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     }
 
     func getType() -> FirebaseAdaptedType {
-        preconditionFailure()
+        preconditionFailure("This method should not be called")
     }
 
 }

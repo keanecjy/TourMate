@@ -20,7 +20,7 @@ struct RestaurantView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = restaurant.startTimeZone
+        dateFormatter.timeZone = restaurant.startDateTime.timeZone
         return dateFormatter.string(from: date)
     }
 
@@ -35,27 +35,23 @@ struct RestaurantView: View {
                         VStack(alignment: .leading) {
                             Text("From")
                                 .font(.caption)
-                            Text(getDateString(restaurant.startDate))
+                            Text(getDateString(restaurant.startDateTime.date))
                                 .font(.headline)
 
-                            if let endDate = restaurant.endDate {
-                                Text("To")
-                                    .font(.caption)
-                                Text(getDateString(endDate))
-                                    .font(.headline)
-                            }
+                            Text("To")
+                                .font(.caption)
+                            Text(getDateString(restaurant.endDateTime.date))
+                                .font(.headline)
                         }
                         .padding()
 
                         // Adress
-                        if let address = restaurant.address {
-                            VStack(alignment: .leading) {
-                                Text("Address")
-                                    .font(.caption)
-                                Text(address)
-                            }
-                            .padding()
+                        VStack(alignment: .leading) {
+                            Text("Address")
+                                .font(.caption)
+                            Text(restaurant.startLocation)
                         }
+                        .padding()
 
                         // Phone number
                         if let phone = restaurant.phone {
