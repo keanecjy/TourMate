@@ -6,6 +6,9 @@
 //
 
 import FirebaseAuth
+import Foundation
+import CloudKit
+import SwiftUI
 
 struct FirebaseTripController: TripController {
     let firebasePersistenceManager = FirebasePersistenceManager(
@@ -33,7 +36,7 @@ struct FirebaseTripController: TripController {
         }
 
         let trips = adaptedTrips.map({ $0.toItem() })
-            .sorted(by: { $0.startDate > $1.startDate })
+            .sorted(by: { $0.startDateTime.date > $1.startDateTime.date })
         return (trips, "")
     }
 
@@ -68,16 +71,38 @@ struct FirebaseTripController: TripController {
 
 extension Trip {
     fileprivate func toData() -> FirebaseAdaptedTrip {
-        FirebaseAdaptedTrip(id: id, name: name, startDate: startDate, endDate: endDate, timeZone: timeZone,
-                            imageUrl: imageUrl, attendeesUserIds: attendeesUserIds, invitedUserIds: invitedUserIds,
-                            creationDate: creationDate, modificationDate: modificationDate)
+        FirebaseAdaptedTrip(id: id, name: name,
+                            startDateTime: startDateTime,
+                            endDateTime: endDateTime,
+                            imageUrl: imageUrl,
+                            attendeesUserIds: attendeesUserIds,
+                            invitedUserIds: invitedUserIds,
+                            creationDate: creationDate,
+                            modificationDate: modificationDate)
     }
 }
 
 extension FirebaseAdaptedTrip {
     fileprivate func toItem() -> Trip {
-        Trip(id: id, name: name, startDate: startDate, endDate: endDate, timeZone: timeZone,
-             imageUrl: imageUrl, attendeesUserIds: attendeesUserIds, invitedUserIds: invitedUserIds,
-             creationDate: creationDate, modificationDate: modificationDate)
+        Trip(id: id, name: name,
+             startDateTime: startDateTime,
+             endDateTime: startDateTime,
+             imageUrl: imageUrl,
+             attendeesUserIds: attendeesUserIds,
+             invitedUserIds: invitedUserIds,
+             creationDate: creationDate,
+             modificationDate: modificationDate)
+    }
+}
+
+extension DateTime {
+    fileprivate func toData() -> FirebaseAdaptedDateTime {
+        FirebaseAdaptedDateTime(date: date, timeZone: timeZone)
+    }
+}
+
+extension FirebaseAdaptedDateTime {
+    fileprivate func toItem() -> DateTime {
+        DateTime(date: date, timeZone: timeZone)
     }
 }

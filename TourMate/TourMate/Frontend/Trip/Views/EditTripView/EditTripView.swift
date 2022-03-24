@@ -26,12 +26,12 @@ struct EditTripView: View {
                         TextField("Trip Name", text: $viewModel.trip.name)
                         DatePicker(
                             "Start Date",
-                            selection: $viewModel.trip.startDate,
+                            selection: $viewModel.trip.startDateTime.date,
                             displayedComponents: [.date]
                         )
                         DatePicker(
                             "End Date",
-                            selection: $viewModel.trip.endDate,
+                            selection: $viewModel.trip.endDateTime.date,
                             displayedComponents: [.date]
                         )
                         TextField("Image URL", text: $viewModel.trip.imageUrl ?? "")
