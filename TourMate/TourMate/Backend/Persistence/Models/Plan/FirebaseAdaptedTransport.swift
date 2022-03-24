@@ -53,8 +53,7 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
         vehicleDescription = try container.decode(String?.self, forKey: .vehicleDescription)
         numberOfPassengers = try container.decode(String?.self, forKey: .numberOfPassengers)
 
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+        try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
@@ -67,8 +66,7 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
         try container.encode(vehicleDescription, forKey: .vehicleDescription)
         try container.encode(numberOfPassengers, forKey: .numberOfPassengers)
 
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        try super.encode(to: encoder)
     }
 
     override func getType() -> FirebaseAdaptedType {

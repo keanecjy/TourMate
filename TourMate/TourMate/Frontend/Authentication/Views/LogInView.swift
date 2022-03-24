@@ -16,7 +16,7 @@ struct LogInView: View {
     var body: some View {
         VStack(alignment: .center) {
             AuthenticationButton(onPress: onGoogleLogInButtonPressed,
-                                 title: "Log In Google",
+                                 title: "Log In",
                                  maxWidth: containerSize.width / 5.0,
                                  isDisabled: isDisabled)
         }

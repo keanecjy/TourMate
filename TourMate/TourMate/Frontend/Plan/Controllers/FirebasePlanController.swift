@@ -9,10 +9,12 @@ import FirebaseAuth
 
 struct FirebasePlanController: PlanController {
 
-    let firebasePersistenceManager = FirebasePersistenceManager(collectionId: FirebaseConfig.planCollectionId)
+    private let firebasePersistenceManager = FirebasePersistenceManager(collectionId: FirebaseConfig.planCollectionId)
+
+    private let planAdapter = PlanAdapter()
 
     func addPlan(plan: Plan) async -> (Bool, String) {
-        await firebasePersistenceManager.addItem(id: plan.id, item: PlanAdapter.toAdaptedPlan(plan: plan))
+        await firebasePersistenceManager.addItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
     }
 
     func fetchPlans(withTripId tripId: String) async -> ([Plan], String) {
@@ -28,7 +30,7 @@ struct FirebasePlanController: PlanController {
              return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedPlan")
         }
 
-        let plans = adaptedPlans.map({ PlanAdapter.toPlan(adaptedPlan: $0) })
+        let plans = adaptedPlans.map({ planAdapter.toPlan(adaptedPlan: $0) })
         return (plans, "")
     }
 
@@ -48,7 +50,7 @@ struct FirebasePlanController: PlanController {
             return (nil, "Unable to convert FirebaseAdaptedData to FirebaseAdaptedPlan")
         }
 
-        let plan = PlanAdapter.toPlan(adaptedPlan: adaptedPlan)
+        let plan = planAdapter.toPlan(adaptedPlan: adaptedPlan)
         return (plan, "")
     }
 
@@ -57,6 +59,6 @@ struct FirebasePlanController: PlanController {
     }
 
     func updatePlan(plan: Plan) async -> (Bool, String) {
-        await firebasePersistenceManager.updateItem(id: plan.id, item: PlanAdapter.toAdaptedPlan(plan: plan))
+        await firebasePersistenceManager.updateItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
     }
 }

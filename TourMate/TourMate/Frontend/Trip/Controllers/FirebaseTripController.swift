@@ -11,11 +11,14 @@ import CloudKit
 import SwiftUI
 
 struct FirebaseTripController: TripController {
-    let firebasePersistenceManager = FirebasePersistenceManager(
+    private let firebasePersistenceManager = FirebasePersistenceManager(
         collectionId: FirebaseConfig.tripCollectionId)
 
+    private let tripAdapter = TripAdapter()
+
     func addTrip(trip: Trip) async -> (Bool, String) {
-        await firebasePersistenceManager.addItem(id: trip.id, item: trip.toData())
+        await firebasePersistenceManager.addItem(id: trip.id, item:
+                                                    tripAdapter.toAdaptedTrip(trip: trip) )
     }
 
     func fetchTrips() async -> ([Trip], String) {
@@ -56,7 +59,7 @@ struct FirebaseTripController: TripController {
             return (nil, "[FirebaseTripController] Error user \(user.uid) is not an attendee of trip \(tripId)")
         }
 
-        let trip = adaptedTrip.toItem()
+        let trip = tripAdapter.toTrip(adaptedTrip: adaptedTrip)
         return (trip, errorMessage)
     }
 
@@ -65,44 +68,7 @@ struct FirebaseTripController: TripController {
     }
 
     func updateTrip(trip: Trip) async -> (Bool, String) {
-        await firebasePersistenceManager.updateItem(id: trip.id, item: trip.toData())
-    }
-}
-
-extension Trip {
-    fileprivate func toData() -> FirebaseAdaptedTrip {
-        FirebaseAdaptedTrip(id: id, name: name,
-                            startDateTime: startDateTime,
-                            endDateTime: endDateTime,
-                            imageUrl: imageUrl,
-                            attendeesUserIds: attendeesUserIds,
-                            invitedUserIds: invitedUserIds,
-                            creationDate: creationDate,
-                            modificationDate: modificationDate)
-    }
-}
-
-extension FirebaseAdaptedTrip {
-    fileprivate func toItem() -> Trip {
-        Trip(id: id, name: name,
-             startDateTime: startDateTime,
-             endDateTime: startDateTime,
-             imageUrl: imageUrl,
-             attendeesUserIds: attendeesUserIds,
-             invitedUserIds: invitedUserIds,
-             creationDate: creationDate,
-             modificationDate: modificationDate)
-    }
-}
-
-extension DateTime {
-    fileprivate func toData() -> FirebaseAdaptedDateTime {
-        FirebaseAdaptedDateTime(date: date, timeZone: timeZone)
-    }
-}
-
-extension FirebaseAdaptedDateTime {
-    fileprivate func toItem() -> DateTime {
-        DateTime(date: date, timeZone: timeZone)
+        await firebasePersistenceManager.updateItem(id: trip.id,
+                                                    item: tripAdapter.toAdaptedTrip(trip: trip))
     }
 }

@@ -6,21 +6,41 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 class TripViewModel: ObservableObject {
     @Published var trip: Trip
-    @Published private(set) var isLoading: Bool
-    @Published private(set) var isDeleted: Bool
-    @Published private(set) var hasError: Bool
+    @Published private(set) var isLoading = false
+    @Published private(set) var isDeleted = false
+    @Published private(set) var hasError = false
+
+    @Published var isTripNameValid = true
+    @Published var fromStartDate = Date()...
+    @Published var canUpdateTrip = true
+
     let tripController: TripController
+
+    private var cancellableSet: Set<AnyCancellable> = []
 
     init(trip: Trip, tripController: TripController = FirebaseTripController()) {
         self.trip = trip
-        self.isLoading = false
-        self.isDeleted = false
-        self.hasError = false
         self.tripController = tripController
+
+        $trip
+            .map({ $0.name })
+            .map({ !$0.isEmpty })
+            .assign(to: \.isTripNameValid, on: self)
+            .store(in: &cancellableSet)
+
+        $trip
+            .map({ $0.startDateTime.date... })
+            .assign(to: \.fromStartDate, on: self)
+            .store(in: &cancellableSet)
+
+        $isTripNameValid
+            .assign(to: \.canUpdateTrip, on: self)
+            .store(in: &cancellableSet)
     }
 
     func fetchTrip() async {
