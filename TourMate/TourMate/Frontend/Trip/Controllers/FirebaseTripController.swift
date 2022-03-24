@@ -38,7 +38,8 @@ struct FirebaseTripController: TripController {
              return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
         }
 
-        let trips = adaptedTrips.map({ $0.toItem() })
+        let trips = adaptedTrips
+            .map({ tripAdapter.toTrip(adaptedTrip: $0) })
             .sorted(by: { $0.startDateTime.date > $1.startDateTime.date })
         return (trips, "")
     }

@@ -15,7 +15,9 @@ class AddTripViewModel: ObservableObject {
 
     @Published var tripName = ""
     @Published var startDate = Date()
+    @Published var startTimeZone = TimeZone.current
     @Published var endDate = Date()
+    @Published var endTimeZone = TimeZone.current
     @Published var imageUrl = ""
     @Published var isTripNameValid = false
     @Published var fromStartDate = Date()...
@@ -55,10 +57,11 @@ class AddTripViewModel: ObservableObject {
             return
         }
         let uuid = UUID().uuidString
-        let trip = Trip(id: uuid,
-                        name: tripName,
-                        startDate: startDate,
-                        endDate: endDate,
+        let startDateTime = DateTime(date: startDate, timeZone: startTimeZone)
+        let endDateTime = DateTime(date: endDate, timeZone: endTimeZone)
+        let trip = Trip(id: uuid, name: tripName,
+                        startDateTime: startDateTime,
+                        endDateTime: endDateTime,
                         imageUrl: imageUrl,
                         creatorUserId: user.id)
         let (hasAddedTrip, tripErrorMessage) = await tripController.addTrip(trip: trip)
