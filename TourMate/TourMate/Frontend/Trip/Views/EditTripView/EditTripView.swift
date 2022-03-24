@@ -23,7 +23,7 @@ struct EditTripView: View {
                     Text("Error occurred")
                 } else {
                     Form {
-                        TextField("Trip Name", text: $viewModel.trip.name)
+                        TextField("Trip Name*", text: $viewModel.trip.name)
                         DatePicker(
                             "Start Date",
                             selection: $viewModel.trip.startDate,
