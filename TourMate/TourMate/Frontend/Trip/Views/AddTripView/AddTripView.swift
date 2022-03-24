@@ -13,11 +13,6 @@ struct AddTripView: View {
 
     @StateObject var viewModel = AddTripViewModel()
 
-    @State private var tripName = ""
-    @State private var startDate = Date()
-    @State private var endDate = Date()
-    @State private var imageUrl = ""
-
     var body: some View {
         NavigationView {
             Group {
@@ -27,18 +22,20 @@ struct AddTripView: View {
                     ProgressView()
                 } else {
                     Form {
-                        TextField("Trip Name", text: $tripName)
+                        TextField("Trip Name*", text: $viewModel.tripName)
                         DatePicker(
                             "Start Date",
-                            selection: $startDate,
+                            selection: $viewModel.startDate,
+                            in: Date()...,
                             displayedComponents: [.date]
                         )
                         DatePicker(
                             "End Date",
-                            selection: $endDate,
+                            selection: $viewModel.endDate,
+                            in: viewModel.fromStartDate,
                             displayedComponents: [.date]
                         )
-                        TextField("Image URL", text: $imageUrl)
+                        TextField("Image URL", text: $viewModel.imageUrl)
                     }
                 }
             }
@@ -48,14 +45,11 @@ struct AddTripView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {
                         Task {
-                            await viewModel.addTrip(name: tripName,
-                                                    startDate: startDate,
-                                                    endDate: endDate,
-                                                    imageUrl: imageUrl)
+                            await viewModel.addTrip()
                             dismiss()
                         }
                     }
-                    .disabled(viewModel.isLoading || viewModel.hasError)
+                    .disabled(!viewModel.canAddTrip || viewModel.isLoading || viewModel.hasError)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {

@@ -27,11 +27,13 @@ struct EditTripView: View {
                         DatePicker(
                             "Start Date",
                             selection: $viewModel.trip.startDate,
+                            in: Date()...,
                             displayedComponents: [.date]
                         )
                         DatePicker(
                             "End Date",
                             selection: $viewModel.trip.endDate,
+                            in: viewModel.fromStartDate,
                             displayedComponents: [.date]
                         )
                         TextField("Image URL", text: $viewModel.trip.imageUrl ?? "")
@@ -48,7 +50,7 @@ struct EditTripView: View {
                             dismiss()
                         }
                     }
-                    .disabled(viewModel.isLoading || viewModel.hasError)
+                    .disabled(!viewModel.canUpdateTrip || viewModel.isLoading || viewModel.hasError)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {
