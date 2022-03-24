@@ -27,7 +27,7 @@ struct RestaurantFormView: View {
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
         let restaurant = Restaurant(id: planId, tripId: tripId,
-                                    name: restaurantName,
+                                    name: restaurantName.isEmpty ? "Restaurant" : restaurantName,
                                     startDateTime: DateTime(date: startDate),
                                     endDateTime: DateTime(date: endDate),
                                     startLocation: address,

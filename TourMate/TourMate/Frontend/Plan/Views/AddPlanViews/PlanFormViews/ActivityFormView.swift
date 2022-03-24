@@ -28,7 +28,7 @@ struct ActivityFormView: View {
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
         let activity = Activity(id: planId, tripId: tripId,
-                                name: eventName,
+                                name: eventName.isEmpty ? "Activity" : eventName,
                                 startDateTime: DateTime(date: startDate),
                                 endDateTime: DateTime(date: endDate),
                                 startLocation: address,

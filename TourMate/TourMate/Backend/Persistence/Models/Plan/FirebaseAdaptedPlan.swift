@@ -62,7 +62,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         startDateTime = try container.decode(FirebaseAdaptedDateTime.self, forKey: .startDateTime)
         endDateTime = try container.decode(FirebaseAdaptedDateTime.self, forKey: .endDateTime)
         startLocation = try container.decode(String.self, forKey: .startLocation)
-        endLocation = try container.decode(String.self, forKey: .endLocation)
+        endLocation = try container.decode(String?.self, forKey: .endLocation)
         imageUrl = try container.decode(String?.self, forKey: .imageUrl)
         status = try container.decode(String.self, forKey: .status)
         creationDate = try container.decode(Date.self, forKey: .creationDate)
