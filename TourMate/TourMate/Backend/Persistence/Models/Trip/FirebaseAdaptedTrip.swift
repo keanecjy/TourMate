@@ -10,9 +10,8 @@ import Foundation
 struct FirebaseAdaptedTrip: FirebaseAdaptedData {
     let id: String
     let name: String
-    let startDate: Date
-    let endDate: Date
-    let timeZone: TimeZone
+    let startDateTime: FirebaseAdaptedDateTime
+    let endDateTime: FirebaseAdaptedDateTime
     let imageUrl: String?
     let attendeesUserIds: [String]
     let invitedUserIds: [String]

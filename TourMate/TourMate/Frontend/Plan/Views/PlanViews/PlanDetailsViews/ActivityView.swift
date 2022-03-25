@@ -20,7 +20,7 @@ struct ActivityView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = activity.startTimeZone
+        dateFormatter.timeZone = activity.startDateTime.timeZone
         return dateFormatter.string(from: date)
     }
 
@@ -35,16 +35,14 @@ struct ActivityView: View {
                             // Start Time
                             Text("From")
                                 .font(.caption)
-                            Text(getDateString(activity.startDate))
+                            Text(getDateString(activity.startDateTime.date))
                                 .font(.headline)
 
                             // End Time
-                            if let endDate = activity.endDate {
-                                Text("To")
-                                    .font(.caption)
-                                Text(getDateString(endDate))
-                                    .font(.headline)
-                            }
+                            Text("To")
+                                .font(.caption)
+                            Text(getDateString(activity.endDateTime.date))
+                                .font(.headline)
                         }
                         .padding()
 
@@ -55,11 +53,9 @@ struct ActivityView: View {
                                 Text(venue)
                             }
 
-                            if let address = activity.address {
-                                Text("Address")
-                                    .font(.caption)
-                                Text(address)
-                            }
+                            Text("Address")
+                                .font(.caption)
+                            Text(activity.startLocation)
                         }
                         .padding()
 

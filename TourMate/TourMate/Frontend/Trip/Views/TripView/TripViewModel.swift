@@ -34,7 +34,7 @@ class TripViewModel: ObservableObject {
             .store(in: &cancellableSet)
 
         $trip
-            .map({ $0.startDate... })
+            .map({ $0.startDateTime.date... })
             .assign(to: \.fromStartDate, on: self)
             .store(in: &cancellableSet)
 

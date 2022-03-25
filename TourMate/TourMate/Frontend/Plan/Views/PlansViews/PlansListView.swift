@@ -17,10 +17,12 @@ struct PlansListView: View {
     typealias Day = (date: Date, plans: [Plan])
     var days: [Day] {
         let sortedPlans = plansViewModel.plans.sorted { plan1, plan2 in
-            plan1.startDate < plan2.startDate
+            plan1.startDateTime.date < plan2.startDateTime.date
         }
         let plansByDay: [Date: [Plan]] = sortedPlans.reduce(into: [:]) { acc, cur in
-            let components = Calendar.current.dateComponents(in: cur.startTimeZone, from: cur.startDate)
+            let components = Calendar
+                .current
+                .dateComponents(in: cur.startDateTime.timeZone, from: cur.startDateTime.date)
             let dateComponents = DateComponents(year: components.year,
                                                 month: components.month,
                                                 day: components.day)
@@ -65,9 +67,9 @@ struct PlansListView: View {
                             createPlanView(plan)
                         } label: {
                             PlanCardView(title: plan.name,
-                                         startDate: plan.startDate,
-                                         endDate: plan.endDate,
-                                         timeZone: plan.startTimeZone)
+                                         startDate: plan.startDateTime.date,
+                                         endDate: plan.endDateTime.date,
+                                         timeZone: plan.startDateTime.timeZone)
                         }
                         .buttonStyle(PlainButtonStyle())
                     }

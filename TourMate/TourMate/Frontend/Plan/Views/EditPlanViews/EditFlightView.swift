@@ -32,41 +32,39 @@ struct EditFlightView: View {
     init(flight: Flight) {
         self.flight = flight
         self._isConfirmed = State(initialValue: flight.status == .confirmed ? true : false)
-        self._departureDate = State(initialValue: flight.startDate)
-        self._arrivalDate = State(initialValue: flight.endDate)
+        self._departureDate = State(initialValue: flight.startDateTime.date)
+        self._arrivalDate = State(initialValue: flight.endDateTime.date)
         self._airline = State(initialValue: flight.airline ?? "")
         self._flightNumber = State(initialValue: flight.flightNumber ?? "")
         self._seats = State(initialValue: flight.seats ?? "")
 
-        self._departureLocation = State(initialValue: flight.departureLocation ?? "")
+        self._departureLocation = State(initialValue: flight.startLocation)
         self._departureTerminal = State(initialValue: flight.departureTerminal ?? "")
         self._departureGate = State(initialValue: flight.departureGate ?? "")
 
-        self._arrivalLocation = State(initialValue: flight.arrivalLocation ?? "")
+        self._arrivalLocation = State(initialValue: flight.endLocation ?? "")
         self._arrivalTerminal = State(initialValue: flight.arrivalTerminal ?? "")
         self._arrivalGate = State(initialValue: flight.arrivalGate ?? "")
     }
 
     private func createUpdatedFlight() -> Flight {
         let planId = self.flight.id
-        let timeZone = TimeZone.current
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = self.flight.creationDate
         let flight = Flight(id: planId,
                             tripId: self.flight.tripId,
-                            startDate: departureDate,
-                            endDate: arrivalDate,
-                            startTimeZone: timeZone,
+                            startDateTime: DateTime(date: departureDate),
+                            endDateTime: DateTime(date: arrivalDate),
+                            startLocation: departureLocation,
+                            endLocation: arrivalLocation,
                             status: status,
                             creationDate: creationDate,
                             modificationDate: Date(),
                             airline: airline,
                             flightNumber: flightNumber,
                             seats: seats,
-                            departureLocation: departureLocation,
                             departureTerminal: departureTerminal,
                             departureGate: departureGate,
-                            arrivalLocation: arrivalLocation,
                             arrivalTerminal: arrivalTerminal,
                             arrivalGate: arrivalGate)
         return flight

@@ -26,28 +26,28 @@ struct EditRestaurantView: View {
         self.restaurant = restaurant
         self._isConfirmed = State(initialValue: restaurant.status == .confirmed ? true : false)
         self._restaurantName = State(initialValue: restaurant.name)
-        self._startDate = State(initialValue: restaurant.startDate)
-        self._endDate = State(initialValue: restaurant.endDate)
-        self._address = State(initialValue: restaurant.address ?? "")
+        self._startDate = State(initialValue: restaurant.startDateTime.date)
+        self._endDate = State(initialValue: restaurant.endDateTime.date)
+        self._address = State(initialValue: restaurant.startLocation)
         self._phone = State(initialValue: restaurant.phone ?? "")
         self._website = State(initialValue: restaurant.website ?? "")
     }
 
     private func createUpdatedRestaurant() -> Restaurant {
         let planId = restaurant.id
-        let timeZone = TimeZone.current
+        let tripId = restaurant.tripId
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
+        let creationDate = restaurant.creationDate
         let modificationDate = Date()
         let restaurant = Restaurant(id: planId,
-                                    tripId: restaurant.tripId,
+                                    tripId: tripId,
                                     name: restaurantName,
-                                    startDate: startDate,
-                                    endDate: endDate,
-                                    startTimeZone: timeZone,
+                                    startDateTime: DateTime(date: startDate),
+                                    endDateTime: DateTime(date: endDate),
+                                    startLocation: address,
                                     status: status,
-                                    creationDate: restaurant.creationDate,
+                                    creationDate: creationDate,
                                     modificationDate: modificationDate,
-                                    address: address,
                                     phone: phone,
                                     website: website)
         return restaurant

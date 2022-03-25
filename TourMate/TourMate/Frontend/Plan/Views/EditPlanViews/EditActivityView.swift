@@ -28,29 +28,29 @@ struct EditActivityView: View {
         self.activity = activity
         self._isConfirmed = State(initialValue: activity.status == .confirmed ? true : false)
         self._eventName = State(initialValue: activity.name)
-        self._startDate = State(initialValue: activity.startDate)
-        self._endDate = State(initialValue: activity.endDate)
+        self._startDate = State(initialValue: activity.startDateTime.date)
+        self._endDate = State(initialValue: activity.endDateTime.date)
         self._venue = State(initialValue: activity.venue ?? "")
-        self._address = State(initialValue: activity.address ?? "")
+        self._address = State(initialValue: activity.startLocation)
         self._phone = State(initialValue: activity.phone ?? "")
         self._website = State(initialValue: activity.website ?? "")
     }
 
     private func createUpdatedActivity() -> Activity {
-        let timeZone = TimeZone.current
+        let planId = activity.id
+        let tripId = activity.tripId
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let modificationDate = Date()
-        let activity = Activity(id: activity.id,
-                                tripId: activity.tripId,
+        let activity = Activity(id: planId,
+                                tripId: tripId,
                                 name: eventName,
-                                startDate: startDate,
-                                endDate: endDate,
-                                startTimeZone: timeZone,
+                                startDateTime: DateTime(date: startDate),
+                                endDateTime: DateTime(date: endDate),
+                                startLocation: address,
                                 status: status,
                                 creationDate: activity.creationDate,
                                 modificationDate: modificationDate,
                                 venue: venue,
-                                address: address,
                                 phone: phone,
                                 website: website)
         return activity

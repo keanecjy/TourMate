@@ -22,9 +22,10 @@ struct TripView: View {
     var dateString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
-        dateFormatter.timeZone = viewModel.trip.timeZone
-        let startDateString = dateFormatter.string(from: viewModel.trip.startDate)
-        let endDateString = dateFormatter.string(from: viewModel.trip.endDate)
+        dateFormatter.timeZone = viewModel.trip.startDateTime.timeZone
+        let startDateString = dateFormatter.string(from: viewModel.trip.startDateTime.date)
+        dateFormatter.timeZone = viewModel.trip.endDateTime.timeZone
+        let endDateString = dateFormatter.string(from: viewModel.trip.endDateTime.date)
         return startDateString + " - " + endDateString
     }
 

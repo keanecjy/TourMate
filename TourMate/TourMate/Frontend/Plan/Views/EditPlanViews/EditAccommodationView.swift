@@ -27,28 +27,27 @@ struct EditAccommodationView: View {
         self.accommodation = accommodation
         self._isConfirmed = State(initialValue: accommodation.status == .confirmed ? true : false)
         self._accommodationName = State(initialValue: accommodation.name)
-        self._checkInDate = State(initialValue: accommodation.startDate)
-        self._checkOutDate = State(initialValue: accommodation.endDate)
-        self._address = State(initialValue: accommodation.address ?? "")
+        self._checkInDate = State(initialValue: accommodation.startDateTime.date)
+        self._checkOutDate = State(initialValue: accommodation.endDateTime.date)
+        self._address = State(initialValue: accommodation.startLocation)
         self._phone = State(initialValue: accommodation.phone ?? "")
         self._website = State(initialValue: accommodation.website ?? "")
     }
 
     private func createUpdatedAccommodation() -> Accommodation {
         let planId = accommodation.id
-        let timeZone = TimeZone.current
+        let tripId = accommodation.tripId
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = accommodation.creationDate
         let accommodation = Accommodation(id: planId,
-                                          tripId: accommodation.tripId,
+                                          tripId: tripId,
                                           name: accommodationName,
-                                          startDate: checkInDate,
-                                          endDate: checkOutDate,
-                                          startTimeZone: timeZone,
+                                          startDateTime: DateTime(date: checkInDate),
+                                          endDateTime: DateTime(date: checkOutDate),
+                                          startLocation: address,
                                           status: status,
                                           creationDate: creationDate,
                                           modificationDate: Date(),
-                                          address: address,
                                           phone: phone,
                                           website: website)
         return accommodation

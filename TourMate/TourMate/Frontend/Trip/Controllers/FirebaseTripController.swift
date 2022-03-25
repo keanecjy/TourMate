@@ -6,6 +6,9 @@
 //
 
 import FirebaseAuth
+import Foundation
+import CloudKit
+import SwiftUI
 
 struct FirebaseTripController: TripController {
     private let firebasePersistenceManager = FirebasePersistenceManager(
@@ -35,8 +38,9 @@ struct FirebaseTripController: TripController {
              return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
         }
 
-        let trips = adaptedTrips.map({ tripAdapter.toTrip(adaptedTrip: $0) })
-            .sorted(by: { $0.startDate > $1.startDate })
+        let trips = adaptedTrips
+            .map({ tripAdapter.toTrip(adaptedTrip: $0) })
+            .sorted(by: { $0.startDateTime.date > $1.startDateTime.date })
         return (trips, "")
     }
 

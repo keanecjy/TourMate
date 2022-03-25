@@ -97,6 +97,8 @@
 		B9A04FB727E591BE007D4303 /* RestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FB627E591BD007D4303 /* RestaurantView.swift */; };
 		B9A04FB927E591F2007D4303 /* TransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FB827E591F2007D4303 /* TransportView.swift */; };
 		B9A1037C27E61E9200829BF4 /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */; };
+		B9A360C127EC076500030769 /* DateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A360C027EC076500030769 /* DateTime.swift */; };
+		B9A360C427EC23BA00030769 /* FirebaseAdaptedDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A360C327EC23BA00030769 /* FirebaseAdaptedDateTime.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +215,8 @@
 		B9A04FB627E591BD007D4303 /* RestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantView.swift; sourceTree = "<group>"; };
 		B9A04FB827E591F2007D4303 /* TransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportView.swift; sourceTree = "<group>"; };
 		B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModel.swift; sourceTree = "<group>"; };
+		B9A360C027EC076500030769 /* DateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTime.swift; sourceTree = "<group>"; };
+		B9A360C327EC23BA00030769 /* FirebaseAdaptedDateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedDateTime.swift; sourceTree = "<group>"; };
 		BB95BCAE2E240926ED846BB1 /* Pods-TourMateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.debug.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate_TourMateUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD5431EEBB0D43FA279D8E8A /* Pods-TourMate-TourMateUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.debug.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -285,6 +289,7 @@
 		4C2275D627EAC25000A59FD1 /* Frontend */ = {
 			isa = PBXGroup;
 			children = (
+				B9A360BF27EC075500030769 /* Common */,
 				4CE02B7127EACB8400480D73 /* Authentication */,
 				4CE02B6F27EACB6A00480D73 /* User */,
 				4C2275D927EAC2BF00A59FD1 /* Trip */,
@@ -561,6 +566,7 @@
 		4CE02B7F27EACD5500480D73 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B9A360C227EC23A700030769 /* Common */,
 				4CE02B8327EACDAF00480D73 /* Base */,
 				4CE02B8227EACD7200480D73 /* User */,
 				4CE02B8027EACD6700480D73 /* Trip */,
@@ -773,6 +779,22 @@
 				B9A04FB627E591BD007D4303 /* RestaurantView.swift */,
 			);
 			path = PlanDetailsViews;
+			sourceTree = "<group>";
+		};
+		B9A360BF27EC075500030769 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B9A360C027EC076500030769 /* DateTime.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B9A360C227EC23A700030769 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B9A360C327EC23BA00030769 /* FirebaseAdaptedDateTime.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		C2DB33638D74EE6BDC08DA21 /* Frameworks */ = {
@@ -1065,7 +1087,9 @@
 				95779BD327E76687001FF602 /* EditTripView.swift in Sources */,
 				B967C33A27DDD71C0023B34D /* ActivityFormView.swift in Sources */,
 				95FAE40B27E245D200F4AB01 /* MockTripController.swift in Sources */,
+				B9A360C127EC076500030769 /* DateTime.swift in Sources */,
 				95FAE40927E2447400F4AB01 /* TripsViewModel.swift in Sources */,
+				B9A360C427EC23BA00030769 /* FirebaseAdaptedDateTime.swift in Sources */,
 				4CB954EA27DE3EBC001410AD /* AnyFirebaseAdaptedData.swift in Sources */,
 				B9A04FB727E591BE007D4303 /* RestaurantView.swift in Sources */,
 				B9A04FAC27E5567F007D4303 /* MockPlanController.swift in Sources */,

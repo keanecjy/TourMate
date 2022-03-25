@@ -20,7 +20,7 @@ struct FlightView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = flight.startTimeZone
+        dateFormatter.timeZone = flight.startDateTime.timeZone
         return dateFormatter.string(from: date)
     }
 
@@ -50,10 +50,10 @@ struct FlightView: View {
                     .font(.title)
                 Text("Time")
                     .font(.caption)
-                Text(getDateString(flight.startDate))
+                Text(getDateString(flight.startDateTime.date))
                     .font(.headline)
 
-                if let location = flight.departureLocation {
+                if let location = flight.startLocation {
                     Text("Location")
                         .font(.caption)
                     Text(location)
@@ -80,14 +80,12 @@ struct FlightView: View {
                 Text("ARRIVAL INFO")
                     .font(.title)
 
-                if let endDate = flight.endDate {
-                    Text("Arrival Time")
-                        .font(.caption)
-                    Text(getDateString(endDate))
-                        .font(.headline)
-                }
+                Text("Arrival Time")
+                    .font(.caption)
+                Text(getDateString(flight.endDateTime.date))
+                    .font(.headline)
 
-                if let location = flight.arrivalLocation {
+                if let location = flight.endLocation {
                     Text("Location")
                         .font(.caption)
                     Text(location)

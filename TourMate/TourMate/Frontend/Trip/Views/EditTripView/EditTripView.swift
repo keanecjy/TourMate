@@ -26,13 +26,13 @@ struct EditTripView: View {
                         TextField("Trip Name*", text: $viewModel.trip.name)
                         DatePicker(
                             "Start Date",
-                            selection: $viewModel.trip.startDate,
+                            selection: $viewModel.trip.startDateTime.date,
                             in: Date()...,
                             displayedComponents: [.date]
                         )
                         DatePicker(
                             "End Date",
-                            selection: $viewModel.trip.endDate,
+                            selection: $viewModel.trip.endDateTime.date,
                             in: viewModel.fromStartDate,
                             displayedComponents: [.date]
                         )
