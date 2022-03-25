@@ -31,6 +31,9 @@ struct ActivityView: View {
             HStack {
                 if let activity = activityViewModel.plan {
                     VStack(alignment: .leading) {
+                        PlanStatusView(status: activity.status)
+                            .padding()
+
                         VStack(alignment: .leading) {
                             // Start Time
                             Text("From")

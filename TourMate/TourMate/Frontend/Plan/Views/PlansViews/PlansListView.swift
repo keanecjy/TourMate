@@ -69,7 +69,8 @@ struct PlansListView: View {
                             PlanCardView(title: plan.name,
                                          startDate: plan.startDateTime.date,
                                          endDate: plan.endDateTime.date,
-                                         timeZone: plan.startDateTime.timeZone)
+                                         timeZone: plan.startDateTime.timeZone,
+                                         status: plan.status)
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
