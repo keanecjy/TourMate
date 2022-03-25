@@ -79,7 +79,7 @@ struct PlansListView: View {
         }
         .task {
             await plansViewModel.fetchPlans()
-            print("[TripView] Fetched plans: \(plansViewModel.plans)")
+            print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
     }
 }

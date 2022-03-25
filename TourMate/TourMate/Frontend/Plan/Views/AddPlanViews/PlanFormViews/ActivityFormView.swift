@@ -8,53 +8,34 @@
 import SwiftUI
 
 struct ActivityFormView: View {
-    @StateObject var addPlanViewModel = AddPlanViewModel()
-
     @Binding var isActive: Bool
-
-    let tripId: String
-
-    @State private var isConfirmed = true
-    @State private var eventName = ""
-    @State private var startDate = Date()
-    @State private var endDate = Date()
-    @State private var venue = ""
-    @State private var address = ""
-    @State private var phone = ""
-    @State private var website = ""
-
-    private func createActivity() -> Activity {
-        let planId = tripId + UUID().uuidString
-        let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
-        let creationDate = Date()
-        let activity = Activity(id: planId, tripId: tripId,
-                                name: eventName.isEmpty ? "Activity" : eventName,
-                                startDateTime: DateTime(date: startDate),
-                                endDateTime: DateTime(date: endDate),
-                                startLocation: address,
-                                status: status,
-                                creationDate: creationDate,
-                                modificationDate: creationDate,
-                                venue: venue,
-                                phone: phone,
-                                website: website)
-        return activity
-    }
+    @StateObject var viewModel: AddPlanFormViewModel<Activity>
 
     var body: some View {
         Form {
-            Toggle("Confirmed?", isOn: $isConfirmed)
-            TextField("Event Name", text: $eventName)
+            Toggle("Confirmed?", isOn: Binding<Bool>(
+                get: { viewModel.plan.status == PlanStatus.confirmed },
+                set: { select in
+                    if select {
+                        viewModel.plan.status = PlanStatus.confirmed
+                    } else {
+                        viewModel.plan.status = PlanStatus.proposed
+                    }
+                })
+            )
+            TextField("Event Name", text: $viewModel.plan.name)
             DatePicker("Start Date",
-                       selection: $startDate,
+                       selection: $viewModel.plan.startDateTime.date,
+                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                        displayedComponents: [.date, .hourAndMinute])
             DatePicker("End Date",
-                       selection: $endDate,
+                       selection: $viewModel.plan.endDateTime.date,
+                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                        displayedComponents: [.date, .hourAndMinute])
-            TextField("Venue", text: $venue)
-            TextField("Address", text: $address)
-            TextField("Phone", text: $phone)
-            TextField("Website", text: $website)
+            TextField("Venue", text: $viewModel.plan.venue ?? "")
+            TextField("Address", text: $viewModel.plan.startLocation)
+            TextField("Phone", text: $viewModel.plan.phone ?? "")
+            TextField("Website", text: $viewModel.plan.website ?? "")
         }
         .navigationTitle("Activity")
         .navigationBarTitleDisplayMode(.inline)
@@ -62,11 +43,11 @@ struct ActivityFormView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
                     Task {
-                        await addPlanViewModel.addPlan(createActivity())
+                        await viewModel.addPlan()
                         isActive = false
                     }
                 }
-                .disabled(addPlanViewModel.isLoading || addPlanViewModel.hasError)
+                .disabled(!viewModel.canAddPlan || viewModel.isLoading || viewModel.hasError)
             }
         }
     }

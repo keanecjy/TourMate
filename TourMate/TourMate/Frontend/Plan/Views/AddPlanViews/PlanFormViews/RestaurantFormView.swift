@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct RestaurantFormView: View {
-    @StateObject var addPlanViewModel = AddPlanViewModel()
-
     @Binding var isActive: Bool
-
-    let tripId: String
+    @StateObject var viewModel: AddPlanFormViewModel<Restaurant>
 
     @State private var isConfirmed = true
     @State private var restaurantName = ""
@@ -22,36 +19,30 @@ struct RestaurantFormView: View {
     @State private var phone = ""
     @State private var website = ""
 
-    private func createRestaurant() -> Restaurant {
-        let planId = tripId + UUID().uuidString
-        let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
-        let creationDate = Date()
-        let restaurant = Restaurant(id: planId, tripId: tripId,
-                                    name: restaurantName.isEmpty ? "Restaurant" : restaurantName,
-                                    startDateTime: DateTime(date: startDate),
-                                    endDateTime: DateTime(date: endDate),
-                                    startLocation: address,
-                                    status: status,
-                                    creationDate: creationDate,
-                                    modificationDate: creationDate,
-                                    phone: phone,
-                                    website: website)
-        return restaurant
-    }
-
     var body: some View {
         Form {
-            Toggle("Confirmed?", isOn: $isConfirmed)
-            TextField("Restaurant Name", text: $restaurantName)
+            Toggle("Confirmed?", isOn: Binding<Bool>(
+                get: { viewModel.plan.status == PlanStatus.confirmed },
+                set: { select in
+                    if select {
+                        viewModel.plan.status = PlanStatus.confirmed
+                    } else {
+                        viewModel.plan.status = PlanStatus.proposed
+                    }
+                })
+            )
+            TextField("Restaurant Name", text: $viewModel.plan.name)
             DatePicker("Start Date",
-                       selection: $startDate,
+                       selection: $viewModel.plan.startDateTime.date,
+                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                        displayedComponents: [.date, .hourAndMinute])
             DatePicker("End Date",
-                       selection: $endDate,
+                       selection: $viewModel.plan.endDateTime.date,
+                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                        displayedComponents: [.date, .hourAndMinute])
-            TextField("Address", text: $address)
-            TextField("Phone", text: $phone)
-            TextField("website", text: $website)
+            TextField("Address", text: $viewModel.plan.startLocation)
+            TextField("Phone", text: $viewModel.plan.phone ?? "")
+            TextField("website", text: $viewModel.plan.website ?? "")
         }
         .navigationTitle("Restaurant")
         .navigationBarTitleDisplayMode(.inline)
@@ -59,11 +50,11 @@ struct RestaurantFormView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
                     Task {
-                        await addPlanViewModel.addPlan(createRestaurant())
+                        await viewModel.addPlan()
                         isActive = false
                     }
                 }
-                .disabled(addPlanViewModel.isLoading || addPlanViewModel.hasError)
+                .disabled(!viewModel.canAddPlan || viewModel.isLoading || viewModel.hasError)
             }
         }
     }
