@@ -39,6 +39,9 @@ class AddPlanFormViewModel<T: Plan>: ObservableObject {
 
     func addPlan() async {
         self.isLoading = true
+        if plan.name.isEmpty {
+            plan.name = String(describing: T.self)
+        }
         let (hasAddedPlan, errorMessage) = await planController.addPlan(plan: plan)
         guard hasAddedPlan, errorMessage.isEmpty else {
             self.isLoading = false
