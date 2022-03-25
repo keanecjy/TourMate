@@ -63,6 +63,13 @@ struct TripView: View {
                             }
                         }
 
+                        Text("Attendees")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding([.bottom, .horizontal])
+
+                        AttendeesView(viewModel: viewModel)
+
                         PlansListView(tripId: viewModel.trip.id)
                     }
                 }

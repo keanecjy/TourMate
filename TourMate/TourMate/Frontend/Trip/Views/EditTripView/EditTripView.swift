@@ -39,7 +39,7 @@ struct EditTripView: View {
                             )
                             TextField("Image URL", text: $viewModel.trip.imageUrl ?? "")
                         }
-                        
+
                         Section("Invite Users") {
                             InviteUserView(viewModel: viewModel)
                         }

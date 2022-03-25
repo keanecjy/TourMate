@@ -14,5 +14,5 @@ protocol UserController {
 
     func getUser() async -> (User?, String)
 
-    func getUser(email: String) async -> (User?, String)
+    func getUser(with field: String, value: String) async -> (User?, String)
 }

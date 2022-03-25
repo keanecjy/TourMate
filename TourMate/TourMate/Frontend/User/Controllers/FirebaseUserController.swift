@@ -51,12 +51,12 @@ struct FirebaseUserController: UserController {
         return (userAdapter.toUser(adaptedUser: adaptedUser), errorMessage)
     }
 
-    func getUser(email: String) async -> (User?, String) {
+    func getUser(with field: String, value: String) async -> (User?, String) {
         guard Auth.auth().currentUser != nil else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
-        let (adaptedUsers, errorMessage) = await firebasePersistenceManager.fetchItems(field: "email", isEqualTo: email)
+        let (adaptedUsers, errorMessage) = await firebasePersistenceManager.fetchItems(field: field, isEqualTo: value)
 
         guard errorMessage.isEmpty else {
             return (nil, errorMessage)

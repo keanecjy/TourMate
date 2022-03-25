@@ -19,6 +19,8 @@ class TripViewModel: ObservableObject {
     @Published var fromStartDate = Date()...
     @Published var canUpdateTrip = true
 
+    @Published var attendees: [User] = []
+
     let tripController: TripController
     let userController: UserController
 
@@ -92,7 +94,7 @@ class TripViewModel: ObservableObject {
         self.isLoading = true
 
         // fetch user
-        let (user, userErrorMessage) = await userController.getUser(email: email)
+        let (user, userErrorMessage) = await userController.getUser(with: "email", value: email)
 
         guard userErrorMessage.isEmpty else {
             self.isLoading = false
@@ -122,7 +124,6 @@ class TripViewModel: ObservableObject {
             return
         }
 
-
         // update trip
         guard !tripCopy.attendeesUserIds.contains(userId) else { // user not in trip
             print("User already invited")
@@ -140,5 +141,30 @@ class TripViewModel: ObservableObject {
         }
 
         self.isLoading = false
+    }
+
+    func fetchAttendees() async {
+        var fetchedAttendees: [User] = []
+
+        for userId in trip.attendeesUserIds {
+            let (user, userErrorMessage) = await userController.getUser(with: "id", value: userId)
+
+            guard userErrorMessage.isEmpty else {
+                self.isLoading = false
+                self.hasError = true
+                return
+            }
+
+            guard let user = user else { // user not null
+                print("No user exists with id \(userId)")
+                self.isLoading = false
+                self.hasError = true
+                return
+            }
+
+            fetchedAttendees.append(user)
+        }
+
+        self.attendees = fetchedAttendees
     }
 }
