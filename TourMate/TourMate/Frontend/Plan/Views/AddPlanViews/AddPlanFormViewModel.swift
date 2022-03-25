@@ -14,7 +14,6 @@ class AddPlanFormViewModel<T: Plan>: ObservableObject {
     @Published private(set) var hasError = false
 
     @Published var plan: T
-    @Published var isConfirmed = true
     @Published var isPlanDurationValid = false
     @Published var canAddPlan = false
 

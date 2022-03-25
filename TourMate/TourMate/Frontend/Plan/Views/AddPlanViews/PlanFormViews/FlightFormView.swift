@@ -12,6 +12,11 @@ struct FlightFormView: View {
     @StateObject var viewModel: AddPlanFormViewModel<Flight>
 
     var body: some View {
+        if !viewModel.canAddPlan {
+            Text("Start date must be before end date")
+                .font(.caption)
+                .foregroundColor(.red)
+        }
         Form {
             Section {
                 Toggle("Confirmed?", isOn: Binding<Bool>(

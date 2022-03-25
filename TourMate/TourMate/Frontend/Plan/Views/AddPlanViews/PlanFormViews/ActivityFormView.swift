@@ -12,6 +12,11 @@ struct ActivityFormView: View {
     @StateObject var viewModel: AddPlanFormViewModel<Activity>
 
     var body: some View {
+        if !viewModel.canAddPlan {
+            Text("Start date must be before end date")
+                .font(.caption)
+                .foregroundColor(.red)
+        }
         Form {
             Toggle("Confirmed?", isOn: Binding<Bool>(
                 get: { viewModel.plan.status == PlanStatus.confirmed },
