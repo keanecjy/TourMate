@@ -39,8 +39,13 @@ struct FirebaseUserController: UserController {
         }
         let (adaptedUser, errorMessage) = await firebasePersistenceManager.fetchItem(id: currentUser.uid)
 
+        guard errorMessage.isEmpty else {
+            return (nil, errorMessage)
+        }
+
         guard let adaptedUser = adaptedUser as? FirebaseAdaptedUser else {
-            preconditionFailure()
+            assertionFailure()
+            return (nil, "") // user not found
         }
 
         return (userAdapter.toUser(adaptedUser: adaptedUser), errorMessage)
@@ -59,7 +64,8 @@ struct FirebaseUserController: UserController {
 
         // should not have more than 1 user with the same email
         guard adaptedUsers.count <= 1 else {
-            preconditionFailure()
+            assertionFailure()
+            return (nil, "More than one user found")
         }
 
         guard let adaptedUser = adaptedUsers.first as? FirebaseAdaptedUser else {
