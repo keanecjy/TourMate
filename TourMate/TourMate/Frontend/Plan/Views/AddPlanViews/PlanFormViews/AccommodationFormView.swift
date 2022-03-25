@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccommodationFormView: View {
     @Binding var isActive: Bool
-    @StateObject var viewModel: AddPlanFormViewModel<Accommodation>
+    @ObservedObject var viewModel: AddPlanFormViewModel<Accommodation>
 
     var body: some View {
         if !viewModel.canAddPlan {

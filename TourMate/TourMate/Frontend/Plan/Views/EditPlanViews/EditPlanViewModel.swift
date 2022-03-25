@@ -6,20 +6,37 @@
 //
 
 import Foundation
+import Combine
 
-class EditPlanViewModel: ObservableObject {
-    @Published private(set) var isLoading: Bool
-    @Published private(set) var hasError: Bool
+class EditPlanViewModel<T: Plan>: ObservableObject {
+    @Published private(set) var isLoading = false
+    @Published private(set) var hasError = false
 
+    @Published var plan: T
+    @Published var isPlanDurationValid = true
+    @Published var canEditPlan = true
+
+    var trip: Trip
     let planController: PlanController
 
-    init(planController: PlanController = FirebasePlanController()) {
-        self.isLoading = false
-        self.hasError = false
+    private var cancellableSet: Set<AnyCancellable> = []
+
+    init(plan: T, trip: Trip, planController: PlanController = FirebasePlanController()) {
+        self.plan = plan
+        self.trip = trip
         self.planController = planController
+
+        $plan
+            .map({ $0.startDateTime.date <= $0.endDateTime.date })
+            .assign(to: \.isPlanDurationValid, on: self)
+            .store(in: &cancellableSet)
+
+        $isPlanDurationValid
+            .assign(to: \.canEditPlan, on: self)
+            .store(in: &cancellableSet)
     }
 
-    private func modifyPlan(plan: Plan, function: (Plan) async -> (Bool, String)) async {
+    private func modifyPlan(plan: T, function: (Plan) async -> (Bool, String)) async {
         self.isLoading = true
 
         let (hasUpdatedPlan, errorMessage) = await function(plan)
@@ -32,13 +49,13 @@ class EditPlanViewModel: ObservableObject {
         self.isLoading = false
     }
 
-    func updatePlan(plan: Plan) async {
+    func updatePlan() async {
         await modifyPlan(plan: plan) { plan in
             await planController.updatePlan(plan: plan)
         }
     }
 
-    func deletePlan(plan: Plan) async {
+    func deletePlan() async {
         await modifyPlan(plan: plan) { plan in
             await planController.deletePlan(plan: plan)
         }

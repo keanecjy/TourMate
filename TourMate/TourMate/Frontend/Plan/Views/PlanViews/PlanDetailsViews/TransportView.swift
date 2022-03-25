@@ -13,6 +13,8 @@ struct TransportView: View {
 
     @Environment(\.dismiss) var dismiss
 
+    var tripViewModel: TripViewModel
+
     func getDateString(_ date: Date) -> String {
         guard let transport = transportViewModel.plan else {
             return ""
@@ -121,7 +123,7 @@ struct TransportView: View {
                         }
                     } content: {
                         if let transport = transportViewModel.plan {
-                            EditTransportView(transport: transport)
+                            EditTransportView(viewModel: EditPlanViewModel(plan: transport, trip: tripViewModel.trip))
                         } else {
                             Text("Error")
                         }

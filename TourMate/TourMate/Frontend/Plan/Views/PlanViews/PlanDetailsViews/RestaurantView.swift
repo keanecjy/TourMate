@@ -13,6 +13,8 @@ struct RestaurantView: View {
 
     @Environment(\.dismiss) var dismiss
 
+    var tripViewModel: TripViewModel
+
     func getDateString(_ date: Date) -> String {
         guard let restaurant = restaurantViewModel.plan else {
             return ""
@@ -104,7 +106,7 @@ struct RestaurantView: View {
                         }
                     } content: {
                         if let restaurant = restaurantViewModel.plan {
-                            EditRestaurantView(restaurant: restaurant)
+                            EditRestaurantView(viewModel: EditPlanViewModel(plan: restaurant, trip: tripViewModel.trip))
                         } else {
                             Text("Error")
                         }

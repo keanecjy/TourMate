@@ -11,14 +11,6 @@ struct RestaurantFormView: View {
     @Binding var isActive: Bool
     @StateObject var viewModel: AddPlanFormViewModel<Restaurant>
 
-    @State private var isConfirmed = true
-    @State private var restaurantName = ""
-    @State private var startDate = Date()
-    @State private var endDate = Date()
-    @State private var address = ""
-    @State private var phone = ""
-    @State private var website = ""
-
     var body: some View {
         if !viewModel.canAddPlan {
             Text("Start date must be before end date")

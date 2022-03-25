@@ -63,7 +63,7 @@ struct TripView: View {
                             }
                         }
 
-                        PlansListView(tripId: viewModel.trip.id)
+                        PlansListView(tripId: viewModel.trip.id, tripViewModel: viewModel)
                     }
                 }
             }

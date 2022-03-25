@@ -9,9 +9,11 @@ import SwiftUI
 
 struct PlansListView: View {
     @StateObject var plansViewModel: PlansViewModel
+    var tripViewModel: TripViewModel
 
-    init(tripId: String) {
+    init(tripId: String, tripViewModel: TripViewModel) {
         self._plansViewModel = StateObject(wrappedValue: PlansViewModel(tripId: tripId))
+        self.tripViewModel = tripViewModel
     }
 
     typealias Day = (date: Date, plans: [Plan])
@@ -39,19 +41,24 @@ struct PlansListView: View {
         switch plan.planType {
         case .accommodation:
             let accommodationViewModel = PlanViewModel<Accommodation>(planId: plan.id)
-            return AnyView(AccommodationView(accommodationViewModel: accommodationViewModel))
+            return AnyView(AccommodationView(accommodationViewModel: accommodationViewModel,
+                                             tripViewModel: tripViewModel))
         case .activity:
             let activityViewModel = PlanViewModel<Activity>(planId: plan.id)
-            return AnyView(ActivityView(activityViewModel: activityViewModel))
+            return AnyView(ActivityView(activityViewModel: activityViewModel,
+                                        tripViewModel: tripViewModel))
         case .restaurant:
             let restaurantViewModel = PlanViewModel<Restaurant>(planId: plan.id)
-            return AnyView(RestaurantView(restaurantViewModel: restaurantViewModel))
+            return AnyView(RestaurantView(restaurantViewModel: restaurantViewModel,
+                                          tripViewModel: tripViewModel))
         case .transport:
             let transportViewModel = PlanViewModel<Transport>(planId: plan.id)
-            return AnyView(TransportView(transportViewModel: transportViewModel))
+            return AnyView(TransportView(transportViewModel: transportViewModel,
+                                         tripViewModel: tripViewModel))
         case .flight:
             let flightViewModel = PlanViewModel<Flight>(planId: plan.id)
-            return AnyView(FlightView(flightViewModel: flightViewModel))
+            return AnyView(FlightView(flightViewModel: flightViewModel,
+                                      tripViewModel: tripViewModel))
         }
     }
 
