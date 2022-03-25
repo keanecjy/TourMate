@@ -20,12 +20,17 @@ class TripViewModel: ObservableObject {
     @Published var canUpdateTrip = true
 
     let tripController: TripController
+    let userController: UserController
 
     private var cancellableSet: Set<AnyCancellable> = []
 
-    init(trip: Trip, tripController: TripController = FirebaseTripController()) {
+    init(trip: Trip,
+         tripController: TripController = FirebaseTripController(),
+         userController: UserController = FirebaseUserController()) {
+
         self.trip = trip
         self.tripController = tripController
+        self.userController = userController
 
         $trip
             .map({ $0.name })
@@ -80,6 +85,60 @@ class TripViewModel: ObservableObject {
             return
         }
         self.isDeleted = true
+        self.isLoading = false
+    }
+
+    func inviteUser(email: String) async {
+        self.isLoading = true
+
+        // fetch user
+        let (user, userErrorMessage) = await userController.getUser(email: email)
+
+        guard userErrorMessage.isEmpty else {
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+
+        guard let user = user else { // user not null
+            print("Email is incorrect")
+            self.isLoading = false
+            return
+        }
+
+        let userId = user.id
+
+        // fetch trip
+        let (tripCopy, tripErrorMessage) = await tripController.fetchTrip(withTripId: trip.id)
+        guard tripErrorMessage.isEmpty else {
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+
+        guard var tripCopy = tripCopy else {
+            self.isDeleted = true
+            self.isLoading = false
+            return
+        }
+
+
+        // update trip
+        guard !tripCopy.attendeesUserIds.contains(userId) else { // user not in trip
+            print("User already invited")
+            self.isLoading = false
+            return
+        }
+
+        tripCopy.attendeesUserIds.append(userId)
+
+        let (hasUpdated, updateErrorMessage) = await tripController.updateTrip(trip: tripCopy)
+        guard hasUpdated, updateErrorMessage.isEmpty else {
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+
         self.isLoading = false
     }
 }

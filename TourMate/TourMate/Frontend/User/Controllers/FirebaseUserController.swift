@@ -46,4 +46,27 @@ struct FirebaseUserController: UserController {
         return (userAdapter.toUser(adaptedUser: adaptedUser), errorMessage)
     }
 
+    func getUser(email: String) async -> (User?, String) {
+        guard Auth.auth().currentUser != nil else {
+            return (nil, Constants.messageUserNotLoggedIn)
+        }
+
+        let (adaptedUsers, errorMessage) = await firebasePersistenceManager.fetchItems(field: "email", isEqualTo: email)
+
+        guard errorMessage.isEmpty else {
+            return (nil, errorMessage)
+        }
+
+        // should not have more than 1 user with the same email
+        guard adaptedUsers.count <= 1 else {
+            preconditionFailure()
+        }
+
+        guard let adaptedUser = adaptedUsers.first as? FirebaseAdaptedUser else {
+            return (nil, "") // user not found
+        }
+
+        return (userAdapter.toUser(adaptedUser: adaptedUser), "")
+    }
+
 }

@@ -23,20 +23,26 @@ struct EditTripView: View {
                     Text("Error occurred")
                 } else {
                     Form {
-                        TextField("Trip Name*", text: $viewModel.trip.name)
-                        DatePicker(
-                            "Start Date",
-                            selection: $viewModel.trip.startDate,
-                            in: Date()...,
-                            displayedComponents: [.date]
-                        )
-                        DatePicker(
-                            "End Date",
-                            selection: $viewModel.trip.endDate,
-                            in: viewModel.fromStartDate,
-                            displayedComponents: [.date]
-                        )
-                        TextField("Image URL", text: $viewModel.trip.imageUrl ?? "")
+                        Section("Trip Information") {
+                            TextField("Trip Name*", text: $viewModel.trip.name)
+                            DatePicker(
+                                "Start Date",
+                                selection: $viewModel.trip.startDate,
+                                in: Date()...,
+                                displayedComponents: [.date]
+                            )
+                            DatePicker(
+                                "End Date",
+                                selection: $viewModel.trip.endDate,
+                                in: viewModel.fromStartDate,
+                                displayedComponents: [.date]
+                            )
+                            TextField("Image URL", text: $viewModel.trip.imageUrl ?? "")
+                        }
+
+                        Section("Invite Users") {
+                            InviteUserView(viewModel: viewModel)
+                        }
                     }
                 }
             }
