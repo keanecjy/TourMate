@@ -24,18 +24,16 @@ struct RestaurantFormView: View {
 
     private func createRestaurant() -> Restaurant {
         let planId = tripId + UUID().uuidString
-        let timeZone = TimeZone.current
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
         let restaurant = Restaurant(id: planId, tripId: tripId,
-                                    name: restaurantName,
-                                    startDate: startDate,
-                                    endDate: endDate,
-                                    startTimeZone: timeZone,
+                                    name: restaurantName.isEmpty ? "Restaurant" : restaurantName,
+                                    startDateTime: DateTime(date: startDate),
+                                    endDateTime: DateTime(date: endDate),
+                                    startLocation: address,
                                     status: status,
                                     creationDate: creationDate,
                                     modificationDate: creationDate,
-                                    address: address,
                                     phone: phone,
                                     website: website)
         return restaurant
@@ -45,10 +43,10 @@ struct RestaurantFormView: View {
         Form {
             Toggle("Confirmed?", isOn: $isConfirmed)
             TextField("Restaurant Name", text: $restaurantName)
-            DatePicker("Date",
+            DatePicker("Start Date",
                        selection: $startDate,
                        displayedComponents: [.date, .hourAndMinute])
-            DatePicker("Date",
+            DatePicker("End Date",
                        selection: $endDate,
                        displayedComponents: [.date, .hourAndMinute])
             TextField("Address", text: $address)

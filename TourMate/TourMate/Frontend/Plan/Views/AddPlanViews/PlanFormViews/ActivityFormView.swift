@@ -25,19 +25,17 @@ struct ActivityFormView: View {
 
     private func createActivity() -> Activity {
         let planId = tripId + UUID().uuidString
-        let timeZone = TimeZone.current
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
         let activity = Activity(id: planId, tripId: tripId,
-                                name: eventName,
-                                startDate: startDate,
-                                endDate: endDate,
-                                startTimeZone: timeZone,
+                                name: eventName.isEmpty ? "Activity" : eventName,
+                                startDateTime: DateTime(date: startDate),
+                                endDateTime: DateTime(date: endDate),
+                                startLocation: address,
                                 status: status,
                                 creationDate: creationDate,
                                 modificationDate: creationDate,
                                 venue: venue,
-                                address: address,
                                 phone: phone,
                                 website: website)
         return activity

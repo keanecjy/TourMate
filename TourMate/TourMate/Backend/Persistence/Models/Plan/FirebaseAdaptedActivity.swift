@@ -9,28 +9,32 @@ import Foundation
 
 class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
     var venue: String?
-    var address: String?
     var phone: String?
     var website: String?
 
     init(id: String, tripId: String, name: String,
-         startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String?,
-         status: String, creationDate: Date, modificationDate: Date, venue: String?,
-         address: String?, phone: String?, website: String?) {
+         startDateTime: FirebaseAdaptedDateTime,
+         endDateTime: FirebaseAdaptedDateTime,
+         startLocation: String, endLocation: String?,
+         imageUrl: String?, status: String,
+         creationDate: Date, modificationDate: Date,
+         venue: String?, phone: String?, website: String?) {
 
         self.venue = venue
-        self.address = address
         self.phone = phone
         self.website = website
 
-        super.init(id: id, tripId: tripId, name: name, startDate: startDate,
-                   endDate: endDate, timeZone: timeZone, imageUrl: imageUrl, status: status,
+        super.init(id: id, tripId: tripId, name: name,
+                   startDateTime: startDateTime,
+                   endDateTime: endDateTime,
+                   startLocation: startLocation,
+                   endLocation: endLocation,
+                   imageUrl: imageUrl, status: status,
                    creationDate: creationDate, modificationDate: modificationDate)
     }
 
     private enum CodingKeys: String, CodingKey {
         case venue
-        case address
         case phone
         case website
     }
@@ -39,7 +43,6 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         venue = try container.decode(String?.self, forKey: .venue)
-        address = try container.decode(String?.self, forKey: .address)
         phone = try container.decode(String?.self, forKey: .phone)
         website = try container.decode(String?.self, forKey: .website)
 
@@ -50,7 +53,6 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encode(venue, forKey: .venue)
-        try container.encode(address, forKey: .address)
         try container.encode(phone, forKey: .phone)
         try container.encode(website, forKey: .website)
 

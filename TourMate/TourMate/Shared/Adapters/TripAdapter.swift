@@ -5,6 +5,9 @@
 //  Created by Keane Chan on 23/3/22.
 //
 
+import Foundation
+import SwiftUI
+
 class TripAdapter {
     init() {}
 
@@ -19,16 +22,38 @@ class TripAdapter {
 
 extension Trip {
     fileprivate func toData() -> FirebaseAdaptedTrip {
-        FirebaseAdaptedTrip(id: id, name: name, startDate: startDate, endDate: endDate, timeZone: timeZone,
-                            imageUrl: imageUrl, attendeesUserIds: attendeesUserIds, invitedUserIds: invitedUserIds,
-                            creationDate: creationDate, modificationDate: modificationDate)
+        FirebaseAdaptedTrip(id: id, name: name,
+                            startDateTime: startDateTime.toData(),
+                            endDateTime: endDateTime.toData(),
+                            imageUrl: imageUrl,
+                            attendeesUserIds: attendeesUserIds,
+                            invitedUserIds: invitedUserIds,
+                            creationDate: creationDate,
+                            modificationDate: modificationDate)
     }
 }
 
 extension FirebaseAdaptedTrip {
     fileprivate func toItem() -> Trip {
-        Trip(id: id, name: name, startDate: startDate, endDate: endDate, timeZone: timeZone,
-             imageUrl: imageUrl, attendeesUserIds: attendeesUserIds, invitedUserIds: invitedUserIds,
-             creationDate: creationDate, modificationDate: modificationDate)
+        Trip(id: id, name: name,
+             startDateTime: startDateTime.toItem(),
+             endDateTime: endDateTime.toItem(),
+             imageUrl: imageUrl,
+             attendeesUserIds: attendeesUserIds,
+             invitedUserIds: invitedUserIds,
+             creationDate: creationDate,
+             modificationDate: modificationDate)
+    }
+}
+
+extension DateTime {
+    fileprivate func toData() -> FirebaseAdaptedDateTime {
+        FirebaseAdaptedDateTime(date: date, timeZone: timeZone)
+    }
+}
+
+extension FirebaseAdaptedDateTime {
+    fileprivate func toItem() -> DateTime {
+        DateTime(date: date, timeZone: timeZone)
     }
 }

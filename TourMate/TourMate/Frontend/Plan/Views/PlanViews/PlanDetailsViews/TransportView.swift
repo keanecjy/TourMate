@@ -20,7 +20,7 @@ struct TransportView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = transport.startTimeZone
+        dateFormatter.timeZone = transport.startDateTime.timeZone
         return dateFormatter.string(from: date)
     }
 
@@ -31,20 +31,10 @@ struct TransportView: View {
                     .font(.title)
                 Text("Departure Time")
                     .font(.caption)
-                Text(getDateString(transport.startDate))
+                Text(getDateString(transport.startDateTime.date))
                     .font(.headline)
-
-                if let location = transport.departureLocation {
-                    Text("Location")
-                        .font(.caption)
-                    Text(location)
-                }
-
-                if let address = transport.departureAddress {
-                    Text("Address")
-                        .font(.caption)
-                    Text(address)
-                }
+                Text("Location").font(.caption)
+                Text(transport.startLocation)
             }
         }
     }
@@ -55,23 +45,15 @@ struct TransportView: View {
                 Text("ARRIVAL INFO")
                     .font(.title)
 
-                if let endDate = transport.endDate {
-                    Text("Arrival Time")
-                        .font(.caption)
-                    Text(getDateString(endDate))
-                        .font(.headline)
-                }
+                Text("Arrival Time")
+                    .font(.caption)
+                Text(getDateString(transport.endDateTime.date))
+                    .font(.headline)
 
-                if let location = transport.arrivalLocation {
+                if let location = transport.endLocation {
                     Text("Location")
                         .font(.caption)
                     Text(location)
-                }
-
-                if let address = transport.arrivalAddress {
-                    Text("Address")
-                        .font(.caption)
-                    Text(address)
                 }
             }
         }

@@ -20,7 +20,7 @@ struct AccommodationView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = accommodation.startTimeZone
+        dateFormatter.timeZone = accommodation.startDateTime.timeZone
         return dateFormatter.string(from: date)
     }
 
@@ -31,31 +31,26 @@ struct AccommodationView: View {
             HStack {
                 if let accommodation = accommodationViewModel.plan {
                     VStack(alignment: .leading) {
-                        // Start time
                         VStack(alignment: .leading) {
                             Text("From")
                                 .font(.caption)
-                            Text(getDateString(accommodation.startDate))
+                            Text(getDateString(accommodation.startDateTime.date))
                                 .font(.headline)
 
-                            if let endDate = accommodation.endDate {
-                                Text("To")
-                                    .font(.caption)
-                                Text(getDateString(endDate))
-                                    .font(.headline)
-                            }
+                            Text("To")
+                                .font(.caption)
+                            Text(getDateString(accommodation.endDateTime.date))
+                                .font(.headline)
                         }
                         .padding()
 
                         // Address
-                        if let address = accommodation.address {
-                            VStack(alignment: .leading) {
-                                Text("Address")
-                                    .font(.caption)
-                                Text(address)
-                            }
-                            .padding()
+                        VStack(alignment: .leading) {
+                            Text("Address")
+                                .font(.caption)
+                            Text(accommodation.startLocation)
                         }
+                        .padding()
 
                         // Phone number
                         if let phone = accommodation.phone {

@@ -32,14 +32,12 @@ struct EditTransportView: View {
         self.transport = transport
         self._isConfirmed = State(initialValue: transport.status == .confirmed ? true : false)
         self._carrierName = State(initialValue: transport.name)
-        self._departureDate = State(initialValue: transport.startDate)
-        self._arrivalDate = State(initialValue: transport.endDate)
+        self._departureDate = State(initialValue: transport.startDateTime.date)
+        self._arrivalDate = State(initialValue: transport.endDateTime.date)
 
-        self._departureLocation = State(initialValue: transport.departureLocation ?? "")
-        self._departureAddress = State(initialValue: transport.departureAddress ?? "")
+        self._departureLocation = State(initialValue: transport.startLocation)
 
-        self._arrivalLocation = State(initialValue: transport.arrivalLocation ?? "")
-        self._arrivalAddress = State(initialValue: transport.arrivalAddress ?? "")
+        self._arrivalLocation = State(initialValue: transport.endLocation ?? "")
 
         self._vehicleDescription = State(initialValue: transport.vehicleDescription ?? "")
         self._numberOfPassengers = State(initialValue: transport.numberOfPassengers ?? "")
@@ -47,22 +45,19 @@ struct EditTransportView: View {
 
     private func createUpdatedTransport() -> Transport {
         let planId = transport.id
-        let timeZone = TimeZone.current
+        let tripId = transport.tripId
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = transport.creationDate
         let transport = Transport(id: planId,
-                                  tripId: transport.tripId,
+                                  tripId: tripId,
                                   name: carrierName,
-                                  startDate: departureDate,
-                                  endDate: arrivalDate,
-                                  startTimeZone: timeZone,
+                                  startDateTime: DateTime(date: departureDate),
+                                  endDateTime: DateTime(date: arrivalDate),
+                                  startLocation: departureLocation,
+                                  endLocation: arrivalLocation,
                                   status: status,
                                   creationDate: creationDate,
                                   modificationDate: Date(),
-                                  departureLocation: departureLocation,
-                                  departureAddress: departureAddress,
-                                  arrivalLocation: arrivalLocation,
-                                  arrivalAddress: arrivalAddress,
                                   vehicleDescription: vehicleDescription,
                                   numberOfPassengers: numberOfPassengers)
         return transport

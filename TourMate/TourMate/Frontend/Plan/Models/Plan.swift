@@ -12,10 +12,10 @@ protocol Plan {
     var tripId: String { get }
     var planType: PlanType { get }
     var name: String { get set }
-    var startDate: Date { get set }
-    var endDate: Date { get set }
-    var startTimeZone: TimeZone { get set }
-    var endTimeZone: TimeZone? { get set }
+    var startDateTime: DateTime { get set }
+    var endDateTime: DateTime { get set }
+    var startLocation: String { get set }
+    var endLocation: String? { get set }
     var imageUrl: String? { get set }
     var status: PlanStatus { get set }
     var creationDate: Date { get }

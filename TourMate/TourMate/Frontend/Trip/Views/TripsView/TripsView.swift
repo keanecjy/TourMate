@@ -14,9 +14,10 @@ struct TripsView: View {
     func getDateString(trip: Trip) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
-        dateFormatter.timeZone = trip.timeZone
-        let startDateString = dateFormatter.string(from: trip.startDate)
-        let endDateString = dateFormatter.string(from: trip.endDate)
+        dateFormatter.timeZone = trip.startDateTime.timeZone
+        let startDateString = dateFormatter.string(from: trip.startDateTime.date)
+        dateFormatter.timeZone = trip.endDateTime.timeZone
+        let endDateString = dateFormatter.string(from: trip.endDateTime.date)
         return startDateString + " - " + endDateString
     }
 

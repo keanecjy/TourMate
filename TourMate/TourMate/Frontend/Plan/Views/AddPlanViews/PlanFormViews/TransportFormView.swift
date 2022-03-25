@@ -16,35 +16,29 @@ struct TransportFormView: View {
 
     @State private var isConfirmed = true
     @State private var carrierName = ""
+
     @State private var departureDate = Date()
-    @State private var arrivalDate = Date()
-
     @State private var departureLocation = ""
-    @State private var departureAddress = ""
 
+    @State private var arrivalDate = Date()
     @State private var arrivalLocation = ""
-    @State private var arrivalAddress = ""
 
     @State private var vehicleDescription = ""
     @State private var numberOfPassengers = ""
 
     private func createTransport() -> Transport {
         let planId = tripId + UUID().uuidString
-        let timeZone = TimeZone.current
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
         let transport = Transport(id: planId, tripId: tripId,
-                                  name: carrierName,
-                                  startDate: departureDate,
-                                  endDate: arrivalDate,
-                                  startTimeZone: timeZone,
+                                  name: carrierName.isEmpty ? "Transportation" : carrierName,
+                                  startDateTime: DateTime(date: departureDate),
+                                  endDateTime: DateTime(date: arrivalDate),
+                                  startLocation: departureLocation,
+                                  endLocation: arrivalLocation,
                                   status: status,
                                   creationDate: creationDate,
                                   modificationDate: creationDate,
-                                  departureLocation: departureLocation,
-                                  departureAddress: departureAddress,
-                                  arrivalLocation: arrivalLocation,
-                                  arrivalAddress: arrivalAddress,
                                   vehicleDescription: vehicleDescription,
                                   numberOfPassengers: numberOfPassengers)
         return transport
@@ -55,20 +49,18 @@ struct TransportFormView: View {
             Section {
                 Toggle("Confirmed?", isOn: $isConfirmed)
                 TextField("Carrier Name", text: $carrierName)
+            }
+            Section("Departure Info") {
                 DatePicker("Departure Date",
                            selection: $departureDate,
                            displayedComponents: [.date, .hourAndMinute])
+                TextField("Departure Location", text: $departureLocation)
+            }
+            Section("Arrival Info") {
                 DatePicker("Arrival Date",
                            selection: $arrivalDate,
                            displayedComponents: [.date, .hourAndMinute])
-            }
-            Section("Departure Info") {
-                TextField("Departure Location", text: $departureLocation)
-                TextField("Departure Address", text: $departureAddress)
-            }
-            Section("Arrival Info") {
                 TextField("Arrival Location", text: $arrivalLocation)
-                TextField("Arrival Address", text: $arrivalAddress)
             }
             Section("Vehicle Info") {
                 TextField("Vehicle Description", text: $vehicleDescription)

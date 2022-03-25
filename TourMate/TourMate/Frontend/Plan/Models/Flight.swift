@@ -13,10 +13,10 @@ struct Flight: Plan {
     var id: String
     var tripId: String
     var name: String = "Flight"
-    var startDate: Date
-    var endDate: Date
-    var startTimeZone: TimeZone
-    var endTimeZone: TimeZone?
+    var startDateTime: DateTime
+    var endDateTime: DateTime
+    var startLocation: String
+    var endLocation: String?
     var imageUrl: String?
     var status: PlanStatus
     var creationDate: Date
@@ -25,10 +25,8 @@ struct Flight: Plan {
     var airline: String?
     var flightNumber: String?
     var seats: String?
-    var departureLocation: String?
     var departureTerminal: String?
     var departureGate: String?
-    var arrivalLocation: String?
     var arrivalTerminal: String?
     var arrivalGate: String?
 }

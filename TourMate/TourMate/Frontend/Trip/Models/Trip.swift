@@ -10,23 +10,26 @@ import Foundation
 struct Trip {
     let id: String
     var name: String
-    var startDate: Date
-    var endDate: Date
-    var timeZone: TimeZone
+    var startDateTime: DateTime
+    var endDateTime: DateTime
     var imageUrl: String?
     var attendeesUserIds: [String]
     var invitedUserIds: [String]
     let creationDate: Date
     var modificationDate: Date
 
-    init(id: String, name: String, startDate: Date, endDate: Date, timeZone: TimeZone, imageUrl: String?,
-         attendeesUserIds: [String], invitedUserIds: [String],
-         creationDate: Date, modificationDate: Date) {
+    internal init(id: String, name: String,
+                  startDateTime: DateTime,
+                  endDateTime: DateTime,
+                  imageUrl: String?,
+                  attendeesUserIds: [String],
+                  invitedUserIds: [String],
+                  creationDate: Date,
+                  modificationDate: Date) {
         self.id = id
         self.name = name
-        self.startDate = startDate
-        self.endDate = endDate
-        self.timeZone = timeZone
+        self.startDateTime = startDateTime
+        self.endDateTime = endDateTime
         self.imageUrl = imageUrl
         self.attendeesUserIds = attendeesUserIds
         self.invitedUserIds = invitedUserIds
@@ -35,12 +38,15 @@ struct Trip {
     }
 
     // For initialization
-    init(id: String, name: String, startDate: Date, endDate: Date, imageUrl: String?, creatorUserId: String) {
+    init(id: String, name: String,
+         startDateTime: DateTime,
+         endDateTime: DateTime,
+         imageUrl: String?,
+         creatorUserId: String) {
         self.id = id
         self.name = name
-        self.startDate = startDate
-        self.endDate = endDate
-        self.timeZone = TimeZone.current
+        self.startDateTime = startDateTime
+        self.endDateTime = endDateTime
         self.imageUrl = imageUrl
         self.attendeesUserIds = [creatorUserId]
         self.invitedUserIds = []

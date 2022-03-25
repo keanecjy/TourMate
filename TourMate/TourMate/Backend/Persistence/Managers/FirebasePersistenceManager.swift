@@ -80,6 +80,8 @@ struct FirebasePersistenceManager: PersistenceManager {
             let documents = try await query.getDocuments().documents
             let items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
 
+            print("[FirebasePersistenceManager] Fetched Items: \(documents)")
+
             return (items, "")
         } catch {
             let errorMessage = "[FirebasePersistenceManager] Error fetching: \(error)"
