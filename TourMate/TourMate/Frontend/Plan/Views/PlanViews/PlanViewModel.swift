@@ -13,6 +13,8 @@ class PlanViewModel<T: Plan>: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
+    @Published private(set) var commentViewModel: CommentViewModel
+
     let planController: PlanController
     var planId: String
 
@@ -21,6 +23,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
         self.hasError = false
         self.planController = planController
         self.planId = planId
+        self.commentViewModel = CommentViewModel(planId: planId)
     }
 
     func fetchPlan() async {
@@ -50,9 +53,5 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
         self.plan = plan
         self.isLoading = false
-    }
-
-    func createCommentViewModel() -> CommentViewModel {
-        CommentViewModel(planId: self.planId)
     }
 }
