@@ -31,10 +31,7 @@ struct TransportView: View {
                     .padding()
 
                 if transport.status == .proposed {
-                    UpvoteButton(hasUpvoted: transportViewModel.userHasUpvotedPlan,
-                                 action: transportViewModel.upvotePlan)
-
-                    UpvotedUsersView(upvotedUsers: transportViewModel.upvotedUsers)
+                    UpvotePlanView(viewModel: transportViewModel)
                 }
             }
         }

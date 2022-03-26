@@ -36,10 +36,7 @@ struct RestaurantView: View {
                                 .padding()
 
                             if restaurant.status == .proposed {
-                                UpvoteButton(hasUpvoted: restaurantViewModel.userHasUpvotedPlan,
-                                             action: restaurantViewModel.upvotePlan)
-
-                                UpvotedUsersView(upvotedUsers: restaurantViewModel.upvotedUsers)
+                                UpvotePlanView(viewModel: restaurantViewModel)
                             }
                         }
 

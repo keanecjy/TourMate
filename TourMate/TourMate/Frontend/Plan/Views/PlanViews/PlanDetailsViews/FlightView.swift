@@ -31,10 +31,7 @@ struct FlightView: View {
                     .padding()
 
                 if flight.status == .proposed {
-                    UpvoteButton(hasUpvoted: flightViewModel.userHasUpvotedPlan,
-                                 action: flightViewModel.upvotePlan)
-
-                    UpvotedUsersView(upvotedUsers: flightViewModel.upvotedUsers)
+                    UpvotePlanView(viewModel: flightViewModel)
                 }
             }
         }

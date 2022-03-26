@@ -37,10 +37,7 @@ struct AccommodationView: View {
                                 .padding()
 
                             if accommodation.status == .proposed {
-                                UpvoteButton(hasUpvoted: accommodationViewModel.userHasUpvotedPlan,
-                                             action: accommodationViewModel.upvotePlan)
-
-                                UpvotedUsersView(upvotedUsers: accommodationViewModel.upvotedUsers)
+                                UpvotePlanView(viewModel: accommodationViewModel)
                             }
                         }
 
