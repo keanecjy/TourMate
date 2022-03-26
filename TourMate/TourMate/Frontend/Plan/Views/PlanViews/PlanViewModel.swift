@@ -58,7 +58,8 @@ class PlanViewModel<T: Plan>: ObservableObject {
             return
         }
 
-        self.plan = plan
+        await updatePublishedProperties(plan: plan)
+
         self.isLoading = false
     }
 
@@ -89,8 +90,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
             return
         }
 
-        self.plan = updatedPlan
-        self.userHasUpvotedPlan.toggle()
+        await updatePublishedProperties(plan: updatedPlan)
 
         self.isLoading = false
     }
@@ -107,6 +107,36 @@ class PlanViewModel<T: Plan>: ObservableObject {
         }
 
         return plan
+    }
 
+    private func updatePublishedProperties(plan: T?) async {
+        self.plan = plan
+        self.upvotedUsers = await fetchUpvotedUsers()
+
+        let (currentUser, _) = await userController.getUser()
+        self.userHasUpvotedPlan = self.upvotedUsers.contains(where: { $0.id == currentUser?.id })
+    }
+
+    private func fetchUpvotedUsers() async -> [User] {
+        guard let plan = plan else {
+            return []
+        }
+
+        var fetchedUpvotedUsers: [User] = []
+
+        for userId in plan.upvotedUserIds {
+            let (user, userErrorMessage) = await userController.getUser(with: "id", value: userId)
+
+            if !userErrorMessage.isEmpty {
+                print("Error fetching user")
+                continue
+            }
+
+            if let user = user {  // maybe no user with that Id (deleted?)
+                fetchedUpvotedUsers.append(user)
+            }
+        }
+
+        return fetchedUpvotedUsers
     }
 }

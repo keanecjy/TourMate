@@ -38,6 +38,8 @@ struct ActivityView: View {
                             if activity.status == .proposed {
                                 UpvoteButton(hasUpvoted: activityViewModel.userHasUpvotedPlan,
                                              action: activityViewModel.upvotePlan)
+
+                                UpvotedUsersView(upvotedUsers: activityViewModel.upvotedUsers)
                             }
                         }
 

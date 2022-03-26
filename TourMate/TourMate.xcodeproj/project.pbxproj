@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00062B4027EEC9A600267960 /* UpvoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B3F27EEC9A600267960 /* UpvoteButton.swift */; };
+		00062B4227EECDBA00267960 /* UpvotedUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B4127EECDBA00267960 /* UpvotedUsersView.swift */; };
 		000AB54F27ED9BDF00FF0ED3 /* InviteUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB54E27ED9BDF00FF0ED3 /* InviteUserView.swift */; };
 		000AB55127EE14EE00FF0ED3 /* UserIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55027EE14EE00FF0ED3 /* UserIconView.swift */; };
 		000AB55427EE184F00FF0ED3 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55327EE184F00FF0ED3 /* AttendeesView.swift */; };
@@ -125,6 +126,7 @@
 
 /* Begin PBXFileReference section */
 		00062B3F27EEC9A600267960 /* UpvoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpvoteButton.swift; sourceTree = "<group>"; };
+		00062B4127EECDBA00267960 /* UpvotedUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpvotedUsersView.swift; sourceTree = "<group>"; };
 		000AB54E27ED9BDF00FF0ED3 /* InviteUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUserView.swift; sourceTree = "<group>"; };
 		000AB55027EE14EE00FF0ED3 /* UserIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIconView.swift; sourceTree = "<group>"; };
 		000AB55327EE184F00FF0ED3 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 			children = (
 				000AB55927EE242500FF0ED3 /* PlanStatusView.swift */,
 				00062B3F27EEC9A600267960 /* UpvoteButton.swift */,
+				00062B4127EECDBA00267960 /* UpvotedUsersView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1159,6 +1162,7 @@
 				0092523827DA573500F4F029 /* LaunchView.swift in Sources */,
 				B967C33C27DDE3C20023B34D /* RestaurantFormView.swift in Sources */,
 				00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */,
+				00062B4227EECDBA00267960 /* UpvotedUsersView.swift in Sources */,
 				4CB954E027DDFFC7001410AD /* User.swift in Sources */,
 				000AB55127EE14EE00FF0ED3 /* UserIconView.swift in Sources */,
 				4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */,
