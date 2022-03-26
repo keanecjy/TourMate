@@ -31,8 +31,15 @@ struct ActivityView: View {
             HStack {
                 if let activity = activityViewModel.plan {
                     VStack(alignment: .leading) {
-                        PlanStatusView(status: activity.status)
-                            .padding()
+                        HStack(spacing: 10.0) {
+                            PlanStatusView(status: activity.status)
+                                .padding()
+
+                            if activity.status == .proposed {
+                                UpvoteButton(hasUpvoted: activityViewModel.userHasUpvotedPlan,
+                                             action: activityViewModel.upvotePlan)
+                            }
+                        }
 
                         VStack(alignment: .leading) {
                             // Start Time

@@ -13,6 +13,8 @@ class PlanViewModel<T: Plan>: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
+    @Published private(set) var userHasUpvotedPlan: Bool
+
     let planController: PlanController
     var planId: String
 
@@ -21,6 +23,8 @@ class PlanViewModel<T: Plan>: ObservableObject {
         self.hasError = false
         self.planController = planController
         self.planId = planId
+
+        self.userHasUpvotedPlan = false
     }
 
     func fetchPlan() async {
@@ -50,5 +54,9 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
         self.plan = plan
         self.isLoading = false
+    }
+
+    func upvotePlan() async {
+        self.userHasUpvotedPlan.toggle()
     }
 }
