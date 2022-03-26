@@ -10,7 +10,7 @@ import Firebase
 
 @main
 struct TourMateApp: App {
-    @StateObject private var authenticationController = FirebaseAuthenticationController.singleton
+    @StateObject private var authenticationService = FirebaseAuthenticationService.singleton
 
     init() {
         FirebaseApp.configure()
@@ -18,12 +18,12 @@ struct TourMateApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if authenticationController.userIsLoggedIn {
+            if authenticationService.userIsLoggedIn {
                 ContentView()
             } else {
                 LaunchView()
                     .onAppear {
-                        authenticationController.checkIfUserIsLoggedIn()
+                        authenticationService.checkIfUserIsLoggedIn()
                     }
             }
         }

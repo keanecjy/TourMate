@@ -1,5 +1,5 @@
 //
-//  MockTripController.swift
+//  MockTripService.swift
 //  TourMate
 //
 //  Created by Rayner Lim on 17/3/22.

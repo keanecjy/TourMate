@@ -27,11 +27,11 @@ class TripViewModel: ObservableObject {
     private var cancellableSet: Set<AnyCancellable> = []
 
     init(trip: Trip,
-         tripController: TripService = FirebaseTripService(),
+         tripService: TripService = FirebaseTripService(),
          userService: UserService = FirebaseUserService()) {
 
         self.trip = trip
-        self.tripService = tripController
+        self.tripService = tripService
         self.userService = userService
 
         $trip

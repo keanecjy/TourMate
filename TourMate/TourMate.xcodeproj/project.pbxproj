@@ -18,7 +18,7 @@
 		00582F7B27E745B0008756E9 /* EditRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F7A27E745B0008756E9 /* EditRestaurantView.swift */; };
 		0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092522F27DA573500F4F029 /* TourMateTitleView.swift */; };
 		0092523827DA573500F4F029 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523127DA573500F4F029 /* LaunchView.swift */; };
-		0092523E27DA574800F4F029 /* FirebaseAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523D27DA574800F4F029 /* FirebaseAuthenticationController.swift */; };
+		0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523D27DA574800F4F029 /* FirebaseAuthenticationService.swift */; };
 		00E2B19527E4C95400B5F449 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2B19427E4C95400B5F449 /* LogInView.swift */; };
 		00F83BB827DC46E4003A28AA /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BB727DC46E4003A28AA /* AuthenticationButton.swift */; };
 		00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BBF27DC528F003A28AA /* FirebaseAuthenticationManager.swift */; };
@@ -52,7 +52,7 @@
 		953570ED27E5BFDE000DF0C2 /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570EC27E5BFDE000DF0C2 /* TripView.swift */; };
 		95779BD327E76687001FF602 /* EditTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95779BD227E76687001FF602 /* EditTripView.swift */; };
 		95779BD927E769FD001FF602 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95779BD827E769FD001FF602 /* UserService.swift */; };
-		95779BDB27E76B1A001FF602 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95779BDA27E76B1A001FF602 /* AuthenticationController.swift */; };
+		95779BDB27E76B1A001FF602 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95779BDA27E76B1A001FF602 /* AuthenticationService.swift */; };
 		95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6A27D8E79B0086E9E3 /* PlanHeaderView.swift */; };
 		95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */; };
 		95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */; };
@@ -137,7 +137,7 @@
 		00582F7A27E745B0008756E9 /* EditRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRestaurantView.swift; sourceTree = "<group>"; };
 		0092522F27DA573500F4F029 /* TourMateTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourMateTitleView.swift; sourceTree = "<group>"; };
 		0092523127DA573500F4F029 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
-		0092523D27DA574800F4F029 /* FirebaseAuthenticationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationController.swift; sourceTree = "<group>"; };
+		0092523D27DA574800F4F029 /* FirebaseAuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationService.swift; sourceTree = "<group>"; };
 		00E2B19427E4C95400B5F449 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		00F83BB727DC46E4003A28AA /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
 		00F83BBF27DC528F003A28AA /* FirebaseAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationManager.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 		953570EC27E5BFDE000DF0C2 /* TripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		95779BD227E76687001FF602 /* EditTripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTripView.swift; sourceTree = "<group>"; };
 		95779BD827E769FD001FF602 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
-		95779BDA27E76B1A001FF602 /* AuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
+		95779BDA27E76B1A001FF602 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		95CB3F6A27D8E79B0086E9E3 /* PlanHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanHeaderView.swift; sourceTree = "<group>"; };
 		95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardView.swift; sourceTree = "<group>"; };
 		95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlansListView.swift; sourceTree = "<group>"; };
@@ -350,7 +350,7 @@
 			children = (
 				4CE02B7927EACCC800480D73 /* Models */,
 				4CE02B7427EACBEA00480D73 /* Views */,
-				4C2275DD27EAC40C00A59FD1 /* Controllers */,
+				4C2275DD27EAC40C00A59FD1 /* Services */,
 			);
 			path = Trip;
 			sourceTree = "<group>";
@@ -383,14 +383,14 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-		4C2275DD27EAC40C00A59FD1 /* Controllers */ = {
+		4C2275DD27EAC40C00A59FD1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				95FAE40C27E247F800F4AB01 /* TripService.swift */,
 				95FAE40A27E245D200F4AB01 /* MockTripService.swift */,
 				4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */,
 			);
-			path = Controllers;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		4C2275DE27EAC42D00A59FD1 /* Services */ = {
@@ -469,18 +469,18 @@
 			isa = PBXGroup;
 			children = (
 				4CE02B7327EACBE000480D73 /* Views */,
-				4CE02B7227EACB8C00480D73 /* Controllers */,
+				4CE02B7227EACB8C00480D73 /* Services */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-		4CE02B7227EACB8C00480D73 /* Controllers */ = {
+		4CE02B7227EACB8C00480D73 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				95779BDA27E76B1A001FF602 /* AuthenticationController.swift */,
-				0092523D27DA574800F4F029 /* FirebaseAuthenticationController.swift */,
+				95779BDA27E76B1A001FF602 /* AuthenticationService.swift */,
+				0092523D27DA574800F4F029 /* FirebaseAuthenticationService.swift */,
 			);
-			path = Controllers;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		4CE02B7327EACBE000480D73 /* Views */ = {
@@ -1140,7 +1140,7 @@
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserService.swift in Sources */,
-				0092523E27DA574800F4F029 /* FirebaseAuthenticationController.swift in Sources */,
+				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
 				953570ED27E5BFDE000DF0C2 /* TripView.swift in Sources */,
 				4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */,
 				B9A04FB327E5911F007D4303 /* AccommodationView.swift in Sources */,
@@ -1187,7 +1187,7 @@
 				B93B489427DA87A300478B7B /* FirebaseAdaptedPlan.swift in Sources */,
 				B93B489A27DAEC5000478B7B /* FirebaseAdaptedActivity.swift in Sources */,
 				95FAE40D27E247F800F4AB01 /* TripService.swift in Sources */,
-				95779BDB27E76B1A001FF602 /* AuthenticationController.swift in Sources */,
+				95779BDB27E76B1A001FF602 /* AuthenticationService.swift in Sources */,
 				B99D967E27D9D82C009B66AE /* Plan.swift in Sources */,
 				B93B489027DA7D4F00478B7B /* FirebaseAdaptedTrip.swift in Sources */,
 			);

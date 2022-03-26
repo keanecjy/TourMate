@@ -1,5 +1,5 @@
 //
-//  FirebaseTripController.swift
+//  FirebaseTripService.swift
 //  TourMate
 //
 //  Created by Keane Chan on 13/3/22.
@@ -54,10 +54,10 @@ struct FirebaseTripService: TripService {
            return (nil, errorMessage)
         }
         guard let adaptedTrip = adaptedTrip as? FirebaseAdaptedTrip else {
-            return (nil, "[FirebaseTripController] Error converting FirebaseAdaptedData into FirebaseAdaptedTrip")
+            return (nil, "[FirebaseTripService] Error converting FirebaseAdaptedData into FirebaseAdaptedTrip")
         }
         guard adaptedTrip.attendeesUserIds.contains(user.uid) else {
-            return (nil, "[FirebaseTripController] Error user \(user.uid) is not an attendee of trip \(tripId)")
+            return (nil, "[FirebaseTripService] Error user \(user.uid) is not an attendee of trip \(tripId)")
         }
 
         let trip = tripAdapter.toTrip(adaptedTrip: adaptedTrip)
