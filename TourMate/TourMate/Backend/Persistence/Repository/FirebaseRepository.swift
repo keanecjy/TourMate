@@ -80,8 +80,6 @@ struct FirebaseRepository: Repository {
             let documents = try await query.getDocuments().documents
             let items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
 
-            print("[FirebaseRepository] Fetched Items: \(documents)")
-
             return (items, "")
         } catch {
             let errorMessage = "[FirebaseRepository] Error fetching: \(error)"
@@ -99,7 +97,7 @@ struct FirebaseRepository: Repository {
             let deletedItemRef = db.collection(collectionId).document(id)
             try await deletedItemRef.delete()
 
-            print("[FirebaseRepository] Deleted \(FirebaseAdaptedData.self): \(id)")
+            print("[FirebaseRepository] Deleted: \(id)")
 
             return (true, "")
         } catch {

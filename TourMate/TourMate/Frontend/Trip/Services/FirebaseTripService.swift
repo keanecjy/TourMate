@@ -17,8 +17,10 @@ struct FirebaseTripService: TripService {
     private let tripAdapter = TripAdapter()
 
     func addTrip(trip: Trip) async -> (Bool, String) {
-        await firebaseRepository.addItem(id: trip.id, item:
-                                                    tripAdapter.toAdaptedTrip(trip: trip) )
+        print("[FirebaseTripService] Adding trip")
+
+        return await firebaseRepository.addItem(id: trip.id, item:
+                                            tripAdapter.toAdaptedTrip(trip: trip) )
     }
 
     func fetchTrips() async -> ([Trip], String) {
@@ -26,6 +28,7 @@ struct FirebaseTripService: TripService {
             return ([], Constants.messageUserNotLoggedIn)
         }
 
+        print("[FirebaseTripService] Fetching trips")
         let (adaptedTrips, errorMessage) = await firebaseRepository
             .fetchItems(field: "attendeesUserIds", arrayContains: user.uid)
 
@@ -35,7 +38,7 @@ struct FirebaseTripService: TripService {
 
         // unable to typecast
         guard let adaptedTrips = adaptedTrips as? [FirebaseAdaptedTrip] else {
-             return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
+            return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
         }
 
         let trips = adaptedTrips
@@ -49,9 +52,10 @@ struct FirebaseTripService: TripService {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
+        print("[FirebaseTripService] Fetching single trip")
         let (adaptedTrip, errorMessage) = await firebaseRepository.fetchItem(id: tripId)
         guard errorMessage.isEmpty else {
-           return (nil, errorMessage)
+            return (nil, errorMessage)
         }
         guard let adaptedTrip = adaptedTrip as? FirebaseAdaptedTrip else {
             return (nil, "[FirebaseTripService] Error converting FirebaseAdaptedData into FirebaseAdaptedTrip")
@@ -65,11 +69,15 @@ struct FirebaseTripService: TripService {
     }
 
     func deleteTrip(trip: Trip) async -> (Bool, String) {
-        await firebaseRepository.deleteItem(id: trip.id)
+        print("[FirebaseTripService] Deleting trip")
+
+        return await firebaseRepository.deleteItem(id: trip.id)
     }
 
     func updateTrip(trip: Trip) async -> (Bool, String) {
-        await firebaseRepository.updateItem(id: trip.id,
-                                                    item: tripAdapter.toAdaptedTrip(trip: trip))
+        print("[FirebaseTripService] Updating trip")
+
+        return await firebaseRepository.updateItem(id: trip.id,
+                                                   item: tripAdapter.toAdaptedTrip(trip: trip))
     }
 }

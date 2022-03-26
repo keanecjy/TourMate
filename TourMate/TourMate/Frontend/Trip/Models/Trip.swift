@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Trip {
+struct Trip: CustomStringConvertible {
     let id: String
     var name: String
     var startDateTime: DateTime
@@ -53,5 +53,11 @@ struct Trip {
         self.creationDate = Date.now
         self.modificationDate = Date.now
     }
+}
 
+// MARK: - CustomStringConvertible
+extension Trip {
+    public var description: String {
+        "Trip: (id: \(id), name: \(name))"
+    }
 }

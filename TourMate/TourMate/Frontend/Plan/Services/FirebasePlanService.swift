@@ -14,10 +14,14 @@ struct FirebasePlanService: PlanService {
     private let planAdapter = PlanAdapter()
 
     func addPlan(plan: Plan) async -> (Bool, String) {
-        await firebaseRepository.addItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
+        print("[FirebasePlanService] Adding plan")
+
+        return await firebaseRepository.addItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
     }
 
     func fetchPlans(withTripId tripId: String) async -> ([Plan], String) {
+        print("[FirebasePlanService] Fetching plans")
+
         let (adaptedPlans, errorMessage) = await firebaseRepository
             .fetchItems(field: "tripId", isEqualTo: tripId)
 
@@ -35,6 +39,8 @@ struct FirebasePlanService: PlanService {
     }
 
     func fetchPlan(withPlanId planId: String) async -> (Plan?, String) {
+        print("[FirebasePlanService] Fetching plan")
+
         let (adaptedPlan, errorMessage) = await firebaseRepository.fetchItem(id: planId)
 
         guard errorMessage.isEmpty else {
@@ -55,10 +61,14 @@ struct FirebasePlanService: PlanService {
     }
 
     func deletePlan(plan: Plan) async -> (Bool, String) {
-        await firebaseRepository.deleteItem(id: plan.id)
+        print("[FirebasePlanService] Deleting plan")
+
+        return await firebaseRepository.deleteItem(id: plan.id)
     }
 
     func updatePlan(plan: Plan) async -> (Bool, String) {
-        await firebaseRepository.updateItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
+        print("[FirebasePlanService] Updating plan")
+
+        return await firebaseRepository.updateItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
     }
 }
