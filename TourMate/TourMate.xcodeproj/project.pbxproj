@@ -13,6 +13,7 @@
 		00062B5227EF116F00267960 /* FirebaseAdaptedComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B5127EF116F00267960 /* FirebaseAdaptedComment.swift */; };
 		00062B5627EF345A00267960 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B5527EF345A00267960 /* CommentViewModel.swift */; };
 		00062B5827EF387300267960 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B5727EF387300267960 /* CommentsView.swift */; };
+		00062B5A27EF3C1B00267960 /* MockCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B5927EF3C1B00267960 /* MockCommentController.swift */; };
 		000AB54F27ED9BDF00FF0ED3 /* InviteUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB54E27ED9BDF00FF0ED3 /* InviteUserView.swift */; };
 		000AB55127EE14EE00FF0ED3 /* UserIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55027EE14EE00FF0ED3 /* UserIconView.swift */; };
 		000AB55427EE184F00FF0ED3 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55327EE184F00FF0ED3 /* AttendeesView.swift */; };
@@ -134,6 +135,7 @@
 		00062B5127EF116F00267960 /* FirebaseAdaptedComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedComment.swift; sourceTree = "<group>"; };
 		00062B5527EF345A00267960 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		00062B5727EF387300267960 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
+		00062B5927EF3C1B00267960 /* MockCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCommentController.swift; sourceTree = "<group>"; };
 		000AB54E27ED9BDF00FF0ED3 /* InviteUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUserView.swift; sourceTree = "<group>"; };
 		000AB55027EE14EE00FF0ED3 /* UserIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIconView.swift; sourceTree = "<group>"; };
 		000AB55327EE184F00FF0ED3 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 				4CCBBD1A27DE651F00F9C250 /* FirebasePlanController.swift */,
 				00062B4A27EF0FA600267960 /* CommentController.swift */,
 				00062B4C27EF107A00267960 /* FirebaseCommentController.swift */,
+				00062B5927EF3C1B00267960 /* MockCommentController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1129,6 +1132,7 @@
 				953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */,
 				00062B4F27EF112300267960 /* CommentAdapter.swift in Sources */,
 				B99D968227D9DF30009B66AE /* Activity.swift in Sources */,
+				00062B5A27EF3C1B00267960 /* MockCommentController.swift in Sources */,
 				95EB6A8C27E45B53008C1103 /* AddTripViewModel.swift in Sources */,
 				00582F7727E74597008756E9 /* EditTransportView.swift in Sources */,
 				4C3BB2E427E6051C0022C3C1 /* FirebaseTripController.swift in Sources */,
