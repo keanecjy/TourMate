@@ -31,6 +31,19 @@ struct AccommodationView: View {
             HStack {
                 if let accommodation = accommodationViewModel.plan {
                     VStack(alignment: .leading) {
+
+                        HStack(spacing: 10.0) {
+                            PlanStatusView(status: accommodation.status)
+                                .padding()
+
+                            if accommodation.status == .proposed {
+                                UpvoteButton(hasUpvoted: accommodationViewModel.userHasUpvotedPlan,
+                                             action: accommodationViewModel.upvotePlan)
+
+                                UpvotedUsersView(upvotedUsers: accommodationViewModel.upvotedUsers)
+                            }
+                        }
+
                         VStack(alignment: .leading) {
                             Text("From")
                                 .font(.caption)

@@ -24,6 +24,22 @@ struct FlightView: View {
         return dateFormatter.string(from: date)
     }
 
+    var votingInfo: some View {
+        HStack(spacing: 10.0) {
+            if let flight = flightViewModel.plan {
+                PlanStatusView(status: flight.status)
+                    .padding()
+
+                if flight.status == .proposed {
+                    UpvoteButton(hasUpvoted: flightViewModel.userHasUpvotedPlan,
+                                 action: flightViewModel.upvotePlan)
+
+                    UpvotedUsersView(upvotedUsers: flightViewModel.upvotedUsers)
+                }
+            }
+        }
+    }
+
     var flightInfo: some View {
         VStack(alignment: .leading) {
             if let flight = flightViewModel.plan {
@@ -112,6 +128,7 @@ struct FlightView: View {
         } else {
             HStack {
                 VStack(alignment: .leading) {
+                    votingInfo.padding()
                     flightInfo.padding()
                     departureInfo.padding()
                     arrivalInfo.padding()
