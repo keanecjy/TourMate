@@ -26,9 +26,12 @@ struct CommentsView: View {
 
                     Button("Send") {
                         Task {
-                            await commentViewModel.addComment(commentMessage: commentMessage)
+                            let hasAddedComment = await commentViewModel.addComment(commentMessage: commentMessage)
                             commentMessage = ""
-                            await commentViewModel.fetchComments()
+
+                            if hasAddedComment {
+                                await commentViewModel.fetchComments()
+                            }
                         }
                     }
                 }

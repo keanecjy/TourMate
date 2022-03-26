@@ -47,9 +47,9 @@ class CommentViewModel: ObservableObject {
         self.isLoading = false
     }
 
-    func addComment(commentMessage: String) async {
+    func addComment(commentMessage: String) async -> Bool {
         guard !commentMessage.isEmpty else {
-            return
+            return false
         }
 
         self.isLoading = true
@@ -59,7 +59,7 @@ class CommentViewModel: ObservableObject {
         guard let user = user, userErrorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
-            return
+            return false
         }
 
         let userId = user.id
@@ -77,10 +77,11 @@ class CommentViewModel: ObservableObject {
         guard hasAdded, commentErrorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
-            return
+            return false
         }
 
         self.isLoading = false
+        return true
     }
 
     func deleteComment(comment: Comment) async {

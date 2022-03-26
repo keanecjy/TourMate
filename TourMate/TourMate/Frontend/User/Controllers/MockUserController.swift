@@ -11,9 +11,9 @@ class MockUserController: UserController {
 
     var users: [User] = [
         User(id: "0", name: "Tester 0",
-             email: "Tester0@gmail.com", imageUrl: "https://nationaltoday.com/wp-content/uploads/2021/06/International-Corgi-Day-1.jpg"),
+             email: "t0@gmail.com", imageUrl: "https://nationaltoday.com/wp-content/uploads/2021/06/International-Corgi-Day-1.jpg"),
         User(id: "1", name: "Tester 1",
-             email: "Tester1@gmail.com", imageUrl: "https://www.purina.com.au/-/media/project/purina/main/breeds/puppies/puppy-chihuahua/puppy-corgi.jpg")
+             email: "t1@gmail.com", imageUrl: "https://www.purina.com.au/-/media/project/purina/main/breeds/puppies/puppy-chihuahua/puppy-corgi.jpg")
     ]
 
     func addUser(_ user: User) async -> (Bool, String) {
@@ -22,11 +22,11 @@ class MockUserController: UserController {
     }
 
     func deleteUser() async -> (Bool, String) {
-        return (true, "")
+        (true, "")
     }
 
     func getUser() async -> (User?, String) {
-        return (nil, "")
+        (nil, "")
     }
 
     func getUser(with field: String, value: String) async -> (User?, String) {
