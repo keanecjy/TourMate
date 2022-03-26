@@ -25,16 +25,7 @@ struct EditFlightView: View {
                         }
                         Form {
                             Section {
-                                Toggle("Confirmed?", isOn: Binding<Bool>(
-                                    get: { viewModel.plan.status == PlanStatus.confirmed },
-                                    set: { select in
-                                        if select {
-                                            viewModel.plan.status = PlanStatus.confirmed
-                                        } else {
-                                            viewModel.plan.status = PlanStatus.proposed
-                                        }
-                                    })
-                                )
+                                ConfirmedToggle(status: $viewModel.plan.status)
                                 TextField("Airline", text: $viewModel.plan.airline ?? "")
                                 TextField("Flight Number", text: $viewModel.plan.flightNumber ?? "")
                                 TextField("Seats", text: $viewModel.plan.seats ?? "")

@@ -18,16 +18,7 @@ struct RestaurantFormView: View {
                 .foregroundColor(.red)
         }
         Form {
-            Toggle("Confirmed?", isOn: Binding<Bool>(
-                get: { viewModel.plan.status == PlanStatus.confirmed },
-                set: { select in
-                    if select {
-                        viewModel.plan.status = PlanStatus.confirmed
-                    } else {
-                        viewModel.plan.status = PlanStatus.proposed
-                    }
-                })
-            )
+            ConfirmedToggle(status: $viewModel.plan.status)
             TextField("Restaurant Name", text: $viewModel.plan.name)
             DatePicker("Start Date",
                        selection: $viewModel.plan.startDateTime.date,

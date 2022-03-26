@@ -19,16 +19,7 @@ struct TransportFormView: View {
         }
         Form {
             Section {
-                Toggle("Confirmed?", isOn: Binding<Bool>(
-                    get: { viewModel.plan.status == PlanStatus.confirmed },
-                    set: { select in
-                        if select {
-                            viewModel.plan.status = PlanStatus.confirmed
-                        } else {
-                            viewModel.plan.status = PlanStatus.proposed
-                        }
-                    })
-                )
+                ConfirmedToggle(status: $viewModel.plan.status)
                 TextField("Carrier Name", text: $viewModel.plan.name)
             }
             Section("Departure Info") {
