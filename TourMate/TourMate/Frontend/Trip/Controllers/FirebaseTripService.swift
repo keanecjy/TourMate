@@ -10,7 +10,7 @@ import Foundation
 import CloudKit
 import SwiftUI
 
-struct FirebaseTripController: TripController {
+struct FirebaseTripService: TripService {
     private let firebasePersistenceManager = FirebasePersistenceManager(
         collectionId: FirebaseConfig.tripCollectionId)
 

@@ -1,5 +1,5 @@
 //
-//  FirebaseUserController.swift
+//  FirebaseUserService.swift
 //  TourMate
 //
 //  Created by Keane Chan on 13/3/22.
@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-struct FirebaseUserController: UserController {
+struct FirebaseUserService: UserService {
     private let firebasePersistenceManager = FirebasePersistenceManager(
         collectionId: FirebaseConfig.userCollectionId)
 

@@ -24,13 +24,13 @@ class AddTripViewModel: ObservableObject {
     @Published var fromStartDate = Date()...
     @Published var canAddTrip = false
 
-    let tripController: TripController
-    let userController: UserController
+    let tripController: TripService
+    let userController: UserService
 
     private var cancellableSet: Set<AnyCancellable> = []
 
-    init(tripController: TripController = FirebaseTripController(),
-         userController: UserController = FirebaseUserController()) {
+    init(tripController: TripService = FirebaseTripService(),
+         userController: UserService = FirebaseUserService()) {
         self.tripController = tripController
         self.userController = userController
 
