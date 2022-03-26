@@ -13,4 +13,6 @@ protocol UserController {
     func deleteUser() async -> (Bool, String)
 
     func getUser() async -> (User?, String)
+
+    func getUser(with field: String, value: String) async -> (User?, String)
 }
