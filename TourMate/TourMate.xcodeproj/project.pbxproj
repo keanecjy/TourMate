@@ -76,7 +76,6 @@
 		B967C33C27DDE3C20023B34D /* RestaurantFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B967C33B27DDE3C10023B34D /* RestaurantFormView.swift */; };
 		B967C33E27DDE9BD0023B34D /* TransportFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B967C33D27DDE9BC0023B34D /* TransportFormView.swift */; };
 		B967C34027DDEC7A0023B34D /* FlightFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B967C33F27DDEC7A0023B34D /* FlightFormView.swift */; };
-		B99D5BA527EDA530003B99FB /* AddPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D5BA427EDA530003B99FB /* AddPlanViewModel.swift */; };
 		B99D5BA827EF1ADF003B99FB /* ConfirmedToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D5BA727EF1ADF003B99FB /* ConfirmedToggle.swift */; };
 		B99D964927D73503009B66AE /* TourMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D964827D73503009B66AE /* TourMateApp.swift */; };
 		B99D964B27D73503009B66AE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D964A27D73503009B66AE /* ContentView.swift */; };
@@ -195,7 +194,6 @@
 		B967C33B27DDE3C10023B34D /* RestaurantFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantFormView.swift; sourceTree = "<group>"; };
 		B967C33D27DDE9BC0023B34D /* TransportFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportFormView.swift; sourceTree = "<group>"; };
 		B967C33F27DDEC7A0023B34D /* FlightFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFormView.swift; sourceTree = "<group>"; };
-		B99D5BA427EDA530003B99FB /* AddPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewModel.swift; sourceTree = "<group>"; };
 		B99D5BA727EF1ADF003B99FB /* ConfirmedToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmedToggle.swift; sourceTree = "<group>"; };
 		B99D964527D73503009B66AE /* TourMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TourMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B99D964827D73503009B66AE /* TourMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourMateApp.swift; sourceTree = "<group>"; };
@@ -430,7 +428,6 @@
 				95779BCF27E76559001FF602 /* PlanFormViews */,
 				B967C33427DDCA4D0023B34D /* AddPlanView.swift */,
 				B9A04FA927E4F584007D4303 /* AddPlanFormViewModel.swift */,
-				B99D5BA427EDA530003B99FB /* AddPlanViewModel.swift */,
 			);
 			path = AddPlanViews;
 			sourceTree = "<group>";
@@ -1146,7 +1143,6 @@
 				B9A04FAA27E4F584007D4303 /* AddPlanFormViewModel.swift in Sources */,
 				95DEA1EB27E721EB00A74ED2 /* BindingNilCoalescing.swift in Sources */,
 				953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */,
-				B99D5BA527EDA530003B99FB /* AddPlanViewModel.swift in Sources */,
 				B967C33E27DDE9BD0023B34D /* TransportFormView.swift in Sources */,
 				00582F7527E74590008756E9 /* EditFlightView.swift in Sources */,
 				4C6D1BA127E627A900D34087 /* PlanType.swift in Sources */,
