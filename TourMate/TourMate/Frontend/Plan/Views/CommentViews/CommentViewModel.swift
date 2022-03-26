@@ -19,7 +19,7 @@ class CommentViewModel: ObservableObject {
 
     init(planId: String,
          commentController: CommentController = MockCommentController(),
-         userController: UserController = FirebaseUserController()) {
+         userController: UserController = MockUserController()) {
 
         self.planId = planId
         self.commentController = commentController
