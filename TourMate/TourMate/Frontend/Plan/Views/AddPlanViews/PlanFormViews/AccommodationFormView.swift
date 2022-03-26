@@ -25,6 +25,7 @@ struct AccommodationFormView: View {
     private func createAccommodation() -> Accommodation {
         let planId = tripId + UUID().uuidString
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
+        let upvotedUserIds: [String] = []
         let accommodation = Accommodation(id: planId,
                                           tripId: tripId,
                                           name: accommodationName.isEmpty ? "Accommodation" : accommodationName,
@@ -34,6 +35,7 @@ struct AccommodationFormView: View {
                                           status: status,
                                           creationDate: Date(),
                                           modificationDate: Date(),
+                                          upvotedUserIds: upvotedUserIds,
                                           phone: phone,
                                           website: website)
         return accommodation

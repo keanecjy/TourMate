@@ -51,6 +51,7 @@ struct EditFlightView: View {
         let planId = self.flight.id
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = self.flight.creationDate
+        let upvotedUserIds = flight.upvotedUserIds
         let flight = Flight(id: planId,
                             tripId: self.flight.tripId,
                             startDateTime: DateTime(date: departureDate),
@@ -60,6 +61,7 @@ struct EditFlightView: View {
                             status: status,
                             creationDate: creationDate,
                             modificationDate: Date(),
+                            upvotedUserIds: upvotedUserIds,
                             airline: airline,
                             flightNumber: flightNumber,
                             seats: seats,

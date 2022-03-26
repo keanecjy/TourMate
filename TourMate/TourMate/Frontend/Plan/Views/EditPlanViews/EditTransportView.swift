@@ -48,6 +48,7 @@ struct EditTransportView: View {
         let tripId = transport.tripId
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = transport.creationDate
+        let upvotedUserIds = transport.upvotedUserIds
         let transport = Transport(id: planId,
                                   tripId: tripId,
                                   name: carrierName,
@@ -58,6 +59,7 @@ struct EditTransportView: View {
                                   status: status,
                                   creationDate: creationDate,
                                   modificationDate: Date(),
+                                  upvotedUserIds: upvotedUserIds,
                                   vehicleDescription: vehicleDescription,
                                   numberOfPassengers: numberOfPassengers)
         return transport

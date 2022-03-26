@@ -39,6 +39,7 @@ struct EditAccommodationView: View {
         let tripId = accommodation.tripId
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = accommodation.creationDate
+        let upvotedUserIds = accommodation.upvotedUserIds
         let accommodation = Accommodation(id: planId,
                                           tripId: tripId,
                                           name: accommodationName,
@@ -48,6 +49,7 @@ struct EditAccommodationView: View {
                                           status: status,
                                           creationDate: creationDate,
                                           modificationDate: Date(),
+                                          upvotedUserIds: upvotedUserIds,
                                           phone: phone,
                                           website: website)
         return accommodation

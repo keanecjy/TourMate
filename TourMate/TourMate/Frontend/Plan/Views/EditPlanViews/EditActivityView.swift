@@ -41,6 +41,7 @@ struct EditActivityView: View {
         let tripId = activity.tripId
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let modificationDate = Date()
+        let upvotedUserIds = activity.upvotedUserIds
         let activity = Activity(id: planId,
                                 tripId: tripId,
                                 name: eventName,
@@ -50,6 +51,7 @@ struct EditActivityView: View {
                                 status: status,
                                 creationDate: activity.creationDate,
                                 modificationDate: modificationDate,
+                                upvotedUserIds: upvotedUserIds,
                                 venue: venue,
                                 phone: phone,
                                 website: website)

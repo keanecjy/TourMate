@@ -33,6 +33,7 @@ struct FlightFormView: View {
         let planId = tripId + UUID().uuidString
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
+        let upvotedUserIds: [String] = []
         let flight = Flight(id: planId, tripId: tripId,
                             startDateTime: DateTime(date: departureDate),
                             endDateTime: DateTime(date: arrivalDate),
@@ -41,6 +42,7 @@ struct FlightFormView: View {
                             status: status,
                             creationDate: creationDate,
                             modificationDate: creationDate,
+                            upvotedUserIds: upvotedUserIds,
                             airline: airline,
                             flightNumber: flightNumber,
                             seats: seats,

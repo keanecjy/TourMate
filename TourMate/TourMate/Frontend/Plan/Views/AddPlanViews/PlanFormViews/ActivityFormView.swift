@@ -27,6 +27,7 @@ struct ActivityFormView: View {
         let planId = tripId + UUID().uuidString
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
+        let upvotedUserIds: [String] = []
         let activity = Activity(id: planId, tripId: tripId,
                                 name: eventName.isEmpty ? "Activity" : eventName,
                                 startDateTime: DateTime(date: startDate),
@@ -35,6 +36,7 @@ struct ActivityFormView: View {
                                 status: status,
                                 creationDate: creationDate,
                                 modificationDate: creationDate,
+                                upvotedUserIds: upvotedUserIds,
                                 venue: venue,
                                 phone: phone,
                                 website: website)

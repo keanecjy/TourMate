@@ -39,6 +39,7 @@ struct EditRestaurantView: View {
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = restaurant.creationDate
         let modificationDate = Date()
+        let upvotedUserIds = restaurant.upvotedUserIds
         let restaurant = Restaurant(id: planId,
                                     tripId: tripId,
                                     name: restaurantName,
@@ -48,6 +49,7 @@ struct EditRestaurantView: View {
                                     status: status,
                                     creationDate: creationDate,
                                     modificationDate: modificationDate,
+                                    upvotedUserIds: upvotedUserIds,
                                     phone: phone,
                                     website: website)
         return restaurant

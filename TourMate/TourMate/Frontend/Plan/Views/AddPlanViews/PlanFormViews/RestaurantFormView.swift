@@ -26,6 +26,7 @@ struct RestaurantFormView: View {
         let planId = tripId + UUID().uuidString
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
+        let upvotedUserIds: [String] = []
         let restaurant = Restaurant(id: planId, tripId: tripId,
                                     name: restaurantName.isEmpty ? "Restaurant" : restaurantName,
                                     startDateTime: DateTime(date: startDate),
@@ -34,6 +35,7 @@ struct RestaurantFormView: View {
                                     status: status,
                                     creationDate: creationDate,
                                     modificationDate: creationDate,
+                                    upvotedUserIds: upvotedUserIds,
                                     phone: phone,
                                     website: website)
         return restaurant

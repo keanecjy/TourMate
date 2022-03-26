@@ -30,6 +30,7 @@ struct TransportFormView: View {
         let planId = tripId + UUID().uuidString
         let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
         let creationDate = Date()
+        let upvotedUserIds: [String] = []
         let transport = Transport(id: planId, tripId: tripId,
                                   name: carrierName.isEmpty ? "Transportation" : carrierName,
                                   startDateTime: DateTime(date: departureDate),
@@ -39,6 +40,7 @@ struct TransportFormView: View {
                                   status: status,
                                   creationDate: creationDate,
                                   modificationDate: creationDate,
+                                  upvotedUserIds: upvotedUserIds,
                                   vehicleDescription: vehicleDescription,
                                   numberOfPassengers: numberOfPassengers)
         return transport
