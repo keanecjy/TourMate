@@ -14,7 +14,19 @@ struct FirebaseCommentController: CommentController {
     private let commentAdapter = CommentAdapter()
 
     func fetchComments(withPlanId planId: String) async -> ([Comment], String) {
-        ([], "")
+        let (adaptedComments, errorMessage) = await firebasePersistenceManager.fetchItems(field: "planId", isEqualTo: planId)
+
+        guard errorMessage.isEmpty else {
+            return ([], errorMessage)
+        }
+
+        guard let adaptedComments = adaptedComments as? [FirebaseAdaptedComment] else {
+            return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedComment")
+        }
+
+        let comments = adaptedComments.map({ commentAdapter.toComment(adaptedComment: $0) })
+
+        return (comments, "")
     }
 
     func addComment(comment: Comment) async -> (Bool, String) {
