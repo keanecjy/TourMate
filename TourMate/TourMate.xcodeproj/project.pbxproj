@@ -262,6 +262,7 @@
 		00062B3E27EEC80B00267960 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				000AB55927EE242500FF0ED3 /* PlanStatusView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -412,7 +413,6 @@
 			children = (
 				95CB3F6A27D8E79B0086E9E3 /* PlanHeaderView.swift */,
 				95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */,
-				000AB55927EE242500FF0ED3 /* PlanStatusView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
