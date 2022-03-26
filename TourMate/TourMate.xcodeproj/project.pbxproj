@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00062B4B27EF0FA600267960 /* CommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B4A27EF0FA600267960 /* CommentController.swift */; };
+		00062B4D27EF107A00267960 /* FirebaseCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B4C27EF107A00267960 /* FirebaseCommentController.swift */; };
+		00062B4F27EF112300267960 /* CommentAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B4E27EF112300267960 /* CommentAdapter.swift */; };
+		00062B5227EF116F00267960 /* FirebaseAdaptedComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B5127EF116F00267960 /* FirebaseAdaptedComment.swift */; };
 		000AB54F27ED9BDF00FF0ED3 /* InviteUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB54E27ED9BDF00FF0ED3 /* InviteUserView.swift */; };
 		000AB55127EE14EE00FF0ED3 /* UserIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55027EE14EE00FF0ED3 /* UserIconView.swift */; };
 		000AB55427EE184F00FF0ED3 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55327EE184F00FF0ED3 /* AttendeesView.swift */; };
@@ -122,6 +126,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00062B4A27EF0FA600267960 /* CommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
+		00062B4C27EF107A00267960 /* FirebaseCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCommentController.swift; sourceTree = "<group>"; };
+		00062B4E27EF112300267960 /* CommentAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentAdapter.swift; sourceTree = "<group>"; };
+		00062B5127EF116F00267960 /* FirebaseAdaptedComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedComment.swift; sourceTree = "<group>"; };
 		000AB54E27ED9BDF00FF0ED3 /* InviteUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUserView.swift; sourceTree = "<group>"; };
 		000AB55027EE14EE00FF0ED3 /* UserIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIconView.swift; sourceTree = "<group>"; };
 		000AB55327EE184F00FF0ED3 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
@@ -257,6 +265,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00062B5027EF115700267960 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				00062B5127EF116F00267960 /* FirebaseAdaptedComment.swift */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
 		000AB54D27ED9BD200FF0ED3 /* InviteUserView */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +410,8 @@
 				B9A04FA527E42234007D4303 /* PlanController.swift */,
 				B9A04FAB27E5567F007D4303 /* MockPlanController.swift */,
 				4CCBBD1A27DE651F00F9C250 /* FirebasePlanController.swift */,
+				00062B4A27EF0FA600267960 /* CommentController.swift */,
+				00062B4C27EF107A00267960 /* FirebaseCommentController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -596,6 +614,7 @@
 				4CE02B8227EACD7200480D73 /* User */,
 				4CE02B8027EACD6700480D73 /* Trip */,
 				4CE02B8127EACD6B00480D73 /* Plan */,
+				00062B5027EF115700267960 /* Comment */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -655,6 +674,7 @@
 				4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */,
 				4CE02B8A27EAE93900480D73 /* TripAdapter.swift */,
 				4CE02B8C27EAE9CD00480D73 /* UserAdapter.swift */,
+				00062B4E27EF112300267960 /* CommentAdapter.swift */,
 			);
 			path = Adapters;
 			sourceTree = "<group>";
@@ -1091,7 +1111,9 @@
 			files = (
 				B9A04FB927E591F2007D4303 /* TransportView.swift in Sources */,
 				00582F7B27E745B0008756E9 /* EditRestaurantView.swift in Sources */,
+				00062B4D27EF107A00267960 /* FirebaseCommentController.swift in Sources */,
 				953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */,
+				00062B4F27EF112300267960 /* CommentAdapter.swift in Sources */,
 				B99D968227D9DF30009B66AE /* Activity.swift in Sources */,
 				95EB6A8C27E45B53008C1103 /* AddTripViewModel.swift in Sources */,
 				00582F7727E74597008756E9 /* EditTransportView.swift in Sources */,
@@ -1106,6 +1128,7 @@
 				4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */,
 				00582F7927E745A3008756E9 /* EditAccommodationView.swift in Sources */,
 				4CB954E627DE0066001410AD /* FirebaseUserController.swift in Sources */,
+				00062B4B27EF0FA600267960 /* CommentController.swift in Sources */,
 				4CCBBD1927DE626800F9C250 /* Trip.swift in Sources */,
 				953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */,
 				4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */,
@@ -1142,6 +1165,7 @@
 				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
 				B967C33527DDCA4E0023B34D /* AddPlanView.swift in Sources */,
 				0092523827DA573500F4F029 /* LaunchView.swift in Sources */,
+				00062B5227EF116F00267960 /* FirebaseAdaptedComment.swift in Sources */,
 				B967C33C27DDE3C20023B34D /* RestaurantFormView.swift in Sources */,
 				00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */,
 				4CB954E027DDFFC7001410AD /* User.swift in Sources */,

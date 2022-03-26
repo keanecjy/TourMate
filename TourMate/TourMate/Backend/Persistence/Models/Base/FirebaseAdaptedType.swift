@@ -8,6 +8,7 @@
 enum FirebaseAdaptedType: String, Codable {
     case firebaseAdaptedUser
     case firebaseAdaptedTrip
+    case firebaseAdaptedComment
     case accommodation
     case activity
     case restaurant
@@ -20,6 +21,8 @@ enum FirebaseAdaptedType: String, Codable {
             return FirebaseAdaptedUser.self
         case .firebaseAdaptedTrip:
             return FirebaseAdaptedTrip.self
+        case .firebaseAdaptedComment:
+            return FirebaseAdaptedComment.self
         case .accommodation:
             return FirebaseAdaptedAccommodation.self
         case .activity:
