@@ -259,6 +259,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00062B3E27EEC80B00267960 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		000AB54D27ED9BD200FF0ED3 /* InviteUserView */ = {
 			isa = PBXGroup;
 			children = (
@@ -508,6 +515,7 @@
 		4CE02B7527EACC0A00480D73 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				00062B3E27EEC80B00267960 /* Common */,
 				95779BD627E76728001FF602 /* PlanViews */,
 				4CE02B6D27EAC6B000480D73 /* AddPlanViews */,
 				00582F7327E70F49008756E9 /* EditPlanViews */,
