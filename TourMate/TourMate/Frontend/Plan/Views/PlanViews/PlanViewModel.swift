@@ -6,26 +6,40 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 class PlanViewModel<T: Plan>: ObservableObject {
-    @Published private(set) var plan: T?
-    @Published private(set) var isLoading: Bool
-    @Published private(set) var hasError: Bool
+    @Published private(set) var isLoading = false
+    @Published private(set) var isDelete = false
+    @Published private(set) var hasError = false
+    @Published var plan: T
+    @Published var isPlanDurationValid = true
+    @Published var canEditPlan = true
 
+    let trip: Trip
     let planController: PlanController
-    var planId: String
 
-    init(planController: PlanController = FirebasePlanController(), planId: String) {
-        self.isLoading = false
-        self.hasError = false
+    private var cancellableSet: Set<AnyCancellable> = []
+
+    init(plan: T, trip: Trip, planController: PlanController = FirebasePlanController()) {
+        self.plan = plan
+        self.trip = trip
         self.planController = planController
-        self.planId = planId
+
+        $plan
+            .map({ $0.startDateTime.date <= $0.endDateTime.date })
+            .assign(to: \.isPlanDurationValid, on: self)
+            .store(in: &cancellableSet)
+
+        $isPlanDurationValid
+            .assign(to: \.canEditPlan, on: self)
+            .store(in: &cancellableSet)
     }
 
     func fetchPlan() async {
         self.isLoading = true
-        let (plan, errorMessage) = await planController.fetchPlan(withPlanId: planId)
+        let (plan, errorMessage) = await planController.fetchPlan(withPlanId: plan.id)
 
         guard errorMessage.isEmpty else {
             self.isLoading = false
@@ -35,7 +49,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
         // no plans fetched
         guard plan != nil else {
-            self.plan = nil
+            self.isDelete = true
             self.isLoading = false
             return
         }
@@ -50,5 +64,30 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
         self.plan = plan
         self.isLoading = false
+    }
+
+    private func modifyPlan(plan: T, function: (Plan) async -> (Bool, String)) async {
+        self.isLoading = true
+
+        let (hasUpdatedPlan, errorMessage) = await function(plan)
+
+        guard hasUpdatedPlan, errorMessage.isEmpty else {
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+        self.isLoading = false
+    }
+
+    func updatePlan() async {
+        await modifyPlan(plan: plan) { plan in
+            await planController.updatePlan(plan: plan)
+        }
+    }
+
+    func deletePlan() async {
+        await modifyPlan(plan: plan) { plan in
+            await planController.deletePlan(plan: plan)
+        }
     }
 }

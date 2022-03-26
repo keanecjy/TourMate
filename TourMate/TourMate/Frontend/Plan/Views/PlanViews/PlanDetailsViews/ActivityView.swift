@@ -13,16 +13,11 @@ struct ActivityView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    var tripViewModel: TripViewModel
-
     func getDateString(_ date: Date) -> String {
-        guard let activity = activityViewModel.plan else {
-            return ""
-        }
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = activity.startDateTime.timeZone
+        dateFormatter.timeZone = activityViewModel.plan.startDateTime.timeZone
         return dateFormatter.string(from: date)
     }
 
@@ -85,7 +80,7 @@ struct ActivityView: View {
                     Spacer()
                 }
             }
-            .navigationBarTitle(activityViewModel.plan?.name ?? "Activity")
+            .navigationBarTitle(activityViewModel.plan.name)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -106,16 +101,12 @@ struct ActivityView: View {
                             // There is a lag between setting the plan to nil
                             // And when we dismiss this view
                             // Maybe need to see how to change the logic
-                            if activityViewModel.plan == nil {
+                            if activityViewModel.isDelete {
                                 dismiss()
                             }
                         }
                     } content: {
-                        if let activity = activityViewModel.plan {
-                            EditActivityView(viewModel: EditPlanViewModel(plan: activity, trip: tripViewModel.trip))
-                        } else {
-                            Text("Error")
-                        }
+                        EditActivityView(viewModel: activityViewModel)
                     }
                 }
             }

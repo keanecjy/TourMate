@@ -82,7 +82,7 @@ struct TripView: View {
                 } label: {
                     Image(systemName: "pencil").contentShape(Rectangle())
                 }
-                .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
+                .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
                     Task {
                         await refreshTrip()
@@ -96,7 +96,7 @@ struct TripView: View {
                 } label: {
                     Image(systemName: "plus").contentShape(Rectangle())
                 }
-                .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
+                .disabled(viewModel.isDeleted || viewModel.isLoading)
             }
         }
         .task {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditRestaurantView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: EditPlanViewModel<Restaurant>
+    @StateObject var viewModel: PlanViewModel<Restaurant>
 
     var body: some View {
         NavigationView {

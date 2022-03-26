@@ -12,7 +12,6 @@
 		000AB55427EE184F00FF0ED3 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55327EE184F00FF0ED3 /* AttendeesView.swift */; };
 		004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004981AA27E2FF3C007BDB2E /* SettingsView.swift */; };
 		00582F7027E70C97008756E9 /* EditActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F6F27E70C97008756E9 /* EditActivityView.swift */; };
-		00582F7227E70C9D008756E9 /* EditPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F7127E70C9D008756E9 /* EditPlanViewModel.swift */; };
 		00582F7527E74590008756E9 /* EditFlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F7427E74590008756E9 /* EditFlightView.swift */; };
 		00582F7727E74597008756E9 /* EditTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F7627E74597008756E9 /* EditTransportView.swift */; };
 		00582F7927E745A3008756E9 /* EditAccommodationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F7827E745A3008756E9 /* EditAccommodationView.swift */; };
@@ -129,7 +128,6 @@
 		004981AA27E2FF3C007BDB2E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		004981AC27E3237A007BDB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00582F6F27E70C97008756E9 /* EditActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityView.swift; sourceTree = "<group>"; };
-		00582F7127E70C9D008756E9 /* EditPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewModel.swift; sourceTree = "<group>"; };
 		00582F7427E74590008756E9 /* EditFlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlightView.swift; sourceTree = "<group>"; };
 		00582F7627E74597008756E9 /* EditTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransportView.swift; sourceTree = "<group>"; };
 		00582F7827E745A3008756E9 /* EditAccommodationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccommodationView.swift; sourceTree = "<group>"; };
@@ -283,7 +281,6 @@
 				00582F7627E74597008756E9 /* EditTransportView.swift */,
 				00582F7827E745A3008756E9 /* EditAccommodationView.swift */,
 				00582F7A27E745B0008756E9 /* EditRestaurantView.swift */,
-				00582F7127E70C9D008756E9 /* EditPlanViewModel.swift */,
 			);
 			path = EditPlanViews;
 			sourceTree = "<group>";
@@ -1125,7 +1122,6 @@
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				B9A04FA427E364AB007D4303 /* PlansViewModel.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
-				00582F7227E70C9D008756E9 /* EditPlanViewModel.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserController.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationController.swift in Sources */,

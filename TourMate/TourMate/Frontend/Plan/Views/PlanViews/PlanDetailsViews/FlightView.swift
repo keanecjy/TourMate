@@ -13,16 +13,11 @@ struct FlightView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    var tripViewModel: TripViewModel
-
     func getDateString(_ date: Date) -> String {
-        guard let flight = flightViewModel.plan else {
-            return ""
-        }
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = flight.startDateTime.timeZone
+        dateFormatter.timeZone = flightViewModel.plan.startDateTime.timeZone
         return dateFormatter.string(from: date)
     }
 
@@ -122,7 +117,7 @@ struct FlightView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle(flightViewModel.plan?.name ?? "Flight")
+            .navigationTitle(flightViewModel.plan.name)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -143,16 +138,12 @@ struct FlightView: View {
                             // There is a lag between setting the plan to nil
                             // And when we dismiss this view
                             // Maybe need to see how to change the logic
-                            if flightViewModel.plan == nil {
+                            if flightViewModel.isDelete {
                                 dismiss()
                             }
                         }
                     } content: {
-                        if let flight = flightViewModel.plan {
-                            EditFlightView(viewModel: EditPlanViewModel(plan: flight, trip: tripViewModel.trip))
-                        } else {
-                            Text("Error")
-                        }
+                        EditFlightView(viewModel: flightViewModel)
                     }
                 }
             }

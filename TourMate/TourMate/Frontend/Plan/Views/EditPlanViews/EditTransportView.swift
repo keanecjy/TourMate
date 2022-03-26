@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditTransportView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: EditPlanViewModel<Transport>
+    @StateObject var viewModel: PlanViewModel<Transport>
 
     var body: some View {
         NavigationView {

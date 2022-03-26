@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct EditActivityView: View {
-
     @Environment(\.dismiss) var dismiss
-
-    @StateObject var viewModel: EditPlanViewModel<Activity>
+    @StateObject var viewModel: PlanViewModel<Activity>
 
     var body: some View {
         NavigationView {
