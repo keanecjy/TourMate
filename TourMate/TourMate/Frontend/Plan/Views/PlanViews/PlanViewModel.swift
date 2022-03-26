@@ -11,7 +11,7 @@ import Combine
 @MainActor
 class PlanViewModel<T: Plan>: ObservableObject {
     @Published private(set) var isLoading = false
-    @Published private(set) var isDelete = false
+    @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
     @Published var plan: T
     @Published var isPlanDurationValid = true
@@ -49,7 +49,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
         // no plans fetched
         guard plan != nil else {
-            self.isDelete = true
+            self.isDeleted = true
             self.isLoading = false
             return
         }

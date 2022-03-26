@@ -94,7 +94,7 @@ struct AccommodationView: View {
                             // There is a lag between setting the plan to nil
                             // And when we dismiss this view
                             // Maybe need to see how to change the logic
-                            if accommodationViewModel.isDelete {
+                            if accommodationViewModel.isDeleted {
                                 dismiss()
                             }
                         }
