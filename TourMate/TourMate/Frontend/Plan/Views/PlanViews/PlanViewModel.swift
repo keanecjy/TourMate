@@ -51,4 +51,8 @@ class PlanViewModel<T: Plan>: ObservableObject {
         self.plan = plan
         self.isLoading = false
     }
+
+    func createCommentViewModel() -> CommentViewModel {
+        CommentViewModel(planId: self.planId)
+    }
 }
