@@ -11,13 +11,13 @@ import CloudKit
 import SwiftUI
 
 struct FirebaseTripService: TripService {
-    private let firebasePersistenceManager = FirebasePersistenceManager(
+    private let firebaseRepository = FirebaseRepository(
         collectionId: FirebaseConfig.tripCollectionId)
 
     private let tripAdapter = TripAdapter()
 
     func addTrip(trip: Trip) async -> (Bool, String) {
-        await firebasePersistenceManager.addItem(id: trip.id, item:
+        await firebaseRepository.addItem(id: trip.id, item:
                                                     tripAdapter.toAdaptedTrip(trip: trip) )
     }
 
@@ -26,7 +26,7 @@ struct FirebaseTripService: TripService {
             return ([], Constants.messageUserNotLoggedIn)
         }
 
-        let (adaptedTrips, errorMessage) = await firebasePersistenceManager
+        let (adaptedTrips, errorMessage) = await firebaseRepository
             .fetchItems(field: "attendeesUserIds", arrayContains: user.uid)
 
         guard errorMessage.isEmpty else {
@@ -49,7 +49,7 @@ struct FirebaseTripService: TripService {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
-        let (adaptedTrip, errorMessage) = await firebasePersistenceManager.fetchItem(id: tripId)
+        let (adaptedTrip, errorMessage) = await firebaseRepository.fetchItem(id: tripId)
         guard errorMessage.isEmpty else {
            return (nil, errorMessage)
         }
@@ -65,11 +65,11 @@ struct FirebaseTripService: TripService {
     }
 
     func deleteTrip(trip: Trip) async -> (Bool, String) {
-        await firebasePersistenceManager.deleteItem(id: trip.id)
+        await firebaseRepository.deleteItem(id: trip.id)
     }
 
     func updateTrip(trip: Trip) async -> (Bool, String) {
-        await firebasePersistenceManager.updateItem(id: trip.id,
+        await firebaseRepository.updateItem(id: trip.id,
                                                     item: tripAdapter.toAdaptedTrip(trip: trip))
     }
 }

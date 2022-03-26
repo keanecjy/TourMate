@@ -32,8 +32,8 @@
 		4C8639A327DF37DA000566FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8639A227DF37DA000566FB /* Constants.swift */; };
 		4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954D127DDE039001410AD /* FirebaseConfig.swift */; };
 		4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954D927DDF499001410AD /* FirebaseAdaptedUser.swift */; };
-		4CB954DC27DDFAA8001410AD /* FirebasePersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954DB27DDFAA8001410AD /* FirebasePersistenceManager.swift */; };
-		4CB954DE27DDFDB2001410AD /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954DD27DDFDB2001410AD /* PersistenceManager.swift */; };
+		4CB954DC27DDFAA8001410AD /* FirebaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954DB27DDFAA8001410AD /* FirebaseRepository.swift */; };
+		4CB954DE27DDFDB2001410AD /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954DD27DDFDB2001410AD /* Repository.swift */; };
 		4CB954E027DDFFC7001410AD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954DF27DDFFC7001410AD /* User.swift */; };
 		4CB954E627DE0066001410AD /* FirebaseUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954E527DE0066001410AD /* FirebaseUserService.swift */; };
 		4CB954E827DE1712001410AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CB954E727DE1711001410AD /* GoogleService-Info.plist */; };
@@ -151,8 +151,8 @@
 		4C8639A227DF37DA000566FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4CB954D127DDE039001410AD /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		4CB954D927DDF499001410AD /* FirebaseAdaptedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedUser.swift; sourceTree = "<group>"; };
-		4CB954DB27DDFAA8001410AD /* FirebasePersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePersistenceManager.swift; sourceTree = "<group>"; };
-		4CB954DD27DDFDB2001410AD /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		4CB954DB27DDFAA8001410AD /* FirebaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRepository.swift; sourceTree = "<group>"; };
+		4CB954DD27DDFDB2001410AD /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		4CB954DF27DDFFC7001410AD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CB954E527DE0066001410AD /* FirebaseUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserService.swift; sourceTree = "<group>"; };
 		4CB954E727DE1711001410AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -370,7 +370,7 @@
 			children = (
 				4CE02B7E27EACD5000480D73 /* Config */,
 				4CE02B7F27EACD5500480D73 /* Models */,
-				4CE02B7D27EACD4A00480D73 /* Managers */,
+				4CE02B7D27EACD4A00480D73 /* Repository */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -451,18 +451,18 @@
 			children = (
 				4CE02B7827EACCAB00480D73 /* Models */,
 				4CE02B7727EACC9600480D73 /* Views */,
-				4CE02B7027EACB7100480D73 /* Controllers */,
+				4CE02B7027EACB7100480D73 /* Services */,
 			);
 			path = User;
 			sourceTree = "<group>";
 		};
-		4CE02B7027EACB7100480D73 /* Controllers */ = {
+		4CE02B7027EACB7100480D73 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				95779BD827E769FD001FF602 /* UserService.swift */,
 				4CB954E527DE0066001410AD /* FirebaseUserService.swift */,
 			);
-			path = Controllers;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		4CE02B7127EACB8400480D73 /* Authentication */ = {
@@ -577,13 +577,13 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		4CE02B7D27EACD4A00480D73 /* Managers */ = {
+		4CE02B7D27EACD4A00480D73 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				4CB954DD27DDFDB2001410AD /* PersistenceManager.swift */,
-				4CB954DB27DDFAA8001410AD /* FirebasePersistenceManager.swift */,
+				4CB954DD27DDFDB2001410AD /* Repository.swift */,
+				4CB954DB27DDFAA8001410AD /* FirebaseRepository.swift */,
 			);
-			path = Managers;
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		4CE02B7E27EACD5000480D73 /* Config */ = {
@@ -1164,7 +1164,7 @@
 				4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */,
 				00582F7027E70C97008756E9 /* EditActivityView.swift in Sources */,
 				95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */,
-				4CB954DE27DDFDB2001410AD /* PersistenceManager.swift in Sources */,
+				4CB954DE27DDFDB2001410AD /* Repository.swift in Sources */,
 				B9A04FB527E591A0007D4303 /* FlightView.swift in Sources */,
 				B9A04FB027E5875A007D4303 /* ActivityView.swift in Sources */,
 				B967C33827DDCF7A0023B34D /* AccommodationFormView.swift in Sources */,
@@ -1183,7 +1183,7 @@
 				4CCBBD1B27DE651F00F9C250 /* FirebasePlanService.swift in Sources */,
 				4C8639A327DF37DA000566FB /* Constants.swift in Sources */,
 				00F83BB827DC46E4003A28AA /* AuthenticationButton.swift in Sources */,
-				4CB954DC27DDFAA8001410AD /* FirebasePersistenceManager.swift in Sources */,
+				4CB954DC27DDFAA8001410AD /* FirebaseRepository.swift in Sources */,
 				B93B489427DA87A300478B7B /* FirebaseAdaptedPlan.swift in Sources */,
 				B93B489A27DAEC5000478B7B /* FirebaseAdaptedActivity.swift in Sources */,
 				95FAE40D27E247F800F4AB01 /* TripService.swift in Sources */,

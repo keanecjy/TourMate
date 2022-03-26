@@ -9,16 +9,16 @@ import FirebaseAuth
 
 struct FirebasePlanService: PlanService {
 
-    private let firebasePersistenceManager = FirebasePersistenceManager(collectionId: FirebaseConfig.planCollectionId)
+    private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.planCollectionId)
 
     private let planAdapter = PlanAdapter()
 
     func addPlan(plan: Plan) async -> (Bool, String) {
-        await firebasePersistenceManager.addItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
+        await firebaseRepository.addItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
     }
 
     func fetchPlans(withTripId tripId: String) async -> ([Plan], String) {
-        let (adaptedPlans, errorMessage) = await firebasePersistenceManager
+        let (adaptedPlans, errorMessage) = await firebaseRepository
             .fetchItems(field: "tripId", isEqualTo: tripId)
 
         guard errorMessage.isEmpty else {
@@ -35,7 +35,7 @@ struct FirebasePlanService: PlanService {
     }
 
     func fetchPlan(withPlanId planId: String) async -> (Plan?, String) {
-        let (adaptedPlan, errorMessage) = await firebasePersistenceManager.fetchItem(id: planId)
+        let (adaptedPlan, errorMessage) = await firebaseRepository.fetchItem(id: planId)
 
         guard errorMessage.isEmpty else {
             return (nil, errorMessage)
@@ -55,10 +55,10 @@ struct FirebasePlanService: PlanService {
     }
 
     func deletePlan(plan: Plan) async -> (Bool, String) {
-        await firebasePersistenceManager.deleteItem(id: plan.id)
+        await firebaseRepository.deleteItem(id: plan.id)
     }
 
     func updatePlan(plan: Plan) async -> (Bool, String) {
-        await firebasePersistenceManager.updateItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
+        await firebaseRepository.updateItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
     }
 }
