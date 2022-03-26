@@ -13,10 +13,10 @@ class PlansViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
-    let planController: PlanController
+    let planController: PlanService
     var tripId: String
 
-    init(planController: PlanController = FirebasePlanController(), tripId: String = "") {
+    init(planController: PlanService = FirebasePlanService(), tripId: String = "") {
         self.plans = []
         self.isLoading = false
         self.hasError = false

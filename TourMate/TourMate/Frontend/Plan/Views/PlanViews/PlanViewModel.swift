@@ -18,14 +18,14 @@ class PlanViewModel<T: Plan>: ObservableObject {
     @Published var canEditPlan = true
 
     let trip: Trip
-    let planController: PlanController
+    let planService: PlanService
 
     private var cancellableSet: Set<AnyCancellable> = []
 
-    init(plan: T, trip: Trip, planController: PlanController = FirebasePlanController()) {
+    init(plan: T, trip: Trip, planService: PlanService = FirebasePlanService()) {
         self.plan = plan
         self.trip = trip
-        self.planController = planController
+        self.planService = planService
 
         $plan
             .map({ $0.startDateTime.date <= $0.endDateTime.date })
@@ -39,7 +39,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
     func fetchPlan() async {
         self.isLoading = true
-        let (plan, errorMessage) = await planController.fetchPlan(withPlanId: plan.id)
+        let (plan, errorMessage) = await planService.fetchPlan(withPlanId: plan.id)
 
         guard errorMessage.isEmpty else {
             self.isLoading = false

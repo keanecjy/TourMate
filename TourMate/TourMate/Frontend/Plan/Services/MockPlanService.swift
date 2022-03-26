@@ -1,5 +1,5 @@
 //
-//  MockPlanController.swift
+//  MockPlanService.swift
 //  TourMate
 //
 //  Created by Tan Rui Quan on 19/3/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MockPlanController: PlanController {
+class MockPlanService: PlanService {
 
     static let creationDate = Date(timeIntervalSince1970: 1_651_400_000)
 

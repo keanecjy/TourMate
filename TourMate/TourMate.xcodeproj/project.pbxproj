@@ -41,7 +41,7 @@
 		4CB954EC27DE3F08001410AD /* FirebaseAdaptedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954EB27DE3F08001410AD /* FirebaseAdaptedType.swift */; };
 		4CB954EE27DE3FE1001410AD /* FirebaseAdaptedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954ED27DE3FE1001410AD /* FirebaseAdaptedData.swift */; };
 		4CCBBD1927DE626800F9C250 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD1827DE626800F9C250 /* Trip.swift */; };
-		4CCBBD1B27DE651F00F9C250 /* FirebasePlanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD1A27DE651F00F9C250 /* FirebasePlanController.swift */; };
+		4CCBBD1B27DE651F00F9C250 /* FirebasePlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD1A27DE651F00F9C250 /* FirebasePlanService.swift */; };
 		4CCBBD1F27DE67B400F9C250 /* PlanStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD1E27DE67B400F9C250 /* PlanStatus.swift */; };
 		4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD2227DE687A00F9C250 /* Comment.swift */; };
 		4CE02B8B27EAE93900480D73 /* TripAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE02B8A27EAE93900480D73 /* TripAdapter.swift */; };
@@ -94,6 +94,9 @@
 		B9A04FA627E42234007D4303 /* PlanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FA527E42234007D4303 /* PlanController.swift */; };
 		B9A04FAA27E4F584007D4303 /* AddPlanFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FA927E4F584007D4303 /* AddPlanFormViewModel.swift */; };
 		B9A04FAC27E5567F007D4303 /* MockPlanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FAB27E5567F007D4303 /* MockPlanController.swift */; };
+		B9A04FA627E42234007D4303 /* PlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FA527E42234007D4303 /* PlanService.swift */; };
+		B9A04FAA27E4F584007D4303 /* AddPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FA927E4F584007D4303 /* AddPlanViewModel.swift */; };
+		B9A04FAC27E5567F007D4303 /* MockPlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FAB27E5567F007D4303 /* MockPlanService.swift */; };
 		B9A04FB027E5875A007D4303 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FAF27E5875A007D4303 /* ActivityView.swift */; };
 		B9A04FB327E5911F007D4303 /* AccommodationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FB227E5911E007D4303 /* AccommodationView.swift */; };
 		B9A04FB527E591A0007D4303 /* FlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A04FB427E5919F007D4303 /* FlightView.swift */; };
@@ -157,7 +160,7 @@
 		4CB954EB27DE3F08001410AD /* FirebaseAdaptedType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedType.swift; sourceTree = "<group>"; };
 		4CB954ED27DE3FE1001410AD /* FirebaseAdaptedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedData.swift; sourceTree = "<group>"; };
 		4CCBBD1827DE626800F9C250 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
-		4CCBBD1A27DE651F00F9C250 /* FirebasePlanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlanController.swift; sourceTree = "<group>"; };
+		4CCBBD1A27DE651F00F9C250 /* FirebasePlanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlanService.swift; sourceTree = "<group>"; };
 		4CCBBD1E27DE67B400F9C250 /* PlanStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStatus.swift; sourceTree = "<group>"; };
 		4CCBBD2227DE687A00F9C250 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		4CE02B8A27EAE93900480D73 /* TripAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdapter.swift; sourceTree = "<group>"; };
@@ -215,6 +218,9 @@
 		B9A04FA527E42234007D4303 /* PlanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanController.swift; sourceTree = "<group>"; };
 		B9A04FA927E4F584007D4303 /* AddPlanFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanFormViewModel.swift; sourceTree = "<group>"; };
 		B9A04FAB27E5567F007D4303 /* MockPlanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlanController.swift; sourceTree = "<group>"; };
+		B9A04FA527E42234007D4303 /* PlanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanService.swift; sourceTree = "<group>"; };
+		B9A04FA927E4F584007D4303 /* AddPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewModel.swift; sourceTree = "<group>"; };
+		B9A04FAB27E5567F007D4303 /* MockPlanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlanService.swift; sourceTree = "<group>"; };
 		B9A04FAF27E5875A007D4303 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		B9A04FB227E5911E007D4303 /* AccommodationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccommodationView.swift; sourceTree = "<group>"; };
 		B9A04FB427E5919F007D4303 /* FlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightView.swift; sourceTree = "<group>"; };
@@ -334,7 +340,7 @@
 			children = (
 				4CE02B7A27EACCDC00480D73 /* Models */,
 				4CE02B7527EACC0A00480D73 /* Views */,
-				4C2275DE27EAC42D00A59FD1 /* Controllers */,
+				4C2275DE27EAC42D00A59FD1 /* Services */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -387,14 +393,14 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		4C2275DE27EAC42D00A59FD1 /* Controllers */ = {
+		4C2275DE27EAC42D00A59FD1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B9A04FA527E42234007D4303 /* PlanController.swift */,
-				B9A04FAB27E5567F007D4303 /* MockPlanController.swift */,
-				4CCBBD1A27DE651F00F9C250 /* FirebasePlanController.swift */,
+				B9A04FA527E42234007D4303 /* PlanService.swift */,
+				B9A04FAB27E5567F007D4303 /* MockPlanService.swift */,
+				4CCBBD1A27DE651F00F9C250 /* FirebasePlanService.swift */,
 			);
-			path = Controllers;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		4C2275E027EAC4B700A59FD1 /* Components */ = {
@@ -1107,7 +1113,7 @@
 				B99D5BA827EF1ADF003B99FB /* ConfirmedToggle.swift in Sources */,
 				4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */,
 				00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */,
-				B9A04FA627E42234007D4303 /* PlanController.swift in Sources */,
+				B9A04FA627E42234007D4303 /* PlanService.swift in Sources */,
 				4CB954EC27DE3F08001410AD /* FirebaseAdaptedType.swift in Sources */,
 				4CCBBD1F27DE67B400F9C250 /* PlanStatus.swift in Sources */,
 				B99D964B27D73503009B66AE /* ContentView.swift in Sources */,
@@ -1128,7 +1134,7 @@
 				000AB55427EE184F00FF0ED3 /* AttendeesView.swift in Sources */,
 				4CB954EA27DE3EBC001410AD /* AnyFirebaseAdaptedData.swift in Sources */,
 				B9A04FB727E591BE007D4303 /* RestaurantView.swift in Sources */,
-				B9A04FAC27E5567F007D4303 /* MockPlanController.swift in Sources */,
+				B9A04FAC27E5567F007D4303 /* MockPlanService.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				B9A04FA427E364AB007D4303 /* PlansViewModel.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
@@ -1174,7 +1180,7 @@
 				B93B489C27DAEDD800478B7B /* FirebaseAdaptedRestaurant.swift in Sources */,
 				000AB54F27ED9BDF00FF0ED3 /* InviteUserView.swift in Sources */,
 				B9A1037C27E61E9200829BF4 /* PlanViewModel.swift in Sources */,
-				4CCBBD1B27DE651F00F9C250 /* FirebasePlanController.swift in Sources */,
+				4CCBBD1B27DE651F00F9C250 /* FirebasePlanService.swift in Sources */,
 				4C8639A327DF37DA000566FB /* Constants.swift in Sources */,
 				00F83BB827DC46E4003A28AA /* AuthenticationButton.swift in Sources */,
 				4CB954DC27DDFAA8001410AD /* FirebasePersistenceManager.swift in Sources */,

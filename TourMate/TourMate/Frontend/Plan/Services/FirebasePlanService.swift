@@ -1,5 +1,5 @@
 //
-//  FirebasePlanController.swift
+//  FirebasePlanService.swift
 //  TourMate
 //
 //  Created by Keane Chan on 14/3/22.
@@ -7,7 +7,7 @@
 
 import FirebaseAuth
 
-struct FirebasePlanController: PlanController {
+struct FirebasePlanService: PlanService {
 
     private let firebasePersistenceManager = FirebasePersistenceManager(collectionId: FirebaseConfig.planCollectionId)
 
