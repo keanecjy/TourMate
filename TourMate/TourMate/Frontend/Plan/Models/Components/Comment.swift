@@ -10,7 +10,7 @@ import Foundation
 struct Comment {
     let planId: String
     let id: String
-    let name: String
+    let userId: String
     let message: String
     let creationDate: Date
     var upvotedUserIds: [String]
