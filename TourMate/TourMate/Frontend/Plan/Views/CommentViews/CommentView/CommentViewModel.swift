@@ -10,13 +10,15 @@ import Foundation
 @MainActor class CommentViewModel: ObservableObject {
     @Published var comment: Comment
     @Published var user: User
+    let canEdit: Bool
 
     var id: String {
         comment.id
     }
 
-    init(comment: Comment, user: User) {
+    init(comment: Comment, user: User, canEdit: Bool) {
         self.comment = comment
         self.user = user
+        self.canEdit = canEdit
     }
 }

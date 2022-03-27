@@ -34,6 +34,14 @@ class CommentsViewModel: ObservableObject {
     func fetchComments() async {
         self.isLoading = true
 
+        let (currentUser, userErrorMessage) = await userController.getUser()
+        guard let currentUser = currentUser, userErrorMessage.isEmpty else {
+            print("[CommentsViewModel] fetch user failed in fetchComments()")
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+
         let (comments, errorMessage) = await commentController.fetchComments(withPlanId: planId)
 
         guard errorMessage.isEmpty else {
@@ -48,9 +56,10 @@ class CommentsViewModel: ObservableObject {
 
         for comment in comments {
             let userId = comment.userId
+            let canEdit = userId == currentUser.id
 
             if let user = seenUsers[userId] {
-                commentViewModels.append(CommentViewModel(comment: comment, user: user))
+                commentViewModels.append(CommentViewModel(comment: comment, user: user, canEdit: canEdit))
                 continue
             }
 
@@ -63,7 +72,7 @@ class CommentsViewModel: ObservableObject {
             }
 
             if let user = user {
-                commentViewModels.append(CommentViewModel(comment: comment, user: user))
+                commentViewModels.append(CommentViewModel(comment: comment, user: user, canEdit: canEdit))
                 seenUsers[userId] = user
             }
         }
