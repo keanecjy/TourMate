@@ -81,13 +81,13 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
     func updatePlan() async {
         await modifyPlan(plan: plan) { plan in
-            await planController.updatePlan(plan: plan)
+            await planService.updatePlan(plan: plan)
         }
     }
 
     func deletePlan() async {
         await modifyPlan(plan: plan) { plan in
-            await planController.deletePlan(plan: plan)
+            await planService.deletePlan(plan: plan)
         }
     }
 }
