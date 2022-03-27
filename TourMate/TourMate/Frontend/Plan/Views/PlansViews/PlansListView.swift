@@ -66,19 +66,19 @@ struct PlansListView: View {
         switch plan.planType {
         case .accommodation:
             let accommodationViewModel = PlanViewModel<Accommodation>(plan: plan as! Accommodation, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: accommodationViewModel))
+            return AnyView(UpvotePlanView(viewModel: accommodationViewModel, displayName: false))
         case .activity:
             let activityViewModel = PlanViewModel<Activity>(plan: plan as! Activity, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: activityViewModel))
+            return AnyView(UpvotePlanView(viewModel: activityViewModel, displayName: false))
         case .restaurant:
             let restaurantViewModel = PlanViewModel<Restaurant>(plan: plan as! Restaurant, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: restaurantViewModel))
+            return AnyView(UpvotePlanView(viewModel: restaurantViewModel, displayName: false))
         case .transport:
             let transportViewModel = PlanViewModel<Transport>(plan: plan as! Transport, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: transportViewModel))
+            return AnyView(UpvotePlanView(viewModel: transportViewModel, displayName: false))
         case .flight:
             let flightViewModel = PlanViewModel<Flight>(plan: plan as! Flight, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: flightViewModel))
+            return AnyView(UpvotePlanView(viewModel: flightViewModel, displayName: false))
         }
     }
 

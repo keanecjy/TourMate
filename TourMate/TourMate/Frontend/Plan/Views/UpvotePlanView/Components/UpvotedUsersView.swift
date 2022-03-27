@@ -10,12 +10,13 @@ import SwiftUI
 struct UpvotedUsersView: View {
 
     var upvotedUsers: [User]
+    let displayName: Bool
 
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack {
                 ForEach(upvotedUsers, id: \.id) { user in
-                    UserIconView(imageUrl: user.imageUrl, name: user.name)
+                    UserIconView(imageUrl: user.imageUrl, name: user.name, displayName: displayName)
                 }
 
                 Spacer()
