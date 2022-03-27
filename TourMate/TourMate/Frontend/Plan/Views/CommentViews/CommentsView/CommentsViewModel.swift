@@ -18,8 +18,8 @@ class CommentsViewModel: ObservableObject {
     let planId: String
 
     init(planId: String,
-         commentController: CommentController = MockCommentController(),
-         userController: UserController = MockUserController()) {
+         commentController: CommentController = FirebaseCommentController(),
+         userController: UserController = FirebaseUserController()) {
 
         self.planId = planId
         self.commentController = commentController
