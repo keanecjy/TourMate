@@ -80,6 +80,10 @@ struct TransportView: View {
         }
     }
 
+    var comments: some View {
+        CommentsView(commentsViewModel: transportViewModel.commentsViewModel)
+    }
+
     var body: some View {
         if transportViewModel.hasError {
             Text("Error occurred")
@@ -89,6 +93,7 @@ struct TransportView: View {
                     departureInfo.padding()
                     arrivalInfo.padding()
                     transportationDetails.padding()
+                    comments.padding()
                     Spacer()
                 }
                 Spacer()

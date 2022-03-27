@@ -70,6 +70,9 @@ struct AccommodationView: View {
                             .padding()
                         }
 
+                        CommentsView(commentsViewModel: accommodationViewModel.commentsViewModel)
+                            .padding()
+
                         Spacer()
                     }
 

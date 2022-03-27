@@ -106,6 +106,10 @@ struct FlightView: View {
         }
     }
 
+    var comments: some View {
+        CommentsView(commentsViewModel: flightViewModel.commentsViewModel)
+    }
+
     var body: some View {
         if flightViewModel.hasError {
             Text("Error occurred")
@@ -115,6 +119,7 @@ struct FlightView: View {
                     flightInfo.padding()
                     departureInfo.padding()
                     arrivalInfo.padding()
+                    comments.padding()
                     Spacer()
                 }
                 Spacer()

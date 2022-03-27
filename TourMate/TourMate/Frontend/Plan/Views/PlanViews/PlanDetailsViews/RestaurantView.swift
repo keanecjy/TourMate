@@ -71,6 +71,9 @@ struct RestaurantView: View {
                             .padding()
                         }
 
+                        CommentsView(commentsViewModel: restaurantViewModel.commentsViewModel)
+                            .padding()
+
                         Spacer()
                     }
 
