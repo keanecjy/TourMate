@@ -21,6 +21,7 @@ class FirebaseAdaptedAccommodation: FirebaseAdaptedPlan {
          startDateTime: FirebaseAdaptedDateTime, endDateTime: FirebaseAdaptedDateTime,
          startLocation: String, endLocation: String?, imageUrl: String?,
          status: String, creationDate: Date, modificationDate: Date,
+         upvotedUserIds: [String],
          phone: String?, website: String?) {
 
         self.phone = phone
@@ -33,7 +34,8 @@ class FirebaseAdaptedAccommodation: FirebaseAdaptedPlan {
                    endLocation: endLocation,
                    imageUrl: imageUrl, status: status,
                    creationDate: creationDate,
-                   modificationDate: modificationDate)
+                   modificationDate: modificationDate,
+                   upvotedUserIds: upvotedUserIds)
     }
 
     required init(from decoder: Decoder) throws {

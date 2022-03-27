@@ -18,6 +18,7 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
          startLocation: String, endLocation: String?,
          imageUrl: String?, status: String,
          creationDate: Date, modificationDate: Date,
+         upvotedUserIds: [String],
          venue: String?, phone: String?, website: String?) {
 
         self.venue = venue
@@ -30,7 +31,8 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
                    startLocation: startLocation,
                    endLocation: endLocation,
                    imageUrl: imageUrl, status: status,
-                   creationDate: creationDate, modificationDate: modificationDate)
+                   creationDate: creationDate, modificationDate: modificationDate,
+                   upvotedUserIds: upvotedUserIds)
     }
 
     private enum CodingKeys: String, CodingKey {
