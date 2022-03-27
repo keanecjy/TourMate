@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct CommentIconView: View {
-    let imageUrl: String
+    @ObservedObject var commentViewModel: CommentViewModel
     let imageHeight = 50.0
 
     var body: some View {
-        AsyncImage(url: URL(string: imageUrl)) { image in
+        AsyncImage(url: URL(string: commentViewModel.user.imageUrl)) { image in
             image
                 .resizable()
                 .clipShape(Circle())
