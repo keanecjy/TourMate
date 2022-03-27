@@ -17,6 +17,9 @@
 		00062B5C27EF3DC700267960 /* MockUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B5B27EF3DC700267960 /* MockUserController.swift */; };
 		00062B5E27F009F000267960 /* CommentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B5D27F009F000267960 /* CommentListView.swift */; };
 		00062B6027F00F7700267960 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B5F27F00F7700267960 /* CommentView.swift */; };
+		00062B6427F0116900267960 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B6327F0116900267960 /* CommentViewModel.swift */; };
+		00062B6627F0194200267960 /* CommentIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B6527F0194200267960 /* CommentIconView.swift */; };
+		00062B6827F01A4F00267960 /* CommentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B6727F01A4F00267960 /* CommentTextView.swift */; };
 		000AB54F27ED9BDF00FF0ED3 /* InviteUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB54E27ED9BDF00FF0ED3 /* InviteUserView.swift */; };
 		000AB55127EE14EE00FF0ED3 /* UserIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55027EE14EE00FF0ED3 /* UserIconView.swift */; };
 		000AB55427EE184F00FF0ED3 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55327EE184F00FF0ED3 /* AttendeesView.swift */; };
@@ -142,6 +145,9 @@
 		00062B5B27EF3DC700267960 /* MockUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserController.swift; sourceTree = "<group>"; };
 		00062B5D27F009F000267960 /* CommentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListView.swift; sourceTree = "<group>"; };
 		00062B5F27F00F7700267960 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		00062B6327F0116900267960 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		00062B6527F0194200267960 /* CommentIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentIconView.swift; sourceTree = "<group>"; };
+		00062B6727F01A4F00267960 /* CommentTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextView.swift; sourceTree = "<group>"; };
 		000AB54E27ED9BDF00FF0ED3 /* InviteUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUserView.swift; sourceTree = "<group>"; };
 		000AB55027EE14EE00FF0ED3 /* UserIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIconView.swift; sourceTree = "<group>"; };
 		000AB55327EE184F00FF0ED3 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
@@ -288,12 +294,39 @@
 		00062B5427EF344900267960 /* CommentViews */ = {
 			isa = PBXGroup;
 			children = (
+				00062B6A27F01A7600267960 /* CommentsView */,
+				00062B6227F010D300267960 /* CommentView */,
+			);
+			path = CommentViews;
+			sourceTree = "<group>";
+		};
+		00062B6227F010D300267960 /* CommentView */ = {
+			isa = PBXGroup;
+			children = (
+				00062B6927F01A6900267960 /* Components */,
+				00062B5F27F00F7700267960 /* CommentView.swift */,
+				00062B6327F0116900267960 /* CommentViewModel.swift */,
+			);
+			path = CommentView;
+			sourceTree = "<group>";
+		};
+		00062B6927F01A6900267960 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				00062B6527F0194200267960 /* CommentIconView.swift */,
+				00062B6727F01A4F00267960 /* CommentTextView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		00062B6A27F01A7600267960 /* CommentsView */ = {
+			isa = PBXGroup;
+			children = (
 				00062B5527EF345A00267960 /* CommentsViewModel.swift */,
 				00062B5727EF387300267960 /* CommentsView.swift */,
 				00062B5D27F009F000267960 /* CommentListView.swift */,
-				00062B5F27F00F7700267960 /* CommentView.swift */,
 			);
-			path = CommentViews;
+			path = CommentsView;
 			sourceTree = "<group>";
 		};
 		000AB54D27ED9BD200FF0ED3 /* InviteUserView */ = {
@@ -1170,12 +1203,15 @@
 				B9A04FB727E591BE007D4303 /* RestaurantView.swift in Sources */,
 				B9A04FAC27E5567F007D4303 /* MockPlanController.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
+				00062B6627F0194200267960 /* CommentIconView.swift in Sources */,
 				B9A04FA427E364AB007D4303 /* PlansViewModel.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
 				00582F7227E70C9D008756E9 /* EditPlanViewModel.swift in Sources */,
+				00062B6427F0116900267960 /* CommentViewModel.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserController.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationController.swift in Sources */,
+				00062B6827F01A4F00267960 /* CommentTextView.swift in Sources */,
 				953570ED27E5BFDE000DF0C2 /* TripView.swift in Sources */,
 				4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */,
 				B9A04FB327E5911F007D4303 /* AccommodationView.swift in Sources */,

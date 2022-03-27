@@ -10,6 +10,7 @@ import SwiftUI
 struct CommentsView: View {
     @StateObject var commentsViewModel: CommentsViewModel
     @State var commentMessage: String = ""
+    var width = UIScreen.main.bounds.width / 2.0
 
     var body: some View {
         if commentsViewModel.hasError {
@@ -36,8 +37,8 @@ struct CommentsView: View {
                     }
                     .disabled(commentsViewModel.isLoading || commentsViewModel.hasError)
                 }
-                .frame(width: UIScreen.main.bounds.width / 2.0, alignment: .leading)
             }
+            .frame(width: width, alignment: .leading)
             .onAppear {
                 Task {
                     await commentsViewModel.fetchComments()

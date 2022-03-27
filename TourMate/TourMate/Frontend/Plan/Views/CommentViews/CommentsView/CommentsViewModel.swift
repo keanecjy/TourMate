@@ -9,8 +9,7 @@ import Foundation
 
 @MainActor
 class CommentsViewModel: ObservableObject {
-//    @Published var comments: [Comment]
-    @Published var commentUserPair: [(Comment, User)]
+    @Published var commentViewModels: [CommentViewModel]
     @Published var isLoading: Bool
     @Published var hasError: Bool
 
@@ -26,7 +25,7 @@ class CommentsViewModel: ObservableObject {
         self.commentController = commentController
         self.userController = userController
 
-        self.commentUserPair = []
+        self.commentViewModels = []
 
         self.isLoading = false
         self.hasError = false
@@ -38,19 +37,20 @@ class CommentsViewModel: ObservableObject {
         let (comments, errorMessage) = await commentController.fetchComments(withPlanId: planId)
 
         guard errorMessage.isEmpty else {
+            print("[CommentsViewModel] fetch comments failed in fetchComments()")
             self.isLoading = false
             self.hasError = true
             return
         }
 
         var seenUsers: [String: User] = [:]
-        var commentUserPair: [(Comment, User)] = []
+        var commentViewModels: [CommentViewModel] = []
 
         for comment in comments {
             let userId = comment.userId
 
             if let user = seenUsers[userId] {
-                commentUserPair.append((comment, user))
+                commentViewModels.append(CommentViewModel(comment: comment, user: user))
                 continue
             }
 
@@ -58,17 +58,17 @@ class CommentsViewModel: ObservableObject {
             let (user, userErrorMessage) = await userController.getUser(with: "id", value: userId)
 
             if !userErrorMessage.isEmpty {
-                print("User cannot be found")
+                print("[CommentsViewModel] fetchComments(): User cannot be found, comment will not render")
                 continue
             }
 
             if let user = user {
-                commentUserPair.append((comment, user))
+                commentViewModels.append(CommentViewModel(comment: comment, user: user))
                 seenUsers[userId] = user
             }
         }
 
-        self.commentUserPair = commentUserPair
+        self.commentViewModels = commentViewModels
 
         self.isLoading = false
     }
@@ -83,6 +83,7 @@ class CommentsViewModel: ObservableObject {
         let (user, userErrorMessage) = await userController.getUser()
 
         guard let user = user, userErrorMessage.isEmpty else {
+            print("[CommentsViewModel] fetch user failed in addComment()")
             self.isLoading = false
             self.hasError = true
             return false
@@ -101,6 +102,7 @@ class CommentsViewModel: ObservableObject {
         let (hasAdded, commentErrorMessage) = await commentController.addComment(comment: comment)
 
         guard hasAdded, commentErrorMessage.isEmpty else {
+            print("[CommentsViewModel] add comment failed in addComment()")
             self.isLoading = false
             self.hasError = true
             return false
@@ -116,6 +118,7 @@ class CommentsViewModel: ObservableObject {
         let (hasDeleted, commentErrorMessage) = await commentController.deleteComment(comment: comment)
 
         guard hasDeleted, commentErrorMessage.isEmpty else {
+            print("[CommentsViewModel] delete comment failed in deleteComment()")
             self.isLoading = false
             self.hasError = true
             return
@@ -130,6 +133,7 @@ class CommentsViewModel: ObservableObject {
         let (hasUpdated, commentErrorMessage) = await commentController.updateComment(comment: comment)
 
         guard hasUpdated, commentErrorMessage.isEmpty else {
+            print("[CommentsViewModel] update comment failed in updateComment()")
             self.isLoading = false
             self.hasError = true
             return

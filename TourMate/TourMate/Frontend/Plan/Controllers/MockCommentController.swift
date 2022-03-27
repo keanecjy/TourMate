@@ -12,7 +12,12 @@ class MockCommentController: CommentController {
     var comments: [Comment] = [
         Comment(planId: "0", id: "0", userId: "0", message: "Testing by 0!", creationDate: Date(), upvotedUserIds: []),
         Comment(planId: "0", id: "1", userId: "1", message: "Testing by 1!", creationDate: Date(), upvotedUserIds: []),
-        Comment(planId: "0", id: "2", userId: "0", message: "Testing again by 0!", creationDate: Date(), upvotedUserIds: [])
+        Comment(planId: "0", id: "2", userId: "0", message: "Testing again by 0!", creationDate: Date(), upvotedUserIds: []),
+        Comment(planId: "0", id: "3", userId: "2",
+                message: "This is a very very very very very very very very very very very very " +
+                "very very very very very very very very very very very very very very very very " +
+                "very very very very very long string",
+                creationDate: Date(), upvotedUserIds: [])
     ]
 
     func fetchComments(withPlanId planId: String) async -> ([Comment], String) {
