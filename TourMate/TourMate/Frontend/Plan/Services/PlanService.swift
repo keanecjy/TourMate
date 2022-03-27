@@ -1,5 +1,5 @@
 //
-//  PlanController.swift
+//  PlanService.swift
 //  TourMate
 //
 //  Created by Tan Rui Quan on 18/3/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PlanController {
+protocol PlanService {
     func fetchPlans(withTripId tripId: String) async -> ([Plan], String)
 
     func fetchPlan(withPlanId planId: String) async -> (Plan?, String)

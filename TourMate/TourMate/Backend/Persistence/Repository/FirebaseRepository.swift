@@ -1,5 +1,5 @@
 //
-//  FirebasePersistenceManager.swift
+//  FirebaseRepository.swift
 //  TourMate
 //
 //  Created by Keane Chan on 13/3/22.
@@ -7,7 +7,7 @@
 
 import Firebase
 
-struct FirebasePersistenceManager: PersistenceManager {
+struct FirebaseRepository: Repository {
     let collectionId: String
 
     private let db = Firestore.firestore()
@@ -23,11 +23,11 @@ struct FirebasePersistenceManager: PersistenceManager {
             let any = AnyFirebaseAdaptedData(item)
             try itemRef.setData(from: any)
 
-            print("[FirebasePersistenceManager] Added or Updated \(T.self): \(id)")
+            print("[FirebaseRepository] Added or Updated \(T.self): \(id)")
 
             return (true, "")
         } catch {
-            let errorMessage = "[FirebasePersistenceManager] Error adding \(T.self): \(error)"
+            let errorMessage = "[FirebaseRepository] Error adding \(T.self): \(error)"
             return (false, errorMessage)
         }
     }
@@ -42,11 +42,11 @@ struct FirebasePersistenceManager: PersistenceManager {
             let itemRef = db.collection(collectionId).document(id)
             let item = try await itemRef.getDocument().data(as: AnyFirebaseAdaptedData.self).map { $0.base }
 
-            print("[FirebasePersistenceManager] Fetched Item: \(id)")
+            print("[FirebaseRepository] Fetched Item: \(id)")
 
             return (item, "")
         } catch {
-            let errorMessage = "[FirebasePersistenceManager] Error fetching: \(error)"
+            let errorMessage = "[FirebaseRepository] Error fetching: \(error)"
             return (nil, errorMessage)
         }
     }
@@ -56,7 +56,7 @@ struct FirebasePersistenceManager: PersistenceManager {
                                                                             errorMessage: String) {
         let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
 
-        print("[FirebasePersistenceManager] Fetched Items with Field: \(field), arrayContains: \(id)")
+        print("[FirebaseRepository] Fetched Items with Field: \(field), arrayContains: \(id)")
 
         return await fetchItems(from: query)
     }
@@ -65,7 +65,7 @@ struct FirebasePersistenceManager: PersistenceManager {
     func fetchItems(field: String, isEqualTo id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
         let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), isEqualTo: id)
 
-        print("[FirebasePersistenceManager] Fetched Items with Field: \(field), isEqualTo: \(id)")
+        print("[FirebaseRepository] Fetched Items with Field: \(field), isEqualTo: \(id)")
 
         return await fetchItems(from: query)
     }
@@ -80,11 +80,9 @@ struct FirebasePersistenceManager: PersistenceManager {
             let documents = try await query.getDocuments().documents
             let items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
 
-            print("[FirebasePersistenceManager] Fetched Items: \(documents)")
-
             return (items, "")
         } catch {
-            let errorMessage = "[FirebasePersistenceManager] Error fetching: \(error)"
+            let errorMessage = "[FirebaseRepository] Error fetching: \(error)"
             return ([], errorMessage)
         }
     }
@@ -99,11 +97,11 @@ struct FirebasePersistenceManager: PersistenceManager {
             let deletedItemRef = db.collection(collectionId).document(id)
             try await deletedItemRef.delete()
 
-            print("[FirebasePersistenceManager] Deleted \(FirebaseAdaptedData.self): \(id)")
+            print("[FirebaseRepository] Deleted: \(id)")
 
             return (true, "")
         } catch {
-            let errorMessage = "[FirebasePersistenceManager] Error deleting: \(error)"
+            let errorMessage = "[FirebaseRepository] Error deleting: \(error)"
             return (false, errorMessage)
         }
     }

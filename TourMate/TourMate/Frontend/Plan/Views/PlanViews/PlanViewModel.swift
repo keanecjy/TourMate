@@ -21,18 +21,18 @@ class PlanViewModel<T: Plan>: ObservableObject {
     @Published private(set) var upvotedUsers: [User] = []
 
     let trip: Trip
-    let planController: PlanController
-    let userController: UserController
+    let planService: PlanService
+    let userService: UserService
 
     private var cancellableSet: Set<AnyCancellable> = []
 
     init(plan: T, trip: Trip,
-         planController: PlanController = FirebasePlanController(),
-         userController: UserController = FirebaseUserController()) {
+         planService: PlanService = FirebasePlanService(),
+         userService: UserService = FirebaseUserService()) {
         self.plan = plan
         self.trip = trip
-        self.planController = planController
-        self.userController = userController
+        self.planService = planService
+        self.userService = userService
 
         $plan
             .map({ $0.startDateTime.date <= $0.endDateTime.date })
@@ -46,7 +46,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
     func fetchPlan() async {
         self.isLoading = true
-        let (plan, errorMessage) = await planController.fetchPlan(withPlanId: plan.id)
+        let (plan, errorMessage) = await planService.fetchPlan(withPlanId: plan.id)
 
         guard errorMessage.isEmpty else {
             self.isLoading = false
@@ -77,7 +77,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
     func upvotePlan() async {
         self.isLoading = true
 
-        let (user, userErrorMessage) = await userController.getUser()
+        let (user, userErrorMessage) = await userService.getUser()
 
         guard let user = user, userErrorMessage.isEmpty else {
             self.isLoading = false
@@ -92,7 +92,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
             return
         }
 
-        let (hasUpdatedPlan, planErrorMessage) = await planController.updatePlan(plan: updatedPlan)
+        let (hasUpdatedPlan, planErrorMessage) = await planService.updatePlan(plan: updatedPlan)
 
         guard hasUpdatedPlan, planErrorMessage.isEmpty else {
             self.isLoading = false
@@ -121,7 +121,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
         self.plan = plan
         self.upvotedUsers = await fetchUpvotedUsers()
 
-        let (currentUser, _) = await userController.getUser()
+        let (currentUser, _) = await userService.getUser()
         self.userHasUpvotedPlan = self.upvotedUsers.contains(where: { $0.id == currentUser?.id })
     }
 
@@ -129,7 +129,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
         var fetchedUpvotedUsers: [User] = []
 
         for userId in plan.upvotedUserIds {
-            let (user, userErrorMessage) = await userController.getUser(with: "id", value: userId)
+            let (user, userErrorMessage) = await userService.getUser(with: "id", value: userId)
 
             if !userErrorMessage.isEmpty {
                 print("Error fetching user")
@@ -159,13 +159,13 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
     func updatePlan() async {
         await modifyPlan(plan: plan) { plan in
-            await planController.updatePlan(plan: plan)
+            await planService.updatePlan(plan: plan)
         }
     }
 
     func deletePlan() async {
         await modifyPlan(plan: plan) { plan in
-            await planController.deletePlan(plan: plan)
+            await planService.deletePlan(plan: plan)
         }
     }
 }

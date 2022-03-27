@@ -50,8 +50,8 @@ struct AccommodationFormView: View {
 
 // struct AccommodationFormView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        let mockPlanController = MockPlanController()
-//        let plansViewModel = PlansViewModel(planController: mockPlanController, tripId: "0")
+//        let mockPlanService = MockPlanService()
+//        let plansViewModel = PlansViewModel(planService: mockPlanService, tripId: "0")
 //        let trip = Trip(id: "0", name: "West Coast Summer",
 //                        startDate: Date(timeIntervalSince1970: 1_651_442_400),
 //                        endDate: Date(timeIntervalSince1970: 1_651_480_400),
