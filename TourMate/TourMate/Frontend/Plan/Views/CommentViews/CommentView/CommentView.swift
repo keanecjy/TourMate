@@ -15,7 +15,9 @@ struct CommentView: View {
         HStack(alignment: .bottom, spacing: 10.0) { // telegram style alignment
             CommentIconView(imageUrl: commentViewModel.user.imageUrl)
 
-            CommentTextView(name: commentViewModel.user.name, message: commentViewModel.comment.message)
+            CommentTextView(name: commentViewModel.user.name,
+                            message: commentViewModel.comment.message,
+                            creationDate: commentViewModel.comment.creationDate)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .background(.ultraThinMaterial)
