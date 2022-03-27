@@ -69,7 +69,7 @@ class CommentsViewModel: ObservableObject {
         }
 
         commentViewModels.sort {
-            $0.comment.creationDate < $1.comment.creationDate
+            $0.comment.creationDate > $1.comment.creationDate
         }
 
         self.commentViewModels = commentViewModels
