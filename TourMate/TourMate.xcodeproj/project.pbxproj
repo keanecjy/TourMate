@@ -104,6 +104,8 @@
 		B9A1037C27E61E9200829BF4 /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */; };
 		B9A360C127EC076500030769 /* DateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A360C027EC076500030769 /* DateTime.swift */; };
 		B9A360C427EC23BA00030769 /* FirebaseAdaptedDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A360C327EC23BA00030769 /* FirebaseAdaptedDateTime.swift */; };
+		B9AF3B5027EF6FD600A3C82E /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AF3B4F27EF6FD600A3C82E /* MapView.swift */; };
+		B9AF3B5327EF7ADE00A3C82E /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AF3B5227EF7ADE00A3C82E /* LocationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +229,8 @@
 		B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModel.swift; sourceTree = "<group>"; };
 		B9A360C027EC076500030769 /* DateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTime.swift; sourceTree = "<group>"; };
 		B9A360C327EC23BA00030769 /* FirebaseAdaptedDateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedDateTime.swift; sourceTree = "<group>"; };
+		B9AF3B4F27EF6FD600A3C82E /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		B9AF3B5227EF7ADE00A3C82E /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		BB95BCAE2E240926ED846BB1 /* Pods-TourMateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.debug.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate_TourMateUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD5431EEBB0D43FA279D8E8A /* Pods-TourMate-TourMateUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.debug.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -716,6 +720,7 @@
 		95779BD627E76728001FF602 /* PlanViews */ = {
 			isa = PBXGroup;
 			children = (
+				B9AF3B4E27EF6FC600A3C82E /* Components */,
 				B9A04FB127E590AD007D4303 /* PlanDetailsViews */,
 				B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */,
 			);
@@ -821,6 +826,7 @@
 		B9A360BF27EC075500030769 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B9AF3B5127EF7ACC00A3C82E /* Controllers */,
 				B9A360C027EC076500030769 /* DateTime.swift */,
 			);
 			path = Common;
@@ -832,6 +838,22 @@
 				B9A360C327EC23BA00030769 /* FirebaseAdaptedDateTime.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		B9AF3B4E27EF6FC600A3C82E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B9AF3B4F27EF6FD600A3C82E /* MapView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B9AF3B5127EF7ACC00A3C82E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B9AF3B5227EF7ADE00A3C82E /* LocationController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		C2DB33638D74EE6BDC08DA21 /* Frameworks */ = {
@@ -1101,6 +1123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9AF3B5327EF7ADE00A3C82E /* LocationController.swift in Sources */,
 				B9A04FB927E591F2007D4303 /* TransportView.swift in Sources */,
 				00582F7B27E745B0008756E9 /* EditRestaurantView.swift in Sources */,
 				953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */,
@@ -1146,6 +1169,8 @@
 				95DEA1E827E6FCC500A74ED2 /* TripViewModel.swift in Sources */,
 				B99D968427D9DF5E009B66AE /* Restaurant.swift in Sources */,
 				B9A04FAA27E4F584007D4303 /* AddPlanFormViewModel.swift in Sources */,
+				B9AF3B5027EF6FD600A3C82E /* MapView.swift in Sources */,
+				B9A04FAA27E4F584007D4303 /* AddPlanViewModel.swift in Sources */,
 				95DEA1EB27E721EB00A74ED2 /* BindingNilCoalescing.swift in Sources */,
 				953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */,
 				B967C33E27DDE9BD0023B34D /* TransportFormView.swift in Sources */,
