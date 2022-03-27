@@ -17,9 +17,9 @@
 		00062B5C27EF3DC700267960 /* MockUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B5B27EF3DC700267960 /* MockUserController.swift */; };
 		00062B5E27F009F000267960 /* CommentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B5D27F009F000267960 /* CommentListView.swift */; };
 		00062B6027F00F7700267960 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B5F27F00F7700267960 /* CommentView.swift */; };
-		00062B6427F0116900267960 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B6327F0116900267960 /* CommentViewModel.swift */; };
 		00062B6627F0194200267960 /* CommentIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B6527F0194200267960 /* CommentIconView.swift */; };
 		00062B6827F01A4F00267960 /* CommentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B6727F01A4F00267960 /* CommentTextView.swift */; };
+		00062B6C27F0901C00267960 /* EditCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B6B27F0901C00267960 /* EditCommentView.swift */; };
 		000AB54F27ED9BDF00FF0ED3 /* InviteUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB54E27ED9BDF00FF0ED3 /* InviteUserView.swift */; };
 		000AB55127EE14EE00FF0ED3 /* UserIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55027EE14EE00FF0ED3 /* UserIconView.swift */; };
 		000AB55427EE184F00FF0ED3 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55327EE184F00FF0ED3 /* AttendeesView.swift */; };
@@ -145,9 +145,9 @@
 		00062B5B27EF3DC700267960 /* MockUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserController.swift; sourceTree = "<group>"; };
 		00062B5D27F009F000267960 /* CommentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListView.swift; sourceTree = "<group>"; };
 		00062B5F27F00F7700267960 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
-		00062B6327F0116900267960 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		00062B6527F0194200267960 /* CommentIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentIconView.swift; sourceTree = "<group>"; };
 		00062B6727F01A4F00267960 /* CommentTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextView.swift; sourceTree = "<group>"; };
+		00062B6B27F0901C00267960 /* EditCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCommentView.swift; sourceTree = "<group>"; };
 		000AB54E27ED9BDF00FF0ED3 /* InviteUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUserView.swift; sourceTree = "<group>"; };
 		000AB55027EE14EE00FF0ED3 /* UserIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIconView.swift; sourceTree = "<group>"; };
 		000AB55327EE184F00FF0ED3 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
@@ -305,7 +305,7 @@
 			children = (
 				00062B6927F01A6900267960 /* Components */,
 				00062B5F27F00F7700267960 /* CommentView.swift */,
-				00062B6327F0116900267960 /* CommentViewModel.swift */,
+				00062B6B27F0901C00267960 /* EditCommentView.swift */,
 			);
 			path = CommentView;
 			sourceTree = "<group>";
@@ -1215,8 +1215,6 @@
 				00062B6627F0194200267960 /* CommentIconView.swift in Sources */,
 				B9A04FA427E364AB007D4303 /* PlansViewModel.swift in Sources */,
 				95CB3F7427D8E79C0086E9E3 /* PlanHeaderView.swift in Sources */,
-				00582F7227E70C9D008756E9 /* EditPlanViewModel.swift in Sources */,
-				00062B6427F0116900267960 /* CommentViewModel.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserController.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationController.swift in Sources */,
@@ -1233,6 +1231,7 @@
 				B967C33E27DDE9BD0023B34D /* TransportFormView.swift in Sources */,
 				00582F7527E74590008756E9 /* EditFlightView.swift in Sources */,
 				4C6D1BA127E627A900D34087 /* PlanType.swift in Sources */,
+				00062B6C27F0901C00267960 /* EditCommentView.swift in Sources */,
 				4CE02B8D27EAE9CD00480D73 /* UserAdapter.swift in Sources */,
 				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
 				B967C33527DDCA4E0023B34D /* AddPlanView.swift in Sources */,

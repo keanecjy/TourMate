@@ -91,9 +91,9 @@ class CommentsViewModel: ObservableObject {
         self.isLoading = false
     }
 
-    func addComment(commentMessage: String) async -> Bool {
+    func addComment(commentMessage: String) async {
         guard !commentMessage.isEmpty else {
-            return false
+            return
         }
 
         self.isLoading = true
@@ -104,7 +104,7 @@ class CommentsViewModel: ObservableObject {
             print("[CommentsViewModel] fetch user failed in addComment()")
             self.isLoading = false
             self.hasError = true
-            return false
+            return
         }
 
         let userId = user.id
@@ -123,11 +123,12 @@ class CommentsViewModel: ObservableObject {
             print("[CommentsViewModel] add comment failed in addComment()")
             self.isLoading = false
             self.hasError = true
-            return false
+            return
         }
 
+        await fetchComments()
+
         self.isLoading = false
-        return true
     }
 
     func deleteComment(comment: Comment) async {
@@ -170,6 +171,11 @@ class CommentsViewModel: ObservableObject {
 
     func updateComment(comment: Comment, withMessage message: String) async {
         self.isLoading = true
+
+        guard !message.isEmpty else {
+            self.isLoading = false
+            return
+        }
 
         let updatedComment = Comment(planId: comment.planId,
                                      id: comment.id,

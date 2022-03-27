@@ -27,12 +27,8 @@ struct CommentsView: View {
 
                     Button("Send") {
                         Task {
-                            let hasAddedComment = await commentsViewModel.addComment(commentMessage: commentMessage)
+                            await commentsViewModel.addComment(commentMessage: commentMessage)
                             commentMessage = ""
-
-                            if hasAddedComment {
-                                await commentsViewModel.fetchComments()
-                            }
                         }
                     }
                     .disabled(commentsViewModel.isLoading || commentsViewModel.hasError)

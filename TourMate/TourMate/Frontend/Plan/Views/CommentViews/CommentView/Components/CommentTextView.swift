@@ -12,8 +12,7 @@ struct CommentTextView: View {
     var user: User
     var comment: Comment
 
-    @State var updatedMessage = ""
-    @State var isEditingComment = false
+    @State var isShowingEditCommentSheet = false
 
     // Did not include Timezone
     func getDateString(_ date: Date) -> String {
@@ -35,7 +34,6 @@ struct CommentTextView: View {
         self.commentsViewModel = commentsViewModel
         self.user = user
         self.comment = comment
-        self._updatedMessage = State(initialValue: comment.message)
     }
 
     var body: some View {
@@ -53,41 +51,13 @@ struct CommentTextView: View {
                     Text(getDateString(comment.creationDate))
                 }
 
-                if isEditingComment {
-                    HStack {
-                        TextField("Comment", text: $updatedMessage)
-                            .background(.white)
-
-                        Button {
-                            Task {
-                                await commentsViewModel.updateComment(comment: comment, withMessage: updatedMessage)
-                                self.isEditingComment = false
-                            }
-                        } label: {
-                            Text("Done")
-                                .foregroundColor(.blue)
-                        }
-
-                        Button {
-                            // TODO: fix update
-                            Task {
-                                self.updatedMessage = comment.message
-                                self.isEditingComment = false
-                            }
-                        } label: {
-                            Text("Cancel")
-                                .foregroundColor(.blue)
-                        }
-                    }
-                } else {
-                    Text(comment.message)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
+                Text(comment.message)
+                    .fixedSize(horizontal: false, vertical: true)
 
                 HStack(spacing: 10.0) {
                     if commentsViewModel.getUserCanEditComment(comment: comment) {
                         Button {
-                            self.isEditingComment = true
+                            self.isShowingEditCommentSheet = true
                         } label: {
                             Text("Edit")
                                 .foregroundColor(.blue)
@@ -118,20 +88,15 @@ struct CommentTextView: View {
                     }
 
                     Spacer()
-
-                    if commentsViewModel.getUserCanEditComment(comment: comment) {
-                        Button {
-                            Task {
-                                await commentsViewModel.deleteComment(comment: comment)
-                            }
-                        } label: {
-                            Image(systemName: "trash")
-                                .foregroundColor(.red)
-                        }
-                    }
                 }
             }
             .disabled(commentsViewModel.isLoading || commentsViewModel.hasError)
+            .sheet(isPresented: $isShowingEditCommentSheet) {
+                // on dismiss
+                print("Sheet dismissed")
+            } content: {
+                EditCommentView(commentsViewModel: commentsViewModel, comment: comment)
+            }
         }
     }
 }
