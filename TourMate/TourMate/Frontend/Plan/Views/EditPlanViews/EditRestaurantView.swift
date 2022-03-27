@@ -9,49 +9,7 @@ import SwiftUI
 
 struct EditRestaurantView: View {
     @Environment(\.dismiss) var dismiss
-
-    @StateObject var viewModel = EditPlanViewModel()
-
-    let restaurant: Restaurant
-
-    @State private var isConfirmed = true
-    @State private var restaurantName = ""
-    @State private var startDate = Date()
-    @State private var endDate = Date()
-    @State private var address = ""
-    @State private var phone = ""
-    @State private var website = ""
-
-    init(restaurant: Restaurant) {
-        self.restaurant = restaurant
-        self._isConfirmed = State(initialValue: restaurant.status == .confirmed ? true : false)
-        self._restaurantName = State(initialValue: restaurant.name)
-        self._startDate = State(initialValue: restaurant.startDateTime.date)
-        self._endDate = State(initialValue: restaurant.endDateTime.date)
-        self._address = State(initialValue: restaurant.startLocation)
-        self._phone = State(initialValue: restaurant.phone ?? "")
-        self._website = State(initialValue: restaurant.website ?? "")
-    }
-
-    private func createUpdatedRestaurant() -> Restaurant {
-        let planId = restaurant.id
-        let tripId = restaurant.tripId
-        let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
-        let creationDate = restaurant.creationDate
-        let modificationDate = Date()
-        let restaurant = Restaurant(id: planId,
-                                    tripId: tripId,
-                                    name: restaurantName,
-                                    startDateTime: DateTime(date: startDate),
-                                    endDateTime: DateTime(date: endDate),
-                                    startLocation: address,
-                                    status: status,
-                                    creationDate: creationDate,
-                                    modificationDate: modificationDate,
-                                    phone: phone,
-                                    website: website)
-        return restaurant
-    }
+    @StateObject var viewModel: PlanViewModel<Restaurant>
 
     var body: some View {
         NavigationView {
@@ -59,47 +17,56 @@ struct EditRestaurantView: View {
                 if viewModel.hasError {
                     Text("Error occured")
                 } else {
-                    Form {
-                        Toggle("Confirmed?", isOn: $isConfirmed)
-                        TextField("Restaurant Name", text: $restaurantName)
-                        DatePicker("Date",
-                                   selection: $startDate,
-                                   displayedComponents: [.date, .hourAndMinute])
-                        DatePicker("Date",
-                                   selection: $endDate,
-                                   displayedComponents: [.date, .hourAndMinute])
-                        TextField("Address", text: $address)
-                        TextField("Phone", text: $phone)
-                        TextField("website", text: $website)
-                    }
-                    .navigationTitle("Edit Restaurant")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button("Done") {
-                                Task {
-                                    await viewModel.updatePlan(plan: createUpdatedRestaurant())
-                                    dismiss()
-                                }
-                            }
-                            .disabled(viewModel.isLoading || viewModel.hasError)
+                    VStack {
+                        if !viewModel.canEditPlan {
+                            Text("Start date must be before end date")
+                                .font(.caption)
+                                .foregroundColor(.red)
                         }
-                        ToolbarItem(placement: .cancellationAction) {
-                            Button("Cancel", role: .destructive) {
-                                dismiss()
-                            }
-                            .disabled(viewModel.isLoading)
-                        }
-                        ToolbarItem(placement: .bottomBar) {
-                            Button("Delete Restaurant", role: .destructive) {
-                                Task {
-                                    await viewModel.deletePlan(plan: createUpdatedRestaurant())
-                                    dismiss()
-                                }
-                            }
-                            .disabled(viewModel.isLoading || viewModel.hasError)
+                        Form {
+                            ConfirmedToggle(status: $viewModel.plan.status)
+                            TextField("Restaurant Name", text: $viewModel.plan.name)
+                            DatePicker("Start Date",
+                                       selection: $viewModel.plan.startDateTime.date,
+                                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
+                                       displayedComponents: [.date, .hourAndMinute])
+                            DatePicker("End Date",
+                                       selection: $viewModel.plan.endDateTime.date,
+                                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
+                                       displayedComponents: [.date, .hourAndMinute])
+                            TextField("Address", text: $viewModel.plan.startLocation)
+                            TextField("Phone", text: $viewModel.plan.phone ?? "")
+                            TextField("website", text: $viewModel.plan.website ?? "")
                         }
                     }
+                }
+            }
+            .navigationTitle("Edit Restaurant")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        Task {
+                            await viewModel.updatePlan()
+                            dismiss()
+                        }
+                    }
+                    .disabled(!viewModel.canEditPlan || viewModel.isLoading || viewModel.hasError)
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel", role: .destructive) {
+                        dismiss()
+                    }
+                    .disabled(viewModel.isLoading)
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Button("Delete Restaurant", role: .destructive) {
+                        Task {
+                            await viewModel.deletePlan()
+                            dismiss()
+                        }
+                    }
+                    .disabled(viewModel.isLoading || viewModel.hasError)
                 }
             }
         }
