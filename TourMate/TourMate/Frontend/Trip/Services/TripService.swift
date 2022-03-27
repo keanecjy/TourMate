@@ -17,4 +17,8 @@ protocol TripService {
     func deleteTrip(trip: Trip) async -> (Bool, String)
 
     func updateTrip(trip: Trip) async -> (Bool, String)
+    
+    func fetchTripsAndListen() async
+    
+    var delegate: TripsDelegate? { get set }
 }

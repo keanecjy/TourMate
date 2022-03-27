@@ -11,6 +11,8 @@ struct FirebaseRepository: Repository {
     let collectionId: String
 
     private let db = Firestore.firestore()
+    
+    weak var delegate: ItemsDelegate?
 
     @MainActor
     func addItem<T: FirebaseAdaptedData>(id: String, item: T) async -> (hasAddedItem: Bool, errorMessage: String) {
@@ -85,6 +87,27 @@ struct FirebaseRepository: Repository {
             let errorMessage = "[FirebaseRepository] Error fetching: \(error)"
             return ([], errorMessage)
         }
+    }
+    
+    func fetchItemsAndListen(field: String, arrayContains id: String, callback: @escaping ([FirebaseAdaptedData], String) -> (Void)) async {
+        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
+        
+        await fetchItemsAndListen(from: query, callback: callback)
+    }
+    
+    @MainActor
+    private func fetchItemsAndListen(from query: Query, callback: @escaping ([FirebaseAdaptedData], String) -> (Void)) async {
+        var items: [FirebaseAdaptedData] = []
+        var errorMessage: String = ""
+        
+        query.addSnapshotListener({ querySnapshot, error in
+            guard let documents = querySnapshot?.documents else {
+                errorMessage = "[FirebaseRepository] Error fetching: \(String(describing: error))"
+                return
+            }
+            items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
+            callback(items, errorMessage)
+        })
     }
 
     @MainActor
