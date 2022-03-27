@@ -6,36 +6,47 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 class PlanViewModel<T: Plan>: ObservableObject {
-    @Published private(set) var plan: T?
-    @Published private(set) var isLoading: Bool
-    @Published private(set) var hasError: Bool
+    @Published private(set) var isLoading = false
+    @Published private(set) var isDeleted = false
+    @Published private(set) var hasError = false
+    @Published var plan: T
+    @Published var isPlanDurationValid = true
+    @Published var canEditPlan = true
 
-    @Published private(set) var userHasUpvotedPlan: Bool
-    @Published private(set) var upvotedUsers: [User]
+    @Published private(set) var userHasUpvotedPlan = false
+    @Published private(set) var upvotedUsers: [User] = []
 
+    let trip: Trip
     let planController: PlanController
     let userController: UserController
-    var planId: String
 
-    init(planController: PlanController = FirebasePlanController(),
-         userController: UserController = FirebaseUserController(),
-         planId: String) {
-        self.isLoading = false
-        self.hasError = false
+    private var cancellableSet: Set<AnyCancellable> = []
+
+    init(plan: T, trip: Trip,
+         planController: PlanController = FirebasePlanController(),
+         userController: UserController = FirebaseUserController()) {
+        self.plan = plan
+        self.trip = trip
         self.planController = planController
         self.userController = userController
-        self.planId = planId
 
-        self.userHasUpvotedPlan = false
-        self.upvotedUsers = []
+        $plan
+            .map({ $0.startDateTime.date <= $0.endDateTime.date })
+            .assign(to: \.isPlanDurationValid, on: self)
+            .store(in: &cancellableSet)
+
+        $isPlanDurationValid
+            .assign(to: \.canEditPlan, on: self)
+            .store(in: &cancellableSet)
     }
 
     func fetchPlan() async {
         self.isLoading = true
-        let (plan, errorMessage) = await planController.fetchPlan(withPlanId: planId)
+        let (plan, errorMessage) = await planController.fetchPlan(withPlanId: plan.id)
 
         guard errorMessage.isEmpty else {
             self.isLoading = false
@@ -45,7 +56,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
         // no plans fetched
         guard plan != nil else {
-            self.plan = nil
+            self.isDeleted = true
             self.isLoading = false
             return
         }
@@ -96,9 +107,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
     }
 
     private func updateUpvotes(id: String) -> T? {
-        guard var plan = plan else {
-            return nil
-        }
+        var plan = self.plan
 
         if plan.upvotedUserIds.contains(id) {
             plan.upvotedUserIds = plan.upvotedUserIds.filter { $0 != id }
@@ -109,7 +118,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
         return plan
     }
 
-    private func updatePublishedProperties(plan: T?) async {
+    private func updatePublishedProperties(plan: T) async {
         self.plan = plan
         self.upvotedUsers = await fetchUpvotedUsers()
 
@@ -118,10 +127,6 @@ class PlanViewModel<T: Plan>: ObservableObject {
     }
 
     private func fetchUpvotedUsers() async -> [User] {
-        guard let plan = plan else {
-            return []
-        }
-
         var fetchedUpvotedUsers: [User] = []
 
         for userId in plan.upvotedUserIds {
@@ -138,5 +143,30 @@ class PlanViewModel<T: Plan>: ObservableObject {
         }
 
         return fetchedUpvotedUsers
+    }
+
+    private func modifyPlan(plan: T, function: (Plan) async -> (Bool, String)) async {
+        self.isLoading = true
+
+        let (hasUpdatedPlan, errorMessage) = await function(plan)
+
+        guard hasUpdatedPlan, errorMessage.isEmpty else {
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+        self.isLoading = false
+    }
+
+    func updatePlan() async {
+        await modifyPlan(plan: plan) { plan in
+            await planController.updatePlan(plan: plan)
+        }
+    }
+
+    func deletePlan() async {
+        await modifyPlan(plan: plan) { plan in
+            await planController.deletePlan(plan: plan)
+        }
     }
 }

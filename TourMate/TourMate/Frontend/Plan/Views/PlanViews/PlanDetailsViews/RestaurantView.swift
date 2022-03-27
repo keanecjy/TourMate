@@ -14,13 +14,10 @@ struct RestaurantView: View {
     @Environment(\.dismiss) var dismiss
 
     func getDateString(_ date: Date) -> String {
-        guard let restaurant = restaurantViewModel.plan else {
-            return ""
-        }
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = restaurant.startDateTime.timeZone
+        dateFormatter.timeZone = restaurantViewModel.plan.startDateTime.timeZone
         return dateFormatter.string(from: date)
     }
 
@@ -86,7 +83,7 @@ struct RestaurantView: View {
                     Spacer()
                 }
             }
-            .navigationBarTitle(restaurantViewModel.plan?.name ?? "Restaurant")
+            .navigationBarTitle(restaurantViewModel.plan.name)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -107,16 +104,12 @@ struct RestaurantView: View {
                             // There is a lag between setting the plan to nil
                             // And when we dismiss this view
                             // Maybe need to see how to change the logic
-                            if restaurantViewModel.plan == nil {
+                            if restaurantViewModel.isDeleted {
                                 dismiss()
                             }
                         }
                     } content: {
-                        if let restaurant = restaurantViewModel.plan {
-                            EditRestaurantView(restaurant: restaurant)
-                        } else {
-                            Text("Error")
-                        }
+                        EditRestaurantView(viewModel: restaurantViewModel)
                     }
                 }
             }

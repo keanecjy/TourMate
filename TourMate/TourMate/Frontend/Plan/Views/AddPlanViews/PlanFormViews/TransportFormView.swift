@@ -8,65 +8,37 @@
 import SwiftUI
 
 struct TransportFormView: View {
-    @StateObject var addPlanViewModel = AddPlanViewModel()
-
     @Binding var isActive: Bool
-
-    let tripId: String
-
-    @State private var isConfirmed = true
-    @State private var carrierName = ""
-
-    @State private var departureDate = Date()
-    @State private var departureLocation = ""
-
-    @State private var arrivalDate = Date()
-    @State private var arrivalLocation = ""
-
-    @State private var vehicleDescription = ""
-    @State private var numberOfPassengers = ""
-
-    private func createTransport() -> Transport {
-        let planId = tripId + UUID().uuidString
-        let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
-        let creationDate = Date()
-        let upvotedUserIds: [String] = []
-        let transport = Transport(id: planId, tripId: tripId,
-                                  name: carrierName.isEmpty ? "Transportation" : carrierName,
-                                  startDateTime: DateTime(date: departureDate),
-                                  endDateTime: DateTime(date: arrivalDate),
-                                  startLocation: departureLocation,
-                                  endLocation: arrivalLocation,
-                                  status: status,
-                                  creationDate: creationDate,
-                                  modificationDate: creationDate,
-                                  upvotedUserIds: upvotedUserIds,
-                                  vehicleDescription: vehicleDescription,
-                                  numberOfPassengers: numberOfPassengers)
-        return transport
-    }
+    @StateObject var viewModel: AddPlanFormViewModel<Transport>
 
     var body: some View {
+        if !viewModel.canAddPlan {
+            Text("Start date must be before end date")
+                .font(.caption)
+                .foregroundColor(.red)
+        }
         Form {
             Section {
-                Toggle("Confirmed?", isOn: $isConfirmed)
-                TextField("Carrier Name", text: $carrierName)
+                ConfirmedToggle(status: $viewModel.plan.status)
+                TextField("Carrier Name", text: $viewModel.plan.name)
             }
             Section("Departure Info") {
                 DatePicker("Departure Date",
-                           selection: $departureDate,
+                           selection: $viewModel.plan.startDateTime.date,
+                           in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                            displayedComponents: [.date, .hourAndMinute])
-                TextField("Departure Location", text: $departureLocation)
+                TextField("Departure Location", text: $viewModel.plan.startLocation)
             }
             Section("Arrival Info") {
                 DatePicker("Arrival Date",
-                           selection: $arrivalDate,
+                           selection: $viewModel.plan.endDateTime.date,
+                           in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                            displayedComponents: [.date, .hourAndMinute])
-                TextField("Arrival Location", text: $arrivalLocation)
+                TextField("Arrival Location", text: $viewModel.plan.endLocation ?? "")
             }
             Section("Vehicle Info") {
-                TextField("Vehicle Description", text: $vehicleDescription)
-                TextField("Number of Passengers", text: $numberOfPassengers)
+                TextField("Vehicle Description", text: $viewModel.plan.vehicleDescription ?? "")
+                TextField("Number of Passengers", text: $viewModel.plan.numberOfPassengers ?? "")
             }
         }
         .navigationTitle("Transportation")
@@ -75,11 +47,11 @@ struct TransportFormView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
                     Task {
-                        await addPlanViewModel.addPlan(createTransport())
+                        await viewModel.addPlan()
                         isActive = false
                     }
                 }
-                .disabled(addPlanViewModel.isLoading || addPlanViewModel.hasError)
+                .disabled(!viewModel.canAddPlan || viewModel.isLoading || viewModel.hasError)
             }
         }
     }

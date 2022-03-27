@@ -9,9 +9,11 @@ import SwiftUI
 
 struct PlansListView: View {
     @StateObject var plansViewModel: PlansViewModel
+    var tripViewModel: TripViewModel
 
-    init(tripId: String) {
+    init(tripId: String, tripViewModel: TripViewModel) {
         self._plansViewModel = StateObject(wrappedValue: PlansViewModel(tripId: tripId))
+        self.tripViewModel = tripViewModel
     }
 
     typealias Day = (date: Date, plans: [Plan])
@@ -38,19 +40,24 @@ struct PlansListView: View {
     func createPlanView(_ plan: Plan) -> some View {
         switch plan.planType {
         case .accommodation:
-            let accommodationViewModel = PlanViewModel<Accommodation>(planId: plan.id)
+            let accommodationViewModel = PlanViewModel<Accommodation>(
+                plan: plan as! Accommodation, trip: tripViewModel.trip)
             return AnyView(AccommodationView(accommodationViewModel: accommodationViewModel))
         case .activity:
-            let activityViewModel = PlanViewModel<Activity>(planId: plan.id)
+            let activityViewModel = PlanViewModel<Activity>(
+                plan: plan as! Activity, trip: tripViewModel.trip)
             return AnyView(ActivityView(activityViewModel: activityViewModel))
         case .restaurant:
-            let restaurantViewModel = PlanViewModel<Restaurant>(planId: plan.id)
+            let restaurantViewModel = PlanViewModel<Restaurant>(
+                plan: plan as! Restaurant, trip: tripViewModel.trip)
             return AnyView(RestaurantView(restaurantViewModel: restaurantViewModel))
         case .transport:
-            let transportViewModel = PlanViewModel<Transport>(planId: plan.id)
+            let transportViewModel = PlanViewModel<Transport>(
+                plan: plan as! Transport, trip: tripViewModel.trip)
             return AnyView(TransportView(transportViewModel: transportViewModel))
         case .flight:
-            let flightViewModel = PlanViewModel<Flight>(planId: plan.id)
+            let flightViewModel = PlanViewModel<Flight>(
+                plan: plan as! Flight, trip: tripViewModel.trip)
             return AnyView(FlightView(flightViewModel: flightViewModel))
         }
     }
@@ -58,19 +65,19 @@ struct PlansListView: View {
     func createUpvoteView(_ plan: Plan) -> some View {
         switch plan.planType {
         case .accommodation:
-            let accommodationViewModel = PlanViewModel<Accommodation>(planId: plan.id)
+            let accommodationViewModel = PlanViewModel<Accommodation>(plan: plan as! Accommodation, trip: tripViewModel.trip)
             return AnyView(UpvotePlanView(viewModel: accommodationViewModel))
         case .activity:
-            let activityViewModel = PlanViewModel<Activity>(planId: plan.id)
+            let activityViewModel = PlanViewModel<Activity>(plan: plan as! Activity, trip: tripViewModel.trip)
             return AnyView(UpvotePlanView(viewModel: activityViewModel))
         case .restaurant:
-            let restaurantViewModel = PlanViewModel<Restaurant>(planId: plan.id)
+            let restaurantViewModel = PlanViewModel<Restaurant>(plan: plan as! Restaurant, trip: tripViewModel.trip)
             return AnyView(UpvotePlanView(viewModel: restaurantViewModel))
         case .transport:
-            let transportViewModel = PlanViewModel<Transport>(planId: plan.id)
+            let transportViewModel = PlanViewModel<Transport>(plan: plan as! Transport, trip: tripViewModel.trip)
             return AnyView(UpvotePlanView(viewModel: transportViewModel))
         case .flight:
-            let flightViewModel = PlanViewModel<Flight>(planId: plan.id)
+            let flightViewModel = PlanViewModel<Flight>(plan: plan as! Flight, trip: tripViewModel.trip)
             return AnyView(UpvotePlanView(viewModel: flightViewModel))
         }
     }
@@ -108,7 +115,7 @@ struct PlansListView: View {
         }
         .task {
             await plansViewModel.fetchPlans()
-            print("[TripView] Fetched plans: \(plansViewModel.plans)")
+            print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
     }
 }
