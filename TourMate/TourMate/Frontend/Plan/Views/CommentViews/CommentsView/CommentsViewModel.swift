@@ -13,19 +13,19 @@ class CommentsViewModel: ObservableObject {
     @Published var isLoading: Bool
     @Published var hasError: Bool
 
-    let commentController: CommentController
-    let userController: UserController
+    let commentService: CommentService
+    let userService: UserService
     let planId: String
 
     var commentPermissions: [String: (Bool, Bool)] = [:] // canEdit, userHasUpvotedComment
 
     init(planId: String,
-         commentController: CommentController = FirebaseCommentController(),
-         userController: UserController = FirebaseUserController()) {
+         commentService: CommentService = FirebaseCommentService(),
+         userService: UserService = FirebaseUserService()) {
 
         self.planId = planId
-        self.commentController = commentController
-        self.userController = userController
+        self.commentService = commentService
+        self.userService = userService
 
         self.commentOwnerPairs = []
 
@@ -36,7 +36,7 @@ class CommentsViewModel: ObservableObject {
     func fetchComments() async {
         self.isLoading = true
 
-        let (currentUser, userErrorMessage) = await userController.getUser()
+        let (currentUser, userErrorMessage) = await userService.getUser()
         guard let currentUser = currentUser, userErrorMessage.isEmpty else {
             print("[CommentsViewModel] fetch user failed in fetchComments()")
             self.isLoading = false
@@ -44,7 +44,7 @@ class CommentsViewModel: ObservableObject {
             return
         }
 
-        let (comments, errorMessage) = await commentController.fetchComments(withPlanId: planId)
+        let (comments, errorMessage) = await commentService.fetchComments(withPlanId: planId)
 
         guard errorMessage.isEmpty else {
             print("[CommentsViewModel] fetch comments failed in fetchComments()")
@@ -67,7 +67,7 @@ class CommentsViewModel: ObservableObject {
             }
 
             // fetch user if not seen
-            let (user, userErrorMessage) = await userController.getUser(with: "id", value: userId)
+            let (user, userErrorMessage) = await userService.getUser(with: "id", value: userId)
 
             if !userErrorMessage.isEmpty {
                 print("[CommentsViewModel] fetchComments(): User cannot be found, comment will not render")
@@ -98,7 +98,7 @@ class CommentsViewModel: ObservableObject {
 
         self.isLoading = true
 
-        let (user, userErrorMessage) = await userController.getUser()
+        let (user, userErrorMessage) = await userService.getUser()
 
         guard let user = user, userErrorMessage.isEmpty else {
             print("[CommentsViewModel] fetch user failed in addComment()")
@@ -117,7 +117,7 @@ class CommentsViewModel: ObservableObject {
                               creationDate: Date(),
                               upvotedUserIds: [])
 
-        let (hasAdded, commentErrorMessage) = await commentController.addComment(comment: comment)
+        let (hasAdded, commentErrorMessage) = await commentService.addComment(comment: comment)
 
         guard hasAdded, commentErrorMessage.isEmpty else {
             print("[CommentsViewModel] add comment failed in addComment()")
@@ -134,7 +134,7 @@ class CommentsViewModel: ObservableObject {
     func deleteComment(comment: Comment) async {
         self.isLoading = true
 
-        let (hasDeleted, commentErrorMessage) = await commentController.deleteComment(comment: comment)
+        let (hasDeleted, commentErrorMessage) = await commentService.deleteComment(comment: comment)
 
         guard hasDeleted, commentErrorMessage.isEmpty else {
             print("[CommentViewModel] delete comment failed in deleteComment()")
@@ -151,7 +151,7 @@ class CommentsViewModel: ObservableObject {
     func upvoteComment(comment: Comment) async {
         self.isLoading = true
 
-        let (currentUser, userErrorMessage) = await userController.getUser()
+        let (currentUser, userErrorMessage) = await userService.getUser()
 
         guard let currentUser = currentUser, userErrorMessage.isEmpty else {
             print("[CommentViewModel] fetch user failed in upvoteComment()")
@@ -192,7 +192,7 @@ class CommentsViewModel: ObservableObject {
     private func updateComment(comment: Comment) async {
         self.isLoading = true
 
-        let (hasUpdated, commentErrorMessage) = await commentController.updateComment(comment: comment)
+        let (hasUpdated, commentErrorMessage) = await commentService.updateComment(comment: comment)
 
         guard hasUpdated, commentErrorMessage.isEmpty else {
             print("[CommentViewModel] update comment failed in updateComment()")

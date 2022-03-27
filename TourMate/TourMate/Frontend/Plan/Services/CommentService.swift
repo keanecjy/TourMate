@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CommentController {
+protocol CommentService {
     func fetchComments(withPlanId planId: String) async -> ([Comment], String)
 
     func fetchComment(withCommentId id: String) async -> (Comment?, String)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MockUserController: UserController {
+class MockUserService: UserService {
 
     var users: [User] = [
         User(id: "0", name: "Tester 0",

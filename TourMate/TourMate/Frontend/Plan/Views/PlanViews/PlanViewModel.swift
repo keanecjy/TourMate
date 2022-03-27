@@ -20,14 +20,15 @@ class PlanViewModel<T: Plan>: ObservableObject {
     @Published private(set) var commentsViewModel: CommentsViewModel
 
     let trip: Trip
-    let planController: PlanController
+    let planService: PlanService
 
     private var cancellableSet: Set<AnyCancellable> = []
 
-    init(plan: T, trip: Trip, planController: PlanController = FirebasePlanController()) {
+    init(plan: T, trip: Trip, planService: PlanService = FirebasePlanService()) {
         self.plan = plan
         self.trip = trip
-        self.planController = planController
+        self.planService = planService
+
         self.commentsViewModel = CommentsViewModel(planId: plan.id)
 
         $plan
@@ -42,7 +43,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
     func fetchPlan() async {
         self.isLoading = true
-        let (plan, errorMessage) = await planController.fetchPlan(withPlanId: plan.id)
+        let (plan, errorMessage) = await planService.fetchPlan(withPlanId: plan.id)
 
         guard errorMessage.isEmpty else {
             self.isLoading = false
@@ -84,13 +85,13 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
     func updatePlan() async {
         await modifyPlan(plan: plan) { plan in
-            await planController.updatePlan(plan: plan)
+            await planService.updatePlan(plan: plan)
         }
     }
 
     func deletePlan() async {
         await modifyPlan(plan: plan) { plan in
-            await planController.deletePlan(plan: plan)
+            await planService.deletePlan(plan: plan)
         }
     }
 }

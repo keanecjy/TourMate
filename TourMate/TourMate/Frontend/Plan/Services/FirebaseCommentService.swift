@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct FirebaseCommentController: CommentController {
+struct FirebaseCommentService: CommentService {
 
-    private let firebasePersistenceManager = FirebasePersistenceManager(collectionId: FirebaseConfig.commentCollectionId)
+    private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.commentCollectionId)
 
     private let commentAdapter = CommentAdapter()
 
     func fetchComments(withPlanId planId: String) async -> ([Comment], String) {
-        let (adaptedComments, errorMessage) = await firebasePersistenceManager.fetchItems(field: "planId", isEqualTo: planId)
+        let (adaptedComments, errorMessage) = await firebaseRepository.fetchItems(field: "planId", isEqualTo: planId)
 
         guard errorMessage.isEmpty else {
             return ([], errorMessage)
@@ -30,7 +30,7 @@ struct FirebaseCommentController: CommentController {
     }
 
     func fetchComment(withCommentId id: String) async -> (Comment?, String) {
-        let (adaptedComments, errorMessage) = await firebasePersistenceManager.fetchItems(field: "id", isEqualTo: id)
+        let (adaptedComments, errorMessage) = await firebaseRepository.fetchItems(field: "id", isEqualTo: id)
 
         guard errorMessage.isEmpty else {
             return (nil, errorMessage)
@@ -49,14 +49,14 @@ struct FirebaseCommentController: CommentController {
     }
 
     func addComment(comment: Comment) async -> (Bool, String) {
-        await firebasePersistenceManager.addItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
+        await firebaseRepository.addItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
     }
 
     func deleteComment(comment: Comment) async -> (Bool, String) {
-        await firebasePersistenceManager.deleteItem(id: comment.id)
+        await firebaseRepository.deleteItem(id: comment.id)
     }
 
     func updateComment(comment: Comment) async -> (Bool, String) {
-        await firebasePersistenceManager.updateItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
+        await firebaseRepository.updateItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
     }
 }

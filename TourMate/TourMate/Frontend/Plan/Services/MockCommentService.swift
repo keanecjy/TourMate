@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MockCommentController: CommentController {
+class MockCommentService: CommentService {
 
     var comments: [Comment] = [
         Comment(planId: "0", id: "0", userId: "0", message: "Testing by 0!",

@@ -21,18 +21,18 @@ class TripViewModel: ObservableObject {
 
     @Published var attendees: [User] = []
 
-    let tripController: TripController
-    let userController: UserController
+    let tripService: TripService
+    let userService: UserService
 
     private var cancellableSet: Set<AnyCancellable> = []
 
     init(trip: Trip,
-         tripController: TripController = FirebaseTripController(),
-         userController: UserController = FirebaseUserController()) {
+         tripService: TripService = FirebaseTripService(),
+         userService: UserService = FirebaseUserService()) {
 
         self.trip = trip
-        self.tripController = tripController
-        self.userController = userController
+        self.tripService = tripService
+        self.userService = userService
 
         $trip
             .map({ $0.name })
@@ -52,7 +52,7 @@ class TripViewModel: ObservableObject {
 
     func fetchTrip() async {
         self.isLoading = true
-        let (trip, errorMessage) = await tripController.fetchTrip(withTripId: trip.id)
+        let (trip, errorMessage) = await tripService.fetchTrip(withTripId: trip.id)
         guard let trip = trip else {
             self.isDeleted = true
             self.isLoading = false
@@ -69,7 +69,7 @@ class TripViewModel: ObservableObject {
 
     func updateTrip() async {
         self.isLoading = true
-        let (hasUpdated, errorMessage) = await tripController.updateTrip(trip: trip)
+        let (hasUpdated, errorMessage) = await tripService.updateTrip(trip: trip)
         guard hasUpdated, errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
@@ -80,7 +80,7 @@ class TripViewModel: ObservableObject {
 
     func deleteTrip() async {
         self.isLoading = true
-        let (hasDeleted, errorMessage) = await tripController.deleteTrip(trip: trip)
+        let (hasDeleted, errorMessage) = await tripService.deleteTrip(trip: trip)
         guard hasDeleted, errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
@@ -94,7 +94,7 @@ class TripViewModel: ObservableObject {
         self.isLoading = true
 
         // fetch user
-        let (user, userErrorMessage) = await userController.getUser(with: "email", value: email)
+        let (user, userErrorMessage) = await userService.getUser(with: "email", value: email)
 
         guard userErrorMessage.isEmpty else {
             self.isLoading = false
@@ -111,7 +111,7 @@ class TripViewModel: ObservableObject {
         let userId = user.id
 
         // fetch trip
-        let (tripCopy, tripErrorMessage) = await tripController.fetchTrip(withTripId: trip.id)
+        let (tripCopy, tripErrorMessage) = await tripService.fetchTrip(withTripId: trip.id)
         guard tripErrorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
@@ -133,7 +133,7 @@ class TripViewModel: ObservableObject {
 
         tripCopy.attendeesUserIds.append(userId)
 
-        let (hasUpdated, updateErrorMessage) = await tripController.updateTrip(trip: tripCopy)
+        let (hasUpdated, updateErrorMessage) = await tripService.updateTrip(trip: tripCopy)
         guard hasUpdated, updateErrorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
@@ -147,7 +147,7 @@ class TripViewModel: ObservableObject {
         var fetchedAttendees: [User] = []
 
         for userId in trip.attendeesUserIds {
-            let (user, userErrorMessage) = await userController.getUser(with: "id", value: userId)
+            let (user, userErrorMessage) = await userService.getUser(with: "id", value: userId)
 
             guard userErrorMessage.isEmpty else {
                 self.isLoading = false

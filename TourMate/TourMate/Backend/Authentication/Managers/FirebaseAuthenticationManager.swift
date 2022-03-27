@@ -90,7 +90,7 @@ struct FirebaseAuthenticationManager: AuthenticationManager {
                     let newUser = User(id: user.uid, name: name, email: email, imageUrl: imageUrl)
 
                     Task {
-                        let (success, errorMessage) = await FirebaseUserController().addUser(newUser)
+                        let (success, errorMessage) = await FirebaseUserService().addUser(newUser)
 
                         if !success {
                             print("[FirebaseAuthenticationManager] User creation failed: \(errorMessage)")
