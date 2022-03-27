@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ActivityFormView: View {
     @Binding var isActive: Bool
+    @State var isShowingSearchSheet = false
     @StateObject var viewModel: AddPlanFormViewModel<Activity>
 
     var body: some View {
@@ -30,6 +31,12 @@ struct ActivityFormView: View {
                        displayedComponents: [.date, .hourAndMinute])
             TextField("Venue", text: $viewModel.plan.venue ?? "")
             TextField("Address", text: $viewModel.plan.startLocation)
+                .sheet(isPresented: $isShowingSearchSheet) {
+                    SearchView(viewModel: SearchViewModel(), planAddress: $viewModel.plan.startLocation)
+                }
+                .onTapGesture {
+                    isShowingSearchSheet.toggle()
+                }
             TextField("Phone", text: $viewModel.plan.phone ?? "")
             TextField("Website", text: $viewModel.plan.website ?? "")
         }

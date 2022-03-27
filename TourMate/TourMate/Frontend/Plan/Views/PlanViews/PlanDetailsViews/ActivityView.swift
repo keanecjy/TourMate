@@ -43,8 +43,6 @@ struct ActivityView: View {
                         }
                         .padding()
 
-                        MapView().padding()
-
                         VStack(alignment: .leading) {
                             if let venue = activity.venue {
                                 Text("Venue")

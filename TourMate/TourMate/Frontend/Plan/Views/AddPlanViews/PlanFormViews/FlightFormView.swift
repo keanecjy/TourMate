@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FlightFormView: View {
     @Binding var isActive: Bool
+    @State var isShowingSearchSheet = false
     @StateObject var viewModel: AddPlanFormViewModel<Flight>
 
     var body: some View {
@@ -29,7 +30,7 @@ struct FlightFormView: View {
                            selection: $viewModel.plan.startDateTime.date,
                            in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                            displayedComponents: [.date, .hourAndMinute])
-                TextField("Departure Location", text: $viewModel.plan.startLocation)
+                AddressTextField("Departure Address", text: $viewModel.plan.startLocation)
                 TextField("Terminal", text: $viewModel.plan.departureTerminal ?? "")
                 TextField("Gate", text: $viewModel.plan.departureGate ?? "")
             }
@@ -38,7 +39,7 @@ struct FlightFormView: View {
                            selection: $viewModel.plan.endDateTime.date,
                            in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                            displayedComponents: [.date, .hourAndMinute])
-                TextField("Arrival Location", text: $viewModel.plan.endLocation ?? "")
+                AddressTextField("Arrival Address", text: $viewModel.plan.endLocation ?? "")
                 TextField("Terminal", text: $viewModel.plan.arrivalTerminal ?? "")
                 TextField("Gate", text: $viewModel.plan.arrivalGate ?? "")
             }
