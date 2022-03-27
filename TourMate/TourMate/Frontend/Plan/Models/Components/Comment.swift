@@ -11,7 +11,7 @@ struct Comment {
     let planId: String
     let id: String
     let userId: String
-    let message: String
+    var message: String
     let creationDate: Date
     var upvotedUserIds: [String]
 }

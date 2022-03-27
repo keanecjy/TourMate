@@ -10,7 +10,7 @@ import Foundation
 @MainActor class CommentViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var hasError = false
-    @Published var isDeleted = false
+    @Published var isDeleted = false 
 
     @Published var comment: Comment
     @Published var user: User
@@ -57,7 +57,7 @@ import Foundation
     }
 
     // TODO: how to handle this lol
-    func deleteComment(comment: Comment) async {
+    func deleteComment() async {
         self.isLoading = true
 
         let (hasDeleted, commentErrorMessage) = await commentController.deleteComment(comment: comment)
@@ -74,7 +74,12 @@ import Foundation
         self.isLoading = false
     }
 
-    func updateComment(comment: Comment) async {
+    func updateComment(withMessage message: String) async {
+        self.comment.message = message
+        await updateComment(comment: self.comment)
+    }
+
+    private func updateComment(comment: Comment) async {
         self.isLoading = true
 
         let (hasUpdated, commentErrorMessage) = await commentController.updateComment(comment: comment)
@@ -118,6 +123,7 @@ import Foundation
         }
 
         guard let fetchedComment = fetchedComment else {
+            print("[CommentViewModel] comment to fetch has been deleted")
             self.isLoading = false
             self.isDeleted = true
             return

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CommentTextView: View {
     @ObservedObject var commentViewModel: CommentViewModel
-
-    @Environment(\.dismiss) var dismiss // not sure of effect
+    @State var updatedMessage = ""
+    @State var isEditingComment = false
 
     // Did not include Timezone
     func getDateString(_ date: Date) -> String {
@@ -25,6 +25,11 @@ struct CommentTextView: View {
         } else {
             return "hand.thumbsup"
         }
+    }
+
+    init(commentViewModel: CommentViewModel) {
+        self.commentViewModel = commentViewModel
+        self._updatedMessage = State(initialValue: commentViewModel.comment.message)
     }
 
     var body: some View {
@@ -42,26 +47,53 @@ struct CommentTextView: View {
                     Text(getDateString(commentViewModel.comment.creationDate))
                 }
 
-                Text(commentViewModel.comment.message)
-                    .fixedSize(horizontal: false, vertical: true)
+                if isEditingComment {
+                    HStack {
+                        TextField("Comment", text: $updatedMessage)
+                            .background(.white)
+
+                        Button {
+                            Task {
+                                await commentViewModel.updateComment(withMessage: updatedMessage)
+                                self.isEditingComment = false
+                            }
+                        } label: {
+                            Text("Done")
+                                .foregroundColor(.blue)
+                        }
+
+                        Button {
+                            // TODO: fix update
+                            self.updatedMessage = commentViewModel.comment.message
+                            self.isEditingComment = false
+                        } label: {
+                            Text("Cancel")
+                                .foregroundColor(.blue)
+                        }
+                    }
+                } else {
+                    Text(commentViewModel.comment.message)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
 
                 HStack(spacing: 10.0) {
                     if commentViewModel.canEdit {
-                        Text("Edit")
-                            .foregroundColor(.blue)
+                        Button {
+                            self.isEditingComment = true
+                        } label: {
+                            Text("Edit")
+                                .foregroundColor(.blue)
+                        }
                     }
 
-                    Text("Like")
-                        .foregroundColor(.blue)
-                        .onTapGesture {
-                            Task {
-                                await commentViewModel.upvoteComment()
-
-                                if commentViewModel.isDeleted {
-                                    dismiss()
-                                }
-                            }
+                    Button {
+                        Task {
+                            await commentViewModel.upvoteComment()
                         }
+                    } label: {
+                        Text("Like")
+                            .foregroundColor(.blue)
+                    }
 
                     if commentViewModel.upvoteCount > 0 {
                         HStack {
@@ -76,9 +108,22 @@ struct CommentTextView: View {
                         .background(.white)
                         .cornerRadius(20.0)
                     }
+
+                    Spacer()
+
+                    if commentViewModel.canEdit {
+                        Button {
+                            Task {
+                                await commentViewModel.deleteComment()
+                            }
+                        } label: {
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        }
+                    }
                 }
-                .disabled(commentViewModel.isLoading || commentViewModel.hasError)
             }
+            .disabled(commentViewModel.isLoading || commentViewModel.hasError || commentViewModel.isDeleted)
         }
     }
 }
