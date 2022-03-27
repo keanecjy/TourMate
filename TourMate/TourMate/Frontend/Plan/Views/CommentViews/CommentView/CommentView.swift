@@ -9,13 +9,15 @@ import SwiftUI
 
 struct CommentView: View {
 
-    @ObservedObject var commentViewModel: CommentViewModel
+    @ObservedObject var commentsViewModel: CommentsViewModel
+    var comment: Comment
+    var user: User
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 10.0) { // telegram style alignment
-            CommentIconView(commentViewModel: commentViewModel)
+            CommentIconView(imageUrl: user.imageUrl)
 
-            CommentTextView(commentViewModel: commentViewModel)
+            CommentTextView(commentsViewModel: commentsViewModel, user: user, comment: comment)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .background(.ultraThinMaterial)

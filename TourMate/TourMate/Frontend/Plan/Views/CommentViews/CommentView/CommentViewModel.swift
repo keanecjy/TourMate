@@ -10,7 +10,7 @@ import Foundation
 @MainActor class CommentViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var hasError = false
-    @Published var isDeleted = false 
+    @Published var isDeleted = false
 
     @Published var comment: Comment
     @Published var user: User

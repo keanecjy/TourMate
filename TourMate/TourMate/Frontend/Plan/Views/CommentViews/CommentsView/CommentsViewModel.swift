@@ -9,13 +9,15 @@ import Foundation
 
 @MainActor
 class CommentsViewModel: ObservableObject {
-    @Published var commentViewModels: [CommentViewModel]
+    @Published var commentOwnerPairs: [(Comment, User)]
     @Published var isLoading: Bool
     @Published var hasError: Bool
 
     let commentController: CommentController
     let userController: UserController
     let planId: String
+
+    var commentPermissions: [String: (Bool, Bool)] = [:] // canEdit, userHasUpvotedComment
 
     init(planId: String,
          commentController: CommentController = FirebaseCommentController(),
@@ -25,7 +27,7 @@ class CommentsViewModel: ObservableObject {
         self.commentController = commentController
         self.userController = userController
 
-        self.commentViewModels = []
+        self.commentOwnerPairs = []
 
         self.isLoading = false
         self.hasError = false
@@ -52,15 +54,15 @@ class CommentsViewModel: ObservableObject {
         }
 
         var seenUsers: [String: User] = [:]
-        var commentViewModels: [CommentViewModel] = []
+        var fetchedCommentOwnerPairs: [(Comment, User)] = []
 
         for comment in comments {
             let userId = comment.userId
             let canEdit = userId == currentUser.id
-            let hasUpvotedComment = comment.upvotedUserIds.contains(currentUser.id)
+            let userHasUpvotedComment = comment.upvotedUserIds.contains(currentUser.id)
 
             if let user = seenUsers[userId] {
-                commentViewModels.append(CommentViewModel(comment: comment, user: user, canEdit: canEdit, hasUpvotedComment: hasUpvotedComment))
+                fetchedCommentOwnerPairs.append((comment, user))
                 continue
             }
 
@@ -73,16 +75,18 @@ class CommentsViewModel: ObservableObject {
             }
 
             if let user = user {
-                commentViewModels.append(CommentViewModel(comment: comment, user: user, canEdit: canEdit, hasUpvotedComment: hasUpvotedComment))
+                fetchedCommentOwnerPairs.append((comment, user))
                 seenUsers[userId] = user
             }
+
+            commentPermissions[comment.id] = (canEdit, userHasUpvotedComment)
         }
 
-        commentViewModels.sort {
-            $0.comment.creationDate > $1.comment.creationDate
+        fetchedCommentOwnerPairs.sort {
+            $0.0.creationDate > $1.0.creationDate
         }
 
-        self.commentViewModels = commentViewModels
+        self.commentOwnerPairs = fetchedCommentOwnerPairs
 
         self.isLoading = false
     }
@@ -124,5 +128,109 @@ class CommentsViewModel: ObservableObject {
 
         self.isLoading = false
         return true
+    }
+
+    func deleteComment(comment: Comment) async {
+        self.isLoading = true
+
+        let (hasDeleted, commentErrorMessage) = await commentController.deleteComment(comment: comment)
+
+        guard hasDeleted, commentErrorMessage.isEmpty else {
+            print("[CommentViewModel] delete comment failed in deleteComment()")
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+
+        await fetchComments()
+
+        self.isLoading = false
+    }
+
+    func upvoteComment(comment: Comment) async {
+        self.isLoading = true
+
+        let (currentUser, userErrorMessage) = await userController.getUser()
+
+        guard let currentUser = currentUser, userErrorMessage.isEmpty else {
+            print("[CommentViewModel] fetch user failed in upvoteComment()")
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+
+        let userId = currentUser.id
+
+        let updatedComment = updateCommentUpvotes(comment: comment, id: userId)
+
+        await updateComment(comment: updatedComment)
+
+        self.isLoading = false
+    }
+
+    func updateComment(comment: Comment, withMessage message: String) async {
+        self.isLoading = true
+
+        let updatedComment = Comment(planId: comment.planId,
+                                     id: comment.id,
+                                     userId: comment.userId,
+                                     message: message,
+                                     creationDate: comment.creationDate,
+                                     upvotedUserIds: comment.upvotedUserIds)
+
+        await updateComment(comment: updatedComment)
+
+        self.isLoading = false
+    }
+
+    private func updateComment(comment: Comment) async {
+        self.isLoading = true
+
+        let (hasUpdated, commentErrorMessage) = await commentController.updateComment(comment: comment)
+
+        guard hasUpdated, commentErrorMessage.isEmpty else {
+            print("[CommentViewModel] update comment failed in updateComment()")
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+
+        await fetchComments()
+
+        self.isLoading = false
+    }
+
+    private func updateCommentUpvotes(comment: Comment, id: String) -> Comment {
+        var newComment = comment
+
+        let canEdit = newComment.upvotedUserIds.contains(id)
+
+        if newComment.upvotedUserIds.contains(id) {
+            newComment.upvotedUserIds = newComment.upvotedUserIds.filter { $0 != id }
+            commentPermissions[newComment.id] = (canEdit, false)
+        } else {
+            newComment.upvotedUserIds.append(id)
+            commentPermissions[newComment.id] = (canEdit, true)
+        }
+
+        return newComment
+    }
+
+    func getUserHasUpvotedComment(comment: Comment) -> Bool {
+        guard let (_, userHasUpvotedComment) = commentPermissions[comment.id] else {
+            self.hasError = true
+            return false
+        }
+
+        return userHasUpvotedComment
+    }
+
+    func getUserCanEditComment(comment: Comment) -> Bool {
+        guard let (canEdit, _) = commentPermissions[comment.id] else {
+            self.hasError = true
+            return false
+        }
+
+        return canEdit
     }
 }

@@ -13,11 +13,8 @@ struct CommentListView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20.0) {
-                ForEach(commentsViewModel.commentViewModels, id: \.id) { viewModel in
-                    // TODO: fix re-render when delete
-                    if !viewModel.isDeleted {
-                        CommentView(commentViewModel: viewModel)
-                    }
+                ForEach(commentsViewModel.commentOwnerPairs, id: \.0.id) { comment, user in
+                    CommentView(commentsViewModel: commentsViewModel, comment: comment, user: user)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading) // Push all comments to leading

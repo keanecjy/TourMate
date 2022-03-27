@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct CommentTextView: View {
-    @ObservedObject var commentViewModel: CommentViewModel
+    @ObservedObject var commentsViewModel: CommentsViewModel
+    var user: User
+    var comment: Comment
+
     @State var updatedMessage = ""
     @State var isEditingComment = false
 
@@ -20,31 +23,34 @@ struct CommentTextView: View {
     }
 
     var upvoteImageName: String {
-        if commentViewModel.hasUpvotedComment {
+        let userHasUpvotedComment = commentsViewModel.getUserHasUpvotedComment(comment: comment)
+        if userHasUpvotedComment {
             return "hand.thumbsup.fill"
         } else {
             return "hand.thumbsup"
         }
     }
 
-    init(commentViewModel: CommentViewModel) {
-        self.commentViewModel = commentViewModel
-        self._updatedMessage = State(initialValue: commentViewModel.comment.message)
+    init(commentsViewModel: CommentsViewModel, user: User, comment: Comment) {
+        self.commentsViewModel = commentsViewModel
+        self.user = user
+        self.comment = comment
+        self._updatedMessage = State(initialValue: comment.message)
     }
 
     var body: some View {
-        if commentViewModel.hasError {
+        if commentsViewModel.hasError {
             Text("Error occured")
         } else {
             VStack(alignment: .leading, spacing: 10.0) {
                 HStack(alignment: .top, spacing: 5.0) {
-                    Text(commentViewModel.user.name)
+                    Text(user.name)
                         .bold()
                         .fixedSize(horizontal: false, vertical: true)
 
                     Spacer()
 
-                    Text(getDateString(commentViewModel.comment.creationDate))
+                    Text(getDateString(comment.creationDate))
                 }
 
                 if isEditingComment {
@@ -54,7 +60,7 @@ struct CommentTextView: View {
 
                         Button {
                             Task {
-                                await commentViewModel.updateComment(withMessage: updatedMessage)
+                                await commentsViewModel.updateComment(comment: comment, withMessage: updatedMessage)
                                 self.isEditingComment = false
                             }
                         } label: {
@@ -64,20 +70,22 @@ struct CommentTextView: View {
 
                         Button {
                             // TODO: fix update
-                            self.updatedMessage = commentViewModel.comment.message
-                            self.isEditingComment = false
+                            Task {
+                                self.updatedMessage = comment.message
+                                self.isEditingComment = false
+                            }
                         } label: {
                             Text("Cancel")
                                 .foregroundColor(.blue)
                         }
                     }
                 } else {
-                    Text(commentViewModel.comment.message)
+                    Text(comment.message)
                         .fixedSize(horizontal: false, vertical: true)
                 }
 
                 HStack(spacing: 10.0) {
-                    if commentViewModel.canEdit {
+                    if commentsViewModel.getUserCanEditComment(comment: comment) {
                         Button {
                             self.isEditingComment = true
                         } label: {
@@ -88,19 +96,19 @@ struct CommentTextView: View {
 
                     Button {
                         Task {
-                            await commentViewModel.upvoteComment()
+                            await commentsViewModel.upvoteComment(comment: comment)
                         }
                     } label: {
                         Text("Like")
                             .foregroundColor(.blue)
                     }
 
-                    if commentViewModel.upvoteCount > 0 {
+                    if !comment.upvotedUserIds.isEmpty {
                         HStack {
                             Image(systemName: upvoteImageName)
                                 .foregroundColor(.blue)
 
-                            Text(String(commentViewModel.upvoteCount))
+                            Text(String(comment.upvotedUserIds.count))
                                 .foregroundColor(.black)
                         }
                         .padding([.horizontal], 10.0)
@@ -111,10 +119,10 @@ struct CommentTextView: View {
 
                     Spacer()
 
-                    if commentViewModel.canEdit {
+                    if commentsViewModel.getUserCanEditComment(comment: comment) {
                         Button {
                             Task {
-                                await commentViewModel.deleteComment()
+                                await commentsViewModel.deleteComment(comment: comment)
                             }
                         } label: {
                             Image(systemName: "trash")
@@ -123,7 +131,7 @@ struct CommentTextView: View {
                     }
                 }
             }
-            .disabled(commentViewModel.isLoading || commentViewModel.hasError || commentViewModel.isDeleted)
+            .disabled(commentsViewModel.isLoading || commentsViewModel.hasError)
         }
     }
 }
