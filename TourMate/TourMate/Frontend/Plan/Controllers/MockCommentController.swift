@@ -27,6 +27,10 @@ class MockCommentController: CommentController {
         (comments, "")
     }
 
+    func fetchComment(withCommentId id: String) async -> (Comment?, String) {
+        (nil, "")
+    }
+
     func addComment(comment: Comment) async -> (Bool, String) {
         comments.append(comment)
         return (true, "")

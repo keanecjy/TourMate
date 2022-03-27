@@ -57,9 +57,10 @@ class CommentsViewModel: ObservableObject {
         for comment in comments {
             let userId = comment.userId
             let canEdit = userId == currentUser.id
+            let hasUpvotedComment = comment.upvotedUserIds.contains(currentUser.id)
 
             if let user = seenUsers[userId] {
-                commentViewModels.append(CommentViewModel(comment: comment, user: user, canEdit: canEdit))
+                commentViewModels.append(CommentViewModel(comment: comment, user: user, canEdit: canEdit, hasUpvotedComment: hasUpvotedComment))
                 continue
             }
 
@@ -72,7 +73,7 @@ class CommentsViewModel: ObservableObject {
             }
 
             if let user = user {
-                commentViewModels.append(CommentViewModel(comment: comment, user: user, canEdit: canEdit))
+                commentViewModels.append(CommentViewModel(comment: comment, user: user, canEdit: canEdit, hasUpvotedComment: hasUpvotedComment))
                 seenUsers[userId] = user
             }
         }
@@ -123,35 +124,5 @@ class CommentsViewModel: ObservableObject {
 
         self.isLoading = false
         return true
-    }
-
-    func deleteComment(comment: Comment) async {
-        self.isLoading = true
-
-        let (hasDeleted, commentErrorMessage) = await commentController.deleteComment(comment: comment)
-
-        guard hasDeleted, commentErrorMessage.isEmpty else {
-            print("[CommentsViewModel] delete comment failed in deleteComment()")
-            self.isLoading = false
-            self.hasError = true
-            return
-        }
-
-        self.isLoading = false
-    }
-
-    func updateComment(comment: Comment) async {
-        self.isLoading = true
-
-        let (hasUpdated, commentErrorMessage) = await commentController.updateComment(comment: comment)
-
-        guard hasUpdated, commentErrorMessage.isEmpty else {
-            print("[CommentsViewModel] update comment failed in updateComment()")
-            self.isLoading = false
-            self.hasError = true
-            return
-        }
-
-        self.isLoading = false
     }
 }

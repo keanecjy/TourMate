@@ -29,6 +29,25 @@ struct FirebaseCommentController: CommentController {
         return (comments, "")
     }
 
+    func fetchComment(withCommentId id: String) async -> (Comment?, String) {
+        let (adaptedComments, errorMessage) = await firebasePersistenceManager.fetchItems(field: "id", isEqualTo: id)
+
+        guard errorMessage.isEmpty else {
+            return (nil, errorMessage)
+        }
+
+        guard adaptedComments.count <= 1 else {
+            assertionFailure()
+            return (nil, "More than one comment fetched")
+        }
+
+        guard let adaptedComment = adaptedComments.first as? FirebaseAdaptedComment else {
+            return (nil, "") // comment not found
+        }
+
+        return (commentAdapter.toComment(adaptedComment: adaptedComment), "")
+    }
+
     func addComment(comment: Comment) async -> (Bool, String) {
         await firebasePersistenceManager.addItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
     }

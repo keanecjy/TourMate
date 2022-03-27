@@ -10,6 +10,8 @@ import SwiftUI
 struct CommentTextView: View {
     @ObservedObject var commentViewModel: CommentViewModel
 
+    @Environment(\.dismiss) var dismiss // not sure of effect
+
     // Did not include Timezone
     func getDateString(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
@@ -26,40 +28,56 @@ struct CommentTextView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10.0) {
-            HStack(alignment: .top, spacing: 5.0) {
-                Text(commentViewModel.user.name)
-                    .bold()
+        if commentViewModel.hasError {
+            Text("Error occured")
+        } else {
+            VStack(alignment: .leading, spacing: 10.0) {
+                HStack(alignment: .top, spacing: 5.0) {
+                    Text(commentViewModel.user.name)
+                        .bold()
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    Spacer()
+
+                    Text(getDateString(commentViewModel.comment.creationDate))
+                }
+
+                Text(commentViewModel.comment.message)
                     .fixedSize(horizontal: false, vertical: true)
 
-                Spacer()
+                HStack(spacing: 10.0) {
+                    if commentViewModel.canEdit {
+                        Text("Edit")
+                            .foregroundColor(.blue)
+                    }
 
-                Text(getDateString(commentViewModel.comment.creationDate))
-            }
-
-            Text(commentViewModel.comment.message)
-                .fixedSize(horizontal: false, vertical: true)
-
-            HStack(spacing: 10.0) {
-                if commentViewModel.canEdit {
-                    Text("Edit")
+                    Text("Like")
                         .foregroundColor(.blue)
+                        .onTapGesture {
+                            Task {
+                                await commentViewModel.upvoteComment()
+
+                                if commentViewModel.isDeleted {
+                                    dismiss()
+                                }
+                            }
+                        }
+
+                    if commentViewModel.upvoteCount > 0 {
+                        HStack {
+                            Image(systemName: upvoteImageName)
+                                .foregroundColor(.blue)
+
+                            Text(String(commentViewModel.upvoteCount))
+                                .foregroundColor(.black)
+                        }
+                        .padding([.horizontal], 10.0)
+                        .padding([.vertical], 4.0)
+                        .background(.white)
+                        .cornerRadius(20.0)
+                    }
                 }
-
-                Text("Like")
-                    .foregroundColor(.blue)
-
-                HStack {
-                    Image(systemName: upvoteImageName)
-                        .foregroundColor(.blue)
-
-                    Text(String(commentViewModel.upvoteCount))
-                        .foregroundColor(.black)
-                }
-                .padding([.horizontal], 10.0)
-                .padding([.vertical], 4.0)
-                .background(.white)
-                .cornerRadius(20.0)
+                .disabled(commentViewModel.isLoading || commentViewModel.hasError)
             }
         }
     }
