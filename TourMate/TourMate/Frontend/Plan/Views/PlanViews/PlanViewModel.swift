@@ -87,7 +87,6 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
         let userId = user.id
 
-        // there's no plan -> not error
         guard let updatedPlan = updateUpvotes(id: userId) else {
             self.isLoading = false
             return
