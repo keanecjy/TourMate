@@ -1,5 +1,5 @@
 //
-//  UserController.swift
+//  UserService.swift
 //  TourMate
 //
 //  Created by Rayner Lim on 20/3/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol UserController {
+protocol UserService {
     func addUser(_ user: User) async -> (Bool, String)
 
     func deleteUser() async -> (Bool, String)

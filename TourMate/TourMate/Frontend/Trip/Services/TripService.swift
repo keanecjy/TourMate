@@ -1,5 +1,5 @@
 //
-//  TripController.swift
+//  TripService.swift
 //  TourMate
 //
 //  Created by Rayner Lim on 17/3/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol TripController {
+protocol TripService {
     func fetchTrips() async -> ([Trip], String)
 
     func fetchTrip(withTripId: String) async -> (Trip?, String)

@@ -24,15 +24,15 @@ class AddTripViewModel: ObservableObject {
     @Published var fromStartDate = Date()...
     @Published var canAddTrip = false
 
-    let tripController: TripController
-    let userController: UserController
+    let tripService: TripService
+    let userService: UserService
 
     private var cancellableSet: Set<AnyCancellable> = []
 
-    init(tripController: TripController = FirebaseTripController(),
-         userController: UserController = FirebaseUserController()) {
-        self.tripController = tripController
-        self.userController = userController
+    init(tripService: TripService = FirebaseTripService(),
+         userService: UserService = FirebaseUserService()) {
+        self.tripService = tripService
+        self.userService = userService
 
         $tripName
             .map({ !$0.isEmpty })
@@ -57,7 +57,7 @@ class AddTripViewModel: ObservableObject {
 
     func addTrip() async {
         self.isLoading = true
-        let (user, userErrorMessage) = await userController.getUser()
+        let (user, userErrorMessage) = await userService.getUser()
         guard let user = user, userErrorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
@@ -74,7 +74,7 @@ class AddTripViewModel: ObservableObject {
                         endDateTime: endDateTime,
                         imageUrl: imageUrl,
                         creatorUserId: user.id)
-        let (hasAddedTrip, tripErrorMessage) = await tripController.addTrip(trip: trip)
+        let (hasAddedTrip, tripErrorMessage) = await tripService.addTrip(trip: trip)
         guard hasAddedTrip == true, tripErrorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true

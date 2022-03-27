@@ -1,5 +1,5 @@
 //
-//  FirebaseUserController.swift
+//  FirebaseUserService.swift
 //  TourMate
 //
 //  Created by Keane Chan on 13/3/22.
@@ -8,8 +8,8 @@
 import Foundation
 import FirebaseAuth
 
-struct FirebaseUserController: UserController {
-    private let firebasePersistenceManager = FirebasePersistenceManager(
+struct FirebaseUserService: UserService {
+    private let firebaseRepository = FirebaseRepository(
         collectionId: FirebaseConfig.userCollectionId)
 
     private let userAdapter = UserAdapter()
@@ -23,21 +23,21 @@ struct FirebaseUserController: UserController {
         }
 
         let adaptedUser = userAdapter.toAdaptedUser(user: user)
-        return await firebasePersistenceManager.addItem(id: currentUser.uid, item: adaptedUser)
+        return await firebaseRepository.addItem(id: currentUser.uid, item: adaptedUser)
     }
 
     func deleteUser() async -> (Bool, String) {
         guard let currentUser = Auth.auth().currentUser else {
             return (false, Constants.messageUserNotLoggedIn)
         }
-        return await firebasePersistenceManager.deleteItem(id: currentUser.uid)
+        return await firebaseRepository.deleteItem(id: currentUser.uid)
     }
 
     func getUser() async -> (User?, String) {
         guard let currentUser = Auth.auth().currentUser else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
-        let (adaptedUser, errorMessage) = await firebasePersistenceManager.fetchItem(id: currentUser.uid)
+        let (adaptedUser, errorMessage) = await firebaseRepository.fetchItem(id: currentUser.uid)
 
         guard errorMessage.isEmpty else {
             return (nil, errorMessage)
@@ -56,7 +56,7 @@ struct FirebaseUserController: UserController {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
-        let (adaptedUsers, errorMessage) = await firebasePersistenceManager.fetchItems(field: field, isEqualTo: value)
+        let (adaptedUsers, errorMessage) = await firebaseRepository.fetchItems(field: field, isEqualTo: value)
 
         guard errorMessage.isEmpty else {
             return (nil, errorMessage)

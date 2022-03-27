@@ -1,5 +1,5 @@
 //
-//  MockTripController.swift
+//  MockTripService.swift
 //  TourMate
 //
 //  Created by Rayner Lim on 17/3/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MockTripController: TripController {
+class MockTripService: TripService {
     var trips: [Trip] = [
         Trip(id: "0", name: "West Coast Summer",
              startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_442_400)),

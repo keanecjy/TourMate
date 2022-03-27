@@ -1,5 +1,5 @@
 //
-//  FirebasePlanController.swift
+//  FirebasePlanService.swift
 //  TourMate
 //
 //  Created by Keane Chan on 14/3/22.
@@ -7,18 +7,22 @@
 
 import FirebaseAuth
 
-struct FirebasePlanController: PlanController {
+struct FirebasePlanService: PlanService {
 
-    private let firebasePersistenceManager = FirebasePersistenceManager(collectionId: FirebaseConfig.planCollectionId)
+    private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.planCollectionId)
 
     private let planAdapter = PlanAdapter()
 
     func addPlan(plan: Plan) async -> (Bool, String) {
-        await firebasePersistenceManager.addItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
+        print("[FirebasePlanService] Adding plan")
+
+        return await firebaseRepository.addItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
     }
 
     func fetchPlans(withTripId tripId: String) async -> ([Plan], String) {
-        let (adaptedPlans, errorMessage) = await firebasePersistenceManager
+        print("[FirebasePlanService] Fetching plans")
+
+        let (adaptedPlans, errorMessage) = await firebaseRepository
             .fetchItems(field: "tripId", isEqualTo: tripId)
 
         guard errorMessage.isEmpty else {
@@ -35,7 +39,9 @@ struct FirebasePlanController: PlanController {
     }
 
     func fetchPlan(withPlanId planId: String) async -> (Plan?, String) {
-        let (adaptedPlan, errorMessage) = await firebasePersistenceManager.fetchItem(id: planId)
+        print("[FirebasePlanService] Fetching plan")
+
+        let (adaptedPlan, errorMessage) = await firebaseRepository.fetchItem(id: planId)
 
         guard errorMessage.isEmpty else {
             return (nil, errorMessage)
@@ -55,10 +61,14 @@ struct FirebasePlanController: PlanController {
     }
 
     func deletePlan(plan: Plan) async -> (Bool, String) {
-        await firebasePersistenceManager.deleteItem(id: plan.id)
+        print("[FirebasePlanService] Deleting plan")
+
+        return await firebaseRepository.deleteItem(id: plan.id)
     }
 
     func updatePlan(plan: Plan) async -> (Bool, String) {
-        await firebasePersistenceManager.updateItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
+        print("[FirebasePlanService] Updating plan")
+
+        return await firebaseRepository.updateItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
     }
 }
