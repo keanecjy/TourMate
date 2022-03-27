@@ -8,50 +8,29 @@
 import SwiftUI
 
 struct AccommodationFormView: View {
-    @StateObject var addPlanViewModel = AddPlanViewModel()
-
     @Binding var isActive: Bool
-
-    let tripId: String
-
-    @State private var isConfirmed = true
-    @State private var accommodationName = ""
-    @State private var checkInDate = Date()
-    @State private var checkOutDate = Date()
-    @State private var address = ""
-    @State private var phone = ""
-    @State private var website = ""
-
-    private func createAccommodation() -> Accommodation {
-        let planId = tripId + UUID().uuidString
-        let status = isConfirmed ? PlanStatus.confirmed : PlanStatus.proposed
-        let accommodation = Accommodation(id: planId,
-                                          tripId: tripId,
-                                          name: accommodationName.isEmpty ? "Accommodation" : accommodationName,
-                                          startDateTime: DateTime(date: checkInDate),
-                                          endDateTime: DateTime(date: checkOutDate),
-                                          startLocation: address,
-                                          status: status,
-                                          creationDate: Date(),
-                                          modificationDate: Date(),
-                                          phone: phone,
-                                          website: website)
-        return accommodation
-    }
+    @ObservedObject var viewModel: AddPlanFormViewModel<Accommodation>
 
     var body: some View {
+        if !viewModel.canAddPlan {
+            Text("Start date must be before end date")
+                .font(.caption)
+                .foregroundColor(.red)
+        }
         Form {
-            Toggle("Confirmed?", isOn: $isConfirmed)
-            TextField("Accommodation Name", text: $accommodationName)
+            ConfirmedToggle(status: $viewModel.plan.status)
+            TextField("Accommodation Name", text: $viewModel.plan.name)
             DatePicker("Check-in Date",
-                       selection: $checkInDate,
+                       selection: $viewModel.plan.startDateTime.date,
+                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                        displayedComponents: [.date, .hourAndMinute])
             DatePicker("Check-out Date",
-                       selection: $checkOutDate,
+                       selection: $viewModel.plan.endDateTime.date,
+                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                        displayedComponents: [.date, .hourAndMinute])
-            TextField("Address", text: $address)
-            TextField("Phone", text: $phone)
-            TextField("website", text: $website)
+            TextField("Address", text: $viewModel.plan.startLocation)
+            TextField("Phone", text: $viewModel.plan.phone ?? "")
+            TextField("website", text: $viewModel.plan.website ?? "")
         }
         .navigationTitle("Accommodation")
         .navigationBarTitleDisplayMode(.inline)
@@ -59,11 +38,11 @@ struct AccommodationFormView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
                     Task {
-                        await addPlanViewModel.addPlan(createAccommodation())
+                        await viewModel.addPlan()
                         isActive = false
                     }
                 }
-                .disabled(addPlanViewModel.isLoading || addPlanViewModel.hasError)
+                .disabled(!viewModel.canAddPlan || viewModel.isLoading || viewModel.hasError)
             }
         }
     }

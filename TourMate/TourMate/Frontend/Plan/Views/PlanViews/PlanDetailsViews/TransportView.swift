@@ -14,13 +14,10 @@ struct TransportView: View {
     @Environment(\.dismiss) var dismiss
 
     func getDateString(_ date: Date) -> String {
-        guard let transport = transportViewModel.plan else {
-            return ""
-        }
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = transport.startDateTime.timeZone
+        dateFormatter.timeZone = transportViewModel.plan.startDateTime.timeZone
         return dateFormatter.string(from: date)
     }
 
@@ -94,7 +91,7 @@ struct TransportView: View {
                 Spacer()
             }
             .padding()
-            .navigationBarTitle(transportViewModel.plan?.name ?? "Transport")
+            .navigationBarTitle(transportViewModel.plan.name)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -115,16 +112,12 @@ struct TransportView: View {
                             // There is a lag between setting the plan to nil
                             // And when we dismiss this view
                             // Maybe need to see how to change the logic
-                            if transportViewModel.plan == nil {
+                            if transportViewModel.isDeleted {
                                 dismiss()
                             }
                         }
                     } content: {
-                        if let transport = transportViewModel.plan {
-                            EditTransportView(transport: transport)
-                        } else {
-                            Text("Error")
-                        }
+                        EditTransportView(viewModel: transportViewModel)
                     }
                 }
             }

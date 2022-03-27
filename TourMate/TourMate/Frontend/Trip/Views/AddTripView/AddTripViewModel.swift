@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import FirebaseAuth
 
 @MainActor
 class AddTripViewModel: ObservableObject {
@@ -43,6 +44,12 @@ class AddTripViewModel: ObservableObject {
             .assign(to: \.fromStartDate, on: self)
             .store(in: &cancellableSet)
 
+        Publishers
+            .CombineLatest($startDate, $endDate)
+            .map({ max($0, $1) })
+            .assign(to: \.endDate, on: self)
+            .store(in: &cancellableSet)
+
         $isTripNameValid
             .assign(to: \.canAddTrip, on: self)
             .store(in: &cancellableSet)
@@ -57,8 +64,11 @@ class AddTripViewModel: ObservableObject {
             return
         }
         let uuid = UUID().uuidString
-        let startDateTime = DateTime(date: startDate, timeZone: startTimeZone)
-        let endDateTime = DateTime(date: endDate, timeZone: endTimeZone)
+        let calendar = Calendar.current
+        let start = calendar.startOfDay(for: startDate)
+        let end = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endDate) ?? endDate
+        let startDateTime = DateTime(date: start, timeZone: startTimeZone)
+        let endDateTime = DateTime(date: end, timeZone: endTimeZone)
         let trip = Trip(id: uuid, name: tripName,
                         startDateTime: startDateTime,
                         endDateTime: endDateTime,

@@ -62,7 +62,6 @@ struct TripView: View {
                                 Color.gray
                             }
                         }
-
                         Text("Attendees")
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -70,7 +69,7 @@ struct TripView: View {
 
                         AttendeesView(viewModel: viewModel)
 
-                        PlansListView(tripId: viewModel.trip.id)
+                        PlansListView(tripId: viewModel.trip.id, tripViewModel: viewModel)
                     }
                 }
             }
@@ -83,7 +82,7 @@ struct TripView: View {
                 } label: {
                     Image(systemName: "pencil").contentShape(Rectangle())
                 }
-                .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
+                .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
                     Task {
                         await refreshTrip()
@@ -93,11 +92,11 @@ struct TripView: View {
                 }
 
                 NavigationLink(isActive: $isAddPlanViewActive) {
-                    AddPlanView(isActive: $isAddPlanViewActive, trip: viewModel.trip)
+                    AddPlanView(isActive: $isAddPlanViewActive, tripViewModel: viewModel)
                 } label: {
                     Image(systemName: "plus").contentShape(Rectangle())
                 }
-                .disabled(viewModel.isLoading || viewModel.isDeleted || viewModel.isLoading)
+                .disabled(viewModel.isDeleted || viewModel.isLoading)
             }
         }
         .task {
