@@ -44,6 +44,8 @@
 		4CCBBD1B27DE651F00F9C250 /* FirebasePlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD1A27DE651F00F9C250 /* FirebasePlanService.swift */; };
 		4CCBBD1F27DE67B400F9C250 /* PlanStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD1E27DE67B400F9C250 /* PlanStatus.swift */; };
 		4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD2227DE687A00F9C250 /* Comment.swift */; };
+		4CDE841927EF0E54001F58C5 /* TripsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE841827EF0E54001F58C5 /* TripsDelegate.swift */; };
+		4CDE841C27EF12C7001F58C5 /* ItemsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE841B27EF12C7001F58C5 /* ItemsDelegate.swift */; };
 		4CE02B8B27EAE93900480D73 /* TripAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE02B8A27EAE93900480D73 /* TripAdapter.swift */; };
 		4CE02B8D27EAE9CD00480D73 /* UserAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE02B8C27EAE9CD00480D73 /* UserAdapter.swift */; };
 		953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E627E5BFBF000DF0C2 /* TripsView.swift */; };
@@ -162,6 +164,8 @@
 		4CCBBD1A27DE651F00F9C250 /* FirebasePlanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlanService.swift; sourceTree = "<group>"; };
 		4CCBBD1E27DE67B400F9C250 /* PlanStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStatus.swift; sourceTree = "<group>"; };
 		4CCBBD2227DE687A00F9C250 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		4CDE841827EF0E54001F58C5 /* TripsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsDelegate.swift; sourceTree = "<group>"; };
+		4CDE841B27EF12C7001F58C5 /* ItemsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsDelegate.swift; sourceTree = "<group>"; };
 		4CE02B8A27EAE93900480D73 /* TripAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdapter.swift; sourceTree = "<group>"; };
 		4CE02B8C27EAE9CD00480D73 /* UserAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAdapter.swift; sourceTree = "<group>"; };
 		720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -346,6 +350,7 @@
 		4C2275D927EAC2BF00A59FD1 /* Trip */ = {
 			isa = PBXGroup;
 			children = (
+				4CDE841727EF0E2F001F58C5 /* Delegates */,
 				4CE02B7927EACCC800480D73 /* Models */,
 				4CE02B7427EACBEA00480D73 /* Views */,
 				4C2275DD27EAC40C00A59FD1 /* Services */,
@@ -366,6 +371,7 @@
 		4C2275DB27EAC3B800A59FD1 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				4CDE841A27EF1298001F58C5 /* Delegates */,
 				4CE02B7E27EACD5000480D73 /* Config */,
 				4CE02B7F27EACD5500480D73 /* Models */,
 				4CE02B7D27EACD4A00480D73 /* Repository */,
@@ -424,6 +430,22 @@
 				4C8639A227DF37DA000566FB /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		4CDE841727EF0E2F001F58C5 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				4CDE841827EF0E54001F58C5 /* TripsDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		4CDE841A27EF1298001F58C5 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				4CDE841B27EF12C7001F58C5 /* ItemsDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		4CE02B6D27EAC6B000480D73 /* AddPlanViews */ = {
@@ -1124,6 +1146,7 @@
 				953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */,
 				4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */,
 				95779BD327E76687001FF602 /* EditTripView.swift in Sources */,
+				4CDE841927EF0E54001F58C5 /* TripsDelegate.swift in Sources */,
 				B967C33A27DDD71C0023B34D /* ActivityFormView.swift in Sources */,
 				95FAE40B27E245D200F4AB01 /* MockTripService.swift in Sources */,
 				B9A360C127EC076500030769 /* DateTime.swift in Sources */,
@@ -1160,6 +1183,7 @@
 				4CB954E027DDFFC7001410AD /* User.swift in Sources */,
 				000AB55127EE14EE00FF0ED3 /* UserIconView.swift in Sources */,
 				4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */,
+				4CDE841C27EF12C7001F58C5 /* ItemsDelegate.swift in Sources */,
 				00582F7027E70C97008756E9 /* EditActivityView.swift in Sources */,
 				95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */,
 				4CB954DE27DDFDB2001410AD /* Repository.swift in Sources */,
