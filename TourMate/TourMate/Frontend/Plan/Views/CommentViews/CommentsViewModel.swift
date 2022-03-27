@@ -8,8 +8,9 @@
 import Foundation
 
 @MainActor
-class CommentViewModel: ObservableObject {
-    @Published var comments: [Comment]
+class CommentsViewModel: ObservableObject {
+//    @Published var comments: [Comment]
+    @Published var commentUserPair: [(Comment, User)]
     @Published var isLoading: Bool
     @Published var hasError: Bool
 
@@ -25,7 +26,7 @@ class CommentViewModel: ObservableObject {
         self.commentController = commentController
         self.userController = userController
 
-        self.comments = []
+        self.commentUserPair = []
 
         self.isLoading = false
         self.hasError = false
@@ -42,7 +43,32 @@ class CommentViewModel: ObservableObject {
             return
         }
 
-        self.comments = comments
+        var seenUsers: [String: User] = [:]
+        var commentUserPair: [(Comment, User)] = []
+
+        for comment in comments {
+            let userId = comment.userId
+
+            if let user = seenUsers[userId] {
+                commentUserPair.append((comment, user))
+                continue
+            }
+
+            // fetch user if not seen
+            let (user, userErrorMessage) = await userController.getUser(with: "id", value: userId)
+
+            if !userErrorMessage.isEmpty {
+                print("User cannot be found")
+                continue
+            }
+
+            if let user = user {
+                commentUserPair.append((comment, user))
+                seenUsers[userId] = user
+            }
+        }
+
+        self.commentUserPair = commentUserPair
 
         self.isLoading = false
     }
