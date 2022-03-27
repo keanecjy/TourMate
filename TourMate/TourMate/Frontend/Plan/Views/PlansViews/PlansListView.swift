@@ -107,6 +107,8 @@ struct PlansListView: View {
                                     .frame(width: UIScreen.main.bounds.width / 3.0)
                             }
                         }
+                        .background(RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.primary.opacity(0.1)))
                     }
 
                 }

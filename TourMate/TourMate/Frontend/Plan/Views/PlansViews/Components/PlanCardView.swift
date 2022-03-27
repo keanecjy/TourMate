@@ -55,8 +55,8 @@ struct PlanCardView: View {
             .padding()
             Spacer()
         }
-        .background(RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.primary.opacity(0.1)))
+//        .background(RoundedRectangle(cornerRadius: 16)
+//                        .fill(Color.primary.opacity(0.1)))
     }
 }
 
