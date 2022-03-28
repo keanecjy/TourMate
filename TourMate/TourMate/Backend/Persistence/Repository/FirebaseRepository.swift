@@ -160,9 +160,8 @@ extension FirebaseRepository {
                 guard let documents = querySnapshot?.documents,
                       error == nil
                 else {
-                    // Might want to publish error upstream
-                    let errorMessage = "[FirebaseRepository] Error fetching: \(String(describing: error))"
-                    print(errorMessage)
+                    let errorMessage = "[FirebaseRepository] Error fetching documents: \(String(describing: error))"
+                    await self.eventDelegate?.update(items: [], errorMessage: errorMessage)
                     return
                 }
                 let items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
@@ -181,7 +180,11 @@ extension FirebaseRepository {
         listener = document.addSnapshotListener({ querySnapshot, error in
             Task {
                 do {
-                    guard let querySnapshot = querySnapshot else {
+                    guard let querySnapshot = querySnapshot,
+                          error == nil
+                    else {
+                        let errorMessage = "[FirebaseRepository] Error fetching doc: \(String(describing: error))"
+                        await self.eventDelegate?.update(item: nil, errorMessage: errorMessage)
                         return
                     }
                     let item = try querySnapshot.data(as: AnyFirebaseAdaptedData.self).map { $0.base }
