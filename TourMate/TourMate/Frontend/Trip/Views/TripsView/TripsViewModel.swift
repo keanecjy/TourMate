@@ -36,10 +36,11 @@ class TripsViewModel: ObservableObject {
     }
 }
 
-// MARK: - TripsDelegate
+// MARK: - TripEventDelegate
 extension TripsViewModel: TripEventDelegate {
     func update(trips: [Trip], errorMessage: String) async {
         print("Updating Trips: \(trips)")
+
         guard errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true

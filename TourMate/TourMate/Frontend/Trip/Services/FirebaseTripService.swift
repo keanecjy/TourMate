@@ -125,8 +125,8 @@ extension FirebaseTripService: FirebaseEventDelegate {
         }
 
         guard adaptedTrip.attendeesUserIds.contains(user.uid) else {
-            let errorMessage = "[FirebaseTripService] Error user \(user.uid) is not an attendee of trip \(adaptedTrip.id)"
-            await tripEventDelegate?.update(trip: nil, errorMessage: errorMessage)
+            let errorMsg = "[FirebaseTripService] Error user \(user.uid) is not an attendee of trip \(adaptedTrip.id)"
+            await tripEventDelegate?.update(trip: nil, errorMessage: errorMsg)
             return
         }
 

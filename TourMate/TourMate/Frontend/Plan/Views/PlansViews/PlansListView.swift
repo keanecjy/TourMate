@@ -116,7 +116,7 @@ struct PlansListView: View {
             }
         }
         .task {
-            await plansViewModel.fetchPlans()
+            await plansViewModel.fetchPlansAndListen()
             print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
     }
