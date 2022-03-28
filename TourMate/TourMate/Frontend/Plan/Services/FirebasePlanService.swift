@@ -93,8 +93,11 @@ class FirebasePlanService: PlanService {
 
 }
 
+// MARK: - FirebaseEventDelegate
 extension FirebasePlanService: FirebaseEventDelegate {
     func update(items: [FirebaseAdaptedData], errorMessage: String) async {
+        print("[FirebasePlanService] Updating plans")
+
         guard errorMessage.isEmpty else {
             await planEventDelegate?.update(plans: [], errorMessage: errorMessage)
             return
@@ -112,7 +115,22 @@ extension FirebasePlanService: FirebaseEventDelegate {
     }
 
     func update(item: FirebaseAdaptedData?, errorMessage: String) async {
+        print("[FirebasePlanService] Updating single plan")
 
+        guard errorMessage.isEmpty,
+              item != nil
+        else {
+            await planEventDelegate?.update(plan: nil, errorMessage: errorMessage)
+            return
+        }
+
+        // unable to typecast
+        guard let adaptedPlan = item as? FirebaseAdaptedPlan else {
+            await planEventDelegate?.update(plan: nil, errorMessage: Constants.errorPlanConversion)
+            return
+        }
+
+        let plan = planAdapter.toPlan(adaptedPlan: adaptedPlan)
+        await planEventDelegate?.update(plan: plan, errorMessage: errorMessage)
     }
-
 }
