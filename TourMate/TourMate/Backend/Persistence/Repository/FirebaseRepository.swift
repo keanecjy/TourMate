@@ -11,8 +11,8 @@ struct FirebaseRepository: Repository {
     let collectionId: String
 
     private let db = Firestore.firestore()
-    
-    weak var delegate: ItemsDelegate?
+
+    weak var listenerDelegate: FirebaseEventDelegate?
 
     @MainActor
     func addItem<T: FirebaseAdaptedData>(id: String, item: T) async -> (hasAddedItem: Bool, errorMessage: String) {
@@ -88,25 +88,41 @@ struct FirebaseRepository: Repository {
             return ([], errorMessage)
         }
     }
-    
-    func fetchItemsAndListen(field: String, arrayContains id: String, callback: @escaping ([FirebaseAdaptedData], String) -> (Void)) async {
-        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
-        
-        await fetchItemsAndListen(from: query, callback: callback)
-    }
-    
+
     @MainActor
-    private func fetchItemsAndListen(from query: Query, callback: @escaping ([FirebaseAdaptedData], String) -> (Void)) async {
-        var items: [FirebaseAdaptedData] = []
-        var errorMessage: String = ""
-        
+    func fetchItemsAndListen(field: String, arrayContains id: String) async {
+        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
+
+        fetchItemsAndListen(from: query)
+    }
+
+    // actor Result {
+    //     var items: [FirebaseAdaptedData] = []
+    //     var errorMessage: String = ""
+    // 
+    //     func setItems(_ data: [FirebaseAdaptedData]) {
+    //         items = data
+    //     }
+    // 
+    //     func setMessage(_ message: String) {
+    //         errorMessage = message
+    //     }
+    // }
+
+    private func fetchItemsAndListen(from query: Query) {
         query.addSnapshotListener({ querySnapshot, error in
-            guard let documents = querySnapshot?.documents else {
-                errorMessage = "[FirebaseRepository] Error fetching: \(String(describing: error))"
-                return
+            Task {
+                var items: [FirebaseAdaptedData] = []
+                var errorMessage: String = ""
+                print("Publishing listened changes")
+
+                guard let documents = querySnapshot?.documents else {
+                    errorMessage = "[FirebaseRepository] Error fetching: \(String(describing: error))"
+                    return
+                }
+                items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
+                await listenerDelegate?.update(items: items, errorMessage: errorMessage)
             }
-            items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
-            callback(items, errorMessage)
         })
     }
 

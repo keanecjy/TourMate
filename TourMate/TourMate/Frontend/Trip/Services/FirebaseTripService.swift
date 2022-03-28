@@ -10,11 +10,11 @@ import Foundation
 import SwiftUI
 
 class FirebaseTripService: TripService {
-    private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.tripCollectionId)
+    private var firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.tripCollectionId)
 
     private let tripAdapter = TripAdapter()
-    
-    weak var delegate: TripsDelegate?
+
+    weak var delegate: TripsEventDelegate?
 
     func addTrip(trip: Trip) async -> (Bool, String) {
         print("[FirebaseTripService] Adding trip")
@@ -22,39 +22,19 @@ class FirebaseTripService: TripService {
         return await firebaseRepository.addItem(id: trip.id, item:
                                             tripAdapter.toAdaptedTrip(trip: trip) )
     }
-    
+
     func fetchTripsAndListen() async {
         guard let user = Auth.auth().currentUser else {
             print(Constants.messageUserNotLoggedIn)
             return
         }
-        
+
         print("[FirebaseTripService] Fetching and listening to trips")
-        
-        await firebaseRepository.fetchItemsAndListen(field: "attendeesUserIds",
-                                                     arrayContains: user.uid,
-                                                     callback: FirebaseTripService.update)
+
+        firebaseRepository.listenerDelegate = self
+        await firebaseRepository.fetchItemsAndListen(field: "attendeesUserIds", arrayContains: user.uid)
     }
 
-    class func update(items: [FirebaseAdaptedData], errorMessage: String) {
-        guard errorMessage.isEmpty else {
-            print(errorMessage)
-            return
-        }
-        
-        // unable to typecast
-        guard let adaptedTrips = items as? [FirebaseAdaptedTrip] else {
-            print("Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
-            return
-        }
-        
-        let trips = adaptedTrips
-            .map({ tripAdapter.toTrip(adaptedTrip: $0) })
-            .sorted(by: { $0.startDateTime.date > $1.startDateTime.date })
-        
-        // Callback
-    }
-    
     func fetchTrips() async -> ([Trip], String) {
         guard let user = Auth.auth().currentUser else {
             return ([], Constants.messageUserNotLoggedIn)
@@ -112,4 +92,27 @@ class FirebaseTripService: TripService {
         return await firebaseRepository.updateItem(id: trip.id,
                                                    item: tripAdapter.toAdaptedTrip(trip: trip))
     }
+}
+
+extension FirebaseTripService: FirebaseEventDelegate {
+    func update(items: [FirebaseAdaptedData], errorMessage: String) async {
+        guard errorMessage.isEmpty else {
+            print(errorMessage)
+            return
+        }
+
+        // unable to typecast
+        guard let adaptedTrips = items as? [FirebaseAdaptedTrip] else {
+            print("Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
+            return
+        }
+
+        let trips = adaptedTrips
+            .map({ tripAdapter.toTrip(adaptedTrip: $0) })
+            .sorted(by: { $0.startDateTime.date > $1.startDateTime.date })
+
+        // Callback
+        await delegate?.update(trips: trips, errorMessage: errorMessage)
+    }
+
 }

@@ -20,8 +20,8 @@ class TripsViewModel: ObservableObject {
         self.hasError = false
         self.tripService = tripService
     }
-    
-    func fetchAndListen() async {
+
+    func fetchTripsAndListen() async {
         tripService.delegate = self
 
         self.isLoading = true
@@ -42,8 +42,9 @@ class TripsViewModel: ObservableObject {
 }
 
 // MARK: - TripsDelegate
-extension TripsViewModel: TripsDelegate {
+extension TripsViewModel: TripsEventDelegate {
     func update(trips: [Trip], errorMessage: String) async {
+        print("Updating Trips: \(trips)")
         guard errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true

@@ -68,7 +68,7 @@ struct TripsView: View {
             }
         }
         .task {
-            await viewModel.fetchTrips()
+            await viewModel.fetchTripsAndListen()
         }
     }
 }

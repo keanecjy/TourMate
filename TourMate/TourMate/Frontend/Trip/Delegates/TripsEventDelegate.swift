@@ -5,6 +5,6 @@
 //  Created by Keane Chan on 26/3/22.
 //
 
-protocol TripsDelegate: AnyObject {
+protocol TripsEventDelegate: AnyObject {
     func update(trips: [Trip], errorMessage: String) async
 }
