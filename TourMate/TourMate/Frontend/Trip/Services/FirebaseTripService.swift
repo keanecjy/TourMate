@@ -33,30 +33,6 @@ class FirebaseTripService: TripService {
         await firebaseRepository.fetchItemsAndListen(field: "attendeesUserIds", arrayContains: user.uid)
     }
 
-    func fetchTrips() async -> ([Trip], String) {
-        guard let user = Auth.auth().currentUser else {
-            return ([], Constants.messageUserNotLoggedIn)
-        }
-
-        print("[FirebaseTripService] Fetching trips")
-        let (adaptedTrips, errorMessage) = await firebaseRepository
-            .fetchItems(field: "attendeesUserIds", arrayContains: user.uid)
-
-        guard errorMessage.isEmpty else {
-            return ([], errorMessage)
-        }
-
-        // unable to typecast
-        guard let adaptedTrips = adaptedTrips as? [FirebaseAdaptedTrip] else {
-            return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
-        }
-
-        let trips = adaptedTrips
-            .map({ tripAdapter.toTrip(adaptedTrip: $0) })
-            .sorted(by: { $0.startDateTime.date > $1.startDateTime.date })
-        return (trips, "")
-    }
-
     func fetchTrip(withTripId tripId: String) async -> (Trip?, String) {
         guard let user = Auth.auth().currentUser else {
             return (nil, Constants.messageUserNotLoggedIn)

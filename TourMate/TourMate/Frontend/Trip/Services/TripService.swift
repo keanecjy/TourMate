@@ -8,8 +8,8 @@
 import Foundation
 
 protocol TripService {
-    func fetchTrips() async -> ([Trip], String)
-
+    func fetchTripsAndListen() async
+    
     func fetchTrip(withTripId: String) async -> (Trip?, String)
 
     func addTrip(trip: Trip) async -> (Bool, String)
@@ -17,8 +17,6 @@ protocol TripService {
     func deleteTrip(trip: Trip) async -> (Bool, String)
 
     func updateTrip(trip: Trip) async -> (Bool, String)
-
-    func fetchTripsAndListen() async
 
     var delegate: TripsEventDelegate? { get set }
 
