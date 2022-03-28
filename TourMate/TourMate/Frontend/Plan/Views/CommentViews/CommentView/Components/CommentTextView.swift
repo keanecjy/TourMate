@@ -61,6 +61,7 @@ struct CommentTextView: View {
                         } label: {
                             Text("Edit")
                                 .foregroundColor(.blue)
+                                .padding([.vertical], 4.0)
                         }
                     }
 
@@ -71,6 +72,7 @@ struct CommentTextView: View {
                     } label: {
                         Text("Like")
                             .foregroundColor(.blue)
+                            .padding([.vertical], 4.0)
                     }
 
                     if !comment.upvotedUserIds.isEmpty {

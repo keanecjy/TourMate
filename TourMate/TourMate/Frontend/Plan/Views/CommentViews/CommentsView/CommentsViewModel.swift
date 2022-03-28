@@ -209,7 +209,7 @@ class CommentsViewModel: ObservableObject {
     private func updateCommentUpvotes(comment: Comment, id: String) -> Comment {
         var newComment = comment
 
-        let canEdit = newComment.upvotedUserIds.contains(id)
+        let canEdit = newComment.userId == id
 
         if newComment.upvotedUserIds.contains(id) {
             newComment.upvotedUserIds = newComment.upvotedUserIds.filter { $0 != id }
