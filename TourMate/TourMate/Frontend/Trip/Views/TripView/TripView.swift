@@ -29,15 +29,6 @@ struct TripView: View {
         return startDateString + " - " + endDateString
     }
 
-    func refreshTrip() async {
-        await viewModel.fetchTripAndListen()
-        // TODO: This means that the trip could suddenly disappear when the user is in it,
-        // not sure if its the right approach
-        if viewModel.isDeleted {
-            dismiss()
-        }
-    }
-
     @ViewBuilder
     var body: some View {
         Group {
@@ -98,7 +89,12 @@ struct TripView: View {
             }
         }
         .task {
-            await refreshTrip()
+            await viewModel.fetchTripAndListen()
+        }
+        .onReceive(viewModel.objectWillChange) {
+            if viewModel.isDeleted {
+                dismiss()
+            }
         }
         .onDisappear(perform: { () in viewModel.detachListener() })
     }
