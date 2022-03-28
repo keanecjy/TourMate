@@ -25,11 +25,13 @@ struct CommentsView: View {
                         .background(.ultraThinMaterial)
                         .cornerRadius(20.0)
 
-                    Button("Send") {
+                    Button {
                         Task {
                             await commentsViewModel.addComment(commentMessage: commentMessage)
                             commentMessage = ""
                         }
+                    } label: {
+                        Image(systemName: "paperplane.fill")
                     }
                     .disabled(commentsViewModel.isLoading || commentsViewModel.hasError)
                 }
