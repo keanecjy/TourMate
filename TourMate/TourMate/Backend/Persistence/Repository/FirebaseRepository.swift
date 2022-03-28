@@ -79,6 +79,37 @@ class FirebaseRepository: Repository {
     }
 
     @MainActor
+    func fetchItemsAndListen(field: String, arrayContains id: String) async {
+        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
+
+        fetchItemsAndListen(from: query)
+    }
+
+    @MainActor
+    func fetchItemsAndListen(field: String, isEqualTo id: String) async {
+        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), isEqualTo: id)
+
+        fetchItemsAndListen(from: query)
+    }
+
+    @MainActor
+    func fetchItemAndListen(id: String) async {
+        let itemRef = db.collection(collectionId).document(id)
+
+        fetchItemAndListen(from: itemRef)
+    }
+
+    func detachListener() {
+        guard let listener = listener else {
+            print("[FirebaseRepository] Listener is nil, unable to detach")
+            return
+        }
+
+        print("[FirebaseRepository] Successfully removed listener")
+        listener.remove()
+    }
+
+    @MainActor
     func deleteItem(id: String) async -> (hasDeletedItem: Bool, errorMessage: String) {
         guard Auth.auth().currentUser != nil else {
             return (false, Constants.messageUserNotLoggedIn)
@@ -101,30 +132,6 @@ class FirebaseRepository: Repository {
     func updateItem<T: FirebaseAdaptedData>(id: String, item: T) async -> (hasUpdatedItem: Bool, errorMessage: String) {
         let (hasAddedItem, errorMessage) = await addItem(id: id, item: item)
         return (hasAddedItem, errorMessage)
-    }
-
-    @MainActor
-    func fetchItemsAndListen(field: String, arrayContains id: String) async {
-        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
-
-        fetchItemsAndListen(from: query)
-    }
-
-    @MainActor
-    func fetchItemAndListen(id: String) async {
-        let itemRef = db.collection(collectionId).document(id)
-
-        fetchItemAndListen(from: itemRef)
-    }
-
-    func detachListener() {
-        guard let listener = listener else {
-            print("[FirebaseRepository] Listener is nil, unable to detach")
-            return
-        }
-
-        print("[FirebaseRepository] Successfully removed listener")
-        listener.remove()
     }
 
 }
