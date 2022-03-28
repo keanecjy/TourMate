@@ -83,6 +83,9 @@ struct ActivityView: View {
                             .padding()
                         }
 
+                        CommentsView(commentsViewModel: activityViewModel.commentsViewModel)
+                            .padding()
+
                         Spacer()
                     }
 

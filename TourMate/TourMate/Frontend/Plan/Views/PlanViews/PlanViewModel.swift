@@ -17,6 +17,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
     @Published var isPlanDurationValid = true
     @Published var canEditPlan = true
 
+    @Published private(set) var commentsViewModel: CommentsViewModel
     @Published private(set) var userHasUpvotedPlan = false
     @Published private(set) var upvotedUsers: [User] = []
 
@@ -33,6 +34,8 @@ class PlanViewModel<T: Plan>: ObservableObject {
         self.trip = trip
         self.planService = planService
         self.userService = userService
+
+        self.commentsViewModel = CommentsViewModel(planId: plan.id)
 
         $plan
             .map({ $0.startDateTime.date <= $0.endDateTime.date })
