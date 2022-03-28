@@ -21,4 +21,6 @@ protocol TripService {
     func fetchTripsAndListen() async
 
     var delegate: TripsEventDelegate? { get set }
+
+    func detachListener()
 }

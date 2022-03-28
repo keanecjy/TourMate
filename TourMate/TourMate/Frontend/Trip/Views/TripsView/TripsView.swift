@@ -66,6 +66,7 @@ struct TripsView: View {
         .task {
             await viewModel.fetchTripsAndListen()
         }
+        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }
 

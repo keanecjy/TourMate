@@ -6,8 +6,6 @@
 //
 
 import FirebaseAuth
-import Foundation
-import SwiftUI
 
 class FirebaseTripService: TripService {
     private var firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.tripCollectionId)
@@ -91,6 +89,10 @@ class FirebaseTripService: TripService {
 
         return await firebaseRepository.updateItem(id: trip.id,
                                                    item: tripAdapter.toAdaptedTrip(trip: trip))
+    }
+
+    func detachListener() {
+        firebaseRepository.detachListener()
     }
 }
 

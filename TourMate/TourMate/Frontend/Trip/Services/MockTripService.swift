@@ -52,4 +52,8 @@ class MockTripService: TripService {
 
     func fetchTripsAndListen() async {
     }
+
+    func detachListener() {
+
+    }
 }

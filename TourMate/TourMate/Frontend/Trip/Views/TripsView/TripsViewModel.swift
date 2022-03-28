@@ -28,6 +28,13 @@ class TripsViewModel: ObservableObject {
         await tripService.fetchTripsAndListen()
     }
 
+    func detachListener() {
+        tripService.delegate = nil
+
+        self.isLoading = false
+        tripService.detachListener()
+    }
+
     func fetchTrips() async {
         self.isLoading = true
         let (trips, errorMessage) = await tripService.fetchTrips()
