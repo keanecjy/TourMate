@@ -21,6 +21,7 @@ struct Restaurant: Plan {
     var status: PlanStatus
     var creationDate: Date
     var modificationDate: Date
+    var upvotedUserIds: [String]
 
     var phone: String?
     var website: String?

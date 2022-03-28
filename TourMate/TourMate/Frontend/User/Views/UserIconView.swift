@@ -11,7 +11,15 @@ struct UserIconView: View {
 
     let imageUrl: String
     let name: String
-    let imageHeight = 50.0
+    let imageHeight: CGFloat
+    let displayName: Bool
+
+    init(imageUrl: String, name: String, imageHeight: CGFloat = 50.0, displayName: Bool = true) {
+        self.imageUrl = imageUrl
+        self.name = name
+        self.imageHeight = imageHeight
+        self.displayName = displayName
+    }
 
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
@@ -32,7 +40,9 @@ struct UserIconView: View {
                     .frame(height: imageHeight, alignment: .center)
             }
 
-            Text(name)
+            if self.displayName {
+                Text(name)
+            }
         }
     }
 }

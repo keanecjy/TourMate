@@ -21,6 +21,7 @@ struct Transport: Plan {
     var status: PlanStatus
     var creationDate: Date
     var modificationDate: Date
+    var upvotedUserIds: [String]
 
     var vehicleDescription: String?
     var numberOfPassengers: String?

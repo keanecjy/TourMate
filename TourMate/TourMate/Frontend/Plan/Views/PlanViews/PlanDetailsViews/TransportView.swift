@@ -21,6 +21,19 @@ struct TransportView: View {
         return dateFormatter.string(from: date)
     }
 
+    var votingInfo: some View {
+        HStack(spacing: 10.0) {
+            if let transport = transportViewModel.plan {
+                PlanStatusView(status: transport.status)
+                    .padding()
+
+                if transport.status == .proposed {
+                    UpvotePlanView(viewModel: transportViewModel)
+                }
+            }
+        }
+    }
+
     var departureInfo: some View {
         VStack(alignment: .leading) {
             if let transport = transportViewModel.plan {
@@ -87,6 +100,7 @@ struct TransportView: View {
         } else {
             HStack {
                 VStack(alignment: .leading) {
+                    votingInfo.padding()
                     departureInfo.padding()
                     arrivalInfo.padding()
                     transportationDetails.padding()

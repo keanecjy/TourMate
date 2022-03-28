@@ -32,6 +32,7 @@ class FirebaseAdaptedFlight: FirebaseAdaptedPlan {
          startLocation: String, endLocation: String?,
          imageUrl: String?, status: String,
          creationDate: Date, modificationDate: Date,
+         upvotedUserIds: [String],
          airline: String?, flightNumber: String?,
          seats: String?, departureTerminal: String?,
          departureGate: String?, arrivalTerminal: String?,
@@ -51,7 +52,7 @@ class FirebaseAdaptedFlight: FirebaseAdaptedPlan {
                    startLocation: startLocation,
                    endLocation: endLocation,
                    imageUrl: imageUrl, status: status,
-                   creationDate: creationDate, modificationDate: modificationDate)
+                   creationDate: creationDate, modificationDate: modificationDate, upvotedUserIds: upvotedUserIds)
     }
 
     required init(from decoder: Decoder) throws {
