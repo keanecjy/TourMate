@@ -30,12 +30,19 @@ class PlansViewModel: ObservableObject {
         self.isLoading = true
         await planService.fetchPlansAndListen(withTripId: tripId)
     }
+
+    func detachListener() {
+        planService.planEventDelegate = self
+        self.isLoading = false
+
+        planService.detachListener()
+    }
 }
 
 // MARK: - PlanEventDelegate
 extension PlansViewModel: PlanEventDelegate {
     func update(plans: [Plan], errorMessage: String) async {
-        print("Updating Plans: \(plans)")
+        print("[PlansViewModel] Updating Plans: \(plans)")
 
         guard errorMessage.isEmpty else {
             self.isLoading = false
