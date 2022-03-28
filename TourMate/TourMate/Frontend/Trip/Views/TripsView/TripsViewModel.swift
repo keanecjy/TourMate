@@ -22,14 +22,14 @@ class TripsViewModel: ObservableObject {
     }
 
     func fetchTripsAndListen() async {
-        tripService.tripsEventDelegate = self
+        tripService.tripEventDelegate = self
 
         self.isLoading = true
         await tripService.fetchTripsAndListen()
     }
 
     func detachListener() {
-        tripService.tripsEventDelegate = nil
+        tripService.tripEventDelegate = nil
 
         self.isLoading = false
         tripService.detachListener()
@@ -37,7 +37,7 @@ class TripsViewModel: ObservableObject {
 }
 
 // MARK: - TripsDelegate
-extension TripsViewModel: TripsEventDelegate {
+extension TripsViewModel: TripEventDelegate {
     func update(trips: [Trip], errorMessage: String) async {
         print("Updating Trips: \(trips)")
         guard errorMessage.isEmpty else {

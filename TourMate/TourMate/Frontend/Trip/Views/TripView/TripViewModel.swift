@@ -51,14 +51,14 @@ class TripViewModel: ObservableObject {
     }
 
     func fetchTripAndListen() async {
-        tripService.tripsEventDelegate = self
+        tripService.tripEventDelegate = self
 
         self.isLoading = true
         await tripService.fetchTripAndListen(withTripId: trip.id)
     }
 
     func detachListener() {
-        tripService.tripsEventDelegate = nil
+        tripService.tripEventDelegate = nil
 
         self.isLoading = false
         tripService.detachListener()
@@ -158,7 +158,7 @@ class TripViewModel: ObservableObject {
 }
 
 // MARK: - TripsEventDelegate
-extension TripViewModel: TripsEventDelegate {
+extension TripViewModel: TripEventDelegate {
     func update(trip: Trip?, errorMessage: String) async {
         print("Updating Single Trip")
 

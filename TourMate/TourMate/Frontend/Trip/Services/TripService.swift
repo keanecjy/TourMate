@@ -20,7 +20,7 @@ protocol TripService {
 
     func updateTrip(trip: Trip) async -> (Bool, String)
 
-    var tripsEventDelegate: TripsEventDelegate? { get set }
+    var tripEventDelegate: TripEventDelegate? { get set }
 
     func detachListener()
 }

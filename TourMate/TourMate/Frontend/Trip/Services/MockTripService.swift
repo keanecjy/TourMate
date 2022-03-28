@@ -8,7 +8,7 @@
 import Foundation
 
 class MockTripService: TripService {
-    weak var tripsEventDelegate: TripsEventDelegate?
+    weak var tripEventDelegate: TripEventDelegate?
 
     var trips: [Trip] = [
         Trip(id: "0", name: "West Coast Summer",
