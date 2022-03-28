@@ -22,7 +22,7 @@ class TripViewModel: ObservableObject {
     @Published var attendees: [User] = []
 
     private var tripService: TripService
-    private var userService: UserService
+    private let userService: UserService
 
     private var cancellableSet: Set<AnyCancellable> = []
 
@@ -160,12 +160,13 @@ class TripViewModel: ObservableObject {
 // MARK: - TripsEventDelegate
 extension TripViewModel: TripEventDelegate {
     func update(trip: Trip?, errorMessage: String) async {
-        print("Updating Single Trip")
+        print("[TripViewModel] Updating Single Trip")
 
         guard let trip = trip else {
             handleDeletion()
             return
         }
+
         guard errorMessage.isEmpty else {
             handleError()
             return
