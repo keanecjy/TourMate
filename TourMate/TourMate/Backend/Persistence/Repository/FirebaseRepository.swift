@@ -12,7 +12,7 @@ class FirebaseRepository: Repository {
 
     private let db = Firestore.firestore()
 
-    weak var listenerDelegate: FirebaseEventDelegate?
+    weak var eventDelegate: FirebaseEventDelegate?
 
     var listener: ListenerRegistration?
 
@@ -79,13 +79,6 @@ class FirebaseRepository: Repository {
     }
 
     @MainActor
-    func fetchItemsAndListen(field: String, arrayContains id: String) async {
-        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
-
-        fetchItemsAndListen(from: query)
-    }
-
-    @MainActor
     func deleteItem(id: String) async -> (hasDeletedItem: Bool, errorMessage: String) {
         guard Auth.auth().currentUser != nil else {
             return (false, Constants.messageUserNotLoggedIn)
@@ -108,6 +101,20 @@ class FirebaseRepository: Repository {
     func updateItem<T: FirebaseAdaptedData>(id: String, item: T) async -> (hasUpdatedItem: Bool, errorMessage: String) {
         let (hasAddedItem, errorMessage) = await addItem(id: id, item: item)
         return (hasAddedItem, errorMessage)
+    }
+
+    @MainActor
+    func fetchItemsAndListen(field: String, arrayContains id: String) async {
+        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
+
+        fetchItemsAndListen(from: query)
+    }
+
+    @MainActor
+    func fetchItemAndListen(id: String) async {
+        let itemRef = db.collection(collectionId).document(id)
+
+        fetchItemAndListen(from: itemRef)
     }
 
     func detachListener() {
@@ -150,18 +157,39 @@ extension FirebaseRepository {
 
         listener = query.addSnapshotListener({ querySnapshot, error in
             Task {
-                var items: [FirebaseAdaptedData] = []
-                var errorMessage: String = ""
-                print("Publishing listened changes")
-
                 guard let documents = querySnapshot?.documents,
                       error == nil
                 else {
-                    errorMessage = "[FirebaseRepository] Error fetching: \(String(describing: error))"
+                    // Might want to publish error upstream
+                    let errorMessage = "[FirebaseRepository] Error fetching: \(String(describing: error))"
+                    print(errorMessage)
                     return
                 }
-                items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
-                await self.listenerDelegate?.update(items: items, errorMessage: errorMessage)
+                let items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
+                await self.eventDelegate?.update(items: items, errorMessage: "")
+            }
+        })
+    }
+
+    @MainActor
+    private func fetchItemAndListen(from document: DocumentReference) {
+        guard Auth.auth().currentUser != nil else {
+            print("Unable to listen", Constants.messageUserNotLoggedIn)
+            return
+        }
+
+        listener = document.addSnapshotListener({ querySnapshot, error in
+            Task {
+                do {
+                    guard let querySnapshot = querySnapshot else {
+                        return
+                    }
+                    let item = try querySnapshot.data(as: AnyFirebaseAdaptedData.self).map { $0.base }
+                    await self.eventDelegate?.update(item: item, errorMessage: "")
+                } catch {
+                    let errorMessage = "[FirebaseRepository] Error fetching: \(error)"
+                    print(errorMessage)
+                }
             }
         })
     }

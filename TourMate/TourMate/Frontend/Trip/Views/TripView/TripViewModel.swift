@@ -21,8 +21,8 @@ class TripViewModel: ObservableObject {
 
     @Published var attendees: [User] = []
 
-    let tripService: TripService
-    let userService: UserService
+    private var tripService: TripService
+    private var userService: UserService
 
     private var cancellableSet: Set<AnyCancellable> = []
 
@@ -50,29 +50,25 @@ class TripViewModel: ObservableObject {
             .store(in: &cancellableSet)
     }
 
-    func fetchTrip() async {
+    func fetchTripAndListen() async {
+        tripService.tripsEventDelegate = self
+
         self.isLoading = true
-        let (trip, errorMessage) = await tripService.fetchTrip(withTripId: trip.id)
-        guard let trip = trip else {
-            self.isDeleted = true
-            self.isLoading = false
-            return
-        }
-        guard errorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
-            return
-        }
-        self.trip = trip
+        await tripService.fetchTripAndListen(withTripId: trip.id)
+    }
+
+    func detachListener() {
+        tripService.tripsEventDelegate = nil
+
         self.isLoading = false
+        tripService.detachListener()
     }
 
     func updateTrip() async {
         self.isLoading = true
         let (hasUpdated, errorMessage) = await tripService.updateTrip(trip: trip)
         guard hasUpdated, errorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
+            handleError()
             return
         }
         self.isLoading = false
@@ -82,12 +78,10 @@ class TripViewModel: ObservableObject {
         self.isLoading = true
         let (hasDeleted, errorMessage) = await tripService.deleteTrip(trip: trip)
         guard hasDeleted, errorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
+            handleError()
             return
         }
-        self.isDeleted = true
-        self.isLoading = false
+        handleDeletion()
     }
 
     func inviteUser(email: String) async {
@@ -97,8 +91,7 @@ class TripViewModel: ObservableObject {
         let (user, userErrorMessage) = await userService.getUser(with: "email", value: email)
 
         guard userErrorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
+            handleError()
             return
         }
 
@@ -113,20 +106,18 @@ class TripViewModel: ObservableObject {
         // fetch trip
         let (tripCopy, tripErrorMessage) = await tripService.fetchTrip(withTripId: trip.id)
         guard tripErrorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
+            handleError()
             return
         }
 
         guard var tripCopy = tripCopy else {
-            self.isDeleted = true
-            self.isLoading = false
+            handleDeletion()
             return
         }
 
         // update trip
         guard !tripCopy.attendeesUserIds.contains(userId) else { // user not in trip
-            print("User already invited")
+            print("[TripViewModel] User already invited")
             self.isLoading = false
             return
         }
@@ -135,8 +126,7 @@ class TripViewModel: ObservableObject {
 
         let (hasUpdated, updateErrorMessage) = await tripService.updateTrip(trip: tripCopy)
         guard hasUpdated, updateErrorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
+            handleError()
             return
         }
 
@@ -150,15 +140,13 @@ class TripViewModel: ObservableObject {
             let (user, userErrorMessage) = await userService.getUser(with: "id", value: userId)
 
             guard userErrorMessage.isEmpty else {
-                self.isLoading = false
-                self.hasError = true
+                handleError()
                 return
             }
 
             guard let user = user else { // user not null
                 print("No user exists with id \(userId)")
-                self.isLoading = false
-                self.hasError = true
+                handleError()
                 return
             }
 
@@ -167,4 +155,39 @@ class TripViewModel: ObservableObject {
 
         self.attendees = fetchedAttendees
     }
+}
+
+// MARK: - TripsEventDelegate
+extension TripViewModel: TripsEventDelegate {
+    func update(trip: Trip?, errorMessage: String) async {
+        print("Updating Single Trip")
+
+        guard let trip = trip else {
+            handleDeletion()
+            return
+        }
+        guard errorMessage.isEmpty else {
+            handleError()
+            return
+        }
+
+        self.trip = trip
+        self.isLoading = false
+    }
+
+    func update(trips: [Trip], errorMessage: String) async {}
+}
+
+// MARK: - State changes
+extension TripViewModel {
+    private func handleDeletion() {
+        self.isDeleted = true
+        self.isLoading = false
+    }
+
+    private func handleError() {
+        self.isLoading = false
+        self.hasError = true
+    }
+
 }

@@ -9,4 +9,7 @@ final class Constants {
     private init() {}
 
     static let messageUserNotLoggedIn = "User is not logged in"
+
+    static let errorTripConversion = "[FirebaseTripService] Error converting"
+    + "FirebaseAdaptedData into FirebaseAdaptedTrip"
 }

@@ -22,29 +22,17 @@ class TripsViewModel: ObservableObject {
     }
 
     func fetchTripsAndListen() async {
-        tripService.delegate = self
+        tripService.tripsEventDelegate = self
 
         self.isLoading = true
         await tripService.fetchTripsAndListen()
     }
 
     func detachListener() {
-        tripService.delegate = nil
+        tripService.tripsEventDelegate = nil
 
         self.isLoading = false
         tripService.detachListener()
-    }
-
-    func fetchTrips() async {
-        self.isLoading = true
-        let (trips, errorMessage) = await tripService.fetchTrips()
-        guard errorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
-            return
-        }
-        self.trips = trips
-        self.isLoading = false
     }
 }
 
@@ -60,4 +48,7 @@ extension TripsViewModel: TripsEventDelegate {
         self.trips = trips
         self.isLoading = false
     }
+
+    func update(trip: Trip?, errorMessage: String) async {}
+
 }

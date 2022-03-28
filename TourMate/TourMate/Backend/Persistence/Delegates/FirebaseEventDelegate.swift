@@ -7,4 +7,6 @@
 
 protocol FirebaseEventDelegate: AnyObject {
     func update(items: [FirebaseAdaptedData], errorMessage: String) async
+
+    func update(item: FirebaseAdaptedData?, errorMessage: String) async
 }

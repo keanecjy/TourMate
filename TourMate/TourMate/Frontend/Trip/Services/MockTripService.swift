@@ -8,7 +8,7 @@
 import Foundation
 
 class MockTripService: TripService {
-    weak var delegate: TripsEventDelegate?
+    weak var tripsEventDelegate: TripsEventDelegate?
 
     var trips: [Trip] = [
         Trip(id: "0", name: "West Coast Summer",
@@ -50,10 +50,10 @@ class MockTripService: TripService {
         return (true, "")
     }
 
-    func fetchTripsAndListen() async {
-    }
+    // NOT USED
+    func fetchTripAndListen(withTripId tripId: String) async {}
 
-    func detachListener() {
+    func fetchTripsAndListen() async {}
 
-    }
+    func detachListener() {}
 }

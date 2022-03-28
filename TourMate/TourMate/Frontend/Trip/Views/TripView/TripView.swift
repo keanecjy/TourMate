@@ -30,7 +30,9 @@ struct TripView: View {
     }
 
     func refreshTrip() async {
-        await viewModel.fetchTrip()
+        await viewModel.fetchTripAndListen()
+        // TODO: This means that the trip could suddenly disappear when the user is in it,
+        // not sure if its the right approach
         if viewModel.isDeleted {
             dismiss()
         }
@@ -84,10 +86,6 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
-                    Task {
-                        await refreshTrip()
-                    }
-                } content: {
                     EditTripView(trip: viewModel.trip)
                 }
 
@@ -102,6 +100,7 @@ struct TripView: View {
         .task {
             await refreshTrip()
         }
+        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }
 
