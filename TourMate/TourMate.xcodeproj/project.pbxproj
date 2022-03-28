@@ -323,6 +323,9 @@
 			children = (
 				00062B6527F0194200267960 /* CommentIconView.swift */,
 				00062B6727F01A4F00267960 /* CommentTextView.swift */,
+            );
+            sourceTree = "<group>";
+        };
 		00062B3E27EEC80B00267960 /* Common */ = {
 			isa = PBXGroup;
 			children = (
