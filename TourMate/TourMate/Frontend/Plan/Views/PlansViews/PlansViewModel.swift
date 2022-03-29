@@ -24,6 +24,13 @@ class PlansViewModel: ObservableObject {
         self.tripId = tripId
     }
 
+    func fetchPlans() async {
+        self.isLoading = true
+
+        let (plans, errorMessage) = await planService.fetchPlans(withTripId: tripId)
+        loadPlans(plans: plans, errorMessage: errorMessage)
+    }
+
     func fetchPlansAndListen() async {
         planService.planEventDelegate = self
 
@@ -44,6 +51,15 @@ extension PlansViewModel: PlanEventDelegate {
     func update(plans: [Plan], errorMessage: String) async {
         print("[PlansViewModel] Updating Plans: \(plans)")
 
+        loadPlans(plans: plans, errorMessage: errorMessage)
+    }
+
+    func update(plan: Plan?, errorMessage: String) async {}
+}
+
+// MARK: - Helper Methods
+extension PlansViewModel {
+    private func loadPlans(plans: [Plan], errorMessage: String) {
         guard errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
@@ -52,6 +68,4 @@ extension PlansViewModel: PlanEventDelegate {
         self.plans = plans
         self.isLoading = false
     }
-
-    func update(plan: Plan?, errorMessage: String) async {}
 }

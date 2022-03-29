@@ -117,7 +117,8 @@ struct PlansListView: View {
             }
         }
         .task {
-            await plansViewModel.fetchPlansAndListen()
+            // TODO: Use fetchPlansAndListen after fixing plan card and logic
+            await plansViewModel.fetchPlans()
             print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
         .onDisappear(perform: { () in plansViewModel.detachListener() })
