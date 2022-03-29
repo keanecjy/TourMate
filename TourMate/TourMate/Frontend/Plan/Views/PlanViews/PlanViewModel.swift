@@ -54,37 +54,6 @@ class PlanViewModel<T: Plan>: ObservableObject {
         await planService.fetchPlanAndListen(withPlanId: plan.id)
     }
 
-    func fetchPlan() async {
-        self.isLoading = true
-        let (plan, errorMessage) = await planService.fetchPlan(withPlanId: plan.id)
-
-        guard errorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
-            return
-        }
-
-        // no plans fetched
-        guard plan != nil else {
-            self.isDeleted = true
-            self.isLoading = false
-            return
-        }
-
-        // cannot cast fetched Plan into specific T-Plan
-        guard let plan = plan as? T,
-              errorMessage.isEmpty
-        else {
-          self.isLoading = false
-          self.hasError = true
-          return
-        }
-
-        await updatePublishedProperties(plan: plan)
-
-        self.isLoading = false
-    }
-
     func upvotePlan() async {
         self.isLoading = true
 
