@@ -34,7 +34,7 @@ struct EditRestaurantView: View {
                                        selection: $viewModel.plan.endDateTime.date,
                                        in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                                        displayedComponents: [.date, .hourAndMinute])
-                            TextField("Address", text: $viewModel.plan.startLocation)
+                            AddressTextField("Address", text: $viewModel.plan.startLocation)
                             TextField("Phone", text: $viewModel.plan.phone ?? "")
                             TextField("website", text: $viewModel.plan.website ?? "")
                         }

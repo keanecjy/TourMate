@@ -35,7 +35,7 @@ struct EditActivityView: View {
                                        in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                                        displayedComponents: [.date, .hourAndMinute])
                             TextField("Venue", text: $viewModel.plan.venue ?? "")
-                            TextField("Address", text: $viewModel.plan.startLocation)
+                            AddressTextField("Address", text: $viewModel.plan.startLocation)
                             TextField("Phone", text: $viewModel.plan.phone ?? "")
                             TextField("Website", text: $viewModel.plan.website ?? "")
                         }
