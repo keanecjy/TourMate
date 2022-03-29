@@ -1,5 +1,5 @@
 //
-//  FirebaseTripController.swift
+//  FirebaseTripService.swift
 //  TourMate
 //
 //  Created by Keane Chan on 13/3/22.
@@ -9,15 +9,17 @@ import FirebaseAuth
 import Foundation
 import SwiftUI
 
-struct FirebaseTripController: TripController {
-    private let firebasePersistenceManager = FirebasePersistenceManager(
+struct FirebaseTripService: TripService {
+    private let firebaseRepository = FirebaseRepository(
         collectionId: FirebaseConfig.tripCollectionId)
 
     private let tripAdapter = TripAdapter()
 
     func addTrip(trip: Trip) async -> (Bool, String) {
-        await firebasePersistenceManager.addItem(id: trip.id, item:
-                                                    tripAdapter.toAdaptedTrip(trip: trip) )
+        print("[FirebaseTripService] Adding trip")
+
+        return await firebaseRepository.addItem(id: trip.id, item:
+                                            tripAdapter.toAdaptedTrip(trip: trip) )
     }
 
     func fetchTrips() async -> ([Trip], String) {
@@ -25,7 +27,8 @@ struct FirebaseTripController: TripController {
             return ([], Constants.messageUserNotLoggedIn)
         }
 
-        let (adaptedTrips, errorMessage) = await firebasePersistenceManager
+        print("[FirebaseTripService] Fetching trips")
+        let (adaptedTrips, errorMessage) = await firebaseRepository
             .fetchItems(field: "attendeesUserIds", arrayContains: user.uid)
 
         guard errorMessage.isEmpty else {
@@ -34,7 +37,7 @@ struct FirebaseTripController: TripController {
 
         // unable to typecast
         guard let adaptedTrips = adaptedTrips as? [FirebaseAdaptedTrip] else {
-             return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
+            return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedTrip")
         }
 
         let trips = adaptedTrips
@@ -48,15 +51,16 @@ struct FirebaseTripController: TripController {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
-        let (adaptedTrip, errorMessage) = await firebasePersistenceManager.fetchItem(id: tripId)
+        print("[FirebaseTripService] Fetching single trip")
+        let (adaptedTrip, errorMessage) = await firebaseRepository.fetchItem(id: tripId)
         guard errorMessage.isEmpty else {
-           return (nil, errorMessage)
+            return (nil, errorMessage)
         }
         guard let adaptedTrip = adaptedTrip as? FirebaseAdaptedTrip else {
-            return (nil, "[FirebaseTripController] Error converting FirebaseAdaptedData into FirebaseAdaptedTrip")
+            return (nil, "[FirebaseTripService] Error converting FirebaseAdaptedData into FirebaseAdaptedTrip")
         }
         guard adaptedTrip.attendeesUserIds.contains(user.uid) else {
-            return (nil, "[FirebaseTripController] Error user \(user.uid) is not an attendee of trip \(tripId)")
+            return (nil, "[FirebaseTripService] Error user \(user.uid) is not an attendee of trip \(tripId)")
         }
 
         let trip = tripAdapter.toTrip(adaptedTrip: adaptedTrip)
@@ -64,11 +68,15 @@ struct FirebaseTripController: TripController {
     }
 
     func deleteTrip(trip: Trip) async -> (Bool, String) {
-        await firebasePersistenceManager.deleteItem(id: trip.id)
+        print("[FirebaseTripService] Deleting trip")
+
+        return await firebaseRepository.deleteItem(id: trip.id)
     }
 
     func updateTrip(trip: Trip) async -> (Bool, String) {
-        await firebasePersistenceManager.updateItem(id: trip.id,
-                                                    item: tripAdapter.toAdaptedTrip(trip: trip))
+        print("[FirebaseTripService] Updating trip")
+
+        return await firebaseRepository.updateItem(id: trip.id,
+                                                   item: tripAdapter.toAdaptedTrip(trip: trip))
     }
 }

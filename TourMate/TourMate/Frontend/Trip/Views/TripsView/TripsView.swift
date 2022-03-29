@@ -75,6 +75,6 @@ struct TripsView: View {
 
 struct TripsView_Previews: PreviewProvider {
     static var previews: some View {
-        TripsView(viewModel: TripsViewModel(tripController: MockTripController()))
+        TripsView(viewModel: TripsViewModel(tripService: MockTripService()))
     }
 }

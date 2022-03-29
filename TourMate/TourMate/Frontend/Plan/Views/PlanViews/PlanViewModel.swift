@@ -17,15 +17,25 @@ class PlanViewModel<T: Plan>: ObservableObject {
     @Published var isPlanDurationValid = true
     @Published var canEditPlan = true
 
+    @Published private(set) var commentsViewModel: CommentsViewModel
+    @Published private(set) var userHasUpvotedPlan = false
+    @Published private(set) var upvotedUsers: [User] = []
+
     let trip: Trip
-    let planController: PlanController
+    let planService: PlanService
+    let userService: UserService
 
     private var cancellableSet: Set<AnyCancellable> = []
 
-    init(plan: T, trip: Trip, planController: PlanController = FirebasePlanController()) {
+    init(plan: T, trip: Trip,
+         planService: PlanService = FirebasePlanService(),
+         userService: UserService = FirebaseUserService()) {
         self.plan = plan
         self.trip = trip
-        self.planController = planController
+        self.planService = planService
+        self.userService = userService
+
+        self.commentsViewModel = CommentsViewModel(planId: plan.id)
 
         $plan
             .map({ $0.startDateTime.date <= $0.endDateTime.date })
@@ -39,7 +49,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
     func fetchPlan() async {
         self.isLoading = true
-        let (plan, errorMessage) = await planController.fetchPlan(withPlanId: plan.id)
+        let (plan, errorMessage) = await planService.fetchPlan(withPlanId: plan.id)
 
         guard errorMessage.isEmpty else {
             self.isLoading = false
@@ -62,8 +72,79 @@ class PlanViewModel<T: Plan>: ObservableObject {
             return
         }
 
-        self.plan = plan
+        await updatePublishedProperties(plan: plan)
+
         self.isLoading = false
+    }
+
+    func upvotePlan() async {
+        self.isLoading = true
+
+        let (user, userErrorMessage) = await userService.getUser()
+
+        guard let user = user, userErrorMessage.isEmpty else {
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+
+        let userId = user.id
+
+        guard let updatedPlan = updateUpvotes(id: userId) else {
+            self.isLoading = false
+            return
+        }
+
+        let (hasUpdatedPlan, planErrorMessage) = await planService.updatePlan(plan: updatedPlan)
+
+        guard hasUpdatedPlan, planErrorMessage.isEmpty else {
+            self.isLoading = false
+            self.hasError = true
+            return
+        }
+
+        await updatePublishedProperties(plan: updatedPlan)
+
+        self.isLoading = false
+    }
+
+    private func updateUpvotes(id: String) -> T? {
+        var plan = self.plan
+
+        if plan.upvotedUserIds.contains(id) {
+            plan.upvotedUserIds = plan.upvotedUserIds.filter { $0 != id }
+        } else {
+            plan.upvotedUserIds.append(id)
+        }
+
+        return plan
+    }
+
+    private func updatePublishedProperties(plan: T) async {
+        self.plan = plan
+        self.upvotedUsers = await fetchUpvotedUsers()
+
+        let (currentUser, _) = await userService.getUser()
+        self.userHasUpvotedPlan = self.upvotedUsers.contains(where: { $0.id == currentUser?.id })
+    }
+
+    private func fetchUpvotedUsers() async -> [User] {
+        var fetchedUpvotedUsers: [User] = []
+
+        for userId in plan.upvotedUserIds {
+            let (user, userErrorMessage) = await userService.getUser(with: "id", value: userId)
+
+            if !userErrorMessage.isEmpty {
+                print("Error fetching user")
+                continue
+            }
+
+            if let user = user {  // maybe no user with that Id (deleted?)
+                fetchedUpvotedUsers.append(user)
+            }
+        }
+
+        return fetchedUpvotedUsers
     }
 
     private func modifyPlan(plan: T, function: (Plan) async -> (Bool, String)) async {
@@ -81,13 +162,13 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
     func updatePlan() async {
         await modifyPlan(plan: plan) { plan in
-            await planController.updatePlan(plan: plan)
+            await planService.updatePlan(plan: plan)
         }
     }
 
     func deletePlan() async {
         await modifyPlan(plan: plan) { plan in
-            await planController.deletePlan(plan: plan)
+            await planService.deletePlan(plan: plan)
         }
     }
 }

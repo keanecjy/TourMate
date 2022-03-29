@@ -13,20 +13,20 @@ class PlansViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
-    let planController: PlanController
+    let planService: PlanService
     var tripId: String
 
-    init(planController: PlanController = FirebasePlanController(), tripId: String = "") {
+    init(planService: PlanService = FirebasePlanService(), tripId: String = "") {
         self.plans = []
         self.isLoading = false
         self.hasError = false
-        self.planController = planController
+        self.planService = planService
         self.tripId = tripId
     }
 
     func fetchPlans() async {
         self.isLoading = true
-        let (plans, errorMessage) = await planController.fetchPlans(withTripId: tripId)
+        let (plans, errorMessage) = await planService.fetchPlans(withTripId: tripId)
         guard errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true

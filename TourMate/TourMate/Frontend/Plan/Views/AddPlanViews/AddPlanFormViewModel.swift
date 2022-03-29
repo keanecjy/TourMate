@@ -1,5 +1,5 @@
 //
-//  AddPlanViewModel.swift
+//  AddPlanFormViewModel.swift
 //  TourMate
 //
 //  Created by Tan Rui Quan on 19/3/22.
@@ -18,14 +18,14 @@ class AddPlanFormViewModel<T: Plan>: ObservableObject {
     @Published var canAddPlan = false
 
     var trip: Trip
-    let planController: PlanController
+    let planService: PlanService
 
     private var cancellableSet: Set<AnyCancellable> = []
 
-    init(plan: T, trip: Trip, planController: PlanController = FirebasePlanController()) {
+    init(plan: T, trip: Trip, planService: PlanService = FirebasePlanService()) {
         self.plan = plan
         self.trip = trip
-        self.planController = planController
+        self.planService = planService
 
         $plan
             .map({ $0.startDateTime.date <= $0.endDateTime.date })
@@ -42,7 +42,7 @@ class AddPlanFormViewModel<T: Plan>: ObservableObject {
         if plan.name.isEmpty {
             plan.name = String(describing: T.self)
         }
-        let (hasAddedPlan, errorMessage) = await planController.addPlan(plan: plan)
+        let (hasAddedPlan, errorMessage) = await planService.addPlan(plan: plan)
         guard hasAddedPlan, errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true

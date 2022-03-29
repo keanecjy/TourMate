@@ -21,6 +21,7 @@ struct Flight: Plan {
     var status: PlanStatus
     var creationDate: Date
     var modificationDate: Date
+    var upvotedUserIds: [String]
 
     var airline: String?
     var flightNumber: String?

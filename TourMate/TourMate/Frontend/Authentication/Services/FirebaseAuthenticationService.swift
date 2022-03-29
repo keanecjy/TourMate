@@ -1,5 +1,5 @@
 //
-//  FirebaseAuthenticationController.swift
+//  FirebaseAuthenticationService.swift
 //  TourMate
 //
 //  Created by Terence Ho on 10/3/22.
@@ -9,9 +9,9 @@ import Foundation
 import FirebaseAuth
 
 // https://blog.codemagic.io/google-sign-in-firebase-authentication-using-swift/
-final class FirebaseAuthenticationController: ObservableObject, AuthenticationController {
+final class FirebaseAuthenticationService: ObservableObject, AuthenticationService {
 
-    private(set) static var singleton = FirebaseAuthenticationController()
+    private(set) static var singleton = FirebaseAuthenticationService()
 
     @Published private(set) var userIsLoggedIn: Bool
     private let authenticationManager: AuthenticationManager = FirebaseAuthenticationManager()

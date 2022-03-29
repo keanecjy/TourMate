@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Plan {
+protocol Plan: CustomStringConvertible {
     var id: String { get }
     var tripId: String { get }
     var planType: PlanType { get }
@@ -20,9 +20,17 @@ protocol Plan {
     var status: PlanStatus { get set }
     var creationDate: Date { get }
     var modificationDate: Date { get }
+    var upvotedUserIds: [String] { get set }
 
     // Currently unused
     // var upVote: Int { get set }
     // var downVote: Int { get set }
     // var comments: [Comment] { get set }
+}
+
+// MARK: - CustomStringConvertible
+extension Plan {
+    public var description: String {
+        "\(self.planType.rawValue.uppercased()): (id: \(id), name: \(name), planStatus: \(status))"
+    }
 }

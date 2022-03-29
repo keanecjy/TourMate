@@ -28,6 +28,15 @@ struct ActivityView: View {
             HStack {
                 if let activity = activityViewModel.plan {
                     VStack(alignment: .leading) {
+                        HStack(spacing: 10.0) {
+                            PlanStatusView(status: activity.status)
+                                .padding()
+
+                            if activity.status == .proposed {
+                                UpvotePlanView(viewModel: activityViewModel)
+                            }
+                        }
+
                         VStack(alignment: .leading) {
                             // Start Time
                             Text("From")
@@ -73,6 +82,9 @@ struct ActivityView: View {
                             }
                             .padding()
                         }
+
+                        CommentsView(commentsViewModel: activityViewModel.commentsViewModel)
+                            .padding()
 
                         Spacer()
                     }

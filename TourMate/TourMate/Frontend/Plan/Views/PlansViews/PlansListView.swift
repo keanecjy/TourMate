@@ -62,24 +62,55 @@ struct PlansListView: View {
         }
     }
 
-    var body: some View {
+    func createUpvoteView(_ plan: Plan) -> some View {
+        switch plan.planType {
+        case .accommodation:
+            let accommodationViewModel = PlanViewModel<Accommodation>(plan: plan as! Accommodation, trip: tripViewModel.trip)
+            return AnyView(UpvotePlanView(viewModel: accommodationViewModel, displayName: false))
+        case .activity:
+            let activityViewModel = PlanViewModel<Activity>(plan: plan as! Activity, trip: tripViewModel.trip)
+            return AnyView(UpvotePlanView(viewModel: activityViewModel, displayName: false))
+        case .restaurant:
+            let restaurantViewModel = PlanViewModel<Restaurant>(plan: plan as! Restaurant, trip: tripViewModel.trip)
+            return AnyView(UpvotePlanView(viewModel: restaurantViewModel, displayName: false))
+        case .transport:
+            let transportViewModel = PlanViewModel<Transport>(plan: plan as! Transport, trip: tripViewModel.trip)
+            return AnyView(UpvotePlanView(viewModel: transportViewModel, displayName: false))
+        case .flight:
+            let flightViewModel = PlanViewModel<Flight>(plan: plan as! Flight, trip: tripViewModel.trip)
+            return AnyView(UpvotePlanView(viewModel: flightViewModel, displayName: false))
+        }
+    }
 
+    var body: some View {
         LazyVStack {
             ForEach(days, id: \.date) { day in
                 VStack(alignment: .leading) {
                     PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
-                        NavigationLink {
-                            createPlanView(plan)
-                        } label: {
-                            PlanCardView(title: plan.name,
-                                         startDate: plan.startDateTime.date,
-                                         endDate: plan.endDateTime.date,
-                                         timeZone: plan.startDateTime.timeZone)
+                        HStack(spacing: 15.0) {
+                            NavigationLink {
+                                createPlanView(plan)
+                            } label: {
+                                PlanCardView(title: plan.name,
+                                             startDate: plan.startDateTime.date,
+                                             endDate: plan.endDateTime.date,
+                                             timeZone: plan.startDateTime.timeZone,
+                                             status: plan.status)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .frame(maxWidth: .infinity, maxHeight: 100.0)
+
+                            if plan.status == .proposed {
+                                createUpvoteView(plan)
+                                    .frame(width: UIScreen.main.bounds.width / 3.0)
+                            }
                         }
-                        .buttonStyle(PlainButtonStyle())
+                        .background(RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.primary.opacity(0.1)))
                     }
+
                 }
                 .padding()
             }

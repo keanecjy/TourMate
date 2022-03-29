@@ -1,11 +1,11 @@
 //
-//  PersistenceManager.swift
+//  Repository.swift
 //  TourMate
 //
 //  Created by Keane Chan on 13/3/22.
 //
 
-protocol PersistenceManager {
+protocol Repository {
 
     func addItem<T: FirebaseAdaptedData>(id: String, item: T) async -> (hasAddedItem: Bool, errorMessage: String)
 

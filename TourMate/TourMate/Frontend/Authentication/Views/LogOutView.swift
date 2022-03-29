@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LogOutView: View {
-    let authenticationController = FirebaseAuthenticationController.singleton
+    let authenticationService = FirebaseAuthenticationService.singleton
     let containerSize: CGSize
 
     @State private var isDisabled = false
@@ -23,7 +23,7 @@ struct LogOutView: View {
     }
 
     private func onGoogleLogoutButtonPressed() {
-        authenticationController.logOut()
+        authenticationService.logOut()
     }
 }
 
