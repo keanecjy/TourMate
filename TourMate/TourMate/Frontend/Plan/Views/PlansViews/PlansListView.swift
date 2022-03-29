@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlansListView: View {
     @StateObject var plansViewModel: PlansViewModel
-    var tripViewModel: TripViewModel
+    @ObservedObject var tripViewModel: TripViewModel
 
     init(tripId: String, tripViewModel: TripViewModel) {
         self._plansViewModel = StateObject(wrappedValue: PlansViewModel(tripId: tripId))
@@ -89,7 +89,7 @@ struct PlansListView: View {
                     PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
-                        HStack(spacing: 15.0) {
+                        HStack(spacing: 16.0) {
                             NavigationLink {
                                 createPlanView(plan)
                             } label: {

@@ -44,32 +44,62 @@ struct TripView: View {
             } else if viewModel.isLoading || viewModel.isDeleted {
                 ProgressView()
             } else {
-                ScrollView {
-                    VStack {
-                        Text(dateString)
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.bottom, .horizontal])
+                TabView {
+                    ScrollView {
+                        VStack {
+                            Text(dateString)
+                                .font(.headline)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding([.bottom, .horizontal])
+                            AttendeesView(viewModel: viewModel)
 
-                        if let imageUrl = viewModel.trip.imageUrl {
-                            AsyncImage(url: URL(string: imageUrl)) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(height: 200, alignment: .center)
-                                    .clipped()
-                            } placeholder: {
-                                Color.gray
+                            if let imageUrl = viewModel.trip.imageUrl {
+                                AsyncImage(url: URL(string: imageUrl)) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(height: 200, alignment: .center)
+                                        .clipped()
+                                } placeholder: {
+                                    Color.gray
+                                }
                             }
+
+                            PlansListView(tripId: viewModel.trip.id, tripViewModel: viewModel)
                         }
-                        Text("Attendees")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.bottom, .horizontal])
+                    }
+                    .tabItem {
+                        Image(systemName: "list.dash")
+                        Text("List View")
+                    }
 
-                        AttendeesView(viewModel: viewModel)
+                    ScrollView {
+                        VStack {
+                            Text(dateString)
+                                .font(.headline)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding([.bottom, .horizontal])
+                            AttendeesView(viewModel: viewModel)
 
-                        PlansListView(tripId: viewModel.trip.id, tripViewModel: viewModel)
+                            if let imageUrl = viewModel.trip.imageUrl {
+                                AsyncImage(url: URL(string: imageUrl)) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(height: 200, alignment: .center)
+                                        .clipped()
+                                } placeholder: {
+                                    Color.gray
+                                }
+                            }
+
+                            PlansCalendarView(tripId: viewModel.trip.id, tripViewModel: viewModel)
+                        }
+
+                    }
+                    .tabItem {
+                        Image(systemName: "calendar.day.timeline.left")
+                        Text("Day View")
                     }
                 }
             }
