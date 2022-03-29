@@ -20,6 +20,7 @@ protocol Plan: CustomStringConvertible {
     var status: PlanStatus { get set }
     var creationDate: Date { get }
     var modificationDate: Date { get }
+    var upvotedUserIds: [String] { get set }
 
     // Currently unused
     // var upVote: Int { get set }

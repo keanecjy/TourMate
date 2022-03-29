@@ -28,7 +28,7 @@ struct EditTripView: View {
                             DatePicker(
                                 "Start Date",
                                 selection: $viewModel.trip.startDateTime.date,
-                                in: Date()...,
+                                in: viewModel.fromStartDate,
                                 displayedComponents: [.date]
                             )
                             DatePicker(

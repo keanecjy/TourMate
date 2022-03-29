@@ -28,6 +28,15 @@ struct RestaurantView: View {
             HStack {
                 if let restaurant = restaurantViewModel.plan {
                     VStack(alignment: .leading) {
+                        HStack(spacing: 10.0) {
+                            PlanStatusView(status: restaurant.status)
+                                .padding()
+
+                            if restaurant.status == .proposed {
+                                UpvotePlanView(viewModel: restaurantViewModel)
+                            }
+                        }
+
                         // Start time
                         VStack(alignment: .leading) {
                             Text("From")
@@ -67,6 +76,9 @@ struct RestaurantView: View {
                             }
                             .padding()
                         }
+
+                        CommentsView(commentsViewModel: restaurantViewModel.commentsViewModel)
+                            .padding()
 
                         Spacer()
                     }

@@ -19,6 +19,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     let status: String
     let creationDate: Date
     let modificationDate: Date
+    let upvotedUserIds: [String]
 
     private enum CodingKeys: String, CodingKey {
         case id
@@ -32,6 +33,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         case status
         case creationDate
         case modificationDate
+        case upvotedUserIds
     }
 
     init(id: String, tripId: String, name: String,
@@ -39,7 +41,8 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
          endDateTime: FirebaseAdaptedDateTime,
          startLocation: String, endLocation: String?,
          imageUrl: String?, status: String,
-         creationDate: Date, modificationDate: Date) {
+         creationDate: Date, modificationDate: Date,
+         upvotedUserIds: [String]) {
         self.id = id
         self.tripId = tripId
         self.name = name
@@ -51,6 +54,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         self.status = status
         self.creationDate = creationDate
         self.modificationDate = modificationDate
+        self.upvotedUserIds = upvotedUserIds
     }
 
     required init(from decoder: Decoder) throws {
@@ -67,6 +71,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         status = try container.decode(String.self, forKey: .status)
         creationDate = try container.decode(Date.self, forKey: .creationDate)
         modificationDate = try container.decode(Date.self, forKey: .modificationDate)
+        upvotedUserIds = try container.decode(Array<String>.self, forKey: .upvotedUserIds)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -83,6 +88,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         try container.encode(status, forKey: .status)
         try container.encode(creationDate, forKey: .creationDate)
         try container.encode(modificationDate, forKey: .modificationDate)
+        try container.encode(upvotedUserIds, forKey: .upvotedUserIds)
     }
 
     func getType() -> FirebaseAdaptedType {

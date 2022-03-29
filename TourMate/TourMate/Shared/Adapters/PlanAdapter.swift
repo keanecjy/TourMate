@@ -59,6 +59,7 @@ extension Accommodation {
                                      startLocation: startLocation, endLocation: endLocation,
                                      imageUrl: imageUrl, status: status.rawValue,
                                      creationDate: creationDate, modificationDate: modificationDate,
+                                     upvotedUserIds: upvotedUserIds,
                                      phone: phone, website: website)
     }
 }
@@ -71,6 +72,7 @@ extension Activity {
                                 startLocation: startLocation, endLocation: endLocation,
                                 imageUrl: imageUrl, status: status.rawValue,
                                 creationDate: creationDate, modificationDate: modificationDate,
+                                upvotedUserIds: upvotedUserIds,
                                 venue: venue, phone: phone, website: website)
     }
 }
@@ -83,6 +85,7 @@ extension Restaurant {
                                   startLocation: startLocation, endLocation: endLocation,
                                   imageUrl: imageUrl, status: status.rawValue,
                                   creationDate: creationDate, modificationDate: modificationDate,
+                                  upvotedUserIds: upvotedUserIds,
                                   phone: phone, website: website)
     }
 }
@@ -96,6 +99,7 @@ extension Transport {
                                  endLocation: endLocation,
                                  imageUrl: imageUrl, status: status.rawValue,
                                  creationDate: creationDate, modificationDate: modificationDate,
+                                 upvotedUserIds: upvotedUserIds,
                                  vehicleDescription: vehicleDescription, numberOfPassengers: numberOfPassengers)
     }
 }
@@ -109,6 +113,7 @@ extension Flight {
                               endLocation: endLocation,
                               imageUrl: imageUrl, status: status.rawValue,
                               creationDate: creationDate, modificationDate: modificationDate,
+                              upvotedUserIds: upvotedUserIds,
                               airline: airline, flightNumber: flightNumber, seats: seats,
                               departureTerminal: departureTerminal,
                               departureGate: departureGate,
@@ -126,6 +131,7 @@ extension FirebaseAdaptedAccommodation {
                       endLocation: endLocation,
                       imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
                       creationDate: creationDate, modificationDate: modificationDate,
+                      upvotedUserIds: upvotedUserIds,
                       phone: phone, website: website)
     }
 }
@@ -139,6 +145,7 @@ extension FirebaseAdaptedActivity {
                  endLocation: endLocation,
                  imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
                  creationDate: creationDate, modificationDate: modificationDate,
+                 upvotedUserIds: upvotedUserIds,
                  venue: venue, phone: phone, website: website)
     }
 }
@@ -152,6 +159,7 @@ extension FirebaseAdaptedRestaurant {
                    endLocation: endLocation,
                    imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
                    creationDate: creationDate, modificationDate: modificationDate,
+                   upvotedUserIds: upvotedUserIds,
                    phone: phone, website: website)
     }
 }
@@ -165,6 +173,7 @@ extension FirebaseAdaptedTransport {
                   endLocation: endLocation,
                   imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
                   creationDate: creationDate, modificationDate: modificationDate,
+                  upvotedUserIds: upvotedUserIds,
                   vehicleDescription: vehicleDescription, numberOfPassengers: numberOfPassengers)
     }
 }
@@ -178,6 +187,7 @@ extension FirebaseAdaptedFlight {
                endLocation: endLocation,
                imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
                creationDate: creationDate, modificationDate: modificationDate,
+               upvotedUserIds: upvotedUserIds,
                airline: airline, flightNumber: flightNumber, seats: seats,
                arrivalTerminal: arrivalTerminal, arrivalGate: arrivalGate)
     }
