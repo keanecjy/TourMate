@@ -7,7 +7,6 @@
 
 import FirebaseAuth
 import Foundation
-import CloudKit
 import SwiftUI
 
 struct FirebaseTripService: TripService {

@@ -42,7 +42,8 @@ struct AddPlanView: View {
                                               startLocation: "",
                                               status: .confirmed,
                                               creationDate: Date(),
-                                              modificationDate: Date())
+                                              modificationDate: Date(),
+                                              upvotedUserIds: [])
             let addAccommodationFormViewModel = AddPlanFormViewModel(plan: accommodation, trip: trip)
             return AnyView(AccommodationFormView(isActive: $isActive, viewModel: addAccommodationFormViewModel))
         case .activity:
@@ -53,7 +54,8 @@ struct AddPlanView: View {
                                     startLocation: "",
                                     status: .confirmed,
                                     creationDate: Date(),
-                                    modificationDate: Date())
+                                    modificationDate: Date(),
+                                    upvotedUserIds: [])
             let addActivityFormViewModel = AddPlanFormViewModel(plan: activity, trip: trip)
             return AnyView(ActivityFormView(isActive: $isActive, viewModel: addActivityFormViewModel))
         case .restaurant:
@@ -64,7 +66,8 @@ struct AddPlanView: View {
                                         startLocation: "",
                                         status: .confirmed,
                                         creationDate: Date(),
-                                        modificationDate: Date())
+                                        modificationDate: Date(),
+                                        upvotedUserIds: [])
             let addRestaurantFormViewModel = AddPlanFormViewModel(plan: restaurant, trip: trip)
             return AnyView(RestaurantFormView(isActive: $isActive, viewModel: addRestaurantFormViewModel))
         case .transport:
@@ -75,7 +78,8 @@ struct AddPlanView: View {
                                       startLocation: "",
                                       status: .confirmed,
                                       creationDate: Date(),
-                                      modificationDate: Date())
+                                      modificationDate: Date(),
+                                      upvotedUserIds: [])
             let addTransportFormViewModel = AddPlanFormViewModel(plan: transport, trip: trip)
             return AnyView(TransportFormView(isActive: $isActive, viewModel: addTransportFormViewModel))
         case .flight:
@@ -86,7 +90,8 @@ struct AddPlanView: View {
                                 startLocation: "",
                                 status: .confirmed,
                                 creationDate: Date(),
-                                modificationDate: Date())
+                                modificationDate: Date(),
+                                upvotedUserIds: [])
             let addFlightFormViewModel = AddPlanFormViewModel(plan: flight, trip: trip)
             return AnyView(FlightFormView(isActive: $isActive, viewModel: addFlightFormViewModel))
         }

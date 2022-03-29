@@ -12,14 +12,16 @@ struct PlanCardView: View {
     let startDate: Date
     let endDate: Date?
     let dateFormatter: DateFormatter
+    let status: PlanStatus
 
-    init(title: String, startDate: Date, endDate: Date? = nil, timeZone: TimeZone) {
+    init(title: String, startDate: Date, endDate: Date? = nil, timeZone: TimeZone, status: PlanStatus) {
         self.title = title
         self.startDate = startDate
         self.endDate = endDate
         self.dateFormatter = DateFormatter()
         self.dateFormatter.timeStyle = .short
         self.dateFormatter.timeZone = timeZone
+        self.status = status
     }
 
     var startTimeString: String {
@@ -43,6 +45,9 @@ struct PlanCardView: View {
                         Text(" - " + endTimeString)
                             .font(.caption)
                     }
+
+                    PlanStatusView(status: status)
+                        .padding([.horizontal])
                 }
                 Text(title)
                     .font(.headline)
@@ -50,8 +55,9 @@ struct PlanCardView: View {
             .padding()
             Spacer()
         }
-        .background(RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.primary.opacity(0.1)))
+        .contentShape(Rectangle())  // transparent background
+//        .background(RoundedRectangle(cornerRadius: 16)
+//                        .fill(Color.primary.opacity(0.1)))
     }
 }
 
@@ -60,6 +66,7 @@ struct PlanCardView_Previews: PreviewProvider {
         PlanCardView(title: "Visit Venice Beach",
                      startDate: Date(timeIntervalSince1970: 1_651_442_400),
                      endDate: Date(timeIntervalSince1970: 1_651_453_200),
-                     timeZone: TimeZone(abbreviation: "PST")!)
+                     timeZone: TimeZone(abbreviation: "PST")!,
+                     status: .confirmed)
     }
 }

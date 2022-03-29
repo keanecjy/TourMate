@@ -20,6 +20,7 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
          startDateTime: FirebaseAdaptedDateTime, endDateTime: FirebaseAdaptedDateTime,
          startLocation: String, endLocation: String?, imageUrl: String?,
          status: String, creationDate: Date, modificationDate: Date,
+         upvotedUserIds: [String],
          vehicleDescription: String?, numberOfPassengers: String?) {
 
         self.vehicleDescription = vehicleDescription
@@ -28,7 +29,8 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
         super.init(id: id, tripId: tripId, name: name, startDateTime: startDateTime,
                    endDateTime: endDateTime, startLocation: startLocation,
                    endLocation: endLocation, imageUrl: imageUrl, status: status,
-                   creationDate: creationDate, modificationDate: modificationDate)
+                   creationDate: creationDate, modificationDate: modificationDate,
+                   upvotedUserIds: upvotedUserIds)
     }
 
     required init(from decoder: Decoder) throws {
