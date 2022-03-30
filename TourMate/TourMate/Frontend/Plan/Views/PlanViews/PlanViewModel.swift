@@ -52,6 +52,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
         self.isLoading = true
         await planService.fetchPlanAndListen(withPlanId: plan.id)
+        self.isLoading = false
     }
 
     func upvotePlan() async {
@@ -77,8 +78,6 @@ class PlanViewModel<T: Plan>: ObservableObject {
             handleError()
             return
         }
-
-        // await updatePublishedProperties(plan: updatedPlan)
 
         self.isLoading = false
     }
@@ -186,10 +185,11 @@ extension PlanViewModel: PlanEventDelegate {
     func update(plans: [Plan], errorMessage: String) async {}
 }
 
+// MARK: - Helper Methods
 extension PlanViewModel {
     private func handleError() {
-        self.isLoading = false
         self.hasError = true
+        self.isLoading = false
     }
 
     private func handleDeletion() {
