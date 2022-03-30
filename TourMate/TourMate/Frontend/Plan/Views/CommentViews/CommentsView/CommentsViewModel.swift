@@ -77,10 +77,10 @@ class CommentsViewModel: ObservableObject {
 
             if let user = user {
                 fetchedCommentOwnerPairs.append((comment, user))
+                commentPermissions[comment.id] = (canEdit, userHasUpvotedComment)
                 seenUsers[userId] = user
             }
 
-            commentPermissions[comment.id] = (canEdit, userHasUpvotedComment)
         }
 
         fetchedCommentOwnerPairs.sort {
