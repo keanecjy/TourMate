@@ -63,6 +63,7 @@ class CommentsViewModel: ObservableObject {
 
             if let user = seenUsers[userId] {
                 fetchedCommentOwnerPairs.append((comment, user))
+                commentPermissions[comment.id] = (canEdit, userHasUpvotedComment)
                 continue
             }
 
