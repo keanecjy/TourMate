@@ -97,4 +97,13 @@ class MockPlanService: PlanService {
         plans[index] = plan
         return (true, "")
     }
+
+    weak var planEventDelegate: PlanEventDelegate?
+
+    func fetchPlansAndListen(withTripId tripId: String) async {}
+
+    func fetchPlanAndListen(withPlanId planId: String) async {}
+
+    func detachListener() {}
+
 }

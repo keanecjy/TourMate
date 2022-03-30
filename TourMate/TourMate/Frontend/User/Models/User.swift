@@ -7,9 +7,17 @@
 
 import Foundation
 
-struct User {
+struct User: CustomStringConvertible {
     let id: String
     let name: String
     let email: String
     let imageUrl: String
+}
+
+// MARK: - CustomStringConvertible
+extension User {
+    public var description: String {
+        "User: (id: \(id), name: \(name))"
+    }
+
 }

@@ -29,13 +29,6 @@ struct TripView: View {
         return startDateString + " - " + endDateString
     }
 
-    func refreshTrip() async {
-        await viewModel.fetchTrip()
-        if viewModel.isDeleted {
-            dismiss()
-        }
-    }
-
     @ViewBuilder
     var body: some View {
         Group {
@@ -84,10 +77,6 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
-                    Task {
-                        await refreshTrip()
-                    }
-                } content: {
                     EditTripView(trip: viewModel.trip)
                 }
 
@@ -100,8 +89,14 @@ struct TripView: View {
             }
         }
         .task {
-            await refreshTrip()
+            await viewModel.fetchTripAndListen()
         }
+        .onReceive(viewModel.objectWillChange) {
+            if viewModel.isDeleted {
+                dismiss()
+            }
+        }
+        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }
 

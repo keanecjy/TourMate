@@ -53,10 +53,6 @@ struct TripsView: View {
                 }
                 .disabled(viewModel.isLoading || viewModel.hasError)
                 .sheet(isPresented: $isShowingAddTripSheet) {
-                    Task {
-                        await viewModel.fetchTrips()
-                    }
-                } content: {
                     AddTripView()
                 }
 
@@ -68,8 +64,9 @@ struct TripsView: View {
             }
         }
         .task {
-            await viewModel.fetchTrips()
+            await viewModel.fetchTripsAndListen()
         }
+        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }
 

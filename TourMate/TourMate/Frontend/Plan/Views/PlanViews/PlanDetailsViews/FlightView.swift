@@ -145,30 +145,19 @@ struct FlightView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        // Edit Plan
-                        // After edit -> fetch Plan
-                        // If nothing is fetched -> dismiss this view
-
-                        // on dismiss
-                        Task {
-                            await flightViewModel.fetchPlan()
-
-                            // TODO: UI Fix
-                            // There is a lag between setting the plan to nil
-                            // And when we dismiss this view
-                            // Maybe need to see how to change the logic
-                            if flightViewModel.isDeleted {
-                                dismiss()
-                            }
-                        }
-                    } content: {
                         EditFlightView(viewModel: flightViewModel)
                     }
                 }
             }
             .task {
-                await flightViewModel.fetchPlan()
+                await flightViewModel.fetchPlanAndListen()
             }
+            .onReceive(flightViewModel.objectWillChange) {
+                if flightViewModel.isDeleted {
+                    dismiss()
+                }
+            }
+            .onDisappear(perform: { () in flightViewModel.detachListener() })
         }
     }
 }
