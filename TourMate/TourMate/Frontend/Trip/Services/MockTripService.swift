@@ -8,6 +8,8 @@
 import Foundation
 
 class MockTripService: TripService {
+    weak var tripEventDelegate: TripEventDelegate?
+
     var trips: [Trip] = [
         Trip(id: "0", name: "West Coast Summer",
              startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_442_400)),
@@ -47,4 +49,11 @@ class MockTripService: TripService {
         trips[index] = trip
         return (true, "")
     }
+
+    // NOT USED
+    func fetchTripAndListen(withTripId tripId: String) async {}
+
+    func fetchTripsAndListen() async {}
+
+    func detachListener() {}
 }

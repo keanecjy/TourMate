@@ -102,6 +102,7 @@ struct PlansListView: View {
                             .buttonStyle(PlainButtonStyle())
                             .frame(maxWidth: .infinity, maxHeight: 100.0)
 
+                            // TODO: Check why Upvote view does not receive updates
                             if plan.status == .proposed {
                                 createUpvoteView(plan)
                                     .frame(width: UIScreen.main.bounds.width / 3.0)
@@ -116,9 +117,11 @@ struct PlansListView: View {
             }
         }
         .task {
+            // TODO: Use fetchPlansAndListen after fixing plan card and logic
             await plansViewModel.fetchPlans()
             print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
+        .onDisappear(perform: { () in plansViewModel.detachListener() })
     }
 }
 

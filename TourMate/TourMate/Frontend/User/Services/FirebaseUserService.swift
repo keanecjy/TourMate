@@ -33,6 +33,7 @@ struct FirebaseUserService: UserService {
         return await firebaseRepository.deleteItem(id: currentUser.uid)
     }
 
+    // TODO: Rename to getCurrentUser, and add a new method to get user by id
     func getUser() async -> (User?, String) {
         guard let currentUser = Auth.auth().currentUser else {
             return (nil, Constants.messageUserNotLoggedIn)

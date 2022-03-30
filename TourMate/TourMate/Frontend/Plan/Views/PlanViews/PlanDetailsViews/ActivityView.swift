@@ -101,30 +101,19 @@ struct ActivityView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        // Edit Plan
-                        // After edit -> fetch Plan
-                        // If nothing is fetched -> dismiss this view
-
-                        // on dismiss
-                        Task {
-                            await activityViewModel.fetchPlan()
-
-                            // TODO: UI Fix
-                            // There is a lag between setting the plan to nil
-                            // And when we dismiss this view
-                            // Maybe need to see how to change the logic
-                            if activityViewModel.isDeleted {
-                                dismiss()
-                            }
-                        }
-                    } content: {
                         EditActivityView(viewModel: activityViewModel)
                     }
                 }
             }
             .task {
-                await activityViewModel.fetchPlan()
+                await activityViewModel.fetchPlanAndListen()
             }
+            .onReceive(activityViewModel.objectWillChange) {
+                if activityViewModel.isDeleted {
+                    dismiss()
+                }
+            }
+            .onDisappear(perform: { () in activityViewModel.detachListener() })
         }
     }
 }
