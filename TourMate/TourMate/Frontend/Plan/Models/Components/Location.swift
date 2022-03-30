@@ -8,9 +8,9 @@
 import Foundation
 
 struct Location {
-    let addressShort: String
-    let addressLong: String
-    // full = short + long
+    let addressLineOne: String
+    let addressLineTwo: String
+    // full = address line one + address line two
     let addressFull: String
     let longitude: Double
     let latitude: Double

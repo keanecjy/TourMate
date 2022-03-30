@@ -9,16 +9,16 @@ import Foundation
 
 class MockLocationService: LocationService {
     let locations: [Location] = [
-        Location(addressShort: "SCA",
-                 addressLong: "Singapore Changi Airport",
+        Location(addressLineOne: "SCA",
+                 addressLineTwo: "Singapore Changi Airport",
                  addressFull: "SCA, Singapore Changi Airport",
                  longitude: 1.2, latitude: 3.4),
-        Location(addressShort: "NUS",
-                 addressLong: "National University of Singapore",
+        Location(addressLineOne: "NUS",
+                 addressLineTwo: "National University of Singapore",
                  addressFull: "NUS, National University of Singapore",
                  longitude: 4.5, latitude: 6.7),
-        Location(addressShort: "NTU",
-                 addressLong: "Nanyang Technological University",
+        Location(addressLineOne: "NTU",
+                 addressLineTwo: "Nanyang Technological University",
                  addressFull: "NTU, Nanyang Technological University",
                  longitude: 1.9, latitude: 4.5)
     ]
