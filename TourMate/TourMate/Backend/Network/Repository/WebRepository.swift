@@ -27,6 +27,7 @@ extension WebRepository {
         }
     }
 
+    // not used
     func call<Value>(endpoint: APICall, httpCodes: HTTPCodes = .success) -> AnyPublisher<Value, Error>
         where Value: Decodable {
         do {
@@ -43,6 +44,7 @@ extension WebRepository {
 
 // MARK: - Helpers
 extension Publisher where Output == URLSession.DataTaskPublisher.Output {
+    // not used
     func requestJSON<Value>(httpCodes: HTTPCodes) -> AnyPublisher<Value, Error> where Value: Decodable {
         tryMap {
             assert(!Thread.isMainThread)

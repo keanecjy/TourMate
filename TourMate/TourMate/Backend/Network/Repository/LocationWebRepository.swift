@@ -34,6 +34,7 @@ struct RealLocationWebRepository: LocationWebRepository {
         return (geoapifyResult.results, "")
     }
 
+    // not used
     func fetchLocations(query: AutocompleteQuery) -> AnyPublisher<[JsonAdaptedLocation], Error> {
         call(endpoint: API.autocomplete(query))
     }
