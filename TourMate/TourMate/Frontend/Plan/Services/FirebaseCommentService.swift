@@ -1,5 +1,5 @@
 //
-//  FirebaseCommentController.swift
+//  FirebaseCommentService.swift
 //  TourMate
 //
 //  Created by Terence Ho on 26/3/22.
@@ -7,42 +7,19 @@
 
 import Foundation
 
-struct FirebaseCommentService: CommentService {
+class FirebaseCommentService: CommentService {
 
     private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.commentCollectionId)
 
     private let commentAdapter = CommentAdapter()
 
-    func fetchComments(withPlanId planId: String) async -> ([Comment], String) {
-        let (adaptedComments, errorMessage) = await firebaseRepository.fetchItems(field: "planId", isEqualTo: planId)
+    weak var commentEventDelegate: CommentEventDelegate?
 
-        guard errorMessage.isEmpty else {
-            return ([], errorMessage)
-        }
+    func fetchCommentsAndListen(withPlanId planId: String) async {
+        print("[FirebaseCommentService] Fetching and listening to comments")
 
-        guard let adaptedComments = adaptedComments as? [FirebaseAdaptedComment] else {
-            return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedComment")
-        }
-
-        let comments = adaptedComments.map({ commentAdapter.toComment(adaptedComment: $0) })
-
-        return (comments, "")
-    }
-
-    func fetchComment(withCommentId id: String) async -> (Comment?, String) {
-        let (adaptedComment, errorMessage) = await firebaseRepository.fetchItem(id: id)
-
-        guard errorMessage.isEmpty,
-              adaptedComment != nil
-        else {
-            return (nil, errorMessage)
-        }
-        
-        guard let adaptedComment = adaptedComment as? FirebaseAdaptedComment else {
-            return (nil, "Unable to convert FirebaseAdaptedData to FirebaseAdaptedComment")
-        }
-
-        return (commentAdapter.toComment(adaptedComment: adaptedComment), "")
+        firebaseRepository.eventDelegate = self
+        await firebaseRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId)
     }
 
     func addComment(comment: Comment) async -> (Bool, String) {
@@ -56,4 +33,31 @@ struct FirebaseCommentService: CommentService {
     func updateComment(comment: Comment) async -> (Bool, String) {
         await firebaseRepository.updateItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
     }
+
+    func detachListener() {
+        firebaseRepository.detachListener()
+    }
+}
+
+// MARK: - FirebaseEventDelegate
+extension FirebaseCommentService: FirebaseEventDelegate {
+    func update(items: [FirebaseAdaptedData], errorMessage: String) async {
+        print("[FirebaseCommentService] Updating Comments")
+
+        guard errorMessage.isEmpty else {
+            await commentEventDelegate?.update(comments: [], errorMessage: errorMessage)
+            return
+        }
+
+        guard let adaptedComments = items as? [FirebaseAdaptedComment] else {
+            await commentEventDelegate?.update(comments: [], errorMessage: Constants.errorCommentConversion)
+            return
+        }
+
+        let comments = adaptedComments.map({ commentAdapter.toComment(adaptedComment: $0) })
+
+        await commentEventDelegate?.update(comments: comments, errorMessage: errorMessage)
+    }
+
+    func update(item: FirebaseAdaptedData?, errorMessage: String) async {}
 }

@@ -15,4 +15,7 @@ final class Constants {
 
     static let errorPlanConversion = "[FirebasePlanService] Error converting"
     + "FirebaseAdaptedData to FirebaseAdaptedPlan"
+
+    static let errorCommentConversion = "[FirebasePlanService] Error converting"
+    + "FirebaseAdaptedData to FirebaseAdaptedComment"
 }
