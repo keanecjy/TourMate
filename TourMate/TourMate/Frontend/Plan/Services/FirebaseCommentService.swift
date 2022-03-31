@@ -30,19 +30,16 @@ struct FirebaseCommentService: CommentService {
     }
 
     func fetchComment(withCommentId id: String) async -> (Comment?, String) {
-        let (adaptedComments, errorMessage) = await firebaseRepository.fetchItems(field: "id", isEqualTo: id)
+        let (adaptedComment, errorMessage) = await firebaseRepository.fetchItem(id: id)
 
-        guard errorMessage.isEmpty else {
+        guard errorMessage.isEmpty,
+              adaptedComment != nil
+        else {
             return (nil, errorMessage)
         }
-
-        guard adaptedComments.count <= 1 else {
-            assertionFailure()
-            return (nil, "More than one comment fetched")
-        }
-
-        guard let adaptedComment = adaptedComments.first as? FirebaseAdaptedComment else {
-            return (nil, "") // comment not found
+        
+        guard let adaptedComment = adaptedComment as? FirebaseAdaptedComment else {
+            return (nil, "Unable to convert FirebaseAdaptedData to FirebaseAdaptedComment")
         }
 
         return (commentAdapter.toComment(adaptedComment: adaptedComment), "")
