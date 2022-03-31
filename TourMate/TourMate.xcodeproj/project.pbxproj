@@ -139,6 +139,8 @@
 		B9B6B3EB27F46CC100B0F5F4 /* GeoapifyResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3EA27F46CC100B0F5F4 /* GeoapifyResult.swift */; };
 		B9B6B3EF27F48CE800B0F5F4 /* LocationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3EE27F48CE800B0F5F4 /* LocationAdapter.swift */; };
 		B9B6B3F827F494C500B0F5F4 /* ApiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3F727F494C500B0F5F4 /* ApiKeys.swift */; };
+		B9B6B40027F5A95000B0F5F4 /* RealLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3FF27F5A95000B0F5F4 /* RealLocationService.swift */; };
+		B9B6B40227F5AA5000B0F5F4 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B40127F5AA5000B0F5F4 /* APIError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -297,6 +299,8 @@
 		B9B6B3EA27F46CC100B0F5F4 /* GeoapifyResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoapifyResult.swift; sourceTree = "<group>"; };
 		B9B6B3EE27F48CE800B0F5F4 /* LocationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAdapter.swift; sourceTree = "<group>"; };
 		B9B6B3F727F494C500B0F5F4 /* ApiKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeys.swift; sourceTree = "<group>"; };
+		B9B6B3FF27F5A95000B0F5F4 /* RealLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealLocationService.swift; sourceTree = "<group>"; };
+		B9B6B40127F5AA5000B0F5F4 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		BB95BCAE2E240926ED846BB1 /* Pods-TourMateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.debug.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate_TourMateUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD5431EEBB0D43FA279D8E8A /* Pods-TourMate-TourMateUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.debug.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -557,6 +561,7 @@
 				B9A04FA527E42234007D4303 /* PlanService.swift */,
 				B9A04FAB27E5567F007D4303 /* MockPlanService.swift */,
 				4CCBBD1A27DE651F00F9C250 /* FirebasePlanService.swift */,
+				B9B6B3FF27F5A95000B0F5F4 /* RealLocationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1053,6 +1058,7 @@
 			isa = PBXGroup;
 			children = (
 				B98F35F827F42DFF000AFE53 /* APICall.swift */,
+				B9B6B40127F5AA5000B0F5F4 /* APIError.swift */,
 				B9B6B3E227F4473E00B0F5F4 /* JsonAdaptedLocation.swift */,
 				B9B6B3E027F43BEF00B0F5F4 /* AutocompleteQuery.swift */,
 				B9B6B3EA27F46CC100B0F5F4 /* GeoapifyResult.swift */,
@@ -1379,6 +1385,7 @@
 				953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */,
 				4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */,
 				95779BD327E76687001FF602 /* EditTripView.swift in Sources */,
+				B9B6B40027F5A95000B0F5F4 /* RealLocationService.swift in Sources */,
 				4CDE841927EF0E54001F58C5 /* TripEventDelegate.swift in Sources */,
 				B967C33A27DDD71C0023B34D /* ActivityFormView.swift in Sources */,
 				95FAE40B27E245D200F4AB01 /* MockTripService.swift in Sources */,
@@ -1408,6 +1415,7 @@
 				953570ED27E5BFDE000DF0C2 /* TripView.swift in Sources */,
 				4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */,
 				B9A04FB327E5911F007D4303 /* AccommodationView.swift in Sources */,
+				B9B6B40227F5AA5000B0F5F4 /* APIError.swift in Sources */,
 				B93B489627DA895400478B7B /* FirebaseAdaptedAccommodation.swift in Sources */,
 				95DEA1E827E6FCC500A74ED2 /* TripViewModel.swift in Sources */,
 				B99D968427D9DF5E009B66AE /* Restaurant.swift in Sources */,
@@ -1639,7 +1647,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
-				DEVELOPMENT_TEAM = U2PZ23X6W5;
+				DEVELOPMENT_TEAM = T83L3FZCTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TourMate/Misc/Info.plist;
@@ -1653,7 +1661,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.ke;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1670,7 +1678,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
-				DEVELOPMENT_TEAM = U2PZ23X6W5;
+				DEVELOPMENT_TEAM = T83L3FZCTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TourMate/Misc/Info.plist;
@@ -1684,7 +1692,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.ke;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
