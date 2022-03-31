@@ -38,48 +38,13 @@ struct PlansListView: View {
     }
 
     func createPlanView(_ plan: Plan) -> some View {
-        switch plan.planType {
-        case .accommodation:
-            let accommodationViewModel = PlanViewModel<Accommodation>(
-                plan: plan as! Accommodation, trip: tripViewModel.trip)
-            return AnyView(AccommodationView(accommodationViewModel: accommodationViewModel))
-        case .activity:
-            let activityViewModel = PlanViewModel<Activity>(
-                plan: plan as! Activity, trip: tripViewModel.trip)
-            return AnyView(ActivityView(activityViewModel: activityViewModel))
-        case .restaurant:
-            let restaurantViewModel = PlanViewModel<Restaurant>(
-                plan: plan as! Restaurant, trip: tripViewModel.trip)
-            return AnyView(RestaurantView(restaurantViewModel: restaurantViewModel))
-        case .transport:
-            let transportViewModel = PlanViewModel<Transport>(
-                plan: plan as! Transport, trip: tripViewModel.trip)
-            return AnyView(TransportView(transportViewModel: transportViewModel))
-        case .flight:
-            let flightViewModel = PlanViewModel<Flight>(
-                plan: plan as! Flight, trip: tripViewModel.trip)
-            return AnyView(FlightView(flightViewModel: flightViewModel))
-        }
+        let viewModel = PlanViewModel(plan: plan, trip: tripViewModel.trip)
+        return AnyView(PlanView(viewModel: viewModel))
     }
 
     func createUpvoteView(_ plan: Plan) -> some View {
-        switch plan.planType {
-        case .accommodation:
-            let accommodationViewModel = PlanViewModel<Accommodation>(plan: plan as! Accommodation, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: accommodationViewModel, displayName: false))
-        case .activity:
-            let activityViewModel = PlanViewModel<Activity>(plan: plan as! Activity, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: activityViewModel, displayName: false))
-        case .restaurant:
-            let restaurantViewModel = PlanViewModel<Restaurant>(plan: plan as! Restaurant, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: restaurantViewModel, displayName: false))
-        case .transport:
-            let transportViewModel = PlanViewModel<Transport>(plan: plan as! Transport, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: transportViewModel, displayName: false))
-        case .flight:
-            let flightViewModel = PlanViewModel<Flight>(plan: plan as! Flight, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: flightViewModel, displayName: false))
-        }
+        let viewModel = PlanViewModel(plan: plan, trip: tripViewModel.trip)
+        return AnyView(UpvotePlanView(viewModel: viewModel, displayName: false))
     }
 
     var body: some View {
