@@ -1,5 +1,5 @@
 //
-//  RestaurantFormView.swift
+//  PlanFormView.swift
 //  TourMate
 //
 //  Created by Tan Rui Quan on 13/3/22.
@@ -7,10 +7,15 @@
 
 import SwiftUI
 
-struct RestaurantFormView: View {
+struct PlanFormView: View {
     @Binding var isActive: Bool
     @State var isShowingSearchSheet = false
-    @StateObject var viewModel: AddPlanFormViewModel<Restaurant>
+    @StateObject var viewModel: AddPlanFormViewModel
+
+    init(isActive: Binding<Bool>, trip: Trip) {
+        self._isActive = isActive
+        self._viewModel = StateObject(wrappedValue: AddPlanFormViewModel(trip: trip))
+    }
 
     var body: some View {
         if !viewModel.canAddPlan {
@@ -20,7 +25,7 @@ struct RestaurantFormView: View {
         }
         Form {
             ConfirmedToggle(status: $viewModel.plan.status)
-            TextField("Restaurant Name", text: $viewModel.plan.name)
+            TextField("Event Name", text: $viewModel.plan.name)
             DatePicker("Start Date",
                        selection: $viewModel.plan.startDateTime.date,
                        in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
@@ -29,11 +34,17 @@ struct RestaurantFormView: View {
                        selection: $viewModel.plan.endDateTime.date,
                        in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                        displayedComponents: [.date, .hourAndMinute])
-            AddressTextField("Address", text: $viewModel.plan.startLocation)
-            TextField("Phone", text: $viewModel.plan.phone ?? "")
-            TextField("website", text: $viewModel.plan.website ?? "")
+            TextField("Start Location", text: $viewModel.plan.startLocation)
+                .sheet(isPresented: $isShowingSearchSheet) {
+                    SearchView(viewModel: SearchViewModel(), planAddress: $viewModel.plan.startLocation)
+                }
+                .onTapGesture {
+                    isShowingSearchSheet.toggle()
+                }
+            // TODO: Add End Location
+            // TODO: Add Additional Info box
         }
-        .navigationTitle("Restaurant")
+        .navigationTitle("Plan")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
@@ -49,8 +60,8 @@ struct RestaurantFormView: View {
     }
 }
 
-// struct RestaurantFormView_Previews: PreviewProvider {
+// struct PlanFormView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        RestaurantFormView()
+//        PlanFormView()
 //    }
 // }

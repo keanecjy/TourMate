@@ -9,11 +9,11 @@ import Foundation
 import Combine
 
 @MainActor
-class PlanViewModel<T: Plan>: ObservableObject {
+class PlanViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
-    @Published var plan: T
+    @Published var plan: Plan
     @Published var isPlanDurationValid = true
     @Published var canEditPlan = true
 
@@ -27,7 +27,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
 
     private var cancellableSet: Set<AnyCancellable> = []
 
-    init(plan: T, trip: Trip,
+    init(plan: Plan, trip: Trip,
          planService: PlanService = FirebasePlanService(),
          userService: UserService = FirebaseUserService()) {
         self.plan = plan
@@ -82,7 +82,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
         self.isLoading = false
     }
 
-    private func updateUpvotes(id: String) -> T? {
+    private func updateUpvotes(id: String) -> Plan? {
         var plan = self.plan
 
         if plan.upvotedUserIds.contains(id) {
@@ -95,7 +95,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
     }
 
     // Update all plans
-    private func updatePublishedProperties(plan: T) async {
+    private func updatePublishedProperties(plan: Plan) async {
         print("[PlanViewModel] Publishing plan \(plan) changes")
         self.plan = plan
         self.upvotedUsers = await fetchUpvotedUsers()
@@ -125,7 +125,7 @@ class PlanViewModel<T: Plan>: ObservableObject {
         return fetchedUpvotedUsers
     }
 
-    private func modifyPlan(plan: T, function: (Plan) async -> (Bool, String)) async {
+    private func modifyPlan(plan: Plan, function: (Plan) async -> (Bool, String)) async {
         self.isLoading = true
 
         let (hasUpdatedPlan, errorMessage) = await function(plan)
@@ -172,7 +172,7 @@ extension PlanViewModel: PlanEventDelegate {
             return
         }
 
-        guard let plan = plan as? T else {
+        guard let plan = plan else {
             handleError()
             return
         }
