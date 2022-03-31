@@ -20,6 +20,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     let creationDate: Date
     let modificationDate: Date
     let upvotedUserIds: [String]
+    var additionalInfo: String?
 
     private enum CodingKeys: String, CodingKey {
         case id
@@ -34,6 +35,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         case creationDate
         case modificationDate
         case upvotedUserIds
+        case additionalInfo
     }
 
     init(id: String, tripId: String, name: String,
@@ -42,7 +44,8 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
          startLocation: String, endLocation: String?,
          imageUrl: String?, status: String,
          creationDate: Date, modificationDate: Date,
-         upvotedUserIds: [String]) {
+         upvotedUserIds: [String],
+         additionalInfo: String?) {
         self.id = id
         self.tripId = tripId
         self.name = name
@@ -55,6 +58,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         self.creationDate = creationDate
         self.modificationDate = modificationDate
         self.upvotedUserIds = upvotedUserIds
+        self.additionalInfo = additionalInfo
     }
 
     required init(from decoder: Decoder) throws {
@@ -72,6 +76,7 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         creationDate = try container.decode(Date.self, forKey: .creationDate)
         modificationDate = try container.decode(Date.self, forKey: .modificationDate)
         upvotedUserIds = try container.decode(Array<String>.self, forKey: .upvotedUserIds)
+        additionalInfo = try container.decode(String?.self, forKey: .additionalInfo)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -89,10 +94,11 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         try container.encode(creationDate, forKey: .creationDate)
         try container.encode(modificationDate, forKey: .modificationDate)
         try container.encode(upvotedUserIds, forKey: .upvotedUserIds)
+        try container.encode(additionalInfo, forKey: .additionalInfo)
     }
 
     func getType() -> FirebaseAdaptedType {
-        preconditionFailure("This method should not be called")
+        .firebaseAdaptedPlan
     }
 
 }
