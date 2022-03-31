@@ -19,16 +19,6 @@ struct TripView: View {
         self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
     }
 
-    var dateString: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeZone = viewModel.trip.startDateTime.timeZone
-        let startDateString = dateFormatter.string(from: viewModel.trip.startDateTime.date)
-        dateFormatter.timeZone = viewModel.trip.endDateTime.timeZone
-        let endDateString = dateFormatter.string(from: viewModel.trip.endDateTime.date)
-        return startDateString + " - " + endDateString
-    }
-
     @ViewBuilder
     var body: some View {
         Group {
@@ -39,7 +29,7 @@ struct TripView: View {
             } else {
                 ScrollView {
                     VStack {
-                        Text(dateString)
+                        Text(viewModel.trip.durationDescription)
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding([.bottom, .horizontal])
