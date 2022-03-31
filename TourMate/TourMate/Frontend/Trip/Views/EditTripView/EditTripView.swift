@@ -24,7 +24,7 @@ struct EditTripView: View {
                 } else {
                     Form {
                         Section("Trip Information") {
-                            TextField("Trip Name*", text: $viewModel.trip.name)
+                            TextField("Trip Name", text: $viewModel.trip.name)
                             DatePicker(
                                 "Start Date",
                                 selection: $viewModel.trip.startDateTime.date,

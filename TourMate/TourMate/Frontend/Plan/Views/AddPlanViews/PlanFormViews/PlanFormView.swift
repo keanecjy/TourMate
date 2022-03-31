@@ -41,6 +41,8 @@ struct PlanFormView: View {
                 .onTapGesture {
                     isShowingSearchSheet.toggle()
                 }
+            // TODO: Add End Location
+            // TODO: Add Additional Info box
         }
         .navigationTitle("Plan")
         .navigationBarTitleDisplayMode(.inline)

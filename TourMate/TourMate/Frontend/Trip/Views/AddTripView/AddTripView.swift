@@ -22,7 +22,7 @@ struct AddTripView: View {
                     ProgressView()
                 } else {
                     Form {
-                        TextField("Trip Name*", text: $viewModel.tripName)
+                        TextField("Trip Name", text: $viewModel.tripName)
                         DatePicker(
                             "Start Date",
                             selection: $viewModel.startDate,
