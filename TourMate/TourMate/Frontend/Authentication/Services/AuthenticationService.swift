@@ -9,7 +9,7 @@ import Foundation
 
 protocol AuthenticationService: ObservableObject {
     associatedtype ConcreteAuthenticationService: AuthenticationService
-    static var singleton: ConcreteAuthenticationService { get }
+    static var shared: ConcreteAuthenticationService { get }
     var userIsLoggedIn: Bool { get }
     func checkIfUserIsLoggedIn()
     func logIn()

@@ -11,7 +11,7 @@ import FirebaseAuth
 // https://blog.codemagic.io/google-sign-in-firebase-authentication-using-swift/
 final class FirebaseAuthenticationService: ObservableObject, AuthenticationService {
 
-    private(set) static var singleton = FirebaseAuthenticationService()
+    private(set) static var shared = FirebaseAuthenticationService()
 
     @Published private(set) var userIsLoggedIn: Bool
     private let authenticationManager: AuthenticationManager = FirebaseAuthenticationManager()
