@@ -46,7 +46,7 @@ class FirebasePlanService: PlanService {
 
         // unable to typecast
         guard let adaptedPlans = adaptedPlans as? [FirebaseAdaptedPlan] else {
-             return ([], "Unable to convert FirebaseAdaptedData to FirebaseAdaptedPlan")
+             return ([], Constants.errorPlanConversion)
         }
 
         let plans = adaptedPlans.map({ planAdapter.toPlan(adaptedPlan: $0) })
@@ -66,7 +66,7 @@ class FirebasePlanService: PlanService {
 
         // unable to typecast
         guard let adaptedPlan = adaptedPlan as? FirebaseAdaptedPlan else {
-            return (nil, "Unable to convert FirebaseAdaptedData to FirebaseAdaptedPlan")
+            return (nil, Constants.errorPlanConversion)
         }
 
         let plan = planAdapter.toPlan(adaptedPlan: adaptedPlan)
