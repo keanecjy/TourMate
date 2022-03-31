@@ -22,28 +22,7 @@ struct EditTripView: View {
                 if viewModel.hasError {
                     Text("Error occurred")
                 } else {
-                    Form {
-                        Section("Trip Information") {
-                            TextField("Trip Name*", text: $viewModel.trip.name)
-                            DatePicker(
-                                "Start Date",
-                                selection: $viewModel.trip.startDateTime.date,
-                                in: viewModel.fromStartDate,
-                                displayedComponents: [.date]
-                            )
-                            DatePicker(
-                                "End Date",
-                                selection: $viewModel.trip.endDateTime.date,
-                                in: viewModel.fromStartDate,
-                                displayedComponents: [.date]
-                            )
-                            TextField("Image URL", text: $viewModel.trip.imageUrl ?? "")
-                        }
-
-                        Section("Invite Users") {
-                            InviteUserView(viewModel: viewModel)
-                        }
-                    }
+                    TripFormView(viewModel: viewModel)
                 }
             }
             .navigationTitle("Edit Trip")

@@ -45,10 +45,6 @@ struct TripView: View {
                                 Color.gray
                             }
                         }
-                        Text("Attendees")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.bottom, .horizontal])
 
                         AttendeesView(viewModel: viewModel)
 

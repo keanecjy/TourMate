@@ -11,19 +11,26 @@ struct AttendeesView: View {
     @ObservedObject var viewModel: TripViewModel
 
     var body: some View {
-        ScrollView(.horizontal) {
-            LazyHStack {
-                ForEach(viewModel.attendees, id: \.id) { user in
-                    UserIconView(imageUrl: user.imageUrl, name: user.name)
-                }
+        VStack {
+            Text("Attendees")
+                .font(.headline)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding([.bottom, .horizontal])
 
-                Spacer()
+            ScrollView(.horizontal) {
+                LazyHStack {
+                    ForEach(viewModel.attendees, id: \.id) { user in
+                        UserIconView(imageUrl: user.imageUrl, name: user.name)
+                    }
+
+                    Spacer()
+                }
             }
-        }
-        .padding()
-        .onAppear {
-            Task {
-                await viewModel.fetchAttendees()
+            .padding()
+            .onAppear {
+                Task {
+                    await viewModel.fetchAttendees()
+                }
             }
         }
     }

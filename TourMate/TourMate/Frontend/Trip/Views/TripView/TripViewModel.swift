@@ -9,14 +9,19 @@ import Foundation
 import Combine
 
 @MainActor
-class TripViewModel: ObservableObject {
+class TripViewModel: ObservableObject, TripFormViewModel {
+
     @Published var trip: Trip
+    var tripPublisher: Published<Trip>.Publisher { $trip }
+
+    @Published var fromStartDate: PartialRangeFrom<Date>
+    var fromStartDatePublisher: Published<PartialRangeFrom<Date>>.Publisher { $fromStartDate }
+
     @Published private(set) var isLoading = false
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
 
     @Published var isTripNameValid = true
-    @Published var fromStartDate = Date()...
     @Published var canUpdateTrip = true
 
     @Published var attendees: [User] = []
@@ -31,6 +36,7 @@ class TripViewModel: ObservableObject {
          userService: UserService = FirebaseUserService()) {
 
         self.trip = trip
+        self.fromStartDate = trip.startDateTime.date...
         self.tripService = tripService
         self.userService = userService
 
