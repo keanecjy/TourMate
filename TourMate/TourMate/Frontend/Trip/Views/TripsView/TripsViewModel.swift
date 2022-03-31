@@ -42,6 +42,7 @@ extension TripsViewModel: TripEventDelegate {
         print("[TripsViewModel] Updating Trips: \(trips)")
 
         guard errorMessage.isEmpty else {
+            print("[TripsViewModel] Error updating Trips: \(errorMessage)")
             self.isLoading = false
             self.hasError = true
             return
