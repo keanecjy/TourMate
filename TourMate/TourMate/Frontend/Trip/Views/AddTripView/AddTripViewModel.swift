@@ -10,19 +10,18 @@ import Combine
 import FirebaseAuth
 
 @MainActor
-class AddTripViewModel: ObservableObject {
+class AddTripViewModel: ObservableObject, TripFormViewModel {
     @Published private(set) var isLoading = false
     @Published private(set) var hasError = false
 
-    @Published var tripName = ""
-    @Published var startDate = Date()
-    @Published var startTimeZone = TimeZone.current
-    @Published var endDate = Date()
-    @Published var endTimeZone = TimeZone.current
-    @Published var imageUrl = ""
     @Published var isTripNameValid = false
-    @Published var fromStartDate = Date()...
     @Published var canAddTrip = false
+
+    @Published var trip: Trip
+    var tripPublisher: Published<Trip>.Publisher { $trip }
+
+    @Published var fromStartDate = Date()...
+    var fromStartDatePublisher: Published<PartialRangeFrom<Date>>.Publisher { $fromStartDate }
 
     let tripService: TripService
     let userService: UserService
@@ -34,48 +33,67 @@ class AddTripViewModel: ObservableObject {
         self.tripService = tripService
         self.userService = userService
 
-        $tripName
+        self.trip = Trip(id: UUID().uuidString, name: "",
+                         startDateTime: DateTime(), endDateTime: DateTime(),
+                         imageUrl: "", attendeesUserIds: [], invitedUserIds: [],
+                         creationDate: Date(), modificationDate: Date())
+
+        $trip
+            .map({ $0.name })
             .map({ !$0.isEmpty })
             .assign(to: \.isTripNameValid, on: self)
             .store(in: &cancellableSet)
 
-        $startDate
-            .map({ $0... })
+        $trip
+            .map({ $0.startDateTime.date... })
             .assign(to: \.fromStartDate, on: self)
-            .store(in: &cancellableSet)
-
-        Publishers
-            .CombineLatest($startDate, $endDate)
-            .map({ max($0, $1) })
-            .assign(to: \.endDate, on: self)
             .store(in: &cancellableSet)
 
         $isTripNameValid
             .assign(to: \.canAddTrip, on: self)
             .store(in: &cancellableSet)
+
+        // ???
+//        Publishers
+//            .CombineLatest($startDate, $endDate)
+//            .map({ max($0, $1) })
+//            .assign(to: \.endDate, on: self)
+//            .store(in: &cancellableSet)
     }
 
     func addTrip() async {
         self.isLoading = true
         let (user, userErrorMessage) = await userService.getUser()
+
         guard let user = user, userErrorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
             return
         }
-        let uuid = UUID().uuidString
+
+        let creatorUserId = user.id
+        let uuid = trip.id
+        let name = trip.name
+        let imageUrl = trip.imageUrl
         let calendar = Calendar.current
-        let start = calendar.startOfDay(for: startDate)
-        let end = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endDate) ?? endDate
-        let startDateTime = DateTime(date: start, timeZone: startTimeZone)
-        let endDateTime = DateTime(date: end, timeZone: endTimeZone)
-        let trip = Trip(id: uuid, name: tripName,
-                        startDateTime: startDateTime,
-                        endDateTime: endDateTime,
-                        imageUrl: imageUrl,
-                        creatorUserId: user.id)
-        let (hasAddedTrip, tripErrorMessage) = await tripService.addTrip(trip: trip)
-        guard hasAddedTrip == true, tripErrorMessage.isEmpty else {
+        let start = calendar.startOfDay(for: trip.startDateTime.date)
+        let end = calendar.date(bySettingHour: 23,
+                                minute: 59,
+                                second: 59,
+                                of: trip.endDateTime.date) ?? trip.endDateTime.date
+
+        let startDateTime = DateTime(date: start, timeZone: trip.startDateTime.timeZone)
+        let endDateTime = DateTime(date: end, timeZone: trip.endDateTime.timeZone)
+
+        let newTrip = Trip(id: uuid,
+                           name: name,
+                           startDateTime: startDateTime,
+                           endDateTime: endDateTime,
+                           imageUrl: imageUrl,
+                           creatorUserId: creatorUserId)
+
+        let (hasAddedTrip, tripErrorMessage) = await tripService.addTrip(trip: newTrip)
+        guard hasAddedTrip, tripErrorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
             return

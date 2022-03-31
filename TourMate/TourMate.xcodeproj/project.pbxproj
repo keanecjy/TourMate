@@ -36,6 +36,8 @@
 		0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092522F27DA573500F4F029 /* TourMateTitleView.swift */; };
 		0092523827DA573500F4F029 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523127DA573500F4F029 /* LaunchView.swift */; };
 		0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523D27DA574800F4F029 /* FirebaseAuthenticationService.swift */; };
+		00B4CECE27F5E0CA004A6126 /* TripFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B4CECD27F5E0CA004A6126 /* TripFormView.swift */; };
+		00B4CED127F5E0F4004A6126 /* TripFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B4CED027F5E0F4004A6126 /* TripFormViewModel.swift */; };
 		00E2B19527E4C95400B5F449 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2B19427E4C95400B5F449 /* LogInView.swift */; };
 		00F83BB827DC46E4003A28AA /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BB727DC46E4003A28AA /* AuthenticationButton.swift */; };
 		00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F83BBF27DC528F003A28AA /* FirebaseAuthenticationManager.swift */; };
@@ -180,6 +182,8 @@
 		0092522F27DA573500F4F029 /* TourMateTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourMateTitleView.swift; sourceTree = "<group>"; };
 		0092523127DA573500F4F029 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		0092523D27DA574800F4F029 /* FirebaseAuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationService.swift; sourceTree = "<group>"; };
+		00B4CECD27F5E0CA004A6126 /* TripFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripFormView.swift; sourceTree = "<group>"; };
+		00B4CED027F5E0F4004A6126 /* TripFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripFormViewModel.swift; sourceTree = "<group>"; };
 		00E2B19427E4C95400B5F449 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		00F83BB727DC46E4003A28AA /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
 		00F83BBF27DC528F003A28AA /* FirebaseAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationManager.swift; sourceTree = "<group>"; };
@@ -411,6 +415,15 @@
 				00582F7A27E745B0008756E9 /* EditRestaurantView.swift */,
 			);
 			path = EditPlanViews;
+			sourceTree = "<group>";
+		};
+		00B4CECF27F5E0D4004A6126 /* TripFormView */ = {
+			isa = PBXGroup;
+			children = (
+				00B4CECD27F5E0CA004A6126 /* TripFormView.swift */,
+				00B4CED027F5E0F4004A6126 /* TripFormViewModel.swift */,
+			);
+			path = TripFormView;
 			sourceTree = "<group>";
 		};
 		06B0DB20F39120EB04B061FB /* Pods */ = {
@@ -658,6 +671,7 @@
 				9538546127E449E500AFDED8 /* AddTripView */,
 				4CE02B6E27EACAFA00480D73 /* EditTripView */,
 				95779BD427E766B3001FF602 /* TripsView */,
+				00B4CECF27F5E0D4004A6126 /* TripFormView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1298,9 +1312,11 @@
 				4CB954EC27DE3F08001410AD /* FirebaseAdaptedType.swift in Sources */,
 				B98F35EB27F0511A000AFE53 /* TaskExtensions.swift in Sources */,
 				4CCBBD1F27DE67B400F9C250 /* PlanStatus.swift in Sources */,
+				00B4CED127F5E0F4004A6126 /* TripFormViewModel.swift in Sources */,
 				B99D964B27D73503009B66AE /* ContentView.swift in Sources */,
 				4CE02B8B27EAE93900480D73 /* TripAdapter.swift in Sources */,
 				004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */,
+				00B4CECE27F5E0CA004A6126 /* TripFormView.swift in Sources */,
 				4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */,
 				00582F7927E745A3008756E9 /* EditAccommodationView.swift in Sources */,
 				00062B4B27EF0FA600267960 /* CommentService.swift in Sources */,
