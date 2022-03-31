@@ -19,6 +19,7 @@ struct AddressTextField: View {
 
     var body: some View {
         TextField(title, text: $text)
+            .disabled(true)
             .sheet(isPresented: $isShowingSearchSheet) {
                 SearchView(viewModel: SearchViewModel(), planAddress: $text)
             }

@@ -63,7 +63,7 @@ struct FlightView: View {
                 Text(getDateString(flight.startDateTime.date))
                     .font(.headline)
 
-                if let location = flight.startLocation {
+                if let location = flight.startLocation?.addressFull {
                     Text("Location")
                         .font(.caption)
                     Text(location)
@@ -95,7 +95,7 @@ struct FlightView: View {
                 Text(getDateString(flight.endDateTime.date))
                     .font(.headline)
 
-                if let location = flight.endLocation {
+                if let location = flight.endLocation?.addressFull {
                     Text("Location")
                         .font(.caption)
                     Text(location)

@@ -14,8 +14,8 @@ protocol Plan: CustomStringConvertible {
     var name: String { get set }
     var startDateTime: DateTime { get set }
     var endDateTime: DateTime { get set }
-    var startLocation: String { get set }
-    var endLocation: String? { get set }
+    var startLocation: Location? { get set }
+    var endLocation: Location? { get set }
     var imageUrl: String? { get set }
     var status: PlanStatus { get set }
     var creationDate: Date { get }

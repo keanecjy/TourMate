@@ -15,8 +15,8 @@ struct Flight: Plan {
     var name: String = "Flight"
     var startDateTime: DateTime
     var endDateTime: DateTime
-    var startLocation: String
-    var endLocation: String?
+    var startLocation: Location?
+    var endLocation: Location?
     var imageUrl: String?
     var status: PlanStatus
     var creationDate: Date

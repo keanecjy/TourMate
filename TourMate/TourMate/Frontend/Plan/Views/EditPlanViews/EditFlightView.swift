@@ -35,7 +35,12 @@ struct EditFlightView: View {
                                            selection: $viewModel.plan.startDateTime.date,
                                            in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                                            displayedComponents: [.date, .hourAndMinute])
-                                AddressTextField("Departure Address", text: $viewModel.plan.startLocation)
+                                AddressTextField("Departure Address", text: Binding<String>(
+                                    get: { viewModel.plan.startLocation?.addressFull ?? "" },
+                                    set: { newValue in
+                                        viewModel.plan.startLocation?.addressFull = newValue
+                                    }
+                                ))
                                 TextField("Terminal", text: $viewModel.plan.departureTerminal ?? "")
                                 TextField("Gate", text: $viewModel.plan.departureGate ?? "")
                             }
@@ -44,7 +49,12 @@ struct EditFlightView: View {
                                            selection: $viewModel.plan.endDateTime.date,
                                            in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                                            displayedComponents: [.date, .hourAndMinute])
-                                AddressTextField("Arrival Address", text: $viewModel.plan.endLocation ?? "")
+                                AddressTextField("Arrival Address", text: Binding<String>(
+                                    get: { viewModel.plan.endLocation?.addressFull ?? "" },
+                                    set: { newValue in
+                                        viewModel.plan.endLocation?.addressFull = newValue
+                                    }
+                                ))
                                 TextField("Terminal", text: $viewModel.plan.arrivalTerminal ?? "")
                                 TextField("Gate", text: $viewModel.plan.arrivalGate ?? "")
                             }

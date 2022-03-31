@@ -61,7 +61,7 @@ struct ActivityView: View {
 
                             Text("Address")
                                 .font(.caption)
-                            Text(activity.startLocation)
+                            Text(activity.startLocation?.addressFull ?? "")
                         }
                         .padding()
 

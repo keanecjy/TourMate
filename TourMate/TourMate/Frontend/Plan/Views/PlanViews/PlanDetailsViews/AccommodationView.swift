@@ -55,7 +55,7 @@ struct AccommodationView: View {
                         VStack(alignment: .leading) {
                             Text("Address")
                                 .font(.caption)
-                            Text(accommodation.startLocation)
+                            Text(accommodation.startLocation?.addressFull ?? "")
                         }
                         .padding()
 

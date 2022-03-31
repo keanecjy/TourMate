@@ -33,14 +33,24 @@ struct EditTransportView: View {
                                            selection: $viewModel.plan.startDateTime.date,
                                            in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                                            displayedComponents: [.date, .hourAndMinute])
-                                AddressTextField("Departure Address", text: $viewModel.plan.startLocation)
+                                AddressTextField("Departure Address", text: Binding<String>(
+                                    get: { viewModel.plan.startLocation?.addressFull ?? "" },
+                                    set: { newValue in
+                                        viewModel.plan.startLocation?.addressFull = newValue
+                                    }
+                                ))
                             }
                             Section("Arrival Info") {
                                 DatePicker("Arrival Date",
                                            selection: $viewModel.plan.endDateTime.date,
                                            in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                                            displayedComponents: [.date, .hourAndMinute])
-                                AddressTextField("Arrival Address", text: $viewModel.plan.endLocation ?? "")
+                                AddressTextField("Arrival Address", text: Binding<String>(
+                                    get: { viewModel.plan.endLocation?.addressFull ?? "" },
+                                    set: { newValue in
+                                        viewModel.plan.endLocation?.addressFull = newValue
+                                    }
+                                ))
                             }
                             Section("Vehicle Info") {
                                 TextField("Vehicle Description", text: $viewModel.plan.vehicleDescription ?? "")

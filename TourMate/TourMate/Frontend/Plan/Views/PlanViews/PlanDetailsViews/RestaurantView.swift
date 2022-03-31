@@ -55,7 +55,7 @@ struct RestaurantView: View {
                         VStack(alignment: .leading) {
                             Text("Address")
                                 .font(.caption)
-                            Text(restaurant.startLocation)
+                            Text(restaurant.startLocation?.addressFull ?? "")
                         }
                         .padding()
 

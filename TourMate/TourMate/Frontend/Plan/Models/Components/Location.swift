@@ -8,10 +8,10 @@
 import Foundation
 
 struct Location {
-    let addressLineOne: String
-    let addressLineTwo: String
+    var addressLineOne: String
+    var addressLineTwo: String
     // full = address line one + address line two
-    let addressFull: String
-    let longitude: Double
-    let latitude: Double
+    var addressFull: String
+    var longitude: Double
+    var latitude: Double
 }

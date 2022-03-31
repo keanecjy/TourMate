@@ -34,7 +34,12 @@ struct EditAccommodationView: View {
                                        selection: $viewModel.plan.endDateTime.date,
                                        in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                                        displayedComponents: [.date, .hourAndMinute])
-                            AddressTextField("Address", text: $viewModel.plan.startLocation)
+                            AddressTextField("Address", text: Binding<String>(
+                                get: { viewModel.plan.startLocation?.addressFull ?? "" },
+                                set: { newValue in
+                                    viewModel.plan.startLocation?.addressFull = newValue
+                                }
+                            ))
                             TextField("Phone", text: $viewModel.plan.phone ?? "")
                             TextField("website", text: $viewModel.plan.website ?? "")
                         }

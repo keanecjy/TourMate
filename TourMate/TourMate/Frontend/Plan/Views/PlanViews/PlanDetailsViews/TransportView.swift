@@ -44,7 +44,7 @@ struct TransportView: View {
                 Text(getDateString(transport.startDateTime.date))
                     .font(.headline)
                 Text("Location").font(.caption)
-                Text(transport.startLocation)
+                Text(transport.startLocation?.addressFull ?? "")
             }
         }
     }
@@ -60,7 +60,7 @@ struct TransportView: View {
                 Text(getDateString(transport.endDateTime.date))
                     .font(.headline)
 
-                if let location = transport.endLocation {
+                if let location = transport.endLocation?.addressFull {
                     Text("Location")
                         .font(.caption)
                     Text(location)

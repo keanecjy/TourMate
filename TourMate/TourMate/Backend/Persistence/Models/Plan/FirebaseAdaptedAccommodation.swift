@@ -19,7 +19,7 @@ class FirebaseAdaptedAccommodation: FirebaseAdaptedPlan {
 
     init(id: String, tripId: String, name: String,
          startDateTime: FirebaseAdaptedDateTime, endDateTime: FirebaseAdaptedDateTime,
-         startLocation: String, endLocation: String?, imageUrl: String?,
+         startLocation: JsonAdaptedLocation?, endLocation: JsonAdaptedLocation?, imageUrl: String?,
          status: String, creationDate: Date, modificationDate: Date,
          upvotedUserIds: [String],
          phone: String?, website: String?) {

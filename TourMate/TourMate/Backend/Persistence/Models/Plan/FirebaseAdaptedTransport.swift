@@ -17,9 +17,12 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
     }
 
     init(id: String, tripId: String, name: String,
-         startDateTime: FirebaseAdaptedDateTime, endDateTime: FirebaseAdaptedDateTime,
-         startLocation: String, endLocation: String?, imageUrl: String?,
-         status: String, creationDate: Date, modificationDate: Date,
+         startDateTime: FirebaseAdaptedDateTime,
+         endDateTime: FirebaseAdaptedDateTime,
+         startLocation: JsonAdaptedLocation?,
+         endLocation: JsonAdaptedLocation?,
+         imageUrl: String?, status: String,
+         creationDate: Date, modificationDate: Date,
          upvotedUserIds: [String],
          vehicleDescription: String?, numberOfPassengers: String?) {
 

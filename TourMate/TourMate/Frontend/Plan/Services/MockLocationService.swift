@@ -12,23 +12,23 @@ class MockLocationService: LocationService {
         Location(addressLineOne: "NUS",
                  addressLineTwo: "National University of Singapore",
                  addressFull: "NUS, National University of Singapore",
-                 longitude: 1.2966, latitude: 103.7764),
+                 longitude: 1.296_6, latitude: 103.776_4),
         Location(addressLineOne: "NTU",
                  addressLineTwo: "Nanyang Technological University",
                  addressFull: "NTU, Nanyang Technological University",
-                 longitude: 1.3483, latitude: 103.6831),
+                 longitude: 1.348_3, latitude: 103.683_1),
         Location(addressLineOne: "SMU",
                  addressLineTwo: "Singapore Management University",
                  addressFull: "SMU, Singapore Management University",
-                 longitude: 1.2963, latitude: 103.8502),
+                 longitude: 1.296_3, latitude: 103.850_2),
         Location(addressLineOne: "SUTD",
                  addressLineTwo: "Singapore University of Technology and Design",
                  addressFull: "SUTD, Singapore University of Technology and Design",
-                 longitude: 1.3414, latitude: 103.9633),
+                 longitude: 1.341_4, latitude: 103.963_3),
         Location(addressLineOne: "SCA",
                  addressLineTwo: "Singapore Changi Airport",
                  addressFull: "SCA, Singapore Changi Airport",
-                 longitude: 1.3644, latitude: 103.9915)
+                 longitude: 1.364_4, latitude: 103.991_5)
     ]
 
     func fetchLocations(query: String) async -> ([Location], String) {

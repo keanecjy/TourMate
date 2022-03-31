@@ -13,8 +13,8 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     let name: String
     let startDateTime: FirebaseAdaptedDateTime
     let endDateTime: FirebaseAdaptedDateTime
-    let startLocation: String
-    let endLocation: String?
+    let startLocation: JsonAdaptedLocation?
+    let endLocation: JsonAdaptedLocation?
     let imageUrl: String?
     let status: String
     let creationDate: Date
@@ -39,7 +39,8 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     init(id: String, tripId: String, name: String,
          startDateTime: FirebaseAdaptedDateTime,
          endDateTime: FirebaseAdaptedDateTime,
-         startLocation: String, endLocation: String?,
+         startLocation: JsonAdaptedLocation?,
+         endLocation: JsonAdaptedLocation?,
          imageUrl: String?, status: String,
          creationDate: Date, modificationDate: Date,
          upvotedUserIds: [String]) {
@@ -65,8 +66,8 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         name = try container.decode(String.self, forKey: .name)
         startDateTime = try container.decode(FirebaseAdaptedDateTime.self, forKey: .startDateTime)
         endDateTime = try container.decode(FirebaseAdaptedDateTime.self, forKey: .endDateTime)
-        startLocation = try container.decode(String.self, forKey: .startLocation)
-        endLocation = try container.decode(String?.self, forKey: .endLocation)
+        startLocation = try container.decode(JsonAdaptedLocation?.self, forKey: .startLocation)
+        endLocation = try container.decode(JsonAdaptedLocation?.self, forKey: .endLocation)
         imageUrl = try container.decode(String?.self, forKey: .imageUrl)
         status = try container.decode(String.self, forKey: .status)
         creationDate = try container.decode(Date.self, forKey: .creationDate)

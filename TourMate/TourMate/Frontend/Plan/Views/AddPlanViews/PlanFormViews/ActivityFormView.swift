@@ -30,13 +30,12 @@ struct ActivityFormView: View {
                        in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                        displayedComponents: [.date, .hourAndMinute])
             TextField("Venue", text: $viewModel.plan.venue ?? "")
-            TextField("Address", text: $viewModel.plan.startLocation)
-                .sheet(isPresented: $isShowingSearchSheet) {
-                    SearchView(viewModel: SearchViewModel(), planAddress: $viewModel.plan.startLocation)
+            AddressTextField("Address", text: Binding<String>(
+                get: { viewModel.plan.startLocation?.addressFull ?? "" },
+                set: { newValue in
+                    viewModel.plan.startLocation?.addressFull = newValue
                 }
-                .onTapGesture {
-                    isShowingSearchSheet.toggle()
-                }
+            ))
             TextField("Phone", text: $viewModel.plan.phone ?? "")
             TextField("Website", text: $viewModel.plan.website ?? "")
         }
