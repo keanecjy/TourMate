@@ -14,6 +14,7 @@ struct TripView: View {
 
     @State private var isAddPlanViewActive = false
     @State private var isShowingEditTripSheet = false
+    @State private var isShowingInviteUsersSheet = false
 
     init(trip: Trip) {
         self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
@@ -64,6 +65,16 @@ struct TripView: View {
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
                     EditTripView(trip: viewModel.trip)
+                }
+
+                Button {
+                    isShowingInviteUsersSheet.toggle()
+                } label: {
+                    Image(systemName: "person.crop.circle.badge.plus")
+                }
+                .disabled(viewModel.isDeleted || viewModel.isLoading)
+                .sheet(isPresented: $isShowingInviteUsersSheet) {
+                    InviteUserView(trip: viewModel.trip)
                 }
 
                 NavigationLink(isActive: $isAddPlanViewActive) {

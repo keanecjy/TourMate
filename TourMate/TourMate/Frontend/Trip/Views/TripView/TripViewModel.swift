@@ -139,7 +139,7 @@ class TripViewModel: ObservableObject, TripFormViewModel {
         self.isLoading = false
     }
 
-    func fetchAttendees() async {
+    private func fetchAttendees() async {
         var fetchedAttendees: [User] = []
 
         for userId in trip.attendeesUserIds {
@@ -179,6 +179,8 @@ extension TripViewModel: TripEventDelegate {
         }
 
         self.trip = trip
+        await fetchAttendees()
+
         self.isLoading = false
     }
 

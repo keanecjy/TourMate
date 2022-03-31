@@ -10,24 +10,53 @@ import SwiftUI
 // Button style issue:
 // https://www.hackingwithswift.com/forums/swiftui/buttons-in-a-form-section/6175
 struct InviteUserView: View {
-    @ObservedObject var viewModel: TripViewModel
+    @Environment(\.dismiss) var dismiss
+
+    @StateObject var viewModel: TripViewModel
+
+    init(trip: Trip) {
+        self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
+    }
+
     @State var email = ""
 
     var body: some View {
-        HStack {
-            TextField("User's email", text: $email)
-                .disableAutocorrection(true)
-                .autocapitalization(.none)
+        NavigationView {
+            Group {
+                if viewModel.hasError {
+                    Text("Error occurred")
+                } else if viewModel.isLoading {
+                    ProgressView()
+                } else {
+                    Form {
+                        TextField("User's email", text: $email)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
 
-            Button("Invite") {
-                Task {
-                    await viewModel.inviteUser(email: email)
-                    email = ""
+                        Button {
+                            Task {
+                                await viewModel.inviteUser(email: email)
+                                email = ""
+                            }
+                        } label: {
+                            Text("Invite")
+                                .frame(maxWidth: .infinity)
+                                .multilineTextAlignment(.center)
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Invite User")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel", role: .destructive) {
+                        dismiss()
+                    }
+                    .disabled(viewModel.isLoading)
                 }
             }
         }
-        // to fix the entire HStack becoming a button
-        .buttonStyle(BorderlessButtonStyle())
     }
 }
 

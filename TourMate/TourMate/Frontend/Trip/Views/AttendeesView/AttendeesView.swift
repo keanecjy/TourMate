@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AttendeesView: View {
+
+    // The VM binds to Database. Will not need to fetch
     @ObservedObject var viewModel: TripViewModel
 
     var body: some View {
@@ -27,11 +29,6 @@ struct AttendeesView: View {
                 }
             }
             .padding()
-            .onAppear {
-                Task {
-                    await viewModel.fetchAttendees()
-                }
-            }
         }
     }
 }
