@@ -21,6 +21,8 @@ struct EditTripView: View {
             Group {
                 if viewModel.hasError {
                     Text("Error occurred")
+                } else if viewModel.isLoading {
+                    ProgressView()
                 } else {
                     TripFormView(viewModel: viewModel)
                 }
