@@ -58,12 +58,10 @@ class FirebasePlanService: PlanService {
 
         let (adaptedPlan, errorMessage) = await firebaseRepository.fetchItem(id: planId)
 
-        guard errorMessage.isEmpty else {
+        guard errorMessage.isEmpty,
+              adaptedPlan != nil
+        else {
             return (nil, errorMessage)
-        }
-
-        guard adaptedPlan != nil else { // unable to get a adaptedPlan
-            return (nil, "")
         }
 
         // unable to typecast
