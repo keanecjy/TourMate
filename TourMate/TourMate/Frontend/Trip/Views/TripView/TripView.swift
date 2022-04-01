@@ -101,7 +101,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingAddPlanSheet) {
-                    AddPlanView(trip: viewModel.trip)
+                    AddPlanView(viewModel: AddPlanViewModel(trip: viewModel.trip))
                 }
             }
         }

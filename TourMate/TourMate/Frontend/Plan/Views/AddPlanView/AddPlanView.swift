@@ -12,10 +12,6 @@ struct AddPlanView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: AddPlanViewModel
 
-    init(trip: Trip) {
-        self._viewModel = StateObject(wrappedValue: AddPlanViewModel(trip: trip))
-    }
-
     var body: some View {
         NavigationView {
             Group {
