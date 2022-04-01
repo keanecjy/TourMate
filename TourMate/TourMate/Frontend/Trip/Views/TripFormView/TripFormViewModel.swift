@@ -10,8 +10,8 @@ import Combine
 
 @MainActor
 class TripFormViewModel: ObservableObject {
-    @Published var isTripNameValid = true
-    @Published var canSubmitTrip = true
+    @Published var isTripNameValid: Bool
+    @Published var canSubmitTrip: Bool
 
     @Published var tripName: String
     @Published var tripStartDate: Date
@@ -22,6 +22,9 @@ class TripFormViewModel: ObservableObject {
     private var cancellableSet: Set<AnyCancellable> = []
 
     init() {
+        self.isTripNameValid = false
+        self.canSubmitTrip = false
+
         self.tripName = ""
         self.tripStartDate = Date()
         self.tripEndDate = Date()
@@ -51,6 +54,9 @@ class TripFormViewModel: ObservableObject {
     }
 
     init(trip: Trip) {
+        self.isTripNameValid = !trip.name.isEmpty
+        self.canSubmitTrip = !trip.name.isEmpty
+
         self.tripName = trip.name
         self.tripStartDate = trip.startDateTime.date
         self.tripEndDate = trip.endDateTime.date
