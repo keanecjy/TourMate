@@ -11,7 +11,49 @@ class MockPlanService: PlanService {
 
     static let creationDate = Date(timeIntervalSince1970: 1_651_400_000)
 
-    var plans: [Plan] = []
+    var plans: [Plan] = [
+        Plan(id: "0", tripId: "0", name: "Hotel Z",
+             startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
+             endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400)),
+             status: .confirmed,
+             creationDate: creationDate,
+             modificationDate: creationDate,
+             upvotedUserIds: []),
+        Plan(id: "1", tripId: "0", name: "Visit Tower Bridge",
+             startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400),
+                                     timeZone: TimeZone(abbreviation: "PST")!),
+             endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_467_600),
+                                   timeZone: TimeZone(abbreviation: "PST")!),
+             imageUrl: "https://source.unsplash.com/qxstzQ__HMk",
+             status: .confirmed, creationDate: creationDate,
+             modificationDate: creationDate,
+             upvotedUserIds: []),
+        Plan(id: "2", tripId: "0", name: "Dinner at Spago",
+             startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400),
+                                     timeZone: TimeZone(abbreviation: "PST")!),
+             endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_461_400),
+                                   timeZone: TimeZone(abbreviation: "PST")!),
+             status: .confirmed, creationDate: creationDate,
+             modificationDate: creationDate,
+             upvotedUserIds: []),
+        Plan(id: "3", tripId: "1", name: "Travel to Kyoto",
+             startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400),
+                                     timeZone: TimeZone(abbreviation: "MST")!),
+             endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400),
+                                   timeZone: TimeZone(abbreviation: "MST")!),
+             status: .confirmed, creationDate: creationDate,
+             modificationDate: creationDate,
+             upvotedUserIds: []),
+        Plan(id: "4", tripId: "1", name: "Flight to Japan",
+             startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_440_400),
+                                     timeZone: TimeZone(abbreviation: "MST")!),
+             endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400),
+                                   timeZone: TimeZone(abbreviation: "MST")!),
+             imageUrl: "https://source.unsplash.com/pT0qBgNa0VU",
+             status: .confirmed, creationDate: creationDate,
+             modificationDate: creationDate,
+             upvotedUserIds: [])
+    ]
 
     func fetchPlans(withTripId tripId: String) async -> ([Plan], String) {
         (plans.filter({ $0.tripId == tripId }), "")

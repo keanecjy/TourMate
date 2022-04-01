@@ -34,14 +34,18 @@ struct PlanFormView: View {
                        selection: $viewModel.plan.endDateTime.date,
                        in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                        displayedComponents: [.date, .hourAndMinute])
-            TextField("Start Location", text: $viewModel.plan.startLocation)
-                .sheet(isPresented: $isShowingSearchSheet) {
-                    SearchView(viewModel: SearchViewModel(), planAddress: $viewModel.plan.startLocation)
+            AddressTextField("Start Location", text: Binding<String>(
+                get: { viewModel.plan.startLocation?.addressFull ?? "" },
+                set: { newValue in
+                    viewModel.plan.startLocation?.addressFull = newValue
                 }
-                .onTapGesture {
-                    isShowingSearchSheet.toggle()
+            ))
+            AddressTextField("End Location", text: Binding<String>(
+                get: { viewModel.plan.endLocation?.addressFull ?? "" },
+                set: { newValue in
+                    viewModel.plan.endLocation?.addressFull = newValue
                 }
-            // TODO: Add End Location
+            ))
             // TODO: Add Additional Info box
         }
         .navigationTitle("Plan")
