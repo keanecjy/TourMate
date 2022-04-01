@@ -51,7 +51,7 @@ struct TripView: View {
 
                         AttendeesView(viewModel: viewModel)
 
-                        PlansListView(tripId: viewModel.trip.id, tripViewModel: viewModel) { plan in
+                        PlansListView(tripViewModel: viewModel) { plan in
                             selectedPlan = plan
                         }
 
@@ -80,7 +80,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
-                    EditTripView(trip: viewModel.trip)
+                    EditTripView(tripViewModel: viewModel)
                 }
 
                 Button {
@@ -90,7 +90,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingInviteUsersSheet) {
-                    InviteUserView(trip: viewModel.trip)
+                    InviteUserView(tripViewModel: viewModel)
                 }
 
                 Button {

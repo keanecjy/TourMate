@@ -14,24 +14,22 @@ class PlansViewModel: ObservableObject {
     @Published private(set) var hasError: Bool
 
     private var planService: PlanService
-    var tripId: String
 
-    init(planService: PlanService = FirebasePlanService(), tripId: String = "") {
+    init(planService: PlanService = FirebasePlanService()) {
         self.plans = []
         self.isLoading = false
         self.hasError = false
         self.planService = planService
-        self.tripId = tripId
     }
 
-    func fetchPlans() async {
+    func fetchPlans(withTripId tripId: String) async {
         self.isLoading = true
 
         let (plans, errorMessage) = await planService.fetchPlans(withTripId: tripId)
         loadPlans(plans: plans, errorMessage: errorMessage)
     }
 
-    func fetchPlansAndListen() async {
+    func fetchPlansAndListen(withTripId tripId: String) async {
         planService.planEventDelegate = self
 
         self.isLoading = true

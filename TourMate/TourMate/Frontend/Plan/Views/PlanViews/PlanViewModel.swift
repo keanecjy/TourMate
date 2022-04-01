@@ -24,6 +24,10 @@ class PlanViewModel: ObservableObject {
     private let userService: UserService
     private var planService: PlanService
 
+    convenience init(_ planViewModel: PlanViewModel) {
+        self.init(plan: planViewModel.plan, trip: planViewModel.trip)
+    }
+
     init(plan: Plan, trip: Trip,
          planService: PlanService = FirebasePlanService(),
          userService: UserService = FirebaseUserService()) {

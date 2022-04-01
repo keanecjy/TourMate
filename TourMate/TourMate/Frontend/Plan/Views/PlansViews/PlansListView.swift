@@ -13,8 +13,8 @@ struct PlansListView: View {
 
     let onSelected: ((Plan) -> Void)?
 
-    init(tripId: String, tripViewModel: TripViewModel, onSelected: ((Plan) -> Void)? = nil) {
-        self._plansViewModel = StateObject(wrappedValue: PlansViewModel(tripId: tripId))
+    init(tripViewModel: TripViewModel, onSelected: ((Plan) -> Void)? = nil) {
+        self._plansViewModel = StateObject(wrappedValue: PlansViewModel())
         self.tripViewModel = tripViewModel
         self.onSelected = onSelected
     }
@@ -87,7 +87,7 @@ struct PlansListView: View {
         }
         .task {
             // TODO: Use fetchPlansAndListen after fixing plan card and logic
-            await plansViewModel.fetchPlans()
+            await plansViewModel.fetchPlans(withTripId: tripViewModel.trip.id)
             print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
         .onDisappear(perform: { () in plansViewModel.detachListener() })

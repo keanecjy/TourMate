@@ -21,6 +21,12 @@ class TripViewModel: ObservableObject {
     private var tripService: TripService
     private let userService: UserService
 
+    private var cancellableSet: Set<AnyCancellable> = []
+
+    convenience init(_ tripViewModel: TripViewModel) {
+        self.init(trip: tripViewModel.trip)
+    }
+
     init(trip: Trip,
          tripService: TripService = FirebaseTripService(),
          userService: UserService = FirebaseUserService()) {
