@@ -24,10 +24,6 @@ struct UpvotePlanView: View {
 
             UpvotedUsersView(upvotedUsers: viewModel.upvotedUsers, displayName: displayName)
         }
-        .task {
-            await viewModel.fetchPlanAndListen()
-        }
-        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }
 
