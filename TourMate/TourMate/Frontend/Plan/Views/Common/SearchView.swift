@@ -18,6 +18,7 @@ struct SearchView: View {
             TextField("Enter Location", text: $viewModel.query)
         }
         .padding()
+        .textFieldStyle(.roundedBorder)
     }
 
     var body: some View {
