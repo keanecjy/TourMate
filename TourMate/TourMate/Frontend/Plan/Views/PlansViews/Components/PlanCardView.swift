@@ -46,6 +46,7 @@ struct PlanCardView: View {
             Spacer()
             if viewModel.plan.status == .proposed {
                 UpvotePlanView(viewModel: viewModel, displayName: false)
+                    .frame(width: UIScreen.main.bounds.width / 3.0)
             }
         }
         .contentShape(Rectangle())
