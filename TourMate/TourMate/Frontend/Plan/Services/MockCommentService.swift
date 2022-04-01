@@ -22,10 +22,6 @@ class MockCommentService: CommentService {
                 creationDate: Date(timeIntervalSince1970: 1_753_400_000), upvotedUserIds: ["1"])
     ]
 
-    func fetchComments(withPlanId planId: String) async -> ([Comment], String) {
-        (comments, "")
-    }
-
     func addComment(comment: Comment) async -> (Bool, String) {
         comments.append(comment)
         return (true, "")
@@ -45,14 +41,11 @@ class MockCommentService: CommentService {
         return (true, "")
     }
 
-    func fetchCommentsAndListen(withPlanId planId: String) async {
-
-    }
+    // UNUSED
+    func fetchCommentsAndListen(withPlanId planId: String) async {}
 
     weak var commentEventDelegate: CommentEventDelegate?
 
-    func detachListener() {
-
-    }
+    func detachListener() {}
 
 }
