@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 @MainActor
-class AddPlanFormViewModel: ObservableObject {
+class AddPlanViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var hasError = false
 

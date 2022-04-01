@@ -10,11 +10,11 @@ import SwiftUI
 struct AddPlanView: View {
     @Binding var isActive: Bool
     @State var isShowingSearchSheet = false
-    @StateObject var viewModel: AddPlanFormViewModel
+    @StateObject var viewModel: AddPlanViewModel
 
     init(isActive: Binding<Bool>, trip: Trip) {
         self._isActive = isActive
-        self._viewModel = StateObject(wrappedValue: AddPlanFormViewModel(trip: trip))
+        self._viewModel = StateObject(wrappedValue: AddPlanViewModel(trip: trip))
     }
 
     var body: some View {
