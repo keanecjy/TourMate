@@ -24,8 +24,6 @@ class PlanViewModel: ObservableObject {
     private let userService: UserService
     private var planService: PlanService
 
-    private var cancellableSet: Set<AnyCancellable> = []
-
     init(plan: Plan, trip: Trip,
          planService: PlanService = FirebasePlanService(),
          userService: UserService = FirebaseUserService()) {
