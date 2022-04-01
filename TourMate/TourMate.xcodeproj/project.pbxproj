@@ -389,13 +389,13 @@
 			path = AttendeesView;
 			sourceTree = "<group>";
 		};
-		00582F7327E70F49008756E9 /* EditPlanViews */ = {
+		00582F7327E70F49008756E9 /* EditPlanView */ = {
 			isa = PBXGroup;
 			children = (
 				00582F6F27E70C97008756E9 /* EditPlanView.swift */,
 				0066356127F71E5900166655 /* EditPlanViewModel.swift */,
 			);
-			path = EditPlanViews;
+			path = EditPlanView;
 			sourceTree = "<group>";
 		};
 		0066355E27F6F30500166655 /* PlanFormView */ = {
@@ -677,7 +677,7 @@
 				00062B4727EEEB3B00267960 /* UpvotePlanView */,
 				95779BD627E76728001FF602 /* PlanViews */,
 				4CE02B6D27EAC6B000480D73 /* AddPlanView */,
-				00582F7327E70F49008756E9 /* EditPlanViews */,
+				00582F7327E70F49008756E9 /* EditPlanView */,
 				95779BD527E766ED001FF602 /* PlansViews */,
 				0066355E27F6F30500166655 /* PlanFormView */,
 			);
