@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PlanFormView: View {
 
-    @State var isShowingSearchStartLocSheet: Bool = false
-    @State var isShowingSearchEndLocSheet: Bool = false
+    @State var isShowingSearchStartLocSheet = false
+    @State var isShowingSearchEndLocSheet = false
     @ObservedObject var viewModel: PlanFormViewModel
 
     var body: some View {
@@ -45,7 +45,9 @@ struct PlanFormView: View {
                     isShowingSearchEndLocSheet.toggle()
                 }
 
-            // TODO: Add Additional Info box
+            TextField("Image URL", text: $viewModel.planImageUrl)
+
+            TextEditor(text: $viewModel.planAdditionalInfo)
         }
     }
 }

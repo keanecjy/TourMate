@@ -23,6 +23,7 @@ class PlanFormViewModel: ObservableObject {
     @Published var planEndDate: Date
     @Published var planStartLocation: String
     @Published var planEndLocation: String
+    @Published var planImageUrl: String
     @Published var planAdditionalInfo: String
 
     private var cancellableSet: Set<AnyCancellable> = []
@@ -41,6 +42,7 @@ class PlanFormViewModel: ObservableObject {
         self.planEndDate = lowerBoundDate
         self.planStartLocation = ""
         self.planEndLocation = ""
+        self.planImageUrl = ""
         self.planAdditionalInfo = ""
 
         // Plan Constraints
