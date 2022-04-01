@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlanFormView: View {
+struct AddPlanView: View {
     @Binding var isActive: Bool
     @State var isShowingSearchSheet = false
     @StateObject var viewModel: AddPlanFormViewModel

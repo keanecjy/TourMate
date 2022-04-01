@@ -78,7 +78,7 @@ struct TripView: View {
                 }
 
                 NavigationLink(isActive: $isAddPlanViewActive) {
-                    PlanFormView(isActive: $isAddPlanViewActive, trip: viewModel.trip)
+                    AddPlanView(isActive: $isAddPlanViewActive, trip: viewModel.trip)
                 } label: {
                     Image(systemName: "plus").contentShape(Rectangle())
                 }
