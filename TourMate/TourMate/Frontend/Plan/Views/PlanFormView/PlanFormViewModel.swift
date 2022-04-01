@@ -28,6 +28,7 @@ class PlanFormViewModel: ObservableObject {
 
     private var cancellableSet: Set<AnyCancellable> = []
 
+    // Adding Plan
     init(lowerBoundDate: Date, upperBoundDate: Date) {
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
@@ -45,37 +46,10 @@ class PlanFormViewModel: ObservableObject {
         self.planImageUrl = ""
         self.planAdditionalInfo = ""
 
-        // Plan Constraints
-        $planName
-            .map({ !$0.isEmpty })
-            .assign(to: \.isPlanNameValid, on: self)
-            .store(in: &cancellableSet)
-
-        Publishers
-            .CombineLatest($planStartDate, $planEndDate)
-            .map({ max($0, $1) })
-            .assign(to: \.planEndDate, on: self)
-            .store(in: &cancellableSet)
-
-        // Within date boundaries
-        Publishers
-            .CombineLatest($planStartDate, $planEndDate)
-            .map({ start, end in
-                lowerBoundDate <= start &&
-                start <= end &&
-                end <= upperBoundDate
-            })
-            .assign(to: \.isPlanDurationValid, on: self)
-            .store(in: &cancellableSet)
-
-        // All validity checks satisfied
-        Publishers
-            .CombineLatest($isPlanNameValid, $isPlanDurationValid)
-            .map({ $0 && $1 })
-            .assign(to: \.canSubmitPlan, on: self)
-            .store(in: &cancellableSet)
+        validate()
     }
 
+    // Editing Plan
     init(lowerBoundDate: Date, upperBoundDate: Date, plan: Plan) {
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
@@ -93,6 +67,10 @@ class PlanFormViewModel: ObservableObject {
         self.planImageUrl = plan.imageUrl ?? ""
         self.planAdditionalInfo = plan.additionalInfo ?? ""
 
+        validate()
+    }
+
+    private func validate() {
         // Plan Constraints
         $planName
             .map({ !$0.isEmpty })
@@ -109,9 +87,9 @@ class PlanFormViewModel: ObservableObject {
         Publishers
             .CombineLatest($planStartDate, $planEndDate)
             .map({ start, end in
-                lowerBoundDate <= start &&
+                self.lowerBoundDate <= start &&
                 start <= end &&
-                end <= upperBoundDate
+                end <= self.upperBoundDate
             })
             .assign(to: \.isPlanDurationValid, on: self)
             .store(in: &cancellableSet)
@@ -122,5 +100,6 @@ class PlanFormViewModel: ObservableObject {
             .map({ $0 && $1 })
             .assign(to: \.canSubmitPlan, on: self)
             .store(in: &cancellableSet)
+
     }
 }
