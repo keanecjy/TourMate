@@ -9,51 +9,25 @@ import Foundation
 import Combine
 
 @MainActor
-class TripViewModel: ObservableObject, TripFormViewModel {
-
-    @Published var trip: Trip
-    var tripPublisher: Published<Trip>.Publisher { $trip }
-
-    @Published var fromStartDate: PartialRangeFrom<Date>
-    var fromStartDatePublisher: Published<PartialRangeFrom<Date>>.Publisher { $fromStartDate }
+class TripViewModel: ObservableObject {
 
     @Published private(set) var isLoading = false
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
 
-    @Published var isTripNameValid = true
-    @Published var canUpdateTrip = true
-
     @Published var attendees: [User] = []
+    @Published var trip: Trip
 
     private var tripService: TripService
     private let userService: UserService
-
-    private var cancellableSet: Set<AnyCancellable> = []
 
     init(trip: Trip,
          tripService: TripService = FirebaseTripService(),
          userService: UserService = FirebaseUserService()) {
 
         self.trip = trip
-        self.fromStartDate = trip.startDateTime.date...
         self.tripService = tripService
         self.userService = userService
-
-        $trip
-            .map({ $0.name })
-            .map({ !$0.isEmpty })
-            .assign(to: \.isTripNameValid, on: self)
-            .store(in: &cancellableSet)
-
-        $trip
-            .map({ $0.startDateTime.date... })
-            .assign(to: \.fromStartDate, on: self)
-            .store(in: &cancellableSet)
-
-        $isTripNameValid
-            .assign(to: \.canUpdateTrip, on: self)
-            .store(in: &cancellableSet)
     }
 
     func fetchTripAndListen() async {
@@ -68,26 +42,6 @@ class TripViewModel: ObservableObject, TripFormViewModel {
 
         self.isLoading = false
         tripService.detachListener()
-    }
-
-    func updateTrip() async {
-        self.isLoading = true
-        let (hasUpdated, errorMessage) = await tripService.updateTrip(trip: trip)
-        guard hasUpdated, errorMessage.isEmpty else {
-            handleError()
-            return
-        }
-        self.isLoading = false
-    }
-
-    func deleteTrip() async {
-        self.isLoading = true
-        let (hasDeleted, errorMessage) = await tripService.deleteTrip(trip: trip)
-        guard hasDeleted, errorMessage.isEmpty else {
-            handleError()
-            return
-        }
-        handleDeletion()
     }
 
     func inviteUser(email: String) async {

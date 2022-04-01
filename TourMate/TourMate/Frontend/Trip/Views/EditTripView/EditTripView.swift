@@ -10,10 +10,10 @@ import SwiftUI
 struct EditTripView: View {
     @Environment(\.dismiss) var dismiss
 
-    @StateObject var viewModel: TripViewModel
+    @StateObject var viewModel: EditTripViewModel
 
     init(trip: Trip) {
-        self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
+        self._viewModel = StateObject(wrappedValue: EditTripViewModel(trip: trip))
     }
 
     var body: some View {
@@ -37,7 +37,7 @@ struct EditTripView: View {
                             dismiss()
                         }
                     }
-                    .disabled(!viewModel.canUpdateTrip || viewModel.isLoading || viewModel.hasError)
+                    .disabled(!viewModel.canSubmitTrip || viewModel.isLoading || viewModel.hasError)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {

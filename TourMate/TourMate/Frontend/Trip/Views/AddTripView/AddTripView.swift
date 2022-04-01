@@ -34,7 +34,7 @@ struct AddTripView: View {
                             dismiss()
                         }
                     }
-                    .disabled(!viewModel.canAddTrip || viewModel.isLoading || viewModel.hasError)
+                    .disabled(!viewModel.canSubmitTrip || viewModel.isLoading || viewModel.hasError)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {

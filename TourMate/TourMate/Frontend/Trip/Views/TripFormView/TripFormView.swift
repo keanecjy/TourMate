@@ -13,23 +13,23 @@ struct TripFormView<ViewModel>: View where ViewModel: TripFormViewModel {
 
     var body: some View {
         Form {
-            TextField("Trip Name*", text: $viewModel.trip.name)
+            TextField("Trip Name*", text: $viewModel.tripName)
 
             DatePicker(
                 "Start Date",
-                selection: $viewModel.trip.startDateTime.date,
+                selection: $viewModel.tripStartDate,
                 in: Date()...,
                 displayedComponents: [.date]
             )
 
             DatePicker(
                 "End Date",
-                selection: $viewModel.trip.endDateTime.date,
+                selection: $viewModel.tripEndDate,
                 in: viewModel.fromStartDate,
                 displayedComponents: [.date]
             )
 
-            TextField("Image URL", text: $viewModel.trip.imageUrl ?? "")
+            TextField("Image URL", text: $viewModel.tripImageURL)
         }
     }
 }

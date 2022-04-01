@@ -7,58 +7,21 @@
 
 import Foundation
 import Combine
-import FirebaseAuth
 
 @MainActor
-class AddTripViewModel: ObservableObject, TripFormViewModel {
+class AddTripViewModel: TripFormViewModel {
     @Published private(set) var isLoading = false
     @Published private(set) var hasError = false
 
-    @Published var isTripNameValid = false
-    @Published var canAddTrip = false
-
-    @Published var trip: Trip
-    var tripPublisher: Published<Trip>.Publisher { $trip }
-
-    @Published var fromStartDate = Date()...
-    var fromStartDatePublisher: Published<PartialRangeFrom<Date>>.Publisher { $fromStartDate }
-
     let tripService: TripService
     let userService: UserService
-
-    private var cancellableSet: Set<AnyCancellable> = []
 
     init(tripService: TripService = FirebaseTripService(),
          userService: UserService = FirebaseUserService()) {
         self.tripService = tripService
         self.userService = userService
 
-        self.trip = Trip(id: UUID().uuidString, name: "",
-                         startDateTime: DateTime(), endDateTime: DateTime(),
-                         imageUrl: "", attendeesUserIds: [], invitedUserIds: [],
-                         creationDate: Date(), modificationDate: Date())
-
-        $trip
-            .map({ $0.name })
-            .map({ !$0.isEmpty })
-            .assign(to: \.isTripNameValid, on: self)
-            .store(in: &cancellableSet)
-
-        $trip
-            .map({ $0.startDateTime.date... })
-            .assign(to: \.fromStartDate, on: self)
-            .store(in: &cancellableSet)
-
-        $isTripNameValid
-            .assign(to: \.canAddTrip, on: self)
-            .store(in: &cancellableSet)
-
-        // ???
-//        Publishers
-//            .CombineLatest($startDate, $endDate)
-//            .map({ max($0, $1) })
-//            .assign(to: \.endDate, on: self)
-//            .store(in: &cancellableSet)
+        super.init()
     }
 
     func addTrip() async {
@@ -71,18 +34,11 @@ class AddTripViewModel: ObservableObject, TripFormViewModel {
         }
 
         let creatorUserId = user.id
-        let uuid = trip.id
-        let name = trip.name
-        let imageUrl = trip.imageUrl
-        let calendar = Calendar.current
-        let start = calendar.startOfDay(for: trip.startDateTime.date)
-        let end = calendar.date(bySettingHour: 23,
-                                minute: 59,
-                                second: 59,
-                                of: trip.endDateTime.date) ?? trip.endDateTime.date
+        let uuid = UUID().uuidString
+        let name = tripName
+        let imageUrl = tripImageURL
 
-        let startDateTime = DateTime(date: start, timeZone: trip.startDateTime.timeZone)
-        let endDateTime = DateTime(date: end, timeZone: trip.endDateTime.timeZone)
+        let (startDateTime, endDateTime) = generateDateTimes()
 
         let newTrip = Trip(id: uuid,
                            name: name,
