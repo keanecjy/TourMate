@@ -40,15 +40,10 @@ struct PlansListView: View {
         }
     }
 
-    func createPlanView(_ plan: Plan) -> some View {
-        let viewModel = PlanViewModel(plan: plan, trip: tripViewModel.trip)
-        return AnyView(PlanView(viewModel: viewModel))
-    }
-
-    func createUpvoteView(_ plan: Plan) -> some View {
-        let viewModel = PlanViewModel(plan: plan, trip: tripViewModel.trip)
-        return AnyView(UpvotePlanView(viewModel: viewModel, displayName: false))
-    }
+    // func createUpvoteView(_ plan: Plan) -> some View {
+    //     let viewModel = PlanViewModel(plan: plan, trip: tripViewModel.trip)
+    //     return AnyView(UpvotePlanView(viewModel: viewModel, displayName: false))
+    // }
 
     var body: some View {
         LazyVStack {
@@ -57,37 +52,24 @@ struct PlansListView: View {
                     PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
-                        HStack(spacing: 15.0) {
-                            PlanCardView(title: plan.name,
-                                         startDate: plan.startDateTime.date,
-                                         endDate: plan.endDateTime.date,
-                                         timeZone: plan.startDateTime.timeZone,
-                                         status: plan.status)
-                                .onTapGesture(perform: {
-                                    if let onSelected = onSelected {
-                                        onSelected(plan)
-                                    }
-                                })
+                        PlanCardView(viewModel: PlanViewModel(plan: plan, trip: tripViewModel.trip))
+                            .onTapGesture(perform: {
+                                if let onSelected = onSelected {
+                                    onSelected(plan)
+                                }
+                            })
                             .buttonStyle(PlainButtonStyle())
                             .frame(maxWidth: .infinity, maxHeight: 100.0)
-
-                            // TODO: Check why Upvote view does not receive updates
-                            if plan.status == .proposed {
-                                createUpvoteView(plan)
-                                    .frame(width: UIScreen.main.bounds.width / 3.0)
-                            }
-                        }
-                        .background(RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.primary.opacity(0.1)))
+                            .background(RoundedRectangle(cornerRadius: 16)
+                                            .fill(Color.primary.opacity(0.1)))
                     }
-
                 }
                 .padding()
             }
         }
         .task {
             // TODO: Use fetchPlansAndListen after fixing plan card and logic
-            await plansViewModel.fetchPlans(withTripId: tripViewModel.trip.id)
+            await plansViewModel.fetchPlansAndListen(withTripId: tripViewModel.trip.id)
             print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
         .onDisappear(perform: { () in plansViewModel.detachListener() })
