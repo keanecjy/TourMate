@@ -40,27 +40,6 @@ class FirebaseTripService: TripService {
         await firebaseRepository.fetchItemAndListen(id: tripId)
     }
 
-    func fetchTrip(withTripId tripId: String) async -> (Trip?, String) {
-        guard let user = Auth.auth().currentUser else {
-            return (nil, Constants.messageUserNotLoggedIn)
-        }
-
-        print("[FirebaseTripService] Fetching single trip")
-        let (adaptedTrip, errorMessage) = await firebaseRepository.fetchItem(id: tripId)
-        guard errorMessage.isEmpty else {
-            return (nil, errorMessage)
-        }
-        guard let adaptedTrip = adaptedTrip as? FirebaseAdaptedTrip else {
-            return (nil, "[FirebaseTripService] Error converting FirebaseAdaptedData into FirebaseAdaptedTrip")
-        }
-        guard adaptedTrip.attendeesUserIds.contains(user.uid) else {
-            return (nil, "[FirebaseTripService] Error user \(user.uid) is not an attendee of trip \(tripId)")
-        }
-
-        let trip = tripAdapter.toTrip(adaptedTrip: adaptedTrip)
-        return (trip, errorMessage)
-    }
-
     func deleteTrip(trip: Trip) async -> (Bool, String) {
         print("[FirebaseTripService] Deleting trip")
 

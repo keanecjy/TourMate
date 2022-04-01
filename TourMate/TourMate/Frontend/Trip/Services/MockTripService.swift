@@ -23,15 +23,6 @@ class MockTripService: TripService {
              creatorUserId: "0")
     ]
 
-    func fetchTrips() -> ([Trip], String) {
-        (trips, "")
-    }
-
-    func fetchTrip(withTripId tripId: String) -> (Trip?, String) {
-        let trip = trips.first(where: { $0.id == tripId })
-        return (trip, "")
-    }
-
     func addTrip(trip: Trip) -> (Bool, String) {
         trips.append(trip)
         return (true, "")

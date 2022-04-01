@@ -12,8 +12,6 @@ protocol TripService {
 
     func fetchTripAndListen(withTripId tripId: String) async
 
-    func fetchTrip(withTripId: String) async -> (Trip?, String)
-
     func addTrip(trip: Trip) async -> (Bool, String)
 
     func deleteTrip(trip: Trip) async -> (Bool, String)
