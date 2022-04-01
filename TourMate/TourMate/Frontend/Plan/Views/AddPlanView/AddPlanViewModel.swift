@@ -34,10 +34,8 @@ class AddPlanViewModel: PlanFormViewModel {
         let name = planName
         let startDateTime = DateTime(date: planStartDate, timeZone: trip.startDateTime.timeZone)
         let endDateTime = DateTime(date: planEndDate, timeZone: trip.endDateTime.timeZone)
-        let startLocationAddressFull = planStartLocationAddressFull
-        let startLocation = Location(addressFull: startLocationAddressFull)
-        let endLocationAddressFull = planEndLocationAddressFull
-        let endLocation = Location(addressFull: endLocationAddressFull)
+        let startLocation = planStartLocation
+        let endLocation = planEndLocation
         let imageUrl = planImageUrl
         let status = planStatus
         let additionalInfo = planAdditionalInfo

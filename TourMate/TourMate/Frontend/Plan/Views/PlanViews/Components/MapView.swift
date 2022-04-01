@@ -9,26 +9,35 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
-    let location: Location
-    @State private var region: MKCoordinateRegion
-
-    init(location: Location) {
-        self.location = location
-        self.region = MKCoordinateRegion()
-        self.region = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
-            span: MKCoordinateSpan())
-    }
+    @Binding var location: Location?
+    @State private var region = MKCoordinateRegion()
 
         var body: some View {
-            HStack(alignment: .top) {
-                Image(systemName: "location.fill")
-                    .font(.title)
-                VStack(alignment: .leading) {
-                    Text(location.addressLineOne)
-                    Text(location.addressLineTwo)
-                    Map(coordinateRegion: $region, interactionModes: [])
-                        .cornerRadius(15)
+            if let location = location {
+                HStack(alignment: .top) {
+                    Image(systemName: "location.fill")
+                        .font(.title)
+                    VStack(alignment: .leading) {
+                        Text(location.addressLineOne)
+                        Text(location.addressLineTwo)
+                        Map(coordinateRegion: $region, interactionModes: [])
+                            .cornerRadius(15)
+                    }
+                }
+                .onAppear {
+                    region = MKCoordinateRegion()
+                    region = MKCoordinateRegion(
+                        center: CLLocationCoordinate2D(latitude: location.latitude,
+                                                       longitude: location.longitude),
+                        latitudinalMeters: 750,
+                        longitudinalMeters: 750
+                    )
+                }
+            } else {
+                HStack(alignment: .top) {
+                    Image(systemName: "location.fill")
+                        .font(.title)
+                    Text("No location provided")
                 }
             }
         }

@@ -27,19 +27,9 @@ struct PlanFormView: View {
                        in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
                        displayedComponents: [.date, .hourAndMinute])
 
-            AddressTextField("Start Location", text: Binding<String>(
-                get: { viewModel.planStartLocationAddressFull },
-                set: { newValue in
-                    viewModel.planStartLocationAddressFull = newValue
-                }
-            ))
+            AddressTextField(title: "Start Location", location: $viewModel.planStartLocation)
 
-            AddressTextField("End Location", text: Binding<String>(
-                get: { viewModel.planEndLocationAddressFull },
-                set: { newValue in
-                    viewModel.planEndLocationAddressFull = newValue
-                }
-            ))
+            AddressTextField(title: "End Location", location: $viewModel.planEndLocation)
 
             TextField("Image URL", text: $viewModel.planImageUrl)
 

@@ -13,14 +13,6 @@ struct PlanView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    func getDateString(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = viewModel.plan.startDateTime.timeZone
-        return dateFormatter.string(from: date)
-    }
-
     var body: some View {
         if viewModel.hasError {
             Text("Error occurred")
@@ -40,21 +32,8 @@ struct PlanView: View {
                         TimingView(plan: $viewModel.plan)
                             .padding()
 
-                        if let location = viewModel.plan.startLocation {
-                            MapView(location: location)
-                                .padding()
-                        }
-
-                        VStack(alignment: .leading) {
-                            Text("Start Location")
-                                .font(.caption)
-                            Text(plan.startLocation?.addressFull ?? "No start location provided")
-
-                            Text("End Location")
-                                .font(.caption)
-                            Text(plan.endLocation?.addressFull ?? "No end location provided")
-                        }
-                        .padding()
+                        MapView(location: $viewModel.plan.startLocation)
+                            .padding()
 
                         CommentsView(commentsViewModel: viewModel.commentsViewModel)
                             .padding()

@@ -9,14 +9,8 @@ import SwiftUI
 
 struct TimingView: View {
     @Binding var plan: Plan
-    let dateFormatter: DateFormatter
+    @State var dateFormatter = DateFormatter()
 
-    init(plan: Binding<Plan>) {
-        _plan = plan
-        dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-    }
     var body: some View {
         HStack(alignment: .top) {
             Image(systemName: "clock")
@@ -27,6 +21,13 @@ struct TimingView: View {
                 Text("To").font(.caption)
                 Text(plan.endDateTime.date, formatter: dateFormatter)
             }
+        }
+        .onAppear {
+            // the date time doesn't show upon exit screen -> re-enter screen if it is not initialised again
+            dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .long
+            dateFormatter.timeStyle = .long
+            dateFormatter.timeZone = plan.startDateTime.timeZone
         }
     }
 }
