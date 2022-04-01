@@ -28,11 +28,19 @@ class MockUserService: UserService {
         (true, "")
     }
 
-    func getUser() async -> (User?, String) {
+    func getCurrentUser() async -> (User?, String) {
         (nil, "")
     }
 
-    func getUser(with field: String, value: String) async -> (User?, String) {
+    func getUser(withUserId userId: String) async -> (User?, String) {
+        await getUser(with: "id", value: userId)
+    }
+
+    func getUser(withEmail email: String) async -> (User?, String) {
+        await getUser(with: "email", value: email)
+    }
+
+    private func getUser(with field: String, value: String) async -> (User?, String) {
         guard field == "id" else {
             return (nil, "")
         }

@@ -94,7 +94,7 @@ class TripViewModel: ObservableObject, TripFormViewModel {
         self.isLoading = true
 
         // fetch user
-        let (user, userErrorMessage) = await userService.getUser(with: "email", value: email)
+        let (user, userErrorMessage) = await userService.getUser(withEmail: email)
 
         guard userErrorMessage.isEmpty else {
             handleError()
@@ -102,7 +102,7 @@ class TripViewModel: ObservableObject, TripFormViewModel {
         }
 
         guard let user = user else { // user not null
-            print("Email is incorrect")
+            print("Email is not a registered account")
             self.isLoading = false
             return
         }
@@ -143,7 +143,7 @@ class TripViewModel: ObservableObject, TripFormViewModel {
         var fetchedAttendees: [User] = []
 
         for userId in trip.attendeesUserIds {
-            let (user, userErrorMessage) = await userService.getUser(with: "id", value: userId)
+            let (user, userErrorMessage) = await userService.getUser(withUserId: userId)
 
             guard userErrorMessage.isEmpty else {
                 handleError()

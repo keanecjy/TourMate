@@ -63,8 +63,7 @@ class AddTripViewModel: ObservableObject, TripFormViewModel {
 
     func addTrip() async {
         self.isLoading = true
-        let (user, userErrorMessage) = await userService.getUser()
-
+        let (user, userErrorMessage) = await userService.getCurrentUser()
         guard let user = user, userErrorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true

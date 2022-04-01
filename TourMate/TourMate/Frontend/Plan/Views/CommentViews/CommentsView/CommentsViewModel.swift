@@ -47,7 +47,7 @@ class CommentsViewModel: ObservableObject {
 
         self.isLoading = true
 
-        let (user, userErrorMessage) = await userService.getUser()
+        let (user, userErrorMessage) = await userService.getCurrentUser()
 
         guard let user = user, userErrorMessage.isEmpty else {
             print("[CommentsViewModel] fetch user failed in addComment()")
@@ -93,7 +93,7 @@ class CommentsViewModel: ObservableObject {
     func upvoteComment(comment: Comment) async {
         self.isLoading = true
 
-        let (currentUser, userErrorMessage) = await userService.getUser()
+        let (currentUser, userErrorMessage) = await userService.getCurrentUser()
 
         guard let currentUser = currentUser, userErrorMessage.isEmpty else {
             print("[CommentViewModel] fetch user failed in upvoteComment()")
@@ -202,12 +202,12 @@ extension CommentsViewModel {
             handleError()
             return
         }
-        
+
         self.isLoading = false
     }
 
     private func processComments(comments: [Comment]) async {
-        let (currentUser, userErrorMessage) = await userService.getUser()
+        let (currentUser, userErrorMessage) = await userService.getCurrentUser()
         guard let currentUser = currentUser, userErrorMessage.isEmpty else {
             print("[CommentsViewModel] fetch user failed in fetchComments()")
             handleError()
@@ -230,7 +230,7 @@ extension CommentsViewModel {
             }
 
             // fetch user if not seen
-            let (user, userErrorMessage) = await userService.getUser(with: "id", value: userId)
+            let (user, userErrorMessage) = await userService.getUser(withUserId: userId)
 
             if !userErrorMessage.isEmpty {
                 print("[CommentsViewModel] fetchComments(): User cannot be found, comment will not render")
