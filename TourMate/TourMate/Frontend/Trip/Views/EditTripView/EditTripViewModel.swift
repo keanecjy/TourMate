@@ -40,8 +40,9 @@ class EditTripViewModel: TripFormViewModel {
         let invitedUserIds = trip.invitedUserIds
         let creationDate = trip.creationDate
 
-        let (startDateTime, endDateTime) = generateDateTimes(startTimeZone: trip.startDateTime.timeZone, endTimeZone: trip.endDateTime.timeZone)
-        
+        let (startDateTime, endDateTime) = generateDateTimes(startTimeZone: trip.startDateTime.timeZone,
+                                                             endTimeZone: trip.endDateTime.timeZone)
+
         let updatedTrip = Trip(id: id,
                                name: name,
                                startDateTime: startDateTime,
