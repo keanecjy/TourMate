@@ -20,15 +20,19 @@ class PlanViewModel: ObservableObject {
     @Published private(set) var userHasUpvotedPlan = false
     @Published private(set) var upvotedUsers: [User] = []
 
-    let trip: Trip
+    let lowerBoundDate: DateTime
+    let upperBoundDate: DateTime
+
     private let userService: UserService
     private var planService: PlanService
 
-    init(plan: Plan, trip: Trip,
+    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService = FirebasePlanService(),
          userService: UserService = FirebaseUserService()) {
+
         self.plan = plan
-        self.trip = trip
+        self.lowerBoundDate = lowerBoundDate
+        self.upperBoundDate = upperBoundDate
         self.planService = planService
         self.userService = userService
 

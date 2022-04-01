@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct TripsView: View {
-    @StateObject var viewModel = TripsViewModel()
+    @StateObject var viewModel: TripsViewModel
     @State private var isShowingAddTripSheet = false
+
+    let onSelected: ((Trip) -> Void)?
+
+    init(viewModel: TripsViewModel, onSelected: ((Trip) -> Void)? = nil) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.onSelected = onSelected
+    }
 
     var body: some View {
         Group {
@@ -21,13 +28,14 @@ struct TripsView: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(viewModel.trips, id: \.id) { trip in
-                            NavigationLink {
-                                TripView(trip: trip)
-                            } label: {
-                                TripCard(title: trip.name,
-                                         subtitle: trip.durationDescription,
-                                         imageUrl: trip.imageUrl ?? "")
-                            }
+                            TripCard(title: trip.name,
+                                     subtitle: trip.durationDescription,
+                                     imageUrl: trip.imageUrl ?? "")
+                                .onTapGesture(perform: {
+                                    if let onSelected = onSelected {
+                                        onSelected(trip)
+                                    }
+                                })
                         }
                     }
                 }

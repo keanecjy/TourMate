@@ -14,8 +14,8 @@ struct InviteUserView: View {
 
     @StateObject var viewModel: TripViewModel
 
-    init(trip: Trip) {
-        self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
+    init(tripViewModel: TripViewModel) {
+        self._viewModel = StateObject(wrappedValue: TripViewModel(tripViewModel))
     }
 
     @State var email = ""

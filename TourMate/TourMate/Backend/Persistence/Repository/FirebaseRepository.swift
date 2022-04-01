@@ -60,16 +60,6 @@ class FirebaseRepository: Repository {
     }
 
     @MainActor
-    func fetchItems(field: String, arrayContains id: String) async -> (items: [FirebaseAdaptedData],
-                                                                            errorMessage: String) {
-        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
-
-        print("[FirebaseRepository] Fetched \(collectionId) with Field: \(field), arrayContains: \(id)")
-
-        return await fetchItems(from: query)
-    }
-
-    @MainActor
     func fetchItems(field: String, isEqualTo id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
         let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), isEqualTo: id)
 

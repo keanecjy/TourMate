@@ -16,8 +16,10 @@ struct TripView: View {
     @State private var isShowingEditTripSheet = false
     @State private var isShowingInviteUsersSheet = false
 
-    init(trip: Trip) {
-        self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
+    @State private var selectedPlan: Plan?
+
+    init(tripViewModel: TripViewModel) {
+        self._viewModel = StateObject(wrappedValue: tripViewModel)
     }
 
     @ViewBuilder
@@ -49,8 +51,23 @@ struct TripView: View {
 
                         AttendeesView(viewModel: viewModel)
 
-                        PlansListView(tripId: viewModel.trip.id, tripViewModel: viewModel)
+                        PlansListView(tripViewModel: viewModel) { plan in
+                            selectedPlan = plan
+                        }
+
+                        if let selectedPlan = selectedPlan {
+                            NavigationLink(isActive: .constant(true)) {
+                                PlanView(viewModel: PlanViewModel(plan: selectedPlan,
+                                                                  lowerBoundDate: viewModel.trip.startDateTime,
+                                                                  upperBoundDate: viewModel.trip.endDateTime))
+                            } label: {
+                                EmptyView()
+                            }
+                        }
                     }
+                    .onAppear(perform: {
+                        selectedPlan = nil
+                    })
                 }
             }
         }
@@ -64,7 +81,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
-                    EditTripView(trip: viewModel.trip)
+                    EditTripView(tripViewModel: viewModel)
                 }
 
                 Button {
@@ -74,7 +91,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingInviteUsersSheet) {
-                    InviteUserView(trip: viewModel.trip)
+                    InviteUserView(tripViewModel: viewModel)
                 }
 
                 Button {
@@ -84,7 +101,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingAddPlanSheet) {
-                    AddPlanView(trip: viewModel.trip)
+                    AddPlanView(viewModel: AddPlanViewModel(trip: viewModel.trip))
                 }
             }
         }

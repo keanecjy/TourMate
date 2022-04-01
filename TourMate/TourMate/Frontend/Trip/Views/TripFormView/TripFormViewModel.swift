@@ -21,6 +21,7 @@ class TripFormViewModel: ObservableObject {
 
     private var cancellableSet: Set<AnyCancellable> = []
 
+    // Adding trip
     init() {
         self.isTripNameValid = false
         self.canSubmitTrip = false
@@ -31,28 +32,10 @@ class TripFormViewModel: ObservableObject {
         self.tripImageURL = ""
         self.fromStartDate = Date()...
 
-        // Constraints on Trip
-        $tripName
-            .map({ !$0.isEmpty })
-            .assign(to: \.isTripNameValid, on: self)
-            .store(in: &cancellableSet)
-
-        $tripStartDate
-            .map({ $0... })
-            .assign(to: \.fromStartDate, on: self)
-            .store(in: &cancellableSet)
-
-        $isTripNameValid
-            .assign(to: \.canSubmitTrip, on: self)
-            .store(in: &cancellableSet)
-
-        Publishers
-            .CombineLatest($tripStartDate, $tripEndDate)
-            .map({ max($0, $1) })
-            .assign(to: \.tripEndDate, on: self)
-            .store(in: &cancellableSet)
+        validate()
     }
 
+    // Editing trip
     init(trip: Trip) {
         self.isTripNameValid = !trip.name.isEmpty
         self.canSubmitTrip = !trip.name.isEmpty
@@ -63,6 +46,9 @@ class TripFormViewModel: ObservableObject {
         self.tripImageURL = trip.imageUrl ?? ""
         self.fromStartDate = trip.startDateTime.date...
 
+    }
+
+    private func validate() {
         // Constraints on Trip
         $tripName
             .map({ !$0.isEmpty })

@@ -21,6 +21,12 @@ class TripViewModel: ObservableObject {
     private var tripService: TripService
     private let userService: UserService
 
+    private var cancellableSet: Set<AnyCancellable> = []
+
+    convenience init(_ tripViewModel: TripViewModel) {
+        self.init(trip: tripViewModel.trip)
+    }
+
     init(trip: Trip,
          tripService: TripService = FirebaseTripService(),
          userService: UserService = FirebaseUserService()) {
@@ -56,35 +62,23 @@ class TripViewModel: ObservableObject {
         }
 
         guard let user = user else { // user not null
-            print("Email is not a registered account")
+            print("[TripViewModel] Email is not a registered account")
             self.isLoading = false
             return
         }
 
         let userId = user.id
 
-        // fetch trip
-        let (tripCopy, tripErrorMessage) = await tripService.fetchTrip(withTripId: trip.id)
-        guard tripErrorMessage.isEmpty else {
-            handleError()
-            return
-        }
-
-        guard var tripCopy = tripCopy else {
-            handleDeletion()
-            return
-        }
-
-        // update trip
-        guard !tripCopy.attendeesUserIds.contains(userId) else { // user not in trip
+        // user not in trip
+        guard !trip.attendeesUserIds.contains(userId) else {
             print("[TripViewModel] User already invited")
             self.isLoading = false
             return
         }
 
-        tripCopy.attendeesUserIds.append(userId)
+        trip.attendeesUserIds.append(userId)
 
-        let (hasUpdated, updateErrorMessage) = await tripService.updateTrip(trip: tripCopy)
+        let (hasUpdated, updateErrorMessage) = await tripService.updateTrip(trip: trip)
         guard hasUpdated, updateErrorMessage.isEmpty else {
             handleError()
             return

@@ -81,7 +81,7 @@ struct PlanView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        EditPlanView(plan: viewModel.plan, trip: viewModel.trip)
+                        EditPlanView(planViewModel: viewModel)
                     }
                 }
             }

@@ -11,9 +11,12 @@ struct PlansListView: View {
     @StateObject var plansViewModel: PlansViewModel
     var tripViewModel: TripViewModel
 
-    init(tripId: String, tripViewModel: TripViewModel) {
-        self._plansViewModel = StateObject(wrappedValue: PlansViewModel(tripId: tripId))
+    let onSelected: ((Plan) -> Void)?
+
+    init(tripViewModel: TripViewModel, onSelected: ((Plan) -> Void)? = nil) {
+        self._plansViewModel = StateObject(wrappedValue: PlansViewModel())
         self.tripViewModel = tripViewModel
+        self.onSelected = onSelected
     }
 
     typealias Day = (date: Date, plans: [Plan])
@@ -37,16 +40,6 @@ struct PlansListView: View {
         }
     }
 
-    func createPlanView(_ plan: Plan) -> some View {
-        let viewModel = PlanViewModel(plan: plan, trip: tripViewModel.trip)
-        return AnyView(PlanView(viewModel: viewModel))
-    }
-
-    func createUpvoteView(_ plan: Plan) -> some View {
-        let viewModel = PlanViewModel(plan: plan, trip: tripViewModel.trip)
-        return AnyView(UpvotePlanView(viewModel: viewModel, displayName: false))
-    }
-
     var body: some View {
         LazyVStack {
             ForEach(days, id: \.date) { day in
@@ -54,36 +47,25 @@ struct PlansListView: View {
                     PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
-                        HStack(spacing: 15.0) {
-                            NavigationLink {
-                                createPlanView(plan)
-                            } label: {
-                                PlanCardView(title: plan.name,
-                                             startDate: plan.startDateTime.date,
-                                             endDate: plan.endDateTime.date,
-                                             timeZone: plan.startDateTime.timeZone,
-                                             status: plan.status)
-                            }
+                        PlanCardView(viewModel: PlanViewModel(plan: plan,
+                                                              lowerBoundDate: tripViewModel.trip.startDateTime,
+                                                              upperBoundDate: tripViewModel.trip.endDateTime))
+                            .onTapGesture(perform: {
+                                if let onSelected = onSelected {
+                                    onSelected(plan)
+                                }
+                            })
                             .buttonStyle(PlainButtonStyle())
                             .frame(maxWidth: .infinity, maxHeight: 100.0)
-
-                            // TODO: Check why Upvote view does not receive updates
-                            if plan.status == .proposed {
-                                createUpvoteView(plan)
-                                    .frame(width: UIScreen.main.bounds.width / 3.0)
-                            }
-                        }
-                        .background(RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.primary.opacity(0.1)))
+                            .background(RoundedRectangle(cornerRadius: 16)
+                                            .fill(Color.primary.opacity(0.1)))
                     }
-
                 }
                 .padding()
             }
         }
         .task {
-            // TODO: Use fetchPlansAndListen after fixing plan card and logic
-            await plansViewModel.fetchPlans()
+            await plansViewModel.fetchPlansAndListen(withTripId: tripViewModel.trip.id)
             print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
         .onDisappear(perform: { () in plansViewModel.detachListener() })
