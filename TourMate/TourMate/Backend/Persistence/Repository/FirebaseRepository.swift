@@ -50,7 +50,7 @@ class FirebaseRepository: Repository {
             let itemRef = db.collection(collectionId).document(id)
             let item = try await itemRef.getDocument().data(as: AnyFirebaseAdaptedData.self).map { $0.base }
 
-            print("[FirebaseRepository] Fetched Item: \(id)")
+            print("[FirebaseRepository] Fetched \(collectionId): \(id)")
 
             return (item, "")
         } catch {
@@ -64,7 +64,7 @@ class FirebaseRepository: Repository {
                                                                             errorMessage: String) {
         let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
 
-        print("[FirebaseRepository] Fetched Items with Field: \(field), arrayContains: \(id)")
+        print("[FirebaseRepository] Fetched \(collectionId) with Field: \(field), arrayContains: \(id)")
 
         return await fetchItems(from: query)
     }
@@ -73,7 +73,7 @@ class FirebaseRepository: Repository {
     func fetchItems(field: String, isEqualTo id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
         let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), isEqualTo: id)
 
-        print("[FirebaseRepository] Fetched Items with Field: \(field), isEqualTo: \(id)")
+        print("[FirebaseRepository] Fetched \(collectionId) with Field: \(field), isEqualTo: \(id)")
 
         return await fetchItems(from: query)
     }
@@ -101,11 +101,11 @@ class FirebaseRepository: Repository {
 
     func detachListener() {
         guard let listener = listener else {
-            print("[FirebaseRepository] Listener is nil, unable to detach")
+            print("[FirebaseRepository] Listener on \(collectionId) is nil, unable to detach")
             return
         }
 
-        print("[FirebaseRepository] Successfully removed listener")
+        print("[FirebaseRepository]: Successfully removed listener on \(collectionId)")
         listener.remove()
     }
 
@@ -119,11 +119,11 @@ class FirebaseRepository: Repository {
             let deletedItemRef = db.collection(collectionId).document(id)
             try await deletedItemRef.delete()
 
-            print("[FirebaseRepository] Deleted: \(id)")
+            print("[FirebaseRepository] Deleted \(collectionId): \(id)")
 
             return (true, "")
         } catch {
-            let errorMessage = "[FirebaseRepository] Error deleting: \(error)"
+            let errorMessage = "[FirebaseRepository] Error deleting \(collectionId): \(error)"
             return (false, errorMessage)
         }
     }
@@ -150,7 +150,7 @@ extension FirebaseRepository {
 
             return (items, "")
         } catch {
-            let errorMessage = "[FirebaseRepository] Error fetching: \(error)"
+            let errorMessage = "[FirebaseRepository] Error fetching \(collectionId): \(error)"
             return ([], errorMessage)
         }
     }
@@ -167,7 +167,7 @@ extension FirebaseRepository {
                 guard let documents = querySnapshot?.documents,
                       error == nil
                 else {
-                    let errorMessage = "[FirebaseRepository] Error fetching documents: \(String(describing: error))"
+                    let errorMessage = "[FirebaseRepository] Error fetching \(self.collectionId): \(String(describing: error))"
                     await self.eventDelegate?.update(items: [], errorMessage: errorMessage)
                     return
                 }
@@ -190,14 +190,14 @@ extension FirebaseRepository {
                     guard let querySnapshot = querySnapshot,
                           error == nil
                     else {
-                        let errorMessage = "[FirebaseRepository] Error fetching doc: \(String(describing: error))"
+                        let errorMessage = "[FirebaseRepository] Error fetching \(self.collectionId): \(String(describing: error))"
                         await self.eventDelegate?.update(item: nil, errorMessage: errorMessage)
                         return
                     }
                     let item = try querySnapshot.data(as: AnyFirebaseAdaptedData.self).map { $0.base }
                     await self.eventDelegate?.update(item: item, errorMessage: "")
                 } catch {
-                    let errorMessage = "[FirebaseRepository] Error fetching: \(error)"
+                    let errorMessage = "[FirebaseRepository] Error fetching \(self.collectionId): \(error)"
                     print(errorMessage)
                 }
             }

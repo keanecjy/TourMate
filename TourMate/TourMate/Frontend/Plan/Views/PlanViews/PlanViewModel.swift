@@ -58,7 +58,7 @@ class PlanViewModel: ObservableObject {
     func upvotePlan() async {
         self.isLoading = true
 
-        let (user, userErrorMessage) = await userService.getUser()
+        let (user, userErrorMessage) = await userService.getCurrentUser()
 
         guard let user = user, userErrorMessage.isEmpty else {
             handleError()
@@ -102,7 +102,7 @@ class PlanViewModel: ObservableObject {
 
         print("[PlanViewModel] Upvoted users: \(upvotedUsers)")
 
-        let (currentUser, _) = await userService.getUser()
+        let (currentUser, _) = await userService.getCurrentUser()
         self.userHasUpvotedPlan = self.upvotedUsers.contains(where: { $0.id == currentUser?.id })
     }
 
@@ -110,7 +110,7 @@ class PlanViewModel: ObservableObject {
         var fetchedUpvotedUsers: [User] = []
 
         for userId in plan.upvotedUserIds {
-            let (user, userErrorMessage) = await userService.getUser(with: "id", value: userId)
+            let (user, userErrorMessage) = await userService.getUser(withUserId: userId)
 
             if !userErrorMessage.isEmpty {
                 print("[PlanViewModel] Error fetching user")

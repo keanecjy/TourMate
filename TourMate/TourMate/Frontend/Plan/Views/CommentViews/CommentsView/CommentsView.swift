@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Entire Comments View
 struct CommentsView: View {
     @StateObject var commentsViewModel: CommentsViewModel
     @State var commentMessage: String = ""
@@ -39,9 +40,10 @@ struct CommentsView: View {
             .frame(width: width, alignment: .leading)
             .onAppear {
                 Task {
-                    await commentsViewModel.fetchComments()
+                    await commentsViewModel.fetchCommentsAndListen()
                 }
             }
+            .onDisappear(perform: { () in commentsViewModel.detachListener() })
         }
     }
 }

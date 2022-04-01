@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Single Comment View
 struct CommentView: View {
 
     @ObservedObject var commentsViewModel: CommentsViewModel

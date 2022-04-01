@@ -8,7 +8,6 @@
 import Foundation
 
 class MockCommentService: CommentService {
-
     var comments: [Comment] = [
         Comment(planId: "0", id: "0", userId: "0", message: "Testing by 0!",
                 creationDate: Date(timeIntervalSince1970: 1_651_400_000), upvotedUserIds: ["0", " 1"]),
@@ -25,10 +24,6 @@ class MockCommentService: CommentService {
 
     func fetchComments(withPlanId planId: String) async -> ([Comment], String) {
         (comments, "")
-    }
-
-    func fetchComment(withCommentId id: String) async -> (Comment?, String) {
-        (nil, "")
     }
 
     func addComment(comment: Comment) async -> (Bool, String) {
@@ -48,6 +43,16 @@ class MockCommentService: CommentService {
 
         comments[index] = comment
         return (true, "")
+    }
+
+    func fetchCommentsAndListen(withPlanId planId: String) async {
+
+    }
+
+    weak var commentEventDelegate: CommentEventDelegate?
+
+    func detachListener() {
+
     }
 
 }
