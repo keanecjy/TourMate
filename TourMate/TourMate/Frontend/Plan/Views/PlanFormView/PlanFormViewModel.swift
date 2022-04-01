@@ -75,4 +75,52 @@ class PlanFormViewModel: ObservableObject {
             .assign(to: \.canSubmitPlan, on: self)
             .store(in: &cancellableSet)
     }
+
+    init(lowerBoundDate: Date, upperBoundDate: Date, plan: Plan) {
+        self.lowerBoundDate = lowerBoundDate
+        self.upperBoundDate = upperBoundDate
+
+        self.isPlanNameValid = true
+        self.isPlanDurationValid = true
+        self.canSubmitPlan = true
+
+        self.planStatus = plan.status
+        self.planName = plan.name
+        self.planStartDate = plan.startDateTime.date
+        self.planEndDate = plan.endDateTime.date
+        self.planStartLocation = plan.startLocation
+        self.planEndLocation = plan.endLocation ?? ""
+        self.planImageUrl = plan.imageUrl ?? ""
+        self.planAdditionalInfo = plan.additionalInfo ?? ""
+
+        // Plan Constraints
+        $planName
+            .map({ !$0.isEmpty })
+            .assign(to: \.isPlanNameValid, on: self)
+            .store(in: &cancellableSet)
+
+        Publishers
+            .CombineLatest($planStartDate, $planEndDate)
+            .map({ max($0, $1) })
+            .assign(to: \.planEndDate, on: self)
+            .store(in: &cancellableSet)
+
+        // Within date boundaries
+        Publishers
+            .CombineLatest($planStartDate, $planEndDate)
+            .map({ start, end in
+                lowerBoundDate <= start &&
+                start <= end &&
+                end <= upperBoundDate
+            })
+            .assign(to: \.isPlanDurationValid, on: self)
+            .store(in: &cancellableSet)
+
+        // All validity checks satisfied
+        Publishers
+            .CombineLatest($isPlanNameValid, $isPlanDurationValid)
+            .map({ $0 && $1 })
+            .assign(to: \.canSubmitPlan, on: self)
+            .store(in: &cancellableSet)
+    }
 }
