@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct TripFormView<ViewModel>: View where ViewModel: TripFormViewModel {
+struct TripFormView: View {
 
-    @ObservedObject var viewModel: ViewModel
+    @ObservedObject var viewModel: TripFormViewModel
 
     var body: some View {
         Form {

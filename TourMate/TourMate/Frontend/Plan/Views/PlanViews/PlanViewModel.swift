@@ -13,9 +13,8 @@ class PlanViewModel: ObservableObject {
     @Published private(set) var isLoading = false
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
+
     @Published var plan: Plan
-    @Published var isPlanDurationValid = true
-    @Published var canEditPlan = true
 
     @Published private(set) var commentsViewModel: CommentsViewModel
     @Published private(set) var userHasUpvotedPlan = false
@@ -24,8 +23,6 @@ class PlanViewModel: ObservableObject {
     let trip: Trip
     private let userService: UserService
     private var planService: PlanService
-
-    private var cancellableSet: Set<AnyCancellable> = []
 
     init(plan: Plan, trip: Trip,
          planService: PlanService = FirebasePlanService(),
@@ -36,15 +33,6 @@ class PlanViewModel: ObservableObject {
         self.userService = userService
 
         self.commentsViewModel = CommentsViewModel(planId: plan.id)
-
-        $plan
-            .map({ $0.startDateTime.date <= $0.endDateTime.date })
-            .assign(to: \.isPlanDurationValid, on: self)
-            .store(in: &cancellableSet)
-
-        $isPlanDurationValid
-            .assign(to: \.canEditPlan, on: self)
-            .store(in: &cancellableSet)
     }
 
     func fetchPlanAndListen() async {
@@ -53,6 +41,13 @@ class PlanViewModel: ObservableObject {
         self.isLoading = true
         await planService.fetchPlanAndListen(withPlanId: plan.id)
         self.isLoading = false
+    }
+
+    func detachListener() {
+        planService.planEventDelegate = self
+        self.isLoading = false
+
+        planService.detachListener()
     }
 
     func upvotePlan() async {
@@ -123,37 +118,6 @@ class PlanViewModel: ObservableObject {
         }
 
         return fetchedUpvotedUsers
-    }
-
-    private func modifyPlan(plan: Plan, function: (Plan) async -> (Bool, String)) async {
-        self.isLoading = true
-
-        let (hasUpdatedPlan, errorMessage) = await function(plan)
-
-        guard hasUpdatedPlan, errorMessage.isEmpty else {
-            handleError()
-            return
-        }
-        self.isLoading = false
-    }
-
-    func updatePlan() async {
-        await modifyPlan(plan: plan) { plan in
-            await planService.updatePlan(plan: plan)
-        }
-    }
-
-    func deletePlan() async {
-        await modifyPlan(plan: plan) { plan in
-            await planService.deletePlan(plan: plan)
-        }
-    }
-
-    func detachListener() {
-        planService.planEventDelegate = self
-        self.isLoading = false
-
-        planService.detachListener()
     }
 }
 
