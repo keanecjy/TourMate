@@ -22,13 +22,6 @@ class PlansViewModel: ObservableObject {
         self.planService = planService
     }
 
-    func fetchPlans(withTripId tripId: String) async {
-        self.isLoading = true
-
-        let (plans, errorMessage) = await planService.fetchPlans(withTripId: tripId)
-        loadPlans(plans: plans, errorMessage: errorMessage)
-    }
-
     func fetchPlansAndListen(withTripId tripId: String) async {
         planService.planEventDelegate = self
 

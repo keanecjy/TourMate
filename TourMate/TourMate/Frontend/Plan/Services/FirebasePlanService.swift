@@ -34,45 +34,6 @@ class FirebasePlanService: PlanService {
         await firebaseRepository.fetchItemAndListen(id: planId)
     }
 
-    func fetchPlans(withTripId tripId: String) async -> ([Plan], String) {
-        print("[FirebasePlanService] Fetching plans")
-
-        let (adaptedPlans, errorMessage) = await firebaseRepository
-            .fetchItems(field: "tripId", isEqualTo: tripId)
-
-        guard errorMessage.isEmpty else {
-            return ([], errorMessage)
-        }
-
-        // unable to typecast
-        guard let adaptedPlans = adaptedPlans as? [FirebaseAdaptedPlan] else {
-             return ([], Constants.errorPlanConversion)
-        }
-
-        let plans = adaptedPlans.map({ planAdapter.toPlan(adaptedPlan: $0) })
-        return (plans, "")
-    }
-
-    func fetchPlan(withPlanId planId: String) async -> (Plan?, String) {
-        print("[FirebasePlanService] Fetching plan")
-
-        let (adaptedPlan, errorMessage) = await firebaseRepository.fetchItem(id: planId)
-
-        guard errorMessage.isEmpty,
-              adaptedPlan != nil
-        else {
-            return (nil, errorMessage)
-        }
-
-        // unable to typecast
-        guard let adaptedPlan = adaptedPlan as? FirebaseAdaptedPlan else {
-            return (nil, Constants.errorPlanConversion)
-        }
-
-        let plan = planAdapter.toPlan(adaptedPlan: adaptedPlan)
-        return (plan, "")
-    }
-
     func deletePlan(plan: Plan) async -> (Bool, String) {
         print("[FirebasePlanService] Deleting plan")
 
