@@ -55,13 +55,11 @@ struct PlanView: View {
                         VStack(alignment: .leading) {
                             Text("Start Location")
                                 .font(.caption)
-                            Text(plan.startLocation)
+                            Text(plan.startLocation?.addressFull ?? "No start location provided")
 
-                            if let endLocation = plan.endLocation {
-                                Text("End Location")
-                                    .font(.caption)
-                                Text(endLocation)
-                            }
+                            Text("End Location")
+                                .font(.caption)
+                            Text(plan.endLocation?.addressFull ?? "No end location provided")
                         }
                         .padding()
 

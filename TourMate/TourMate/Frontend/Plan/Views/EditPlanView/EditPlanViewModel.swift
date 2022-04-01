@@ -41,8 +41,10 @@ class EditPlanViewModel: PlanFormViewModel {
         let name = planName
         let startDateTime = DateTime(date: planStartDate, timeZone: plan.startDateTime.timeZone)
         let endDateTime = DateTime(date: planEndDate, timeZone: plan.endDateTime.timeZone)
-        let startLocation = planStartLocation
-        let endLocation = planEndLocation
+        let startLocationAddressFull = planStartLocationAddressFull
+        let startLocation = Location(addressFull: startLocationAddressFull)
+        let endLocationAddressFull = planEndLocationAddressFull
+        let endLocation = Location(addressFull: endLocationAddressFull)
         let imageUrl = planImageUrl
         let status = planStatus
         let creationDate = plan.creationDate

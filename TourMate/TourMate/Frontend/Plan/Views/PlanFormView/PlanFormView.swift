@@ -9,8 +9,6 @@ import SwiftUI
 
 struct PlanFormView: View {
 
-    @State var isShowingSearchStartLocSheet = false
-    @State var isShowingSearchEndLocSheet = false
     @ObservedObject var viewModel: PlanFormViewModel
 
     var body: some View {
@@ -29,21 +27,19 @@ struct PlanFormView: View {
                        in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
                        displayedComponents: [.date, .hourAndMinute])
 
-            TextField("Start Location", text: $viewModel.planStartLocation)
-                .sheet(isPresented: $isShowingSearchStartLocSheet) {
-                    SearchView(viewModel: SearchViewModel(), planAddress: $viewModel.planStartLocation)
+            AddressTextField("Start Location", text: Binding<String>(
+                get: { viewModel.planStartLocationAddressFull },
+                set: { newValue in
+                    viewModel.planStartLocationAddressFull = newValue
                 }
-                .onTapGesture {
-                    isShowingSearchStartLocSheet.toggle()
-                }
+            ))
 
-            TextField("End Location", text: $viewModel.planEndLocation)
-                .sheet(isPresented: $isShowingSearchEndLocSheet) {
-                    SearchView(viewModel: SearchViewModel(), planAddress: $viewModel.planEndLocation)
+            AddressTextField("End Location", text: Binding<String>(
+                get: { viewModel.planEndLocationAddressFull },
+                set: { newValue in
+                    viewModel.planEndLocationAddressFull = newValue
                 }
-                .onTapGesture {
-                    isShowingSearchEndLocSheet.toggle()
-                }
+            ))
 
             TextField("Image URL", text: $viewModel.planImageUrl)
 
