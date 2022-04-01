@@ -576,7 +576,7 @@
 		4CE02B6D27EAC6B000480D73 /* AddPlanViews */ = {
 			isa = PBXGroup;
 			children = (
-				95779BCF27E76559001FF602 /* PlanFormViews */,
+				95779BCF27E76559001FF602 /* AddPlanView */,
 				B9A04FA927E4F584007D4303 /* AddPlanFormViewModel.swift */,
 			);
 			path = AddPlanViews;
@@ -824,12 +824,12 @@
 			path = AddTripView;
 			sourceTree = "<group>";
 		};
-		95779BCF27E76559001FF602 /* PlanFormViews */ = {
+		95779BCF27E76559001FF602 /* AddPlanView */ = {
 			isa = PBXGroup;
 			children = (
 				B967C33927DDD71B0023B34D /* AddPlanView.swift */,
 			);
-			path = PlanFormViews;
+			path = AddPlanView;
 			sourceTree = "<group>";
 		};
 		95779BD427E766B3001FF602 /* TripsView */ = {
