@@ -30,6 +30,7 @@
 		004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004981AA27E2FF3C007BDB2E /* SettingsView.swift */; };
 		00582F7027E70C97008756E9 /* EditPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F6F27E70C97008756E9 /* EditPlanView.swift */; };
 		0066355927F6D61A00166655 /* EditTripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0066355827F6D61A00166655 /* EditTripViewModel.swift */; };
+		0066355D27F6F30100166655 /* PlanFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0066355C27F6F30100166655 /* PlanFormView.swift */; };
 		0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092522F27DA573500F4F029 /* TourMateTitleView.swift */; };
 		0092523827DA573500F4F029 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523127DA573500F4F029 /* LaunchView.swift */; };
 		0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523D27DA574800F4F029 /* FirebaseAuthenticationService.swift */; };
@@ -165,6 +166,7 @@
 		004981AC27E3237A007BDB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00582F6F27E70C97008756E9 /* EditPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanView.swift; sourceTree = "<group>"; };
 		0066355827F6D61A00166655 /* EditTripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTripViewModel.swift; sourceTree = "<group>"; };
+		0066355C27F6F30100166655 /* PlanFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanFormView.swift; sourceTree = "<group>"; };
 		0092522F27DA573500F4F029 /* TourMateTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourMateTitleView.swift; sourceTree = "<group>"; };
 		0092523127DA573500F4F029 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		0092523D27DA574800F4F029 /* FirebaseAuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationService.swift; sourceTree = "<group>"; };
@@ -389,6 +391,14 @@
 				00582F6F27E70C97008756E9 /* EditPlanView.swift */,
 			);
 			path = EditPlanViews;
+			sourceTree = "<group>";
+		};
+		0066355E27F6F30500166655 /* PlanFormView */ = {
+			isa = PBXGroup;
+			children = (
+				0066355C27F6F30100166655 /* PlanFormView.swift */,
+			);
+			path = PlanFormView;
 			sourceTree = "<group>";
 		};
 		00B4CECF27F5E0D4004A6126 /* TripFormView */ = {
@@ -663,6 +673,7 @@
 				4CE02B6D27EAC6B000480D73 /* AddPlanViews */,
 				00582F7327E70F49008756E9 /* EditPlanViews */,
 				95779BD527E766ED001FF602 /* PlansViews */,
+				0066355E27F6F30500166655 /* PlanFormView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1364,6 +1375,7 @@
 				B9A04FAA27E4F584007D4303 /* AddPlanViewModel.swift in Sources */,
 				B9B6B3E327F4473E00B0F5F4 /* JsonAdaptedLocation.swift in Sources */,
 				95DEA1E827E6FCC500A74ED2 /* TripViewModel.swift in Sources */,
+				0066355D27F6F30100166655 /* PlanFormView.swift in Sources */,
 				B9AF3B5027EF6FD600A3C82E /* MapView.swift in Sources */,
 				B9A04FAA27E4F584007D4303 /* AddPlanViewModel.swift in Sources */,
 				95DEA1EB27E721EB00A74ED2 /* BindingNilCoalescing.swift in Sources */,

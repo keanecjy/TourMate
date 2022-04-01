@@ -16,6 +16,8 @@ struct EditPlanView: View {
             Group {
                 if viewModel.hasError {
                     Text("Error occured")
+                } else if viewModel.isLoading {
+                    ProgressView()
                 } else {
                     VStack {
                         if !viewModel.canEditPlan {

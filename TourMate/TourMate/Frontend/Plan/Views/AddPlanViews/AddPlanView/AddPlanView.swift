@@ -8,53 +8,73 @@
 import SwiftUI
 
 struct AddPlanView: View {
-    @Binding var isActive: Bool
+    @Environment(\.dismiss) var dismiss
+
     @State var isShowingSearchSheet = false
     @StateObject var viewModel: AddPlanViewModel
 
-    init(isActive: Binding<Bool>, trip: Trip) {
-        self._isActive = isActive
+    init(trip: Trip) {
         self._viewModel = StateObject(wrappedValue: AddPlanViewModel(trip: trip))
     }
 
     var body: some View {
-        if !viewModel.canAddPlan {
-            Text("Start date must be before end date")
-                .font(.caption)
-                .foregroundColor(.red)
-        }
-        Form {
-            ConfirmedToggle(status: $viewModel.plan.status)
-            TextField("Event Name", text: $viewModel.plan.name)
-            DatePicker("Start Date",
-                       selection: $viewModel.plan.startDateTime.date,
-                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
-                       displayedComponents: [.date, .hourAndMinute])
-            DatePicker("End Date",
-                       selection: $viewModel.plan.endDateTime.date,
-                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
-                       displayedComponents: [.date, .hourAndMinute])
-            TextField("Start Location", text: $viewModel.plan.startLocation)
-                .sheet(isPresented: $isShowingSearchSheet) {
-                    SearchView(viewModel: SearchViewModel(), planAddress: $viewModel.plan.startLocation)
+        NavigationView {
+            Group {
+                if viewModel.hasError {
+                    Text("Error Occurred")
+                } else if viewModel.isLoading {
+                    ProgressView()
+                } else {
+                    VStack {
+                        if !viewModel.canAddPlan {
+                            Text("Start date must be before end date")
+                                .font(.caption)
+                                .foregroundColor(.red)
+                        }
+
+                        Form {
+                            ConfirmedToggle(status: $viewModel.plan.status)
+                            TextField("Event Name", text: $viewModel.plan.name)
+                            DatePicker("Start Date",
+                                       selection: $viewModel.plan.startDateTime.date,
+                                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
+                                       displayedComponents: [.date, .hourAndMinute])
+                            DatePicker("End Date",
+                                       selection: $viewModel.plan.endDateTime.date,
+                                       in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
+                                       displayedComponents: [.date, .hourAndMinute])
+                            TextField("Start Location", text: $viewModel.plan.startLocation)
+                                .sheet(isPresented: $isShowingSearchSheet) {
+                                    SearchView(viewModel: SearchViewModel(), planAddress: $viewModel.plan.startLocation)
+                                }
+                                .onTapGesture {
+                                    isShowingSearchSheet.toggle()
+                                }
+                            // TODO: Add End Location
+                            // TODO: Add Additional Info box
+                        }
+                    }
                 }
-                .onTapGesture {
-                    isShowingSearchSheet.toggle()
-                }
-            // TODO: Add End Location
-            // TODO: Add Additional Info box
+            }
         }
-        .navigationTitle("Plan")
+        .navigationTitle("New Plan")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
+                Button("Add") {
                     Task {
                         await viewModel.addPlan()
-                        isActive = false
+                        dismiss()
                     }
                 }
                 .disabled(!viewModel.canAddPlan || viewModel.isLoading || viewModel.hasError)
+            }
+
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel", role: .destructive) {
+                    dismiss()
+                }
+                .disabled(viewModel.isLoading)
             }
         }
     }

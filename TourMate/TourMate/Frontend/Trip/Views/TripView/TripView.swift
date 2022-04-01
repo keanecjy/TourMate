@@ -12,7 +12,7 @@ struct TripView: View {
 
     @StateObject var viewModel: TripViewModel
 
-    @State private var isAddPlanViewActive = false
+    @State private var isShowingAddPlanSheet = false
     @State private var isShowingEditTripSheet = false
     @State private var isShowingInviteUsersSheet = false
 
@@ -77,12 +77,15 @@ struct TripView: View {
                     InviteUserView(trip: viewModel.trip)
                 }
 
-                NavigationLink(isActive: $isAddPlanViewActive) {
-                    AddPlanView(isActive: $isAddPlanViewActive, trip: viewModel.trip)
+                Button {
+                    isShowingAddPlanSheet.toggle()
                 } label: {
-                    Image(systemName: "plus").contentShape(Rectangle())
+                    Image(systemName: "note.text.badge.plus")
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
+                .sheet(isPresented: $isShowingAddPlanSheet) {
+                    AddPlanView(trip: viewModel.trip)
+                }
             }
         }
         .task {
