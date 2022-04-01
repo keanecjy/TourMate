@@ -47,7 +47,9 @@ struct PlansListView: View {
                     PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
-                        PlanCardView(viewModel: PlanViewModel(plan: plan, trip: tripViewModel.trip))
+                        PlanCardView(viewModel: PlanViewModel(plan: plan,
+                                                              lowerBoundDate: tripViewModel.trip.startDateTime,
+                                                              upperBoundDate: tripViewModel.trip.endDateTime))
                             .onTapGesture(perform: {
                                 if let onSelected = onSelected {
                                     onSelected(plan)

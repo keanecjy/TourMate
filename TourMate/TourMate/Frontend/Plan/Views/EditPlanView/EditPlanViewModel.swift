@@ -14,23 +14,19 @@ class EditPlanViewModel: PlanFormViewModel {
     @Published private(set) var hasError = false
 
     @Published var plan: Plan
-    var trip: Trip
 
     private var planService: PlanService
     private let userService: UserService
 
-    init(plan: Plan,
-         trip: Trip,
+    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService = FirebasePlanService(),
          userService: UserService = FirebaseUserService()) {
 
         self.plan = plan
-        self.trip = trip
-
         self.planService = planService
         self.userService = userService
 
-        super.init(lowerBoundDate: trip.startDateTime.date, upperBoundDate: trip.endDateTime.date, plan: plan)
+        super.init(lowerBoundDate: lowerBoundDate.date, upperBoundDate: upperBoundDate.date, plan: plan)
     }
 
     func updatePlan() async {

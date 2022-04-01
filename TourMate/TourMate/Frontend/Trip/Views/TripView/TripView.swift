@@ -57,8 +57,9 @@ struct TripView: View {
 
                         if let selectedPlan = selectedPlan {
                             NavigationLink(isActive: .constant(true)) {
-                                // TODO: Pass in the tripStartDate and tripEndDate will do
-                                PlanView(viewModel: PlanViewModel(plan: selectedPlan, trip: viewModel.trip))
+                                PlanView(viewModel: PlanViewModel(plan: selectedPlan,
+                                                                  lowerBoundDate: viewModel.trip.startDateTime,
+                                                                  upperBoundDate: viewModel.trip.endDateTime))
                             } label: {
                                 EmptyView()
                             }

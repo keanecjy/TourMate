@@ -11,8 +11,10 @@ struct EditPlanView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditPlanViewModel
 
-    init(plan: Plan, trip: Trip) {
-        self._viewModel = StateObject(wrappedValue: EditPlanViewModel(plan: plan, trip: trip))
+    init(planViewModel: PlanViewModel) {
+        self._viewModel = StateObject(wrappedValue: EditPlanViewModel(plan: planViewModel.plan,
+                                                                      lowerBoundDate: planViewModel.lowerBoundDate,
+                                                                      upperBoundDate: planViewModel.upperBoundDate))
     }
 
     var body: some View {
