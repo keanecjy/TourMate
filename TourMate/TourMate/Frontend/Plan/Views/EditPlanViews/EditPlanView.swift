@@ -34,8 +34,18 @@ struct EditPlanView: View {
                                        selection: $viewModel.plan.endDateTime.date,
                                        in: viewModel.trip.startDateTime.date...viewModel.trip.endDateTime.date,
                                        displayedComponents: [.date, .hourAndMinute])
-                            AddressTextField("Start Location", text: $viewModel.plan.startLocation)
-                            // TODO: Add End Location
+                            AddressTextField("Start Location", text: Binding<String>(
+                                get: { viewModel.plan.startLocation?.addressFull ?? "" },
+                                set: { newValue in
+                                    viewModel.plan.startLocation?.addressFull = newValue
+                                }
+                            ))
+                            AddressTextField("End Location", text: Binding<String>(
+                                get: { viewModel.plan.endLocation?.addressFull ?? "" },
+                                set: { newValue in
+                                    viewModel.plan.endLocation?.addressFull = newValue
+                                }
+                            ))
                             // TODO: Add Additional Info box
                         }
                     }

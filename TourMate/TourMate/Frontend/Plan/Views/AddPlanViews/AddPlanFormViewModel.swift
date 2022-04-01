@@ -30,7 +30,8 @@ class AddPlanFormViewModel: ObservableObject {
 
         self.plan = Plan(id: planId, tripId: tripId, name: "",
                          startDateTime: startDateTime, endDateTime: endDateTime,
-                         startLocation: "", endLocation: "", imageUrl: "",
+                         startLocation: Location(), endLocation: Location(),
+                         imageUrl: "",
                          status: .proposed, creationDate: Date(),
                          modificationDate: Date(), upvotedUserIds: [])
 

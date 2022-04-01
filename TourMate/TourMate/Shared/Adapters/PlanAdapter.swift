@@ -22,8 +22,8 @@ extension Plan {
         FirebaseAdaptedPlan(id: id, tripId: tripId, name: name,
                             startDateTime: startDateTime.toData(),
                             endDateTime: endDateTime.toData(),
-                            startLocation: startLocation,
-                            endLocation: endLocation,
+                            startLocation: startLocation?.toData(),
+                            endLocation: endLocation?.toData(),
                             imageUrl: imageUrl, status: status.rawValue,
                             creationDate: creationDate, modificationDate: modificationDate,
                             upvotedUserIds: upvotedUserIds,
@@ -36,8 +36,8 @@ extension FirebaseAdaptedPlan {
         Plan(id: id, tripId: tripId, name: name,
              startDateTime: startDateTime.toItem(),
              endDateTime: endDateTime.toItem(),
-             startLocation: startLocation,
-             endLocation: endLocation,
+             startLocation: startLocation?.toItem(),
+             endLocation: endLocation?.toItem(),
              imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
              creationDate: creationDate, modificationDate: modificationDate,
              upvotedUserIds: upvotedUserIds,
@@ -54,5 +54,23 @@ extension DateTime {
 extension FirebaseAdaptedDateTime {
     fileprivate func toItem() -> DateTime {
         DateTime(date: date, timeZone: timeZone)
+    }
+}
+
+extension Location {
+    fileprivate func toData() -> JsonAdaptedLocation {
+        JsonAdaptedLocation(address_line1: addressLineOne,
+                            address_line2: addressLineTwo,
+                            formatted: addressFull,
+                            lon: longitude, lat: latitude)
+    }
+}
+
+extension JsonAdaptedLocation {
+    fileprivate func toItem() -> Location {
+        Location(addressLineOne: address_line1,
+                 addressLineTwo: address_line2,
+                 addressFull: formatted,
+                 longitude: lon, latitude: lat)
     }
 }
