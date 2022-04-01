@@ -301,14 +301,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00062B3E27EEC80B00267960 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				000AB55927EE242500FF0ED3 /* PlanStatusView.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		00062B4727EEEB3B00267960 /* UpvotePlanView */ = {
 			isa = PBXGroup;
 			children = (
@@ -673,7 +665,6 @@
 			children = (
 				B98F35EE27F05FEC000AFE53 /* Common */,
 				00062B5427EF344900267960 /* CommentViews */,
-				00062B3E27EEC80B00267960 /* Common */,
 				00062B4727EEEB3B00267960 /* UpvotePlanView */,
 				95779BD627E76728001FF602 /* PlanViews */,
 				4CE02B6D27EAC6B000480D73 /* AddPlanView */,
@@ -894,6 +885,7 @@
 		B98F35EE27F05FEC000AFE53 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				000AB55927EE242500FF0ED3 /* PlanStatusView.swift */,
 				B98F35E627F01F53000AFE53 /* SearchView.swift */,
 				B99D5BA727EF1ADF003B99FB /* ConfirmedToggle.swift */,
 				B98F35EF27F0602E000AFE53 /* SearchViewModel.swift */,
