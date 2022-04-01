@@ -20,6 +20,7 @@ struct TimingView: View {
     var body: some View {
         HStack(alignment: .top) {
             Image(systemName: "clock")
+                .font(.title)
             VStack(alignment: .leading) {
                 Text("From").font(.caption)
                 Text(plan.startDateTime.date, formatter: dateFormatter)
@@ -30,9 +31,9 @@ struct TimingView: View {
     }
 }
 
-struct TimingView_Previews: PreviewProvider {
-    static var previews: some View {
-        @ObservedObject var planViewModel = PlanViewModel(plan: MockPlanService().plans[0], trip: MockTripService().trips[0])
-        return TimingView(plan: $planViewModel.plan)
-    }
-}
+// struct TimingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        @ObservedObject var planViewModel = PlanViewModel(plan: MockPlanService().plans[0], trip: MockTripService().trips[0])
+//        return TimingView(plan: $planViewModel.plan)
+//    }
+// }

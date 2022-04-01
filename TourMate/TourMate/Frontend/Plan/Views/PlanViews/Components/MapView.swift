@@ -9,22 +9,24 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
-    @State private var address = "1800 Ocean Front Walk, Venice, CA 90291, United States"
-    @State private var region = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 37.334_900,
-                                           longitude: -122.009_020),
-            latitudinalMeters: 750,
-            longitudinalMeters: 750
-        )
+    let location: Location
+    @State private var region: MKCoordinateRegion
+
+    init(location: Location) {
+        self.location = location
+        self.region = MKCoordinateRegion()
+        self.region = MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
+            span: MKCoordinateSpan())
+    }
 
         var body: some View {
-            HStack {
-                VStack {
-                    Image(systemName: "location.fill")
-                    Spacer()
-                }
+            HStack(alignment: .top) {
+                Image(systemName: "location.fill")
+                    .font(.title)
                 VStack(alignment: .leading) {
-                    Text(address)
+                    Text(location.addressLineOne)
+                    Text(location.addressLineTwo)
                     Map(coordinateRegion: $region, interactionModes: [])
                         .cornerRadius(15)
                 }
@@ -32,8 +34,13 @@ struct MapView: View {
         }
 }
 
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
-    }
-}
+// struct MapView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        @State var location = Location(
+//            addressLineOne: "NUS",
+//            addressLineTwo: "National University of Singapore",
+//            addressFull: "NUS, National University of Singapore",
+//            longitude: 1.296_6, latitude: 103.776_4)
+//        return MapView(location: location)
+//    }
+// }

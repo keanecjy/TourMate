@@ -37,20 +37,13 @@ struct PlanView: View {
                             }
                         }
 
-                        VStack(alignment: .leading) {
-                            // Start Time
-                            Text("From")
-                                .font(.caption)
-                            Text(getDateString(plan.startDateTime.date))
-                                .font(.headline)
+                        TimingView(plan: $viewModel.plan)
+                            .padding()
 
-                            // End Time
-                            Text("To")
-                                .font(.caption)
-                            Text(getDateString(plan.endDateTime.date))
-                                .font(.headline)
+                        if let location = viewModel.plan.startLocation {
+                            MapView(location: location)
+                                .padding()
                         }
-                        .padding()
 
                         VStack(alignment: .leading) {
                             Text("Start Location")
