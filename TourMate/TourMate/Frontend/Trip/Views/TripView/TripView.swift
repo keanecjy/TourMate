@@ -14,19 +14,10 @@ struct TripView: View {
 
     @State private var isAddPlanViewActive = false
     @State private var isShowingEditTripSheet = false
+    @State private var isShowingInviteUsersSheet = false
 
     init(trip: Trip) {
         self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
-    }
-
-    var dateString: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeZone = viewModel.trip.startDateTime.timeZone
-        let startDateString = dateFormatter.string(from: viewModel.trip.startDateTime.date)
-        dateFormatter.timeZone = viewModel.trip.endDateTime.timeZone
-        let endDateString = dateFormatter.string(from: viewModel.trip.endDateTime.date)
-        return startDateString + " - " + endDateString
     }
 
     @ViewBuilder
@@ -39,7 +30,7 @@ struct TripView: View {
             } else {
                 ScrollView {
                     VStack {
-                        Text(dateString)
+                        Text(viewModel.trip.durationDescription)
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding([.bottom, .horizontal])
@@ -55,10 +46,6 @@ struct TripView: View {
                                 Color.gray
                             }
                         }
-                        Text("Attendees")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.bottom, .horizontal])
 
                         AttendeesView(viewModel: viewModel)
 
@@ -78,6 +65,16 @@ struct TripView: View {
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
                     EditTripView(trip: viewModel.trip)
+                }
+
+                Button {
+                    isShowingInviteUsersSheet.toggle()
+                } label: {
+                    Image(systemName: "person.crop.circle.badge.plus")
+                }
+                .disabled(viewModel.isDeleted || viewModel.isLoading)
+                .sheet(isPresented: $isShowingInviteUsersSheet) {
+                    InviteUserView(trip: viewModel.trip)
                 }
 
                 NavigationLink(isActive: $isAddPlanViewActive) {

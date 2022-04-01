@@ -21,22 +21,7 @@ struct AddTripView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    Form {
-                        TextField("Trip Name", text: $viewModel.tripName)
-                        DatePicker(
-                            "Start Date",
-                            selection: $viewModel.startDate,
-                            in: Date()...,
-                            displayedComponents: [.date]
-                        )
-                        DatePicker(
-                            "End Date",
-                            selection: $viewModel.endDate,
-                            in: viewModel.fromStartDate,
-                            displayedComponents: [.date]
-                        )
-                        TextField("Image URL", text: $viewModel.imageUrl)
-                    }
+                    TripFormView(viewModel: viewModel)
                 }
             }
             .navigationTitle("New Trip")

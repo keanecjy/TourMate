@@ -36,7 +36,7 @@ struct FirebaseAuthenticationManager: AuthenticationManager {
             }
 
             guard let rootViewController = windowScene.windows.first?.rootViewController else {
-                print("[FirebaseAuthenticationManager] Unable to get window scene")
+                print("[FirebaseAuthenticationManager] Unable to get root view controller")
                 return
             }
 
