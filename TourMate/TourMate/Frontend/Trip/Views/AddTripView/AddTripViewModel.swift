@@ -17,8 +17,18 @@ class AddTripViewModel: ObservableObject, TripFormViewModel {
     @Published var isTripNameValid = false
     @Published var canAddTrip = false
 
-    @Published var trip: Trip
-    var tripPublisher: Published<Trip>.Publisher { $trip }
+    // TripFormViewModel
+    @Published var tripName: String = ""
+    var tripNamePublisher: Published<String>.Publisher { $tripName }
+
+    @Published var tripStartDate = Date()
+    var tripStartDatePublisher: Published<Date>.Publisher { $tripStartDate }
+
+    @Published var tripEndDate = Date()
+    var tripEndDatePublisher: Published<Date>.Publisher { $tripEndDate }
+
+    @Published var tripImageURL: String = ""
+    var tripImageURLPublisher: Published<String>.Publisher { $tripImageURL }
 
     @Published var fromStartDate = Date()...
     var fromStartDatePublisher: Published<PartialRangeFrom<Date>>.Publisher { $fromStartDate }
@@ -33,19 +43,14 @@ class AddTripViewModel: ObservableObject, TripFormViewModel {
         self.tripService = tripService
         self.userService = userService
 
-        self.trip = Trip(id: UUID().uuidString, name: "",
-                         startDateTime: DateTime(), endDateTime: DateTime(),
-                         imageUrl: "", attendeesUserIds: [], invitedUserIds: [],
-                         creationDate: Date(), modificationDate: Date())
-
-        $trip
-            .map({ $0.name })
+        // Constraints on Trip
+        $tripName
             .map({ !$0.isEmpty })
             .assign(to: \.isTripNameValid, on: self)
             .store(in: &cancellableSet)
 
-        $trip
-            .map({ $0.startDateTime.date... })
+        $tripStartDate
+            .map({ $0... })
             .assign(to: \.fromStartDate, on: self)
             .store(in: &cancellableSet)
 
@@ -53,12 +58,11 @@ class AddTripViewModel: ObservableObject, TripFormViewModel {
             .assign(to: \.canAddTrip, on: self)
             .store(in: &cancellableSet)
 
-        // ???
-//        Publishers
-//            .CombineLatest($startDate, $endDate)
-//            .map({ max($0, $1) })
-//            .assign(to: \.endDate, on: self)
-//            .store(in: &cancellableSet)
+        Publishers
+            .CombineLatest($tripStartDate, $tripEndDate)
+            .map({ max($0, $1) })
+            .assign(to: \.tripEndDate, on: self)
+            .store(in: &cancellableSet)
     }
 
     func addTrip() async {
@@ -72,18 +76,18 @@ class AddTripViewModel: ObservableObject, TripFormViewModel {
         }
 
         let creatorUserId = user.id
-        let uuid = trip.id
-        let name = trip.name
-        let imageUrl = trip.imageUrl
+        let uuid = UUID().uuidString
+        let name = tripName
+        let imageUrl = tripImageURL
         let calendar = Calendar.current
-        let start = calendar.startOfDay(for: trip.startDateTime.date)
+        let start = calendar.startOfDay(for: tripStartDate)
         let end = calendar.date(bySettingHour: 23,
                                 minute: 59,
                                 second: 59,
-                                of: trip.endDateTime.date) ?? trip.endDateTime.date
+                                of: tripEndDate) ?? tripEndDate
 
-        let startDateTime = DateTime(date: start, timeZone: trip.startDateTime.timeZone)
-        let endDateTime = DateTime(date: end, timeZone: trip.endDateTime.timeZone)
+        let startDateTime = DateTime(date: start, timeZone: TimeZone.current)
+        let endDateTime = DateTime(date: end, timeZone: TimeZone.current)
 
         let newTrip = Trip(id: uuid,
                            name: name,
