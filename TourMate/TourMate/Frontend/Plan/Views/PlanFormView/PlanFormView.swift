@@ -43,7 +43,14 @@ struct PlanFormView: View {
 
             TextField("Image URL", text: $viewModel.planImageUrl)
 
-            TextEditor(text: $viewModel.planAdditionalInfo)
+            Section("Additional Notes") {
+                ZStack {
+                    // https://stackoverflow.com/questions/62620613/dynamic-row-hight-containing-texteditor-inside-a-list-in-swiftui
+                    TextEditor(text: $viewModel.planAdditionalInfo)
+                    Text(viewModel.planAdditionalInfo).opacity(0)  // temp fix for dynamic TextEditor
+                }
+
+            }
         }
     }
 }

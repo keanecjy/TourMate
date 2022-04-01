@@ -49,7 +49,7 @@ class EditPlanViewModel: PlanFormViewModel {
         let status = planStatus
         let creationDate = plan.creationDate
         let upvotedUserIds = plan.upvotedUserIds
-        let additionalInfo = plan.additionalInfo
+        let additionalInfo = planAdditionalInfo
 
         let updatedPlan = Plan(id: id,
                                tripId: tripId,
