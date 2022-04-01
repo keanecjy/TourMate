@@ -16,8 +16,8 @@ struct TripView: View {
     @State private var isShowingEditTripSheet = false
     @State private var isShowingInviteUsersSheet = false
 
-    init(trip: Trip) {
-        self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
+    init(tripViewModel: TripViewModel) {
+        self._viewModel = StateObject(wrappedValue: tripViewModel)
     }
 
     @ViewBuilder

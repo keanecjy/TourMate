@@ -55,25 +55,3 @@ extension TripsViewModel: TripEventDelegate {
     func update(trip: Trip?, errorMessage: String) async {}
 
 }
-
-// MARK: Proposed VM -> View logic
-extension TripsViewModel {
-
-    @ViewBuilder
-    func buildTripsListView() -> some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(trips, id: \.id) { trip in
-                    NavigationLink {
-                        TripView(trip: trip)
-                    } label: {
-                        TripCard(title: trip.name,
-                                 subtitle: trip.durationDescription,
-                                 imageUrl: trip.imageUrl ?? "")
-                    }
-                }
-            }
-        }
-    }
-
-}

@@ -21,7 +21,7 @@ struct ContentView: View {
 
                 if let selectedTrip = selectedTrip {
                     NavigationLink(isActive: .constant(true)) {
-                        TripView(trip: selectedTrip)
+                        TripView(tripViewModel: TripViewModel(trip: selectedTrip))
                     } label: {
                         EmptyView()
                     }
