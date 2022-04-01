@@ -16,6 +16,7 @@ struct PlansDayView: View {
 
     @State var planIdToSize: [String: CGSize] = [:]
     @State var planIdToOffset: [String: CGPoint] = [:]
+    @State var minWidth: CGFloat = 0
 
     init(tripViewModel: TripViewModel, plans: [Plan] = [], hourHeight: Float = 50) {
         self.plans = plans
@@ -69,6 +70,7 @@ struct PlansDayView: View {
         // Set Y offset for first plan
         let firstPlanIdRect = planIdRect[0]
         planIdToOffset[firstPlanIdRect.planId] = CGPoint(x: 0, y: firstPlanIdRect.rect.origin.y)
+        minWidth = planIdToSize[firstPlanIdRect.planId]?.width ?? 0
 
         // Calculate and set X, Y offsets to not overlap
         for i in 1...(planIdRect.count - 1) {
@@ -81,13 +83,14 @@ struct PlansDayView: View {
 
             let prevEndY = prevRect.origin.y + prevRect.size.height
             let currentStartY = currentRect.origin.y
-            // offset to the right
+            // Offset to the right
             if currentStartY < prevEndY {
                 var prevEndX = prevRect.origin.x + prevRect.size.width
                 if let offset = planIdToOffset[prevPlanId] {
                     prevEndX += offset.x
                 }
                 planIdToOffset[currentPlanId] = CGPoint(x: prevEndX, y: currentStartY)
+                minWidth = max(minWidth, prevEndX + currentRect.width)
             } else {
                 planIdToOffset[currentPlanId] = CGPoint(x: 0, y: currentStartY)
             }
@@ -153,38 +156,41 @@ struct PlansDayView: View {
                     }
                 }
                 ZStack {
-                    VStack(alignment: .leading, spacing: 0) {
-                        ZStack(alignment: .topLeading) {
-                            ForEach(plans, id: \.id) { plan in
-                                HStack {
-                                    NavigationLink {
-                                        createPlanView(plan)
-                                    } label: {
-                                        PlanBoxView(
-                                            title: plan.name,
-                                            startDate: plan.startDateTime.date,
-                                            endDate: plan.endDateTime.date,
-                                            timeZone: plan.startDateTime.timeZone,
-                                            status: plan.status
-                                        )
-                                        .frame(minHeight: CGFloat(getHeight(for: plan)))
-                                        .readSize { size in
-                                            planIdToSize[plan.id] = size
-                                            calculateOffsets()
+                    ScrollView(.horizontal) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            ZStack(alignment: .topLeading) {
+                                ForEach(plans, id: \.id) { plan in
+                                    HStack {
+                                        NavigationLink {
+                                            createPlanView(plan)
+                                        } label: {
+                                            PlanBoxView(
+                                                title: plan.name,
+                                                startDate: plan.startDateTime.date,
+                                                endDate: plan.endDateTime.date,
+                                                timeZone: plan.startDateTime.timeZone,
+                                                status: plan.status
+                                            )
+                                            .frame(minHeight: CGFloat(getHeight(for: plan)))
+                                            .readSize { size in
+                                                planIdToSize[plan.id] = size
+                                                calculateOffsets()
+                                            }
                                         }
+                                        .buttonStyle(PlainButtonStyle())
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .fill(Color.primary.opacity(0.25))
+                                        )
+                                        .offset(x: CGFloat(planIdToOffset[plan.id]?.x ?? 0),
+                                                y: CGFloat(planIdToOffset[plan.id]?.y ?? 0) + 7)
+                                        Spacer()
                                     }
-                                    .buttonStyle(PlainButtonStyle())
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .fill(Color.primary.opacity(0.25))
-                                    )
-                                    .offset(x: CGFloat(planIdToOffset[plan.id]?.x ?? 0),
-                                            y: CGFloat(planIdToOffset[plan.id]?.y ?? 0) + 7)
-                                    Spacer()
                                 }
                             }
+                            Spacer()
                         }
-                        Spacer()
+                        .frame(minWidth: minWidth)
                     }
                     VStack(alignment: .leading, spacing: 0) {
                         ForEach(0...24, id: \.self) { _ in
