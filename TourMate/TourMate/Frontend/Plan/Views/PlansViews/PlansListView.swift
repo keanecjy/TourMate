@@ -40,11 +40,6 @@ struct PlansListView: View {
         }
     }
 
-    // func createUpvoteView(_ plan: Plan) -> some View {
-    //     let viewModel = PlanViewModel(plan: plan, trip: tripViewModel.trip)
-    //     return AnyView(UpvotePlanView(viewModel: viewModel, displayName: false))
-    // }
-
     var body: some View {
         LazyVStack {
             ForEach(days, id: \.date) { day in
@@ -68,7 +63,6 @@ struct PlansListView: View {
             }
         }
         .task {
-            // TODO: Use fetchPlansAndListen after fixing plan card and logic
             await plansViewModel.fetchPlansAndListen(withTripId: tripViewModel.trip.id)
             print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
