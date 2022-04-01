@@ -9,14 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State var selectedTrip: Trip?
+    @State private var selectedTrip: Trip?
 
     var body: some View {
         NavigationView {
             VStack {
                 TripsView(viewModel: TripsViewModel()) { trip in
                     selectedTrip = trip
-                    print(trip)
                 }
 
                 if let selectedTrip = selectedTrip {

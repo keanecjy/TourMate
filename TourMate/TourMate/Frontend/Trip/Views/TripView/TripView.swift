@@ -16,6 +16,8 @@ struct TripView: View {
     @State private var isShowingEditTripSheet = false
     @State private var isShowingInviteUsersSheet = false
 
+    @State private var selectedPlan: Plan?
+
     init(tripViewModel: TripViewModel) {
         self._viewModel = StateObject(wrappedValue: tripViewModel)
     }
@@ -49,8 +51,22 @@ struct TripView: View {
 
                         AttendeesView(viewModel: viewModel)
 
-                        PlansListView(tripId: viewModel.trip.id, tripViewModel: viewModel)
+                        PlansListView(tripId: viewModel.trip.id, tripViewModel: viewModel) { plan in
+                            selectedPlan = plan
+                        }
+
+                        if let selectedPlan = selectedPlan {
+                            NavigationLink(isActive: .constant(true)) {
+                                // TODO: Pass in the tripStartDate and tripEndDate will do
+                                PlanView(viewModel: PlanViewModel(plan: selectedPlan, trip: viewModel.trip))
+                            } label: {
+                                EmptyView()
+                            }
+                        }
                     }
+                    .onAppear(perform: {
+                        selectedPlan = nil
+                    })
                 }
             }
         }

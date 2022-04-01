@@ -11,9 +11,12 @@ struct PlansListView: View {
     @StateObject var plansViewModel: PlansViewModel
     var tripViewModel: TripViewModel
 
-    init(tripId: String, tripViewModel: TripViewModel) {
+    let onSelected: ((Plan) -> Void)?
+
+    init(tripId: String, tripViewModel: TripViewModel, onSelected: ((Plan) -> Void)? = nil) {
         self._plansViewModel = StateObject(wrappedValue: PlansViewModel(tripId: tripId))
         self.tripViewModel = tripViewModel
+        self.onSelected = onSelected
     }
 
     typealias Day = (date: Date, plans: [Plan])
@@ -55,15 +58,16 @@ struct PlansListView: View {
 
                     ForEach(day.plans, id: \.id) { plan in
                         HStack(spacing: 15.0) {
-                            NavigationLink {
-                                createPlanView(plan)
-                            } label: {
-                                PlanCardView(title: plan.name,
-                                             startDate: plan.startDateTime.date,
-                                             endDate: plan.endDateTime.date,
-                                             timeZone: plan.startDateTime.timeZone,
-                                             status: plan.status)
-                            }
+                            PlanCardView(title: plan.name,
+                                         startDate: plan.startDateTime.date,
+                                         endDate: plan.endDateTime.date,
+                                         timeZone: plan.startDateTime.timeZone,
+                                         status: plan.status)
+                                .onTapGesture(perform: {
+                                    if let onSelected = onSelected {
+                                        onSelected(plan)
+                                    }
+                                })
                             .buttonStyle(PlainButtonStyle())
                             .frame(maxWidth: .infinity, maxHeight: 100.0)
 
