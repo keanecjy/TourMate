@@ -13,15 +13,6 @@ class MockPlanService: PlanService {
 
     var plans: [Plan] = []
 
-    func fetchPlans(withTripId tripId: String) async -> ([Plan], String) {
-        (plans.filter({ $0.tripId == tripId }), "")
-    }
-
-    func fetchPlan(withPlanId planId: String) async -> (Plan?, String) {
-        let plan = plans.first(where: { $0.id == planId })
-        return (plan, "")
-    }
-
     func addPlan(plan: Plan) async -> (Bool, String) {
         plans.append(plan)
         return (true, "")
