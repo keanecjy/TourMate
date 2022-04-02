@@ -18,7 +18,7 @@ struct PlansDayView: View {
     @State var planIdToOffset: [String: CGPoint] = [:]
     @State var minWidth: CGFloat = 0
 
-    init(tripViewModel: TripViewModel, plans: [Plan] = [], hourHeight: Float = 50) {
+    init(tripViewModel: TripViewModel, plans: [Plan] = [], hourHeight: Float = 64) {
         self.plans = plans
         self.dateFormatter = DateFormatter()
         self.dateFormatter.timeStyle = .short
@@ -68,9 +68,11 @@ struct PlansDayView: View {
         }
 
         // Set Y offset for first plan
-        let firstPlanIdRect = planIdRect[0]
-        planIdToOffset[firstPlanIdRect.planId] = CGPoint(x: 0, y: firstPlanIdRect.rect.origin.y)
-        minWidth = planIdToSize[firstPlanIdRect.planId]?.width ?? 0
+        if !planIdRect.isEmpty {
+            let firstPlanIdRect = planIdRect[0]
+            planIdToOffset[firstPlanIdRect.planId] = CGPoint(x: 0, y: firstPlanIdRect.rect.origin.y)
+            minWidth = firstPlanIdRect.rect.width
+        }
 
         // Calculate and set X, Y offsets to not overlap
         for i in 1...(planIdRect.count - 1) {
@@ -81,9 +83,9 @@ struct PlansDayView: View {
             let currentPlanId = currentPlanIdRect.planId
             let currentRect = currentPlanIdRect.rect
 
+            // If Y position overlaps, offset to the right
             let prevEndY = prevRect.origin.y + prevRect.size.height
             let currentStartY = currentRect.origin.y
-            // Offset to the right
             if currentStartY < prevEndY {
                 var prevEndX = prevRect.origin.x + prevRect.size.width
                 if let offset = planIdToOffset[prevPlanId] {
