@@ -49,7 +49,7 @@ struct TripView: View {
                             }
                         }
 
-                        AttendeesView(viewModel: viewModel)
+                        AttendeesView(attendees: viewModel.attendees)
 
                         PlansListView(tripViewModel: viewModel) { plan in
                             selectedPlan = plan

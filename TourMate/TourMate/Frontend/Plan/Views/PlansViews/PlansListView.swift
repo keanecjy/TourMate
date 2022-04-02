@@ -19,30 +19,10 @@ struct PlansListView: View {
         self.onSelected = onSelected
     }
 
-    typealias Day = (date: Date, plans: [Plan])
-    var days: [Day] {
-        let sortedPlans = plansViewModel.plans.sorted { plan1, plan2 in
-            plan1.startDateTime.date < plan2.startDateTime.date
-        }
-        let plansByDay: [Date: [Plan]] = sortedPlans.reduce(into: [:]) { acc, cur in
-            let components = Calendar
-                .current
-                .dateComponents(in: cur.startDateTime.timeZone, from: cur.startDateTime.date)
-            let dateComponents = DateComponents(year: components.year,
-                                                month: components.month,
-                                                day: components.day)
-            let date = Calendar.current.date(from: dateComponents)!
-            let existing = acc[date] ?? []
-            acc[date] = existing + [cur]
-        }
-        return plansByDay.sorted(by: { $0.key < $1.key }).map { day in
-            (date: day.key, plans: day.value)
-        }
-    }
-
     var body: some View {
         LazyVStack {
-            ForEach(days, id: \.date) { day in
+            ForEach(plansViewModel.days, id: \.date) { day in
+
                 VStack(alignment: .leading) {
                     PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
 
