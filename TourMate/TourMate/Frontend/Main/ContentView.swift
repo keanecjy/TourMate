@@ -9,9 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
 
+    @State private var selectedTrip: Trip?
+
     var body: some View {
         NavigationView {
-            TripsView()
+            VStack {
+                TripsView(viewModel: TripsViewModel()) { trip in
+                    selectedTrip = trip
+                }
+
+                if let selectedTrip = selectedTrip {
+                    NavigationLink(isActive: .constant(true)) {
+                        TripView(tripViewModel: TripViewModel(trip: selectedTrip))
+                    } label: {
+                        EmptyView()
+                    }
+                }
+            }
+            .onAppear(perform: {
+                selectedTrip = nil
+            })
         }
         .navigationViewStyle(.stack)
     }

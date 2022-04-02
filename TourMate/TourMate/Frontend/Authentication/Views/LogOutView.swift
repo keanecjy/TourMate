@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LogOutView: View {
-    let authenticationService = FirebaseAuthenticationService.singleton
+    let authenticationService = FirebaseAuthenticationService.shared
     let containerSize: CGSize
 
     @State private var isDisabled = false

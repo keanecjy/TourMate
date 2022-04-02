@@ -8,64 +8,51 @@
 import SwiftUI
 
 struct PlanCardView: View {
-    let title: String
-    let startDate: Date
-    let endDate: Date?
     let dateFormatter: DateFormatter
-    let status: PlanStatus
 
-    init(title: String, startDate: Date, endDate: Date? = nil, timeZone: TimeZone, status: PlanStatus) {
-        self.title = title
-        self.startDate = startDate
-        self.endDate = endDate
-        self.dateFormatter = DateFormatter()
-        self.dateFormatter.timeStyle = .short
-        self.dateFormatter.timeZone = timeZone
-        self.status = status
+    @StateObject var viewModel: PlanViewModel
+
+    init(viewModel: PlanViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .short
+        dateFormatter.timeZone = viewModel.plan.startDateTime.timeZone // Takes plan's startDateTime timezone by default
     }
 
     var startTimeString: String {
-        dateFormatter.string(from: startDate)
+        dateFormatter.string(from: viewModel.plan.startDateTime.date)
     }
 
-    var endTimeString: String? {
-        guard let endDate = endDate else {
-            return nil
-        }
-        return dateFormatter.string(from: endDate)
+    var endTimeString: String {
+        dateFormatter.string(from: viewModel.plan.endDateTime.date)
     }
 
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 HStack(spacing: 0) {
-                    Text(startTimeString)
-                        .font(.caption)
-                    if let endTimeString = endTimeString {
-                        Text(" - " + endTimeString)
-                            .font(.caption)
-                    }
+                    Text(startTimeString).font(.caption)
+                    Text("-").font(.caption)
+                    Text(endTimeString).font(.caption)
 
-                    PlanStatusView(status: status)
+                    PlanStatusView(status: viewModel.plan.status)
                         .padding([.horizontal])
+
                 }
-                Text(title)
+                Text(viewModel.plan.name)
                     .font(.headline)
             }
             .padding()
             Spacer()
+            if viewModel.plan.status == .proposed {
+                UpvotePlanView(viewModel: viewModel, displayName: false)
+                    .frame(width: UIScreen.main.bounds.width / 3.0)
+            }
         }
-//        .background(RoundedRectangle(cornerRadius: 16)
-//                        .fill(Color.primary.opacity(0.1)))
-    }
-}
-
-struct PlanCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlanCardView(title: "Visit Venice Beach",
-                     startDate: Date(timeIntervalSince1970: 1_651_442_400),
-                     endDate: Date(timeIntervalSince1970: 1_651_453_200),
-                     timeZone: TimeZone(abbreviation: "PST")!,
-                     status: .confirmed)
+        .contentShape(Rectangle())
+        .task {
+            await viewModel.fetchPlanAndListen()
+        }
+        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }

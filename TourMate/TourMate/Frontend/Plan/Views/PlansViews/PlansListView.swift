@@ -11,9 +11,12 @@ struct PlansListView: View {
     @StateObject var plansViewModel: PlansViewModel
     @ObservedObject var tripViewModel: TripViewModel
 
-    init(tripId: String, tripViewModel: TripViewModel) {
-        self._plansViewModel = StateObject(wrappedValue: PlansViewModel(tripId: tripId))
+    let onSelected: ((Plan) -> Void)?
+
+    init(tripViewModel: TripViewModel, onSelected: ((Plan) -> Void)? = nil) {
+        self._plansViewModel = StateObject(wrappedValue: PlansViewModel())
         self.tripViewModel = tripViewModel
+        self.onSelected = onSelected
     }
 
     typealias Day = (date: Date, plans: [Plan])
@@ -37,51 +40,6 @@ struct PlansListView: View {
         }
     }
 
-    func createPlanView(_ plan: Plan) -> some View {
-        switch plan.planType {
-        case .accommodation:
-            let accommodationViewModel = PlanViewModel<Accommodation>(
-                plan: plan as! Accommodation, trip: tripViewModel.trip)
-            return AnyView(AccommodationView(accommodationViewModel: accommodationViewModel))
-        case .activity:
-            let activityViewModel = PlanViewModel<Activity>(
-                plan: plan as! Activity, trip: tripViewModel.trip)
-            return AnyView(ActivityView(activityViewModel: activityViewModel))
-        case .restaurant:
-            let restaurantViewModel = PlanViewModel<Restaurant>(
-                plan: plan as! Restaurant, trip: tripViewModel.trip)
-            return AnyView(RestaurantView(restaurantViewModel: restaurantViewModel))
-        case .transport:
-            let transportViewModel = PlanViewModel<Transport>(
-                plan: plan as! Transport, trip: tripViewModel.trip)
-            return AnyView(TransportView(transportViewModel: transportViewModel))
-        case .flight:
-            let flightViewModel = PlanViewModel<Flight>(
-                plan: plan as! Flight, trip: tripViewModel.trip)
-            return AnyView(FlightView(flightViewModel: flightViewModel))
-        }
-    }
-
-    func createUpvoteView(_ plan: Plan) -> some View {
-        switch plan.planType {
-        case .accommodation:
-            let accommodationViewModel = PlanViewModel<Accommodation>(plan: plan as! Accommodation, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: accommodationViewModel, displayName: false))
-        case .activity:
-            let activityViewModel = PlanViewModel<Activity>(plan: plan as! Activity, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: activityViewModel, displayName: false))
-        case .restaurant:
-            let restaurantViewModel = PlanViewModel<Restaurant>(plan: plan as! Restaurant, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: restaurantViewModel, displayName: false))
-        case .transport:
-            let transportViewModel = PlanViewModel<Transport>(plan: plan as! Transport, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: transportViewModel, displayName: false))
-        case .flight:
-            let flightViewModel = PlanViewModel<Flight>(plan: plan as! Flight, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: flightViewModel, displayName: false))
-        }
-    }
-
     var body: some View {
         LazyVStack {
             ForEach(days, id: \.date) { day in
@@ -89,36 +47,28 @@ struct PlansListView: View {
                     PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
-                        HStack(spacing: 16.0) {
-                            NavigationLink {
-                                createPlanView(plan)
-                            } label: {
-                                PlanCardView(title: plan.name,
-                                             startDate: plan.startDateTime.date,
-                                             endDate: plan.endDateTime.date,
-                                             timeZone: plan.startDateTime.timeZone,
-                                             status: plan.status)
-                            }
+                        PlanCardView(viewModel: PlanViewModel(plan: plan,
+                                                              lowerBoundDate: tripViewModel.trip.startDateTime,
+                                                              upperBoundDate: tripViewModel.trip.endDateTime))
+                            .onTapGesture(perform: {
+                                if let onSelected = onSelected {
+                                    onSelected(plan)
+                                }
+                            })
                             .buttonStyle(PlainButtonStyle())
                             .frame(maxWidth: .infinity, maxHeight: 100.0)
-
-                            if plan.status == .proposed {
-                                createUpvoteView(plan)
-                                    .frame(width: UIScreen.main.bounds.width / 3.0)
-                            }
-                        }
-                        .background(RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.primary.opacity(0.1)))
+                            .background(RoundedRectangle(cornerRadius: 16)
+                                            .fill(Color.primary.opacity(0.1)))
                     }
-
                 }
                 .padding()
             }
         }
         .task {
-            await plansViewModel.fetchPlans()
+            await plansViewModel.fetchPlansAndListen(withTripId: tripViewModel.trip.id)
             print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
+        .onDisappear(perform: { () in plansViewModel.detachListener() })
     }
 }
 

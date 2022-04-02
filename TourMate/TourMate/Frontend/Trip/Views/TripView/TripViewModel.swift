@@ -10,21 +10,22 @@ import Combine
 
 @MainActor
 class TripViewModel: ObservableObject {
-    @Published var trip: Trip
+
     @Published private(set) var isLoading = false
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
 
-    @Published var isTripNameValid = true
-    @Published var fromStartDate = Date()...
-    @Published var canUpdateTrip = true
-
     @Published var attendees: [User] = []
+    @Published var trip: Trip
 
-    let tripService: TripService
-    let userService: UserService
+    private var tripService: TripService
+    private let userService: UserService
 
     private var cancellableSet: Set<AnyCancellable> = []
+
+    convenience init(_ tripViewModel: TripViewModel) {
+        self.init(trip: tripViewModel.trip)
+    }
 
     init(trip: Trip,
          tripService: TripService = FirebaseTripService(),
@@ -33,132 +34,73 @@ class TripViewModel: ObservableObject {
         self.trip = trip
         self.tripService = tripService
         self.userService = userService
-
-        $trip
-            .map({ $0.name })
-            .map({ !$0.isEmpty })
-            .assign(to: \.isTripNameValid, on: self)
-            .store(in: &cancellableSet)
-
-        $trip
-            .map({ $0.startDateTime.date... })
-            .assign(to: \.fromStartDate, on: self)
-            .store(in: &cancellableSet)
-
-        $isTripNameValid
-            .assign(to: \.canUpdateTrip, on: self)
-            .store(in: &cancellableSet)
     }
 
-    func fetchTrip() async {
+    func fetchTripAndListen() async {
+        tripService.tripEventDelegate = self
+
         self.isLoading = true
-        let (trip, errorMessage) = await tripService.fetchTrip(withTripId: trip.id)
-        guard let trip = trip else {
-            self.isDeleted = true
-            self.isLoading = false
-            return
-        }
-        guard errorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
-            return
-        }
-        self.trip = trip
-        self.isLoading = false
+        await tripService.fetchTripAndListen(withTripId: trip.id)
     }
 
-    func updateTrip() async {
-        self.isLoading = true
-        let (hasUpdated, errorMessage) = await tripService.updateTrip(trip: trip)
-        guard hasUpdated, errorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
-            return
-        }
-        self.isLoading = false
-    }
+    func detachListener() {
+        tripService.tripEventDelegate = nil
 
-    func deleteTrip() async {
-        self.isLoading = true
-        let (hasDeleted, errorMessage) = await tripService.deleteTrip(trip: trip)
-        guard hasDeleted, errorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
-            return
-        }
-        self.isDeleted = true
         self.isLoading = false
+        tripService.detachListener()
     }
 
     func inviteUser(email: String) async {
         self.isLoading = true
 
         // fetch user
-        let (user, userErrorMessage) = await userService.getUser(with: "email", value: email)
+        let (user, userErrorMessage) = await userService.getUser(withEmail: email)
 
         guard userErrorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
+            handleError()
             return
         }
 
         guard let user = user else { // user not null
-            print("Email is incorrect")
+            print("[TripViewModel] Email is not a registered account")
             self.isLoading = false
             return
         }
 
         let userId = user.id
 
-        // fetch trip
-        let (tripCopy, tripErrorMessage) = await tripService.fetchTrip(withTripId: trip.id)
-        guard tripErrorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
-            return
-        }
-
-        guard var tripCopy = tripCopy else {
-            self.isDeleted = true
+        // user not in trip
+        guard !trip.attendeesUserIds.contains(userId) else {
+            print("[TripViewModel] User already invited")
             self.isLoading = false
             return
         }
 
-        // update trip
-        guard !tripCopy.attendeesUserIds.contains(userId) else { // user not in trip
-            print("User already invited")
-            self.isLoading = false
-            return
-        }
+        trip.attendeesUserIds.append(userId)
 
-        tripCopy.attendeesUserIds.append(userId)
-
-        let (hasUpdated, updateErrorMessage) = await tripService.updateTrip(trip: tripCopy)
+        let (hasUpdated, updateErrorMessage) = await tripService.updateTrip(trip: trip)
         guard hasUpdated, updateErrorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
+            handleError()
             return
         }
 
         self.isLoading = false
     }
 
-    func fetchAttendees() async {
+    private func fetchAttendees() async {
         var fetchedAttendees: [User] = []
 
         for userId in trip.attendeesUserIds {
-            let (user, userErrorMessage) = await userService.getUser(with: "id", value: userId)
+            let (user, userErrorMessage) = await userService.getUser(withUserId: userId)
 
             guard userErrorMessage.isEmpty else {
-                self.isLoading = false
-                self.hasError = true
+                handleError()
                 return
             }
 
             guard let user = user else { // user not null
                 print("No user exists with id \(userId)")
-                self.isLoading = false
-                self.hasError = true
+                handleError()
                 return
             }
 
@@ -167,4 +109,42 @@ class TripViewModel: ObservableObject {
 
         self.attendees = fetchedAttendees
     }
+}
+
+// MARK: - TripsEventDelegate
+extension TripViewModel: TripEventDelegate {
+    func update(trip: Trip?, errorMessage: String) async {
+        print("[TripViewModel] Updating Single Trip")
+
+        guard let trip = trip else {
+            handleDeletion()
+            return
+        }
+
+        guard errorMessage.isEmpty else {
+            handleError()
+            return
+        }
+
+        self.trip = trip
+        await fetchAttendees()
+
+        self.isLoading = false
+    }
+
+    func update(trips: [Trip], errorMessage: String) async {}
+}
+
+// MARK: - State changes
+extension TripViewModel {
+    private func handleDeletion() {
+        self.isDeleted = true
+        self.isLoading = false
+    }
+
+    private func handleError() {
+        self.isLoading = false
+        self.hasError = true
+    }
+
 }

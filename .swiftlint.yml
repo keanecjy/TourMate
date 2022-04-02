@@ -77,6 +77,9 @@ disabled_rules:
   - multiple_closures_with_trailing_closure # for e.g. SwiftUI buttons
   - todo
   - type_name
+  - unavailable_function
+  - closure_body_length # for e.g. SwiftUI Nesting
+  - empty_xctest_method
 
 line_length:
   warning: 120

@@ -13,20 +13,44 @@ class PlansViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
-    let planService: PlanService
-    var tripId: String
+    private var planService: PlanService
 
-    init(planService: PlanService = FirebasePlanService(), tripId: String = "") {
+    init(planService: PlanService = FirebasePlanService()) {
         self.plans = []
         self.isLoading = false
         self.hasError = false
         self.planService = planService
-        self.tripId = tripId
     }
 
-    func fetchPlans() async {
+    func fetchPlansAndListen(withTripId tripId: String) async {
+        planService.planEventDelegate = self
+
         self.isLoading = true
-        let (plans, errorMessage) = await planService.fetchPlans(withTripId: tripId)
+        await planService.fetchPlansAndListen(withTripId: tripId)
+    }
+
+    func detachListener() {
+        planService.planEventDelegate = nil
+        self.isLoading = false
+
+        planService.detachListener()
+    }
+}
+
+// MARK: - PlanEventDelegate
+extension PlansViewModel: PlanEventDelegate {
+    func update(plans: [Plan], errorMessage: String) async {
+        print("[PlansViewModel] Updating Plans: \(plans)")
+
+        loadPlans(plans: plans, errorMessage: errorMessage)
+    }
+
+    func update(plan: Plan?, errorMessage: String) async {}
+}
+
+// MARK: - Helper Methods
+extension PlansViewModel {
+    private func loadPlans(plans: [Plan], errorMessage: String) {
         guard errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true

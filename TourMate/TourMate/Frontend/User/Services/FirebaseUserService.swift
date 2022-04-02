@@ -33,30 +33,34 @@ struct FirebaseUserService: UserService {
         return await firebaseRepository.deleteItem(id: currentUser.uid)
     }
 
-    func getUser() async -> (User?, String) {
+    func getCurrentUser() async -> (User?, String) {
         guard let currentUser = Auth.auth().currentUser else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
-        let (adaptedUser, errorMessage) = await firebaseRepository.fetchItem(id: currentUser.uid)
+
+        return await getUser(withUserId: currentUser.uid)
+    }
+
+    func getUser(withUserId userId: String) async -> (User?, String) {
+        let (adaptedUser, errorMessage) = await firebaseRepository.fetchItem(id: userId)
 
         guard errorMessage.isEmpty else {
             return (nil, errorMessage)
         }
 
         guard let adaptedUser = adaptedUser as? FirebaseAdaptedUser else {
-            assertionFailure()
-            return (nil, "") // user not found
+            return (nil, errorMessage) // user not found
         }
 
         return (userAdapter.toUser(adaptedUser: adaptedUser), errorMessage)
     }
 
-    func getUser(with field: String, value: String) async -> (User?, String) {
+    func getUser(withEmail email: String) async -> (User?, String) {
         guard Auth.auth().currentUser != nil else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
-        let (adaptedUsers, errorMessage) = await firebaseRepository.fetchItems(field: field, isEqualTo: value)
+        let (adaptedUsers, errorMessage) = await firebaseRepository.fetchItems(field: "email", isEqualTo: email)
 
         guard errorMessage.isEmpty else {
             return (nil, errorMessage)
@@ -69,7 +73,7 @@ struct FirebaseUserService: UserService {
         }
 
         guard let adaptedUser = adaptedUsers.first as? FirebaseAdaptedUser else {
-            return (nil, "") // user not found
+            return (nil, errorMessage) // user not found
         }
 
         return (userAdapter.toUser(adaptedUser: adaptedUser), "")

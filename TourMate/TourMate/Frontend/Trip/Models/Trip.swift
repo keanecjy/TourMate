@@ -18,6 +18,20 @@ struct Trip: CustomStringConvertible {
     let creationDate: Date
     var modificationDate: Date
 
+    // START date - END date
+    var durationDescription: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+
+        dateFormatter.timeZone = startDateTime.timeZone
+        let startDateString = dateFormatter.string(from: startDateTime.date)
+
+        dateFormatter.timeZone = endDateTime.timeZone
+        let endDateString = dateFormatter.string(from: endDateTime.date)
+
+        return startDateString + " - " + endDateString
+    }
+
     internal init(id: String, name: String,
                   startDateTime: DateTime,
                   endDateTime: DateTime,

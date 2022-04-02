@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct TripsView: View {
-    @StateObject var viewModel = TripsViewModel()
+    @StateObject var viewModel: TripsViewModel
     @State private var isShowingAddTripSheet = false
 
-    func getDateString(trip: Trip) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeZone = trip.startDateTime.timeZone
-        let startDateString = dateFormatter.string(from: trip.startDateTime.date)
-        dateFormatter.timeZone = trip.endDateTime.timeZone
-        let endDateString = dateFormatter.string(from: trip.endDateTime.date)
-        return startDateString + " - " + endDateString
+    let onSelected: ((Trip) -> Void)?
+
+    init(viewModel: TripsViewModel, onSelected: ((Trip) -> Void)? = nil) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.onSelected = onSelected
     }
 
     var body: some View {
@@ -31,13 +28,14 @@ struct TripsView: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(viewModel.trips, id: \.id) { trip in
-                            NavigationLink {
-                                TripView(trip: trip)
-                            } label: {
-                                TripCard(title: trip.name,
-                                         subtitle: getDateString(trip: trip),
-                                         imageUrl: trip.imageUrl ?? "")
-                            }
+                            TripCard(title: trip.name,
+                                     subtitle: trip.durationDescription,
+                                     imageUrl: trip.imageUrl ?? "")
+                                .onTapGesture(perform: {
+                                    if let onSelected = onSelected {
+                                        onSelected(trip)
+                                    }
+                                })
                         }
                     }
                 }
@@ -53,10 +51,6 @@ struct TripsView: View {
                 }
                 .disabled(viewModel.isLoading || viewModel.hasError)
                 .sheet(isPresented: $isShowingAddTripSheet) {
-                    Task {
-                        await viewModel.fetchTrips()
-                    }
-                } content: {
                     AddTripView()
                 }
 
@@ -68,8 +62,9 @@ struct TripsView: View {
             }
         }
         .task {
-            await viewModel.fetchTrips()
+            await viewModel.fetchTripsAndListen()
         }
+        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }
 

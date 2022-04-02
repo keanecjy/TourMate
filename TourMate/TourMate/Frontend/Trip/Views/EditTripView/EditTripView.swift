@@ -10,10 +10,10 @@ import SwiftUI
 struct EditTripView: View {
     @Environment(\.dismiss) var dismiss
 
-    @StateObject var viewModel: TripViewModel
+    @StateObject var viewModel: EditTripViewModel
 
-    init(trip: Trip) {
-        self._viewModel = StateObject(wrappedValue: TripViewModel(trip: trip))
+    init(tripViewModel: TripViewModel) {
+        self._viewModel = StateObject(wrappedValue: EditTripViewModel(trip: tripViewModel.trip))
     }
 
     var body: some View {
@@ -21,29 +21,10 @@ struct EditTripView: View {
             Group {
                 if viewModel.hasError {
                     Text("Error occurred")
+                } else if viewModel.isLoading {
+                    ProgressView()
                 } else {
-                    Form {
-                        Section("Trip Information") {
-                            TextField("Trip Name*", text: $viewModel.trip.name)
-                            DatePicker(
-                                "Start Date",
-                                selection: $viewModel.trip.startDateTime.date,
-                                in: Date()...,
-                                displayedComponents: [.date]
-                            )
-                            DatePicker(
-                                "End Date",
-                                selection: $viewModel.trip.endDateTime.date,
-                                in: viewModel.fromStartDate,
-                                displayedComponents: [.date]
-                            )
-                            TextField("Image URL", text: $viewModel.trip.imageUrl ?? "")
-                        }
-
-                        Section("Invite Users") {
-                            InviteUserView(viewModel: viewModel)
-                        }
-                    }
+                    TripFormView(viewModel: viewModel)
                 }
             }
             .navigationTitle("Edit Trip")
@@ -56,7 +37,7 @@ struct EditTripView: View {
                             dismiss()
                         }
                     }
-                    .disabled(!viewModel.canUpdateTrip || viewModel.isLoading || viewModel.hasError)
+                    .disabled(!viewModel.canSubmitTrip || viewModel.isLoading || viewModel.hasError)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {

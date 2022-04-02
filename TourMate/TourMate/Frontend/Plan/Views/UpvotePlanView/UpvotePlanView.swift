@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct UpvotePlanView<T: Plan>: View {
+struct UpvotePlanView: View {
 
-    @ObservedObject var viewModel: PlanViewModel<T>
+    @ObservedObject var viewModel: PlanViewModel
     let displayName: Bool
 
-    init(viewModel: PlanViewModel<T>, displayName: Bool = true) {
+    init(viewModel: PlanViewModel, displayName: Bool = true) {
         self.viewModel = viewModel
         self.displayName = displayName
     }
@@ -23,9 +23,6 @@ struct UpvotePlanView<T: Plan>: View {
                          action: viewModel.upvotePlan)
 
             UpvotedUsersView(upvotedUsers: viewModel.upvotedUsers, displayName: displayName)
-        }
-        .task {
-            await viewModel.fetchPlan()
         }
     }
 }
