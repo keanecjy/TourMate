@@ -29,6 +29,7 @@
 		000F3BF027F1659A00E7E2ED /* CommentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000F3BEE27F1659A00E7E2ED /* CommentTextView.swift */; };
 		004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004981AA27E2FF3C007BDB2E /* SettingsView.swift */; };
 		004ACDB627F83DC60015CDD8 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004ACDB527F83DC60015CDD8 /* ViewModelFactory.swift */; };
+		004ACDB827F89F370015CDD8 /* AdditionalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004ACDB727F89F370015CDD8 /* AdditionalInfoView.swift */; };
 		00582F7027E70C97008756E9 /* EditPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F6F27E70C97008756E9 /* EditPlanView.swift */; };
 		0066355927F6D61A00166655 /* EditTripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0066355827F6D61A00166655 /* EditTripViewModel.swift */; };
 		0066355D27F6F30100166655 /* PlanFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0066355C27F6F30100166655 /* PlanFormView.swift */; };
@@ -169,6 +170,7 @@
 		004981AA27E2FF3C007BDB2E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		004981AC27E3237A007BDB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		004ACDB527F83DC60015CDD8 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
+		004ACDB727F89F370015CDD8 /* AdditionalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoView.swift; sourceTree = "<group>"; };
 		00582F6F27E70C97008756E9 /* EditPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanView.swift; sourceTree = "<group>"; };
 		0066355827F6D61A00166655 /* EditTripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTripViewModel.swift; sourceTree = "<group>"; };
 		0066355C27F6F30100166655 /* PlanFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanFormView.swift; sourceTree = "<group>"; };
@@ -988,6 +990,7 @@
 			children = (
 				B9AF3B4F27EF6FD600A3C82E /* MapView.swift */,
 				B9B6B40727F719FF00B0F5F4 /* TimingView.swift */,
+				004ACDB727F89F370015CDD8 /* AdditionalInfoView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1340,6 +1343,7 @@
 				95779BD327E76687001FF602 /* EditTripView.swift in Sources */,
 				B9B6B40027F5A95000B0F5F4 /* RealLocationService.swift in Sources */,
 				4CDE841927EF0E54001F58C5 /* TripEventDelegate.swift in Sources */,
+				004ACDB827F89F370015CDD8 /* AdditionalInfoView.swift in Sources */,
 				B967C33A27DDD71C0023B34D /* AddPlanView.swift in Sources */,
 				95FAE40B27E245D200F4AB01 /* MockTripService.swift in Sources */,
 				95FAE40B27E245D200F4AB01 /* MockTripService.swift in Sources */,

@@ -10,39 +10,52 @@ import SwiftUI
 struct PlanView: View {
     @StateObject var viewModel: PlanViewModel
     @State private var isShowingEditPlanSheet = false
+    @State private var isShowingAdditionalInfoSheet = false
 
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
         if viewModel.hasError {
             Text("Error occurred")
+        } else if viewModel.isLoading {
+            ProgressView()
         } else {
-            HStack {
-                VStack(alignment: .leading) {
-                    HStack(spacing: 10.0) {
-                        PlanStatusView(status: viewModel.plan.status)
-                            .padding()
+            VStack(alignment: .leading, spacing: 15.0) {
+                // TODO: Show image
 
-                        if viewModel.plan.status == .proposed {
-                            UpvotePlanView(viewModel: viewModel)
-                        }
+                HStack(spacing: 10.0) {
+                    PlanStatusView(status: viewModel.plan.status)
+
+                    if viewModel.plan.status == .proposed {
+                        UpvotePlanView(viewModel: viewModel)
                     }
-
-                    TimingView(plan: $viewModel.plan)
-                        .padding()
-
-                    MapView(location: $viewModel.plan.startLocation)
-                        .padding()
-
-                    CommentsView(viewModel: ViewModelFactory.getCommentsViewModel(planViewModel: viewModel))
-                        .padding()
-
-                    Spacer()
                 }
 
-                Spacer()
+                TimingView(plan: $viewModel.plan)
 
+                MapView(location: $viewModel.plan.startLocation)
+
+                if let additionalInfo = viewModel.plan.additionalInfo {
+                    HStack {
+                        Image(systemName: "newspaper")
+                            .font(.title)
+
+                        Button {
+                            isShowingAdditionalInfoSheet.toggle()
+                        } label: {
+                            Text("Additional Notes")
+                        }
+                        .sheet(isPresented: $isShowingAdditionalInfoSheet) {
+                            AdditionalInfoView(additionalInfo: additionalInfo)
+                        }
+                    }
+                }
+
+                CommentsView(viewModel: ViewModelFactory.getCommentsViewModel(planViewModel: viewModel))
+
+                Spacer() // Push everything to the top
             }
+            .padding()
             .navigationBarTitle(viewModel.plan.name)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {

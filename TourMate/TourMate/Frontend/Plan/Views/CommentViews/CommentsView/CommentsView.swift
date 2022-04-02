@@ -11,7 +11,6 @@ import SwiftUI
 struct CommentsView: View {
     @StateObject var viewModel: CommentsViewModel
     @State var commentMessage: String = ""
-    var width = UIScreen.main.bounds.width / 2.0
 
     var body: some View {
         if viewModel.hasError {
@@ -23,7 +22,7 @@ struct CommentsView: View {
                 HStack {
                     TextField("Add a comment", text: $commentMessage)
                         .padding()
-                        .background(.ultraThinMaterial)
+                        .background(.white)
                         .cornerRadius(20.0)
 
                     Button {
@@ -37,7 +36,9 @@ struct CommentsView: View {
                     .disabled(viewModel.isLoading || viewModel.hasError)
                 }
             }
-            .frame(width: width, alignment: .leading)
+            .padding()
+            .background(.thinMaterial)
+            .cornerRadius(20.0)
             .onAppear {
                 Task {
                     await viewModel.fetchCommentsAndListen()

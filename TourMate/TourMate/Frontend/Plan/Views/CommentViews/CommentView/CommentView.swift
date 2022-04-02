@@ -21,7 +21,7 @@ struct CommentView: View {
             CommentTextView(viewModel: viewModel, user: user, comment: comment)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
-                .background(.ultraThinMaterial)
+                .background(.white)
                 .cornerRadius(20)
         }
     }
