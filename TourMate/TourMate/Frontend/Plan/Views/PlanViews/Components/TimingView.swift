@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TimingView: View {
-    @Binding var plan: Plan
-    @State var dateFormatter = DateFormatter()
+    let plan: Plan
+    @State private var dateFormatter = DateFormatter()
 
     var body: some View {
         HStack(alignment: .top) {
