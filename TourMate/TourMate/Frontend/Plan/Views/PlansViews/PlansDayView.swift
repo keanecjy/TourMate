@@ -11,19 +11,28 @@ struct PlansDayView: View {
     let plans: [Plan]
     let dateFormatter: DateFormatter
     let hourHeight: Float
-
-    @ObservedObject var tripViewModel: TripViewModel
+    let lowerBoundDate: DateTime
+    let upperBoundDate: DateTime
+    let onSelected: ((Plan) -> Void)?
 
     @State var planIdToSize: [String: CGSize] = [:]
     @State var planIdToOffset: [String: CGPoint] = [:]
     @State var minWidth: CGFloat = 0
 
-    init(tripViewModel: TripViewModel, plans: [Plan] = [], hourHeight: Float = 64) {
+    init(plans: [Plan] = [],
+         lowerBoundDate: DateTime,
+         upperBoundDate: DateTime,
+         onSelected: ((Plan) -> Void)? = nil,
+         hourHeight: Float = 64) {
         self.plans = plans
+        print("plans:")
+        print(plans)
+        self.lowerBoundDate = lowerBoundDate
+        self.upperBoundDate = upperBoundDate
+        self.onSelected = onSelected
         self.dateFormatter = DateFormatter()
         self.dateFormatter.timeStyle = .short
         self.hourHeight = hourHeight
-        self.tripViewModel = tripViewModel
     }
 
     // TODO: use DateFormatter
@@ -99,51 +108,6 @@ struct PlansDayView: View {
         }
     }
 
-    func createPlanView(_ plan: Plan) -> some View {
-        switch plan.planType {
-        case .accommodation:
-            let accommodationViewModel = PlanViewModel<Accommodation>(
-                plan: plan as! Accommodation, trip: tripViewModel.trip)
-            return AnyView(AccommodationView(accommodationViewModel: accommodationViewModel))
-        case .activity:
-            let activityViewModel = PlanViewModel<Activity>(
-                plan: plan as! Activity, trip: tripViewModel.trip)
-            return AnyView(ActivityView(activityViewModel: activityViewModel))
-        case .restaurant:
-            let restaurantViewModel = PlanViewModel<Restaurant>(
-                plan: plan as! Restaurant, trip: tripViewModel.trip)
-            return AnyView(RestaurantView(restaurantViewModel: restaurantViewModel))
-        case .transport:
-            let transportViewModel = PlanViewModel<Transport>(
-                plan: plan as! Transport, trip: tripViewModel.trip)
-            return AnyView(TransportView(transportViewModel: transportViewModel))
-        case .flight:
-            let flightViewModel = PlanViewModel<Flight>(
-                plan: plan as! Flight, trip: tripViewModel.trip)
-            return AnyView(FlightView(flightViewModel: flightViewModel))
-        }
-    }
-
-    func createUpvoteView(_ plan: Plan) -> some View {
-        switch plan.planType {
-        case .accommodation:
-            let accommodationViewModel = PlanViewModel<Accommodation>(plan: plan as! Accommodation, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: accommodationViewModel, displayName: false))
-        case .activity:
-            let activityViewModel = PlanViewModel<Activity>(plan: plan as! Activity, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: activityViewModel, displayName: false))
-        case .restaurant:
-            let restaurantViewModel = PlanViewModel<Restaurant>(plan: plan as! Restaurant, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: restaurantViewModel, displayName: false))
-        case .transport:
-            let transportViewModel = PlanViewModel<Transport>(plan: plan as! Transport, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: transportViewModel, displayName: false))
-        case .flight:
-            let flightViewModel = PlanViewModel<Flight>(plan: plan as! Flight, trip: tripViewModel.trip)
-            return AnyView(UpvotePlanView(viewModel: flightViewModel, displayName: false))
-        }
-    }
-
     var body: some View {
         ScrollView {
             HStack {
@@ -163,21 +127,22 @@ struct PlansDayView: View {
                             ZStack(alignment: .topLeading) {
                                 ForEach(plans, id: \.id) { plan in
                                     HStack {
-                                        NavigationLink {
-                                            createPlanView(plan)
-                                        } label: {
-                                            PlanBoxView(
-                                                title: plan.name,
-                                                startDate: plan.startDateTime.date,
-                                                endDate: plan.endDateTime.date,
-                                                timeZone: plan.startDateTime.timeZone,
-                                                status: plan.status
-                                            )
-                                            .frame(minHeight: CGFloat(getHeight(for: plan)))
-                                            .readSize { size in
-                                                planIdToSize[plan.id] = size
-                                                calculateOffsets()
+                                        PlanCardView(viewModel:
+                                                        PlanViewModel(plan: plan,
+                                                                      lowerBoundDate: lowerBoundDate,
+                                                                      upperBoundDate: upperBoundDate)
+                                        )
+                                        .onTapGesture(perform: {
+                                            if let onSelected = onSelected {
+                                                onSelected(plan)
                                             }
+                                        })
+                                        .frame(maxWidth: 480,
+                                               minHeight: CGFloat(getHeight(for: plan)),
+                                               alignment: .topLeading)
+                                        .readSize { size in
+                                            planIdToSize[plan.id] = size
+                                            calculateOffsets()
                                         }
                                         .buttonStyle(PlainButtonStyle())
                                         .background(

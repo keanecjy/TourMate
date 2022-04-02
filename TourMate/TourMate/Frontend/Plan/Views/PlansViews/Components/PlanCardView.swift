@@ -28,7 +28,7 @@ struct PlanCardView: View {
     }
 
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             VStack(alignment: .leading) {
                 HStack(spacing: 0) {
                     Text(startTimeString).font(.caption)
@@ -46,7 +46,7 @@ struct PlanCardView: View {
             Spacer()
             if viewModel.plan.status == .proposed {
                 UpvotePlanView(viewModel: viewModel, displayName: false)
-                    .frame(width: UIScreen.main.bounds.width / 3.0)
+                    .frame(width: 240)
             }
         }
         .contentShape(Rectangle())
