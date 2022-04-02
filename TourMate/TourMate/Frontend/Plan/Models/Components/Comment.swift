@@ -14,4 +14,10 @@ struct Comment {
     var message: String
     let creationDate: Date
     var upvotedUserIds: [String]
+
+    var creationDateDescription: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy, HH:mm a"
+        return dateFormatter.string(from: creationDate)
+    }
 }

@@ -11,7 +11,7 @@ struct AddTripView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    @StateObject var viewModel = AddTripViewModel()
+    @StateObject var viewModel = ViewModelFactory.getAddTripViewModel()
 
     var body: some View {
         NavigationView {

@@ -9,16 +9,16 @@ import SwiftUI
 
 // Entire Comments View
 struct CommentsView: View {
-    @StateObject var commentsViewModel: CommentsViewModel
+    @StateObject var viewModel: CommentsViewModel
     @State var commentMessage: String = ""
     var width = UIScreen.main.bounds.width / 2.0
 
     var body: some View {
-        if commentsViewModel.hasError {
+        if viewModel.hasError {
             Text("Error Occurred")
         } else {
             VStack(spacing: 15.0) {
-                CommentListView(commentsViewModel: commentsViewModel)
+                CommentListView(viewModel: viewModel)
 
                 HStack {
                     TextField("Add a comment", text: $commentMessage)
@@ -28,22 +28,22 @@ struct CommentsView: View {
 
                     Button {
                         Task {
-                            await commentsViewModel.addComment(commentMessage: commentMessage)
+                            await viewModel.addComment(commentMessage: commentMessage)
                             commentMessage = ""
                         }
                     } label: {
                         Image(systemName: "paperplane.fill")
                     }
-                    .disabled(commentsViewModel.isLoading || commentsViewModel.hasError)
+                    .disabled(viewModel.isLoading || viewModel.hasError)
                 }
             }
             .frame(width: width, alignment: .leading)
             .onAppear {
                 Task {
-                    await commentsViewModel.fetchCommentsAndListen()
+                    await viewModel.fetchCommentsAndListen()
                 }
             }
-            .onDisappear(perform: { () in commentsViewModel.detachListener() })
+            .onDisappear(perform: { () in viewModel.detachListener() })
         }
     }
 }

@@ -8,28 +8,24 @@
 import SwiftUI
 
 struct PlansListView: View {
-    @StateObject var plansViewModel: PlansViewModel
-    var tripViewModel: TripViewModel
+    @StateObject var viewModel: PlansViewModel
 
     let onSelected: ((Plan) -> Void)?
 
-    init(tripViewModel: TripViewModel, onSelected: ((Plan) -> Void)? = nil) {
-        self._plansViewModel = StateObject(wrappedValue: PlansViewModel())
-        self.tripViewModel = tripViewModel
+    init(viewModel: PlansViewModel, onSelected: ((Plan) -> Void)? = nil) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
         self.onSelected = onSelected
     }
 
     var body: some View {
         LazyVStack {
-            ForEach(plansViewModel.days, id: \.date) { day in
+            ForEach(viewModel.days, id: \.date) { day in
 
                 VStack(alignment: .leading) {
                     PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
-                        PlanCardView(viewModel: PlanViewModel(plan: plan,
-                                                              lowerBoundDate: tripViewModel.trip.startDateTime,
-                                                              upperBoundDate: tripViewModel.trip.endDateTime))
+                        PlanCardView(viewModel: ViewModelFactory.getPlanViewModel(plan: plan, plansViewModel: viewModel))
                             .onTapGesture(perform: {
                                 if let onSelected = onSelected {
                                     onSelected(plan)
@@ -45,10 +41,10 @@ struct PlansListView: View {
             }
         }
         .task {
-            await plansViewModel.fetchPlansAndListen(withTripId: tripViewModel.trip.id)
-            print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
+            await viewModel.fetchPlansAndListen()
+            print("[PlansListView] Fetched plans: \(viewModel.plans)")
         }
-        .onDisappear(perform: { () in plansViewModel.detachListener() })
+        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }
 

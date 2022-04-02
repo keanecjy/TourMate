@@ -18,31 +18,30 @@ struct PlanView: View {
             Text("Error occurred")
         } else {
             HStack {
-                if let plan = viewModel.plan {
-                    VStack(alignment: .leading) {
-                        HStack(spacing: 10.0) {
-                            PlanStatusView(status: plan.status)
-                                .padding()
+                VStack(alignment: .leading) {
+                    HStack(spacing: 10.0) {
+                        PlanStatusView(status: viewModel.plan.status)
+                            .padding()
 
-                            if plan.status == .proposed {
-                                UpvotePlanView(viewModel: viewModel)
-                            }
+                        if viewModel.plan.status == .proposed {
+                            UpvotePlanView(viewModel: viewModel)
                         }
-
-                        TimingView(plan: $viewModel.plan)
-                            .padding()
-
-                        MapView(location: $viewModel.plan.startLocation)
-                            .padding()
-
-                        CommentsView(commentsViewModel: viewModel.commentsViewModel)
-                            .padding()
-
-                        Spacer()
                     }
+
+                    TimingView(plan: $viewModel.plan)
+                        .padding()
+
+                    MapView(location: $viewModel.plan.startLocation)
+                        .padding()
+
+                    CommentsView(viewModel: ViewModelFactory.getCommentsViewModel(planViewModel: viewModel))
+                        .padding()
 
                     Spacer()
                 }
+
+                Spacer()
+
             }
             .navigationBarTitle(viewModel.plan.name)
             .toolbar {
@@ -53,7 +52,7 @@ struct PlanView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        EditPlanView(planViewModel: viewModel)
+                        EditPlanView(viewModel: ViewModelFactory.getEditPlanViewModel(planViewModel: viewModel))
                     }
                 }
             }

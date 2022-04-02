@@ -51,15 +51,13 @@ struct TripView: View {
 
                         AttendeesView(attendees: viewModel.attendees)
 
-                        PlansListView(tripViewModel: viewModel) { plan in
+                        PlansListView(viewModel: ViewModelFactory.getPlansViewModel(tripViewModel: viewModel)) { plan in
                             selectedPlan = plan
                         }
 
                         if let selectedPlan = selectedPlan {
                             NavigationLink(isActive: .constant(true)) {
-                                PlanView(viewModel: PlanViewModel(plan: selectedPlan,
-                                                                  lowerBoundDate: viewModel.trip.startDateTime,
-                                                                  upperBoundDate: viewModel.trip.endDateTime))
+                                PlanView(viewModel: ViewModelFactory.getPlanViewModel(plan: selectedPlan, tripViewModel: viewModel))
                             } label: {
                                 EmptyView()
                             }
@@ -81,7 +79,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
-                    EditTripView(tripViewModel: viewModel)
+                    EditTripView(viewModel: ViewModelFactory.getEditTripViewModel(tripViewModel: viewModel))
                 }
 
                 Button {
@@ -91,7 +89,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingInviteUsersSheet) {
-                    InviteUserView(tripViewModel: viewModel)
+                    InviteUserView(viewModel: ViewModelFactory.copyTripViewModel(tripViewModel: viewModel))
                 }
 
                 Button {
@@ -101,7 +99,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingAddPlanSheet) {
-                    AddPlanView(viewModel: AddPlanViewModel(trip: viewModel.trip))
+                    AddPlanView(viewModel: ViewModelFactory.getAddPlanViewModel(tripViewModel: viewModel))
                 }
             }
         }

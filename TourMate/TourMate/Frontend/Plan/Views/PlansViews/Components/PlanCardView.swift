@@ -8,32 +8,19 @@
 import SwiftUI
 
 struct PlanCardView: View {
-    let dateFormatter: DateFormatter
 
     @StateObject var viewModel: PlanViewModel
 
     init(viewModel: PlanViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
-        dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .short
-        dateFormatter.timeZone = viewModel.plan.startDateTime.timeZone // Takes plan's startDateTime timezone by default
-    }
-
-    var startTimeString: String {
-        dateFormatter.string(from: viewModel.plan.startDateTime.date)
-    }
-
-    var endTimeString: String {
-        dateFormatter.string(from: viewModel.plan.endDateTime.date)
     }
 
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 HStack(spacing: 0) {
-                    Text(startTimeString).font(.caption)
-                    Text("-").font(.caption)
-                    Text(endTimeString).font(.caption)
+                    Text(viewModel.shortDurationDescription)
+                        .font(.caption)
 
                     PlanStatusView(status: viewModel.plan.status)
                         .padding([.horizontal])
@@ -43,7 +30,9 @@ struct PlanCardView: View {
                     .font(.headline)
             }
             .padding()
+
             Spacer()
+
             if viewModel.plan.status == .proposed {
                 UpvotePlanView(viewModel: viewModel, displayName: false)
                     .frame(width: UIScreen.main.bounds.width / 3.0)
