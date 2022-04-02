@@ -9,18 +9,21 @@ import SwiftUI
 
 struct AddressTextField: View {
     let title: String
-    @Binding var text: String
+    @Binding var location: Location?
     @State var isShowingSearchSheet = false
 
-    init(_ title: String, text: Binding<String>) {
-        self.title = title
-        self._text = text
-    }
-
     var body: some View {
-        TextField(title, text: $text)
+        let text = Binding<String>(
+            get: {
+                if let location = location {
+                    return location.addressFull
+                }
+                return ""
+            }, set: { _ in })
+
+        TextField(title, text: text)
             .sheet(isPresented: $isShowingSearchSheet) {
-                SearchView(viewModel: SearchViewModel(), planAddress: $text)
+                SearchView(viewModel: SearchViewModel(), location: $location)
             }
             .onTapGesture {
                 isShowingSearchSheet.toggle()

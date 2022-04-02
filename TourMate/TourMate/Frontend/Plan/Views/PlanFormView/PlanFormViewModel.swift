@@ -21,8 +21,8 @@ class PlanFormViewModel: ObservableObject {
     @Published var planName: String
     @Published var planStartDate: Date
     @Published var planEndDate: Date
-    @Published var planStartLocationAddressFull: String
-    @Published var planEndLocationAddressFull: String
+    @Published var planStartLocation: Location?
+    @Published var planEndLocation: Location?
     @Published var planImageUrl: String
     @Published var planAdditionalInfo: String
 
@@ -41,8 +41,6 @@ class PlanFormViewModel: ObservableObject {
         self.planName = ""
         self.planStartDate = lowerBoundDate
         self.planEndDate = lowerBoundDate
-        self.planStartLocationAddressFull = ""
-        self.planEndLocationAddressFull = ""
         self.planImageUrl = ""
         self.planAdditionalInfo = ""
 
@@ -62,8 +60,8 @@ class PlanFormViewModel: ObservableObject {
         self.planName = plan.name
         self.planStartDate = plan.startDateTime.date
         self.planEndDate = plan.endDateTime.date
-        self.planStartLocationAddressFull = plan.startLocation?.addressFull ?? ""
-        self.planEndLocationAddressFull = plan.endLocation?.addressFull ?? ""
+        self.planStartLocation = plan.startLocation
+        self.planEndLocation = plan.endLocation
         self.planImageUrl = plan.imageUrl ?? ""
         self.planAdditionalInfo = plan.additionalInfo ?? ""
 

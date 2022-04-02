@@ -124,6 +124,7 @@
 		B9B6B3F827F494C500B0F5F4 /* ApiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3F727F494C500B0F5F4 /* ApiKeys.swift */; };
 		B9B6B40027F5A95000B0F5F4 /* RealLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3FF27F5A95000B0F5F4 /* RealLocationService.swift */; };
 		B9B6B40227F5AA5000B0F5F4 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B40127F5AA5000B0F5F4 /* APIError.swift */; };
+		B9B6B40827F719FF00B0F5F4 /* TimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B40727F719FF00B0F5F4 /* TimingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,6 +268,7 @@
 		B9B6B3F727F494C500B0F5F4 /* ApiKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeys.swift; sourceTree = "<group>"; };
 		B9B6B3FF27F5A95000B0F5F4 /* RealLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealLocationService.swift; sourceTree = "<group>"; };
 		B9B6B40127F5AA5000B0F5F4 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		B9B6B40727F719FF00B0F5F4 /* TimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingView.swift; sourceTree = "<group>"; };
 		BB95BCAE2E240926ED846BB1 /* Pods-TourMateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMateTests.debug.xcconfig"; path = "Target Support Files/Pods-TourMateTests/Pods-TourMateTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD63D8C41A3F39F61F6D6095 /* Pods_TourMate_TourMateUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate_TourMateUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD5431EEBB0D43FA279D8E8A /* Pods-TourMate-TourMateUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.debug.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -982,6 +984,7 @@
 			isa = PBXGroup;
 			children = (
 				B9AF3B4F27EF6FD600A3C82E /* MapView.swift */,
+				B9B6B40727F719FF00B0F5F4 /* TimingView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1311,6 +1314,7 @@
 				4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */,
 				B98F35E727F01F53000AFE53 /* SearchView.swift in Sources */,
 				00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */,
+				B9B6B40827F719FF00B0F5F4 /* TimingView.swift in Sources */,
 				000F3BF027F1659A00E7E2ED /* CommentTextView.swift in Sources */,
 				B9A04FA627E42234007D4303 /* PlanService.swift in Sources */,
 				4CB954EC27DE3F08001410AD /* FirebaseAdaptedType.swift in Sources */,

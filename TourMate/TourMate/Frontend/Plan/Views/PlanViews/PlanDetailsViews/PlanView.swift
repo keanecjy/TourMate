@@ -13,14 +13,6 @@ struct PlanView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    func getDateString(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .full
-        dateFormatter.timeZone = viewModel.plan.startDateTime.timeZone
-        return dateFormatter.string(from: date)
-    }
-
     var body: some View {
         if viewModel.hasError {
             Text("Error occurred")
@@ -37,31 +29,11 @@ struct PlanView: View {
                             }
                         }
 
-                        VStack(alignment: .leading) {
-                            // Start Time
-                            Text("From")
-                                .font(.caption)
-                            Text(getDateString(plan.startDateTime.date))
-                                .font(.headline)
+                        TimingView(plan: $viewModel.plan)
+                            .padding()
 
-                            // End Time
-                            Text("To")
-                                .font(.caption)
-                            Text(getDateString(plan.endDateTime.date))
-                                .font(.headline)
-                        }
-                        .padding()
-
-                        VStack(alignment: .leading) {
-                            Text("Start Location")
-                                .font(.caption)
-                            Text(plan.startLocation?.addressFull ?? "No start location provided")
-
-                            Text("End Location")
-                                .font(.caption)
-                            Text(plan.endLocation?.addressFull ?? "No end location provided")
-                        }
-                        .padding()
+                        MapView(location: $viewModel.plan.startLocation)
+                            .padding()
 
                         CommentsView(commentsViewModel: viewModel.commentsViewModel)
                             .padding()

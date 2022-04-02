@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SearchView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: SearchViewModel
-    @Binding var planAddress: String
+    @StateObject var viewModel: SearchViewModel
+    @Binding var location: Location?
 
     var searchTextField: some View {
         HStack {
@@ -28,7 +28,7 @@ struct SearchView: View {
                 List(viewModel.suggestedLocations, id: \.addressFull) { suggestion in
                     Text(suggestion.addressFull)
                         .onTapGesture {
-                            planAddress = suggestion.addressFull
+                            location = suggestion
                             dismiss()
                         }
                 }
