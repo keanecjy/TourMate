@@ -18,8 +18,6 @@ struct UpvotedUsersView: View {
                 ForEach(upvotedUsers, id: \.id) { user in
                     UserIconView(imageUrl: user.imageUrl, name: user.name, displayName: displayName)
                 }
-
-                Spacer()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: 100)
