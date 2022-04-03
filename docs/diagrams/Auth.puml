@@ -1,0 +1,56 @@
+@startuml
+
+hide empty members
+
+class LogInView {
+}
+
+class LogOutView {
+}
+
+class LaunchView {
+}
+
+class AuthenticationViewModel {
+    + @Published userIsLoggedIn: Bool
+
+    + checkIfUserIsLoggedIn()
+    + logIn()
+    + logOut()
+}
+
+class FirebaseAuthenticationService {
+    {static} + shared: FirebaseAuthenticationService { get }
+    - authStateListenerHandle: AuthStateDidChangeListenerHandle?
+    - authenticationManager: FirebaseAuthenticationManager
+
+    + checkIfUserIsLoggedIn()
+    + logIn()
+    + logOut()
+}
+
+class FirebaseAuthenticationManager {
+   + checkIfUserIsLoggedIn()
+   + logIn()
+   + logOut()
+}
+
+class FirebaseUserService {
+    + addUser(user: User) async -> (Bool, String)
+}
+
+class FirebaseRepository
+
+LaunchView -> LogInView
+
+LogInView --> AuthenticationViewModel
+LogOutView --> AuthenticationViewModel
+
+AuthenticationViewModel --> FirebaseAuthenticationService
+
+FirebaseAuthenticationService --> FirebaseAuthenticationManager
+
+FirebaseAuthenticationManager -> FirebaseUserService
+FirebaseUserService -> FirebaseRepository
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+
+hide empty members
+
+class TripsView
+class TripCardView
+class TripView
+class AttendeesView
+
+class PlansView
+class PlansListView
+class PlansCalendarView
+class PlansDayView
+class PlanCardView
+
+TripsView *--> TripCardView
+TripsView --> TripView  : navigation
+TripView *--> AttendeesView
+TripView --> PlansView : navigation
+
+PlansView *--> PlansCalendarView
+PlansView *--> PlansListView
+PlansCalendarView *--> PlansDayView
+
+PlansListView *--> PlanCardView
+PlansDayView *--> PlanCardView
+
+PlanCardView *--> UpvotePlanView
+PlanCardView *--> PlanStatusView
+
+PlanCardView --> PlanView: navigation
+
+PlanView *--> MapView
+PlanView *--> UpvotePlanView
+PlanView *--> CommentsView
+PlanView *--> PlanStatusView
+
+@enduml

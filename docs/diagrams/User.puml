@@ -1,0 +1,7 @@
+class FirebaseUserService {
+    + addUser(_ user: User) async -> (Bool, String)
+    + deleteUser() async -> (Bool, String)
+    + getCurrentUser() async -> (User?, String)
+    + getUser(withUserId userId: String) async -> (User?, String)
+    + getUser(withEmail email: String) async -> (User?, String)
+}

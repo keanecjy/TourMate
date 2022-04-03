@@ -1,0 +1,71 @@
+@startuml
+
+hide empty members
+
+class TripsView {}
+
+class TripView {}
+
+class AddTripView {}
+
+class EditTripView {}
+
+class TripsViewModel {
+    + fetchTripsAndListen()
+    + detachListener()
+}
+
+class TripViewModel {
+    + fetchTripAndListen()
+    + inviteUser(email: String)
+    + detachListener()
+}
+
+class AddTripViewModel {
+    + addTrip()
+}
+
+class EditTripViewModel {
+    + updateTrip()
+    + deleteTrip()
+}
+
+class TripFormViewModel {
+    - validate()
+}
+
+class FirebaseTripService {
+    + fetchTripsAndListen()
+    + fetchTripAndListen(withTripId tripId: String)
+    + addTrip(trip: Trip) -> (Bool, String)
+    + deleteTrip(trip: Trip) -> (Bool, String)
+    + updateTrip(trip: Trip) -> (Bool, String)
+    + detachListener()
+}
+
+class FirebaseUserService {
+}
+
+class FirebaseRepository {}
+
+
+TripsView --> TripsViewModel
+TripView --> TripViewModel
+AddTripView --> AddTripViewModel
+EditTripView --> EditTripViewModel
+
+TripsViewModel --> FirebaseTripService
+TripViewModel --> FirebaseTripService
+AddTripViewModel --> FirebaseTripService
+EditTripViewModel --> FirebaseTripService
+
+AddTripViewModel --|> TripFormViewModel
+EditTripViewModel --|> TripFormViewModel
+
+TripViewModel --> FirebaseUserService
+AddTripViewModel --> FirebaseUserService
+
+FirebaseUserService --> FirebaseRepository
+FirebaseTripService --> FirebaseRepository
+
+@enduml

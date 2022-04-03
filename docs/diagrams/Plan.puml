@@ -1,0 +1,70 @@
+@startuml
+
+hide empty members
+
+class PlansView {}
+
+class PlanView {}
+
+class AddPlanView {}
+
+class EditPlanView {}
+
+class PlansViewModel {
+    + fetchPlansAndListen()
+    + update(plans: [Plan], errorMessage: String)
+    + detachListener()
+}
+
+class PlanViewModel {
+    + fetchPlanAndListen()
+    + upvotePlan()
+    + detachListener()
+}
+
+class AddPlanViewModel {
+    + addPlan()
+}
+
+class EditPlanViewModel {
+    + updatePlan()
+    + deletePlan()
+}
+
+class PlanFormViewModel {
+    - validate()
+}
+
+class FirebasePlanService {
+    + fetchPlansAndListen()
+    + fetchPlanAndListen(withPlanId planId: String)
+    + addPlan(plan: Plan) -> (Bool, String)
+    + deletePlan(plan: Plan) -> (Bool, String)
+    + updatePlan(plan: Plan) -> (Bool, String)
+    + detachListener()
+}
+
+class FirebaseUserService {
+}
+
+class FirebaseRepository {}
+
+PlansView --> PlansViewModel
+PlanView --> PlanViewModel
+AddPlanView --> AddPlanViewModel
+EditPlanView --> EditPlanViewModel
+
+PlansViewModel --> FirebasePlanService
+PlanViewModel --> FirebasePlanService
+AddPlanViewModel --> FirebasePlanService
+EditPlanViewModel --> FirebasePlanService
+
+AddPlanViewModel --|> PlanFormViewModel
+EditPlanViewModel --|> PlanFormViewModel
+
+PlanViewModel --> FirebaseUserService
+
+FirebaseUserService --> FirebaseRepository
+FirebasePlanService --> FirebaseRepository
+
+@enduml
