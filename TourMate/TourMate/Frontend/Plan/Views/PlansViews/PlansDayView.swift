@@ -84,7 +84,7 @@ struct PlansDayView: View {
         }
 
         // Calculate and set X, Y offsets to not overlap
-        for i in 1 ..< planIdRect.count {
+        for i in 1...(planIdRect.count - 1) {
             let prevPlanIdRect = planIdRect[i - 1]
             let prevPlanId = prevPlanIdRect.planId
             let prevRect = prevPlanIdRect.rect
