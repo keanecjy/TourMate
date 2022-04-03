@@ -30,6 +30,9 @@ struct TripCard: View {
                             .colorInvert()
                             .opacity(0.75))
         }
+        .contentShape(
+            RoundedRectangle(cornerRadius: 16)
+        )
         .clipShape(
             RoundedRectangle(cornerRadius: 16)
         )
