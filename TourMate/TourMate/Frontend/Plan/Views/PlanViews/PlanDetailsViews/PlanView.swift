@@ -8,33 +8,39 @@
 import SwiftUI
 
 struct PlanView: View {
-    @StateObject var viewModel: PlanViewModel
+    @StateObject var planViewModel: PlanViewModel
+    @StateObject var commentsViewModel: CommentsViewModel
     @State private var isShowingEditPlanSheet = false
     @State private var isShowingAdditionalInfoSheet = false
 
     @Environment(\.dismiss) var dismiss
 
+    init(planViewModel: PlanViewModel) {
+        self._planViewModel = StateObject(wrappedValue: planViewModel)
+        self._commentsViewModel = StateObject(wrappedValue: ViewModelFactory.getCommentsViewModel(planViewModel: planViewModel))
+    }
+
     var body: some View {
-        if viewModel.hasError {
+        if planViewModel.hasError {
             Text("Error occurred")
-        } else if viewModel.isLoading {
+        } else if planViewModel.isLoading {
             ProgressView()
         } else {
             VStack(alignment: .leading, spacing: 15.0) {
                 // TODO: Show image
 
                 HStack(spacing: 10.0) {
-                    PlanStatusView(status: viewModel.plan.status)
+                    PlanStatusView(status: planViewModel.plan.status)
 
-                    if viewModel.plan.status == .proposed {
-                        UpvotePlanView(viewModel: viewModel)
+                    if planViewModel.plan.status == .proposed {
+                        UpvotePlanView(viewModel: planViewModel)
                     }
                 }
 
-                TimingView(plan: viewModel.plan)
+                TimingView(plan: planViewModel.plan)
                     .padding()
 
-                if let location = viewModel.plan.startLocation {
+                if let location = planViewModel.plan.startLocation {
                     MapView(location: location)
                         .padding()
                 } else {
@@ -46,7 +52,7 @@ struct PlanView: View {
                     .padding()
                 }
 
-                if let additionalInfo = viewModel.plan.additionalInfo {
+                if let additionalInfo = planViewModel.plan.additionalInfo {
                     HStack {
                         Image(systemName: "newspaper")
                             .font(.title)
@@ -62,12 +68,12 @@ struct PlanView: View {
                     }
                 }
 
-                CommentsView(viewModel: ViewModelFactory.getCommentsViewModel(planViewModel: viewModel))
+                CommentsView(viewModel: commentsViewModel)
 
                 Spacer() // Push everything to the top
             }
             .padding()
-            .navigationBarTitle(viewModel.plan.name)
+            .navigationBarTitle(planViewModel.plan.name)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -76,19 +82,19 @@ struct PlanView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        EditPlanView(viewModel: ViewModelFactory.getEditPlanViewModel(planViewModel: viewModel))
+                        EditPlanView(viewModel: ViewModelFactory.getEditPlanViewModel(planViewModel: planViewModel))
                     }
                 }
             }
             .task {
-                await viewModel.fetchPlanAndListen()
+                await planViewModel.fetchPlanAndListen()
             }
-            .onReceive(viewModel.objectWillChange) {
-                if viewModel.isDeleted {
+            .onReceive(planViewModel.objectWillChange) {
+                if planViewModel.isDeleted {
                     dismiss()
                 }
             }
-            .onDisappear(perform: { () in viewModel.detachListener() })
+            .onDisappear(perform: { () in planViewModel.detachListener() })
         }
     }
 }

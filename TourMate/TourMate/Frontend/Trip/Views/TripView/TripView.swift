@@ -49,7 +49,7 @@ struct TripView: View {
 
                         if let selectedPlan = selectedPlan {
                             NavigationLink(isActive: .constant(true)) {
-                                PlanView(viewModel: ViewModelFactory.getPlanViewModel(plan: selectedPlan, tripViewModel: viewModel))
+                                PlanView(planViewModel: ViewModelFactory.getPlanViewModel(plan: selectedPlan, tripViewModel: viewModel))
                             } label: {
                                 EmptyView()
                             }
