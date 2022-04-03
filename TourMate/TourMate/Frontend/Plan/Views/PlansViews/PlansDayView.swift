@@ -27,8 +27,6 @@ struct PlansDayView: View {
 
         self.viewModel = viewModel
         self.plans = plans
-        print("plans:")
-        print(plans)
         self.onSelected = onSelected
         self.dateFormatter = DateFormatter()
         self.dateFormatter.timeStyle = .short
