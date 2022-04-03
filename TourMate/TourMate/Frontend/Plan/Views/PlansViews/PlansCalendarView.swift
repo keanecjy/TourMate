@@ -10,30 +10,23 @@ import SwiftUI
 struct PlansCalendarView: View {
 
     @State private var selectedDate = Date()
-    let days: [Day]
-    let lowerBoundDate: DateTime
-    let upperBoundDate: DateTime
+    @ObservedObject var viewModel: PlansViewModel
     let onSelected: ((Plan) -> Void)?
 
-    init(days: [Day],
-         lowerBoundDate: DateTime,
-         upperBoundDate: DateTime,
-         onSelected: ((Plan) -> Void)? = nil) {
-        self.days = days
-        self.lowerBoundDate = lowerBoundDate
-        self.upperBoundDate = upperBoundDate
+    init(viewModel: PlansViewModel, onSelected: ((Plan) -> Void)? = nil) {
+        self.viewModel = viewModel
         self.onSelected = onSelected
     }
 
     func getPlans(for date: Date) -> [Plan] {
-        days.first { $0.date == date }?.plans ?? []
+        viewModel.days.first { $0.date == date }?.plans ?? []
     }
 
     var body: some View {
         LazyVStack {
             HStack {
                 Picker("Date", selection: $selectedDate) {
-                    ForEach(days, id: \.date) { day in
+                    ForEach(viewModel.days, id: \.date) { day in
                         PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
                     }
                 }
@@ -46,14 +39,13 @@ struct PlansCalendarView: View {
             }
             .padding()
 
-            PlansDayView(plans: getPlans(for: selectedDate),
-                         lowerBoundDate: lowerBoundDate,
-                         upperBoundDate: upperBoundDate,
+            PlansDayView(viewModel: viewModel,
+                         plans: getPlans(for: selectedDate),
                          onSelected: onSelected)
             .padding()
         }
         .task {
-            selectedDate = days.first?.date ?? Date()
+            selectedDate = viewModel.days.first?.date ?? Date()
         }
     }
 }

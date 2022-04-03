@@ -9,13 +9,13 @@ import SwiftUI
 
 struct EditCommentView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var commentsViewModel: CommentsViewModel
+    @ObservedObject var viewModel: CommentsViewModel
     var comment: Comment
 
     @State var updatedMessage: String
 
-    init(commentsViewModel: CommentsViewModel, comment: Comment) {
-        self.commentsViewModel = commentsViewModel
+    init(viewModel: CommentsViewModel, comment: Comment) {
+        self.viewModel = viewModel
         self.comment = comment
         self._updatedMessage = State(initialValue: comment.message)
     }
@@ -23,7 +23,7 @@ struct EditCommentView: View {
     var body: some View {
         NavigationView {
             Group {
-                if commentsViewModel.hasError {
+                if viewModel.hasError {
                     Text("Error occurred")
                 } else {
                     Form {
@@ -37,30 +37,30 @@ struct EditCommentView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") {
                         Task {
-                            await commentsViewModel.updateComment(comment: comment, withMessage: updatedMessage)
+                            await viewModel.updateComment(comment: comment, withMessage: updatedMessage)
 
                             dismiss()
                         }
                     }
-                    .disabled(commentsViewModel.isLoading || commentsViewModel.hasError)
+                    .disabled(viewModel.isLoading || viewModel.hasError)
                 }
 
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {
                         dismiss()
                     }
-                    .disabled(commentsViewModel.isLoading)
+                    .disabled(viewModel.isLoading)
                 }
 
                 ToolbarItem(placement: .bottomBar) {
                     Button("Delete Comment", role: .destructive) {
                         Task {
-                            await commentsViewModel.deleteComment(comment: comment)
+                            await viewModel.deleteComment(comment: comment)
 
                             dismiss()
                         }
                     }
-                    .disabled(commentsViewModel.isLoading || commentsViewModel.hasError)
+                    .disabled(viewModel.isLoading || viewModel.hasError)
                 }
             }
         }

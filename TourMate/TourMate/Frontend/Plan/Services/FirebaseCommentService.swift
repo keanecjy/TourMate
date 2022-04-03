@@ -35,6 +35,7 @@ class FirebaseCommentService: CommentService {
     }
 
     func detachListener() {
+        firebaseRepository.eventDelegate = nil
         firebaseRepository.detachListener()
     }
 }
