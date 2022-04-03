@@ -8,36 +8,19 @@
 import SwiftUI
 
 struct PlansListView: View {
-    @StateObject var plansViewModel: PlansViewModel
-    var tripViewModel: TripViewModel
-
+    let days: [Day]
+    let lowerBoundDate: DateTime
+    let upperBoundDate: DateTime
     let onSelected: ((Plan) -> Void)?
 
-    init(tripViewModel: TripViewModel, onSelected: ((Plan) -> Void)? = nil) {
-        self._plansViewModel = StateObject(wrappedValue: PlansViewModel())
-        self.tripViewModel = tripViewModel
+    init(days: [Day],
+         lowerBoundDate: DateTime,
+         upperBoundDate: DateTime,
+         onSelected: ((Plan) -> Void)? = nil) {
+        self.days = days
+        self.lowerBoundDate = lowerBoundDate
+        self.upperBoundDate = upperBoundDate
         self.onSelected = onSelected
-    }
-
-    typealias Day = (date: Date, plans: [Plan])
-    var days: [Day] {
-        let sortedPlans = plansViewModel.plans.sorted { plan1, plan2 in
-            plan1.startDateTime.date < plan2.startDateTime.date
-        }
-        let plansByDay: [Date: [Plan]] = sortedPlans.reduce(into: [:]) { acc, cur in
-            let components = Calendar
-                .current
-                .dateComponents(in: cur.startDateTime.timeZone, from: cur.startDateTime.date)
-            let dateComponents = DateComponents(year: components.year,
-                                                month: components.month,
-                                                day: components.day)
-            let date = Calendar.current.date(from: dateComponents)!
-            let existing = acc[date] ?? []
-            acc[date] = existing + [cur]
-        }
-        return plansByDay.sorted(by: { $0.key < $1.key }).map { day in
-            (date: day.key, plans: day.value)
-        }
     }
 
     var body: some View {
@@ -48,8 +31,9 @@ struct PlansListView: View {
 
                     ForEach(day.plans, id: \.id) { plan in
                         PlanCardView(viewModel: PlanViewModel(plan: plan,
-                                                              lowerBoundDate: tripViewModel.trip.startDateTime,
-                                                              upperBoundDate: tripViewModel.trip.endDateTime))
+                                                              lowerBoundDate: lowerBoundDate,
+                                                              upperBoundDate: upperBoundDate)
+                        )
                             .onTapGesture(perform: {
                                 if let onSelected = onSelected {
                                     onSelected(plan)
@@ -64,16 +48,5 @@ struct PlansListView: View {
                 .padding()
             }
         }
-        .task {
-            await plansViewModel.fetchPlansAndListen(withTripId: tripViewModel.trip.id)
-            print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
-        }
-        .onDisappear(perform: { () in plansViewModel.detachListener() })
     }
 }
-
-// struct PlansListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlansListView(id: 0).environmentObject(MockModel())
-//    }
-// }

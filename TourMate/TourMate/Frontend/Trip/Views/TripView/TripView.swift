@@ -51,7 +51,7 @@ struct TripView: View {
 
                         AttendeesView(viewModel: viewModel)
 
-                        PlansListView(tripViewModel: viewModel) { plan in
+                        PlansView(tripViewModel: viewModel) { plan in
                             selectedPlan = plan
                         }
 

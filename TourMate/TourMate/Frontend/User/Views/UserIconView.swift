@@ -14,7 +14,7 @@ struct UserIconView: View {
     let imageHeight: CGFloat
     let displayName: Bool
 
-    init(imageUrl: String, name: String, imageHeight: CGFloat = 50.0, displayName: Bool = true) {
+    init(imageUrl: String, name: String, imageHeight: CGFloat = 32.0, displayName: Bool = true) {
         self.imageUrl = imageUrl
         self.name = name
         self.imageHeight = imageHeight
