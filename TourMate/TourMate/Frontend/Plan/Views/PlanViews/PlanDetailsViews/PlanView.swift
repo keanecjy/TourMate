@@ -33,7 +33,7 @@ struct PlanView: View {
                             .padding()
 
                         if let location = viewModel.plan.startLocation {
-                            MapView(location: location)
+                            MapView(startLocation: location, endLocation: viewModel.plan.endLocation)
                                 .padding()
                         } else {
                             HStack(alignment: .top) {
