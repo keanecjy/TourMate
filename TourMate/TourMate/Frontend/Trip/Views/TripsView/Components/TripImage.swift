@@ -11,9 +11,13 @@ struct TripImage: View {
     let defaultImageUrl: String = "https://pixabay.com/get/g3e6e2375c76aff949b9c58dc915b9fcab8c2292a070eed77ca9b40cadb3a56986e14b56f67c9258b4b29e14c2db266b55d7d60bed8b093c316718778e88b03de7a56a0d4b093f13b3a51fe464b4565cc_1920.jpg"
 
     let imageUrl: String
+    let width: CGFloat
+    let height: CGFloat
 
-    init(imageUrl: String) {
+    init(imageUrl: String, width: CGFloat = UIScreen.screenWidth, height: CGFloat = 200) {
         self.imageUrl = imageUrl.isEmpty ? defaultImageUrl : imageUrl
+        self.width = width
+        self.height = height
     }
 
     var body: some View {
@@ -21,7 +25,7 @@ struct TripImage: View {
             image
                 .resizable()
                 .scaledToFill()
-                .frame(height: 200, alignment: .center)
+                .frame(width: width, height: height, alignment: .center)
                 .clipped()
         } placeholder: {
             Color.gray

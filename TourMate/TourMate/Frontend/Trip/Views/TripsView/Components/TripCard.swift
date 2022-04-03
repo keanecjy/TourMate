@@ -14,7 +14,7 @@ struct TripCard: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            TripImage(imageUrl: imageUrl)
+            TripImage(imageUrl: imageUrl, width: UIScreen.screenWidth - 20)
             HStack {
                 VStack(alignment: .leading) {
                     Text(title)
