@@ -40,7 +40,8 @@ struct PlanView: View {
                 TimingView(plan: planViewModel.plan)
 
                 if let location = planViewModel.plan.startLocation {
-                    MapView(location: location)
+                    MapView(startLocation: location,
+                            endLocation: planViewModel.plan.endLocation)
                 } else {
                     HStack(alignment: .top) {
                         Image(systemName: "location.fill")
