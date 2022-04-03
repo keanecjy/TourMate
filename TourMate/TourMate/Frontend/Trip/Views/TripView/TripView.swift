@@ -35,7 +35,7 @@ struct TripView: View {
                         Text(viewModel.trip.durationDescription)
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.bottom, .horizontal])
+                            .padding([.horizontal])
 
                         if let imageUrl = viewModel.trip.imageUrl {
                             TripImage(imageUrl: imageUrl)
