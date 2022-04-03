@@ -12,8 +12,8 @@ struct EditTripView: View {
 
     @StateObject var viewModel: EditTripViewModel
 
-    init(tripViewModel: TripViewModel) {
-        self._viewModel = StateObject(wrappedValue: EditTripViewModel(trip: tripViewModel.trip))
+    init(viewModel: EditTripViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {

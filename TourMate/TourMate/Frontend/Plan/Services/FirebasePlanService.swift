@@ -47,6 +47,7 @@ class FirebasePlanService: PlanService {
     }
 
     func detachListener() {
+        firebaseRepository.eventDelegate = nil
         firebaseRepository.detachListener()
     }
 

@@ -16,7 +16,6 @@ class PlanViewModel: ObservableObject {
 
     @Published var plan: Plan
 
-    @Published private(set) var commentsViewModel: CommentsViewModel
     @Published private(set) var userHasUpvotedPlan = false
     @Published private(set) var upvotedUsers: [User] = []
 
@@ -25,6 +24,21 @@ class PlanViewModel: ObservableObject {
 
     private let userService: UserService
     private var planService: PlanService
+
+    var shortDurationDescription: String {
+        var description = ""
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .short
+        dateFormatter.timeZone = plan.startDateTime.timeZone
+        description += dateFormatter.string(from: plan.startDateTime.date)
+
+        description += " - "
+
+        dateFormatter.timeZone = plan.endDateTime.timeZone
+        description += dateFormatter.string(from: plan.endDateTime.date)
+
+        return description
+    }
 
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService = FirebasePlanService(),
@@ -35,8 +49,6 @@ class PlanViewModel: ObservableObject {
         self.upperBoundDate = upperBoundDate
         self.planService = planService
         self.userService = userService
-
-        self.commentsViewModel = CommentsViewModel(planId: plan.id)
     }
 
     func fetchPlanAndListen() async {
@@ -48,7 +60,7 @@ class PlanViewModel: ObservableObject {
     }
 
     func detachListener() {
-        planService.planEventDelegate = self
+        planService.planEventDelegate = nil
         self.isLoading = false
 
         planService.detachListener()
@@ -65,11 +77,7 @@ class PlanViewModel: ObservableObject {
         }
 
         let userId = user.id
-
-        guard let updatedPlan = updateUpvotes(id: userId) else {
-            self.isLoading = false
-            return
-        }
+        let updatedPlan = updateUpvotes(id: userId)
 
         let (hasUpdatedPlan, planErrorMessage) = await planService.updatePlan(plan: updatedPlan)
 
@@ -81,7 +89,7 @@ class PlanViewModel: ObservableObject {
         self.isLoading = false
     }
 
-    private func updateUpvotes(id: String) -> Plan? {
+    private func updateUpvotes(id: String) -> Plan {
         var plan = self.plan
 
         if plan.upvotedUserIds.contains(id) {
