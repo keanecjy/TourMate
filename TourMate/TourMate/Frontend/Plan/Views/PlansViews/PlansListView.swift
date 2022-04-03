@@ -19,9 +19,8 @@ struct PlansListView: View {
     }
 
     var body: some View {
-        LazyVStack {
+        VStack {
             ForEach(viewModel.days, id: \.date) { day in
-
                 VStack(alignment: .leading) {
                     PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
 
