@@ -31,9 +31,9 @@ struct PlanCardView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
                 HStack(spacing: 0) {
-                    Text(startTimeString).font(.caption)
-                    Text("-").font(.caption)
-                    Text(endTimeString).font(.caption)
+                    Text(startTimeString).font(.subheadline)
+                    Text("-").font(.subheadline)
+                    Text(endTimeString).font(.subheadline)
 
                     PlanStatusView(status: viewModel.plan.status)
                         .padding([.horizontal])
