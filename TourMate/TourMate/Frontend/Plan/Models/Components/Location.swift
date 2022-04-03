@@ -15,3 +15,9 @@ struct Location {
     var longitude: Double = 0.0
     var latitude: Double = 0.0
 }
+
+extension Location: Identifiable {
+    public var id: String {
+        "\(latitude)-\(longitude)"
+    }
+}

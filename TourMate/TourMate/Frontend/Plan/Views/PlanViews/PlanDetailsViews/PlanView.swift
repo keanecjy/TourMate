@@ -29,11 +29,20 @@ struct PlanView: View {
                             }
                         }
 
-                        TimingView(plan: $viewModel.plan)
+                        TimingView(plan: viewModel.plan)
                             .padding()
 
-                        MapView(location: $viewModel.plan.startLocation)
+                        if let location = viewModel.plan.startLocation {
+                            MapView(location: location)
+                                .padding()
+                        } else {
+                            HStack(alignment: .top) {
+                                Image(systemName: "location.fill")
+                                    .font(.title)
+                                Text("No location provided")
+                            }
                             .padding()
+                        }
 
                         CommentsView(commentsViewModel: viewModel.commentsViewModel)
                             .padding()

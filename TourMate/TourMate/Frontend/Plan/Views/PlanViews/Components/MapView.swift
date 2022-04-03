@@ -9,38 +9,31 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
-    @Binding var location: Location?
-    @State private var region = MKCoordinateRegion()
+    let location: Location
 
-        var body: some View {
-            if let location = location {
-                HStack(alignment: .top) {
-                    Image(systemName: "location.fill")
-                        .font(.title)
-                    VStack(alignment: .leading) {
-                        Text(location.addressLineOne)
-                        Text(location.addressLineTwo)
-                        Map(coordinateRegion: $region, interactionModes: [])
-                            .cornerRadius(15)
-                    }
+    var body: some View {
+        let region = Binding<MKCoordinateRegion>(
+            get: {
+                let center = CLLocationCoordinate2D(
+                    latitude: location.latitude,
+                    longitude: location.longitude)
+                return MKCoordinateRegion(center: center, latitudinalMeters: 750, longitudinalMeters: 750)
+            },
+            set: { _ in }
+        )
+        HStack(alignment: .top) {
+            Image(systemName: "location.fill")
+                .font(.title)
+            VStack(alignment: .leading) {
+                Text(location.addressLineOne)
+                Text(location.addressLineTwo)
+                Map(coordinateRegion: region, annotationItems: [location]) {
+                    MapMarker(coordinate: CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude))
                 }
-                .onAppear {
-                    region = MKCoordinateRegion()
-                    region = MKCoordinateRegion(
-                        center: CLLocationCoordinate2D(latitude: location.latitude,
-                                                       longitude: location.longitude),
-                        latitudinalMeters: 750,
-                        longitudinalMeters: 750
-                    )
-                }
-            } else {
-                HStack(alignment: .top) {
-                    Image(systemName: "location.fill")
-                        .font(.title)
-                    Text("No location provided")
-                }
+                .cornerRadius(15)
             }
         }
+    }
 }
 
 // struct MapView_Previews: PreviewProvider {

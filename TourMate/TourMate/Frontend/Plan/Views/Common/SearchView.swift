@@ -25,7 +25,7 @@ struct SearchView: View {
         NavigationView {
             VStack(alignment: .leading) {
                 Text("SUGGESTIONS").font(.caption)
-                List(viewModel.suggestedLocations, id: \.addressFull) { suggestion in
+                List(viewModel.suggestedLocations) { suggestion in
                     Text(suggestion.addressFull)
                         .onTapGesture {
                             location = suggestion
