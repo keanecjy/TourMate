@@ -8,52 +8,69 @@
 import SwiftUI
 
 struct PlanView: View {
-    @StateObject var viewModel: PlanViewModel
+    @StateObject var planViewModel: PlanViewModel
+    @StateObject var commentsViewModel: CommentsViewModel
     @State private var isShowingEditPlanSheet = false
+    @State private var isShowingAdditionalInfoSheet = false
 
     @Environment(\.dismiss) var dismiss
 
+    init(planViewModel: PlanViewModel) {
+        self._planViewModel = StateObject(wrappedValue: planViewModel)
+        self._commentsViewModel = StateObject(wrappedValue: ViewModelFactory.getCommentsViewModel(planViewModel: planViewModel))
+    }
+
     var body: some View {
-        if viewModel.hasError {
+        if planViewModel.hasError {
             Text("Error occurred")
+        } else if planViewModel.isLoading {
+            ProgressView()
         } else {
-            HStack {
-                if let plan = viewModel.plan {
-                    VStack(alignment: .leading) {
-                        HStack(spacing: 10.0) {
-                            PlanStatusView(status: plan.status)
-                                .padding()
+            VStack(alignment: .leading, spacing: 15.0) {
+                // TODO: Show image
 
-                            if plan.status == .proposed {
-                                UpvotePlanView(viewModel: viewModel)
-                            }
-                        }
+                HStack(spacing: 10.0) {
+                    PlanStatusView(status: planViewModel.plan.status)
 
-                        TimingView(plan: viewModel.plan)
-                            .padding()
-
-                        if let location = viewModel.plan.startLocation {
-                            MapView(location: location)
-                                .padding()
-                        } else {
-                            HStack(alignment: .top) {
-                                Image(systemName: "location.fill")
-                                    .font(.title)
-                                Text("No location provided")
-                            }
-                            .padding()
-                        }
-
-                        CommentsView(commentsViewModel: viewModel.commentsViewModel)
-                            .padding()
-
-                        Spacer()
+                    if planViewModel.plan.status == .proposed {
+                        UpvotePlanView(viewModel: planViewModel)
                     }
-
-                    Spacer()
                 }
+
+                TimingView(plan: planViewModel.plan)
+
+                if let location = planViewModel.plan.startLocation {
+                    MapView(location: location)
+                } else {
+                    HStack(alignment: .top) {
+                        Image(systemName: "location.fill")
+                            .font(.title)
+                        Text("No location provided")
+                    }
+                }
+
+                if let additionalInfo = planViewModel.plan.additionalInfo {
+                    HStack {
+                        Image(systemName: "newspaper")
+                            .font(.title)
+
+                        Button {
+                            isShowingAdditionalInfoSheet.toggle()
+                        } label: {
+                            Text("Additional Notes")
+                        }
+                        .sheet(isPresented: $isShowingAdditionalInfoSheet) {
+                            AdditionalInfoView(additionalInfo: additionalInfo)
+                        }
+                    }
+                }
+
+                CommentsView(viewModel: commentsViewModel)
+
+                Spacer() // Push everything to the top
             }
-            .navigationBarTitle(viewModel.plan.name)
+            .padding()
+            .navigationBarTitle(planViewModel.plan.name)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -62,19 +79,19 @@ struct PlanView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        EditPlanView(planViewModel: viewModel)
+                        EditPlanView(viewModel: ViewModelFactory.getEditPlanViewModel(planViewModel: planViewModel))
                     }
                 }
             }
             .task {
-                await viewModel.fetchPlanAndListen()
+                await planViewModel.fetchPlanAndListen()
             }
-            .onReceive(viewModel.objectWillChange) {
-                if viewModel.isDeleted {
+            .onReceive(planViewModel.objectWillChange) {
+                if planViewModel.isDeleted {
                     dismiss()
                 }
             }
-            .onDisappear(perform: { () in viewModel.detachListener() })
+            .onDisappear(perform: { () in planViewModel.detachListener() })
         }
     }
 }

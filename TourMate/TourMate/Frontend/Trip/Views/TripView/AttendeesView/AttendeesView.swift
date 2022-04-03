@@ -9,20 +9,23 @@ import SwiftUI
 
 struct AttendeesView: View {
 
-    // The VM binds to Database. Will not need to fetch
-    @ObservedObject var viewModel: TripViewModel
+    let attendees: [User]
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
+            Text("Attendees")
+                .font(.headline)
+
             ScrollView(.horizontal) {
                 LazyHStack {
-                    ForEach(viewModel.attendees, id: \.id) { user in
+                    ForEach(attendees, id: \.id) { user in
                         UserIconView(imageUrl: user.imageUrl, name: user.name)
                     }
                     Spacer()
                 }
             }
         }
+        .padding()
     }
 }
 

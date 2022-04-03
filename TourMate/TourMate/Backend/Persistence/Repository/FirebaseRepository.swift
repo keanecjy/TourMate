@@ -90,13 +90,15 @@ class FirebaseRepository: Repository {
     }
 
     func detachListener() {
-        guard let listener = listener else {
+        guard listener != nil else {
             print("[FirebaseRepository] Listener on \(collectionId) is nil, unable to detach")
             return
         }
 
+        self.listener?.remove()
+        self.listener = nil
+
         print("[FirebaseRepository]: Successfully removed listener on \(collectionId)")
-        listener.remove()
     }
 
     @MainActor

@@ -8,21 +8,14 @@
 import SwiftUI
 
 struct CommentTextView: View {
-    @ObservedObject var commentsViewModel: CommentsViewModel
+    @ObservedObject var viewModel: CommentsViewModel
     var user: User
     var comment: Comment
 
     @State var isShowingEditCommentSheet = false
 
-    // Did not include Timezone
-    func getDateString(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy, HH:mm a"
-        return dateFormatter.string(from: date)
-    }
-
     var upvoteImageName: String {
-        let userHasUpvotedComment = commentsViewModel.getUserHasUpvotedComment(comment: comment)
+        let userHasUpvotedComment = viewModel.getUserHasUpvotedComment(comment: comment)
         if userHasUpvotedComment {
             return "hand.thumbsup.fill"
         } else {
@@ -30,14 +23,14 @@ struct CommentTextView: View {
         }
     }
 
-    init(commentsViewModel: CommentsViewModel, user: User, comment: Comment) {
-        self.commentsViewModel = commentsViewModel
+    init(viewModel: CommentsViewModel, user: User, comment: Comment) {
+        self.viewModel = viewModel
         self.user = user
         self.comment = comment
     }
 
     var body: some View {
-        if commentsViewModel.hasError {
+        if viewModel.hasError {
             Text("Error occured")
         } else {
             VStack(alignment: .leading, spacing: 10.0) {
@@ -48,14 +41,14 @@ struct CommentTextView: View {
 
                     Spacer()
 
-                    Text(getDateString(comment.creationDate))
+                    Text(comment.creationDateDescription)
                 }
 
                 Text(comment.message)
                     .fixedSize(horizontal: false, vertical: true)
 
                 HStack(spacing: 10.0) {
-                    if commentsViewModel.getUserCanEditComment(comment: comment) {
+                    if viewModel.getUserCanEditComment(comment: comment) {
                         Button {
                             self.isShowingEditCommentSheet = true
                         } label: {
@@ -67,7 +60,7 @@ struct CommentTextView: View {
 
                     Button {
                         Task {
-                            await commentsViewModel.upvoteComment(comment: comment)
+                            await viewModel.upvoteComment(comment: comment)
                         }
                     } label: {
                         Text("Like")
@@ -92,12 +85,12 @@ struct CommentTextView: View {
                     Spacer()
                 }
             }
-            .disabled(commentsViewModel.isLoading || commentsViewModel.hasError)
+            .disabled(viewModel.isLoading || viewModel.hasError)
             .sheet(isPresented: $isShowingEditCommentSheet) {
                 // on dismiss
                 print("Sheet dismissed")
             } content: {
-                EditCommentView(commentsViewModel: commentsViewModel, comment: comment)
+                EditCommentView(viewModel: viewModel, comment: comment)
             }
         }
     }
