@@ -19,12 +19,7 @@ struct PlansCalendarView: View {
     }
 
     func getPlans(for date: Date) -> [Plan] {
-        /*
-        days.first { day in
-            day.date == date
-        }?.plans ?? []
-         */
-        viewModel.days.first?.plans ?? []
+        viewModel.days.first { $0.date == date }?.plans ?? []
     }
 
     var body: some View {
@@ -48,6 +43,9 @@ struct PlansCalendarView: View {
                          plans: getPlans(for: selectedDate),
                          onSelected: onSelected)
             .padding()
+        }
+        .task {
+            selectedDate = viewModel.days.first?.date ?? Date()
         }
     }
 }

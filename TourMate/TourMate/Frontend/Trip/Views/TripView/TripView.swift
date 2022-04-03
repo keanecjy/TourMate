@@ -38,15 +38,7 @@ struct TripView: View {
                             .padding([.bottom, .horizontal])
 
                         if let imageUrl = viewModel.trip.imageUrl {
-                            AsyncImage(url: URL(string: imageUrl)) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(height: 200, alignment: .center)
-                                    .clipped()
-                            } placeholder: {
-                                Color.gray
-                            }
+                            TripImage(imageUrl: imageUrl)
                         }
 
                         AttendeesView(attendees: viewModel.attendees)

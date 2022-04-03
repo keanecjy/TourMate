@@ -14,16 +14,7 @@ struct TripCard: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            AsyncImage(url: URL(string: imageUrl)) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 200, alignment: .center)
-                    .clipped()
-            } placeholder: {
-                Color.gray
-            }
-
+            TripImage(imageUrl: imageUrl)
             HStack {
                 VStack(alignment: .leading) {
                     Text(title)
