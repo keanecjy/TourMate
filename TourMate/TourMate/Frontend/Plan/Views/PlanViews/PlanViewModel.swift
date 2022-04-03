@@ -60,7 +60,7 @@ class PlanViewModel: ObservableObject {
     }
 
     func detachListener() {
-        planService.planEventDelegate = self
+        planService.planEventDelegate = nil
         self.isLoading = false
 
         planService.detachListener()
