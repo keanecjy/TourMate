@@ -13,7 +13,7 @@ struct TripFormView: View {
 
     var body: some View {
         Form {
-            TextField("Trip Name*", text: $viewModel.tripName)
+            TextField("Trip Name", text: $viewModel.tripName)
 
             DatePicker(
                 "Start Date",
