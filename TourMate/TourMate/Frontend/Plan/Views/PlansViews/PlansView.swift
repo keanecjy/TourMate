@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-typealias Day = (date: Date, plans: [Plan])
+typealias PlansByDate = [Date: [Plan]]
 
 enum PlansViewMode: String, CaseIterable {
     case list, calendar
@@ -25,24 +25,31 @@ struct PlansView: View {
         self.onSelected = onSelected
     }
 
-    var days: [Day] {
-        let sortedPlans = plansViewModel.plans.sorted { plan1, plan2 in
-            plan1.startDateTime.date < plan2.startDateTime.date
-        }
-        let plansByDay: [Date: [Plan]] = sortedPlans.reduce(into: [:]) { acc, cur in
+    var plansByDate: PlansByDate {
+        let plans = plansViewModel.plans
+
+        var res = PlansByDate()
+
+        for plan in plans {
             let components = Calendar
                 .current
-                .dateComponents(in: cur.startDateTime.timeZone, from: cur.startDateTime.date)
+                .dateComponents(in: plan.startDateTime.timeZone, from: plan.startDateTime.date)
             let dateComponents = DateComponents(year: components.year,
                                                 month: components.month,
                                                 day: components.day)
             let date = Calendar.current.date(from: dateComponents)!
-            let existing = acc[date] ?? []
-            acc[date] = existing + [cur]
+
+            if res[date] == nil {
+                res[date] = []
+            }
+            res[date]?.append(plan)
         }
-        return plansByDay.sorted(by: { $0.key < $1.key }).map { day in
-            (date: day.key, plans: day.value)
+
+        for (date, _) in res {
+            res[date]?.sort(by: { $0.startDateTime.date < $1.startDateTime.date })
         }
+
+        return res
     }
 
     var body: some View {
@@ -55,12 +62,12 @@ struct PlansView: View {
             .padding()
             Group {
                 if selectedViewMode == .list {
-                    PlansListView(days: days,
+                    PlansListView(plansByDate: plansByDate,
                                   lowerBoundDate: tripViewModel.trip.startDateTime,
                                   upperBoundDate: tripViewModel.trip.endDateTime,
                                   onSelected: onSelected)
                 } else if selectedViewMode == .calendar {
-                    PlansCalendarView(days: days,
+                    PlansCalendarView(plansByDate: plansByDate,
                                       lowerBoundDate: tripViewModel.trip.startDateTime,
                                       upperBoundDate: tripViewModel.trip.endDateTime,
                                       onSelected: onSelected)

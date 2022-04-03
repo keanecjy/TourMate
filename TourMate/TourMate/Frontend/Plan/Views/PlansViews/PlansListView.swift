@@ -8,28 +8,36 @@
 import SwiftUI
 
 struct PlansListView: View {
-    let days: [Day]
+    let plansByDate: PlansByDate
     let lowerBoundDate: DateTime
     let upperBoundDate: DateTime
     let onSelected: ((Plan) -> Void)?
 
-    init(days: [Day],
+    init(plansByDate: PlansByDate,
          lowerBoundDate: DateTime,
          upperBoundDate: DateTime,
          onSelected: ((Plan) -> Void)? = nil) {
-        self.days = days
+        self.plansByDate = plansByDate
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
         self.onSelected = onSelected
     }
 
+    var sortedDates: [Date] {
+        plansByDate.keys.sorted(by: <)
+    }
+
+    func getPlans(for date: Date) -> [Plan] {
+        plansByDate[date] ?? []
+    }
+
     var body: some View {
         LazyVStack {
-            ForEach(days, id: \.date) { day in
+            ForEach(sortedDates, id: \.self) { date in
                 VStack(alignment: .leading) {
-                    PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
+                    PlanHeaderView(date: date, timeZone: Calendar.current.timeZone)
 
-                    ForEach(day.plans, id: \.id) { plan in
+                    ForEach(getPlans(for: date), id: \.id) { plan in
                         PlanCardView(viewModel: PlanViewModel(plan: plan,
                                                               lowerBoundDate: lowerBoundDate,
                                                               upperBoundDate: upperBoundDate)

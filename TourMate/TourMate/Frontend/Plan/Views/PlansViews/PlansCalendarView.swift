@@ -10,36 +10,35 @@ import SwiftUI
 struct PlansCalendarView: View {
 
     @State private var selectedDate = Date()
-    let days: [Day]
+    let plansByDate: PlansByDate
     let lowerBoundDate: DateTime
     let upperBoundDate: DateTime
     let onSelected: ((Plan) -> Void)?
 
-    init(days: [Day],
+    init(plansByDate: PlansByDate,
          lowerBoundDate: DateTime,
          upperBoundDate: DateTime,
          onSelected: ((Plan) -> Void)? = nil) {
-        self.days = days
+        self.plansByDate = plansByDate
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
         self.onSelected = onSelected
     }
 
+    var sortedDates: [Date] {
+        plansByDate.keys.sorted(by: <)
+    }
+
     func getPlans(for date: Date) -> [Plan] {
-        /*
-        days.first { day in
-            day.date == date
-        }?.plans ?? []
-         */
-        days.first?.plans ?? []
+        return plansByDate[date] ?? []
     }
 
     var body: some View {
         LazyVStack {
             HStack {
                 Picker("Date", selection: $selectedDate) {
-                    ForEach(days, id: \.date) { day in
-                        PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
+                    ForEach(sortedDates, id: \.self) { date in
+                        PlanHeaderView(date: date, timeZone: Calendar.current.timeZone)
                     }
                 }
                 .pickerStyle(.menu)
@@ -56,6 +55,9 @@ struct PlansCalendarView: View {
                          upperBoundDate: upperBoundDate,
                          onSelected: onSelected)
             .padding()
+        }
+        .task {
+            selectedDate = sortedDates.first ?? Date()
         }
     }
 }
