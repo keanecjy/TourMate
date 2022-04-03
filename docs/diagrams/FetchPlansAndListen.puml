@@ -1,0 +1,49 @@
+@startuml
+!include DefaultStyle.puml
+
+hide footbox
+
+box Publish-Subscribe LOGIC_COLOR_T1
+participant ":PlanView" as PlanView LOGIC_COLOR
+participant ":PlanViewModel" as PlanViewModel LOGIC_COLOR
+participant ":FirebasePlanService" as FirebasePlanService LOGIC_COLOR
+participant ":FirebaseRepository" as FirebaseRepository LOGIC_COLOR
+participant "Firebase" as Firebase LOGIC_COLOR
+end box
+
+create PlanView
+[-> PlanView : User enters plan view
+
+create PlanViewModel
+PlanView -> PlanViewModel : PlanViewModel()
+
+create FirebasePlanService
+PlanViewModel -> FirebasePlanService : FirebasePlanService()
+
+create FirebaseRepository
+FirebasePlanService -> FirebaseRepository : FirebaseRepository()
+
+PlanViewModel -> FirebasePlanService : fetchPlanAndListen()
+
+PlanViewModel -> PlanViewModel : planService.eventDelegate = self
+
+FirebasePlanService -> FirebaseRepository : fetchPlanAndListen()
+
+FirebasePlanService -> FirebasePlanService : firebaseRepository.eventDelegate = self
+
+FirebaseRepository -> Firebase : Listen to Plan
+
+Firebase -> FirebaseRepository : Plan gets updated, publishes event
+
+FirebaseRepository -> FirebasePlanService : eventDelegate.update(plan)
+
+FirebasePlanService -> PlanViewModel : eventDelegate.update(plan)
+
+PlanViewModel -> PlanViewModel : self.plan = plan
+
+PlanViewModel -> PlanView : @Published
+
+[<--PlanView : View gets updated
+
+deactivate PlanView
+@enduml
