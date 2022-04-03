@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TripImage: View {
-    let defaultImageUrl: String = "https://pixabay.com/get/g3e6e2375c76aff949b9c58dc915b9fcab8c2292a070eed77ca9b40cadb3a56986e14b56f67c9258b4b29e14c2db266b55d7d60bed8b093c316718778e88b03de7a56a0d4b093f13b3a51fe464b4565cc_1920.jpg"
+    let defaultImageUrl: String = "https://i.picsum.photos/id/902/800/200.jpg?hmac=NDBod84y3DFGEhECEEm0Um_1UQ9-jDO48d-_vodXKaY"
 
     let imageUrl: String
     let width: CGFloat
