@@ -15,14 +15,58 @@ class PlansViewModel: ObservableObject {
 
     private var planService: PlanService
 
-    init(planService: PlanService = FirebasePlanService()) {
+    // Information needed by Plans
+    let tripId: String
+    let tripStartDateTime: DateTime
+    let tripEndDateTime: DateTime
+
+    // sort and display Plans by Date
+    typealias Day = (date: Date, plans: [Plan])
+    var days: [Day] {
+        let sortedPlans = plans.sorted { plan1, plan2 in
+            plan1.startDateTime.date < plan2.startDateTime.date
+        }
+
+        let plansByDay: [Date: [Plan]] = sortedPlans.reduce(into: [:]) { acc, cur in
+
+            let components = Calendar
+                .current
+                .dateComponents(in: cur.startDateTime.timeZone,
+                                from: cur.startDateTime.date)
+
+            let dateComponents = DateComponents(year: components.year,
+                                                month: components.month,
+                                                day: components.day)
+
+            let date = Calendar.current.date(from: dateComponents)!
+
+            let existing = acc[date] ?? []
+
+            acc[date] = existing + [cur]
+        }
+
+        return plansByDay.sorted(by: { $0.key < $1.key }).map { day in
+            (date: day.key, plans: day.value)
+        }
+    }
+
+    init(tripId: String,
+         tripStartDateTime: DateTime,
+         tripEndDateTime: DateTime,
+         planService: PlanService = FirebasePlanService()) {
+
         self.plans = []
         self.isLoading = false
         self.hasError = false
+
         self.planService = planService
+
+        self.tripId = tripId
+        self.tripStartDateTime = tripStartDateTime
+        self.tripEndDateTime = tripEndDateTime
     }
 
-    func fetchPlansAndListen(withTripId tripId: String) async {
+    func fetchPlansAndListen() async {
         planService.planEventDelegate = self
 
         self.isLoading = true

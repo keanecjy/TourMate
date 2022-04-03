@@ -14,14 +14,12 @@ enum PlansViewMode: String, CaseIterable {
 
 struct PlansView: View {
     @StateObject var plansViewModel: PlansViewModel
-    @ObservedObject var tripViewModel: TripViewModel
     @State private var selectedViewMode: PlansViewMode = .list
 
     let onSelected: ((Plan) -> Void)?
 
-    init(tripViewModel: TripViewModel, onSelected: ((Plan) -> Void)? = nil) {
-        self._plansViewModel = StateObject(wrappedValue: PlansViewModel())
-        self.tripViewModel = tripViewModel
+    init(plansViewModel: PlansViewModel, onSelected: ((Plan) -> Void)? = nil) {
+        self._plansViewModel = StateObject(wrappedValue: plansViewModel)
         self.onSelected = onSelected
     }
 
@@ -55,20 +53,14 @@ struct PlansView: View {
             .padding()
             Group {
                 if selectedViewMode == .list {
-                    PlansListView(days: days,
-                                  lowerBoundDate: tripViewModel.trip.startDateTime,
-                                  upperBoundDate: tripViewModel.trip.endDateTime,
-                                  onSelected: onSelected)
+                    PlansListView(viewModel: plansViewModel, onSelected: onSelected)
                 } else if selectedViewMode == .calendar {
-                    PlansCalendarView(days: days,
-                                      lowerBoundDate: tripViewModel.trip.startDateTime,
-                                      upperBoundDate: tripViewModel.trip.endDateTime,
-                                      onSelected: onSelected)
+                    PlansCalendarView(viewModel: plansViewModel, onSelected: onSelected)
                 }
             }
         }
         .task {
-            await plansViewModel.fetchPlansAndListen(withTripId: tripViewModel.trip.id)
+            await plansViewModel.fetchPlansAndListen()
             print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
         .onDisappear(perform: { () in plansViewModel.detachListener() })

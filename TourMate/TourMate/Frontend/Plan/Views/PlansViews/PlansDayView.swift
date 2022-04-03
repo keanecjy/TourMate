@@ -8,27 +8,27 @@
 import SwiftUI
 
 struct PlansDayView: View {
+    @ObservedObject var viewModel: PlansViewModel
+
     let plans: [Plan]
     let dateFormatter: DateFormatter
     let hourHeight: Float
-    let lowerBoundDate: DateTime
-    let upperBoundDate: DateTime
+
     let onSelected: ((Plan) -> Void)?
 
     @State var planIdToSize: [String: CGSize] = [:]
     @State var planIdToOffset: [String: CGPoint] = [:]
     @State var minWidth: CGFloat = 0
 
-    init(plans: [Plan] = [],
-         lowerBoundDate: DateTime,
-         upperBoundDate: DateTime,
+    init(viewModel: PlansViewModel,
+         plans: [Plan] = [],
          onSelected: ((Plan) -> Void)? = nil,
          hourHeight: Float = 64) {
+
+        self.viewModel = viewModel
         self.plans = plans
         print("plans:")
         print(plans)
-        self.lowerBoundDate = lowerBoundDate
-        self.upperBoundDate = upperBoundDate
         self.onSelected = onSelected
         self.dateFormatter = DateFormatter()
         self.dateFormatter.timeStyle = .short
@@ -127,30 +127,26 @@ struct PlansDayView: View {
                             ZStack(alignment: .topLeading) {
                                 ForEach(plans, id: \.id) { plan in
                                     HStack {
-                                        PlanCardView(viewModel:
-                                                        PlanViewModel(plan: plan,
-                                                                      lowerBoundDate: lowerBoundDate,
-                                                                      upperBoundDate: upperBoundDate)
-                                        )
-                                        .onTapGesture(perform: {
-                                            if let onSelected = onSelected {
-                                                onSelected(plan)
+                                        PlanCardView(viewModel: ViewModelFactory.getPlanViewModel(plan: plan, plansViewModel: viewModel))
+                                            .onTapGesture(perform: {
+                                                if let onSelected = onSelected {
+                                                    onSelected(plan)
+                                                }
+                                            })
+                                            .frame(maxWidth: 480,
+                                                   minHeight: CGFloat(getHeight(for: plan)),
+                                                   alignment: .topLeading)
+                                            .readSize { size in
+                                                planIdToSize[plan.id] = size
+                                                calculateOffsets()
                                             }
-                                        })
-                                        .frame(maxWidth: 480,
-                                               minHeight: CGFloat(getHeight(for: plan)),
-                                               alignment: .topLeading)
-                                        .readSize { size in
-                                            planIdToSize[plan.id] = size
-                                            calculateOffsets()
-                                        }
-                                        .buttonStyle(PlainButtonStyle())
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .fill(Color.primary.opacity(0.25))
-                                        )
-                                        .offset(x: CGFloat(planIdToOffset[plan.id]?.x ?? 0),
-                                                y: CGFloat(planIdToOffset[plan.id]?.y ?? 0) + 7)
+                                            .buttonStyle(PlainButtonStyle())
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .fill(Color.primary.opacity(0.25))
+                                            )
+                                            .offset(x: CGFloat(planIdToOffset[plan.id]?.x ?? 0),
+                                                    y: CGFloat(planIdToOffset[plan.id]?.y ?? 0) + 7)
                                         Spacer()
                                     }
                                 }

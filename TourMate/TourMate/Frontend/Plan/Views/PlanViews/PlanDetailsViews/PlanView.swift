@@ -10,49 +10,63 @@ import SwiftUI
 struct PlanView: View {
     @StateObject var viewModel: PlanViewModel
     @State private var isShowingEditPlanSheet = false
+    @State private var isShowingAdditionalInfoSheet = false
 
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
         if viewModel.hasError {
             Text("Error occurred")
+        } else if viewModel.isLoading {
+            ProgressView()
         } else {
-            HStack {
-                if let plan = viewModel.plan {
-                    VStack(alignment: .leading) {
-                        HStack(spacing: 10.0) {
-                            PlanStatusView(status: plan.status)
-                                .padding()
+            VStack(alignment: .leading, spacing: 15.0) {
+                // TODO: Show image
 
-                            if plan.status == .proposed {
-                                UpvotePlanView(viewModel: viewModel)
-                            }
-                        }
+                HStack(spacing: 10.0) {
+                    PlanStatusView(status: viewModel.plan.status)
 
-                        TimingView(plan: viewModel.plan)
-                            .padding()
-
-                        if let location = viewModel.plan.startLocation {
-                            MapView(location: location)
-                                .padding()
-                        } else {
-                            HStack(alignment: .top) {
-                                Image(systemName: "location.fill")
-                                    .font(.title)
-                                Text("No location provided")
-                            }
-                            .padding()
-                        }
-
-                        CommentsView(commentsViewModel: viewModel.commentsViewModel)
-                            .padding()
-
-                        Spacer()
+                    if viewModel.plan.status == .proposed {
+                        UpvotePlanView(viewModel: viewModel)
                     }
-
-                    Spacer()
                 }
+
+                TimingView(plan: viewModel.plan)
+                    .padding()
+
+                if let location = viewModel.plan.startLocation {
+                    MapView(location: location)
+                        .padding()
+                } else {
+                    HStack(alignment: .top) {
+                        Image(systemName: "location.fill")
+                            .font(.title)
+                        Text("No location provided")
+                    }
+                    .padding()
+                }
+
+                if let additionalInfo = viewModel.plan.additionalInfo {
+                    HStack {
+                        Image(systemName: "newspaper")
+                            .font(.title)
+
+                        Button {
+                            isShowingAdditionalInfoSheet.toggle()
+                        } label: {
+                            Text("Additional Notes")
+                        }
+                        .sheet(isPresented: $isShowingAdditionalInfoSheet) {
+                            AdditionalInfoView(additionalInfo: additionalInfo)
+                        }
+                    }
+                }
+
+                CommentsView(viewModel: ViewModelFactory.getCommentsViewModel(planViewModel: viewModel))
+
+                Spacer() // Push everything to the top
             }
+            .padding()
             .navigationBarTitle(viewModel.plan.name)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -62,7 +76,7 @@ struct PlanView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        EditPlanView(planViewModel: viewModel)
+                        EditPlanView(viewModel: ViewModelFactory.getEditPlanViewModel(planViewModel: viewModel))
                     }
                 }
             }

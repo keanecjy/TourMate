@@ -14,13 +14,13 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TripsView(viewModel: TripsViewModel()) { trip in
+                TripsView(viewModel: ViewModelFactory.getTripsViewModel()) { trip in
                     selectedTrip = trip
                 }
 
                 if let selectedTrip = selectedTrip {
                     NavigationLink(isActive: .constant(true)) {
-                        TripView(tripViewModel: TripViewModel(trip: selectedTrip))
+                        TripView(tripViewModel: ViewModelFactory.getTripViewModel(trip: selectedTrip))
                     } label: {
                         EmptyView()
                     }
