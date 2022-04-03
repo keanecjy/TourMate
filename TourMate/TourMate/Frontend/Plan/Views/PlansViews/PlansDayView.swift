@@ -127,7 +127,7 @@ struct PlansDayView: View {
                             ZStack(alignment: .topLeading) {
                                 ForEach(plans, id: \.id) { plan in
                                     HStack {
-                                        PlanCardView(viewModel:
+                                        PlanBoxView(viewModel:
                                                         PlanViewModel(plan: plan,
                                                                       lowerBoundDate: lowerBoundDate,
                                                                       upperBoundDate: upperBoundDate)
@@ -137,7 +137,7 @@ struct PlansDayView: View {
                                                 onSelected(plan)
                                             }
                                         })
-                                        .frame(maxWidth: 480,
+                                        .frame(maxWidth: UIScreen.screenWidth / 2,
                                                minHeight: CGFloat(getHeight(for: plan)),
                                                alignment: .topLeading)
                                         .readSize { size in
