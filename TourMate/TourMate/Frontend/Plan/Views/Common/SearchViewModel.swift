@@ -20,7 +20,7 @@ class SearchViewModel: ObservableObject {
 
     private var cancellableSet: Set<AnyCancellable> = []
 
-    init(locationService: LocationService = MockLocationService()) {
+    init(locationService: LocationService = RealLocationService()) {
         self.locationService = locationService
         addSubscriptions()
     }
