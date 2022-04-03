@@ -38,18 +38,15 @@ struct PlanView: View {
                 }
 
                 TimingView(plan: planViewModel.plan)
-                    .padding()
 
                 if let location = planViewModel.plan.startLocation {
                     MapView(location: location)
-                        .padding()
                 } else {
                     HStack(alignment: .top) {
                         Image(systemName: "location.fill")
                             .font(.title)
                         Text("No location provided")
                     }
-                    .padding()
                 }
 
                 if let additionalInfo = planViewModel.plan.additionalInfo {
