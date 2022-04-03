@@ -17,28 +17,32 @@ struct AutocompleteQuery {
     let format: String = "json"
 
     func getQuery() -> String {
-        var query = "?text=\(text)"
+        var query = "?text=\(getUrlString(text))"
 
         if !type.isEmpty {
-            query += "&type=\(type)"
+            query += "&type=\(getUrlString(type))"
         }
 
         if !lang.isEmpty {
-            query += "&lang=\(lang)"
+            query += "&lang=\(getUrlString(lang))"
         }
 
         if !filter.isEmpty {
-            query += "&filter=\(filter)"
+            query += "&filter=\(getUrlString(filter))"
         }
 
         if !bias.isEmpty {
-            query += "&bias=\(bias)"
+            query += "&bias=\(getUrlString(bias))"
         }
 
-        query += "&format=\(format)"
+        query += "&format=\(getUrlString(format))"
 
-        query += "&apiKey=\(apiKey)"
+        query += "&apiKey=\(getUrlString(apiKey))"
 
         return query
+    }
+
+    func getUrlString(_ string: String) -> String {
+        string.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? string
     }
 }
