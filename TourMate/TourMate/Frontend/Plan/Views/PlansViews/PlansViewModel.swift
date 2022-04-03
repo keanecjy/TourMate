@@ -45,9 +45,9 @@ class PlansViewModel: ObservableObject {
             acc[date] = existing + [cur]
         }
 
-        return plansByDay.sorted(by: { $0.key < $1.key }).map { day in
-            (date: day.key, plans: day.value)
-        }
+        return plansByDay
+            .map { (date: $0.key, plans: $0.value) }
+            .sorted(by: { $0.date < $1.date })
     }
 
     init(tripId: String,
