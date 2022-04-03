@@ -22,7 +22,7 @@ struct UserIconView: View {
     }
 
     var body: some View {
-        VStack(alignment: .center, spacing: 10) {
+        VStack(alignment: .center) {
             AsyncImage(url: URL(string: imageUrl)) { image in
                 image
                     .resizable()
@@ -41,7 +41,7 @@ struct UserIconView: View {
             }
 
             if self.displayName {
-                Text(name)
+                Text(name).font(.caption)
             }
         }
     }
