@@ -37,11 +37,11 @@ struct TripView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding([.horizontal])
 
+                        AttendeesView(attendees: viewModel.attendees)
+
                         if let imageUrl = viewModel.trip.imageUrl {
                             TripImage(imageUrl: imageUrl)
                         }
-
-                        AttendeesView(attendees: viewModel.attendees)
 
                         PlansView(plansViewModel: ViewModelFactory.getPlansViewModel(tripViewModel: viewModel)) { plan in
                             selectedPlan = plan

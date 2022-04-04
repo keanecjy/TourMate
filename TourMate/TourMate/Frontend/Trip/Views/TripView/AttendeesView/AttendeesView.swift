@@ -13,15 +13,11 @@ struct AttendeesView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Attendees")
-                .font(.headline)
-
             ScrollView(.horizontal) {
                 LazyHStack {
                     ForEach(attendees, id: \.id) { user in
                         UserIconView(imageUrl: user.imageUrl, name: user.name)
                     }
-                    Spacer()
                 }
             }
         }

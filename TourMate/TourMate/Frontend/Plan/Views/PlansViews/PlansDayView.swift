@@ -83,25 +83,28 @@ struct PlansDayView: View {
 
         // Calculate and set X, Y offsets to not overlap
         for i in 1 ..< planIdRect.count {
-            let prevPlanIdRect = planIdRect[i - 1]
-            let prevPlanId = prevPlanIdRect.planId
-            let prevRect = prevPlanIdRect.rect
             let currentPlanIdRect = planIdRect[i]
             let currentPlanId = currentPlanIdRect.planId
             let currentRect = currentPlanIdRect.rect
 
-            // If Y position overlaps, offset to the right
-            let prevEndY = prevRect.origin.y + prevRect.size.height
-            let currentStartY = currentRect.origin.y
-            if currentStartY < prevEndY {
-                var prevEndX = prevRect.origin.x + prevRect.size.width
-                if let offset = planIdToOffset[prevPlanId] {
-                    prevEndX += offset.x
+            for j in 0..<i {
+                let prevPlanIdRect = planIdRect[j]
+                let prevPlanId = prevPlanIdRect.planId
+                let prevRect = prevPlanIdRect.rect
+
+                // If Y position overlaps, offset to the right
+                let prevEndY = prevRect.origin.y + prevRect.size.height
+                let currentStartY = currentRect.origin.y
+                if currentStartY < prevEndY {
+                    var prevEndX = prevRect.origin.x + prevRect.size.width
+                    if let offset = planIdToOffset[prevPlanId] {
+                        prevEndX += offset.x
+                    }
+                    planIdToOffset[currentPlanId] = CGPoint(x: prevEndX, y: currentStartY)
+                    minWidth = max(minWidth, prevEndX + currentRect.width)
+                } else if planIdToOffset[currentPlanId] == nil {
+                    planIdToOffset[currentPlanId] = CGPoint(x: 0, y: currentStartY)
                 }
-                planIdToOffset[currentPlanId] = CGPoint(x: prevEndX, y: currentStartY)
-                minWidth = max(minWidth, prevEndX + currentRect.width)
-            } else {
-                planIdToOffset[currentPlanId] = CGPoint(x: 0, y: currentStartY)
             }
         }
     }
@@ -131,7 +134,7 @@ struct PlansDayView: View {
                                                     onSelected(plan)
                                                 }
                                             })
-                                            .frame(maxWidth: UIScreen.screenWidth / 2,
+                                            .frame(maxWidth: UIScreen.screenWidth / 3,
                                                    minHeight: CGFloat(getHeight(for: plan)),
                                                    alignment: .topLeading)
                                             .readSize { size in
