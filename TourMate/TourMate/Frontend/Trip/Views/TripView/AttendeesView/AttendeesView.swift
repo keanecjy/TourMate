@@ -18,7 +18,6 @@ struct AttendeesView: View {
                     ForEach(attendees, id: \.id) { user in
                         UserIconView(imageUrl: user.imageUrl, name: user.name)
                     }
-                    Spacer()
                 }
             }
         }

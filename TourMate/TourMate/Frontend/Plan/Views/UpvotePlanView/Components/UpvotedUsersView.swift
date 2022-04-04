@@ -13,15 +13,11 @@ struct UpvotedUsersView: View {
     let displayName: Bool
 
     var body: some View {
-        ScrollView(.horizontal) {
-            LazyHStack {
-                ForEach(upvotedUsers, id: \.id) { user in
-                    UserIconView(imageUrl: user.imageUrl, name: user.name, displayName: displayName)
-                }
+        HStack {
+            ForEach(upvotedUsers, id: \.id) { user in
+                UserIconView(imageUrl: user.imageUrl, name: user.name, displayName: displayName)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: 100)
-        .padding()
     }
 }
 

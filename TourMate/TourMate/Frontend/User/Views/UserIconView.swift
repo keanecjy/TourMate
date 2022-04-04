@@ -39,6 +39,7 @@ struct UserIconView: View {
                     .clipped()
                     .frame(height: imageHeight, alignment: .center)
             }
+            .frame(height: imageHeight, alignment: .center)
 
             if self.displayName {
                 Text(name).font(.caption)

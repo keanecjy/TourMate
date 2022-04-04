@@ -18,11 +18,12 @@ struct UpvotePlanView: View {
     }
 
     var body: some View {
-        HStack(spacing: 10.0) {
+        HStack(spacing: 16) {
             UpvoteButton(hasUpvoted: viewModel.userHasUpvotedPlan,
                          action: viewModel.upvotePlan)
 
             UpvotedUsersView(upvotedUsers: viewModel.upvotedUsers, displayName: displayName)
+            Spacer()
         }
     }
 }
