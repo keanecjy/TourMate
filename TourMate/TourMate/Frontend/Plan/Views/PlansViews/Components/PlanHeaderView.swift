@@ -25,7 +25,7 @@ struct PlanHeaderView: View {
 
     var body: some View {
         Text(dateString)
-            .font(.headline)
+            .font(.subheadline)
     }
 }
 
