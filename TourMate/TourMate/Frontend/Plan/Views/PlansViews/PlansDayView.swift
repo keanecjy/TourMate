@@ -54,7 +54,14 @@ struct PlansDayView: View {
             .current
             .dateComponents(in: plan.endDateTime.timeZone, from: plan.endDateTime.date)
         let start = (Float(startDateComponents.hour ?? 0) + Float(startDateComponents.minute ?? 0) / 60) * hourHeight
-        let end = (Float(endDateComponents.hour ?? 0) + Float(endDateComponents.minute ?? 0) / 60) * hourHeight
+        let end: Float
+        if endDateComponents.day != startDateComponents.day ||
+            endDateComponents.month != startDateComponents.month ||
+            endDateComponents.year != startDateComponents.year {
+            end = 24 * hourHeight
+        } else {
+            end = (Float(endDateComponents.hour ?? 0) + Float(endDateComponents.minute ?? 0) / 60) * hourHeight
+        }
         return (start: start, end: end)
     }
 
