@@ -34,15 +34,16 @@ class PlansViewModel: ObservableObject {
                 .dateComponents(in: cur.startDateTime.timeZone,
                                 from: cur.startDateTime.date)
 
-            let dateComponents = DateComponents(year: components.year,
-                                                month: components.month,
-                                                day: components.day)
+            let startDateComponents = DateComponents(year: components.year,
+                                                     month: components.month,
+                                                     day: components.day)
+            var date = Calendar.current.date(from: startDateComponents)!
+            while date < cur.endDateTime.date {
+                let existing = acc[date] ?? []
+                acc[date] = existing + [cur]
+                date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+            }
 
-            let date = Calendar.current.date(from: dateComponents)!
-
-            let existing = acc[date] ?? []
-
-            acc[date] = existing + [cur]
         }
 
         return plansByDay
