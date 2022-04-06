@@ -18,7 +18,6 @@ struct UpvotedUsersView: View {
                 UserIconView(imageUrl: user.imageUrl, name: user.name, displayName: displayName)
             }
         }
-        .frame(minHeight: 54.0)
     }
 }
 
