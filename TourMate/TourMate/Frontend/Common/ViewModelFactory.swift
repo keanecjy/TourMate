@@ -77,8 +77,8 @@ struct ViewModelFactory {
         let upperBoundDate = planViewModel.upperBoundDate
 
         return EditPlanViewModel(plan: plan,
-                          lowerBoundDate: lowerBoundDate,
-                          upperBoundDate: upperBoundDate)
+                                 lowerBoundDate: lowerBoundDate,
+                                 upperBoundDate: upperBoundDate)
     }
 
     // Comments
