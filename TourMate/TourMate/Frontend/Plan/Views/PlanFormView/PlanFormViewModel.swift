@@ -62,8 +62,8 @@ class PlanFormViewModel: ObservableObject {
         self.planEndDate = plan.endDateTime.date
         self.planStartLocation = plan.startLocation
         self.planEndLocation = plan.endLocation
-        self.planImageUrl = plan.imageUrl ?? ""
-        self.planAdditionalInfo = plan.additionalInfo ?? ""
+        self.planImageUrl = plan.imageUrl
+        self.planAdditionalInfo = plan.additionalInfo
 
         validate()
     }

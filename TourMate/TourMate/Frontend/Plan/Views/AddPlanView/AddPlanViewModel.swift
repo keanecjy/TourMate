@@ -13,21 +13,27 @@ class AddPlanViewModel: PlanFormViewModel {
     @Published private(set) var isLoading = false
     @Published private(set) var hasError = false
 
-    var trip: Trip
-    let planService: PlanService
+    private let trip: Trip
+    private let planService: PlanService
+    private let userService: UserService
 
-    private var cancellableSet: Set<AnyCancellable> = []
-
-    init(trip: Trip, planService: PlanService = FirebasePlanService()) {
+    init(trip: Trip, planService: PlanService = FirebasePlanService(), userService: UserService = FirebaseUserService()) {
 
         self.trip = trip
         self.planService = planService
+        self.userService = userService
 
         super.init(lowerBoundDate: trip.startDateTime.date, upperBoundDate: trip.endDateTime.date)
     }
 
     func addPlan() async {
         self.isLoading = true
+
+        let (user, userErrorMessage) = await userService.getCurrentUser()
+        guard let user = user, userErrorMessage.isEmpty else {
+            handleError()
+            return
+        }
 
         let tripId = trip.id
         let planId = tripId + UUID().uuidString
@@ -39,6 +45,7 @@ class AddPlanViewModel: PlanFormViewModel {
         let imageUrl = planImageUrl
         let status = planStatus
         let additionalInfo = planAdditionalInfo
+        let ownerUserId = user.id
 
         let plan = Plan(id: planId,
                         tripId: tripId,
@@ -49,18 +56,23 @@ class AddPlanViewModel: PlanFormViewModel {
                         endLocation: endLocation,
                         imageUrl: imageUrl,
                         status: status,
-                        creationDate: Date(),
-                        modificationDate: Date(),
-                        upvotedUserIds: [],
-                        additionalInfo: additionalInfo)
+                        additionalInfo: additionalInfo,
+                        ownerUserId: ownerUserId)
 
         let (hasAddedPlan, errorMessage) = await planService.addPlan(plan: plan)
         guard hasAddedPlan, errorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
+            handleError()
             return
         }
 
+        self.isLoading = false
+    }
+}
+
+// MARK: - Helper Methods
+extension AddPlanViewModel {
+    private func handleError() {
+        self.hasError = true
         self.isLoading = false
     }
 }
