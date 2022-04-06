@@ -34,16 +34,19 @@ class EditPlanViewModel: PlanFormViewModel {
 
     func updatePermissions() {
         Task {
-            let (user, _) = await userService.getCurrentUser()
-            if let user = user,
-               user.id == plan.ownerUserId {
-                canDeletePlan = true
-                canChangeStatus = true
+            let (currentUser, _) = await userService.getCurrentUser()
+            if let currentUser = currentUser,
+               currentUser.id == plan.ownerUserId {
+                setSpecialPermissions(true)
             } else {
-                canDeletePlan = false
-                canChangeStatus = false
+                setSpecialPermissions(false)
             }
         }
+    }
+
+    private func setSpecialPermissions(_ allowed: Bool) {
+        canDeletePlan = allowed
+        canChangeStatus = allowed
     }
 
     func updatePlan() async {

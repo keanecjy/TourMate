@@ -80,7 +80,7 @@ struct PlanView: View {
                 Spacer() // Push everything to the top
             }
             .padding()
-            .navigationBarTitle("")
+            .navigationBarTitle("") // Needed in order to display the nav back button. Best fix is to use .inline
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
