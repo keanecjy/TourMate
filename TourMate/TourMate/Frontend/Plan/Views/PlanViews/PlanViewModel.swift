@@ -25,6 +25,17 @@ class PlanViewModel: ObservableObject {
     private let userService: UserService
     private var planService: PlanService
 
+    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
+         planService: PlanService = FirebasePlanService(),
+         userService: UserService = FirebaseUserService()) {
+
+        self.plan = plan
+        self.lowerBoundDate = lowerBoundDate
+        self.upperBoundDate = upperBoundDate
+        self.planService = planService
+        self.userService = userService
+    }
+
     var shortDurationDescription: String {
         var description = ""
         let dateFormatter = DateFormatter()
@@ -38,17 +49,6 @@ class PlanViewModel: ObservableObject {
         description += dateFormatter.string(from: plan.endDateTime.date)
 
         return description
-    }
-
-    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
-         planService: PlanService = FirebasePlanService(),
-         userService: UserService = FirebaseUserService()) {
-
-        self.plan = plan
-        self.lowerBoundDate = lowerBoundDate
-        self.upperBoundDate = upperBoundDate
-        self.planService = planService
-        self.userService = userService
     }
 
     func fetchPlanAndListen() async {
@@ -120,7 +120,7 @@ class PlanViewModel: ObservableObject {
             let (user, userErrorMessage) = await userService.getUser(withUserId: userId)
 
             if !userErrorMessage.isEmpty {
-                print("[PlanViewModel] Error fetching user")
+                print("[PlanViewModel] Error fetching user: \(userErrorMessage)")
                 continue
             }
 
@@ -131,6 +131,19 @@ class PlanViewModel: ObservableObject {
 
         return fetchedUpvotedUsers
     }
+    //
+    // private func getPlanOwner() async -> User {
+    //     let (user, userErrorMessage) = await userService.getUser(withUserId: plan.id)
+    //
+    //     guard !userErrorMessage.isEmpty,
+    //           let user = user
+    //     else {
+    //         print("[PlanViewModel] Error fetching user: \(userErrorMessage)")
+    //         return User.defaultUser()
+    //     }
+    //
+    //     return user
+    // }
 }
 
 // MARK: - PlanEventDelegate
