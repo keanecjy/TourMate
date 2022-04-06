@@ -42,9 +42,7 @@ struct PlanView: View {
                                  name: planViewModel.planOwner.name, displayName: false)
                 }
 
-                if planViewModel.plan.status == .proposed {
-                    UpvotePlanView(viewModel: planViewModel)
-                }
+                UpvotePlanView(viewModel: planViewModel)
 
                 TimingView(plan: planViewModel.plan)
 

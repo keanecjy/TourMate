@@ -28,9 +28,7 @@ struct PlanBoxView: View {
             }
             Text(viewModel.plan.name)
                 .font(.headline)
-            if viewModel.plan.status == .proposed {
-                UpvotePlanView(viewModel: viewModel, displayName: false)
-            }
+            UpvotePlanView(viewModel: viewModel, displayName: false)
         }
         .padding()
         .contentShape(Rectangle())
