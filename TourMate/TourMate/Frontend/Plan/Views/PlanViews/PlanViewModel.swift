@@ -19,6 +19,8 @@ class PlanViewModel: ObservableObject {
     @Published private(set) var userHasUpvotedPlan = false
     @Published private(set) var upvotedUsers: [User] = []
 
+    @Published private(set) var planOwner = User.defaultUser()
+
     let lowerBoundDate: DateTime
     let upperBoundDate: DateTime
 
@@ -106,11 +108,18 @@ class PlanViewModel: ObservableObject {
         print("[PlanViewModel] Publishing plan \(plan) changes")
         self.plan = plan
         self.upvotedUsers = await fetchUpvotedUsers()
-
-        print("[PlanViewModel] Upvoted users: \(upvotedUsers)")
+        
+        await updatePlanOwner()
 
         let (currentUser, _) = await userService.getCurrentUser()
         self.userHasUpvotedPlan = self.upvotedUsers.contains(where: { $0.id == currentUser?.id })
+    }
+    
+    private func updatePlanOwner() async {
+        let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
+        if let user = user {
+            planOwner = user
+        }
     }
 
     private func fetchUpvotedUsers() async -> [User] {

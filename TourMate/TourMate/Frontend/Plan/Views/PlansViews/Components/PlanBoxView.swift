@@ -23,6 +23,8 @@ struct PlanBoxView: View {
                 PlanStatusView(status: viewModel.plan.status)
                     .padding([.horizontal])
 
+                UserIconView(imageUrl: viewModel.planOwner.imageUrl,
+                             name: viewModel.planOwner.name, displayName: false)
             }
             Text(viewModel.plan.name)
                 .font(.headline)
