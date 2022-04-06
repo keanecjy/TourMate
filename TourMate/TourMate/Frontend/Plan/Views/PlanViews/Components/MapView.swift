@@ -30,12 +30,12 @@ struct MapView: View {
                 VStack(alignment: .leading) {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Start Location").font(.caption)
+                            Text("Start Location").font(.body).bold()
                             Text(startLocation.addressLineOne)
                             Text(startLocation.addressLineTwo)
                         }
                         VStack(alignment: .leading) {
-                            Text("End Location").font(.caption)
+                            Text("End Location").font(.body).bold()
                             Text(endLocation.addressLineOne)
                             Text(endLocation.addressLineTwo)
                         }

@@ -15,10 +15,14 @@ struct TimingView: View {
         HStack(alignment: .top) {
             Image(systemName: "clock")
                 .font(.title)
+
             VStack(alignment: .leading) {
-                Text("From").font(.caption)
+                Text("From").font(.body).bold()
                 Text(plan.startDateTime.date, formatter: dateFormatter)
-                Text("To").font(.caption)
+            }
+
+            VStack(alignment: .leading) {
+                Text("To").font(.body).bold()
                 Text(plan.endDateTime.date, formatter: dateFormatter)
             }
         }

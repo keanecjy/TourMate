@@ -26,15 +26,24 @@ struct PlanView: View {
         } else if planViewModel.isLoading {
             ProgressView()
         } else {
-            VStack(alignment: .leading, spacing: 15.0) {
+            VStack(alignment: .leading, spacing: 30.0) {
                 // TODO: Show image
 
                 HStack(spacing: 10.0) {
+                    Text(planViewModel.plan.name)
+                        .font(.largeTitle)
+                        .bold()
+
+                    Spacer()
+
                     PlanStatusView(status: planViewModel.plan.status)
 
-                    if planViewModel.plan.status == .proposed {
-                        UpvotePlanView(viewModel: planViewModel)
-                    }
+                    UserIconView(imageUrl: planViewModel.planOwner.imageUrl,
+                                 name: planViewModel.planOwner.name, displayName: false)
+                }
+
+                if planViewModel.plan.status == .proposed {
+                    UpvotePlanView(viewModel: planViewModel)
                 }
 
                 TimingView(plan: planViewModel.plan)
@@ -71,7 +80,8 @@ struct PlanView: View {
                 Spacer() // Push everything to the top
             }
             .padding()
-            .navigationBarTitle(planViewModel.plan.name)
+            .navigationBarTitle("")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -92,7 +102,9 @@ struct PlanView: View {
                     dismiss()
                 }
             }
-            .onDisappear(perform: { () in planViewModel.detachListener() })
+            .onDisappear {
+                planViewModel.detachListener()
+            }
         }
     }
 }

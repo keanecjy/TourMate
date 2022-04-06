@@ -108,13 +108,13 @@ class PlanViewModel: ObservableObject {
         print("[PlanViewModel] Publishing plan \(plan) changes")
         self.plan = plan
         self.upvotedUsers = await fetchUpvotedUsers()
-        
+
         await updatePlanOwner()
 
         let (currentUser, _) = await userService.getCurrentUser()
         self.userHasUpvotedPlan = self.upvotedUsers.contains(where: { $0.id == currentUser?.id })
     }
-    
+
     private func updatePlanOwner() async {
         let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
         if let user = user {
