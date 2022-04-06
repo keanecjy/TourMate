@@ -26,7 +26,7 @@ class PlanFormViewModel: ObservableObject {
     @Published var planImageUrl: String
     @Published var planAdditionalInfo: String
 
-    var canChangeStatus = true
+    @Published var canChangeStatus = true
 
     private var cancellableSet: Set<AnyCancellable> = []
 
