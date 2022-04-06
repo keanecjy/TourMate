@@ -15,7 +15,7 @@ class EditPlanViewModel: PlanFormViewModel {
 
     private(set) var canDeletePlan = false
 
-    private let plan: Plan
+    @Published var plan: Plan
 
     private let planService: PlanService
     private let userService: UserService
@@ -30,6 +30,10 @@ class EditPlanViewModel: PlanFormViewModel {
 
         super.init(lowerBoundDate: lowerBoundDate.date, upperBoundDate: upperBoundDate.date, plan: plan)
 
+        updatePermissions()
+    }
+
+    func updatePermissions() {
         Task {
             let (user, _) = await userService.getCurrentUser()
             if let user = user,
@@ -46,12 +50,6 @@ class EditPlanViewModel: PlanFormViewModel {
     func updatePlan() async {
         self.isLoading = true
 
-        let (user, userErrorMessage) = await userService.getCurrentUser()
-        guard let user = user, userErrorMessage.isEmpty else {
-            handleError()
-            return
-        }
-
         let id = plan.id
         let tripId = plan.tripId
         let name = planName
@@ -64,7 +62,7 @@ class EditPlanViewModel: PlanFormViewModel {
         let creationDate = plan.creationDate
         let upvotedUserIds = plan.upvotedUserIds
         let additionalInfo = planAdditionalInfo
-        let ownerUserId = user.id
+        let ownerUserId = plan.ownerUserId
 
         let updatedPlan = Plan(id: id,
                                tripId: tripId,

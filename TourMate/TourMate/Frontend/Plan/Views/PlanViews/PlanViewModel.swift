@@ -36,6 +36,7 @@ class PlanViewModel: ObservableObject {
         self.upperBoundDate = upperBoundDate
         self.planService = planService
         self.userService = userService
+        updatePlanOwner()
     }
 
     var shortDurationDescription: String {
@@ -51,6 +52,15 @@ class PlanViewModel: ObservableObject {
         description += dateFormatter.string(from: plan.endDateTime.date)
 
         return description
+    }
+
+    func updatePlanOwner() {
+        Task {
+            let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
+            if let user = user {
+                planOwner = user
+            }
+        }
     }
 
     func fetchPlanAndListen() async {
@@ -109,17 +119,8 @@ class PlanViewModel: ObservableObject {
         self.plan = plan
         self.upvotedUsers = await fetchUpvotedUsers()
 
-        await updatePlanOwner()
-
         let (currentUser, _) = await userService.getCurrentUser()
         self.userHasUpvotedPlan = self.upvotedUsers.contains(where: { $0.id == currentUser?.id })
-    }
-
-    private func updatePlanOwner() async {
-        let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
-        if let user = user {
-            planOwner = user
-        }
     }
 
     private func fetchUpvotedUsers() async -> [User] {
