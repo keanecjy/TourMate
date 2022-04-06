@@ -23,6 +23,7 @@ struct UpvotePlanView: View {
                          action: viewModel.upvotePlan)
 
             UpvotedUsersView(upvotedUsers: viewModel.upvotedUsers, displayName: displayName)
+            Spacer()
         }
     }
 }

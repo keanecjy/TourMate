@@ -13,7 +13,7 @@ class EditTripViewModel: TripFormViewModel {
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
 
-    private let trip: Trip
+    @Published var trip: Trip
 
     private let tripService: TripService
     private let userService: UserService
