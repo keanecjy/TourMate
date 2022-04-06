@@ -13,6 +13,8 @@ class EditPlanViewModel: PlanFormViewModel {
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
 
+    private(set) var canDeletePlan = false
+
     private let plan: Plan
 
     private let planService: PlanService
@@ -27,6 +29,18 @@ class EditPlanViewModel: PlanFormViewModel {
         self.userService = userService
 
         super.init(lowerBoundDate: lowerBoundDate.date, upperBoundDate: upperBoundDate.date, plan: plan)
+
+        Task {
+            let (user, _) = await userService.getCurrentUser()
+            if let user = user,
+               user.id == plan.ownerUserId {
+                canDeletePlan = true
+                canChangeStatus = true
+            } else {
+                canDeletePlan = false
+                canChangeStatus = false
+            }
+        }
     }
 
     func updatePlan() async {

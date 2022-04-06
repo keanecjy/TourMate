@@ -140,19 +140,6 @@ class PlanViewModel: ObservableObject {
 
         return fetchedUpvotedUsers
     }
-    //
-    // private func getPlanOwner() async -> User {
-    //     let (user, userErrorMessage) = await userService.getUser(withUserId: plan.id)
-    //
-    //     guard !userErrorMessage.isEmpty,
-    //           let user = user
-    //     else {
-    //         print("[PlanViewModel] Error fetching user: \(userErrorMessage)")
-    //         return User.defaultUser()
-    //     }
-    //
-    //     return user
-    // }
 }
 
 // MARK: - PlanEventDelegate

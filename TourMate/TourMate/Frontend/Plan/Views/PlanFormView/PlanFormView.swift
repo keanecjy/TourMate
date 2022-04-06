@@ -13,7 +13,7 @@ struct PlanFormView: View {
 
     var body: some View {
         Form {
-            ConfirmedToggle(status: $viewModel.planStatus)
+            ConfirmedToggle(status: $viewModel.planStatus, canChangeStatus: viewModel.canChangeStatus)
 
             TextField("Event Name", text: $viewModel.planName)
 
