@@ -69,7 +69,7 @@ class AddPlanViewModel: PlanFormViewModel {
     }
 }
 
-// MARK: - Helper Methods
+// MARK: - State changes
 extension AddPlanViewModel {
     private func handleError() {
         self.hasError = true

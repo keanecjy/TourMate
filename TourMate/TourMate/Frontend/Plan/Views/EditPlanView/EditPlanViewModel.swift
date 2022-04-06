@@ -15,8 +15,7 @@ class EditPlanViewModel: PlanFormViewModel {
 
     private(set) var canDeletePlan = false
 
-    @Published var plan: Plan
-
+    private let plan: Plan
     private let planService: PlanService
     private let userService: UserService
 
@@ -102,7 +101,7 @@ class EditPlanViewModel: PlanFormViewModel {
     }
 }
 
-// MARK: - Helper Methods
+// MARK: - State changes
 extension EditPlanViewModel {
     private func handleError() {
         self.hasError = true
