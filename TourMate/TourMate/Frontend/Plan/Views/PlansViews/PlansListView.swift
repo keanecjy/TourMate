@@ -22,7 +22,7 @@ struct PlansListView: View {
         VStack {
             ForEach(viewModel.days, id: \.date) { day in
                 VStack(alignment: .leading) {
-                    PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
+                    PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
                         PlanCardView(viewModel: ViewModelFactory.getPlanViewModel(plan: plan, plansViewModel: viewModel), date: day.date)

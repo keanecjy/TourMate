@@ -9,10 +9,12 @@ import SwiftUI
 struct PlanBoxView: View {
 
     @StateObject var viewModel: PlanViewModel
+    let planUpvoteViewModel: PlanUpvoteViewModel
     let date: Date
 
     init(viewModel: PlanViewModel, date: Date) {
         self._viewModel = StateObject(wrappedValue: viewModel)
+        self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planViewModel: viewModel)
         self.date = date
     }
 
@@ -22,15 +24,12 @@ struct PlanBoxView: View {
                 Text(viewModel.getShortDurationDescription(date: date))
                     .font(.caption)
 
-                PlanStatusView(status: viewModel.plan.status)
+                PlanStatusView(status: viewModel.statusDisplay)
                     .padding([.horizontal])
-
             }
-            Text(viewModel.plan.name)
+            Text(viewModel.nameDisplay)
                 .font(.headline)
-            if viewModel.plan.status == .proposed {
-                UpvotePlanView(viewModel: viewModel, displayName: false)
-            }
+            UpvotePlanView(viewModel: planUpvoteViewModel, displayName: false)
         }
         .padding()
         .contentShape(Rectangle())

@@ -26,6 +26,8 @@ class PlanFormViewModel: ObservableObject {
     @Published var planImageUrl: String
     @Published var planAdditionalInfo: String
 
+    @Published var canChangeStatus = true
+
     private var cancellableSet: Set<AnyCancellable> = []
 
     // Adding Plan
@@ -62,8 +64,8 @@ class PlanFormViewModel: ObservableObject {
         self.planEndDate = plan.endDateTime.date
         self.planStartLocation = plan.startLocation
         self.planEndLocation = plan.endLocation
-        self.planImageUrl = plan.imageUrl ?? ""
-        self.planAdditionalInfo = plan.additionalInfo ?? ""
+        self.planImageUrl = plan.imageUrl
+        self.planAdditionalInfo = plan.additionalInfo
 
         validate()
     }

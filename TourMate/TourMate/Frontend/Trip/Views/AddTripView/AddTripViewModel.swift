@@ -28,8 +28,7 @@ class AddTripViewModel: TripFormViewModel {
         self.isLoading = true
         let (user, userErrorMessage) = await userService.getCurrentUser()
         guard let user = user, userErrorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
+            handleError()
             return
         }
 
@@ -49,11 +48,18 @@ class AddTripViewModel: TripFormViewModel {
 
         let (hasAddedTrip, tripErrorMessage) = await tripService.addTrip(trip: newTrip)
         guard hasAddedTrip, tripErrorMessage.isEmpty else {
-            self.isLoading = false
-            self.hasError = true
+            handleError()
             return
         }
         self.isLoading = false
     }
 
+}
+
+// MARK: - Helper Methods
+extension AddTripViewModel {
+    private func handleError() {
+        self.hasError = true
+        self.isLoading = false
+    }
 }

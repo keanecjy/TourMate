@@ -32,14 +32,14 @@ struct TripView: View {
             } else {
                 ScrollView {
                     VStack {
-                        Text(viewModel.trip.durationDescription)
+                        Text(viewModel.durationDisplay)
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding([.horizontal])
 
                         AttendeesView(attendees: viewModel.attendees)
 
-                        if let imageUrl = viewModel.trip.imageUrl {
+                        if let imageUrl = viewModel.imageUrlDisplay {
                             TripImage(imageUrl: imageUrl)
                         }
 
@@ -61,7 +61,7 @@ struct TripView: View {
                 }
             }
         }
-        .navigationTitle(viewModel.trip.name)
+        .navigationTitle(viewModel.nameDisplay)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
                 Button {

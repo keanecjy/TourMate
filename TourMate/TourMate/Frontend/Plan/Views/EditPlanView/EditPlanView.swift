@@ -51,7 +51,7 @@ struct EditPlanView: View {
                             dismiss()
                         }
                     }
-                    .disabled(viewModel.isLoading || viewModel.hasError)
+                    .disabled(viewModel.isLoading || viewModel.hasError || !viewModel.canDeletePlan)
                 }
             }
         }

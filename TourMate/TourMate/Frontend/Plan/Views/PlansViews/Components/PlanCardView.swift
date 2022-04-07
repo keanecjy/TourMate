@@ -10,10 +10,12 @@ import SwiftUI
 struct PlanCardView: View {
 
     @StateObject var viewModel: PlanViewModel
+    let planUpvoteViewModel: PlanUpvoteViewModel
     let date: Date
 
     init(viewModel: PlanViewModel, date: Date) {
         self._viewModel = StateObject(wrappedValue: viewModel)
+        self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planViewModel: viewModel)
         self.date = date
     }
 
@@ -24,25 +26,22 @@ struct PlanCardView: View {
                     Text(viewModel.getShortDurationDescription(date: date))
                         .font(.caption)
 
-                    PlanStatusView(status: viewModel.plan.status)
+                    PlanStatusView(status: viewModel.statusDisplay)
                         .padding([.horizontal])
-
                 }
-                Text(viewModel.plan.name)
+                Text(viewModel.nameDisplay)
                     .font(.headline)
             }
             .padding()
 
             Spacer()
 
-            if viewModel.plan.status == .proposed {
-                VStack {
-                    Spacer()
-                    UpvotePlanView(viewModel: viewModel, displayName: false)
-                        .frame(maxWidth: UIScreen.screenWidth / 3)
-                    Spacer()
+            VStack {
+                Spacer()
+                UpvotePlanView(viewModel: planUpvoteViewModel, displayName: false)
+                    .frame(maxWidth: UIScreen.screenWidth / 3)
+                Spacer()
 
-                }
             }
         }
         .contentShape(Rectangle())

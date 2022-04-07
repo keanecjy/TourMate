@@ -8,26 +8,32 @@
 import SwiftUI
 
 struct TimingView: View {
-    let plan: Plan
+    let startDate: DateTime
+    let endDate: DateTime
+
     @State private var dateFormatter = DateFormatter()
 
     var body: some View {
         HStack(alignment: .top) {
             Image(systemName: "clock")
                 .font(.title)
+
             VStack(alignment: .leading) {
-                Text("From").font(.caption)
-                Text(plan.startDateTime.date, formatter: dateFormatter)
-                Text("To").font(.caption)
-                Text(plan.endDateTime.date, formatter: dateFormatter)
+                Text("From").font(.body).bold()
+                Text(startDate.date, formatter: dateFormatter)
+            }
+
+            VStack(alignment: .leading) {
+                Text("To").font(.body).bold()
+                Text(endDate.date, formatter: dateFormatter)
             }
         }
         .onAppear {
             // the date time doesn't show upon exit screen -> re-enter screen if it is not initialised again
             dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .long
-            dateFormatter.timeStyle = .long
-            dateFormatter.timeZone = plan.startDateTime.timeZone
+            dateFormatter.timeStyle = .short
+            dateFormatter.timeZone = startDate.timeZone // By default we take the start time zone
         }
     }
 }
