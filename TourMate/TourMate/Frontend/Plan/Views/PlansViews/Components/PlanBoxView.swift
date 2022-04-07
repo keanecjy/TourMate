@@ -6,36 +6,40 @@
 //
 import SwiftUI
 
+@MainActor
 struct PlanBoxView: View {
 
-    @StateObject var viewModel: PlanViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
+    let planName: String
+    let planStatus: PlanStatus
+    let startDateTime: DateTime
+    let endDateTime: DateTime
     let date: Date
 
-    init(viewModel: PlanViewModel, date: Date) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-        self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planViewModel: viewModel)
+    init(planId: String, planName: String, planStatus: PlanStatus, startDateTime: DateTime, endDateTime: DateTime, , date: Date) {
+        self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planId: planId)
+        self.planName = planName
+        self.planStatus = planStatus
+        self.startDateTime = startDateTime
+        self.endDateTime = endDateTime
         self.date = date
     }
 
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 0) {
-                Text(viewModel.getShortDurationDescription(date: date))
+            // TO Use date
+                Text(DateUtil.shortDurationDesc(from: startDateTime, to: endDateTime))
                     .font(.caption)
 
-                PlanStatusView(status: viewModel.statusDisplay)
+                PlanStatusView(status: planStatus)
                     .padding([.horizontal])
             }
-            Text(viewModel.nameDisplay)
+            Text(planName)
                 .font(.headline)
             UpvotePlanView(viewModel: planUpvoteViewModel, displayName: false)
         }
         .padding()
         .contentShape(Rectangle())
-        .task {
-            await viewModel.fetchPlanAndListen()
-        }
-        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }
