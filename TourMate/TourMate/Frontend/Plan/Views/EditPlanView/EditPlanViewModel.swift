@@ -32,7 +32,7 @@ class EditPlanViewModel: PlanFormViewModel {
         updatePermissions()
     }
 
-    func updatePermissions() {
+    private func updatePermissions() {
         Task {
             let (currentUser, _) = await userService.getCurrentUser()
             if let currentUser = currentUser,
