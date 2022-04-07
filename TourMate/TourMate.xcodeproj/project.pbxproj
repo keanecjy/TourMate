@@ -457,14 +457,14 @@
 			path = Delegates;
 			sourceTree = "<group>";
 		};
-		4C1C70D027FE81EF00203694 /* LocationViews */ = {
+		4C1C70D027FE81EF00203694 /* LocationView */ = {
 			isa = PBXGroup;
 			children = (
 				B9AF3B4F27EF6FD600A3C82E /* MapView.swift */,
 				B98910C027F858BA00476794 /* MapViewModel.swift */,
 				4C1C70CE27FE800E00203694 /* LocationView.swift */,
 			);
-			path = LocationViews;
+			path = LocationView;
 			sourceTree = "<group>";
 		};
 		4C1C70D127FE820400203694 /* InfoView */ = {
@@ -1037,7 +1037,7 @@
 			isa = PBXGroup;
 			children = (
 				4C1C70D127FE820400203694 /* InfoView */,
-				4C1C70D027FE81EF00203694 /* LocationViews */,
+				4C1C70D027FE81EF00203694 /* LocationView */,
 				B9B6B40727F719FF00B0F5F4 /* TimingView.swift */,
 			);
 			path = Components;
