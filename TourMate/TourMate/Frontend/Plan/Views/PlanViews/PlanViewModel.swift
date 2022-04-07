@@ -61,6 +61,10 @@ class PlanViewModel: ObservableObject {
 
         return description
     }
+    
+    var planId: String {
+        plan.id
+    }
 
     var nameDisplay: String {
         plan.name

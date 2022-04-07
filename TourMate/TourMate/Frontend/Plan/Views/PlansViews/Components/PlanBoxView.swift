@@ -20,10 +20,10 @@ struct PlanBoxView: View {
                 Text(viewModel.shortDurationDescriptionDisplay)
                     .font(.caption)
 
-                PlanStatusView(status: viewModel.plan.status)
+                PlanStatusView(status: viewModel.statusDisplay)
                     .padding([.horizontal])
             }
-            Text(viewModel.plan.name)
+            Text(viewModel.nameDisplay)
                 .font(.headline)
             UpvotePlanView(viewModel: viewModel, displayName: false)
         }
