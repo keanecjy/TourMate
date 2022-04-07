@@ -19,7 +19,6 @@ struct Plan: CustomStringConvertible {
     var status: PlanStatus
     let creationDate: Date
     let modificationDate: Date
-    var upvotedUserIds: [String]
     var additionalInfo: String
     var ownerUserId: String
 
@@ -39,7 +38,6 @@ struct Plan: CustomStringConvertible {
         self.status = status
         self.creationDate = Date()
         self.modificationDate = Date()
-        self.upvotedUserIds = []
         self.additionalInfo = additionalInfo
         self.ownerUserId = ownerUserId
     }
@@ -49,7 +47,7 @@ struct Plan: CustomStringConvertible {
          startLocation: Location? = nil, endLocation: Location? = nil,
          imageUrl: String = "", status: PlanStatus,
          creationDate: Date, modificationDate: Date,
-         upvotedUserIds: [String], additionalInfo: String = "",
+         additionalInfo: String = "",
          ownerUserId: String) {
         self.id = id
         self.tripId = tripId
@@ -62,7 +60,6 @@ struct Plan: CustomStringConvertible {
         self.status = status
         self.creationDate = creationDate
         self.modificationDate = modificationDate
-        self.upvotedUserIds = upvotedUserIds
         self.additionalInfo = additionalInfo
         self.ownerUserId = ownerUserId
     }

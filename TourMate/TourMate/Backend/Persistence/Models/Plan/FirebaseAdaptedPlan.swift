@@ -19,7 +19,6 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     let status: String
     let creationDate: Date
     let modificationDate: Date
-    let upvotedUserIds: [String]
     var additionalInfo: String
     var ownerUserId: String
 
@@ -29,7 +28,6 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
          startLocation: JsonAdaptedLocation?, endLocation: JsonAdaptedLocation?,
          imageUrl: String, status: String,
          creationDate: Date, modificationDate: Date,
-         upvotedUserIds: [String],
          additionalInfo: String, ownerUserId: String) {
         self.id = id
         self.tripId = tripId
@@ -42,7 +40,6 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         self.status = status
         self.creationDate = creationDate
         self.modificationDate = modificationDate
-        self.upvotedUserIds = upvotedUserIds
         self.additionalInfo = additionalInfo
         self.ownerUserId = ownerUserId
     }

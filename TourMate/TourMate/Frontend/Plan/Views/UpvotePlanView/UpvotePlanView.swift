@@ -9,11 +9,11 @@ import SwiftUI
 
 struct UpvotePlanView: View {
 
-    @ObservedObject var viewModel: PlanViewModel
+    @StateObject var viewModel: PlanUpvoteViewModel
     let displayName: Bool
 
-    init(viewModel: PlanViewModel, displayName: Bool = true) {
-        self.viewModel = viewModel
+    init(viewModel: PlanUpvoteViewModel, displayName: Bool = true) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
         self.displayName = displayName
     }
 
@@ -25,6 +25,12 @@ struct UpvotePlanView: View {
             UpvotedUsersView(upvotedUsers: viewModel.upvotedUsers, displayName: displayName)
             Spacer()
         }
+        .onAppear {
+            Task {
+                await viewModel.fetchPlanUpvotesAndListen()
+            }
+        }
+        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }
 

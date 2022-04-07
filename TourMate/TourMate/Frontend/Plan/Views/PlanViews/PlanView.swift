@@ -9,14 +9,16 @@ import SwiftUI
 
 struct PlanView: View {
     @StateObject var planViewModel: PlanViewModel
-    @StateObject var commentsViewModel: CommentsViewModel
+    let commentsViewModel: CommentsViewModel
+    let planUpvoteViewModel: PlanUpvoteViewModel
     @State private var isShowingEditPlanSheet = false
 
     @Environment(\.dismiss) var dismiss
 
     init(planViewModel: PlanViewModel) {
         self._planViewModel = StateObject(wrappedValue: planViewModel)
-        self._commentsViewModel = StateObject(wrappedValue: ViewModelFactory.getCommentsViewModel(planViewModel: planViewModel))
+        self.commentsViewModel = ViewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
+        self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
     }
 
     var body: some View {
@@ -33,7 +35,7 @@ struct PlanView: View {
                                planOwner: planViewModel.planOwner,
                                creationDateDisplay: planViewModel.creationDateDisplay)
 
-                UpvotePlanView(viewModel: planViewModel)
+                UpvotePlanView(viewModel: planUpvoteViewModel)
 
                 TimingView(startDate: planViewModel.startDateTimeDisplay,
                            endDate: planViewModel.endDateTimeDisplay)

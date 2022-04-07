@@ -12,6 +12,7 @@ final class FirebaseConfig {
     static let tripCollectionId = "trips"
     static let planCollectionId = "plans"
     static let commentCollectionId = "comments"
+    static let upvoteCollectionId = "planUpvotes"
 
     static func fieldPath(field: String) -> FieldPath {
         FieldPath(["base", field])

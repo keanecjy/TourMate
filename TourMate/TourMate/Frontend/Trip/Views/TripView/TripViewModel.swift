@@ -33,27 +33,27 @@ class TripViewModel: ObservableObject {
         self.tripService = tripService
         self.userService = userService
     }
-    
+
     var tripId: String {
         trip.id
     }
-    
+
     var nameDisplay: String {
         trip.name
     }
-    
+
     var startDateTime: DateTime {
         trip.startDateTime
     }
-    
+
     var endDateTime: DateTime {
         trip.endDateTime
     }
-    
+
     var durationDisplay: String {
         trip.durationDescription
     }
-    
+
     var imageUrlDisplay: String? {
         trip.imageUrl
     }

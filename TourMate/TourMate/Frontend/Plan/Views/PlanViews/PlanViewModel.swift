@@ -16,9 +16,6 @@ class PlanViewModel: ObservableObject {
 
     @Published var plan: Plan
 
-    @Published private(set) var userHasUpvotedPlan = false
-    @Published private(set) var upvotedUsers: [User] = []
-
     @Published private(set) var planOwner = User.defaultUser()
 
     let lowerBoundDate: DateTime
@@ -61,7 +58,7 @@ class PlanViewModel: ObservableObject {
 
         return description
     }
-    
+
     var planId: String {
         plan.id
     }
@@ -118,68 +115,10 @@ class PlanViewModel: ObservableObject {
         planService.detachListener()
     }
 
-    func upvotePlan() async {
-        self.isLoading = true
-
-        let (user, userErrorMessage) = await userService.getCurrentUser()
-
-        guard let user = user, userErrorMessage.isEmpty else {
-            handleError()
-            return
-        }
-
-        let userId = user.id
-        let updatedPlan = updateUpvotes(id: userId)
-
-        let (hasUpdatedPlan, planErrorMessage) = await planService.updatePlan(plan: updatedPlan)
-
-        guard hasUpdatedPlan, planErrorMessage.isEmpty else {
-            handleError()
-            return
-        }
-
-        self.isLoading = false
-    }
-
-    private func updateUpvotes(id: String) -> Plan {
-        var plan = self.plan
-
-        if plan.upvotedUserIds.contains(id) {
-            plan.upvotedUserIds = plan.upvotedUserIds.filter { $0 != id }
-        } else {
-            plan.upvotedUserIds.append(id)
-        }
-
-        return plan
-    }
-
     // Update all plans
     private func updatePublishedProperties(plan: Plan) async {
         print("[PlanViewModel] Publishing plan \(plan) changes")
         self.plan = plan
-        self.upvotedUsers = await fetchUpvotedUsers()
-
-        let (currentUser, _) = await userService.getCurrentUser()
-        self.userHasUpvotedPlan = self.upvotedUsers.contains(where: { $0.id == currentUser?.id })
-    }
-
-    private func fetchUpvotedUsers() async -> [User] {
-        var fetchedUpvotedUsers: [User] = []
-
-        for userId in plan.upvotedUserIds {
-            let (user, userErrorMessage) = await userService.getUser(withUserId: userId)
-
-            if !userErrorMessage.isEmpty {
-                print("[PlanViewModel] Error fetching user: \(userErrorMessage)")
-                continue
-            }
-
-            if let user = user {  // maybe no user with that Id (deleted?)
-                fetchedUpvotedUsers.append(user)
-            }
-        }
-
-        return fetchedUpvotedUsers
     }
 }
 

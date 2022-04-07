@@ -10,6 +10,7 @@ enum FirebaseAdaptedType: String, Codable {
     case firebaseAdaptedTrip
     case firebaseAdaptedComment
     case firebaseAdaptedPlan
+    case firebaseAdaptedPlanUpvote
 
     var metatype: FirebaseAdaptedData.Type {
         switch self {
@@ -21,6 +22,8 @@ enum FirebaseAdaptedType: String, Codable {
             return FirebaseAdaptedComment.self
         case .firebaseAdaptedPlan:
             return FirebaseAdaptedPlan.self
+        case .firebaseAdaptedPlanUpvote:
+            return FirebaseAdaptedPlanUpvote.self
         }
     }
 }

@@ -26,7 +26,6 @@ extension Plan {
                             endLocation: endLocation?.toData(),
                             imageUrl: imageUrl, status: status.rawValue,
                             creationDate: creationDate, modificationDate: modificationDate,
-                            upvotedUserIds: upvotedUserIds,
                             additionalInfo: additionalInfo,
                             ownerUserId: ownerUserId)
     }
@@ -41,7 +40,6 @@ extension FirebaseAdaptedPlan {
              endLocation: endLocation?.toItem(),
              imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
              creationDate: creationDate, modificationDate: modificationDate,
-             upvotedUserIds: upvotedUserIds,
              additionalInfo: additionalInfo,
              ownerUserId: ownerUserId)
     }

@@ -81,6 +81,11 @@ struct ViewModelFactory {
                                  upperBoundDate: upperBoundDate)
     }
 
+    // PlanUpvotes
+    static func getPlanUpvoteViewModel(planViewModel: PlanViewModel) -> PlanUpvoteViewModel {
+        PlanUpvoteViewModel(planId: planViewModel.planId)
+    }
+
     // Comments
     static func getCommentsViewModel(planViewModel: PlanViewModel) -> CommentsViewModel {
         CommentsViewModel(planId: planViewModel.planId)
