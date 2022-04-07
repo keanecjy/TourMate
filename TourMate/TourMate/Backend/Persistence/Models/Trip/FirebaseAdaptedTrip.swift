@@ -12,7 +12,7 @@ struct FirebaseAdaptedTrip: FirebaseAdaptedData {
     let name: String
     let startDateTime: FirebaseAdaptedDateTime
     let endDateTime: FirebaseAdaptedDateTime
-    let imageUrl: String?
+    let imageUrl: String
     let attendeesUserIds: [String]
     let invitedUserIds: [String]
     let creationDate: Date
