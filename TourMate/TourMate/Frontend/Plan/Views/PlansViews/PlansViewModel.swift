@@ -28,12 +28,10 @@ class PlansViewModel: ObservableObject {
         }
 
         let plansByDay: [Date: [Plan]] = sortedPlans.reduce(into: [:]) { acc, cur in
-
             let components = Calendar
                 .current
                 .dateComponents(in: cur.startDateTime.timeZone,
                                 from: cur.startDateTime.date)
-
             let startDateComponents = DateComponents(year: components.year,
                                                      month: components.month,
                                                      day: components.day)

@@ -144,7 +144,7 @@ struct PlansDayView: View {
                             ZStack(alignment: .topLeading) {
                                 ForEach(plans, id: \.id) { plan in
                                     HStack {
-                                        PlanBoxView(viewModel: ViewModelFactory.getPlanViewModel(plan: plan, plansViewModel: viewModel))
+                                        PlanBoxView(viewModel: ViewModelFactory.getPlanViewModel(plan: plan, plansViewModel: viewModel), date: date)
                                             .onTapGesture(perform: {
                                                 if let onSelected = onSelected {
                                                     onSelected(plan)

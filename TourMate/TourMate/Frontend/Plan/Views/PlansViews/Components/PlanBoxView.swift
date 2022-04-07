@@ -9,15 +9,17 @@ import SwiftUI
 struct PlanBoxView: View {
 
     @StateObject var viewModel: PlanViewModel
+    let date: Date
 
-    init(viewModel: PlanViewModel) {
+    init(viewModel: PlanViewModel, date: Date) {
         self._viewModel = StateObject(wrappedValue: viewModel)
+        self.date = date
     }
 
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 0) {
-                Text(viewModel.shortDurationDescription)
+                Text(viewModel.getShortDurationDescription(date: date))
                     .font(.caption)
 
                 PlanStatusView(status: viewModel.plan.status)
