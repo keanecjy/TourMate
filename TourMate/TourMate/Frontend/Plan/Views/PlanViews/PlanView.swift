@@ -11,7 +11,6 @@ struct PlanView: View {
     @StateObject var planViewModel: PlanViewModel
     @StateObject var commentsViewModel: CommentsViewModel
     @State private var isShowingEditPlanSheet = false
-    @State private var isShowingAdditionalInfoSheet = false
 
     @Environment(\.dismiss) var dismiss
 
@@ -44,34 +43,11 @@ struct PlanView: View {
 
                 UpvotePlanView(viewModel: planViewModel)
 
-                TimingView(plan: planViewModel.plan)
+                TimingView(startDate: planViewModel.plan.startDateTime, endDate: planViewModel.plan.endDateTime)
 
-                if let location = planViewModel.plan.startLocation {
-                    MapView(startLocation: location,
-                            endLocation: planViewModel.plan.endLocation)
-                } else {
-                    HStack(alignment: .top) {
-                        Image(systemName: "location.fill")
-                            .font(.title)
-                        Text("No location provided")
-                    }
-                }
+                LocationView(startLocation: planViewModel.plan.startLocation, endLocation: planViewModel.plan.endLocation)
 
-                if let additionalInfo = planViewModel.plan.additionalInfo {
-                    HStack {
-                        Image(systemName: "newspaper")
-                            .font(.title)
-
-                        Button {
-                            isShowingAdditionalInfoSheet.toggle()
-                        } label: {
-                            Text("Additional Notes")
-                        }
-                        .sheet(isPresented: $isShowingAdditionalInfoSheet) {
-                            AdditionalInfoView(additionalInfo: additionalInfo)
-                        }
-                    }
-                }
+                InfoView(additionalInfo: planViewModel.plan.additionalInfo)
 
                 CommentsView(viewModel: commentsViewModel)
 

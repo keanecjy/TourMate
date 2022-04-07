@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct TimingView: View {
-    let plan: Plan
+    let startDate: DateTime
+    let endDate: DateTime
+
     @State private var dateFormatter = DateFormatter()
 
     var body: some View {
@@ -18,12 +20,12 @@ struct TimingView: View {
 
             VStack(alignment: .leading) {
                 Text("From").font(.body).bold()
-                Text(plan.startDateTime.date, formatter: dateFormatter)
+                Text(startDate.date, formatter: dateFormatter)
             }
 
             VStack(alignment: .leading) {
                 Text("To").font(.body).bold()
-                Text(plan.endDateTime.date, formatter: dateFormatter)
+                Text(endDate.date, formatter: dateFormatter)
             }
         }
         .onAppear {
@@ -31,7 +33,7 @@ struct TimingView: View {
             dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .long
             dateFormatter.timeStyle = .long
-            dateFormatter.timeZone = plan.startDateTime.timeZone
+            dateFormatter.timeZone = startDate.timeZone // By default we take the start time zone
         }
     }
 }
