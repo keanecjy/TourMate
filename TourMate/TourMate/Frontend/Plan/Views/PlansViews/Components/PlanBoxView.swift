@@ -17,7 +17,7 @@ struct PlanBoxView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 0) {
-                Text(viewModel.shortDurationDescription)
+                Text(viewModel.shortDurationDescriptionDisplay)
                     .font(.caption)
 
                 PlanStatusView(status: viewModel.plan.status)

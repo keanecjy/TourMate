@@ -19,13 +19,13 @@ struct PlanCardView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
                 HStack(spacing: 0) {
-                    Text(viewModel.shortDurationDescription)
+                    Text(viewModel.shortDurationDescriptionDisplay)
                         .font(.caption)
 
-                    PlanStatusView(status: viewModel.plan.status)
+                    PlanStatusView(status: viewModel.statusDisplay)
                         .padding([.horizontal])
                 }
-                Text(viewModel.plan.name)
+                Text(viewModel.nameDisplay)
                     .font(.headline)
             }
             .padding()
