@@ -10,6 +10,7 @@ import SwiftUI
 struct PlansDayView: View {
     @ObservedObject var viewModel: PlansViewModel
 
+    let date: Date
     let plans: [Plan]
     let dateFormatter: DateFormatter
     let hourHeight: Float
@@ -21,11 +22,13 @@ struct PlansDayView: View {
     @State var minWidth: CGFloat = 0
 
     init(viewModel: PlansViewModel,
+         date: Date,
          plans: [Plan] = [],
          onSelected: ((Plan) -> Void)? = nil,
          hourHeight: Float = 64) {
 
         self.viewModel = viewModel
+        self.date = date
         self.plans = plans
         self.onSelected = onSelected
         self.dateFormatter = DateFormatter()
@@ -50,18 +53,24 @@ struct PlansDayView: View {
         let startDateComponents = Calendar
             .current
             .dateComponents(in: plan.startDateTime.timeZone, from: plan.startDateTime.date)
+        let startDate = Calendar.current.date(from: DateComponents(year: startDateComponents.year,
+                                                                   month: startDateComponents.month,
+                                                                   day: startDateComponents.day))!
         let endDateComponents = Calendar
             .current
             .dateComponents(in: plan.endDateTime.timeZone, from: plan.endDateTime.date)
-        let start = (Float(startDateComponents.hour ?? 0) + Float(startDateComponents.minute ?? 0) / 60) * hourHeight
-        let end: Float
-        if endDateComponents.day != startDateComponents.day ||
-            endDateComponents.month != startDateComponents.month ||
-            endDateComponents.year != startDateComponents.year {
-            end = 24 * hourHeight
-        } else {
+        let endDate = Calendar.current.date(from: DateComponents(year: endDateComponents.year,
+                                                                 month: endDateComponents.month,
+                                                                 day: endDateComponents.day))!
+        var start: Float = 0
+        var end: Float = 24 * hourHeight
+        if startDate == date {
+            start = (Float(startDateComponents.hour ?? 0) + Float(startDateComponents.minute ?? 0) / 60) * hourHeight
+        }
+        if endDate == date {
             end = (Float(endDateComponents.hour ?? 0) + Float(endDateComponents.minute ?? 0) / 60) * hourHeight
         }
+
         return (start: start, end: end)
     }
 
