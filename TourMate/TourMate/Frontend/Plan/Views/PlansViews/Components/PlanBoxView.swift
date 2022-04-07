@@ -9,9 +9,11 @@ import SwiftUI
 struct PlanBoxView: View {
 
     @StateObject var viewModel: PlanViewModel
+    let planUpvoteViewModel: PlanUpvoteViewModel
 
     init(viewModel: PlanViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
+        self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planViewModel: viewModel)
     }
 
     var body: some View {
@@ -25,7 +27,7 @@ struct PlanBoxView: View {
             }
             Text(viewModel.nameDisplay)
                 .font(.headline)
-            UpvotePlanView(viewModel: viewModel, displayName: false)
+            UpvotePlanView(viewModel: planUpvoteViewModel, displayName: false)
         }
         .padding()
         .contentShape(Rectangle())

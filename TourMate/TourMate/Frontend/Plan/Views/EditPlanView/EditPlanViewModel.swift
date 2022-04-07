@@ -62,7 +62,6 @@ class EditPlanViewModel: PlanFormViewModel {
         let imageUrl = planImageUrl
         let status = planStatus
         let creationDate = plan.creationDate
-        let upvotedUserIds = plan.upvotedUserIds
         let additionalInfo = planAdditionalInfo
         let ownerUserId = plan.ownerUserId
 
@@ -77,7 +76,6 @@ class EditPlanViewModel: PlanFormViewModel {
                                status: status,
                                creationDate: creationDate,
                                modificationDate: Date(),
-                               upvotedUserIds: upvotedUserIds,
                                additionalInfo: additionalInfo,
                                ownerUserId: ownerUserId)
 

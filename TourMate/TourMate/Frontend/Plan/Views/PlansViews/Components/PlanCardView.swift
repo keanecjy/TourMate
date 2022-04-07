@@ -10,9 +10,11 @@ import SwiftUI
 struct PlanCardView: View {
 
     @StateObject var viewModel: PlanViewModel
+    let planUpvoteViewModel: PlanUpvoteViewModel
 
     init(viewModel: PlanViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
+        self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planViewModel: viewModel)
     }
 
     var body: some View {
@@ -34,7 +36,7 @@ struct PlanCardView: View {
 
             VStack {
                 Spacer()
-                UpvotePlanView(viewModel: viewModel, displayName: false)
+                UpvotePlanView(viewModel: planUpvoteViewModel, displayName: false)
                     .frame(maxWidth: UIScreen.screenWidth / 3)
                 Spacer()
 
