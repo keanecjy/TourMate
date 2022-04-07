@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ConfirmedToggle: View {
     @Binding var status: PlanStatus
+    let canChangeStatus: Bool
 
     var body: some View {
         Toggle("Confirmed?", isOn: Binding<Bool>(
@@ -21,6 +22,7 @@ struct ConfirmedToggle: View {
                 }
             })
         )
+        .allowsHitTesting(canChangeStatus)
     }
 }
 

@@ -13,9 +13,10 @@ class EditPlanViewModel: PlanFormViewModel {
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
 
-    @Published var plan: Plan
+    private(set) var canDeletePlan = false
 
-    private var planService: PlanService
+    private let plan: Plan
+    private let planService: PlanService
     private let userService: UserService
 
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
@@ -27,6 +28,25 @@ class EditPlanViewModel: PlanFormViewModel {
         self.userService = userService
 
         super.init(lowerBoundDate: lowerBoundDate.date, upperBoundDate: upperBoundDate.date, plan: plan)
+
+        updatePermissions()
+    }
+
+    private func updatePermissions() {
+        Task {
+            let (currentUser, _) = await userService.getCurrentUser()
+            if let currentUser = currentUser,
+               currentUser.id == plan.ownerUserId {
+                setSpecialPermissions(true)
+            } else {
+                setSpecialPermissions(false)
+            }
+        }
+    }
+
+    private func setSpecialPermissions(_ allowed: Bool) {
+        canDeletePlan = allowed
+        canChangeStatus = allowed
     }
 
     func updatePlan() async {
@@ -44,6 +64,7 @@ class EditPlanViewModel: PlanFormViewModel {
         let creationDate = plan.creationDate
         let upvotedUserIds = plan.upvotedUserIds
         let additionalInfo = planAdditionalInfo
+        let ownerUserId = plan.ownerUserId
 
         let updatedPlan = Plan(id: id,
                                tripId: tripId,
@@ -57,7 +78,8 @@ class EditPlanViewModel: PlanFormViewModel {
                                creationDate: creationDate,
                                modificationDate: Date(),
                                upvotedUserIds: upvotedUserIds,
-                               additionalInfo: additionalInfo)
+                               additionalInfo: additionalInfo,
+                               ownerUserId: ownerUserId)
 
         let (hasUpdatedPlan, errorMessage) = await planService.updatePlan(plan: updatedPlan)
 
@@ -82,7 +104,7 @@ class EditPlanViewModel: PlanFormViewModel {
     }
 }
 
-// MARK: - Helper Methods
+// MARK: - State changes
 extension EditPlanViewModel {
     private func handleError() {
         self.hasError = true

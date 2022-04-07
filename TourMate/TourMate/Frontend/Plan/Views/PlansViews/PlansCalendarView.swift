@@ -27,7 +27,7 @@ struct PlansCalendarView: View {
             HStack {
                 Picker("Date", selection: $selectedDate) {
                     ForEach(viewModel.days, id: \.date) { day in
-                        PlanHeaderView(date: day.date, timeZone: Calendar.current.timeZone)
+                        PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
                     }
                 }
                 .pickerStyle(.menu)

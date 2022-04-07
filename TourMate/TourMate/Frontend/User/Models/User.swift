@@ -12,6 +12,10 @@ struct User: CustomStringConvertible {
     let name: String
     let email: String
     let imageUrl: String
+
+    static func defaultUser() -> User {
+        User(id: "0", name: "Empty", email: "", imageUrl: "")
+    }
 }
 
 // MARK: - CustomStringConvertible

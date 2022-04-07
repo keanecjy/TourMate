@@ -63,12 +63,6 @@ struct CommentTextView: View {
                             await viewModel.upvoteComment(comment: comment)
                         }
                     } label: {
-                        Text("Like")
-                            .foregroundColor(.blue)
-                            .padding([.vertical], 4.0)
-                    }
-
-                    if !comment.upvotedUserIds.isEmpty {
                         HStack {
                             Image(systemName: upvoteImageName)
                                 .foregroundColor(.blue)

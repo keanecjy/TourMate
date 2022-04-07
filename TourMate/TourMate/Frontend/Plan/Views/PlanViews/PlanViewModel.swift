@@ -19,11 +19,33 @@ class PlanViewModel: ObservableObject {
     @Published private(set) var userHasUpvotedPlan = false
     @Published private(set) var upvotedUsers: [User] = []
 
+    @Published private(set) var planOwner = User.defaultUser()
+
     let lowerBoundDate: DateTime
     let upperBoundDate: DateTime
 
+    var creationDateDisplay: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
+        dateFormatter.timeZone = plan.startDateTime.timeZone
+        return dateFormatter.string(from: plan.creationDate)
+    }
+
     private let userService: UserService
     private var planService: PlanService
+
+    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
+         planService: PlanService = FirebasePlanService(),
+         userService: UserService = FirebaseUserService()) {
+
+        self.plan = plan
+        self.lowerBoundDate = lowerBoundDate
+        self.upperBoundDate = upperBoundDate
+        self.planService = planService
+        self.userService = userService
+        updatePlanOwner()
+    }
 
     var shortDurationDescription: String {
         var description = ""
@@ -40,15 +62,13 @@ class PlanViewModel: ObservableObject {
         return description
     }
 
-    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
-         planService: PlanService = FirebasePlanService(),
-         userService: UserService = FirebaseUserService()) {
-
-        self.plan = plan
-        self.lowerBoundDate = lowerBoundDate
-        self.upperBoundDate = upperBoundDate
-        self.planService = planService
-        self.userService = userService
+    func updatePlanOwner() {
+        Task {
+            let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
+            if let user = user {
+                planOwner = user
+            }
+        }
     }
 
     func fetchPlanAndListen() async {
@@ -107,8 +127,6 @@ class PlanViewModel: ObservableObject {
         self.plan = plan
         self.upvotedUsers = await fetchUpvotedUsers()
 
-        print("[PlanViewModel] Upvoted users: \(upvotedUsers)")
-
         let (currentUser, _) = await userService.getCurrentUser()
         self.userHasUpvotedPlan = self.upvotedUsers.contains(where: { $0.id == currentUser?.id })
     }
@@ -120,7 +138,7 @@ class PlanViewModel: ObservableObject {
             let (user, userErrorMessage) = await userService.getUser(withUserId: userId)
 
             if !userErrorMessage.isEmpty {
-                print("[PlanViewModel] Error fetching user")
+                print("[PlanViewModel] Error fetching user: \(userErrorMessage)")
                 continue
             }
 
