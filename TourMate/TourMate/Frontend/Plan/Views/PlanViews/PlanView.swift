@@ -28,18 +28,20 @@ struct PlanView: View {
             VStack(alignment: .leading, spacing: 30.0) {
                 // TODO: Show image
 
-                PlanHeaderView(planName: planViewModel.plan.name,
-                               planStatus: planViewModel.plan.status,
+                PlanHeaderView(planName: planViewModel.nameDisplay,
+                               planStatus: planViewModel.statusDisplay,
                                planOwner: planViewModel.planOwner,
                                creationDateDisplay: planViewModel.creationDateDisplay)
 
                 UpvotePlanView(viewModel: planViewModel)
 
-                TimingView(startDate: planViewModel.plan.startDateTime, endDate: planViewModel.plan.endDateTime)
+                TimingView(startDate: planViewModel.startDateTimeDisplay,
+                           endDate: planViewModel.endDateTimeDisplay)
 
-                LocationView(startLocation: planViewModel.plan.startLocation, endLocation: planViewModel.plan.endLocation)
+                LocationView(startLocation: planViewModel.startLocationDisplay,
+                             endLocation: planViewModel.endLocationDisplay)
 
-                InfoView(additionalInfo: planViewModel.plan.additionalInfo)
+                InfoView(additionalInfo: planViewModel.additionalInfoDisplay)
 
                 CommentsView(viewModel: commentsViewModel)
 

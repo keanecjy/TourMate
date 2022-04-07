@@ -37,9 +37,9 @@ struct ViewModelFactory {
 
     // Plans
     static func getPlansViewModel(tripViewModel: TripViewModel) -> PlansViewModel {
-        let tripId = tripViewModel.trip.id
-        let tripStartDateTime = tripViewModel.trip.startDateTime
-        let tripEndDateTime = tripViewModel.trip.endDateTime
+        let tripId = tripViewModel.tripId
+        let tripStartDateTime = tripViewModel.startDateTime
+        let tripEndDateTime = tripViewModel.endDateTime
 
         return PlansViewModel(tripId: tripId,
                               tripStartDateTime: tripStartDateTime,
@@ -57,8 +57,8 @@ struct ViewModelFactory {
     }
 
     static func getPlanViewModel(plan: Plan, tripViewModel: TripViewModel) -> PlanViewModel {
-        let lowerBoundDate = tripViewModel.trip.startDateTime
-        let upperBoundDate = tripViewModel.trip.endDateTime
+        let lowerBoundDate = tripViewModel.startDateTime
+        let upperBoundDate = tripViewModel.endDateTime
 
         return PlanViewModel(plan: plan,
                              lowerBoundDate: lowerBoundDate,
@@ -83,6 +83,6 @@ struct ViewModelFactory {
 
     // Comments
     static func getCommentsViewModel(planViewModel: PlanViewModel) -> CommentsViewModel {
-        CommentsViewModel(planId: planViewModel.plan.id)
+        CommentsViewModel(planId: planViewModel.planId)
     }
 }

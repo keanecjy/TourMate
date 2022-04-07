@@ -24,14 +24,6 @@ class PlanViewModel: ObservableObject {
     let lowerBoundDate: DateTime
     let upperBoundDate: DateTime
 
-    var creationDateDisplay: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        dateFormatter.timeZone = plan.startDateTime.timeZone
-        return dateFormatter.string(from: plan.creationDate)
-    }
-
     private let userService: UserService
     private var planService: PlanService
 
@@ -47,7 +39,15 @@ class PlanViewModel: ObservableObject {
         updatePlanOwner()
     }
 
-    var shortDurationDescription: String {
+    var creationDateDisplay: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
+        dateFormatter.timeZone = plan.startDateTime.timeZone
+        return dateFormatter.string(from: plan.creationDate)
+    }
+
+    var shortDurationDescriptionDisplay: String {
         var description = ""
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .short
@@ -60,6 +60,38 @@ class PlanViewModel: ObservableObject {
         description += dateFormatter.string(from: plan.endDateTime.date)
 
         return description
+    }
+    
+    var planId: String {
+        plan.id
+    }
+
+    var nameDisplay: String {
+        plan.name
+    }
+
+    var statusDisplay: PlanStatus {
+        plan.status
+    }
+
+    var startDateTimeDisplay: DateTime {
+        plan.startDateTime
+    }
+
+    var endDateTimeDisplay: DateTime {
+        plan.endDateTime
+    }
+
+    var startLocationDisplay: Location? {
+        plan.startLocation
+    }
+
+    var endLocationDisplay: Location? {
+        plan.endLocation
+    }
+
+    var additionalInfoDisplay: String {
+        plan.additionalInfo
     }
 
     func updatePlanOwner() {

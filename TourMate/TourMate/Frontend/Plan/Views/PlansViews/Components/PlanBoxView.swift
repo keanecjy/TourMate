@@ -17,13 +17,13 @@ struct PlanBoxView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 0) {
-                Text(viewModel.shortDurationDescription)
+                Text(viewModel.shortDurationDescriptionDisplay)
                     .font(.caption)
 
-                PlanStatusView(status: viewModel.plan.status)
+                PlanStatusView(status: viewModel.statusDisplay)
                     .padding([.horizontal])
             }
-            Text(viewModel.plan.name)
+            Text(viewModel.nameDisplay)
                 .font(.headline)
             UpvotePlanView(viewModel: viewModel, displayName: false)
         }
