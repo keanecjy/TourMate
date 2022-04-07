@@ -81,7 +81,6 @@ disabled_rules:
   - unavailable_function
   - closure_body_length # for e.g. SwiftUI Nesting
   - empty_xctest_method
-  - line_length
 
 line_length:
   warning: 120
