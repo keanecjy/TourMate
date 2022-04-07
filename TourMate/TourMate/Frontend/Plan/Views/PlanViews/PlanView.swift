@@ -28,18 +28,9 @@ struct PlanView: View {
             VStack(alignment: .leading, spacing: 30.0) {
                 // TODO: Show image
 
-                HStack(spacing: 10.0) {
-                    Text(planViewModel.plan.name)
-                        .font(.largeTitle)
-                        .bold()
-
-                    Spacer()
-
-                    PlanStatusView(status: planViewModel.plan.status)
-
-                    UserIconView(imageUrl: planViewModel.planOwner.imageUrl,
-                                 name: planViewModel.planOwner.name, displayName: false)
-                }
+                PlanHeaderView(planName: planViewModel.plan.name,
+                               planStatus: planViewModel.plan.status,
+                               planOwner: planViewModel.planOwner)
 
                 UpvotePlanView(viewModel: planViewModel)
 
