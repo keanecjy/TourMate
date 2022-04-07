@@ -24,6 +24,14 @@ class PlanViewModel: ObservableObject {
     let lowerBoundDate: DateTime
     let upperBoundDate: DateTime
 
+    var creationDateDisplay: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
+        dateFormatter.timeZone = plan.startDateTime.timeZone
+        return dateFormatter.string(from: plan.creationDate)
+    }
+
     private let userService: UserService
     private var planService: PlanService
 

@@ -32,7 +32,7 @@ struct TimingView: View {
             // the date time doesn't show upon exit screen -> re-enter screen if it is not initialised again
             dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .long
-            dateFormatter.timeStyle = .long
+            dateFormatter.timeStyle = .short
             dateFormatter.timeZone = startDate.timeZone // By default we take the start time zone
         }
     }

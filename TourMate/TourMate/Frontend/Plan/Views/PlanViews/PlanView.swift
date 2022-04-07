@@ -30,7 +30,8 @@ struct PlanView: View {
 
                 PlanHeaderView(planName: planViewModel.plan.name,
                                planStatus: planViewModel.plan.status,
-                               planOwner: planViewModel.planOwner)
+                               planOwner: planViewModel.planOwner,
+                               creationDateDisplay: planViewModel.creationDateDisplay)
 
                 UpvotePlanView(viewModel: planViewModel)
 

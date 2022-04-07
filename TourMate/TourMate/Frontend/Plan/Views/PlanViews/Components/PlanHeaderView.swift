@@ -12,6 +12,7 @@ struct PlanHeaderView: View {
     let planName: String
     let planStatus: PlanStatus
     let planOwner: User
+    let creationDateDisplay: String
 
     var body: some View {
         HStack(spacing: 10.0) {
@@ -19,11 +20,15 @@ struct PlanHeaderView: View {
                 .font(.largeTitle)
                 .bold()
 
-            Spacer()
-
             PlanStatusView(status: planStatus)
 
-            UserIconView(imageUrl: planOwner.imageUrl, name: planOwner.name, displayName: false)
+            Spacer()
+
+            VStack(alignment: .leading, spacing: 5.0) {
+                Text("Created by: \(planOwner.name)")
+
+                Text("Creation date: \(creationDateDisplay)")
+            }
         }
     }
 }
