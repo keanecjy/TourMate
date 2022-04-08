@@ -25,7 +25,7 @@ struct PlansListView: View {
                     PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
-                        PlanCardView(viewModel: ViewModelFactory.getPlanViewModel(plan: plan, plansViewModel: viewModel))
+                        PlanCardView(viewModel: ViewModelFactory.getPlanViewModel(plan: plan, plansViewModel: viewModel), date: day.date)
                             .onTapGesture(perform: {
                                 if let onSelected = onSelected {
                                     onSelected(plan)

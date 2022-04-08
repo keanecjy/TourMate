@@ -40,6 +40,7 @@ struct PlansCalendarView: View {
             .padding()
 
             PlansDayView(viewModel: viewModel,
+                         date: selectedDate,
                          plans: getPlans(for: selectedDate),
                          onSelected: onSelected)
             .padding()
