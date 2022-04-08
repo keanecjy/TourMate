@@ -12,7 +12,7 @@ struct Trip: CustomStringConvertible {
     var name: String
     var startDateTime: DateTime
     var endDateTime: DateTime
-    var imageUrl: String?
+    var imageUrl: String
     var attendeesUserIds: [String]
     var invitedUserIds: [String]
     let creationDate: Date
@@ -32,14 +32,14 @@ struct Trip: CustomStringConvertible {
         return startDateString + " - " + endDateString
     }
 
-    internal init(id: String, name: String,
-                  startDateTime: DateTime,
-                  endDateTime: DateTime,
-                  imageUrl: String?,
-                  attendeesUserIds: [String],
-                  invitedUserIds: [String],
-                  creationDate: Date,
-                  modificationDate: Date) {
+    init(id: String, name: String,
+         startDateTime: DateTime,
+         endDateTime: DateTime,
+         imageUrl: String,
+         attendeesUserIds: [String],
+         invitedUserIds: [String],
+         creationDate: Date,
+         modificationDate: Date) {
         self.id = id
         self.name = name
         self.startDateTime = startDateTime
@@ -55,7 +55,7 @@ struct Trip: CustomStringConvertible {
     init(id: String, name: String,
          startDateTime: DateTime,
          endDateTime: DateTime,
-         imageUrl: String?,
+         imageUrl: String,
          creatorUserId: String) {
         self.id = id
         self.name = name
