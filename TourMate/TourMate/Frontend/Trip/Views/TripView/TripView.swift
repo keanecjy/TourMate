@@ -41,8 +41,7 @@ struct TripView: View {
 
                         TripImage(imageUrl: viewModel.imageUrlDisplay)
 
-                        PlansView(plansViewModel: ViewModelFactory.getPlansViewModel(tripViewModel: viewModel))
-                        { plan in
+                        PlansView(plansViewModel: ViewModelFactory.getPlansViewModel(tripViewModel: viewModel)) { plan in
                             selectedPlan = plan
                         }
 
