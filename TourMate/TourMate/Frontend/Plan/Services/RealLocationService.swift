@@ -8,13 +8,9 @@
 import Foundation
 
 struct RealLocationService: LocationService {
-    private let locationWebRepository: LocationWebRepository
+    private let locationWebRepository = RealLocationWebRepository(baseURL: ApiConfig.geoapifyBaseUrl)
 
     private let locationAdapter = LocationAdapter()
-
-    init(locationWebRepository: LocationWebRepository) {
-        self.locationWebRepository = locationWebRepository
-    }
 
     func fetchLocations(query: String) async -> ([Location], String) {
         print("[LocationService] Fetching Locations")

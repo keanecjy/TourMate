@@ -8,6 +8,9 @@
 import Foundation
 
 class MockPlanService: PlanService {
+    required init() {
+
+    }
 
     static let creationDate = Date(timeIntervalSince1970: 1_651_400_000)
 

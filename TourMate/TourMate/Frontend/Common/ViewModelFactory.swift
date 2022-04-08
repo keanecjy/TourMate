@@ -17,31 +17,29 @@ struct ViewModelFactory {
     @Injected(\.planUpvoteService) var planUpvoteService: PlanUpvoteService
     @Injected(\.locationService) var locationService: LocationService
 
-    @Injected(\.tripRepository) var tripRepository: Repository
-
     // Trips
     func getTripsViewModel() -> TripsViewModel {
-        TripsViewModel(tripService: tripService)
+        TripsViewModel(tripService: tripService.copy())
     }
 
     // Trip
     func getTripViewModel(trip: Trip) -> TripViewModel {
-        TripViewModel(trip: trip, tripService: tripService, userService: userService)
+        TripViewModel(trip: trip, tripService: tripService.copy(), userService: userService)
     }
 
     func copyTripViewModel(tripViewModel: TripViewModel) -> TripViewModel {
-        TripViewModel(trip: tripViewModel.trip, tripService: tripService, userService: userService)
+        TripViewModel(trip: tripViewModel.trip, tripService: tripService.copy(), userService: userService)
     }
 
     // Add Trip
     func getAddTripViewModel() -> AddTripViewModel {
-        AddTripViewModel(tripService: tripService, userService: userService)
+        AddTripViewModel(tripService: tripService.copy(), userService: userService)
     }
 
     // Edit Trip
     func getEditTripViewModel(tripViewModel: TripViewModel) -> EditTripViewModel {
         let trip = tripViewModel.trip
-        return EditTripViewModel(trip: trip, tripService: tripService, userService: userService)
+        return EditTripViewModel(trip: trip, tripService: tripService.copy(), userService: userService)
     }
 
     // Plans
@@ -53,7 +51,7 @@ struct ViewModelFactory {
         return PlansViewModel(tripId: tripId,
                               tripStartDateTime: tripStartDateTime,
                               tripEndDateTime: tripEndDateTime,
-                              planService: planService)
+                              planService: planService.copy())
     }
 
     // Plan
@@ -64,12 +62,12 @@ struct ViewModelFactory {
         return PlanViewModel(plan: plan,
                              lowerBoundDate: lowerBoundDate,
                              upperBoundDate: upperBoundDate,
-                             planService: planService, userService: userService)
+                             planService: planService.copy(), userService: userService)
     }
 
     // Add Plan
     func getAddPlanViewModel(tripViewModel: TripViewModel) -> AddPlanViewModel {
-        AddPlanViewModel(trip: tripViewModel.trip, planService: planService, userService: userService)
+        AddPlanViewModel(trip: tripViewModel.trip, planService: planService.copy(), userService: userService)
     }
 
     // Edit Plan
@@ -81,7 +79,7 @@ struct ViewModelFactory {
         return EditPlanViewModel(plan: plan,
                                  lowerBoundDate: lowerBoundDate,
                                  upperBoundDate: upperBoundDate,
-                                 planService: planService, userService: userService)
+                                 planService: planService.copy(), userService: userService)
     }
 
     // PlanView - PlanUpvotes
@@ -96,7 +94,7 @@ struct ViewModelFactory {
 
     // Comments
     func getCommentsViewModel(planViewModel: PlanViewModel) -> CommentsViewModel {
-        CommentsViewModel(planId: planViewModel.planId, commentService: commentService, userService: userService)
+        CommentsViewModel(planId: planViewModel.planId, commentService: commentService.copy(), userService: userService)
     }
 
     func getSearchViewModel() -> SearchViewModel {

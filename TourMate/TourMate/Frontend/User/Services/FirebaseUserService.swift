@@ -9,13 +9,9 @@ import Foundation
 import FirebaseAuth
 
 struct FirebaseUserService: UserService {
-    private let userRepository: Repository
+    private let userRepository = FirebaseRepository(collectionId: FirebaseConfig.userCollectionId)
 
     private let userAdapter = UserAdapter()
-
-    init(userRepository: Repository) {
-        self.userRepository = userRepository
-    }
 
     func addUser(_ user: User) async -> (Bool, String) {
         guard let currentUser = Auth.auth().currentUser,

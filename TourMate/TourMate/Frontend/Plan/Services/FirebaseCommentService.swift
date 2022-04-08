@@ -8,6 +8,9 @@
 import Foundation
 
 class FirebaseCommentService: CommentService {
+    required init() {
+
+    }
 
     private let commentRepository = FirebaseRepository(collectionId: FirebaseConfig.commentCollectionId)
 

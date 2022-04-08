@@ -8,6 +8,10 @@
 import FirebaseAuth
 
 class FirebasePlanService: PlanService {
+    required init() {
+
+    }
+
     private let planRepository = FirebaseRepository(collectionId: FirebaseConfig.planCollectionId)
 
     private let planAdapter = PlanAdapter()

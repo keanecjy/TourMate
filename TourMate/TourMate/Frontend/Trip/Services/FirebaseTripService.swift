@@ -8,15 +8,15 @@
 import FirebaseAuth
 
 class FirebaseTripService: TripService {
-    private var tripRepository: Repository
+    required init() {
+
+    }
+
+    private let tripRepository = FirebaseRepository(collectionId: FirebaseConfig.tripCollectionId)
 
     private let tripAdapter = TripAdapter()
 
     weak var tripEventDelegate: TripEventDelegate?
-
-    init(tripRepository: Repository) {
-        self.tripRepository = tripRepository
-    }
 
     func addTrip(trip: Trip) async -> (Bool, String) {
         print("[FirebaseTripService] Adding trip")
