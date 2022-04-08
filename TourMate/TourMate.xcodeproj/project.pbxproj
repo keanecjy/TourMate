@@ -84,6 +84,10 @@
 		4CDE841C27EF12C7001F58C5 /* FirebaseEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE841B27EF12C7001F58C5 /* FirebaseEventDelegate.swift */; };
 		4CE02B8B27EAE93900480D73 /* TripAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE02B8A27EAE93900480D73 /* TripAdapter.swift */; };
 		4CE02B8D27EAE9CD00480D73 /* UserAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE02B8C27EAE9CD00480D73 /* UserAdapter.swift */; };
+		4CEC5CBB27FFEA6C007CEF2A /* InjectedValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CBA27FFEA6C007CEF2A /* InjectedValues.swift */; };
+		4CEC5CBE27FFEA8D007CEF2A /* InjectedKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CBD27FFEA8D007CEF2A /* InjectedKey.swift */; };
+		4CEC5CC027FFEA98007CEF2A /* Injected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CBF27FFEA98007CEF2A /* Injected.swift */; };
+		4CEC5CC227FFEB87007CEF2A /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CC127FFEB87007CEF2A /* AppConfig.swift */; };
 		953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E627E5BFBF000DF0C2 /* TripsView.swift */; };
 		953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E827E5BFC7000DF0C2 /* TripCard.swift */; };
 		953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570EA27E5BFD1000DF0C2 /* AddTripView.swift */; };
@@ -245,6 +249,10 @@
 		4CDE841B27EF12C7001F58C5 /* FirebaseEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEventDelegate.swift; sourceTree = "<group>"; };
 		4CE02B8A27EAE93900480D73 /* TripAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdapter.swift; sourceTree = "<group>"; };
 		4CE02B8C27EAE9CD00480D73 /* UserAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAdapter.swift; sourceTree = "<group>"; };
+		4CEC5CBA27FFEA6C007CEF2A /* InjectedValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedValues.swift; sourceTree = "<group>"; };
+		4CEC5CBD27FFEA8D007CEF2A /* InjectedKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedKey.swift; sourceTree = "<group>"; };
+		4CEC5CBF27FFEA98007CEF2A /* Injected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injected.swift; sourceTree = "<group>"; };
+		4CEC5CC127FFEB87007CEF2A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0AD6F3D818D6A89B4B41BF /* Pods-TourMate-TourMateUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.release.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.release.xcconfig"; sourceTree = "<group>"; };
 		953570E627E5BFBF000DF0C2 /* TripsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
@@ -509,6 +517,7 @@
 		4C2275D527EAC24700A59FD1 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				4CEC5CB927FFEA5E007CEF2A /* Config */,
 				B9B6B3E727F46BC900B0F5F4 /* Network */,
 				4C2275DC27EAC3C100A59FD1 /* Authentication */,
 				4C2275DB27EAC3B800A59FD1 /* Persistence */,
@@ -905,6 +914,17 @@
 				00F83BBF27DC528F003A28AA /* FirebaseAuthenticationManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		4CEC5CB927FFEA5E007CEF2A /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				4CEC5CBA27FFEA6C007CEF2A /* InjectedValues.swift */,
+				4CEC5CBD27FFEA8D007CEF2A /* InjectedKey.swift */,
+				4CEC5CBF27FFEA98007CEF2A /* Injected.swift */,
+				4CEC5CC127FFEB87007CEF2A /* AppConfig.swift */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		9538546127E449E500AFDED8 /* AddTripView */ = {
@@ -1464,6 +1484,7 @@
 				95779BD927E769FD001FF602 /* UserService.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserService.swift in Sources */,
+				4CEC5CC027FFEA98007CEF2A /* Injected.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
 				953570ED27E5BFDE000DF0C2 /* TripView.swift in Sources */,
 				4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */,
@@ -1475,9 +1496,11 @@
 				95DEA1E827E6FCC500A74ED2 /* TripViewModel.swift in Sources */,
 				0066355D27F6F30100166655 /* PlanFormView.swift in Sources */,
 				004ACDB627F83DC60015CDD8 /* ViewModelFactory.swift in Sources */,
+				4CEC5CC227FFEB87007CEF2A /* AppConfig.swift in Sources */,
 				B9AF3B5027EF6FD600A3C82E /* MapView.swift in Sources */,
 				B98910C127F858BA00476794 /* MapViewModel.swift in Sources */,
 				B9A04FAA27E4F584007D4303 /* AddPlanViewModel.swift in Sources */,
+				4CEC5CBE27FFEA8D007CEF2A /* InjectedKey.swift in Sources */,
 				95DEA1EB27E721EB00A74ED2 /* BindingNilCoalescing.swift in Sources */,
 				953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */,
 				00062B6C27F0901C00267960 /* EditCommentView.swift in Sources */,
@@ -1515,6 +1538,7 @@
 				B9A04FB027E5875A007D4303 /* PlanView.swift in Sources */,
 				B9A04FB027E5875A007D4303 /* PlanView.swift in Sources */,
 				00062B5627EF345A00267960 /* CommentsViewModel.swift in Sources */,
+				4CEC5CBB27FFEA6C007CEF2A /* InjectedValues.swift in Sources */,
 				00E2B19527E4C95400B5F449 /* LogInView.swift in Sources */,
 				4CB954EE27DE3FE1001410AD /* FirebaseAdaptedData.swift in Sources */,
 				0066356227F71E5900166655 /* EditPlanViewModel.swift in Sources */,
