@@ -7,7 +7,7 @@
 
 import FirebaseAuth
 
-class FirebasePlanService: PlanService {
+struct FirebasePlanService: PlanService {
     private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.planCollectionId)
 
     private let planAdapter = PlanAdapter()
@@ -23,15 +23,17 @@ class FirebasePlanService: PlanService {
     func fetchPlansAndListen(withTripId tripId: String) async {
         print("[FirebasePlanService] Fetching and listening to plans")
 
-        firebaseRepository.eventDelegate = self
-        await firebaseRepository.fetchItemsAndListen(field: "tripId", isEqualTo: tripId)
+        await firebaseRepository
+            .fetchItemsAndListen(field: "tripId", isEqualTo: tripId,
+                                 callback: { items, errorMessage in await self.update(items: items, errorMessage: errorMessage) })
     }
 
     func fetchPlanAndListen(withPlanId planId: String) async {
         print("[FirebasePlanService] Fetching and listening to plan")
 
-        firebaseRepository.eventDelegate = self
-        await firebaseRepository.fetchItemAndListen(id: planId)
+        await firebaseRepository
+            .fetchItemAndListen(id: planId,
+                                callback: { item, errorMessage in await self.update(item: item, errorMessage: errorMessage) })
     }
 
     func deletePlan(plan: Plan) async -> (Bool, String) {
@@ -47,14 +49,13 @@ class FirebasePlanService: PlanService {
     }
 
     func detachListener() {
-        firebaseRepository.eventDelegate = nil
         firebaseRepository.detachListener()
     }
 
 }
 
 // MARK: - FirebaseEventDelegate
-extension FirebasePlanService: FirebaseEventDelegate {
+extension FirebasePlanService {
     func update(items: [FirebaseAdaptedData], errorMessage: String) async {
         print("[FirebasePlanService] Updating plans")
 

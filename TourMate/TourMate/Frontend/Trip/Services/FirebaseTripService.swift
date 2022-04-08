@@ -29,15 +29,17 @@ class FirebaseTripService: TripService {
 
         print("[FirebaseTripService] Fetching and listening to trips")
 
-        firebaseRepository.eventDelegate = self
-        await firebaseRepository.fetchItemsAndListen(field: "attendeesUserIds", arrayContains: user.uid)
+        await firebaseRepository
+            .fetchItemsAndListen(field: "attendeesUserIds", arrayContains: user.uid,
+                                 callback: { items, errorMessage in await self.update(items: items, errorMessage: errorMessage) })
     }
 
     func fetchTripAndListen(withTripId tripId: String) async {
         print("[FirebaseTripService] Fetching and listening to single trip \(tripId)")
 
-        firebaseRepository.eventDelegate = self
-        await firebaseRepository.fetchItemAndListen(id: tripId)
+        await firebaseRepository
+            .fetchItemAndListen(id: tripId,
+                                callback: { item, errorMessage in await self.update(item: item, errorMessage: errorMessage) })
     }
 
     func deleteTrip(trip: Trip) async -> (Bool, String) {
@@ -54,7 +56,6 @@ class FirebaseTripService: TripService {
     }
 
     func detachListener() {
-        firebaseRepository.eventDelegate = nil
         firebaseRepository.detachListener()
     }
 }

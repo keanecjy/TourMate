@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FirebaseCommentService: CommentService {
+struct FirebaseCommentService: CommentService {
 
     private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.commentCollectionId)
 
@@ -18,8 +18,9 @@ class FirebaseCommentService: CommentService {
     func fetchCommentsAndListen(withPlanId planId: String) async {
         print("[FirebaseCommentService] Fetching and listening to comments")
 
-        firebaseRepository.eventDelegate = self
-        await firebaseRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId)
+        await firebaseRepository
+            .fetchItemsAndListen(field: "planId", isEqualTo: planId,
+                                 callback: { items, errorMessage in await self.update(items: items, errorMessage: errorMessage) })
     }
 
     func addComment(comment: Comment) async -> (Bool, String) {
@@ -35,13 +36,12 @@ class FirebaseCommentService: CommentService {
     }
 
     func detachListener() {
-        firebaseRepository.eventDelegate = nil
         firebaseRepository.detachListener()
     }
 }
 
 // MARK: - FirebaseEventDelegate
-extension FirebaseCommentService: FirebaseEventDelegate {
+extension FirebaseCommentService {
     func update(items: [FirebaseAdaptedData], errorMessage: String) async {
         print("[FirebaseCommentService] Updating Comments")
 

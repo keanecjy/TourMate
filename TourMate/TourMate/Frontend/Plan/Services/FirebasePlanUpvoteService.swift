@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FirebasePlanUpvoteService: PlanUpvoteService {
+struct FirebasePlanUpvoteService: PlanUpvoteService {
     private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.upvoteCollectionId)
 
     private let planUpvoteAdapter = PlanUpvoteAdapter()
@@ -17,12 +17,14 @@ class FirebasePlanUpvoteService: PlanUpvoteService {
     func fetchPlanUpvotesAndListen(withPlanId planId: String) async {
         print("[FirebasePlanUpvoteService] Fetching and listening to plan upvotes")
 
-        firebaseRepository.eventDelegate = self
-        await firebaseRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId)
+        await firebaseRepository
+            .fetchItemsAndListen(field: "planId", isEqualTo: planId,
+                                 callback: { items, errorMessage in await self.update(items: items, errorMessage: errorMessage) })
     }
 
     func addPlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {
-        await firebaseRepository.addItem(id: planUpvote.id, item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
+        await firebaseRepository.addItem(id: planUpvote.id,
+                                         item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
     }
 
     func deletePlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {
@@ -30,17 +32,17 @@ class FirebasePlanUpvoteService: PlanUpvoteService {
     }
 
     func updatePlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {
-        await firebaseRepository.updateItem(id: planUpvote.id, item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
+        await firebaseRepository.updateItem(id: planUpvote.id,
+                                            item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
     }
 
     func detachListener() {
-        firebaseRepository.eventDelegate = nil
         firebaseRepository.detachListener()
     }
 }
 
 // MARK: - FirebaseEventDelegate
-extension FirebasePlanUpvoteService: FirebaseEventDelegate {
+extension FirebasePlanUpvoteService {
     func update(items: [FirebaseAdaptedData], errorMessage: String) async {
         print("[FirebasePlanUpvoteService] Updating Plan upvotes")
 
