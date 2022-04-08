@@ -70,6 +70,12 @@ struct TripsView: View {
 
 struct TripsView_Previews: PreviewProvider {
     static var previews: some View {
-        TripsView(viewModel: TripsViewModel(tripService: MockTripService()))
+        TripsView(viewModel: TripsViewModel())
+            .onAppear {
+                InjectedValues[\.tripService] = MockTripService()
+            }
+            .onDisappear {
+                InjectedValues[\.tripService] = FirebaseTripService()
+            }
     }
 }

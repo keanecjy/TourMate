@@ -13,16 +13,8 @@ class AddTripViewModel: TripFormViewModel {
     @Published private(set) var isLoading = false
     @Published private(set) var hasError = false
 
-    let tripService: TripService
-    let userService: UserService
-
-    init(tripService: TripService = FirebaseTripService(),
-         userService: UserService = FirebaseUserService()) {
-        self.tripService = tripService
-        self.userService = userService
-
-        super.init()
-    }
+    @Injected(\.tripService) var tripService: TripService
+    @Injected(\.userService) var userService: UserService
 
     func addTrip() async {
         self.isLoading = true

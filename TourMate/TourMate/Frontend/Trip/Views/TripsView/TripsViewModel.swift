@@ -13,13 +13,13 @@ class TripsViewModel: ObservableObject {
     @Published private(set) var trips: [Trip]
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
-    private var tripService: TripService
 
-    init(tripService: TripService = FirebaseTripService()) {
+    @Injected(\.tripService) var tripService: TripService
+
+    init() {
         self.trips = []
         self.isLoading = false
         self.hasError = false
-        self.tripService = tripService
     }
 
     func fetchTripsAndListen() async {

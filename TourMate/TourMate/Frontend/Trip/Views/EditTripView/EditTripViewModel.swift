@@ -15,17 +15,11 @@ class EditTripViewModel: TripFormViewModel {
 
     private let trip: Trip
 
-    private let tripService: TripService
-    private let userService: UserService
+    @Injected(\.tripService) var tripService: TripService
+    @Injected(\.userService) var userService: UserService
 
-    init(trip: Trip,
-         tripService: TripService = FirebaseTripService(),
-         userService: UserService = FirebaseUserService()) {
-
+    override init(trip: Trip) {
         self.trip = trip
-
-        self.tripService = tripService
-        self.userService = userService
 
         super.init(trip: trip)
     }

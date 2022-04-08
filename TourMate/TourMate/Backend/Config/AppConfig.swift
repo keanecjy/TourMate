@@ -25,6 +25,10 @@ private struct PlanUpvoteServiceKey: InjectionKey {
     static var currentValue: PlanUpvoteService = FirebasePlanUpvoteService()
 }
 
+private struct LocationServiceKey: InjectionKey {
+    static var currentValue: LocationService = RealLocationService()
+}
+
 extension InjectedValues {
     var userService: UserService {
         get { Self[UserServiceKey.self] }
@@ -49,5 +53,10 @@ extension InjectedValues {
     var planUpvoteService: PlanUpvoteService {
         get { Self[PlanUpvoteServiceKey.self] }
         set { Self[PlanUpvoteServiceKey.self] = newValue }
+    }
+
+    var locationService: LocationService {
+        get { Self[LocationServiceKey.self] }
+        set { Self[LocationServiceKey.self] = newValue }
     }
 }

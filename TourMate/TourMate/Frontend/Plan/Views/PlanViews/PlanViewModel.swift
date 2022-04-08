@@ -21,17 +21,13 @@ class PlanViewModel: ObservableObject {
     let lowerBoundDate: DateTime
     let upperBoundDate: DateTime
 
-    private let userService: UserService
-    private var planService: PlanService
+    @Injected(\.planService) var planService: PlanService
+    @Injected(\.userService) var userService: UserService
 
-    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
-         planService: PlanService = FirebasePlanService(),
-         userService: UserService = FirebaseUserService()) {
+    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime) {
         self.plan = plan
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
-        self.planService = planService
-        self.userService = userService
     }
 
     var creationDateDisplay: String {

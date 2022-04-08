@@ -16,16 +16,12 @@ class EditPlanViewModel: PlanFormViewModel {
     private(set) var canDeletePlan = false
 
     private let plan: Plan
-    private let planService: PlanService
-    private let userService: UserService
 
-    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
-         planService: PlanService = FirebasePlanService(),
-         userService: UserService = FirebaseUserService()) {
+    @Injected(\.planService) var planService: PlanService
+    @Injected(\.userService) var userService: UserService
 
+    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime) {
         self.plan = plan
-        self.planService = planService
-        self.userService = userService
 
         super.init(lowerBoundDate: lowerBoundDate.date, upperBoundDate: upperBoundDate.date, plan: plan)
 

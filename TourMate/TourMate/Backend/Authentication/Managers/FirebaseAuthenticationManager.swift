@@ -13,6 +13,8 @@ import GoogleSignIn
 // https://peterfriese.dev/posts/firebase-async-calls-swift/
 struct FirebaseAuthenticationManager: AuthenticationManager {
 
+    @Injected(\.userService) var userService: UserService
+
     func checkIfUserIsLoggedIn() -> Bool {
         Auth.auth().currentUser != nil
     }
@@ -90,7 +92,7 @@ struct FirebaseAuthenticationManager: AuthenticationManager {
                     let newUser = User(id: user.uid, name: name, email: email, imageUrl: imageUrl)
 
                     Task {
-                        let (success, errorMessage) = await FirebaseUserService().addUser(newUser)
+                        let (success, errorMessage) = await userService.addUser(newUser)
 
                         if !success {
                             print("[FirebaseAuthenticationManager] User creation failed: \(errorMessage)")

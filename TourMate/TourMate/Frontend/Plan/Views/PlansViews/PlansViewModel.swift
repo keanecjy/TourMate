@@ -13,7 +13,7 @@ class PlansViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
-    private var planService: PlanService
+    @Injected(\.planService) var planService: PlanService
 
     // Information needed by Plans
     let tripId: String
@@ -51,14 +51,11 @@ class PlansViewModel: ObservableObject {
 
     init(tripId: String,
          tripStartDateTime: DateTime,
-         tripEndDateTime: DateTime,
-         planService: PlanService = FirebasePlanService()) {
+         tripEndDateTime: DateTime) {
 
         self.plans = []
         self.isLoading = false
         self.hasError = false
-
-        self.planService = planService
 
         self.tripId = tripId
         self.tripStartDateTime = tripStartDateTime
