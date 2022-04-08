@@ -81,36 +81,6 @@ class PlanViewModel: ObservableObject {
         }
     }
 
-    func getShortDurationDescription(date: Date) -> String {
-            let dateFormatter = DateFormatter()
-            dateFormatter.timeStyle = .short
-
-            let startDateComponents = Calendar
-                .current
-                .dateComponents(in: plan.startDateTime.timeZone, from: plan.startDateTime.date)
-            let startDate = Calendar.current.date(from: DateComponents(year: startDateComponents.year,
-                                                                       month: startDateComponents.month,
-                                                                       day: startDateComponents.day))!
-            let endDateComponents = Calendar
-                .current
-                .dateComponents(in: plan.endDateTime.timeZone, from: plan.endDateTime.date)
-            let endDate = Calendar.current.date(from: DateComponents(year: endDateComponents.year,
-                                                                     month: endDateComponents.month,
-                                                                     day: endDateComponents.day))!
-            var start = dateFormatter.string(from: date)
-            var end = dateFormatter.string(from: date)
-            if startDate == date {
-                dateFormatter.timeZone = plan.startDateTime.timeZone
-                start = dateFormatter.string(from: plan.startDateTime.date)
-            }
-            if endDate == date {
-                dateFormatter.timeZone = plan.endDateTime.timeZone
-                end = dateFormatter.string(from: plan.endDateTime.date)
-            }
-
-            return "\(start) - \(end)"
-        }
-
     func fetchPlanAndListen() async {
         planService.planEventDelegate = self
 

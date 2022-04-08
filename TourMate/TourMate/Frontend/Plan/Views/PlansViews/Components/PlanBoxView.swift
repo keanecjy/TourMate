@@ -18,7 +18,7 @@ struct PlanBoxView: View {
 
     init(planUpvoteViewModel: PlanUpvoteViewModel, planName: String,
          planStatus: PlanStatus, startDateTime: DateTime, endDateTime: DateTime,
-         date: date) {
+         date: Date) {
         self.planUpvoteViewModel = planUpvoteViewModel
         self.planName = planName
         self.planStatus = planStatus
@@ -30,8 +30,7 @@ struct PlanBoxView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 0) {
-            // TO Use date
-                Text(DateUtil.shortDurationDesc(from: startDateTime, to: endDateTime))
+                Text(DateUtil.shortDurationDesc(from: startDateTime, to: endDateTime, on: date))
                     .font(.caption)
 
                 PlanStatusView(status: planStatus)

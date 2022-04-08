@@ -7,19 +7,37 @@
 
 import Foundation
 
-struct DateUtil {
-    static func shortDurationDesc(from startDateTime: DateTime, to endDateTime: DateTime) -> String {
-        var description = ""
+final class DateUtil {
+    private init() {}
+
+    static func shortDurationDesc(from startDateTime: DateTime, to endDateTime: DateTime,
+                                  on date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .short
-        dateFormatter.timeZone = startDateTime.timeZone
-        description += dateFormatter.string(from: startDateTime.date)
 
-        description += " - "
+        let startDateComponents = Calendar
+            .current
+            .dateComponents(in: startDateTime.timeZone, from: startDateTime.date)
+        let startDate = Calendar.current.date(from: DateComponents(year: startDateComponents.year,
+                                                                   month: startDateComponents.month,
+                                                                   day: startDateComponents.day))!
+        let endDateComponents = Calendar
+            .current
+            .dateComponents(in: endDateTime.timeZone, from: endDateTime.date)
+        let endDate = Calendar.current.date(from: DateComponents(year: endDateComponents.year,
+                                                                 month: endDateComponents.month,
+                                                                 day: endDateComponents.day))!
+        var start = dateFormatter.string(from: date)
+        var end = dateFormatter.string(from: date)
+        if startDate == date {
+            dateFormatter.timeZone = startDateTime.timeZone
+            start = dateFormatter.string(from: startDateTime.date)
+        }
+        if endDate == date {
+            dateFormatter.timeZone = endDateTime.timeZone
+            end = dateFormatter.string(from: endDateTime.date)
+        }
 
-        dateFormatter.timeZone = endDateTime.timeZone
-        description += dateFormatter.string(from: endDateTime.date)
-
-        return description
+        return "\(start) - \(end)"
     }
 }
