@@ -79,6 +79,7 @@
 		4CCBBD1B27DE651F00F9C250 /* FirebasePlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD1A27DE651F00F9C250 /* FirebasePlanService.swift */; };
 		4CCBBD1F27DE67B400F9C250 /* PlanStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD1E27DE67B400F9C250 /* PlanStatus.swift */; };
 		4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBBD2227DE687A00F9C250 /* Comment.swift */; };
+		4CD10A7827FF3A310060C5AC /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD10A7727FF3A310060C5AC /* DateUtil.swift */; };
 		4CDE841927EF0E54001F58C5 /* TripEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE841827EF0E54001F58C5 /* TripEventDelegate.swift */; };
 		4CDE841C27EF12C7001F58C5 /* FirebaseEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE841B27EF12C7001F58C5 /* FirebaseEventDelegate.swift */; };
 		4CE02B8B27EAE93900480D73 /* TripAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE02B8A27EAE93900480D73 /* TripAdapter.swift */; };
@@ -239,6 +240,7 @@
 		4CCBBD1A27DE651F00F9C250 /* FirebasePlanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlanService.swift; sourceTree = "<group>"; };
 		4CCBBD1E27DE67B400F9C250 /* PlanStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStatus.swift; sourceTree = "<group>"; };
 		4CCBBD2227DE687A00F9C250 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		4CD10A7727FF3A310060C5AC /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		4CDE841827EF0E54001F58C5 /* TripEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEventDelegate.swift; sourceTree = "<group>"; };
 		4CDE841B27EF12C7001F58C5 /* FirebaseEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEventDelegate.swift; sourceTree = "<group>"; };
 		4CE02B8A27EAE93900480D73 /* TripAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdapter.swift; sourceTree = "<group>"; };
@@ -1055,6 +1057,7 @@
 				95D4260F27F891FB0077A037 /* View+readSize.swift */,
 				004ACDB527F83DC60015CDD8 /* ViewModelFactory.swift */,
 				4C55E7DA27F97AD20032D1D8 /* UIScreen+Extensions.swift */,
+				4CD10A7727FF3A310060C5AC /* DateUtil.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1400,6 +1403,7 @@
 				95EB6A8C27E45B53008C1103 /* AddTripViewModel.swift in Sources */,
 				4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */,
 				B98F35E927F02015000AFE53 /* Location.swift in Sources */,
+				4CD10A7827FF3A310060C5AC /* DateUtil.swift in Sources */,
 				B99D5BA827EF1ADF003B99FB /* ConfirmedToggle.swift in Sources */,
 				4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */,
 				B98F35E727F01F53000AFE53 /* SearchView.swift in Sources */,

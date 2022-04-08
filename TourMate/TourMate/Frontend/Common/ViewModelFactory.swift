@@ -47,15 +47,6 @@ struct ViewModelFactory {
     }
 
     // Plan
-    static func getPlanViewModel(plan: Plan, plansViewModel: PlansViewModel) -> PlanViewModel {
-        let lowerBoundDate = plansViewModel.tripStartDateTime
-        let upperBoundDate = plansViewModel.tripEndDateTime
-
-        return PlanViewModel(plan: plan,
-                             lowerBoundDate: lowerBoundDate,
-                             upperBoundDate: upperBoundDate)
-    }
-
     static func getPlanViewModel(plan: Plan, tripViewModel: TripViewModel) -> PlanViewModel {
         let lowerBoundDate = tripViewModel.startDateTime
         let upperBoundDate = tripViewModel.endDateTime
@@ -81,9 +72,14 @@ struct ViewModelFactory {
                                  upperBoundDate: upperBoundDate)
     }
 
-    // PlanUpvotes
+    // PlanView - PlanUpvotes
     static func getPlanUpvoteViewModel(planViewModel: PlanViewModel) -> PlanUpvoteViewModel {
-        PlanUpvoteViewModel(planId: planViewModel.planId)
+        getPlanUpvoteViewModel(plan: planViewModel.plan)
+    }
+
+    // PlansView - PlanUpvotes
+    static func getPlanUpvoteViewModel(plan: Plan) -> PlanUpvoteViewModel {
+        PlanUpvoteViewModel(planId: plan.id)
     }
 
     // Comments

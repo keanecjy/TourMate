@@ -10,8 +10,7 @@ import SwiftUI
 struct AddTripView: View {
 
     @Environment(\.dismiss) var dismiss
-
-    @StateObject var viewModel = ViewModelFactory.getAddTripViewModel()
+    @StateObject var viewModel: AddTripViewModel
 
     var body: some View {
         NavigationView {
@@ -49,6 +48,6 @@ struct AddTripView: View {
 
 struct AddTripView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTripView()
+        AddTripView(viewModel: ViewModelFactory.getAddTripViewModel())
     }
 }

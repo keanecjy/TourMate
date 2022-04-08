@@ -7,15 +7,16 @@
 
 import SwiftUI
 
+@MainActor
 struct PlanCardView: View {
 
-    @StateObject var viewModel: PlanViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
+    let plan: Plan
     let date: Date
 
-    init(viewModel: PlanViewModel, date: Date) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-        self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planViewModel: viewModel)
+    init(planUpvoteViewModel: PlanUpvoteViewModel, plan: Plan, date: Date) {
+        self.planUpvoteViewModel = planUpvoteViewModel
+        self.plan = plan
         self.date = date
     }
 
@@ -23,13 +24,13 @@ struct PlanCardView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
                 HStack(spacing: 0) {
-                    Text(viewModel.getShortDurationDescription(date: date))
+                    Text(DateUtil.shortDurationDesc(from: plan.startDateTime, to: plan.endDateTime, on: date))
                         .font(.caption)
 
-                    PlanStatusView(status: viewModel.statusDisplay)
+                    PlanStatusView(status: plan.status)
                         .padding([.horizontal])
                 }
-                Text(viewModel.nameDisplay)
+                Text(plan.name)
                     .font(.headline)
             }
             .padding()
@@ -45,9 +46,5 @@ struct PlanCardView: View {
             }
         }
         .contentShape(Rectangle())
-        .task {
-            await viewModel.fetchPlanAndListen()
-        }
-        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }

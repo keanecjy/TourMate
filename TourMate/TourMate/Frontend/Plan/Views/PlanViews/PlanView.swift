@@ -66,6 +66,7 @@ struct PlanView: View {
             }
             .task {
                 await planViewModel.fetchPlanAndListen()
+                await planViewModel.updatePlanOwner()
             }
             .onReceive(planViewModel.objectWillChange) {
                 if planViewModel.isDeleted {
