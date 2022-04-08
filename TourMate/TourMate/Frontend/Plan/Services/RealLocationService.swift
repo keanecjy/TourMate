@@ -8,7 +8,7 @@
 import Foundation
 
 struct RealLocationService: LocationService {
-    private let locationWebRepository = RealLocationWebRepository(baseURL: ApiConfig.geoapifyBaseUrl)
+    @Injected(\.locationWebRepository) var locationWebRepository: LocationWebRepository
 
     private let locationAdapter = LocationAdapter()
 
