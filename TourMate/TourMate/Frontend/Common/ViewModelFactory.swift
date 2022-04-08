@@ -61,7 +61,7 @@ struct ViewModelFactory {
         return PlanViewModel(plan: plan,
                              lowerBoundDate: lowerBoundDate,
                              upperBoundDate: upperBoundDate,
-        planService: planService, userService: userService)
+                             planService: planService, userService: userService)
     }
 
     // Add Plan
@@ -78,7 +78,7 @@ struct ViewModelFactory {
         return EditPlanViewModel(plan: plan,
                                  lowerBoundDate: lowerBoundDate,
                                  upperBoundDate: upperBoundDate,
-        planService: planService, userService: userService)
+                                 planService: planService, userService: userService)
     }
 
     // PlanView - PlanUpvotes
@@ -88,7 +88,7 @@ struct ViewModelFactory {
 
     // PlansView - PlanUpvotes
     func getPlanUpvoteViewModel(plan: Plan) -> PlanUpvoteViewModel {
-        PlanUpvoteViewModel(planId: plan.id, userService: userService, planUpvoteService: planUpvoteService)
+        PlanUpvoteViewModel(planId: plan.id, userService: userService, planUpvoteService: planUpvoteService.copy())
     }
 
     // Comments

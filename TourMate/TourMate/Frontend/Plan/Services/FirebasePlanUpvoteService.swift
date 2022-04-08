@@ -8,6 +8,10 @@
 import Foundation
 
 class FirebasePlanUpvoteService: PlanUpvoteService {
+    required init() {
+
+    }
+
     private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.upvoteCollectionId)
 
     private let planUpvoteAdapter = PlanUpvoteAdapter()
