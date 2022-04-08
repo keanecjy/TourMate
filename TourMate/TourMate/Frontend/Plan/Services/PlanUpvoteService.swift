@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PlanUpvoteService {
+protocol PlanUpvoteService: Copyable {
     func fetchPlanUpvotesAndListen(withPlanId planId: String) async
 
     func addPlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String)

@@ -57,6 +57,7 @@
 		43CA47F6D2378990F041943C /* Pods_TourMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */; };
 		4C09373B27F83654001C2575 /* TripImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C09373A27F83654001C2575 /* TripImage.swift */; };
 		4C09661527F33F6400A00CE5 /* PlanEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C09661427F33F6300A00CE5 /* PlanEventDelegate.swift */; };
+		4C1660502800A4BD00195DF8 /* Copyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C16604F2800A4BD00195DF8 /* Copyable.swift */; };
 		4C1C70CD27FE7F4B00203694 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C70CC27FE7F4B00203694 /* InfoView.swift */; };
 		4C1C70CF27FE800E00203694 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C70CE27FE800E00203694 /* LocationView.swift */; };
 		4C1C70D327FE82C800203694 /* PlanHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C70D227FE82C800203694 /* PlanHeaderView.swift */; };
@@ -222,6 +223,7 @@
 		1DBB3372EFB870D2316CAA4E /* Pods-TourMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate.release.xcconfig"; path = "Target Support Files/Pods-TourMate/Pods-TourMate.release.xcconfig"; sourceTree = "<group>"; };
 		4C09373A27F83654001C2575 /* TripImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImage.swift; sourceTree = "<group>"; };
 		4C09661427F33F6300A00CE5 /* PlanEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanEventDelegate.swift; sourceTree = "<group>"; };
+		4C16604F2800A4BD00195DF8 /* Copyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copyable.swift; sourceTree = "<group>"; };
 		4C1C70CC27FE7F4B00203694 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		4C1C70CE27FE800E00203694 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		4C1C70D227FE82C800203694 /* PlanHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanHeaderView.swift; sourceTree = "<group>"; };
@@ -1078,6 +1080,7 @@
 				004ACDB527F83DC60015CDD8 /* ViewModelFactory.swift */,
 				4C55E7DA27F97AD20032D1D8 /* UIScreen+Extensions.swift */,
 				4CD10A7727FF3A310060C5AC /* DateUtil.swift */,
+				4C16604F2800A4BD00195DF8 /* Copyable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1468,6 +1471,7 @@
 				4C1C70D327FE82C800203694 /* PlanHeaderView.swift in Sources */,
 				4C09661527F33F6400A00CE5 /* PlanEventDelegate.swift in Sources */,
 				B9A04FAC27E5567F007D4303 /* MockPlanService.swift in Sources */,
+				4C1660502800A4BD00195DF8 /* Copyable.swift in Sources */,
 				4C09373B27F83654001C2575 /* TripImage.swift in Sources */,
 				B9B6B3E627F44F9D00B0F5F4 /* ApiConfig.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,

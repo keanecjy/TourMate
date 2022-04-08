@@ -50,7 +50,7 @@ class FirebaseTripService: TripService {
         print("[FirebaseTripService] Updating trip")
 
         return await tripRepository.updateItem(id: trip.id,
-                                                   item: tripAdapter.toAdaptedTrip(trip: trip))
+                                               item: tripAdapter.toAdaptedTrip(trip: trip))
     }
 
     func detachListener() {
