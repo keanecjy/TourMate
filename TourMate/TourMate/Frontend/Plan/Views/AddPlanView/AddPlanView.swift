@@ -8,39 +8,55 @@
 import SwiftUI
 
 struct AddPlanView: View {
-
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: AddPlanViewModel
+
+    let trip: Trip
+
+    @State private var isShowingAddActivitySheet = false
+    @State private var isShowingAddAccommodationSheet = false
+    @State private var isShowingAddTransportSheet = false
 
     var body: some View {
         NavigationView {
-            Group {
-                if viewModel.hasError {
-                    Text("Error Occurred")
-                } else if viewModel.isLoading {
-                    ProgressView()
-                } else {
-                    PlanFormView(viewModel: viewModel)
-                }
-            }
-            .navigationTitle("New Plan")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Add") {
-                        Task {
-                            await viewModel.addPlan()
-                            dismiss()
-                        }
+            List {
+                Button {
+                    isShowingAddActivitySheet.toggle()
+                } label: {
+                    HStack {
+                        Image(systemName: "figure.walk.circle.fill")
+                        Text("Activity")
                     }
-                    .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)
+                }
+                .sheet(isPresented: $isShowingAddActivitySheet) {
+                    AddActivityView(viewModel: AddActivityViewModel(trip: trip))
                 }
 
+                Button {
+                    isShowingAddAccommodationSheet.toggle()
+                } label: {
+                    HStack {
+                        Image(systemName: "bed.double.circle.fill")
+                        Text("Accommodation")
+                    }
+                }
+
+                Button {
+                    isShowingAddTransportSheet.toggle()
+                } label: {
+                    HStack {
+                        Image(systemName: "car.circle.fill")
+                        Text("Transport")
+                    }
+                }
+            }
+            .listStyle(.plain)
+            .navigationTitle("Add a Plan")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {
                         dismiss()
                     }
-                    .disabled(viewModel.isLoading)
                 }
             }
         }

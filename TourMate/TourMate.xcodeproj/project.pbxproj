@@ -138,6 +138,17 @@
 		B9A360C427EC23BA00030769 /* FirebaseAdaptedDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A360C327EC23BA00030769 /* FirebaseAdaptedDateTime.swift */; };
 		B9AF3B5027EF6FD600A3C82E /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AF3B4F27EF6FD600A3C82E /* MapView.swift */; };
 		B9AF3B5327EF7ADE00A3C82E /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AF3B5227EF7ADE00A3C82E /* LocationService.swift */; };
+		B9B467072800249E003D07F5 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B467062800249E003D07F5 /* Activity.swift */; };
+		B9B4670B280026B7003D07F5 /* Accommodation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4670A280026B7003D07F5 /* Accommodation.swift */; };
+		B9B4670D28002725003D07F5 /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4670C28002725003D07F5 /* Transport.swift */; };
+		B9B4670F280028BE003D07F5 /* AddActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4670E280028BE003D07F5 /* AddActivityViewModel.swift */; };
+		B9B4671328003174003D07F5 /* AddActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4671228003174003D07F5 /* AddActivityView.swift */; };
+		B9B4671628003777003D07F5 /* StartEndDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4671528003777003D07F5 /* StartEndDatePicker.swift */; };
+		B9B46718280068DC003D07F5 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B46717280068DC003D07F5 /* ActivityView.swift */; };
+		B9B4671A28006976003D07F5 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4671928006976003D07F5 /* ActivityViewModel.swift */; };
+		B9B4671C280070A7003D07F5 /* EditActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4671B280070A7003D07F5 /* EditActivityViewModel.swift */; };
+		B9B4671E280075E0003D07F5 /* FirebaseAdaptedActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4671D280075E0003D07F5 /* FirebaseAdaptedActivity.swift */; };
+		B9B4672028007A5E003D07F5 /* EditActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4671F28007A5E003D07F5 /* EditActivityView.swift */; };
 		B9B6B3E127F43BEF00B0F5F4 /* AutocompleteQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E027F43BEF00B0F5F4 /* AutocompleteQuery.swift */; };
 		B9B6B3E327F4473E00B0F5F4 /* JsonAdaptedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E227F4473E00B0F5F4 /* JsonAdaptedLocation.swift */; };
 		B9B6B3E627F44F9D00B0F5F4 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E527F44F9D00B0F5F4 /* ApiConfig.swift */; };
@@ -305,6 +316,17 @@
 		B9A360C327EC23BA00030769 /* FirebaseAdaptedDateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedDateTime.swift; sourceTree = "<group>"; };
 		B9AF3B4F27EF6FD600A3C82E /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		B9AF3B5227EF7ADE00A3C82E /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		B9B467062800249E003D07F5 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		B9B4670A280026B7003D07F5 /* Accommodation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accommodation.swift; sourceTree = "<group>"; };
+		B9B4670C28002725003D07F5 /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
+		B9B4670E280028BE003D07F5 /* AddActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityViewModel.swift; sourceTree = "<group>"; };
+		B9B4671228003174003D07F5 /* AddActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityView.swift; sourceTree = "<group>"; };
+		B9B4671528003777003D07F5 /* StartEndDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartEndDatePicker.swift; sourceTree = "<group>"; };
+		B9B46717280068DC003D07F5 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		B9B4671928006976003D07F5 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
+		B9B4671B280070A7003D07F5 /* EditActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityViewModel.swift; sourceTree = "<group>"; };
+		B9B4671D280075E0003D07F5 /* FirebaseAdaptedActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedActivity.swift; sourceTree = "<group>"; };
+		B9B4671F28007A5E003D07F5 /* EditActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityView.swift; sourceTree = "<group>"; };
 		B9B6B3E027F43BEF00B0F5F4 /* AutocompleteQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteQuery.swift; sourceTree = "<group>"; };
 		B9B6B3E227F4473E00B0F5F4 /* JsonAdaptedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonAdaptedLocation.swift; sourceTree = "<group>"; };
 		B9B6B3E527F44F9D00B0F5F4 /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
@@ -441,7 +463,9 @@
 			isa = PBXGroup;
 			children = (
 				00582F6F27E70C97008756E9 /* EditPlanView.swift */,
+				B9B4671F28007A5E003D07F5 /* EditActivityView.swift */,
 				0066356127F71E5900166655 /* EditPlanViewModel.swift */,
+				B9B4671B280070A7003D07F5 /* EditActivityViewModel.swift */,
 			);
 			path = EditPlanView;
 			sourceTree = "<group>";
@@ -449,6 +473,7 @@
 		0066355E27F6F30500166655 /* PlanFormView */ = {
 			isa = PBXGroup;
 			children = (
+				B9B46714280033F3003D07F5 /* Components */,
 				0066355C27F6F30100166655 /* PlanFormView.swift */,
 				0066355F27F6F6FE00166655 /* PlanFormViewModel.swift */,
 			);
@@ -667,6 +692,8 @@
 			children = (
 				B967C33927DDD71B0023B34D /* AddPlanView.swift */,
 				B9A04FA927E4F584007D4303 /* AddPlanViewModel.swift */,
+				B9B4670E280028BE003D07F5 /* AddActivityViewModel.swift */,
+				B9B4671228003174003D07F5 /* AddActivityView.swift */,
 			);
 			path = AddPlanView;
 			sourceTree = "<group>";
@@ -795,6 +822,9 @@
 			children = (
 				4CE02B7B27EACD0F00480D73 /* Components */,
 				B99D967D27D9D82C009B66AE /* Plan.swift */,
+				B9B467062800249E003D07F5 /* Activity.swift */,
+				B9B4670A280026B7003D07F5 /* Accommodation.swift */,
+				B9B4670C28002725003D07F5 /* Transport.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -853,6 +883,7 @@
 			isa = PBXGroup;
 			children = (
 				B93B489327DA87A300478B7B /* FirebaseAdaptedPlan.swift */,
+				B9B4671D280075E0003D07F5 /* FirebaseAdaptedActivity.swift */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -945,6 +976,8 @@
 				B9AF3B4E27EF6FC600A3C82E /* Components */,
 				B9A04FAF27E5875A007D4303 /* PlanView.swift */,
 				B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */,
+				B9B46717280068DC003D07F5 /* ActivityView.swift */,
+				B9B4671928006976003D07F5 /* ActivityViewModel.swift */,
 			);
 			path = PlanViews;
 			sourceTree = "<group>";
@@ -1077,6 +1110,14 @@
 				4C1C70D027FE81EF00203694 /* LocationView */,
 				B9B6B40727F719FF00B0F5F4 /* TimingView.swift */,
 				4C1C70D227FE82C800203694 /* PlanHeaderView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B9B46714280033F3003D07F5 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B9B4671528003777003D07F5 /* StartEndDatePicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1395,6 +1436,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9AF3B5327EF7ADE00A3C82E /* LocationService.swift in Sources */,
+				B9B4671628003777003D07F5 /* StartEndDatePicker.swift in Sources */,
 				00062B4D27EF107A00267960 /* FirebaseCommentService.swift in Sources */,
 				953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */,
 				00062B4F27EF112300267960 /* CommentAdapter.swift in Sources */,
@@ -1406,6 +1448,7 @@
 				4CD10A7827FF3A310060C5AC /* DateUtil.swift in Sources */,
 				B99D5BA827EF1ADF003B99FB /* ConfirmedToggle.swift in Sources */,
 				4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */,
+				B9B46718280068DC003D07F5 /* ActivityView.swift in Sources */,
 				B98F35E727F01F53000AFE53 /* SearchView.swift in Sources */,
 				00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */,
 				B9B6B40827F719FF00B0F5F4 /* TimingView.swift in Sources */,
@@ -1443,12 +1486,14 @@
 				95FAE40927E2447400F4AB01 /* TripsViewModel.swift in Sources */,
 				B9A360C427EC23BA00030769 /* FirebaseAdaptedDateTime.swift in Sources */,
 				4C26B46A27F5D14800B8319E /* CommentEventDelegate.swift in Sources */,
+				B9B4670F280028BE003D07F5 /* AddActivityViewModel.swift in Sources */,
 				000AB55427EE184F00FF0ED3 /* AttendeesView.swift in Sources */,
 				4CB954EA27DE3EBC001410AD /* AnyFirebaseAdaptedData.swift in Sources */,
 				4C1C70D327FE82C800203694 /* PlanHeaderView.swift in Sources */,
 				4C09661527F33F6400A00CE5 /* PlanEventDelegate.swift in Sources */,
 				B9A04FAC27E5567F007D4303 /* MockPlanService.swift in Sources */,
 				4C09373B27F83654001C2575 /* TripImage.swift in Sources */,
+				B9B4670D28002725003D07F5 /* Transport.swift in Sources */,
 				B9B6B3E627F44F9D00B0F5F4 /* ApiConfig.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
 				00062B4627EEE8F300267960 /* UpvotePlanView.swift in Sources */,
@@ -1461,6 +1506,7 @@
 				95779BD927E769FD001FF602 /* UserService.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
 				B98F35ED27F05F0D000AFE53 /* MockLocationService.swift in Sources */,
+				B9B4671328003174003D07F5 /* AddActivityView.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserService.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserService.swift in Sources */,
@@ -1508,24 +1554,30 @@
 				001D223F27FEF5A400F42DB4 /* FirebasePlanUpvoteService.swift in Sources */,
 				001D223B27FEF47900F42DB4 /* PlanUpvoteEventDelegate.swift in Sources */,
 				00582F7027E70C97008756E9 /* EditPlanView.swift in Sources */,
+				B9B4672028007A5E003D07F5 /* EditActivityView.swift in Sources */,
 				95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */,
 				4CB954DE27DDFDB2001410AD /* Repository.swift in Sources */,
 				0066355927F6D61A00166655 /* EditTripViewModel.swift in Sources */,
 				B98F35F927F42E00000AFE53 /* APICall.swift in Sources */,
 				B9A04FB027E5875A007D4303 /* PlanView.swift in Sources */,
 				B9A04FB027E5875A007D4303 /* PlanView.swift in Sources */,
+				B9B4670B280026B7003D07F5 /* Accommodation.swift in Sources */,
 				00062B5627EF345A00267960 /* CommentsViewModel.swift in Sources */,
 				00E2B19527E4C95400B5F449 /* LogInView.swift in Sources */,
 				4CB954EE27DE3FE1001410AD /* FirebaseAdaptedData.swift in Sources */,
 				0066356227F71E5900166655 /* EditPlanViewModel.swift in Sources */,
+				B9B467072800249E003D07F5 /* Activity.swift in Sources */,
 				000AB55A27EE242500FF0ED3 /* PlanStatusView.swift in Sources */,
 				0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */,
 				00062B5C27EF3DC700267960 /* MockUserService.swift in Sources */,
 				000AB54F27ED9BDF00FF0ED3 /* InviteUserView.swift in Sources */,
 				B9A1037C27E61E9200829BF4 /* PlanViewModel.swift in Sources */,
 				4CCBBD1B27DE651F00F9C250 /* FirebasePlanService.swift in Sources */,
+				B9B4671C280070A7003D07F5 /* EditActivityViewModel.swift in Sources */,
 				4C8639A327DF37DA000566FB /* Constants.swift in Sources */,
+				B9B4671A28006976003D07F5 /* ActivityViewModel.swift in Sources */,
 				001D224127FEF7D800F42DB4 /* MockPlanUpvoteService.swift in Sources */,
+				B9B4671E280075E0003D07F5 /* FirebaseAdaptedActivity.swift in Sources */,
 				00F83BB827DC46E4003A28AA /* AuthenticationButton.swift in Sources */,
 				4CB954DC27DDFAA8001410AD /* FirebaseRepository.swift in Sources */,
 				B93B489427DA87A300478B7B /* FirebaseAdaptedPlan.swift in Sources */,
@@ -1700,7 +1752,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
-				DEVELOPMENT_TEAM = JH4N7Z4FH9;
+				DEVELOPMENT_TEAM = T83L3FZCTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TourMate/Misc/Info.plist;
@@ -1714,7 +1766,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rlrh.TourMate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1731,7 +1783,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
-				DEVELOPMENT_TEAM = JH4N7Z4FH9;
+				DEVELOPMENT_TEAM = T83L3FZCTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TourMate/Misc/Info.plist;
@@ -1745,7 +1797,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rlrh.TourMate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

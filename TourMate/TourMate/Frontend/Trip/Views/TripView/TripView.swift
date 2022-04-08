@@ -22,6 +22,16 @@ struct TripView: View {
         self._viewModel = StateObject(wrappedValue: tripViewModel)
     }
 
+    // TODO: Abstract into factory
+    func getPlanView(plan: Plan) -> some View {
+        switch plan {
+        case let plan as Activity:
+            return AnyView(ActivityView(activityViewModel: ViewModelFactory.getActivityViewModel(activity: plan, tripViewModel: viewModel)))
+        default:
+            preconditionFailure("Plan don't exists")
+        }
+    }
+
     @ViewBuilder
     var body: some View {
         Group {
@@ -47,8 +57,7 @@ struct TripView: View {
 
                         if let selectedPlan = selectedPlan {
                             NavigationLink(isActive: .constant(true)) {
-                                PlanView(planViewModel: ViewModelFactory.getPlanViewModel(plan: selectedPlan,
-                                                                                          tripViewModel: viewModel))
+                                getPlanView(plan: selectedPlan)
                             } label: {
                                 EmptyView()
                             }
@@ -90,7 +99,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingAddPlanSheet) {
-                    AddPlanView(viewModel: ViewModelFactory.getAddPlanViewModel(tripViewModel: viewModel))
+                    AddPlanView(trip: viewModel.trip)
                 }
             }
         }

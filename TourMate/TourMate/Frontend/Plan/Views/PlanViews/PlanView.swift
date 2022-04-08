@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct PlanView: View {
+struct PlanView<Content: View>: View {
+    let locationContent: Content
     @StateObject var planViewModel: PlanViewModel
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
@@ -15,10 +16,21 @@ struct PlanView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    init(planViewModel: PlanViewModel) {
+    init(planViewModel: PlanViewModel, @ViewBuilder content: () -> Content) {
+        self.locationContent = content()
         self._planViewModel = StateObject(wrappedValue: planViewModel)
         self.commentsViewModel = ViewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
         self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+    }
+
+    // TODO: Push to XXEditView level
+    func getEditPlanView() -> some View {
+        switch planViewModel.plan {
+        case _ as Activity:
+            return AnyView(EditActivityView(viewModel: ViewModelFactory.getEditActivityViewModel(planViewModel: planViewModel)))
+        default:
+            preconditionFailure("Such plan do not exists")
+        }
     }
 
     var body: some View {
@@ -40,8 +52,7 @@ struct PlanView: View {
                 TimingView(startDate: planViewModel.startDateTimeDisplay,
                            endDate: planViewModel.endDateTimeDisplay)
 
-                LocationView(startLocation: planViewModel.startLocationDisplay,
-                             endLocation: planViewModel.endLocationDisplay)
+                locationContent
 
                 InfoView(additionalInfo: planViewModel.additionalInfoDisplay)
 
@@ -60,7 +71,7 @@ struct PlanView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        EditPlanView(viewModel: ViewModelFactory.getEditPlanViewModel(planViewModel: planViewModel))
+                        getEditPlanView()
                     }
                 }
             }

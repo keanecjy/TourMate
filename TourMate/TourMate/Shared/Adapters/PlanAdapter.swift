@@ -5,43 +5,52 @@
 //  Created by Keane Chan on 19/3/22.
 //
 
+import SwiftUI
+
 class PlanAdapter {
     init() {}
 
     func toAdaptedPlan(plan: Plan) -> FirebaseAdaptedPlan {
-        plan.toData()
+        switch plan {
+        case let plan as Activity:
+            return plan.toData()
+        default:
+            preconditionFailure("Such a plan do not exists")
+        }
     }
 
     func toPlan(adaptedPlan: FirebaseAdaptedPlan) -> Plan {
-        adaptedPlan.toItem()
+        switch adaptedPlan {
+        case let adaptedPlan as FirebaseAdaptedActivity:
+            return adaptedPlan.toItem()
+        default:
+            preconditionFailure("Tried to adapt plan but failed")
+        }
     }
 }
 
-extension Plan {
-    fileprivate func toData() -> FirebaseAdaptedPlan {
-        FirebaseAdaptedPlan(id: id, tripId: tripId, name: name,
-                            startDateTime: startDateTime.toData(),
-                            endDateTime: endDateTime.toData(),
-                            startLocation: startLocation?.toData(),
-                            endLocation: endLocation?.toData(),
-                            imageUrl: imageUrl, status: status.rawValue,
-                            creationDate: creationDate, modificationDate: modificationDate,
-                            additionalInfo: additionalInfo,
-                            ownerUserId: ownerUserId)
+extension Activity {
+    fileprivate func toData() -> FirebaseAdaptedActivity {
+        FirebaseAdaptedActivity(id: id, tripId: tripId, name: name,
+                                startDateTime: startDateTime.toData(),
+                                endDateTime: endDateTime.toData(),
+                                imageUrl: imageUrl, status: status.rawValue,
+                                creationDate: creationDate,
+                                modificationDate: modificationDate,
+                                additionalInfo: additionalInfo,
+                                ownerUserId: ownerUserId, location: location?.toData())
     }
 }
 
-extension FirebaseAdaptedPlan {
-    fileprivate func toItem() -> Plan {
-        Plan(id: id, tripId: tripId, name: name,
-             startDateTime: startDateTime.toItem(),
-             endDateTime: endDateTime.toItem(),
-             startLocation: startLocation?.toItem(),
-             endLocation: endLocation?.toItem(),
-             imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
-             creationDate: creationDate, modificationDate: modificationDate,
-             additionalInfo: additionalInfo,
-             ownerUserId: ownerUserId)
+extension FirebaseAdaptedActivity {
+    fileprivate func toItem() -> Activity {
+        Activity(id: id, tripId: tripId, name: name,
+                 startDateTime: startDateTime.toItem(),
+                 endDateTime: endDateTime.toItem(),
+                 imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
+                 creationDate: creationDate, modificationDate: modificationDate,
+                 additionalInfo: additionalInfo, ownerUserId: ownerUserId,
+                 location: location?.toItem())
     }
 }
 

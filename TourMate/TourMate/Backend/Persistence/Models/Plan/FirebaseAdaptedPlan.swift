@@ -13,8 +13,6 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     let name: String
     let startDateTime: FirebaseAdaptedDateTime
     let endDateTime: FirebaseAdaptedDateTime
-    let startLocation: JsonAdaptedLocation?
-    let endLocation: JsonAdaptedLocation?
     let imageUrl: String
     let status: String
     let creationDate: Date
@@ -25,7 +23,6 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     init(id: String, tripId: String, name: String,
          startDateTime: FirebaseAdaptedDateTime,
          endDateTime: FirebaseAdaptedDateTime,
-         startLocation: JsonAdaptedLocation?, endLocation: JsonAdaptedLocation?,
          imageUrl: String, status: String,
          creationDate: Date, modificationDate: Date,
          additionalInfo: String, ownerUserId: String) {
@@ -34,8 +31,6 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
         self.name = name
         self.startDateTime = startDateTime
         self.endDateTime = endDateTime
-        self.startLocation = startLocation
-        self.endLocation = endLocation
         self.imageUrl = imageUrl
         self.status = status
         self.creationDate = creationDate

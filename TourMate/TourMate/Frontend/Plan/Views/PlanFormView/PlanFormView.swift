@@ -7,9 +7,14 @@
 
 import SwiftUI
 
-struct PlanFormView: View {
-
+struct PlanFormView<Content: View>: View {
+    let locationContent: Content
     @ObservedObject var viewModel: PlanFormViewModel
+
+    init(viewModel: PlanFormViewModel, @ViewBuilder content: () -> Content) {
+        self.viewModel = viewModel
+        self.locationContent = content()
+    }
 
     var body: some View {
         Form {
@@ -27,9 +32,7 @@ struct PlanFormView: View {
                        in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
                        displayedComponents: [.date, .hourAndMinute])
 
-            AddressTextField(title: "Start Location", location: $viewModel.planStartLocation)
-
-            AddressTextField(title: "End Location", location: $viewModel.planEndLocation)
+            locationContent
 
             TextField("Image URL", text: $viewModel.planImageUrl)
 
