@@ -25,7 +25,8 @@ struct PlansListView: View {
                     PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
-                        PlanCardView(planId: plan.id, planName: plan.name, planStatus: plan.status,
+                        PlanCardView(planUpvoteViewModel: ViewModelFactory.getPlanUpvoteViewModel(plan: plan),
+                                     planName: plan.name, planStatus: plan.status,
                                      startDateTime: plan.startDateTime, endDateTime: plan.endDateTime,
                                      date: day.date)
                             .onTapGesture(perform: {

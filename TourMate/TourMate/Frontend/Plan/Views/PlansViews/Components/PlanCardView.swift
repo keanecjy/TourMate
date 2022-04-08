@@ -17,8 +17,10 @@ struct PlanCardView: View {
     let endDateTime: DateTime
     let date: Date
 
-    init(planId: String, planName: String, planStatus: PlanStatus, startDateTime: DateTime, endDateTime: DateTime, date: Date) {
-        self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planId: planId)
+    init(planUpvoteViewModel: PlanUpvoteViewModel, planName: String,
+         planStatus: PlanStatus, startDateTime: DateTime, endDateTime: DateTime,
+         date: date) {
+        self.planUpvoteViewModel = planUpvoteViewModel
         self.planName = planName
         self.planStatus = planStatus
         self.startDateTime = startDateTime

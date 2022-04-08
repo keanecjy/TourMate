@@ -74,12 +74,12 @@ struct ViewModelFactory {
 
     // PlanView - PlanUpvotes
     static func getPlanUpvoteViewModel(planViewModel: PlanViewModel) -> PlanUpvoteViewModel {
-        getPlanUpvoteViewModel(planId: planViewModel.planId)
+        getPlanUpvoteViewModel(plan: planViewModel.plan)
     }
 
     // PlansView - PlanUpvotes
-    static func getPlanUpvoteViewModel(planId: String) -> PlanUpvoteViewModel {
-        PlanUpvoteViewModel(planId: planId)
+    static func getPlanUpvoteViewModel(plan: Plan) -> PlanUpvoteViewModel {
+        PlanUpvoteViewModel(planId: plan.id)
     }
 
     // Comments
