@@ -9,9 +9,13 @@ import Foundation
 import FirebaseAuth
 
 struct FirebaseUserService: UserService {
-    @Injected(\.userRepository) var userRepository: Repository
+    private let userRepository: Repository
 
     private let userAdapter = UserAdapter()
+
+    init(userRepository: Repository) {
+        self.userRepository = userRepository
+    }
 
     func addUser(_ user: User) async -> (Bool, String) {
         guard let currentUser = Auth.auth().currentUser,

@@ -11,7 +11,7 @@ class MockPlanUpvoteService: PlanUpvoteService {
     required init() {
 
     }
-    
+
     // From MockPlan and MockUsers
     var planUpvotes = [
         PlanUpvote(planId: "0", userId: "0"),

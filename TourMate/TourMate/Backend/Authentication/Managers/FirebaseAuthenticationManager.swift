@@ -13,7 +13,11 @@ import GoogleSignIn
 // https://peterfriese.dev/posts/firebase-async-calls-swift/
 struct FirebaseAuthenticationManager: AuthenticationManager {
 
-    @Injected(\.userService) var userService: UserService
+    private let userService: UserService
+
+    init(userService: UserService) {
+        self.userService = userService
+    }
 
     func checkIfUserIsLoggedIn() -> Bool {
         Auth.auth().currentUser != nil

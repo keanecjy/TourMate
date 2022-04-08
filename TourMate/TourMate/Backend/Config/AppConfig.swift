@@ -6,11 +6,11 @@
 //
 
 private struct UserServiceKey: InjectionKey {
-    static var currentValue: UserService = FirebaseUserService()
+    static var currentValue: UserService = FirebaseUserService(userRepository: InjectedValues[\.userRepository])
 }
 
 private struct TripServiceKey: InjectionKey {
-    static var currentValue: TripService = FirebaseTripService()
+    static var currentValue: TripService = FirebaseTripService(tripRepository: InjectedValues[\.tripRepository])
 }
 
 private struct PlanServiceKey: InjectionKey {
@@ -26,7 +26,7 @@ private struct PlanUpvoteServiceKey: InjectionKey {
 }
 
 private struct LocationServiceKey: InjectionKey {
-    static var currentValue: LocationService = RealLocationService()
+    static var currentValue: LocationService = RealLocationService(locationWebRepository: InjectedValues[\.locationWebRepository])
 }
 
 private struct UserRepositoryKey: InjectionKey {
@@ -51,6 +51,10 @@ private struct PlanUpvoteRepositoryKey: InjectionKey {
 
 private struct LocationWebRepositoryKey: InjectionKey {
     static var currentValue: LocationWebRepository = RealLocationWebRepository(baseURL: ApiConfig.geoapifyBaseUrl)
+}
+
+private struct AuthenticationManagerKey: InjectionKey {
+    static var currentValue: AuthenticationManager = FirebaseAuthenticationManager(userService: InjectedValues[\.userService])
 }
 
 extension InjectedValues {
@@ -112,5 +116,10 @@ extension InjectedValues {
     var locationWebRepository: LocationWebRepository {
         get { Self[LocationWebRepositoryKey.self] }
         set { Self[LocationWebRepositoryKey.self] = newValue }
+    }
+
+    var authenticationManager: AuthenticationManager {
+        get { Self[AuthenticationManagerKey.self] }
+        set { Self[AuthenticationManagerKey.self] = newValue }
     }
 }

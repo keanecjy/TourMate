@@ -26,7 +26,8 @@ class FirebasePlanUpvoteService: PlanUpvoteService {
     }
 
     func addPlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {
-        await firebaseRepository.addItem(id: planUpvote.id, item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
+        await firebaseRepository.addItem(id: planUpvote.id,
+                                         item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
     }
 
     func deletePlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {
@@ -34,7 +35,8 @@ class FirebasePlanUpvoteService: PlanUpvoteService {
     }
 
     func updatePlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {
-        await firebaseRepository.updateItem(id: planUpvote.id, item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
+        await firebaseRepository.updateItem(id: planUpvote.id,
+                                            item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
     }
 
     func detachListener() {

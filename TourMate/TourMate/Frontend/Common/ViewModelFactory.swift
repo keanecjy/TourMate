@@ -15,6 +15,9 @@ struct ViewModelFactory {
     @Injected(\.planService) var planService: PlanService
     @Injected(\.commentService) var commentService: CommentService
     @Injected(\.planUpvoteService) var planUpvoteService: PlanUpvoteService
+    @Injected(\.locationService) var locationService: LocationService
+
+    @Injected(\.tripRepository) var tripRepository: Repository
 
     // Trips
     func getTripsViewModel() -> TripsViewModel {
@@ -94,5 +97,9 @@ struct ViewModelFactory {
     // Comments
     func getCommentsViewModel(planViewModel: PlanViewModel) -> CommentsViewModel {
         CommentsViewModel(planId: planViewModel.planId, commentService: commentService, userService: userService)
+    }
+
+    func getSearchViewModel() -> SearchViewModel {
+        SearchViewModel(locationService: locationService)
     }
 }

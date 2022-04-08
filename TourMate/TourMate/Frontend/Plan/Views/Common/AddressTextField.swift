@@ -7,10 +7,13 @@
 
 import SwiftUI
 
+@MainActor
 struct AddressTextField: View {
     let title: String
     @Binding var location: Location?
     @State var isShowingSearchSheet = false
+
+    private let viewModelFactory = ViewModelFactory()
 
     var body: some View {
         let text = Binding<String>(
@@ -23,7 +26,7 @@ struct AddressTextField: View {
 
         TextField(title, text: text)
             .sheet(isPresented: $isShowingSearchSheet) {
-                SearchView(viewModel: SearchViewModel(), location: $location)
+                SearchView(viewModel: viewModelFactory.getSearchViewModel(), location: $location)
             }
             .onTapGesture {
                 isShowingSearchSheet.toggle()

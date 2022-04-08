@@ -8,9 +8,13 @@
 import Foundation
 
 struct RealLocationService: LocationService {
-    @Injected(\.locationWebRepository) var locationWebRepository: LocationWebRepository
+    private let locationWebRepository: LocationWebRepository
 
     private let locationAdapter = LocationAdapter()
+
+    init(locationWebRepository: LocationWebRepository) {
+        self.locationWebRepository = locationWebRepository
+    }
 
     func fetchLocations(query: String) async -> ([Location], String) {
         print("[LocationService] Fetching Locations")
