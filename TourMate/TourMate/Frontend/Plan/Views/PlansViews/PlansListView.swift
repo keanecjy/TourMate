@@ -13,6 +13,8 @@ struct PlansListView: View {
 
     let onSelected: ((Plan) -> Void)?
 
+    private let viewModelFactory = ViewModelFactory()
+
     init(viewModel: PlansViewModel, onSelected: ((Plan) -> Void)? = nil) {
         self.viewModel = viewModel
         self.onSelected = onSelected
@@ -25,7 +27,7 @@ struct PlansListView: View {
                     PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
-                        PlanCardView(planUpvoteViewModel: ViewModelFactory.getPlanUpvoteViewModel(plan: plan),
+                        PlanCardView(planUpvoteViewModel: viewModelFactory.getPlanUpvoteViewModel(plan: plan),
                                      plan: plan, date: day.date)
                         .onTapGesture(perform: {
                             if let onSelected = onSelected {

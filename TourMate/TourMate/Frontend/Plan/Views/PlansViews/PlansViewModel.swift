@@ -13,12 +13,12 @@ class PlansViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
-    private var planService: PlanService = FirebasePlanService()
-
     // Information needed by Plans
     let tripId: String
     let tripStartDateTime: DateTime
     let tripEndDateTime: DateTime
+
+    private var planService: PlanService
 
     // sort and display Plans by Date
     typealias Day = (date: Date, plans: [Plan])
@@ -51,7 +51,8 @@ class PlansViewModel: ObservableObject {
 
     init(tripId: String,
          tripStartDateTime: DateTime,
-         tripEndDateTime: DateTime) {
+         tripEndDateTime: DateTime,
+         planService: PlanService) {
 
         self.plans = []
         self.isLoading = false
@@ -60,6 +61,8 @@ class PlansViewModel: ObservableObject {
         self.tripId = tripId
         self.tripStartDateTime = tripStartDateTime
         self.tripEndDateTime = tripEndDateTime
+
+        self.planService = planService
     }
 
     func fetchPlansAndListen() async {

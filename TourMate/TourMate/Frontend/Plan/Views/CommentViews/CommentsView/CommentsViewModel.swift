@@ -13,14 +13,20 @@ class CommentsViewModel: ObservableObject {
     @Published var isLoading: Bool
     @Published var hasError: Bool
 
-    @Injected(\.commentService) var commentService: CommentService
-    @Injected(\.userService) var userService: UserService
-
     private let planId: String
+    private var commentService: CommentService
+    private let userService: UserService
+
     private var commentPermissions: [String: (Bool, Bool)] = [:] // canEdit, userHasUpvotedComment
 
-    init(planId: String) {
+    init(planId: String,
+         commentService: CommentService,
+         userService: UserService) {
+
         self.planId = planId
+        self.commentService = commentService
+        self.userService = userService
+
         self.commentOwnerPairs = []
 
         self.isLoading = false

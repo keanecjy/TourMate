@@ -18,11 +18,13 @@ class TripViewModel: ObservableObject {
     @Published var attendees: [User] = []
     @Published var trip: Trip
 
-    @Injected(\.tripService) var tripService: TripService
-    @Injected(\.userService) var userService: UserService
+    private var tripService: TripService
+    private var userService: UserService
 
-    init(trip: Trip) {
+    init(trip: Trip, tripService: TripService, userService: UserService) {
         self.trip = trip
+        self.tripService = tripService
+        self.userService = userService
     }
 
     var tripId: String {

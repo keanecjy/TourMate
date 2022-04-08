@@ -21,13 +21,16 @@ class PlanViewModel: ObservableObject {
     let lowerBoundDate: DateTime
     let upperBoundDate: DateTime
 
-    @Injected(\.planService) var planService: PlanService
-    @Injected(\.userService) var userService: UserService
+    private let userService: UserService
+    private var planService: PlanService
 
-    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime) {
+    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
+         planService: PlanService, userService: UserService) {
         self.plan = plan
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
+        self.planService = planService
+        self.userService = userService
     }
 
     var creationDateDisplay: String {

@@ -15,11 +15,14 @@ class AddPlanViewModel: PlanFormViewModel {
 
     private let trip: Trip
 
-    @Injected(\.planService) var planService: PlanService
-    @Injected(\.userService) var userService: UserService
+    private let planService: PlanService
+    private let userService: UserService
 
-    init(trip: Trip) {
+    init(trip: Trip, planService: PlanService = FirebasePlanService(), userService: UserService = FirebaseUserService()) {
+
         self.trip = trip
+        self.planService = planService
+        self.userService = userService
 
         super.init(lowerBoundDate: trip.startDateTime.date, upperBoundDate: trip.endDateTime.date)
     }

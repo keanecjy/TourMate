@@ -17,11 +17,15 @@ class EditPlanViewModel: PlanFormViewModel {
 
     private let plan: Plan
 
-    @Injected(\.planService) var planService: PlanService
-    @Injected(\.userService) var userService: UserService
+    private let planService: PlanService
+    private let userService: UserService
 
-    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime) {
+    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
+         planService: PlanService, userService: UserService) {
+
         self.plan = plan
+        self.planService = planService
+        self.userService = userService
 
         super.init(lowerBoundDate: lowerBoundDate.date, upperBoundDate: upperBoundDate.date, plan: plan)
 

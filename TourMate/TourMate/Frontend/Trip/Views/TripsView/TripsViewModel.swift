@@ -14,9 +14,10 @@ class TripsViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
-    @Injected(\.tripService) var tripService: TripService
+    private var tripService: TripService
 
-    init() {
+    init(tripService: TripService) {
+        self.tripService = tripService
         self.trips = []
         self.isLoading = false
         self.hasError = false

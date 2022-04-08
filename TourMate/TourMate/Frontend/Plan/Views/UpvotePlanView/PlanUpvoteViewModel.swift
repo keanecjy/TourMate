@@ -17,11 +17,16 @@ class PlanUpvoteViewModel: ObservableObject {
 
     let planId: String
 
-    private var planUpvoteService: PlanUpvoteService = FirebasePlanUpvoteService()
-    @Injected(\.userService) var userService: UserService
+    private let userService: UserService
+    private var planUpvoteService: PlanUpvoteService
 
-    init(planId: String) {
+    init(planId: String,
+         userService: UserService,
+         planUpvoteService: PlanUpvoteService) {
+
         self.planId = planId
+        self.userService = userService
+        self.planUpvoteService = planUpvoteService
     }
 
     func fetchPlanUpvotesAndListen() async {
