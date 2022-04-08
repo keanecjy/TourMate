@@ -30,7 +30,7 @@ struct TripsView: View {
                         ForEach(viewModel.trips, id: \.id) { trip in
                             TripCard(title: trip.name,
                                      subtitle: trip.durationDescription,
-                                     imageUrl: trip.imageUrl ?? "")
+                                     imageUrl: trip.imageUrl)
                                 .onTapGesture(perform: {
                                     if let onSelected = onSelected {
                                         onSelected(trip)
@@ -51,7 +51,7 @@ struct TripsView: View {
                 }
                 .disabled(viewModel.isLoading || viewModel.hasError)
                 .sheet(isPresented: $isShowingAddTripSheet) {
-                    AddTripView()
+                    AddTripView(viewModel: ViewModelFactory.getAddTripViewModel())
                 }
 
                 NavigationLink {

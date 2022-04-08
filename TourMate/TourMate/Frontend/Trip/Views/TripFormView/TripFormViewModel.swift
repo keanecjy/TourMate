@@ -43,7 +43,7 @@ class TripFormViewModel: ObservableObject {
         self.tripName = trip.name
         self.tripStartDate = trip.startDateTime.date
         self.tripEndDate = trip.endDateTime.date
-        self.tripImageURL = trip.imageUrl ?? ""
+        self.tripImageURL = trip.imageUrl
         self.fromStartDate = trip.startDateTime.date...
 
     }
@@ -71,7 +71,8 @@ class TripFormViewModel: ObservableObject {
             .store(in: &cancellableSet)
     }
 
-    func generateDateTimes(startTimeZone: TimeZone = TimeZone.current, endTimeZone: TimeZone = TimeZone.current) -> (DateTime, DateTime) {
+    func generateDateTimes(startTimeZone: TimeZone = TimeZone.current,
+                           endTimeZone: TimeZone = TimeZone.current) -> (DateTime, DateTime) {
         let calendar = Calendar.current
         let start = calendar.startOfDay(for: tripStartDate)
         let end = calendar.date(bySettingHour: 23,
