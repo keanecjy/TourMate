@@ -8,7 +8,7 @@
 import FirebaseAuth
 
 class FirebaseTripService: TripService {
-    private var firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.tripCollectionId)
+    @Injected(\.tripRepository) var tripRepository: Repository
 
     private let tripAdapter = TripAdapter()
 
@@ -17,7 +17,7 @@ class FirebaseTripService: TripService {
     func addTrip(trip: Trip) async -> (Bool, String) {
         print("[FirebaseTripService] Adding trip")
 
-        return await firebaseRepository.addItem(id: trip.id, item:
+        return await tripRepository.addItem(id: trip.id, item:
                                                     tripAdapter.toAdaptedTrip(trip: trip) )
     }
 
@@ -29,34 +29,34 @@ class FirebaseTripService: TripService {
 
         print("[FirebaseTripService] Fetching and listening to trips")
 
-        await firebaseRepository
-            .fetchItemsAndListen(field: "attendeesUserIds", arrayContains: user.uid,
-                                 callback: { items, errorMessage in await self.update(items: items, errorMessage: errorMessage) })
+        await tripRepository.fetchItemsAndListen(field: "attendeesUserIds", arrayContains: user.uid,
+                                 callback: { items, errorMessage in
+            await self.update(items: items, errorMessage: errorMessage)
+        })
     }
 
     func fetchTripAndListen(withTripId tripId: String) async {
         print("[FirebaseTripService] Fetching and listening to single trip \(tripId)")
 
-        await firebaseRepository
-            .fetchItemAndListen(id: tripId,
-                                callback: { item, errorMessage in await self.update(item: item, errorMessage: errorMessage) })
+        await tripRepository.fetchItemAndListen(id: tripId, callback: { item, errorMessage in
+            await self.update(item: item, errorMessage: errorMessage) })
     }
 
     func deleteTrip(trip: Trip) async -> (Bool, String) {
         print("[FirebaseTripService] Deleting trip")
 
-        return await firebaseRepository.deleteItem(id: trip.id)
+        return await tripRepository.deleteItem(id: trip.id)
     }
 
     func updateTrip(trip: Trip) async -> (Bool, String) {
         print("[FirebaseTripService] Updating trip")
 
-        return await firebaseRepository.updateItem(id: trip.id,
+        return await tripRepository.updateItem(id: trip.id,
                                                    item: tripAdapter.toAdaptedTrip(trip: trip))
     }
 
     func detachListener() {
-        firebaseRepository.detachListener()
+        tripRepository.detachListener()
     }
 }
 

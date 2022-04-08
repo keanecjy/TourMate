@@ -8,7 +8,7 @@
 import FirebaseAuth
 
 struct FirebasePlanService: PlanService {
-    private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.planCollectionId)
+    @Injected(\.planRepository) var planRepository: Repository
 
     private let planAdapter = PlanAdapter()
 
@@ -17,39 +17,39 @@ struct FirebasePlanService: PlanService {
     func addPlan(plan: Plan) async -> (Bool, String) {
         print("[FirebasePlanService] Adding plan")
 
-        return await firebaseRepository.addItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
+        return await planRepository.addItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
     }
 
     func fetchPlansAndListen(withTripId tripId: String) async {
         print("[FirebasePlanService] Fetching and listening to plans")
 
-        await firebaseRepository
-            .fetchItemsAndListen(field: "tripId", isEqualTo: tripId,
-                                 callback: { items, errorMessage in await self.update(items: items, errorMessage: errorMessage) })
+        await planRepository.fetchItemsAndListen(field: "tripId", isEqualTo: tripId, callback: { items, errorMessage in
+                await self.update(items: items, errorMessage: errorMessage)
+            })
     }
 
     func fetchPlanAndListen(withPlanId planId: String) async {
         print("[FirebasePlanService] Fetching and listening to plan")
 
-        await firebaseRepository
-            .fetchItemAndListen(id: planId,
-                                callback: { item, errorMessage in await self.update(item: item, errorMessage: errorMessage) })
+        await planRepository.fetchItemAndListen(id: planId, callback: { item, errorMessage in
+                await self.update(item: item, errorMessage: errorMessage)
+        })
     }
 
     func deletePlan(plan: Plan) async -> (Bool, String) {
         print("[FirebasePlanService] Deleting plan")
 
-        return await firebaseRepository.deleteItem(id: plan.id)
+        return await planRepository.deleteItem(id: plan.id)
     }
 
     func updatePlan(plan: Plan) async -> (Bool, String) {
         print("[FirebasePlanService] Updating plan")
 
-        return await firebaseRepository.updateItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
+        return await planRepository.updateItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
     }
 
     func detachListener() {
-        firebaseRepository.detachListener()
+        planRepository.detachListener()
     }
 
 }

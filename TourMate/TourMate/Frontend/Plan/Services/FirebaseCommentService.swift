@@ -9,7 +9,7 @@ import Foundation
 
 struct FirebaseCommentService: CommentService {
 
-    private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.commentCollectionId)
+    @Injected(\.commentRepository) var commentRepository: Repository
 
     private let commentAdapter = CommentAdapter()
 
@@ -18,25 +18,24 @@ struct FirebaseCommentService: CommentService {
     func fetchCommentsAndListen(withPlanId planId: String) async {
         print("[FirebaseCommentService] Fetching and listening to comments")
 
-        await firebaseRepository
-            .fetchItemsAndListen(field: "planId", isEqualTo: planId,
-                                 callback: { items, errorMessage in await self.update(items: items, errorMessage: errorMessage) })
+        await commentRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId, callback: { items, errorMessage
+            in await self.update(items: items, errorMessage: errorMessage) })
     }
 
     func addComment(comment: Comment) async -> (Bool, String) {
-        await firebaseRepository.addItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
+        await commentRepository.addItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
     }
 
     func deleteComment(comment: Comment) async -> (Bool, String) {
-        await firebaseRepository.deleteItem(id: comment.id)
+        await commentRepository.deleteItem(id: comment.id)
     }
 
     func updateComment(comment: Comment) async -> (Bool, String) {
-        await firebaseRepository.updateItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
+        await commentRepository.updateItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
     }
 
     func detachListener() {
-        firebaseRepository.detachListener()
+        commentRepository.detachListener()
     }
 }
 
