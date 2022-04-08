@@ -42,7 +42,7 @@ class PlanFormViewModel: ObservableObject {
         self.planStatus = .proposed
         self.planName = ""
         self.planStartDate = lowerBoundDate
-        self.planEndDate = lowerBoundDate
+        self.planEndDate = lowerBoundDate + TimeInterval(3_600) // 1 hour
         self.planImageUrl = ""
         self.planAdditionalInfo = ""
 
