@@ -11,20 +11,12 @@ import SwiftUI
 struct PlanCardView: View {
 
     let planUpvoteViewModel: PlanUpvoteViewModel
-    let planName: String
-    let planStatus: PlanStatus
-    let startDateTime: DateTime
-    let endDateTime: DateTime
+    let plan: Plan
     let date: Date
 
-    init(planUpvoteViewModel: PlanUpvoteViewModel, planName: String,
-         planStatus: PlanStatus, startDateTime: DateTime, endDateTime: DateTime,
-         date: Date) {
+    init(planUpvoteViewModel: PlanUpvoteViewModel, plan: Plan, date: Date) {
         self.planUpvoteViewModel = planUpvoteViewModel
-        self.planName = planName
-        self.planStatus = planStatus
-        self.startDateTime = startDateTime
-        self.endDateTime = endDateTime
+        self.plan = plan
         self.date = date
     }
 
@@ -32,13 +24,13 @@ struct PlanCardView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
                 HStack(spacing: 0) {
-                    Text(DateUtil.shortDurationDesc(from: startDateTime, to: endDateTime, on: date))
+                    Text(DateUtil.shortDurationDesc(from: plan.startDateTime, to: plan.endDateTime, on: date))
                         .font(.caption)
 
-                    PlanStatusView(status: planStatus)
+                    PlanStatusView(status: plan.status)
                         .padding([.horizontal])
                 }
-                Text(planName)
+                Text(plan.name)
                     .font(.headline)
             }
             .padding()

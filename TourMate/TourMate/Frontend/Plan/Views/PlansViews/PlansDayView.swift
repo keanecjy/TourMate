@@ -145,28 +145,26 @@ struct PlansDayView: View {
                                 ForEach(plans, id: \.id) { plan in
                                     HStack {
                                         PlanBoxView(planUpvoteViewModel: ViewModelFactory.getPlanUpvoteViewModel(plan: plan),
-                                                    planName: plan.name, planStatus: plan.status,
-                                                    startDateTime: plan.startDateTime, endDateTime: plan.endDateTime,
-                                                    date: date)
-                                            .onTapGesture(perform: {
-                                                if let onSelected = onSelected {
-                                                    onSelected(plan)
-                                                }
-                                            })
-                                            .frame(maxWidth: UIScreen.screenWidth / 3,
-                                                   minHeight: CGFloat(getHeight(for: plan)),
-                                                   alignment: .topLeading)
-                                            .readSize { size in
-                                                planIdToSize[plan.id] = size
-                                                calculateOffsets()
+                                                    plan: plan, date: date)
+                                        .onTapGesture(perform: {
+                                            if let onSelected = onSelected {
+                                                onSelected(plan)
                                             }
-                                            .buttonStyle(PlainButtonStyle())
-                                            .background(
-                                                RoundedRectangle(cornerRadius: 8)
-                                                    .fill(Color.primary.opacity(0.25))
-                                            )
-                                            .offset(x: CGFloat(planIdToOffset[plan.id]?.x ?? 0),
-                                                    y: CGFloat(planIdToOffset[plan.id]?.y ?? 0) + 7)
+                                        })
+                                        .frame(maxWidth: UIScreen.screenWidth / 3,
+                                               minHeight: CGFloat(getHeight(for: plan)),
+                                               alignment: .topLeading)
+                                        .readSize { size in
+                                            planIdToSize[plan.id] = size
+                                            calculateOffsets()
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .fill(Color.primary.opacity(0.25))
+                                        )
+                                        .offset(x: CGFloat(planIdToOffset[plan.id]?.x ?? 0),
+                                                y: CGFloat(planIdToOffset[plan.id]?.y ?? 0) + 7)
                                         Spacer()
                                     }
                                 }
@@ -195,9 +193,9 @@ struct PlansDayView: View {
 }
 
 /*
-struct PlansDayView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlansDayView()
-    }
-}
+ struct PlansDayView_Previews: PreviewProvider {
+ static var previews: some View {
+ PlansDayView()
+ }
+ }
  */
