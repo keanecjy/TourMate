@@ -13,7 +13,7 @@ class PlansViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
-    @Injected(\.planService) var planService: PlanService
+    private var planService: PlanService = FirebasePlanService()
 
     // Information needed by Plans
     let tripId: String

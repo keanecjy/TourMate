@@ -17,7 +17,7 @@ class PlanUpvoteViewModel: ObservableObject {
 
     let planId: String
 
-    @Injected(\.planUpvoteService) var planUpvoteService: PlanUpvoteService
+    private var planUpvoteService: PlanUpvoteService = FirebasePlanUpvoteService()
     @Injected(\.userService) var userService: UserService
 
     init(planId: String) {
