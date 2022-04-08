@@ -39,11 +39,10 @@ struct TripView: View {
 
                         AttendeesView(attendees: viewModel.attendees)
 
-                        if let imageUrl = viewModel.imageUrlDisplay {
-                            TripImage(imageUrl: imageUrl)
-                        }
+                        TripImage(imageUrl: viewModel.imageUrlDisplay)
 
-                        PlansView(plansViewModel: ViewModelFactory.getPlansViewModel(tripViewModel: viewModel)) { plan in
+                        PlansView(plansViewModel: ViewModelFactory.getPlansViewModel(tripViewModel: viewModel))
+                        { plan in
                             selectedPlan = plan
                         }
 

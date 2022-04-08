@@ -54,7 +54,7 @@ class TripViewModel: ObservableObject {
         trip.durationDescription
     }
 
-    var imageUrlDisplay: String? {
+    var imageUrlDisplay: String {
         trip.imageUrl
     }
 
