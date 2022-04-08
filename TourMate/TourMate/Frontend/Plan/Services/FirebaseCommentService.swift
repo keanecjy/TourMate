@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct FirebaseCommentService: CommentService {
+class FirebaseCommentService: CommentService {
 
-    @Injected(\.commentRepository) var commentRepository: Repository
+    private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.commentCollectionId)
 
     private let commentAdapter = CommentAdapter()
 
@@ -18,29 +18,30 @@ struct FirebaseCommentService: CommentService {
     func fetchCommentsAndListen(withPlanId planId: String) async {
         print("[FirebaseCommentService] Fetching and listening to comments")
 
-        await commentRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId, callback: { items, errorMessage
-            in await self.update(items: items, errorMessage: errorMessage) })
+        firebaseRepository.eventDelegate = self
+        await firebaseRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId)
     }
 
     func addComment(comment: Comment) async -> (Bool, String) {
-        await commentRepository.addItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
+        await firebaseRepository.addItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
     }
 
     func deleteComment(comment: Comment) async -> (Bool, String) {
-        await commentRepository.deleteItem(id: comment.id)
+        await firebaseRepository.deleteItem(id: comment.id)
     }
 
     func updateComment(comment: Comment) async -> (Bool, String) {
-        await commentRepository.updateItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
+        await firebaseRepository.updateItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
     }
 
     func detachListener() {
-        commentRepository.detachListener()
+        firebaseRepository.eventDelegate = nil
+        firebaseRepository.detachListener()
     }
 }
 
 // MARK: - FirebaseEventDelegate
-extension FirebaseCommentService {
+extension FirebaseCommentService: FirebaseEventDelegate {
     func update(items: [FirebaseAdaptedData], errorMessage: String) async {
         print("[FirebaseCommentService] Updating Comments")
 

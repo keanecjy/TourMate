@@ -12,6 +12,8 @@ class FirebaseRepository: Repository {
 
     private let db = Firestore.firestore()
 
+    weak var eventDelegate: FirebaseEventDelegate?
+
     var listener: ListenerRegistration?
 
     init(collectionId: String) {
@@ -67,26 +69,24 @@ class FirebaseRepository: Repository {
     }
 
     @MainActor
-    func fetchItemsAndListen(field: String, arrayContains id: String,
-                             callback: (@escaping ([FirebaseAdaptedData], String) async -> Void)) async {
+    func fetchItemsAndListen(field: String, arrayContains id: String) async {
         let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), arrayContains: id)
 
-        fetchItemsAndListen(from: query, callback: callback)
+        fetchItemsAndListen(from: query)
     }
 
     @MainActor
-    func fetchItemsAndListen(field: String, isEqualTo id: String,
-                             callback: (@escaping ([FirebaseAdaptedData], String) async -> Void)) async {
+    func fetchItemsAndListen(field: String, isEqualTo id: String) async {
         let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field), isEqualTo: id)
 
-        fetchItemsAndListen(from: query, callback: callback)
+        fetchItemsAndListen(from: query)
     }
 
     @MainActor
-    func fetchItemAndListen(id: String, callback: (@escaping (FirebaseAdaptedData?, String) async -> Void)) async {
+    func fetchItemAndListen(id: String) async {
         let itemRef = db.collection(collectionId).document(id)
 
-        fetchItemAndListen(from: itemRef, callback: callback)
+        fetchItemAndListen(from: itemRef)
     }
 
     func detachListener() {
@@ -148,7 +148,7 @@ extension FirebaseRepository {
     }
 
     @MainActor
-    private func fetchItemsAndListen(from query: Query, callback: (@escaping ([FirebaseAdaptedData], String) async -> Void)) {
+    private func fetchItemsAndListen(from query: Query) {
         guard Auth.auth().currentUser != nil else {
             print("Unable to listen", Constants.messageUserNotLoggedIn)
             return
@@ -160,17 +160,17 @@ extension FirebaseRepository {
                       error == nil
                 else {
                     let errorMessage = "[FirebaseRepository] Error fetching \(self.collectionId): \(String(describing: error))"
-                    await callback([], errorMessage)
+                    await self.eventDelegate?.update(items: [], errorMessage: errorMessage)
                     return
                 }
                 let items = documents.compactMap({ try? $0.data(as: AnyFirebaseAdaptedData.self) }).map { $0.base }
-                await callback(items, "")
+                await self.eventDelegate?.update(items: items, errorMessage: "")
             }
         })
     }
 
     @MainActor
-    private func fetchItemAndListen(from document: DocumentReference, callback: (@escaping (FirebaseAdaptedData?, String) async -> Void)) {
+    private func fetchItemAndListen(from document: DocumentReference) {
         guard Auth.auth().currentUser != nil else {
             print("Unable to listen", Constants.messageUserNotLoggedIn)
             return
@@ -183,11 +183,11 @@ extension FirebaseRepository {
                           error == nil
                     else {
                         let errorMessage = "[FirebaseRepository] Error fetching \(self.collectionId): \(String(describing: error))"
-                        await callback(nil, errorMessage)
+                        await self.eventDelegate?.update(item: nil, errorMessage: errorMessage)
                         return
                     }
                     let item = try querySnapshot.data(as: AnyFirebaseAdaptedData.self).map { $0.base }
-                    await callback(item, "")
+                    await self.eventDelegate?.update(item: item, errorMessage: "")
                 } catch {
                     let errorMessage = "[FirebaseRepository] Error fetching \(self.collectionId): \(error)"
                     print(errorMessage)

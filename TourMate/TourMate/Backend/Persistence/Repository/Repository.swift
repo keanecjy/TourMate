@@ -13,13 +13,11 @@ protocol Repository {
 
     func fetchItems(field: String, isEqualTo id: String) async -> (items: [FirebaseAdaptedData], errorMessage: String)
 
-    func fetchItemsAndListen(field: String, arrayContains id: String,
-                             callback: (@escaping ([FirebaseAdaptedData], String) async -> Void)) async
+    func fetchItemsAndListen(field: String, arrayContains id: String) async
 
-    func fetchItemsAndListen(field: String, isEqualTo id: String,
-                             callback: (@escaping ([FirebaseAdaptedData], String) async -> Void)) async
+    func fetchItemsAndListen(field: String, isEqualTo id: String) async
 
-    func fetchItemAndListen(id: String, callback: (@escaping (FirebaseAdaptedData?, String) async -> Void)) async
+    func fetchItemAndListen(id: String) async
 
     func deleteItem(id: String) async -> (hasDeletedItem: Bool, errorMessage: String)
 
