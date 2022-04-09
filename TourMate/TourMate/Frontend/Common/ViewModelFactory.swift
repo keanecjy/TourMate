@@ -75,12 +75,25 @@ struct ViewModelFactory {
                                  planService: planService.copy(), userService: userService)
     }
 
-    func getAccommodationViewModel(accommodation: Accommodation, tripViewModel: TripViewModel) -> AccommodationViewModel {
+    func getAccommodationViewModel(accommodation: Accommodation,
+                                   tripViewModel: TripViewModel) -> AccommodationViewModel {
         let lowerBoundDate = tripViewModel.startDateTime
         let upperBoundDate = tripViewModel.endDateTime
 
         return AccommodationViewModel(
             accommodation: accommodation,
+            lowerBoundDate: lowerBoundDate,
+            upperBoundDate: upperBoundDate,
+            planService: planService.copy(),
+            userService: userService)
+    }
+
+    func getTransportViewModel(transport: Transport, tripViewModel: TripViewModel) -> TransportViewModel {
+        let lowerBoundDate = tripViewModel.startDateTime
+        let upperBoundDate = tripViewModel.endDateTime
+
+        return TransportViewModel(
+            transport: transport,
             lowerBoundDate: lowerBoundDate,
             upperBoundDate: upperBoundDate,
             planService: planService.copy(),
@@ -98,6 +111,10 @@ struct ViewModelFactory {
 
     func getAddAccommodationViewModel(trip: Trip) -> AddAccommodationViewModel {
         AddAccommodationViewModel(trip: trip, planService: planService.copy(), userService: userService)
+    }
+
+    func getAddTransportViewModel(trip: Trip) -> AddTransportViewModel {
+        AddTransportViewModel(trip: trip, planService: planService.copy(), userService: userService)
     }
 
     // Edit Plan

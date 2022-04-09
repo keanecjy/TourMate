@@ -1,33 +1,34 @@
 //
-//  AddActivityView.swift
+//  AddTransportView.swift
 //  TourMate
 //
-//  Created by Tan Rui Quan on 8/4/22.
+//  Created by Tan Rui Quan on 10/4/22.
 //
 
 import SwiftUI
 
-struct AddActivityView: View {
+struct AddTransportView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: AddActivityViewModel
+    @StateObject var viewModel: AddTransportViewModel
     var dismissAddPlanView: DismissAction
 
     var planFormView: some View {
         PlanFormView(viewModel: viewModel) {
             Section("Date & Time") {
-                DatePicker("Start Date",
+                DatePicker("Departure Date",
                            selection: $viewModel.planStartDate,
                            in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
                            displayedComponents: [.date, .hourAndMinute])
 
-                DatePicker("End Date",
+                DatePicker("Arrival Date",
                            selection: $viewModel.planEndDate,
                            in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
                            displayedComponents: [.date, .hourAndMinute])
             }
 
             Section("Location") {
-                AddressTextField(title: "Location", location: $viewModel.location)
+                AddressTextField(title: "Departure Location", location: $viewModel.startLocation)
+                AddressTextField(title: "Arrival Location", location: $viewModel.endLocation)
             }
         }
     }
@@ -43,13 +44,13 @@ struct AddActivityView: View {
                     planFormView
                 }
             }
-            .navigationTitle("New Activity")
+            .navigationTitle("New Transport")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {
                         Task {
-                            await viewModel.addActivity()
+                            await viewModel.addTransport()
                             dismiss()
                             dismissAddPlanView()
                         }
@@ -67,9 +68,3 @@ struct AddActivityView: View {
         }
     }
 }
-
-// struct AddActivityView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddActivityView()
-//    }
-// }

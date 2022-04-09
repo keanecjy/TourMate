@@ -16,8 +16,10 @@ class PlanAdapter {
             return plan.toData()
         case let plan as Accommodation:
             return plan.toData()
+        case let plan as Transport:
+            return plan.toData()
         default:
-            preconditionFailure("Such a plan do not exists")
+            preconditionFailure("Failed to convert domain plan to data plan")
         }
     }
 
@@ -27,8 +29,10 @@ class PlanAdapter {
             return adaptedPlan.toItem()
         case let adaptedPlan as FirebaseAdaptedAccommodation:
             return adaptedPlan.toItem()
+        case let adaptedPlan as FirebaseAdaptedTransport:
+            return adaptedPlan.toItem()
         default:
-            preconditionFailure("Tried to adapt plan but failed")
+            preconditionFailure("Failed to convert data plan to domain plan")
         }
     }
 }
@@ -84,6 +88,37 @@ extension FirebaseAdaptedAccommodation {
                       additionalInfo: additionalInfo,
                       ownerUserId: ownerUserId,
                       location: location?.toItem())
+    }
+}
+
+extension Transport {
+    fileprivate func toData() -> FirebaseAdaptedTransport {
+        FirebaseAdaptedTransport(
+            id: id, tripId: tripId, name: name,
+            startDateTime: startDateTime.toData(),
+            endDateTime: endDateTime.toData(),
+            imageUrl: imageUrl, status: status.rawValue,
+            creationDate: creationDate,
+            modificationDate: modificationDate,
+            additionalInfo: additionalInfo,
+            ownerUserId: ownerUserId,
+            startLocation: startLocation?.toData(),
+            endLocation: endLocation?.toData())
+    }
+}
+
+extension FirebaseAdaptedTransport {
+    fileprivate func toItem() -> Transport {
+        Transport(id: id, tripId: tripId, name: name,
+                  startDateTime: startDateTime.toItem(),
+                  endDateTime: endDateTime.toItem(),
+                  imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
+                  creationDate: creationDate,
+                  modificationDate: modificationDate,
+                  additionalInfo: additionalInfo,
+                  ownerUserId: ownerUserId,
+                  startLocation: startLocation?.toItem(),
+                  endLocation: endLocation?.toItem())
     }
 }
 

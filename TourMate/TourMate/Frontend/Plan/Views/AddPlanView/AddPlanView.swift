@@ -28,7 +28,8 @@ struct AddPlanView: View {
                         .prefixedWithIcon(named: "figure.walk.circle.fill")
                 }
                 .sheet(isPresented: $isShowingAddActivitySheet) {
-                    AddActivityView(viewModel: viewModelFactory.getAddActivityViewModel(trip: trip), dismissAddPlanView: dismissAddPlanView)
+                    let viewModel = viewModelFactory.getAddActivityViewModel(trip: trip)
+                    AddActivityView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView)
                 }
 
                 Button {
@@ -47,6 +48,10 @@ struct AddPlanView: View {
                 } label: {
                     Text("Transport")
                         .prefixedWithIcon(named: "car.circle.fill")
+                }
+                .sheet(isPresented: $isShowingAddTransportSheet) {
+                    let viewModel = viewModelFactory.getAddTransportViewModel(trip: trip)
+                    AddTransportView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView)
                 }
             }
             .listStyle(.plain)

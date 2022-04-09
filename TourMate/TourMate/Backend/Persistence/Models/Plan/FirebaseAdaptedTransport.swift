@@ -18,7 +18,7 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
          creationDate: Date, modificationDate: Date,
          additionalInfo: String, ownerUserId: String,
          startLocation: JsonAdaptedLocation?,
-         endLocation: JsonAdaptedLocation) {
+         endLocation: JsonAdaptedLocation?) {
         self.startLocation = startLocation
         self.endLocation = endLocation
         super.init(id: id, tripId: tripId, name: name,

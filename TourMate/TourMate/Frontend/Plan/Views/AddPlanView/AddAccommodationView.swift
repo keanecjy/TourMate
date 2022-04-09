@@ -45,7 +45,6 @@ struct AddAccommodationView: View {
             }
             .navigationTitle("New Accommodation")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationViewStyle(.stack)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {

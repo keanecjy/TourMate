@@ -32,6 +32,9 @@ struct TripView: View {
         case let plan as Accommodation:
             let viewModel = viewModelFactory.getAccommodationViewModel(accommodation: plan, tripViewModel: viewModel)
             return AnyView(AccommodationView(accommodationViewModel: viewModel))
+        case let plan as Transport:
+            let viewModel = viewModelFactory.getTransportViewModel(transport: plan, tripViewModel: viewModel)
+            return AnyView(TransportView(transportViewModel: viewModel))
         default:
             preconditionFailure("Plan don't exists")
         }
