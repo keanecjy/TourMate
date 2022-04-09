@@ -14,6 +14,8 @@ class PlanAdapter {
         switch plan {
         case let plan as Activity:
             return plan.toData()
+        case let plan as Accommodation:
+            return plan.toData()
         default:
             preconditionFailure("Such a plan do not exists")
         }
@@ -22,6 +24,8 @@ class PlanAdapter {
     func toPlan(adaptedPlan: FirebaseAdaptedPlan) -> Plan {
         switch adaptedPlan {
         case let adaptedPlan as FirebaseAdaptedActivity:
+            return adaptedPlan.toItem()
+        case let adaptedPlan as FirebaseAdaptedAccommodation:
             return adaptedPlan.toItem()
         default:
             preconditionFailure("Tried to adapt plan but failed")
@@ -51,6 +55,35 @@ extension FirebaseAdaptedActivity {
                  creationDate: creationDate, modificationDate: modificationDate,
                  additionalInfo: additionalInfo, ownerUserId: ownerUserId,
                  location: location?.toItem())
+    }
+}
+
+extension Accommodation {
+    fileprivate func toData() -> FirebaseAdaptedAccommodation {
+        FirebaseAdaptedAccommodation(
+            id: id, tripId: tripId, name: name,
+            startDateTime: startDateTime.toData(),
+            endDateTime: endDateTime.toData(),
+            imageUrl: imageUrl, status: status.rawValue,
+            creationDate: creationDate,
+            modificationDate: modificationDate,
+            additionalInfo: additionalInfo,
+            ownerUserId: ownerUserId,
+            location: location?.toData())
+    }
+}
+
+extension FirebaseAdaptedAccommodation {
+    fileprivate func toItem() -> Accommodation {
+        Accommodation(id: id, tripId: tripId, name: name,
+                      startDateTime: startDateTime.toItem(),
+                      endDateTime: endDateTime.toItem(),
+                      imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
+                      creationDate: creationDate,
+                      modificationDate: modificationDate,
+                      additionalInfo: additionalInfo,
+                      ownerUserId: ownerUserId,
+                      location: location?.toItem())
     }
 }
 

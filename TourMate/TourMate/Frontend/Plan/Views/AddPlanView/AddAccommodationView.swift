@@ -1,26 +1,26 @@
 //
-//  AddActivityView.swift
+//  AddAccommodationView.swift
 //  TourMate
 //
-//  Created by Tan Rui Quan on 8/4/22.
+//  Created by Tan Rui Quan on 9/4/22.
 //
 
 import SwiftUI
 
-struct AddActivityView: View {
+struct AddAccommodationView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: AddActivityViewModel
+    @StateObject var viewModel: AddAccommodationViewModel
     var dismissAddPlanView: DismissAction
 
     var planFormView: some View {
         PlanFormView(viewModel: viewModel) {
             Section("Date & Time") {
-                DatePicker("Start Date",
+                DatePicker("Check-in Date",
                            selection: $viewModel.planStartDate,
                            in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
                            displayedComponents: [.date, .hourAndMinute])
 
-                DatePicker("End Date",
+                DatePicker("Check-out Date",
                            selection: $viewModel.planEndDate,
                            in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
                            displayedComponents: [.date, .hourAndMinute])
@@ -31,7 +31,6 @@ struct AddActivityView: View {
             }
         }
     }
-
     var body: some View {
         NavigationView {
             Group {
@@ -43,14 +42,14 @@ struct AddActivityView: View {
                     planFormView
                 }
             }
-            .navigationTitle("New Activity")
+            .navigationTitle("New Accommodation")
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {
                         Task {
-                            await viewModel.addActivity()
+                            await viewModel.addAccommodation()
                             dismiss()
                             dismissAddPlanView()
                         }
@@ -69,8 +68,8 @@ struct AddActivityView: View {
     }
 }
 
-// struct AddActivityView_Previews: PreviewProvider {
+// struct AddAccommodationView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        AddActivityView()
+//        AddAccommodationView()
 //    }
 // }

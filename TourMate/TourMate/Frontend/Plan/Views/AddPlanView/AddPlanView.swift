@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 struct AddPlanView: View {
-    @Environment(\.dismiss) var dismissPlanView
+    @Environment(\.dismiss) var dismissAddPlanView
 
     let trip: Trip
     private let viewModelFactory = ViewModelFactory()
@@ -28,7 +28,7 @@ struct AddPlanView: View {
                         .prefixedWithIcon(named: "figure.walk.circle.fill")
                 }
                 .sheet(isPresented: $isShowingAddActivitySheet) {
-                    AddActivityView(viewModel: viewModelFactory.getAddActivityViewModel(trip: trip), dismissPlanView: dismissPlanView)
+                    AddActivityView(viewModel: viewModelFactory.getAddActivityViewModel(trip: trip), dismissAddPlanView: dismissAddPlanView)
                 }
 
                 Button {
@@ -36,6 +36,10 @@ struct AddPlanView: View {
                 } label: {
                     Text("Accommodation")
                         .prefixedWithIcon(named: "bed.double.circle.fill")
+                }
+                .sheet(isPresented: $isShowingAddAccommodationSheet) {
+                    let viewModel = viewModelFactory.getAddAccommodationViewModel(trip: trip)
+                    AddAccommodationView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView)
                 }
 
                 Button {
@@ -51,7 +55,7 @@ struct AddPlanView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {
-                        dismissPlanView()
+                        dismissAddPlanView()
                     }
                 }
             }

@@ -21,7 +21,7 @@ struct PlanFormView<Content: View>: View {
             Section {
                 ConfirmedToggle(status: $viewModel.planStatus, canChangeStatus: viewModel.canChangeStatus)
 
-                TextField("Event Name*", text: $viewModel.planName)
+                TextField("Name*", text: $viewModel.planName)
 
                 TextField("Image URL", text: $viewModel.planImageUrl)
             }
