@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol TripService {
+protocol TripService: Copyable {
     func fetchTripsAndListen() async
 
     func fetchTripAndListen(withTripId tripId: String) async

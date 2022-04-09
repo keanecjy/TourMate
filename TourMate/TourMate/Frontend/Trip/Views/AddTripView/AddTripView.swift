@@ -46,8 +46,9 @@ struct AddTripView: View {
     }
 }
 
-struct AddTripView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddTripView(viewModel: ViewModelFactory.getAddTripViewModel())
-    }
-}
+// struct AddTripView_Previews: PreviewProvider {
+//     static var previews: some View {
+//         let viewModelFactory = ViewModelFactory()
+//         AddTripView(viewModel: viewModelFactory.getAddTripViewModel())
+//     }
+// }

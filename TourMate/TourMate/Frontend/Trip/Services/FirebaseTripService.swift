@@ -8,7 +8,11 @@
 import FirebaseAuth
 
 class FirebaseTripService: TripService {
-    private var firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.tripCollectionId)
+    required init() {
+
+    }
+
+    private let tripRepository = FirebaseRepository(collectionId: FirebaseConfig.tripCollectionId)
 
     private let tripAdapter = TripAdapter()
 
@@ -17,8 +21,8 @@ class FirebaseTripService: TripService {
     func addTrip(trip: Trip) async -> (Bool, String) {
         print("[FirebaseTripService] Adding trip")
 
-        return await firebaseRepository.addItem(id: trip.id, item:
-                                                    tripAdapter.toAdaptedTrip(trip: trip) )
+        return await tripRepository.addItem(id: trip.id, item:
+                                                    tripAdapter.toAdaptedTrip(trip: trip))
     }
 
     func fetchTripsAndListen() async {
@@ -29,33 +33,33 @@ class FirebaseTripService: TripService {
 
         print("[FirebaseTripService] Fetching and listening to trips")
 
-        firebaseRepository.eventDelegate = self
-        await firebaseRepository.fetchItemsAndListen(field: "attendeesUserIds", arrayContains: user.uid)
+        tripRepository.eventDelegate = self
+        await tripRepository.fetchItemsAndListen(field: "attendeesUserIds", arrayContains: user.uid)
     }
 
     func fetchTripAndListen(withTripId tripId: String) async {
         print("[FirebaseTripService] Fetching and listening to single trip \(tripId)")
 
-        firebaseRepository.eventDelegate = self
-        await firebaseRepository.fetchItemAndListen(id: tripId)
+        tripRepository.eventDelegate = self
+        await tripRepository.fetchItemAndListen(id: tripId)
     }
 
     func deleteTrip(trip: Trip) async -> (Bool, String) {
         print("[FirebaseTripService] Deleting trip")
 
-        return await firebaseRepository.deleteItem(id: trip.id)
+        return await tripRepository.deleteItem(id: trip.id)
     }
 
     func updateTrip(trip: Trip) async -> (Bool, String) {
         print("[FirebaseTripService] Updating trip")
 
-        return await firebaseRepository.updateItem(id: trip.id,
-                                                   item: tripAdapter.toAdaptedTrip(trip: trip))
+        return await tripRepository.updateItem(id: trip.id,
+                                               item: tripAdapter.toAdaptedTrip(trip: trip))
     }
 
     func detachListener() {
-        firebaseRepository.eventDelegate = nil
-        firebaseRepository.detachListener()
+        tripRepository.eventDelegate = nil
+        tripRepository.detachListener()
     }
 }
 

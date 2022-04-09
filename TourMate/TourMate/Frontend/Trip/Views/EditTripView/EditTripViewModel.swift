@@ -18,10 +18,7 @@ class EditTripViewModel: TripFormViewModel {
     private let tripService: TripService
     private let userService: UserService
 
-    init(trip: Trip,
-         tripService: TripService = FirebaseTripService(),
-         userService: UserService = FirebaseUserService()) {
-
+    init(trip: Trip, tripService: TripService, userService: UserService) {
         self.trip = trip
 
         self.tripService = tripService

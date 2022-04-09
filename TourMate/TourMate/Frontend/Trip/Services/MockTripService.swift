@@ -8,6 +8,10 @@
 import Foundation
 
 class MockTripService: TripService {
+    required init() {
+
+    }
+
     weak var tripEventDelegate: TripEventDelegate?
 
     var trips: [Trip] = [

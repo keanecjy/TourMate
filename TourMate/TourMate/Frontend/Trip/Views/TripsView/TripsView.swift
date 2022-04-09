@@ -13,6 +13,8 @@ struct TripsView: View {
 
     let onSelected: ((Trip) -> Void)?
 
+    private let viewModelFactory = ViewModelFactory()
+
     init(viewModel: TripsViewModel, onSelected: ((Trip) -> Void)? = nil) {
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.onSelected = onSelected
@@ -51,7 +53,7 @@ struct TripsView: View {
                 }
                 .disabled(viewModel.isLoading || viewModel.hasError)
                 .sheet(isPresented: $isShowingAddTripSheet) {
-                    AddTripView(viewModel: ViewModelFactory.getAddTripViewModel())
+                    AddTripView(viewModel: viewModelFactory.getAddTripViewModel())
                 }
 
                 NavigationLink {
@@ -68,8 +70,14 @@ struct TripsView: View {
     }
 }
 
-struct TripsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TripsView(viewModel: TripsViewModel(tripService: MockTripService()))
-    }
-}
+// struct TripsView_Previews: PreviewProvider {
+//     static var previews: some View {
+//         TripsView(viewModel: TripsViewModel())
+//             .onAppear {
+//                 InjectedValues[\.tripService] = MockTripService()
+//             }
+//             .onDisappear {
+//                 InjectedValues[\.tripService] = FirebaseTripService()
+//             }
+//     }
+// }

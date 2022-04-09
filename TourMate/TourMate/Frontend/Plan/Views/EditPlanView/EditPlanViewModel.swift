@@ -16,12 +16,12 @@ class EditPlanViewModel: PlanFormViewModel {
     private(set) var canDeletePlan = false
 
     private let plan: Plan
+
     private let planService: PlanService
     private let userService: UserService
 
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
-         planService: PlanService = FirebasePlanService(),
-         userService: UserService = FirebaseUserService()) {
+         planService: PlanService, userService: UserService) {
 
         self.plan = plan
         self.planService = planService

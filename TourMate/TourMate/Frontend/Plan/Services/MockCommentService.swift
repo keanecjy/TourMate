@@ -8,6 +8,10 @@
 import Foundation
 
 class MockCommentService: CommentService {
+    required init() {
+
+    }
+
     var comments: [Comment] = [
         Comment(planId: "0", id: "0", userId: "0", message: "Testing by 0!",
                 creationDate: Date(timeIntervalSince1970: 1_651_400_000), upvotedUserIds: ["0", " 1"]),

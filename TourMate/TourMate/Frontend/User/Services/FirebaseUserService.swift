@@ -9,8 +9,7 @@ import Foundation
 import FirebaseAuth
 
 struct FirebaseUserService: UserService {
-    private let firebaseRepository = FirebaseRepository(
-        collectionId: FirebaseConfig.userCollectionId)
+    private let userRepository = FirebaseRepository(collectionId: FirebaseConfig.userCollectionId)
 
     private let userAdapter = UserAdapter()
 
@@ -23,14 +22,14 @@ struct FirebaseUserService: UserService {
         }
 
         let adaptedUser = userAdapter.toAdaptedUser(user: user)
-        return await firebaseRepository.addItem(id: currentUser.uid, item: adaptedUser)
+        return await userRepository.addItem(id: currentUser.uid, item: adaptedUser)
     }
 
     func deleteUser() async -> (Bool, String) {
         guard let currentUser = Auth.auth().currentUser else {
             return (false, Constants.messageUserNotLoggedIn)
         }
-        return await firebaseRepository.deleteItem(id: currentUser.uid)
+        return await userRepository.deleteItem(id: currentUser.uid)
     }
 
     func getCurrentUser() async -> (User?, String) {
@@ -42,7 +41,7 @@ struct FirebaseUserService: UserService {
     }
 
     func getUser(withUserId userId: String) async -> (User?, String) {
-        let (adaptedUser, errorMessage) = await firebaseRepository.fetchItem(id: userId)
+        let (adaptedUser, errorMessage) = await userRepository.fetchItem(id: userId)
 
         guard errorMessage.isEmpty else {
             return (nil, errorMessage)
@@ -60,7 +59,7 @@ struct FirebaseUserService: UserService {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
-        let (adaptedUsers, errorMessage) = await firebaseRepository.fetchItems(field: "email", isEqualTo: email)
+        let (adaptedUsers, errorMessage) = await userRepository.fetchItems(field: "email", isEqualTo: email)
 
         guard errorMessage.isEmpty else {
             return (nil, errorMessage)

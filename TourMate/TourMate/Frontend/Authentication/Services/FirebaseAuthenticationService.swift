@@ -14,7 +14,9 @@ final class FirebaseAuthenticationService: ObservableObject, AuthenticationServi
     private(set) static var shared = FirebaseAuthenticationService()
 
     @Published private(set) var userIsLoggedIn: Bool
-    private let authenticationManager: AuthenticationManager = FirebaseAuthenticationManager()
+
+    @Injected(\.authenticationManager) var authenticationManager: AuthenticationManager
+
     private var authStateListenerHandle: AuthStateDidChangeListenerHandle?
 
     private init() {

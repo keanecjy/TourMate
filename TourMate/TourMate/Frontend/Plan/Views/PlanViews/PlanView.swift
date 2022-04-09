@@ -15,10 +15,12 @@ struct PlanView: View {
 
     @Environment(\.dismiss) var dismiss
 
+    private let viewModelFactory = ViewModelFactory()
+
     init(planViewModel: PlanViewModel) {
         self._planViewModel = StateObject(wrappedValue: planViewModel)
-        self.commentsViewModel = ViewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
-        self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
+        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
     }
 
     var body: some View {
@@ -35,7 +37,7 @@ struct PlanView: View {
                                planOwner: planViewModel.planOwner,
                                creationDateDisplay: planViewModel.creationDateDisplay)
 
-                UpvotePlanView(viewModel: planUpvoteViewModel)
+                PlanUpvoteView(viewModel: planUpvoteViewModel)
 
                 TimingView(startDate: planViewModel.startDateTimeDisplay,
                            endDate: planViewModel.endDateTimeDisplay)
@@ -60,7 +62,7 @@ struct PlanView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        EditPlanView(viewModel: ViewModelFactory.getEditPlanViewModel(planViewModel: planViewModel))
+                        EditPlanView(viewModel: viewModelFactory.getEditPlanViewModel(planViewModel: planViewModel))
                     }
                 }
             }

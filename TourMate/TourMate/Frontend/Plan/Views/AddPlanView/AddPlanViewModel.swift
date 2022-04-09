@@ -14,10 +14,11 @@ class AddPlanViewModel: PlanFormViewModel {
     @Published private(set) var hasError = false
 
     private let trip: Trip
+
     private let planService: PlanService
     private let userService: UserService
 
-    init(trip: Trip, planService: PlanService = FirebasePlanService(), userService: UserService = FirebaseUserService()) {
+    init(trip: Trip, planService: PlanService, userService: UserService) {
 
         self.trip = trip
         self.planService = planService

@@ -21,8 +21,8 @@ class PlanUpvoteViewModel: ObservableObject {
     private var planUpvoteService: PlanUpvoteService
 
     init(planId: String,
-         userService: UserService = FirebaseUserService(),
-         planUpvoteService: PlanUpvoteService = FirebasePlanUpvoteService()) {
+         userService: UserService,
+         planUpvoteService: PlanUpvoteService) {
 
         self.planId = planId
         self.userService = userService
