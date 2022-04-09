@@ -8,24 +8,8 @@
 import Foundation
 
 @MainActor
-class AddActivityViewModel: PlanFormViewModel {
-    @Published private(set) var isLoading = false
-    @Published private(set) var hasError = false
-
+class AddActivityViewModel: AddPlanViewModel {
     @Published var location: Location?
-
-    private let trip: Trip
-    private let planService: PlanService
-    private let userService: UserService
-
-    init(trip: Trip, planService: PlanService = FirebasePlanService(), userService: UserService = FirebaseUserService()) {
-
-        self.trip = trip
-        self.planService = planService
-        self.userService = userService
-
-        super.init(lowerBoundDate: trip.startDateTime.date, upperBoundDate: trip.endDateTime.date)
-    }
 
     func addActivity() async {
         self.isLoading = true
@@ -65,14 +49,6 @@ class AddActivityViewModel: PlanFormViewModel {
             return
         }
 
-        self.isLoading = false
-    }
-}
-
-// MARK: - State changes
-extension AddActivityViewModel {
-    private func handleError() {
-        self.hasError = true
         self.isLoading = false
     }
 }

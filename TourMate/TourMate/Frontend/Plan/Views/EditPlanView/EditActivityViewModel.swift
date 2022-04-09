@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CloudKit
 
 @MainActor
 class EditActivityViewModel: EditPlanViewModel {
