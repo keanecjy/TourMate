@@ -27,7 +27,7 @@ struct AddAccommodationView: View {
             }
 
             Section("Location") {
-                AddressTextField(title: "Location", location: $viewModel.location)
+                AddressTextField(title: "Address", location: $viewModel.location)
             }
         }
     }
