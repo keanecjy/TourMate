@@ -32,10 +32,14 @@ struct AccommodationView: View {
             VStack(alignment: .leading, spacing: 30.0) {
                 // TODO: Show image
 
-                PlanHeaderView(planName: accommodationViewModel.nameDisplay,
-                               planStatus: accommodationViewModel.statusDisplay,
-                               planOwner: accommodationViewModel.planOwner,
-                               creationDateDisplay: accommodationViewModel.creationDateDisplay)
+                PlanHeaderView(
+                    planStatus: accommodationViewModel.statusDisplay,
+                    planOwner: accommodationViewModel.planOwner,
+                    creationDateDisplay: accommodationViewModel.creationDateDisplay) {
+                        Text(accommodationViewModel.nameDisplay)
+                            .bold()
+                            .prefixedWithIcon(named: "bed.double.circle.fill")
+                }
 
                 PlanUpvoteView(viewModel: planUpvoteViewModel)
 

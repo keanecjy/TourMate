@@ -7,18 +7,22 @@
 
 import SwiftUI
 
-struct PlanHeaderView: View {
-
-    let planName: String
+struct PlanHeaderView<TitleView: View>: View {
+    let title: TitleView
     let planStatus: PlanStatus
     let planOwner: User
     let creationDateDisplay: String
 
+    init(planStatus: PlanStatus, planOwner: User, creationDateDisplay: String, @ViewBuilder title: () -> TitleView) {
+        self.planStatus = planStatus
+        self.planOwner = planOwner
+        self.creationDateDisplay = creationDateDisplay
+        self.title = title()
+    }
     var body: some View {
         HStack(spacing: 10.0) {
-            Text(planName)
+            title
                 .font(.largeTitle)
-                .bold()
 
             PlanStatusView(status: planStatus)
 

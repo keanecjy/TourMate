@@ -32,10 +32,14 @@ struct ActivityView: View {
             VStack(alignment: .leading, spacing: 30.0) {
                 // TODO: Show image
 
-                PlanHeaderView(planName: activityViewModel.nameDisplay,
-                               planStatus: activityViewModel.statusDisplay,
-                               planOwner: activityViewModel.planOwner,
-                               creationDateDisplay: activityViewModel.creationDateDisplay)
+                PlanHeaderView(
+                    planStatus: activityViewModel.statusDisplay,
+                    planOwner: activityViewModel.planOwner,
+                    creationDateDisplay: activityViewModel.creationDateDisplay) {
+                        Text(activityViewModel.nameDisplay)
+                            .bold()
+                            .prefixedWithIcon(named: "figure.walk.circle.fill")
+                }
 
                 PlanUpvoteView(viewModel: planUpvoteViewModel)
 
