@@ -8,15 +8,14 @@
 import Foundation
 
 @MainActor
-
 class ActivityViewModel: PlanViewModel {
     @Published var activity: Activity
 
     init(activity: Activity,
          lowerBoundDate: DateTime,
          upperBoundDate: DateTime,
-         planService: PlanService = FirebasePlanService(),
-         userService: UserService = FirebaseUserService()) {
+         planService: PlanService,
+         userService: UserService) {
         self.activity = activity
         super.init(plan: activity,
                    lowerBoundDate: lowerBoundDate,

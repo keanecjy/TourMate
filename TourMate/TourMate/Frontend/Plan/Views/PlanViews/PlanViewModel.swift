@@ -25,8 +25,7 @@ class PlanViewModel: ObservableObject {
     private var planService: PlanService
 
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
-         planService: PlanService = FirebasePlanService(),
-         userService: UserService = FirebaseUserService()) {
+         planService: PlanService, userService: UserService) {
         self.plan = plan
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate

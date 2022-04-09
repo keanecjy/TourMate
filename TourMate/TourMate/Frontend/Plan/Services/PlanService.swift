@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PlanService {
+protocol PlanService: Copyable {
     func fetchPlansAndListen(withTripId tripId: String) async
 
     func fetchPlanAndListen(withPlanId planId: String) async

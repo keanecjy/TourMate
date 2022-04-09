@@ -22,4 +22,8 @@ protocol Repository {
     func deleteItem(id: String) async -> (hasDeletedItem: Bool, errorMessage: String)
 
     func updateItem<T: FirebaseAdaptedData>(id: String, item: T) async -> (hasUpdatedItem: Bool, errorMessage: String)
+
+    var eventDelegate: FirebaseEventDelegate? { get set }
+
+    func detachListener()
 }

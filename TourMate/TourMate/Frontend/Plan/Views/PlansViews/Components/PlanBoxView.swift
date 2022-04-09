@@ -30,7 +30,7 @@ struct PlanBoxView: View {
             }
             Text(plan.name)
                 .font(.headline)
-            UpvotePlanView(viewModel: planUpvoteViewModel, displayName: false)
+            PlanUpvoteView(viewModel: planUpvoteViewModel, displayName: false)
         }
         .padding()
         .contentShape(Rectangle())

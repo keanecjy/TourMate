@@ -7,20 +7,23 @@
 
 import SwiftUI
 
+@MainActor
 struct ContentView: View {
 
     @State private var selectedTrip: Trip?
 
+    private let viewModelFactory = ViewModelFactory()
+
     var body: some View {
         NavigationView {
             VStack {
-                TripsView(viewModel: ViewModelFactory.getTripsViewModel()) { trip in
+                TripsView(viewModel: viewModelFactory.getTripsViewModel()) { trip in
                     selectedTrip = trip
                 }
 
                 if let selectedTrip = selectedTrip {
                     NavigationLink(isActive: .constant(true)) {
-                        TripView(tripViewModel: ViewModelFactory.getTripViewModel(trip: selectedTrip))
+                        TripView(tripViewModel: viewModelFactory.getTripViewModel(trip: selectedTrip))
                     } label: {
                         EmptyView()
                     }

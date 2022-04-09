@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+@MainActor
 struct AddPlanView: View {
     @Environment(\.dismiss) var dismiss
 
     let trip: Trip
+    private let viewModelFactory = ViewModelFactory()
 
     @State private var isShowingAddActivitySheet = false
     @State private var isShowingAddAccommodationSheet = false
@@ -28,7 +30,7 @@ struct AddPlanView: View {
                     }
                 }
                 .sheet(isPresented: $isShowingAddActivitySheet) {
-                    AddActivityView(viewModel: AddActivityViewModel(trip: trip))
+                    AddActivityView(viewModel: viewModelFactory.getAddActivityViewModel(trip: trip))
                 }
 
                 Button {

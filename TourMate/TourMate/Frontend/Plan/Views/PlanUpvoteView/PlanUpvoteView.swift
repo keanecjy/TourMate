@@ -1,5 +1,5 @@
 //
-//  UpvotePlanView.swift
+//  PlanUpvoteView.swift
 //  TourMate
 //
 //  Created by Terence Ho on 26/3/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UpvotePlanView: View {
+struct PlanUpvoteView: View {
 
     @StateObject var viewModel: PlanUpvoteViewModel
     let displayName: Bool

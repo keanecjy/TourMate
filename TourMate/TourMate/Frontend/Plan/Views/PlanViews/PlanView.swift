@@ -16,18 +16,20 @@ struct PlanView<Content: View>: View {
 
     @Environment(\.dismiss) var dismiss
 
+    private let viewModelFactory = ViewModelFactory()
+
     init(planViewModel: PlanViewModel, @ViewBuilder content: () -> Content) {
         self.locationContent = content()
         self._planViewModel = StateObject(wrappedValue: planViewModel)
-        self.commentsViewModel = ViewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
-        self.planUpvoteViewModel = ViewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
+        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
     }
 
     // TODO: Push to XXEditView level
     func getEditPlanView() -> some View {
         switch planViewModel.plan {
         case _ as Activity:
-            return AnyView(EditActivityView(viewModel: ViewModelFactory.getEditActivityViewModel(planViewModel: planViewModel)))
+            return AnyView(EditActivityView(viewModel: viewModelFactory.getEditActivityViewModel(planViewModel: planViewModel)))
         default:
             preconditionFailure("Such plan do not exists")
         }
@@ -47,7 +49,7 @@ struct PlanView<Content: View>: View {
                                planOwner: planViewModel.planOwner,
                                creationDateDisplay: planViewModel.creationDateDisplay)
 
-                UpvotePlanView(viewModel: planUpvoteViewModel)
+                PlanUpvoteView(viewModel: planUpvoteViewModel)
 
                 TimingView(startDate: planViewModel.startDateTimeDisplay,
                            endDate: planViewModel.endDateTimeDisplay)

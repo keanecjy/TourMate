@@ -21,6 +21,8 @@ struct PlansDayView: View {
     @State var planIdToOffset: [String: CGPoint] = [:]
     @State var minWidth: CGFloat = 0
 
+    private let viewModelFactory = ViewModelFactory()
+
     init(viewModel: PlansViewModel,
          date: Date,
          plans: [Plan] = [],
@@ -144,7 +146,7 @@ struct PlansDayView: View {
                             ZStack(alignment: .topLeading) {
                                 ForEach(plans, id: \.id) { plan in
                                     HStack {
-                                        PlanBoxView(planUpvoteViewModel: ViewModelFactory.getPlanUpvoteViewModel(plan: plan),
+                                        PlanBoxView(planUpvoteViewModel: viewModelFactory.getPlanUpvoteViewModel(plan: plan),
                                                     plan: plan, date: date)
                                         .onTapGesture(perform: {
                                             if let onSelected = onSelected {

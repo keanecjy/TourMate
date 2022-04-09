@@ -13,15 +13,15 @@ class CommentsViewModel: ObservableObject {
     @Published var isLoading: Bool
     @Published var hasError: Bool
 
+    private let planId: String
     private var commentService: CommentService
     private let userService: UserService
-    private let planId: String
 
     private var commentPermissions: [String: (Bool, Bool)] = [:] // canEdit, userHasUpvotedComment
 
     init(planId: String,
-         commentService: CommentService = FirebaseCommentService(),
-         userService: UserService = FirebaseUserService()) {
+         commentService: CommentService,
+         userService: UserService) {
 
         self.planId = planId
         self.commentService = commentService

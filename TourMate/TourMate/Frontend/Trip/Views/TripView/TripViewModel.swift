@@ -19,16 +19,9 @@ class TripViewModel: ObservableObject {
     @Published var trip: Trip
 
     private var tripService: TripService
-    private let userService: UserService
+    private var userService: UserService
 
-    convenience init(_ tripViewModel: TripViewModel) {
-        self.init(trip: tripViewModel.trip)
-    }
-
-    init(trip: Trip,
-         tripService: TripService = FirebaseTripService(),
-         userService: UserService = FirebaseUserService()) {
-
+    init(trip: Trip, tripService: TripService, userService: UserService) {
         self.trip = trip
         self.tripService = tripService
         self.userService = userService

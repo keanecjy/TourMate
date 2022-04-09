@@ -16,11 +16,11 @@ class SearchViewModel: ObservableObject {
     @Published var suggestedLocations: [Location] = []
     @Published var query: String = ""
 
-    let locationService: LocationService
+    private let locationService: LocationService
 
     private var cancellableSet: Set<AnyCancellable> = []
 
-    init(locationService: LocationService = RealLocationService()) {
+    init(locationService: LocationService) {
         self.locationService = locationService
         addSubscriptions()
     }

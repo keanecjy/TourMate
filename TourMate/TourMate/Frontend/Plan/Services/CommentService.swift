@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CommentService {
+protocol CommentService: Copyable {
     func fetchCommentsAndListen(withPlanId planId: String) async
 
     func addComment(comment: Comment) async -> (Bool, String)

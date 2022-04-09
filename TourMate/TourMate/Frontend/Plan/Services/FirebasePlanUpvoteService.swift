@@ -8,7 +8,11 @@
 import Foundation
 
 class FirebasePlanUpvoteService: PlanUpvoteService {
-    private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.upvoteCollectionId)
+    required init() {
+
+    }
+
+    private let planUpvoteRepository = FirebaseRepository(collectionId: FirebaseConfig.upvoteCollectionId)
 
     private let planUpvoteAdapter = PlanUpvoteAdapter()
 
@@ -17,25 +21,27 @@ class FirebasePlanUpvoteService: PlanUpvoteService {
     func fetchPlanUpvotesAndListen(withPlanId planId: String) async {
         print("[FirebasePlanUpvoteService] Fetching and listening to plan upvotes")
 
-        firebaseRepository.eventDelegate = self
-        await firebaseRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId)
+        planUpvoteRepository.eventDelegate = self
+        await planUpvoteRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId)
     }
 
     func addPlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {
-        await firebaseRepository.addItem(id: planUpvote.id, item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
+        await planUpvoteRepository.addItem(id: planUpvote.id,
+                                           item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
     }
 
     func deletePlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {
-        await firebaseRepository.deleteItem(id: planUpvote.id)
+        await planUpvoteRepository.deleteItem(id: planUpvote.id)
     }
 
     func updatePlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {
-        await firebaseRepository.updateItem(id: planUpvote.id, item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
+        await planUpvoteRepository.updateItem(id: planUpvote.id,
+                                              item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
     }
 
     func detachListener() {
-        firebaseRepository.eventDelegate = nil
-        firebaseRepository.detachListener()
+        planUpvoteRepository.eventDelegate = nil
+        planUpvoteRepository.detachListener()
     }
 }
 

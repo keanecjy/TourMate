@@ -8,8 +8,11 @@
 import Foundation
 
 class FirebaseCommentService: CommentService {
+    required init() {
 
-    private let firebaseRepository = FirebaseRepository(collectionId: FirebaseConfig.commentCollectionId)
+    }
+
+    private let commentRepository = FirebaseRepository(collectionId: FirebaseConfig.commentCollectionId)
 
     private let commentAdapter = CommentAdapter()
 
@@ -18,25 +21,25 @@ class FirebaseCommentService: CommentService {
     func fetchCommentsAndListen(withPlanId planId: String) async {
         print("[FirebaseCommentService] Fetching and listening to comments")
 
-        firebaseRepository.eventDelegate = self
-        await firebaseRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId)
+        commentRepository.eventDelegate = self
+        await commentRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId)
     }
 
     func addComment(comment: Comment) async -> (Bool, String) {
-        await firebaseRepository.addItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
+        await commentRepository.addItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
     }
 
     func deleteComment(comment: Comment) async -> (Bool, String) {
-        await firebaseRepository.deleteItem(id: comment.id)
+        await commentRepository.deleteItem(id: comment.id)
     }
 
     func updateComment(comment: Comment) async -> (Bool, String) {
-        await firebaseRepository.updateItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
+        await commentRepository.updateItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
     }
 
     func detachListener() {
-        firebaseRepository.eventDelegate = nil
-        firebaseRepository.detachListener()
+        commentRepository.eventDelegate = nil
+        commentRepository.detachListener()
     }
 }
 

@@ -17,6 +17,7 @@ struct TripView: View {
     @State private var isShowingInviteUsersSheet = false
 
     @State private var selectedPlan: Plan?
+    private let viewModelFactory = ViewModelFactory()
 
     init(tripViewModel: TripViewModel) {
         self._viewModel = StateObject(wrappedValue: tripViewModel)
@@ -26,7 +27,7 @@ struct TripView: View {
     func getPlanView(plan: Plan) -> some View {
         switch plan {
         case let plan as Activity:
-            return AnyView(ActivityView(activityViewModel: ViewModelFactory.getActivityViewModel(activity: plan, tripViewModel: viewModel)))
+            return AnyView(ActivityView(activityViewModel: viewModelFactory.getActivityViewModel(activity: plan, tripViewModel: viewModel)))
         default:
             preconditionFailure("Plan don't exists")
         }
@@ -51,7 +52,7 @@ struct TripView: View {
 
                         TripImage(imageUrl: viewModel.imageUrlDisplay)
 
-                        PlansView(plansViewModel: ViewModelFactory.getPlansViewModel(tripViewModel: viewModel)) { plan in
+                        PlansView(plansViewModel: viewModelFactory.getPlansViewModel(tripViewModel: viewModel)) { plan in
                             selectedPlan = plan
                         }
 
@@ -79,7 +80,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingEditTripSheet) {
-                    EditTripView(viewModel: ViewModelFactory.getEditTripViewModel(tripViewModel: viewModel))
+                    EditTripView(viewModel: viewModelFactory.getEditTripViewModel(tripViewModel: viewModel))
                 }
 
                 Button {
@@ -89,7 +90,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingInviteUsersSheet) {
-                    InviteUserView(viewModel: ViewModelFactory.copyTripViewModel(tripViewModel: viewModel))
+                    InviteUserView(viewModel: viewModelFactory.copyTripViewModel(tripViewModel: viewModel))
                 }
 
                 Button {
