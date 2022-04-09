@@ -66,6 +66,7 @@
 		4C1C70CF27FE800E00203694 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C70CE27FE800E00203694 /* LocationView.swift */; };
 		4C1C70D327FE82C800203694 /* PlanHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C70D227FE82C800203694 /* PlanHeaderView.swift */; };
 		4C26B46A27F5D14800B8319E /* CommentEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C26B46927F5D14800B8319E /* CommentEventDelegate.swift */; };
+		4C2FB3422801606D00B0D0E1 /* RealLocationWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2FB3412801606D00B0D0E1 /* RealLocationWebRepository.swift */; };
 		4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */; };
 		4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */; };
 		4C55E7DB27F97AD30032D1D8 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C55E7DA27F97AD20032D1D8 /* UIScreen+Extensions.swift */; };
@@ -236,6 +237,7 @@
 		4C1C70CE27FE800E00203694 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		4C1C70D227FE82C800203694 /* PlanHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanHeaderView.swift; sourceTree = "<group>"; };
 		4C26B46927F5D14800B8319E /* CommentEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentEventDelegate.swift; sourceTree = "<group>"; };
+		4C2FB3412801606D00B0D0E1 /* RealLocationWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealLocationWebRepository.swift; sourceTree = "<group>"; };
 		4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTripService.swift; sourceTree = "<group>"; };
 		4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAdapter.swift; sourceTree = "<group>"; };
 		4C55E7DA27F97AD20032D1D8 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
@@ -1174,6 +1176,7 @@
 			children = (
 				B98F35F427F416CB000AFE53 /* WebRepository.swift */,
 				B98F35F627F42A39000AFE53 /* LocationWebRepository.swift */,
+				4C2FB3412801606D00B0D0E1 /* RealLocationWebRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1466,6 +1469,7 @@
 				B99D5BA827EF1ADF003B99FB /* ConfirmedToggle.swift in Sources */,
 				4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */,
 				B98F35E727F01F53000AFE53 /* SearchView.swift in Sources */,
+				4C2FB3422801606D00B0D0E1 /* RealLocationWebRepository.swift in Sources */,
 				00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */,
 				B9B6B40827F719FF00B0F5F4 /* TimingView.swift in Sources */,
 				000F3BF027F1659A00E7E2ED /* CommentTextView.swift in Sources */,
