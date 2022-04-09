@@ -46,7 +46,8 @@ struct TransportView: View {
                 TimingView(startDate: transportViewModel.startDateTimeDisplay,
                            endDate: transportViewModel.endDateTimeDisplay)
 
-                LocationView(startLocation: transportViewModel.startLocation, endLocation: transportViewModel.endLocation)
+                LocationView(startLocation: transportViewModel.startLocation,
+                             endLocation: transportViewModel.endLocation)
 
                 InfoView(additionalInfo: transportViewModel.additionalInfoDisplay)
 
@@ -64,7 +65,9 @@ struct TransportView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        EmptyView()
+                        let viewModel = viewModelFactory
+                            .getEditTransportViewModel(transportViewModel: transportViewModel)
+                        EditTransportView(viewModel: viewModel)
                     }
                 }
             }

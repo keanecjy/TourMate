@@ -1,5 +1,5 @@
 //
-//  EditAccommodationView.swift
+//  EditTransportView.swift
 //  TourMate
 //
 //  Created by Tan Rui Quan on 10/4/22.
@@ -7,30 +7,31 @@
 
 import SwiftUI
 
-struct EditAccommodationView: View {
+struct EditTransportView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: EditAccommodationViewModel
+    @StateObject var viewModel: EditTransportViewModel
 
-    init(viewModel: EditAccommodationViewModel) {
+    init(viewModel: EditTransportViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var planFormView: some View {
         PlanFormView(viewModel: viewModel) {
             Section("Date & Time") {
-                DatePicker("Check-in Date",
+                DatePicker("Departure Date",
                            selection: $viewModel.planStartDate,
                            in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
                            displayedComponents: [.date, .hourAndMinute])
 
-                DatePicker("Check-out Date",
+                DatePicker("Arrival Date",
                            selection: $viewModel.planEndDate,
                            in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
                            displayedComponents: [.date, .hourAndMinute])
             }
 
             Section("Location") {
-                AddressTextField(title: "Location", location: $viewModel.location)
+                AddressTextField(title: "Departure Location", location: $viewModel.startLocation)
+                AddressTextField(title: "Arrival Location", location: $viewModel.endLocation)
             }
         }
     }
@@ -46,13 +47,13 @@ struct EditAccommodationView: View {
                     planFormView
                 }
             }
-            .navigationTitle("Edit Accommodation")
+            .navigationTitle("Edit Transport")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") {
                         Task {
-                            await viewModel.updateAccommodation()
+                            await viewModel.updateTransport()
                             dismiss()
                         }
                     }
@@ -66,7 +67,7 @@ struct EditAccommodationView: View {
                     .disabled(viewModel.isLoading)
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    Button("Delete Accommodation", role: .destructive) {
+                    Button("Delete Transport", role: .destructive) {
                         Task {
                             await viewModel.deletePlan()
                             dismiss()

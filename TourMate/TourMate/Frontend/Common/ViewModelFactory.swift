@@ -154,6 +154,19 @@ struct ViewModelFactory {
             userService: userService)
     }
 
+    func getEditTransportViewModel(transportViewModel: TransportViewModel) -> EditTransportViewModel {
+        let transport = transportViewModel.transport
+        let lowerBoundDate = transportViewModel.lowerBoundDate
+        let upperBoundDate = transportViewModel.upperBoundDate
+
+        return EditTransportViewModel(
+            transport: transport,
+            lowerBoundDate: lowerBoundDate,
+            upperBoundDate: upperBoundDate,
+            planService: planService.copy(),
+            userService: userService)
+    }
+
     // PlanView - PlanUpvotes
     func getPlanUpvoteViewModel(planViewModel: PlanViewModel) -> PlanUpvoteViewModel {
         getPlanUpvoteViewModel(plan: planViewModel.plan)

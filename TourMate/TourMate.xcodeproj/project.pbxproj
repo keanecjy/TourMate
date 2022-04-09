@@ -167,6 +167,8 @@
 		B9B467382801EFCF003D07F5 /* AddTransportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B467372801EFCE003D07F5 /* AddTransportViewModel.swift */; };
 		B9B4673A2801F21A003D07F5 /* TransportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B467392801F219003D07F5 /* TransportViewModel.swift */; };
 		B9B4673C2801F6F8003D07F5 /* TransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4673B2801F6F8003D07F5 /* TransportView.swift */; };
+		B9B4673E2801F8F9003D07F5 /* EditTransportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4673D2801F8F8003D07F5 /* EditTransportViewModel.swift */; };
+		B9B467402801F9F9003D07F5 /* EditTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4673F2801F9F9003D07F5 /* EditTransportView.swift */; };
 		B9B6B3E127F43BEF00B0F5F4 /* AutocompleteQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E027F43BEF00B0F5F4 /* AutocompleteQuery.swift */; };
 		B9B6B3E327F4473E00B0F5F4 /* JsonAdaptedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E227F4473E00B0F5F4 /* JsonAdaptedLocation.swift */; };
 		B9B6B3E627F44F9D00B0F5F4 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E527F44F9D00B0F5F4 /* ApiConfig.swift */; };
@@ -363,6 +365,8 @@
 		B9B467372801EFCE003D07F5 /* AddTransportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransportViewModel.swift; sourceTree = "<group>"; };
 		B9B467392801F219003D07F5 /* TransportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportViewModel.swift; sourceTree = "<group>"; };
 		B9B4673B2801F6F8003D07F5 /* TransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportView.swift; sourceTree = "<group>"; };
+		B9B4673D2801F8F8003D07F5 /* EditTransportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransportViewModel.swift; sourceTree = "<group>"; };
+		B9B4673F2801F9F9003D07F5 /* EditTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransportView.swift; sourceTree = "<group>"; };
 		B9B6B3E027F43BEF00B0F5F4 /* AutocompleteQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteQuery.swift; sourceTree = "<group>"; };
 		B9B6B3E227F4473E00B0F5F4 /* JsonAdaptedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonAdaptedLocation.swift; sourceTree = "<group>"; };
 		B9B6B3E527F44F9D00B0F5F4 /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
@@ -504,6 +508,8 @@
 				B9B4671B280070A7003D07F5 /* EditActivityViewModel.swift */,
 				B9B467312801EBBD003D07F5 /* EditAccommodationView.swift */,
 				B9B467332801EBDF003D07F5 /* EditAccommodationViewModel.swift */,
+				B9B4673D2801F8F8003D07F5 /* EditTransportViewModel.swift */,
+				B9B4673F2801F9F9003D07F5 /* EditTransportView.swift */,
 			);
 			path = EditPlanView;
 			sourceTree = "<group>";
@@ -1501,6 +1507,7 @@
 				B9B4671628003777003D07F5 /* StartEndDatePicker.swift in Sources */,
 				00062B4D27EF107A00267960 /* FirebaseCommentService.swift in Sources */,
 				953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */,
+				B9B467402801F9F9003D07F5 /* EditTransportView.swift in Sources */,
 				00062B4F27EF112300267960 /* CommentAdapter.swift in Sources */,
 				00062B5A27EF3C1B00267960 /* MockCommentService.swift in Sources */,
 				B9B4673C2801F6F8003D07F5 /* TransportView.swift in Sources */,
@@ -1661,6 +1668,7 @@
 				00F83BB827DC46E4003A28AA /* AuthenticationButton.swift in Sources */,
 				4CB954DC27DDFAA8001410AD /* FirebaseRepository.swift in Sources */,
 				B93B489427DA87A300478B7B /* FirebaseAdaptedPlan.swift in Sources */,
+				B9B4673E2801F8F9003D07F5 /* EditTransportViewModel.swift in Sources */,
 				00062B6027F00F7700267960 /* CommentView.swift in Sources */,
 				95FAE40D27E247F800F4AB01 /* TripService.swift in Sources */,
 				B98F35F527F416CB000AFE53 /* WebRepository.swift in Sources */,

@@ -1,30 +1,33 @@
 //
-//  EditAccommodationViewModel.swift
+//  EditTransportViewModel.swift
 //  TourMate
 //
 //  Created by Tan Rui Quan on 10/4/22.
 //
 
 import Foundation
+import SwiftUI
 
 @MainActor
-class EditAccommodationViewModel: EditPlanViewModel {
-    @Published var location: Location?
+class EditTransportViewModel: EditPlanViewModel {
+    @Published var startLocation: Location?
+    @Published var endLocation: Location?
 
-    init(accommodation: Accommodation,
+    init(transport: Transport,
          lowerBoundDate: DateTime,
          upperBoundDate: DateTime,
          planService: PlanService,
          userService: UserService) {
-        self.location = accommodation.location
-        super.init(plan: accommodation,
+        self.startLocation = transport.startLocation
+        self.endLocation = transport.endLocation
+        super.init(plan: transport,
                    lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
                    planService: planService,
                    userService: userService)
     }
 
-    func updateAccommodation() async {
+    func updateTransport() async {
         self.isLoading = true
 
         let planId = plan.id
@@ -39,20 +42,20 @@ class EditAccommodationViewModel: EditPlanViewModel {
         let additionalInfo = planAdditionalInfo
         let ownerUserId = plan.ownerUserId
 
-        let updatedAccommodation = Accommodation(
-            id: planId, tripId: tripId, name: name,
-            startDateTime: startDateTime,
-            endDateTime: endDateTime,
-            imageUrl: imageUrl, status: status,
-            creationDate: creationDate,
+        let updatedTransport = Transport(
+            id: planId, tripId: tripId,
+            name: name, startDateTime: startDateTime,
+            endDateTime: endDateTime, imageUrl: imageUrl,
+            status: status, creationDate: creationDate,
             modificationDate: modificationDate,
             additionalInfo: additionalInfo,
             ownerUserId: ownerUserId,
-            location: location)
+            startLocation: startLocation,
+            endLocation: endLocation)
 
-        let (hasUpdatedAccommodation, errorMessage) = await planService.updatePlan(plan: updatedAccommodation)
+        let (hasUpdatedTransport, errorMessage) = await planService.updatePlan(plan: updatedTransport)
 
-        guard hasUpdatedAccommodation, errorMessage.isEmpty else {
+        guard hasUpdatedTransport, errorMessage.isEmpty else {
             handleError()
             return
         }
