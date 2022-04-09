@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 struct AddPlanView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismissPlanView
 
     let trip: Trip
     private let viewModelFactory = ViewModelFactory()
@@ -24,31 +24,25 @@ struct AddPlanView: View {
                 Button {
                     isShowingAddActivitySheet.toggle()
                 } label: {
-                    HStack {
-                        Image(systemName: "figure.walk.circle.fill")
-                        Text("Activity")
-                    }
+                    Text("Activity")
+                        .prefixedWithIcon(named: "figure.walk.circle.fill")
                 }
                 .sheet(isPresented: $isShowingAddActivitySheet) {
-                    AddActivityView(viewModel: viewModelFactory.getAddActivityViewModel(trip: trip))
+                    AddActivityView(viewModel: viewModelFactory.getAddActivityViewModel(trip: trip), dismissPlanView: dismissPlanView)
                 }
 
                 Button {
                     isShowingAddAccommodationSheet.toggle()
                 } label: {
-                    HStack {
-                        Image(systemName: "bed.double.circle.fill")
-                        Text("Accommodation")
-                    }
+                    Text("Accommodation")
+                        .prefixedWithIcon(named: "bed.double.circle.fill")
                 }
 
                 Button {
                     isShowingAddTransportSheet.toggle()
                 } label: {
-                    HStack {
-                        Image(systemName: "car.circle.fill")
-                        Text("Transport")
-                    }
+                    Text("Transport")
+                        .prefixedWithIcon(named: "car.circle.fill")
                 }
             }
             .listStyle(.plain)
@@ -57,7 +51,7 @@ struct AddPlanView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {
-                        dismiss()
+                        dismissPlanView()
                     }
                 }
             }

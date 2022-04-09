@@ -15,6 +15,26 @@ struct EditActivityView: View {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
+    var planFormView: some View {
+        PlanFormView(viewModel: viewModel) {
+            Section("Date & Time") {
+                DatePicker("Start Date",
+                           selection: $viewModel.planStartDate,
+                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
+                           displayedComponents: [.date, .hourAndMinute])
+
+                DatePicker("End Date",
+                           selection: $viewModel.planEndDate,
+                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
+                           displayedComponents: [.date, .hourAndMinute])
+            }
+
+            Section("Location") {
+                AddressTextField(title: "Location", location: $viewModel.location)
+            }
+        }
+    }
+
     var body: some View {
         NavigationView {
             Group {
@@ -23,9 +43,7 @@ struct EditActivityView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    PlanFormView(viewModel: viewModel) {
-                        AddressTextField(title: "Location", location: $viewModel.location)
-                    }
+                    planFormView
                 }
             }
             .navigationTitle("Edit Activity")

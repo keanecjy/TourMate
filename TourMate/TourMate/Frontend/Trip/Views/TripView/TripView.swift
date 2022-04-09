@@ -27,7 +27,8 @@ struct TripView: View {
     func getPlanView(plan: Plan) -> some View {
         switch plan {
         case let plan as Activity:
-            return AnyView(ActivityView(activityViewModel: viewModelFactory.getActivityViewModel(activity: plan, tripViewModel: viewModel)))
+            let activityViewModel = viewModelFactory.getActivityViewModel(activity: plan, tripViewModel: viewModel)
+            return ActivityView(activityViewModel: activityViewModel)
         default:
             preconditionFailure("Plan don't exists")
         }

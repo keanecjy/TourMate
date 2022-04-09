@@ -27,4 +27,15 @@ class ActivityViewModel: PlanViewModel {
     var location: Location? {
         activity.location
     }
+
+    override func updatePublishedProperties(plan: Plan) async {
+        if let plan = plan as? Activity {
+            print("[ActivityViewModel] Publishing activity \(plan) changes")
+            self.activity = plan
+            self.plan = plan
+        } else {
+            print("[ActivityViewModel] Failed to update activity, shall update plan instead")
+            await super.updatePublishedProperties(plan: plan)
+        }
+    }
 }

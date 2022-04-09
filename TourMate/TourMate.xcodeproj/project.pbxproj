@@ -154,6 +154,7 @@
 		B9B4671C280070A7003D07F5 /* EditActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4671B280070A7003D07F5 /* EditActivityViewModel.swift */; };
 		B9B4671E280075E0003D07F5 /* FirebaseAdaptedActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4671D280075E0003D07F5 /* FirebaseAdaptedActivity.swift */; };
 		B9B4672028007A5E003D07F5 /* EditActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4671F28007A5E003D07F5 /* EditActivityView.swift */; };
+		B9B46722280182A4003D07F5 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B46721280182A4003D07F5 /* ViewExtension.swift */; };
 		B9B6B3E127F43BEF00B0F5F4 /* AutocompleteQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E027F43BEF00B0F5F4 /* AutocompleteQuery.swift */; };
 		B9B6B3E327F4473E00B0F5F4 /* JsonAdaptedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E227F4473E00B0F5F4 /* JsonAdaptedLocation.swift */; };
 		B9B6B3E627F44F9D00B0F5F4 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E527F44F9D00B0F5F4 /* ApiConfig.swift */; };
@@ -337,6 +338,7 @@
 		B9B4671B280070A7003D07F5 /* EditActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityViewModel.swift; sourceTree = "<group>"; };
 		B9B4671D280075E0003D07F5 /* FirebaseAdaptedActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedActivity.swift; sourceTree = "<group>"; };
 		B9B4671F28007A5E003D07F5 /* EditActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityView.swift; sourceTree = "<group>"; };
+		B9B46721280182A4003D07F5 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		B9B6B3E027F43BEF00B0F5F4 /* AutocompleteQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteQuery.swift; sourceTree = "<group>"; };
 		B9B6B3E227F4473E00B0F5F4 /* JsonAdaptedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonAdaptedLocation.swift; sourceTree = "<group>"; };
 		B9B6B3E527F44F9D00B0F5F4 /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
@@ -1017,6 +1019,7 @@
 			children = (
 				95DEA1EA27E721EB00A74ED2 /* BindingNilCoalescing.swift */,
 				B98F35EA27F0511A000AFE53 /* TaskExtensions.swift */,
+				B9B46721280182A4003D07F5 /* ViewExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1037,9 +1040,7 @@
 			children = (
 				000AB55927EE242500FF0ED3 /* PlanStatusView.swift */,
 				B98F35E627F01F53000AFE53 /* SearchView.swift */,
-				B99D5BA727EF1ADF003B99FB /* ConfirmedToggle.swift */,
 				B98F35EF27F0602E000AFE53 /* SearchViewModel.swift */,
-				B98F35F127F07D30000AFE53 /* AddressTextField.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1140,6 +1141,8 @@
 		B9B46714280033F3003D07F5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B99D5BA727EF1ADF003B99FB /* ConfirmedToggle.swift */,
+				B98F35F127F07D30000AFE53 /* AddressTextField.swift */,
 				B9B4671528003777003D07F5 /* StartEndDatePicker.swift */,
 			);
 			path = Components;
@@ -1568,6 +1571,7 @@
 				0092523827DA573500F4F029 /* LaunchView.swift in Sources */,
 				001D223727FEF3D600F42DB4 /* PlanUpvote.swift in Sources */,
 				00062B5227EF116F00267960 /* FirebaseAdaptedComment.swift in Sources */,
+				B9B46722280182A4003D07F5 /* ViewExtension.swift in Sources */,
 				B9B6B3E127F43BEF00B0F5F4 /* AutocompleteQuery.swift in Sources */,
 				00062B5827EF387300267960 /* CommentsView.swift in Sources */,
 				00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */,

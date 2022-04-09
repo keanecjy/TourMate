@@ -10,6 +10,27 @@ import SwiftUI
 struct AddActivityView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: AddActivityViewModel
+    var dismissPlanView: DismissAction
+
+    var planFormView: some View {
+        PlanFormView(viewModel: viewModel) {
+            Section("Date & Time") {
+                DatePicker("Start Date",
+                           selection: $viewModel.planStartDate,
+                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
+                           displayedComponents: [.date, .hourAndMinute])
+
+                DatePicker("End Date",
+                           selection: $viewModel.planEndDate,
+                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
+                           displayedComponents: [.date, .hourAndMinute])
+            }
+
+            Section("Location") {
+                AddressTextField(title: "Location", location: $viewModel.location)
+            }
+        }
+    }
 
     var body: some View {
         NavigationView {
@@ -19,9 +40,7 @@ struct AddActivityView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    PlanFormView(viewModel: viewModel) {
-                        AddressTextField(title: "Location", location: $viewModel.location)
-                    }
+                    planFormView
                 }
             }
             .navigationTitle("New Activity")
@@ -33,6 +52,7 @@ struct AddActivityView: View {
                         Task {
                             await viewModel.addActivity()
                             dismiss()
+                            dismissPlanView()
                         }
                     }
                     .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)

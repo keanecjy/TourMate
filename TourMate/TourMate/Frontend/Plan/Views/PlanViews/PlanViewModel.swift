@@ -88,7 +88,7 @@ class PlanViewModel: ObservableObject {
     }
 
     // Update all plans
-    private func updatePublishedProperties(plan: Plan) async {
+    func updatePublishedProperties(plan: Plan) async {
         print("[PlanViewModel] Publishing plan \(plan) changes")
         self.plan = plan
     }
