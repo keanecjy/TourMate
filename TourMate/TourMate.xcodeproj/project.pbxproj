@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		00062B4027EEC9A600267960 /* UpvoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B3F27EEC9A600267960 /* UpvoteButton.swift */; };
 		00062B4227EECDBA00267960 /* UpvotedUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B4127EECDBA00267960 /* UpvotedUsersView.swift */; };
-		00062B4627EEE8F300267960 /* UpvotePlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B4527EEE8F300267960 /* UpvotePlanView.swift */; };
+		00062B4627EEE8F300267960 /* PlanUpvoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B4527EEE8F300267960 /* PlanUpvoteView.swift */; };
 		00062B4B27EF0FA600267960 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B4A27EF0FA600267960 /* CommentService.swift */; };
 		00062B4D27EF107A00267960 /* FirebaseCommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B4C27EF107A00267960 /* FirebaseCommentService.swift */; };
 		00062B4F27EF112300267960 /* CommentAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00062B4E27EF112300267960 /* CommentAdapter.swift */; };
@@ -174,7 +174,7 @@
 /* Begin PBXFileReference section */
 		00062B3F27EEC9A600267960 /* UpvoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpvoteButton.swift; sourceTree = "<group>"; };
 		00062B4127EECDBA00267960 /* UpvotedUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpvotedUsersView.swift; sourceTree = "<group>"; };
-		00062B4527EEE8F300267960 /* UpvotePlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpvotePlanView.swift; sourceTree = "<group>"; };
+		00062B4527EEE8F300267960 /* PlanUpvoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanUpvoteView.swift; sourceTree = "<group>"; };
 		00062B4A27EF0FA600267960 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		00062B4C27EF107A00267960 /* FirebaseCommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCommentService.swift; sourceTree = "<group>"; };
 		00062B4E27EF112300267960 /* CommentAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentAdapter.swift; sourceTree = "<group>"; };
@@ -358,14 +358,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00062B4727EEEB3B00267960 /* UpvotePlanView */ = {
+		00062B4727EEEB3B00267960 /* PlanUpvoteView */ = {
 			isa = PBXGroup;
 			children = (
 				00062B4827EEEB4500267960 /* Components */,
-				00062B4527EEE8F300267960 /* UpvotePlanView.swift */,
+				00062B4527EEE8F300267960 /* PlanUpvoteView.swift */,
 				001D224227FEF8CC00F42DB4 /* PlanUpvoteViewModel.swift */,
 			);
-			path = UpvotePlanView;
+			path = PlanUpvoteView;
 			sourceTree = "<group>";
 		};
 		00062B4827EEEB4500267960 /* Components */ = {
@@ -757,7 +757,7 @@
 			children = (
 				B98F35EE27F05FEC000AFE53 /* Common */,
 				00062B5427EF344900267960 /* CommentViews */,
-				00062B4727EEEB3B00267960 /* UpvotePlanView */,
+				00062B4727EEEB3B00267960 /* PlanUpvoteView */,
 				95779BD627E76728001FF602 /* PlanViews */,
 				4CE02B6D27EAC6B000480D73 /* AddPlanView */,
 				00582F7327E70F49008756E9 /* EditPlanView */,
@@ -1475,7 +1475,7 @@
 				4C09373B27F83654001C2575 /* TripImage.swift in Sources */,
 				B9B6B3E627F44F9D00B0F5F4 /* ApiConfig.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
-				00062B4627EEE8F300267960 /* UpvotePlanView.swift in Sources */,
+				00062B4627EEE8F300267960 /* PlanUpvoteView.swift in Sources */,
 				0066356027F6F6FE00166655 /* PlanFormViewModel.swift in Sources */,
 				B9A04FA427E364AB007D4303 /* PlansViewModel.swift in Sources */,
 				4C1C70CF27FE800E00203694 /* LocationView.swift in Sources */,

@@ -37,7 +37,7 @@ struct PlanView: View {
                                planOwner: planViewModel.planOwner,
                                creationDateDisplay: planViewModel.creationDateDisplay)
 
-                UpvotePlanView(viewModel: planUpvoteViewModel)
+                PlanUpvoteView(viewModel: planUpvoteViewModel)
 
                 TimingView(startDate: planViewModel.startDateTimeDisplay,
                            endDate: planViewModel.endDateTimeDisplay)

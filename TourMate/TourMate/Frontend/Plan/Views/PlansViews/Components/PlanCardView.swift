@@ -39,7 +39,7 @@ struct PlanCardView: View {
 
             VStack {
                 Spacer()
-                UpvotePlanView(viewModel: planUpvoteViewModel, displayName: false)
+                PlanUpvoteView(viewModel: planUpvoteViewModel, displayName: false)
                     .frame(maxWidth: UIScreen.screenWidth / 3)
                 Spacer()
 
