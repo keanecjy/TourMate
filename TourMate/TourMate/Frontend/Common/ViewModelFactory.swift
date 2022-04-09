@@ -97,6 +97,7 @@ struct ViewModelFactory {
         CommentsViewModel(planId: planViewModel.planId, commentService: commentService.copy(), userService: userService)
     }
 
+    // Search
     func getSearchViewModel() -> SearchViewModel {
         SearchViewModel(locationService: locationService)
     }

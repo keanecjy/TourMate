@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Plan: CustomStringConvertible {
+struct Plan: CustomStringConvertible, Equatable {
     let id: String
     let tripId: String
     var name: String
@@ -18,10 +18,13 @@ struct Plan: CustomStringConvertible {
     var imageUrl: String
     var status: PlanStatus
     let creationDate: Date
-    let modificationDate: Date
+    var modificationDate: Date
     var additionalInfo: String
     var ownerUserId: String
+    var modifierUserId: String
+    var versionNumber: Int
 
+    // Plan creation
     init(id: String, tripId: String, name: String,
          startDateTime: DateTime, endDateTime: DateTime,
          startLocation: Location? = nil, endLocation: Location? = nil,
@@ -40,15 +43,19 @@ struct Plan: CustomStringConvertible {
         self.modificationDate = Date()
         self.additionalInfo = additionalInfo
         self.ownerUserId = ownerUserId
+        self.modifierUserId = ownerUserId
+        self.versionNumber = 1
     }
 
+    // All fields
     init(id: String, tripId: String, name: String,
          startDateTime: DateTime, endDateTime: DateTime,
          startLocation: Location? = nil, endLocation: Location? = nil,
          imageUrl: String = "", status: PlanStatus,
          creationDate: Date, modificationDate: Date,
          additionalInfo: String = "",
-         ownerUserId: String) {
+         ownerUserId: String, modifierUserId: String,
+         versionNumber: Int) {
         self.id = id
         self.tripId = tripId
         self.name = name
@@ -62,6 +69,8 @@ struct Plan: CustomStringConvertible {
         self.modificationDate = modificationDate
         self.additionalInfo = additionalInfo
         self.ownerUserId = ownerUserId
+        self.modifierUserId = modifierUserId
+        self.versionNumber = versionNumber
     }
 
 }
@@ -69,6 +78,6 @@ struct Plan: CustomStringConvertible {
 // MARK: - CustomStringConvertible
 extension Plan {
     public var description: String {
-        "(id: \(id), name: \(name), planStatus: \(status))"
+        "(id: \(id), name: \(name), version: \(versionNumber))"
     }
 }

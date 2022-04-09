@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DateTime {
+struct DateTime: Equatable {
     var date = Date()
     var timeZone = TimeZone.current
 }

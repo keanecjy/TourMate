@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Location {
+struct Location: Equatable {
     var addressLineOne: String = ""
     var addressLineTwo: String = ""
     // full = address line one + address line two

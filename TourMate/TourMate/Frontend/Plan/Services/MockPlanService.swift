@@ -21,7 +21,7 @@ class MockPlanService: PlanService {
              status: .confirmed,
              creationDate: creationDate,
              modificationDate: creationDate,
-             ownerUserId: "1"),
+             ownerUserId: "1", modifierUserId: "1", versionNumber: 0),
         Plan(id: "1", tripId: "0", name: "Visit Tower Bridge",
              startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400),
                                      timeZone: TimeZone(abbreviation: "PST")!),
@@ -30,7 +30,7 @@ class MockPlanService: PlanService {
              imageUrl: "https://source.unsplash.com/qxstzQ__HMk",
              status: .confirmed, creationDate: creationDate,
              modificationDate: creationDate,
-             ownerUserId: "1"),
+             ownerUserId: "1", modifierUserId: "1", versionNumber: 0),
         Plan(id: "2", tripId: "0", name: "Dinner at Spago",
              startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400),
                                      timeZone: TimeZone(abbreviation: "PST")!),
@@ -38,7 +38,7 @@ class MockPlanService: PlanService {
                                    timeZone: TimeZone(abbreviation: "PST")!),
              status: .confirmed, creationDate: creationDate,
              modificationDate: creationDate,
-             ownerUserId: "1"),
+             ownerUserId: "1", modifierUserId: "1", versionNumber: 0),
         Plan(id: "3", tripId: "1", name: "Travel to Kyoto",
              startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400),
                                      timeZone: TimeZone(abbreviation: "MST")!),
@@ -46,7 +46,7 @@ class MockPlanService: PlanService {
                                    timeZone: TimeZone(abbreviation: "MST")!),
              status: .confirmed, creationDate: creationDate,
              modificationDate: creationDate,
-             ownerUserId: "1"),
+             ownerUserId: "1", modifierUserId: "1", versionNumber: 0),
         Plan(id: "4", tripId: "1", name: "Flight to Japan",
              startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_440_400),
                                      timeZone: TimeZone(abbreviation: "MST")!),
@@ -55,7 +55,7 @@ class MockPlanService: PlanService {
              imageUrl: "https://source.unsplash.com/pT0qBgNa0VU",
              status: .confirmed, creationDate: creationDate,
              modificationDate: creationDate,
-             ownerUserId: "1")
+             ownerUserId: "1", modifierUserId: "1", versionNumber: 0)
     ]
 
     func addPlan(plan: Plan) async -> (Bool, String) {
