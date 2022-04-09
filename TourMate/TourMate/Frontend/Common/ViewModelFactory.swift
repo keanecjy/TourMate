@@ -96,12 +96,12 @@ struct ViewModelFactory {
                                  planService: planService.copy(), userService: userService)
     }
 
-    func getEditActivityViewModel(planViewModel: PlanViewModel) -> EditActivityViewModel {
-        let plan = planViewModel.plan
-        let lowerBoundDate = planViewModel.lowerBoundDate
-        let upperBoundDate = planViewModel.upperBoundDate
+    func getEditActivityViewModel(activityViewModel: ActivityViewModel) -> EditActivityViewModel {
+        let activity = activityViewModel.activity
+        let lowerBoundDate = activityViewModel.lowerBoundDate
+        let upperBoundDate = activityViewModel.upperBoundDate
 
-        return EditActivityViewModel(plan: plan,
+        return EditActivityViewModel(activity: activity,
                                      lowerBoundDate: lowerBoundDate,
                                      upperBoundDate: upperBoundDate,
                                      planService: planService.copy(),

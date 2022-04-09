@@ -11,6 +11,11 @@ import Foundation
 class EditActivityViewModel: EditPlanViewModel {
     @Published var location: Location?
 
+    init(activity: Activity, lowerBoundDate: DateTime, upperBoundDate: DateTime, planService: PlanService, userService: UserService) {
+        self.location = activity.location
+        super.init(plan: activity, lowerBoundDate: lowerBoundDate, upperBoundDate: upperBoundDate, planService: planService, userService: userService)
+    }
+
     func updateActivity() async {
         self.isLoading = true
 
