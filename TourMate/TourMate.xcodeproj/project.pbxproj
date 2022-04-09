@@ -161,6 +161,8 @@
 		B9B4672A2801DDFD003D07F5 /* FirebaseAdaptedTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B467292801DDFD003D07F5 /* FirebaseAdaptedTransport.swift */; };
 		B9B4672C2801E1CE003D07F5 /* AccommodationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4672B2801E1CE003D07F5 /* AccommodationViewModel.swift */; };
 		B9B467302801E374003D07F5 /* AccommodationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4672F2801E374003D07F5 /* AccommodationView.swift */; };
+		B9B467322801EBBD003D07F5 /* EditAccommodationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B467312801EBBD003D07F5 /* EditAccommodationView.swift */; };
+		B9B467342801EBDF003D07F5 /* EditAccommodationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B467332801EBDF003D07F5 /* EditAccommodationViewModel.swift */; };
 		B9B6B3E127F43BEF00B0F5F4 /* AutocompleteQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E027F43BEF00B0F5F4 /* AutocompleteQuery.swift */; };
 		B9B6B3E327F4473E00B0F5F4 /* JsonAdaptedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E227F4473E00B0F5F4 /* JsonAdaptedLocation.swift */; };
 		B9B6B3E627F44F9D00B0F5F4 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E527F44F9D00B0F5F4 /* ApiConfig.swift */; };
@@ -351,6 +353,8 @@
 		B9B467292801DDFD003D07F5 /* FirebaseAdaptedTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedTransport.swift; sourceTree = "<group>"; };
 		B9B4672B2801E1CE003D07F5 /* AccommodationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccommodationViewModel.swift; sourceTree = "<group>"; };
 		B9B4672F2801E374003D07F5 /* AccommodationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccommodationView.swift; sourceTree = "<group>"; };
+		B9B467312801EBBD003D07F5 /* EditAccommodationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccommodationView.swift; sourceTree = "<group>"; };
+		B9B467332801EBDF003D07F5 /* EditAccommodationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccommodationViewModel.swift; sourceTree = "<group>"; };
 		B9B6B3E027F43BEF00B0F5F4 /* AutocompleteQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteQuery.swift; sourceTree = "<group>"; };
 		B9B6B3E227F4473E00B0F5F4 /* JsonAdaptedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonAdaptedLocation.swift; sourceTree = "<group>"; };
 		B9B6B3E527F44F9D00B0F5F4 /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
@@ -490,6 +494,8 @@
 				B9B4671F28007A5E003D07F5 /* EditActivityView.swift */,
 				0066356127F71E5900166655 /* EditPlanViewModel.swift */,
 				B9B4671B280070A7003D07F5 /* EditActivityViewModel.swift */,
+				B9B467312801EBBD003D07F5 /* EditAccommodationView.swift */,
+				B9B467332801EBDF003D07F5 /* EditAccommodationViewModel.swift */,
 			);
 			path = EditPlanView;
 			sourceTree = "<group>";
@@ -1503,6 +1509,7 @@
 				4C1C70CD27FE7F4B00203694 /* InfoView.swift in Sources */,
 				4CCBBD1F27DE67B400F9C250 /* PlanStatus.swift in Sources */,
 				00B4CED127F5E0F4004A6126 /* TripFormViewModel.swift in Sources */,
+				B9B467342801EBDF003D07F5 /* EditAccommodationViewModel.swift in Sources */,
 				B99D964B27D73503009B66AE /* ContentView.swift in Sources */,
 				4CE02B8B27EAE93900480D73 /* TripAdapter.swift in Sources */,
 				004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */,
@@ -1612,6 +1619,7 @@
 				95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */,
 				4CB954DE27DDFDB2001410AD /* Repository.swift in Sources */,
 				0066355927F6D61A00166655 /* EditTripViewModel.swift in Sources */,
+				B9B467322801EBBD003D07F5 /* EditAccommodationView.swift in Sources */,
 				B98F35F927F42E00000AFE53 /* APICall.swift in Sources */,
 				B9A04FB027E5875A007D4303 /* PlanView.swift in Sources */,
 				B9A04FB027E5875A007D4303 /* PlanView.swift in Sources */,

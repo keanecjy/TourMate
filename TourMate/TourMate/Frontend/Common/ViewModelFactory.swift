@@ -124,6 +124,19 @@ struct ViewModelFactory {
                                      userService: userService)
     }
 
+    func getEditAccommodationViewModel(accommodationViewModel: AccommodationViewModel) -> EditAccommodationViewModel {
+        let accommodation = accommodationViewModel.accommodation
+        let lowerBoundDate = accommodationViewModel.lowerBoundDate
+        let upperBoundDate = accommodationViewModel.upperBoundDate
+
+        return EditAccommodationViewModel(
+            accommodation: accommodation,
+            lowerBoundDate: lowerBoundDate,
+            upperBoundDate: upperBoundDate,
+            planService: planService.copy(),
+            userService: userService)
+    }
+
     // PlanView - PlanUpvotes
     func getPlanUpvoteViewModel(planViewModel: PlanViewModel) -> PlanUpvoteViewModel {
         getPlanUpvoteViewModel(plan: planViewModel.plan)

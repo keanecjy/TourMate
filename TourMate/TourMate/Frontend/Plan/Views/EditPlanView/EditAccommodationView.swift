@@ -1,16 +1,19 @@
 //
-//  AddAccommodationView.swift
+//  EditAccommodationView.swift
 //  TourMate
 //
-//  Created by Tan Rui Quan on 9/4/22.
+//  Created by Tan Rui Quan on 10/4/22.
 //
 
 import SwiftUI
 
-struct AddAccommodationView: View {
+struct EditAccommodationView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: AddAccommodationViewModel
-    var dismissAddPlanView: DismissAction
+    @StateObject var viewModel: EditAccommodationViewModel
+
+    init(viewModel: EditAccommodationViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     var planFormView: some View {
         PlanFormView(viewModel: viewModel) {
@@ -43,16 +46,15 @@ struct AddAccommodationView: View {
                     planFormView
                 }
             }
-            .navigationTitle("New Accommodation")
+            .navigationTitle("Edit Accommodation")
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Add") {
+                    Button("Done") {
                         Task {
-                            await viewModel.addAccommodation()
+                            await viewModel.updateAccommodation()
                             dismiss()
-                            dismissAddPlanView()
                         }
                     }
                     .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)
@@ -64,13 +66,16 @@ struct AddAccommodationView: View {
                     }
                     .disabled(viewModel.isLoading)
                 }
+                ToolbarItem(placement: .bottomBar) {
+                    Button("Delete Accommodation", role: .destructive) {
+                        Task {
+                            await viewModel.deletePlan()
+                            dismiss()
+                        }
+                    }
+                    .disabled(viewModel.isLoading || viewModel.hasError || !viewModel.canDeletePlan)
+                }
             }
         }
     }
 }
-
-// struct AddAccommodationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddAccommodationView()
-//    }
-// }
