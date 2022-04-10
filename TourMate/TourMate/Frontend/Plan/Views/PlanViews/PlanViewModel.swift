@@ -41,6 +41,14 @@ class PlanViewModel: ObservableObject {
         return dateFormatter.string(from: plan.creationDate)
     }
 
+    var lastModifiedDateDisplay: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
+        dateFormatter.timeZone = plan.startDateTime.timeZone
+        return dateFormatter.string(from: plan.modificationDate)
+    }
+
     var planId: String {
         plan.id
     }
@@ -51,6 +59,10 @@ class PlanViewModel: ObservableObject {
 
     var statusDisplay: PlanStatus {
         plan.status
+    }
+
+    var versionNumberDisplay: String {
+        String(plan.versionNumber)
     }
 
     var startDateTimeDisplay: DateTime {

@@ -34,7 +34,9 @@ struct PlanView: View {
                 PlanHeaderView(planName: planViewModel.nameDisplay,
                                planStatus: planViewModel.statusDisplay,
                                planOwner: planViewModel.planOwner,
-                               creationDateDisplay: planViewModel.creationDateDisplay)
+                               creationDateDisplay: planViewModel.creationDateDisplay,
+                               lastModifiedDateDisplay: planViewModel.lastModifiedDateDisplay,
+                               versionNumberDisplay: planViewModel.versionNumberDisplay)
 
                 PlanUpvoteView(viewModel: planUpvoteViewModel)
 

@@ -17,7 +17,7 @@ protocol Repository {
 
     func fetchItemsAndListen(field: String, isEqualTo id: String) async
 
-    func fetchItemsAndListen(field1: String, isEqualTo id1: String, field2: String, isEqualTo id2: Int)
+    func fetchItemsAndListen(field1: String, isEqualTo id1: String, field2: String, isEqualTo id2: Int) async
 
     func fetchItemAndListen(id: String) async
 

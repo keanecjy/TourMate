@@ -84,7 +84,7 @@ class FirebaseRepository: Repository {
     }
 
     @MainActor
-    func fetchItemsAndListen(field1: String, isEqualTo id1: String, field2: String, isEqualTo id2: Int) {
+    func fetchItemsAndListen(field1: String, isEqualTo id1: String, field2: String, isEqualTo id2: Int) async {
         let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field1), isEqualTo: id1)
             .whereField(FirebaseConfig.fieldPath(field: field2), isEqualTo: id2)
 

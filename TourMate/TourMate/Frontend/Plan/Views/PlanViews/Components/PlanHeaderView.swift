@@ -13,6 +13,8 @@ struct PlanHeaderView: View {
     let planStatus: PlanStatus
     let planOwner: User
     let creationDateDisplay: String
+    let lastModifiedDateDisplay: String
+    let versionNumberDisplay: String
 
     var body: some View {
         HStack(spacing: 10.0) {
@@ -28,6 +30,10 @@ struct PlanHeaderView: View {
                 Text("Created by: \(planOwner.name)")
 
                 Text("Creation date: \(creationDateDisplay)")
+
+                Text("Last modified: \(lastModifiedDateDisplay)")
+
+                Text("Version Number: \(versionNumberDisplay)")
             }
         }
     }
