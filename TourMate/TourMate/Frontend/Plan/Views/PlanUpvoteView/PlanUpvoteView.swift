@@ -17,6 +17,12 @@ struct PlanUpvoteView: View {
         self.displayName = displayName
     }
 
+    init(plan: Plan, displayName: Bool = true) {
+        let viewModelFactory = ViewModelFactory()
+        self._viewModel = StateObject(wrappedValue: viewModelFactory.getPlanUpvoteViewModel(plan: plan))
+        self.displayName = displayName
+    }
+
     var body: some View {
         HStack(spacing: 16) {
             UpvoteButton(hasUpvoted: viewModel.userHasUpvotedPlan,

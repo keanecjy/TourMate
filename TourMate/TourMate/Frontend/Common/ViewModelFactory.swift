@@ -91,7 +91,8 @@ struct ViewModelFactory {
 
     // PlansView - PlanUpvotes
     func getPlanUpvoteViewModel(plan: Plan) -> PlanUpvoteViewModel {
-        PlanUpvoteViewModel(planId: plan.id, userService: userService, planUpvoteService: planUpvoteService.copy())
+        PlanUpvoteViewModel(planId: plan.id, planVersionNumber: plan.versionNumber,
+                            userService: userService, planUpvoteService: planUpvoteService.copy())
     }
 
     // Comments

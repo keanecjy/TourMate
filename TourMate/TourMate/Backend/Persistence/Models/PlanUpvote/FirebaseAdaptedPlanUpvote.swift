@@ -11,12 +11,7 @@ struct FirebaseAdaptedPlanUpvote: FirebaseAdaptedData {
     let id: String
     let planId: String
     let userId: String
-
-    init(planId: String, userId: String) {
-        self.id = planId + userId
-        self.planId = planId
-        self.userId = userId
-    }
+    let planVersion: Int
 
     func getType() -> FirebaseAdaptedType {
         FirebaseAdaptedType.firebaseAdaptedPlanUpvote
