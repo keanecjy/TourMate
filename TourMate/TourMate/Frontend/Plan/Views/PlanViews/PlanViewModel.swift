@@ -53,6 +53,10 @@ class PlanViewModel: ObservableObject {
         plan.id
     }
 
+    var versionNumber: Int {
+        plan.versionNumber
+    }
+
     var nameDisplay: String {
         plan.name
     }

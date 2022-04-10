@@ -21,7 +21,8 @@ class CommentAdapter {
 
 extension Comment {
     fileprivate func toData() -> FirebaseAdaptedComment {
-        FirebaseAdaptedComment(planId: planId, id: id, userId: userId,
+        FirebaseAdaptedComment(planId: planId, planVersionNumber: planVersionNumber,
+                               id: id, userId: userId,
                                message: message, creationDate: creationDate,
                                upvotedUserIds: upvotedUserIds)
     }
@@ -29,7 +30,8 @@ extension Comment {
 
 extension FirebaseAdaptedComment {
     fileprivate func toItem() -> Comment {
-        Comment(planId: planId, id: id, userId: userId,
+        Comment(planId: planId, planVersionNumber: planVersionNumber,
+                id: id, userId: userId,
                 message: message, creationDate: creationDate,
                 upvotedUserIds: upvotedUserIds)
     }

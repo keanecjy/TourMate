@@ -97,7 +97,8 @@ struct ViewModelFactory {
 
     // Comments
     func getCommentsViewModel(planViewModel: PlanViewModel) -> CommentsViewModel {
-        CommentsViewModel(planId: planViewModel.planId, commentService: commentService.copy(), userService: userService)
+        CommentsViewModel(planId: planViewModel.planId, planVersionNumber: planViewModel.versionNumber,
+                          commentService: commentService.copy(), userService: userService)
     }
 
     // Search
