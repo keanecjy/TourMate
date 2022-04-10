@@ -9,44 +9,40 @@ import Foundation
 import FirebaseAuth
 
 // https://blog.codemagic.io/google-sign-in-firebase-authentication-using-swift/
-final class FirebaseAuthenticationService: ObservableObject, AuthenticationService {
+final class FirebaseAuthenticationService: AuthenticationService {
 
-    private(set) static var shared = FirebaseAuthenticationService()
+    @Published private(set) var userIsLoggedIn = false
 
-    @Published private(set) var userIsLoggedIn: Bool
+    weak var authDelegate: AuthenticationDelegate?
 
     @Injected(\.authenticationManager) var authenticationManager: AuthenticationManager
 
-    private var authStateListenerHandle: AuthStateDidChangeListenerHandle?
-
-    private init() {
-        self.userIsLoggedIn = false
-
-        authStateListenerHandle = Auth.auth().addStateDidChangeListener { _, user in
-            if user != nil {
-                self.userIsLoggedIn = true
-            } else {
-                self.userIsLoggedIn = false
-            }
-        }
+    func fetchLogInStateAndListen() {
+        print("[FirebaseAuthenticationService] attaching listener to log in state")
+        authenticationManager.firebaseAuthDelegate = self
+        authenticationManager.fetchLogInStateAndListen()
     }
 
-    deinit {
-        if let handle = authStateListenerHandle {
-            Auth.auth().removeStateDidChangeListener(handle)
-        }
-    }
-
-    func checkIfUserIsLoggedIn() {
-        let hasLoggedInUser = authenticationManager.checkIfUserIsLoggedIn()
-        self.userIsLoggedIn = hasLoggedInUser
+    func detachListener() {
+        print("[FirebaseAuthenticationService] detaching listener ")
+        authenticationManager.firebaseAuthDelegate = nil
+        authenticationManager.detachListener()
     }
 
     func logIn() {
+        print("[FirebaseAuthenticationService] logging in")
         authenticationManager.logIn()
     }
 
     func logOut() {
+        print("[FirebaseAuthenticationService] logging out")
         authenticationManager.logOut()
+    }
+}
+
+extension FirebaseAuthenticationService: FirebaseAuthenticationDelegate {
+    func update(isLoggedIn: Bool) {
+        print("[FirebaseAuthenticationService] Updating log in state: \(isLoggedIn)")
+        authDelegate?.update(isLoggedIn: isLoggedIn)
     }
 }

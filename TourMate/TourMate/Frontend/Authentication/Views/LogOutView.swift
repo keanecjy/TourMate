@@ -8,22 +8,18 @@
 import SwiftUI
 
 struct LogOutView: View {
-    let authenticationService = FirebaseAuthenticationService.shared
+    @StateObject var authenticationViewModel = AuthenticationViewModel.shared
     let containerSize: CGSize
 
     @State private var isDisabled = false
 
     var body: some View {
         VStack(alignment: .center) {
-            AuthenticationButton(onPress: onGoogleLogoutButtonPressed,
+            AuthenticationButton(onPress: authenticationViewModel.logOut,
                                  title: "Log Out",
                                  maxWidth: containerSize.width / 5.0,
                                  isDisabled: isDisabled)
         }
-    }
-
-    private func onGoogleLogoutButtonPressed() {
-        authenticationService.logOut()
     }
 }
 

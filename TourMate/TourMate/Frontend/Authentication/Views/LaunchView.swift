@@ -27,10 +27,6 @@ struct LaunchView: View {
         }
         .navigationViewStyle(.stack)
     }
-
-    private func onGoogleLogInButtonPressed() {
-        FirebaseAuthenticationService.shared.logIn()
-    }
 }
 
 struct LaunchView_Previews: PreviewProvider {
