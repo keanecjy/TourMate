@@ -81,12 +81,7 @@ class FirebaseAuthenticationManager: AuthenticationManager {
             print("[FirebaseAuthenticationManager] Firebase log out failed: \(error.localizedDescription)")
         }
     }
-
-    private func updateAuthenticationState() {
-        let userHasLoggedIn = Auth.auth().currentUser != nil
-        self.firebaseAuthDelegate?.update(isLoggedIn: userHasLoggedIn)
-    }
-
+    
     private func authenticateUserWithFirebase(for user: GIDGoogleUser?, with googleAuthError: Error?) {
         print("[FirebaseAuthenticationManager] Authenticating with Firebase")
 
