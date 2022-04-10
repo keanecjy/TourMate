@@ -10,7 +10,7 @@ import Foundation
 class AuthenticationViewModel: ObservableObject {
     static var shared = AuthenticationViewModel()
 
-    @Published var userHasLoggedIn: Bool
+    @Published private(set) var userHasLoggedIn: Bool
     @Injected(\.authenticationService) var authenticationService: AuthenticationService
 
     private init() {
