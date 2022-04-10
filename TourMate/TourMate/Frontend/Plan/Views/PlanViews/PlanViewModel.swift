@@ -84,7 +84,7 @@ class PlanViewModel: ObservableObject {
         planService.planEventDelegate = self
 
         self.isLoading = true
-        await planService.fetchPlanAndListen(withPlanId: plan.id)
+        await planService.fetchPlanAndListen(withPlanId: plan.versionedId)
         self.isLoading = false
     }
 

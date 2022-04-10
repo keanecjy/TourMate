@@ -21,7 +21,7 @@ class FirebasePlanService: PlanService {
     func addPlan(plan: Plan) async -> (Bool, String) {
         print("[FirebasePlanService] Adding plan")
 
-        return await planRepository.addItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
+        return await planRepository.addItem(id: plan.versionedId, item: planAdapter.toAdaptedPlan(plan: plan))
     }
 
     func fetchPlansAndListen(withTripId tripId: String) async {
@@ -38,16 +38,62 @@ class FirebasePlanService: PlanService {
         await planRepository.fetchItemAndListen(id: planId)
     }
 
+    func fetchPlans(withPlanId planId: String) async -> ([Plan], String) {
+        print("[FirebasePlanService] Fetching plans")
+
+        let (adaptedPlans, errorMessage) = await planRepository.fetchItems(field: "planId", isEqualTo: planId)
+
+        guard errorMessage.isEmpty else {
+            return ([], errorMessage)
+        }
+
+        guard let adaptedPlans = adaptedPlans as? [FirebaseAdaptedPlan] else {
+            return ([], Constants.errorPlanConversion)
+        }
+
+        let plans = adaptedPlans.map({ planAdapter.toPlan(adaptedPlan: $0) })
+
+        return (plans, errorMessage)
+    }
+
     func deletePlan(plan: Plan) async -> (Bool, String) {
         print("[FirebasePlanService] Deleting plan")
+        
+        let (plans, errorMessage) = await fetchPlans(withPlanId: plan.id)
 
-        return await planRepository.deleteItem(id: plan.id)
+        guard errorMessage.isEmpty else {
+            return (false, errorMessage)
+        }
+
+        return await deleteAllVersionedPlans(plans)
+    }
+
+    private func deleteAllVersionedPlans(_ plans: [Plan]) async -> (Bool, String) {
+        print("[FirebasePlanService] Deleting all versioned plans")
+
+        var hasDeletedAllPlans = true
+        var err = ""
+
+        for plan in plans {
+            let (hasDeletedItem, errorMessage) = await planRepository.deleteItem(id: plan.versionedId)
+
+            guard hasDeletedItem,
+                  errorMessage.isEmpty
+            else {
+                hasDeletedAllPlans = hasDeletedAllPlans && hasDeletedItem
+                err = errorMessage
+                continue
+            }
+        }
+
+        return (hasDeletedAllPlans, err)
     }
 
     func updatePlan(plan: Plan) async -> (Bool, String) {
         print("[FirebasePlanService] Updating plan")
 
-        return await planRepository.updateItem(id: plan.id, item: planAdapter.toAdaptedPlan(plan: plan))
+        return await planRepository.updateItem(id: plan.versionedId,
+                                               item: planAdapter.toAdaptedPlan(plan: plan))
     }
 
     func detachListener() {
@@ -72,8 +118,7 @@ extension FirebasePlanService: FirebaseEventDelegate {
             return
         }
 
-        let plans = adaptedPlans
-            .map({ planAdapter.toPlan(adaptedPlan: $0) })
+        let plans = adaptedPlans.map({ planAdapter.toPlan(adaptedPlan: $0) })
 
         await planEventDelegate?.update(plans: plans, errorMessage: errorMessage)
     }
@@ -88,7 +133,6 @@ extension FirebasePlanService: FirebaseEventDelegate {
             return
         }
 
-        // unable to typecast
         guard let adaptedPlan = item as? FirebaseAdaptedPlan else {
             await planEventDelegate?.update(plan: nil, errorMessage: Constants.errorPlanConversion)
             return

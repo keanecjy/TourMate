@@ -24,6 +24,10 @@ struct Plan: CustomStringConvertible, Equatable {
     var modifierUserId: String
     var versionNumber: Int
 
+    var versionedId: String {
+        id + " / " + + String(versionNumber)
+    }
+
     // Plan creation
     init(id: String, tripId: String, name: String,
          startDateTime: DateTime, endDateTime: DateTime,
