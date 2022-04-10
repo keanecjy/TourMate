@@ -9,7 +9,6 @@ import Foundation
 
 protocol AuthenticationService {
 
-    var userIsLoggedIn: Bool { get }
     var authDelegate: AuthenticationDelegate? { get set }
 
     func fetchLogInStateAndListen()
