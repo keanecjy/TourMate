@@ -7,11 +7,16 @@
 
 import Foundation
 
-protocol AuthenticationService: ObservableObject {
-    associatedtype ConcreteAuthenticationService: AuthenticationService
-    static var shared: ConcreteAuthenticationService { get }
-    var userIsLoggedIn: Bool { get }
-    func checkIfUserIsLoggedIn()
+protocol AuthenticationService {
+
+    var authServiceDelegate: AuthenticationServiceDelegate? { get set }
+
+    func getCurrentAuthenticatedUser() -> AuthenticatedUser?
+    func hasLoggedInUser() -> Bool
+
+    func fetchLogInStateAndListen()
+    func detachListener()
+
     func logIn()
     func logOut()
 }

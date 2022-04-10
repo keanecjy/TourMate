@@ -8,22 +8,18 @@
 import SwiftUI
 
 struct LogInView: View {
-    let authenticationService = FirebaseAuthenticationService.shared
+    @StateObject var authenticationViewModel = AuthenticationViewModel.shared
     let containerSize: CGSize
 
     @State private var isDisabled = false
 
     var body: some View {
         VStack(alignment: .center) {
-            AuthenticationButton(onPress: onGoogleLogInButtonPressed,
+            AuthenticationButton(onPress: authenticationViewModel.logIn,
                                  title: "Log In",
                                  maxWidth: containerSize.width / 5.0,
                                  isDisabled: isDisabled)
         }
-    }
-
-    private func onGoogleLogInButtonPressed() {
-        authenticationService.logIn()
     }
 }
 

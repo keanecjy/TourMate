@@ -6,38 +6,37 @@
 //
 
 import Foundation
-import FirebaseAuth
 
 struct FirebaseUserService: UserService {
     private let userRepository = FirebaseRepository(collectionId: FirebaseConfig.userCollectionId)
+    @Injected(\.authenticationService) var authenticationService: AuthenticationService
 
     private let userAdapter = UserAdapter()
 
     func addUser(_ user: User) async -> (Bool, String) {
-        guard let currentUser = Auth.auth().currentUser,
-              let email = currentUser.email,
-              email == user.email
+        guard let currentUser = authenticationService.getCurrentAuthenticatedUser(),
+              currentUser.email == user.email
         else {
             return (false, Constants.messageUserNotLoggedIn)
         }
 
         let adaptedUser = userAdapter.toAdaptedUser(user: user)
-        return await userRepository.addItem(id: currentUser.uid, item: adaptedUser)
+        return await userRepository.addItem(id: currentUser.id, item: adaptedUser)
     }
 
     func deleteUser() async -> (Bool, String) {
-        guard let currentUser = Auth.auth().currentUser else {
+        guard let currentUser = authenticationService.getCurrentAuthenticatedUser() else {
             return (false, Constants.messageUserNotLoggedIn)
         }
-        return await userRepository.deleteItem(id: currentUser.uid)
+        return await userRepository.deleteItem(id: currentUser.id)
     }
 
     func getCurrentUser() async -> (User?, String) {
-        guard let currentUser = Auth.auth().currentUser else {
+        guard let currentUser = authenticationService.getCurrentAuthenticatedUser() else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
-        return await getUser(withUserId: currentUser.uid)
+        return await getUser(withUserId: currentUser.id)
     }
 
     func getUser(withUserId userId: String) async -> (User?, String) {
@@ -55,7 +54,7 @@ struct FirebaseUserService: UserService {
     }
 
     func getUser(withEmail email: String) async -> (User?, String) {
-        guard Auth.auth().currentUser != nil else {
+        guard authenticationService.hasLoggedInUser() else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
