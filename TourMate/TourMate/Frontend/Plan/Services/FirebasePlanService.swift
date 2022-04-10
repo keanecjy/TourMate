@@ -58,7 +58,7 @@ class FirebasePlanService: PlanService {
 
     func deletePlan(plan: Plan) async -> (Bool, String) {
         print("[FirebasePlanService] Deleting plan")
-        
+
         let (plans, errorMessage) = await fetchPlans(withPlanId: plan.id)
 
         guard errorMessage.isEmpty else {

@@ -37,7 +37,7 @@ class AddPlanViewModel: PlanFormViewModel {
         }
 
         let tripId = trip.id
-        let planId = tripId + " / " + UUID().uuidString
+        let planId = tripId + "-" + UUID().uuidString
         let name = planName
         let startDateTime = DateTime(date: planStartDate, timeZone: trip.startDateTime.timeZone)
         let endDateTime = DateTime(date: planEndDate, timeZone: trip.endDateTime.timeZone)

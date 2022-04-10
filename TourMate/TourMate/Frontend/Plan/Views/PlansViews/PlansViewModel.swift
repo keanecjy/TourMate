@@ -85,7 +85,7 @@ extension PlansViewModel: PlanEventDelegate {
     func update(plans: [Plan], errorMessage: String) async {
         print("[PlansViewModel] Updating Plans: \(plans)")
 
-        loadPlans(plans: plans, errorMessage: errorMessage)
+        loadLatestVersionedPlans(plans: plans, errorMessage: errorMessage)
     }
 
     func update(plan: Plan?, errorMessage: String) async {}
@@ -93,13 +93,27 @@ extension PlansViewModel: PlanEventDelegate {
 
 // MARK: - Helper Methods
 extension PlansViewModel {
-    private func loadPlans(plans: [Plan], errorMessage: String) {
+    private func loadLatestVersionedPlans(plans: [Plan], errorMessage: String) {
         guard errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
             return
         }
-        self.plans = plans
+
+        var latestPlanMap: [String: Plan] = [:]
+
+        for plan in plans {
+            guard let latestPlan = latestPlanMap[plan.id] else {
+                latestPlanMap[plan.id] = plan
+                continue
+            }
+
+            if plan.versionNumber > latestPlan.versionNumber {
+                latestPlanMap[plan.id] = plan
+            }
+        }
+
+        self.plans = Array(latestPlanMap.values)
         self.isLoading = false
     }
 }

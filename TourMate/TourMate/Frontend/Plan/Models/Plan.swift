@@ -25,7 +25,7 @@ struct Plan: CustomStringConvertible, Equatable {
     var versionNumber: Int
 
     var versionedId: String {
-        id + " / " + + String(versionNumber)
+        id + "-" + String(versionNumber)
     }
 
     // Plan creation
