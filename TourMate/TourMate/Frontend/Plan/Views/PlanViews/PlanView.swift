@@ -12,6 +12,7 @@ struct PlanView: View {
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
     @State private var isShowingEditPlanSheet = false
+    @State private var selectedVersion: Int
 
     @Environment(\.dismiss) var dismiss
 
@@ -24,6 +25,7 @@ struct PlanView: View {
 
         planViewModel.attachDelegate(delegate: commentsViewModel)
         self._planViewModel = StateObject(wrappedValue: planViewModel)
+        self._selectedVersion = State(wrappedValue: planViewModel.versionNumber)
     }
 
     var body: some View {
@@ -33,6 +35,17 @@ struct PlanView: View {
             ProgressView()
         } else {
             VStack(alignment: .leading, spacing: 30.0) {
+                Picker("Version", selection: $selectedVersion) {
+                    ForEach(planViewModel.allVersionNumbers, id: \.magnitude) { num in
+                        Text("Version: \(String(num))")
+                    }
+                }
+                .pickerStyle(.menu)
+                .padding([.horizontal])
+                .background(
+                    Capsule().fill(Color.primary.opacity(0.25))
+                )
+
                 PlanHeaderView(planName: planViewModel.nameDisplay,
                                planStatus: planViewModel.statusDisplay,
                                planOwner: planViewModel.planOwner,

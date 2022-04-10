@@ -15,6 +15,7 @@ class PlanViewModel: ObservableObject {
     @Published private(set) var hasError = false
 
     @Published var plan: Plan
+    var allPlans: [Plan]
 
     @Published private(set) var planOwner = User.defaultUser()
 
@@ -29,6 +30,7 @@ class PlanViewModel: ObservableObject {
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService, userService: UserService) {
         self.plan = plan
+        self.allPlans = [plan]
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
         self.planService = planService
@@ -51,6 +53,10 @@ class PlanViewModel: ObservableObject {
 
     var versionNumber: Int {
         plan.versionNumber
+    }
+
+    var allVersionNumbers: [Int] {
+        allPlans.map({ $0.versionNumber }).sorted(by: { a, b in a > b })
     }
 
     var nameDisplay: String {
@@ -144,6 +150,7 @@ extension PlanViewModel {
         }
 
         self.plan = latestPlan
+        self.allPlans = plans
     }
 
     private func updateDelegates() async {
