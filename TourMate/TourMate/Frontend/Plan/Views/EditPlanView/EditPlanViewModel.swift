@@ -19,8 +19,6 @@ class EditPlanViewModel: PlanFormViewModel {
     private let planService: PlanService
     private let userService: UserService
 
-    weak var planEventDelegate: PlanEventDelegate?
-
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService, userService: UserService) {
 
@@ -99,7 +97,6 @@ class EditPlanViewModel: PlanFormViewModel {
             return
         }
 
-        await planEventDelegate?.update(plan: updatedPlan, errorMessage: "")
         self.isLoading = false
     }
 
