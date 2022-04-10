@@ -11,8 +11,6 @@ import FirebaseAuth
 // https://blog.codemagic.io/google-sign-in-firebase-authentication-using-swift/
 final class FirebaseAuthenticationService: AuthenticationService {
 
-    @Published private(set) var userIsLoggedIn = false
-
     weak var authDelegate: AuthenticationDelegate?
 
     @Injected(\.authenticationManager) var authenticationManager: AuthenticationManager
