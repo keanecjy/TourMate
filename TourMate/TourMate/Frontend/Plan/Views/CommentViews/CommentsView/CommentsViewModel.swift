@@ -14,7 +14,7 @@ class CommentsViewModel: ObservableObject {
     @Published var hasError: Bool
 
     private let planId: String
-    private let planVersionNumber: Int
+    private var planVersionNumber: Int
     private var commentService: CommentService
     private let userService: UserService
 
@@ -263,5 +263,21 @@ extension CommentsViewModel {
     private func handleError() {
         self.hasError = true
         self.isLoading = false
+    }
+}
+
+// MARK: PlanEventDelegate
+extension CommentsViewModel: PlanEventDelegate {
+    func update(plans: [Plan], errorMessage: String) async {
+    }
+
+    func update(plan: Plan?, errorMessage: String) async {
+        guard let plan = plan else {
+            return
+        }
+
+        print("[CommentsViewModel] Updating plan version number")
+
+        planVersionNumber = plan.versionNumber
     }
 }

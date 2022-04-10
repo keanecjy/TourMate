@@ -18,10 +18,12 @@ struct PlanView: View {
     private let viewModelFactory: ViewModelFactory
 
     init(planViewModel: PlanViewModel) {
-        self._planViewModel = StateObject(wrappedValue: planViewModel)
         self.viewModelFactory = ViewModelFactory()
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+
+        planViewModel.attachDelegate(delegate: commentsViewModel)
+        self._planViewModel = StateObject(wrappedValue: planViewModel)
     }
 
     var body: some View {

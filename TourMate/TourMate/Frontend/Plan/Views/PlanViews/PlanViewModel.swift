@@ -24,6 +24,8 @@ class PlanViewModel: ObservableObject {
     private let userService: UserService
     private var planService: PlanService
 
+    var planEventDelegates: [PlanEventDelegate]
+
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService, userService: UserService) {
         self.plan = plan
@@ -31,6 +33,8 @@ class PlanViewModel: ObservableObject {
         self.upperBoundDate = upperBoundDate
         self.planService = planService
         self.userService = userService
+
+        self.planEventDelegates = []
     }
 
     var creationDateDisplay: String {
@@ -81,6 +85,10 @@ class PlanViewModel: ObservableObject {
         plan.additionalInfo
     }
 
+    func attachDelegate(delegate: PlanEventDelegate) {
+        self.planEventDelegates.append(delegate)
+    }
+
     func updatePlanOwner() async {
         let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
         if let user = user {
@@ -118,6 +126,7 @@ extension PlanViewModel: PlanEventDelegate {
         }
 
         loadLatestVersionedPlan(plans)
+        await updateDelegates()
     }
 
 }
@@ -135,6 +144,12 @@ extension PlanViewModel {
         }
 
         self.plan = latestPlan
+    }
+
+    private func updateDelegates() async {
+        for eventDelegate in self.planEventDelegates {
+            await eventDelegate.update(plan: self.plan, errorMessage: "")
+        }
     }
 }
 
