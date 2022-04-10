@@ -14,16 +14,19 @@ class CommentsViewModel: ObservableObject {
     @Published var hasError: Bool
 
     private let planId: String
+    private let planVersionNumber: Int
     private var commentService: CommentService
     private let userService: UserService
 
     private var commentPermissions: [String: (Bool, Bool)] = [:] // canEdit, userHasUpvotedComment
 
     init(planId: String,
+         planVersionNumber: Int,
          commentService: CommentService,
          userService: UserService) {
 
         self.planId = planId
+        self.planVersionNumber = planVersionNumber
         self.commentService = commentService
         self.userService = userService
 
@@ -59,6 +62,7 @@ class CommentsViewModel: ObservableObject {
         let commentId = planId + UUID().uuidString
 
         let comment = Comment(planId: planId,
+                              planVersionNumber: planVersionNumber,
                               id: commentId,
                               userId: userId,
                               message: commentMessage,
@@ -119,6 +123,7 @@ class CommentsViewModel: ObservableObject {
         }
 
         let updatedComment = Comment(planId: comment.planId,
+                                     planVersionNumber: planVersionNumber,
                                      id: comment.id,
                                      userId: comment.userId,
                                      message: message,
