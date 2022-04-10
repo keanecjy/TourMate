@@ -21,6 +21,10 @@ class FirebaseAuthenticationManager: AuthenticationManager {
         self.userService = userService
     }
 
+    func getCurrentFirebaseUser() -> Firebase.User? {
+        Auth.auth().currentUser
+    }
+
     func fetchLogInStateAndListen() {
         self.authStateListenerHandle = Auth.auth().addStateDidChangeListener { _, user in
             self.firebaseAuthDelegate?.update(isLoggedIn: user != nil)

@@ -6,15 +6,15 @@
 //
 
 import Foundation
-import FirebaseAuth
 
 struct FirebaseUserService: UserService {
     private let userRepository = FirebaseRepository(collectionId: FirebaseConfig.userCollectionId)
+    @Injected(\.authenticationManager) var authenticationManager: AuthenticationManager
 
     private let userAdapter = UserAdapter()
 
     func addUser(_ user: User) async -> (Bool, String) {
-        guard let currentUser = Auth.auth().currentUser,
+        guard let currentUser = authenticationManager.getCurrentFirebaseUser(),
               let email = currentUser.email,
               email == user.email
         else {
@@ -26,14 +26,14 @@ struct FirebaseUserService: UserService {
     }
 
     func deleteUser() async -> (Bool, String) {
-        guard let currentUser = Auth.auth().currentUser else {
+        guard let currentUser = authenticationManager.getCurrentFirebaseUser() else {
             return (false, Constants.messageUserNotLoggedIn)
         }
         return await userRepository.deleteItem(id: currentUser.uid)
     }
 
     func getCurrentUser() async -> (User?, String) {
-        guard let currentUser = Auth.auth().currentUser else {
+        guard let currentUser = authenticationManager.getCurrentFirebaseUser() else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
@@ -55,7 +55,7 @@ struct FirebaseUserService: UserService {
     }
 
     func getUser(withEmail email: String) async -> (User?, String) {
-        guard Auth.auth().currentUser != nil else {
+        guard authenticationManager.getCurrentFirebaseUser() != nil else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 

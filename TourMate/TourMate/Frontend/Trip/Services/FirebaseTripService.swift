@@ -13,6 +13,7 @@ class FirebaseTripService: TripService {
     }
 
     private let tripRepository = FirebaseRepository(collectionId: FirebaseConfig.tripCollectionId)
+    @Injected(\.authenticationManager) var authenticationManager: AuthenticationManager
 
     private let tripAdapter = TripAdapter()
 
@@ -26,7 +27,7 @@ class FirebaseTripService: TripService {
     }
 
     func fetchTripsAndListen() async {
-        guard let user = Auth.auth().currentUser else {
+        guard let user = authenticationManager.getCurrentFirebaseUser() else {
             print(Constants.messageUserNotLoggedIn)
             return
         }
@@ -68,7 +69,7 @@ extension FirebaseTripService: FirebaseEventDelegate {
     func update(items: [FirebaseAdaptedData], errorMessage: String) async {
         print("[FirebaseTripService] Updating trips")
 
-        guard Auth.auth().currentUser != nil else {
+        guard authenticationManager.getCurrentFirebaseUser() != nil else {
             await tripEventDelegate?.update(trips: [], errorMessage: Constants.messageUserNotLoggedIn)
             return
         }
@@ -93,7 +94,7 @@ extension FirebaseTripService: FirebaseEventDelegate {
     func update(item: FirebaseAdaptedData?, errorMessage: String) async {
         print("[FirebaseTripService] Updating single trip")
 
-        guard let user = Auth.auth().currentUser else {
+        guard let user = authenticationManager.getCurrentFirebaseUser() else {
             await tripEventDelegate?.update(trip: nil, errorMessage: Constants.messageUserNotLoggedIn)
             return
         }

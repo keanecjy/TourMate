@@ -8,6 +8,8 @@
 import SwiftUI
 import Firebase
 
+// Managing Lifecycle: https://peterfriese.dev/posts/ultimate-guide-to-swiftui2-application-lifecycle/
+
 @main
 struct TourMateApp: App {
     @Environment(\.scenePhase) var scenePhase
