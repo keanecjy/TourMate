@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol AuthenticationDelegate: AnyObject {
+protocol AuthenticationServiceDelegate: AnyObject {
     func update(isLoggedIn: Bool)
 }

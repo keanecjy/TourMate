@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol FirebaseAuthenticationDelegate: AnyObject {
+protocol AuthenticationManagerDelegate: AnyObject {
     func update(isLoggedIn: Bool)
 }

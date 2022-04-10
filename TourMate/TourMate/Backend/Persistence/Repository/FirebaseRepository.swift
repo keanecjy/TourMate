@@ -23,7 +23,7 @@ class FirebaseRepository: Repository {
 
     @MainActor
     func addItem<T: FirebaseAdaptedData>(id: String, item: T) async -> (hasAddedItem: Bool, errorMessage: String) {
-        guard authenticationManager.getCurrentFirebaseUser() != nil else {
+        guard authenticationManager.getCurrentAuthenticatedUser() != nil else {
             return (false, Constants.messageUserNotLoggedIn)
         }
 
@@ -43,7 +43,7 @@ class FirebaseRepository: Repository {
 
     @MainActor
     func fetchItem(id: String) async -> (item: FirebaseAdaptedData?, errorMessage: String) {
-        guard authenticationManager.getCurrentFirebaseUser() != nil else {
+        guard authenticationManager.getCurrentAuthenticatedUser() != nil else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
@@ -104,7 +104,7 @@ class FirebaseRepository: Repository {
 
     @MainActor
     func deleteItem(id: String) async -> (hasDeletedItem: Bool, errorMessage: String) {
-        guard authenticationManager.getCurrentFirebaseUser() != nil else {
+        guard authenticationManager.getCurrentAuthenticatedUser() != nil else {
             return (false, Constants.messageUserNotLoggedIn)
         }
 
@@ -133,7 +133,7 @@ class FirebaseRepository: Repository {
 extension FirebaseRepository {
     @MainActor
     private func fetchItems(from query: Query) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
-        guard authenticationManager.getCurrentFirebaseUser() != nil else {
+        guard authenticationManager.getCurrentAuthenticatedUser() != nil else {
             return ([], Constants.messageUserNotLoggedIn)
         }
 
@@ -150,7 +150,7 @@ extension FirebaseRepository {
 
     @MainActor
     private func fetchItemsAndListen(from query: Query) {
-        guard authenticationManager.getCurrentFirebaseUser() != nil else {
+        guard authenticationManager.getCurrentAuthenticatedUser() != nil else {
             print("Unable to listen", Constants.messageUserNotLoggedIn)
             return
         }
@@ -172,7 +172,7 @@ extension FirebaseRepository {
 
     @MainActor
     private func fetchItemAndListen(from document: DocumentReference) {
-        guard authenticationManager.getCurrentFirebaseUser() != nil else {
+        guard authenticationManager.getCurrentAuthenticatedUser() != nil else {
             print("Unable to listen", Constants.messageUserNotLoggedIn)
             return
         }

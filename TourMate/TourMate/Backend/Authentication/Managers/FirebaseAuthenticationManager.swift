@@ -15,19 +15,32 @@ class FirebaseAuthenticationManager: AuthenticationManager {
     private let userService: UserService
 
     private var authStateListenerHandle: AuthStateDidChangeListenerHandle?
-    weak var firebaseAuthDelegate: FirebaseAuthenticationDelegate?
+    weak var authManagerDelegate: AuthenticationManagerDelegate?
 
     init(userService: UserService) {
         self.userService = userService
     }
 
-    func getCurrentFirebaseUser() -> Firebase.User? {
-        Auth.auth().currentUser
+    func getCurrentAuthenticatedUser() -> AuthenticatedUser? {
+        guard let currentUser = Auth.auth().currentUser,
+              let name = currentUser.displayName,
+              let email = currentUser.email else {
+            return nil
+        }
+
+        return AuthenticatedUser(id: currentUser.uid,
+                                 name: name,
+                                 email: email,
+                                 imageUrl: currentUser.photoURL?.absoluteString ?? "")
+    }
+
+    func hasLoggedInUser() -> Bool {
+        Auth.auth().currentUser != nil
     }
 
     func fetchLogInStateAndListen() {
         self.authStateListenerHandle = Auth.auth().addStateDidChangeListener { _, user in
-            self.firebaseAuthDelegate?.update(isLoggedIn: user != nil)
+            self.authManagerDelegate?.update(isLoggedIn: user != nil)
         }
     }
 

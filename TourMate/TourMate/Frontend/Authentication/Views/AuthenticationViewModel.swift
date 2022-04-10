@@ -19,13 +19,13 @@ class AuthenticationViewModel: ObservableObject {
 
     func fetchLogInStateAndListen() {
         print("[AuthenticationViewModel] attaching listener to log in state")
-        authenticationService.authDelegate = self
+        authenticationService.authServiceDelegate = self
         authenticationService.fetchLogInStateAndListen()
     }
 
     func detachListener() {
         print("[AuthenticationViewModel] detaching listener")
-        authenticationService.authDelegate = nil
+        authenticationService.authServiceDelegate = nil
         authenticationService.detachListener()
     }
 
@@ -40,7 +40,7 @@ class AuthenticationViewModel: ObservableObject {
     }
 }
 
-extension AuthenticationViewModel: AuthenticationDelegate {
+extension AuthenticationViewModel: AuthenticationServiceDelegate {
     func update(isLoggedIn: Bool) {
         print("[AuthenticationViewModel] Updating log in state: \(isLoggedIn)")
         self.userHasLoggedIn = isLoggedIn

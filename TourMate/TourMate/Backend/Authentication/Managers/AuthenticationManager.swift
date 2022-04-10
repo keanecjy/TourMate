@@ -10,9 +10,11 @@ import Firebase
 
 protocol AuthenticationManager {
 
-    var firebaseAuthDelegate: FirebaseAuthenticationDelegate? { get set }
+    var authManagerDelegate: AuthenticationManagerDelegate? { get set }
 
-    func getCurrentFirebaseUser() -> Firebase.User?
+    func getCurrentAuthenticatedUser() -> AuthenticatedUser?
+    func hasLoggedInUser() -> Bool
+
     func fetchLogInStateAndListen()
     func detachListener()
 

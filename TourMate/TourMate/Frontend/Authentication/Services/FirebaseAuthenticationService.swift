@@ -11,19 +11,27 @@ import FirebaseAuth
 // https://blog.codemagic.io/google-sign-in-firebase-authentication-using-swift/
 final class FirebaseAuthenticationService: AuthenticationService {
 
-    weak var authDelegate: AuthenticationDelegate?
+    weak var authServiceDelegate: AuthenticationServiceDelegate?
 
     @Injected(\.authenticationManager) var authenticationManager: AuthenticationManager
 
+    func getCurrentAuthenticatedUser() -> AuthenticatedUser? {
+        authenticationManager.getCurrentAuthenticatedUser()
+    }
+
+    func hasLoggedInUser() -> Bool {
+        authenticationManager.hasLoggedInUser()
+    }
+
     func fetchLogInStateAndListen() {
         print("[FirebaseAuthenticationService] attaching listener to log in state")
-        authenticationManager.firebaseAuthDelegate = self
+        authenticationManager.authManagerDelegate = self
         authenticationManager.fetchLogInStateAndListen()
     }
 
     func detachListener() {
         print("[FirebaseAuthenticationService] detaching listener ")
-        authenticationManager.firebaseAuthDelegate = nil
+        authenticationManager.authManagerDelegate = nil
         authenticationManager.detachListener()
     }
 
@@ -38,9 +46,9 @@ final class FirebaseAuthenticationService: AuthenticationService {
     }
 }
 
-extension FirebaseAuthenticationService: FirebaseAuthenticationDelegate {
+extension FirebaseAuthenticationService: AuthenticationManagerDelegate {
     func update(isLoggedIn: Bool) {
         print("[FirebaseAuthenticationService] Updating log in state: \(isLoggedIn)")
-        authDelegate?.update(isLoggedIn: isLoggedIn)
+        authServiceDelegate?.update(isLoggedIn: isLoggedIn)
     }
 }
