@@ -15,10 +15,11 @@ struct PlanView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    private let viewModelFactory = ViewModelFactory()
+    private let viewModelFactory: ViewModelFactory
 
     init(planViewModel: PlanViewModel) {
         self._planViewModel = StateObject(wrappedValue: planViewModel)
+        self.viewModelFactory = ViewModelFactory()
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
     }
