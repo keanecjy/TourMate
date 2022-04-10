@@ -31,11 +31,11 @@ class FirebasePlanService: PlanService {
         await planRepository.fetchItemsAndListen(field: "tripId", isEqualTo: tripId)
     }
 
-    func fetchPlanAndListen(withPlanId planId: String) async {
+    func fetchVersionedPlansAndListen(withPlanId planId: String) async {
         print("[FirebasePlanService] Fetching and listening to plan \(planId)")
 
         planRepository.eventDelegate = self
-        await planRepository.fetchItemAndListen(id: planId)
+        await planRepository.fetchItemsAndListen(field: "id", isEqualTo: planId)
     }
 
     func fetchPlans(withPlanId planId: String) async -> ([Plan], String) {
@@ -57,8 +57,6 @@ class FirebasePlanService: PlanService {
     }
 
     func deletePlan(plan: Plan) async -> (Bool, String) {
-        print("[FirebasePlanService] Deleting plan")
-
         let (plans, errorMessage) = await fetchPlans(withPlanId: plan.id)
 
         guard errorMessage.isEmpty else {

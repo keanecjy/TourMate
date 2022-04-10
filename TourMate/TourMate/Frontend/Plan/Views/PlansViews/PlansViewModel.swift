@@ -103,11 +103,13 @@ extension PlansViewModel {
         var latestPlanMap: [String: Plan] = [:]
 
         for plan in plans {
+            // First occurence of plan
             guard let latestPlan = latestPlanMap[plan.id] else {
                 latestPlanMap[plan.id] = plan
                 continue
             }
 
+            // Replace with latest plan
             if plan.versionNumber > latestPlan.versionNumber {
                 latestPlanMap[plan.id] = plan
             }

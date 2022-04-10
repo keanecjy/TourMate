@@ -81,7 +81,7 @@ class MockPlanService: PlanService {
 
     func fetchPlansAndListen(withTripId tripId: String) async {}
 
-    func fetchPlanAndListen(withPlanId planId: String) async {}
+    func fetchVersionedPlansAndListen(withPlanId planId: String) async {}
 
     func detachListener() {}
 

@@ -62,18 +62,13 @@ struct PlanView: View {
                     } label: {
                         Image(systemName: "pencil")
                     }
-                    .sheet(isPresented: $isShowingEditPlanSheet, onDismiss: {
-                        planViewModel.detachListener()
-                        Task {
-                            await planViewModel.fetchPlanAndListen()
-                        }
-                    }) {
+                    .sheet(isPresented: $isShowingEditPlanSheet) {
                         EditPlanView(viewModel: viewModelFactory.getEditPlanViewModel(planViewModel: planViewModel))
                     }
                 }
             }
             .task {
-                await planViewModel.fetchPlanAndListen()
+                await planViewModel.fetchVersionedPlansAndListen()
                 await planViewModel.updatePlanOwner()
             }
             .onReceive(planViewModel.objectWillChange) {

@@ -92,11 +92,11 @@ class PlanViewModel: ObservableObject {
         }
     }
 
-    func fetchPlanAndListen() async {
+    func fetchVersionedPlansAndListen() async {
         planService.planEventDelegate = self
 
         self.isLoading = true
-        await planService.fetchPlanAndListen(withPlanId: plan.versionedId)
+        await planService.fetchVersionedPlansAndListen(withPlanId: plan.id)
         self.isLoading = false
     }
 
@@ -111,32 +111,40 @@ class PlanViewModel: ObservableObject {
 
 // MARK: - PlanEventDelegate
 extension PlanViewModel: PlanEventDelegate {
-    func update(plan: Plan?, errorMessage: String) async {
+    func update(plan: Plan?, errorMessage: String) async {}
+
+    func update(plans: [Plan], errorMessage: String) async {
+        print("[PlansViewModel] Updating Versioned Plans: \(plans)")
+
         guard errorMessage.isEmpty else {
             handleError()
             return
         }
 
-        guard plan != nil else {
+        guard !plans.isEmpty else {
             handleDeletion()
             return
         }
 
-        guard let plan = plan else {
-            handleError()
-            return
-        }
-
-        print("[PlanViewModel] Updating Single Plan: \(plan)")
-
-        self.plan = plan
-        self.isLoading = false
+        loadLatestVersionedPlan(plans)
     }
 
-    func update(plans: [Plan], errorMessage: String) async {}
 }
 
 // MARK: - Helper Methods
+extension PlanViewModel {
+    private func loadLatestVersionedPlan(_ plans: [Plan]) {
+        var latestPlan = plans[0]
+
+        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
+            latestPlan = plan
+        }
+
+        self.plan = latestPlan
+    }
+}
+
+// MARK: - State changes
 extension PlanViewModel {
     private func handleError() {
         self.hasError = true
