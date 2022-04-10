@@ -32,7 +32,7 @@ class FirebasePlanService: PlanService {
     }
 
     func fetchPlanAndListen(withPlanId planId: String) async {
-        print("[FirebasePlanService] Fetching and listening to plan")
+        print("[FirebasePlanService] Fetching and listening to plan \(planId)")
 
         planRepository.eventDelegate = self
         await planRepository.fetchItemAndListen(id: planId)

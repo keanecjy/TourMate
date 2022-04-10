@@ -10,7 +10,6 @@ import Foundation
 @MainActor
 class EditPlanViewModel: PlanFormViewModel {
     @Published private(set) var isLoading = false
-    @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
 
     private(set) var canDeletePlan = false
@@ -19,6 +18,8 @@ class EditPlanViewModel: PlanFormViewModel {
 
     private let planService: PlanService
     private let userService: UserService
+
+    weak var planEventDelegate: PlanEventDelegate?
 
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService, userService: UserService) {
@@ -98,6 +99,7 @@ class EditPlanViewModel: PlanFormViewModel {
             return
         }
 
+        await planEventDelegate?.update(plan: updatedPlan, errorMessage: "")
         self.isLoading = false
     }
 
@@ -122,7 +124,6 @@ class EditPlanViewModel: PlanFormViewModel {
             handleError()
             return
         }
-        handleDeletion()
     }
 }
 
@@ -130,11 +131,6 @@ class EditPlanViewModel: PlanFormViewModel {
 extension EditPlanViewModel {
     private func handleError() {
         self.hasError = true
-        self.isLoading = false
-    }
-
-    private func handleDeletion() {
-        self.isDeleted = true
         self.isLoading = false
     }
 }

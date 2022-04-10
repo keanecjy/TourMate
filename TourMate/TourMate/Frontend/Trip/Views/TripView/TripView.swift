@@ -17,7 +17,7 @@ struct TripView: View {
     @State private var isShowingInviteUsersSheet = false
 
     @State private var selectedPlan: Plan?
-    private let viewModelFactory
+    private let viewModelFactory: ViewModelFactory
 
     init(tripViewModel: TripViewModel) {
         self.viewModelFactory = ViewModelFactory()

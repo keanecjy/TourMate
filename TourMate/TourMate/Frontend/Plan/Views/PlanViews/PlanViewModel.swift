@@ -95,18 +95,11 @@ class PlanViewModel: ObservableObject {
         planService.detachListener()
     }
 
-    // Update all plans
-    private func updatePublishedProperties(plan: Plan) async {
-        print("[PlanViewModel] Publishing plan \(plan) changes")
-        self.plan = plan
-    }
 }
 
 // MARK: - PlanEventDelegate
 extension PlanViewModel: PlanEventDelegate {
     func update(plan: Plan?, errorMessage: String) async {
-        print("[PlanViewModel] Updating Single Plan")
-
         guard errorMessage.isEmpty else {
             handleError()
             return
@@ -122,8 +115,9 @@ extension PlanViewModel: PlanEventDelegate {
             return
         }
 
-        await updatePublishedProperties(plan: plan)
+        print("[PlanViewModel] Updating Single Plan: \(plan)")
 
+        self.plan = plan
         self.isLoading = false
     }
 

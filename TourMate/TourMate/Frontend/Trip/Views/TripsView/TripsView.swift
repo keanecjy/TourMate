@@ -13,7 +13,7 @@ struct TripsView: View {
 
     let onSelected: ((Trip) -> Void)?
 
-    private let viewModelFactory
+    private let viewModelFactory: ViewModelFactory
 
     init(viewModel: TripsViewModel, onSelected: ((Trip) -> Void)? = nil) {
         self.viewModelFactory = ViewModelFactory()

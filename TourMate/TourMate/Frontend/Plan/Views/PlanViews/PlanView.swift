@@ -31,8 +31,6 @@ struct PlanView: View {
             ProgressView()
         } else {
             VStack(alignment: .leading, spacing: 30.0) {
-                // TODO: Show image
-
                 PlanHeaderView(planName: planViewModel.nameDisplay,
                                planStatus: planViewModel.statusDisplay,
                                planOwner: planViewModel.planOwner,
@@ -62,7 +60,12 @@ struct PlanView: View {
                     } label: {
                         Image(systemName: "pencil")
                     }
-                    .sheet(isPresented: $isShowingEditPlanSheet) {
+                    .sheet(isPresented: $isShowingEditPlanSheet, onDismiss: {
+                        planViewModel.detachListener()
+                        Task {
+                            await planViewModel.fetchPlanAndListen()
+                        }
+                    }) {
                         EditPlanView(viewModel: viewModelFactory.getEditPlanViewModel(planViewModel: planViewModel))
                     }
                 }

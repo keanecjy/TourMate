@@ -76,10 +76,12 @@ struct ViewModelFactory {
         let lowerBoundDate = planViewModel.lowerBoundDate
         let upperBoundDate = planViewModel.upperBoundDate
 
-        return EditPlanViewModel(plan: plan,
-                                 lowerBoundDate: lowerBoundDate,
-                                 upperBoundDate: upperBoundDate,
-                                 planService: planService.copy(), userService: userService)
+        let editPlanViewModel = EditPlanViewModel(plan: plan,
+                                                  lowerBoundDate: lowerBoundDate,
+                                                  upperBoundDate: upperBoundDate,
+                                                  planService: planService.copy(), userService: userService)
+        editPlanViewModel.planEventDelegate = planViewModel
+        return editPlanViewModel
     }
 
     // PlanView - PlanUpvotes
