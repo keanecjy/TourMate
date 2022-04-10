@@ -34,19 +34,11 @@ class PlanViewModel: ObservableObject {
     }
 
     var creationDateDisplay: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        dateFormatter.timeZone = plan.startDateTime.timeZone
-        return dateFormatter.string(from: plan.creationDate)
+        DateUtil.defaultDateDisplay(date: plan.creationDate, at: plan.startDateTime.timeZone)
     }
 
     var lastModifiedDateDisplay: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        dateFormatter.timeZone = plan.startDateTime.timeZone
-        return dateFormatter.string(from: plan.modificationDate)
+        DateUtil.defaultDateDisplay(date: plan.modificationDate, at: plan.startDateTime.timeZone)
     }
 
     var planId: String {
@@ -121,11 +113,6 @@ extension PlanViewModel: PlanEventDelegate {
             return
         }
 
-        guard !plans.isEmpty else {
-            handleDeletion()
-            return
-        }
-
         loadLatestVersionedPlan(plans)
     }
 
@@ -134,7 +121,10 @@ extension PlanViewModel: PlanEventDelegate {
 // MARK: - Helper Methods
 extension PlanViewModel {
     private func loadLatestVersionedPlan(_ plans: [Plan]) {
-        var latestPlan = plans[0]
+        guard var latestPlan = plans.first else {
+            handleDeletion()
+            return
+        }
 
         for plan in plans where plan.versionNumber > latestPlan.versionNumber {
             latestPlan = plan
