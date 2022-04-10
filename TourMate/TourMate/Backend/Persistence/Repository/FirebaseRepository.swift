@@ -99,7 +99,7 @@ class FirebaseRepository: Repository {
         self.listener?.remove()
         self.listener = nil
 
-        print("[FirebaseRepository]: Successfully removed listener on \(collectionId)")
+        print("[FirebaseRepository] Successfully removed listener on \(collectionId)")
     }
 
     @MainActor

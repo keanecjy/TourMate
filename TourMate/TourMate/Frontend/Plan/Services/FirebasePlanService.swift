@@ -39,9 +39,9 @@ class FirebasePlanService: PlanService {
     }
 
     func fetchPlans(withPlanId planId: String) async -> ([Plan], String) {
-        print("[FirebasePlanService] Fetching plans")
+        print("[FirebasePlanService] Fetching all versioned plans with id: \(planId)")
 
-        let (adaptedPlans, errorMessage) = await planRepository.fetchItems(field: "planId", isEqualTo: planId)
+        let (adaptedPlans, errorMessage) = await planRepository.fetchItems(field: "id", isEqualTo: planId)
 
         guard errorMessage.isEmpty else {
             return ([], errorMessage)
