@@ -7,31 +7,26 @@
 
 import SwiftUI
 
-struct PlanFormView: View {
-
+struct PlanFormView<Content: View>: View {
+    let content: Content
     @ObservedObject var viewModel: PlanFormViewModel
+
+    init(viewModel: PlanFormViewModel, @ViewBuilder content: () -> Content) {
+        self.viewModel = viewModel
+        self.content = content()
+    }
 
     var body: some View {
         Form {
-            ConfirmedToggle(status: $viewModel.planStatus, canChangeStatus: viewModel.canChangeStatus)
+            Section {
+                ConfirmedToggle(status: $viewModel.planStatus, canChangeStatus: viewModel.canChangeStatus)
 
-            TextField("Event Name", text: $viewModel.planName)
+                TextField("Name*", text: $viewModel.planName)
 
-            DatePicker("Start Date",
-                       selection: $viewModel.planStartDate,
-                       in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
-                       displayedComponents: [.date, .hourAndMinute])
+                TextField("Image URL", text: $viewModel.planImageUrl)
+            }
 
-            DatePicker("End Date",
-                       selection: $viewModel.planEndDate,
-                       in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
-                       displayedComponents: [.date, .hourAndMinute])
-
-            AddressTextField(title: "Start Location", location: $viewModel.planStartLocation)
-
-            AddressTextField(title: "End Location", location: $viewModel.planEndLocation)
-
-            TextField("Image URL", text: $viewModel.planImageUrl)
+            content
 
             Section("Additional Notes") {
                 ZStack {

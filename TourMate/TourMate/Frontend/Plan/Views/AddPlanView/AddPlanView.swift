@@ -7,40 +7,61 @@
 
 import SwiftUI
 
+@MainActor
 struct AddPlanView: View {
+    @Environment(\.dismiss) var dismissAddPlanView
 
-    @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: AddPlanViewModel
+    let trip: Trip
+    private let viewModelFactory = ViewModelFactory()
+
+    @State private var isShowingAddActivitySheet = false
+    @State private var isShowingAddAccommodationSheet = false
+    @State private var isShowingAddTransportSheet = false
 
     var body: some View {
         NavigationView {
-            Group {
-                if viewModel.hasError {
-                    Text("Error Occurred")
-                } else if viewModel.isLoading {
-                    ProgressView()
-                } else {
-                    PlanFormView(viewModel: viewModel)
+            List {
+                Button {
+                    isShowingAddActivitySheet.toggle()
+                } label: {
+                    Text("Activity")
+                        .prefixedWithIcon(named: "figure.walk.circle.fill")
                 }
-            }
-            .navigationTitle("New Plan")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Add") {
-                        Task {
-                            await viewModel.addPlan()
-                            dismiss()
-                        }
-                    }
-                    .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)
+                .sheet(isPresented: $isShowingAddActivitySheet) {
+                    let viewModel = viewModelFactory.getAddActivityViewModel(trip: trip)
+                    AddActivityView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView)
                 }
 
+                Button {
+                    isShowingAddAccommodationSheet.toggle()
+                } label: {
+                    Text("Accommodation")
+                        .prefixedWithIcon(named: "bed.double.circle.fill")
+                }
+                .sheet(isPresented: $isShowingAddAccommodationSheet) {
+                    let viewModel = viewModelFactory.getAddAccommodationViewModel(trip: trip)
+                    AddAccommodationView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView)
+                }
+
+                Button {
+                    isShowingAddTransportSheet.toggle()
+                } label: {
+                    Text("Transport")
+                        .prefixedWithIcon(named: "car.circle.fill")
+                }
+                .sheet(isPresented: $isShowingAddTransportSheet) {
+                    let viewModel = viewModelFactory.getAddTransportViewModel(trip: trip)
+                    AddTransportView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView)
+                }
+            }
+            .listStyle(.plain)
+            .navigationTitle("Add a Plan")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {
-                        dismiss()
+                        dismissAddPlanView()
                     }
-                    .disabled(viewModel.isLoading)
                 }
             }
         }

@@ -1,65 +1,55 @@
 //
-//  EditPlanView.swift
+//  AddActivityView.swift
 //  TourMate
 //
-//  Created by Terence Ho on 20/3/22.
+//  Created by Tan Rui Quan on 8/4/22.
 //
 
 import SwiftUI
 
-struct EditPlanView: View {
+struct AddActivityView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: EditPlanViewModel
-
-    init(viewModel: EditPlanViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
+    @StateObject var viewModel: AddActivityViewModel
+    var dismissAddPlanView: DismissAction
 
     var body: some View {
         NavigationView {
             Group {
                 if viewModel.hasError {
-                    Text("Error occured")
+                    Text("Error Occurred")
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    PlanFormView(viewModel: viewModel)
+                    ActivityFormView(viewModel: viewModel)
                 }
             }
-            .navigationTitle("Edit Plan")
+            .navigationTitle("New Activity")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
+                    Button("Add") {
                         Task {
-                            await viewModel.updatePlan()
+                            await viewModel.addActivity()
                             dismiss()
+                            dismissAddPlanView()
                         }
                     }
                     .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)
                 }
+
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {
                         dismiss()
                     }
                     .disabled(viewModel.isLoading)
                 }
-                ToolbarItem(placement: .bottomBar) {
-                    Button("Delete Plan", role: .destructive) {
-                        Task {
-                            await viewModel.deletePlan()
-                            dismiss()
-                        }
-                    }
-                    .disabled(viewModel.isLoading || viewModel.hasError || !viewModel.canDeletePlan)
-                }
             }
         }
     }
 }
 
-// struct EditPlanView_Previews: PreviewProvider {
+// struct AddActivityView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        EditPlanView()
+//        AddActivityView()
 //    }
 // }
