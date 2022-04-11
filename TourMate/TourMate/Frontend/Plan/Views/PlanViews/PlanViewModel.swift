@@ -31,48 +31,6 @@ class PlanViewModel: PlanDisplayViewModel {
         self.userService = userService
 
         self.planEventDelegates = []
-    }
-
-    var creationDateDisplay: String {
-        DateUtil.defaultDateDisplay(date: plan.creationDate, at: plan.startDateTime.timeZone)
-    }
-
-    var lastModifiedDateDisplay: String {
-        DateUtil.defaultDateDisplay(date: plan.modificationDate, at: plan.startDateTime.timeZone)
-    }
-
-    var planId: String {
-        plan.id
-    }
-
-    var versionNumber: Int {
-        plan.versionNumber
-    }
-
-    var allVersionNumbers: [Int] {
-        allVersionedPlans.map({ $0.versionNumber }).sorted(by: >)
-    }
-
-    var nameDisplay: String {
-        plan.name
-    }
-
-    var statusDisplay: PlanStatus {
-        plan.status
-    }
-
-    var versionNumberDisplay: String {
-        String(plan.versionNumber)
-    }
-
-    var startDateTimeDisplay: DateTime {
-        plan.startDateTime
-    }
-
-    var endDateTimeDisplay: DateTime {
-        plan.endDateTime
-    }
-
         super.init(plan: plan)
     }
 
@@ -84,9 +42,11 @@ class PlanViewModel: PlanDisplayViewModel {
         self.planEventDelegates = []
     }
 
-    func updatePlanProperties() async {
-        await updatePlanOwner()
-        await updatePlanLastModifier()
+    func updatePlanOwner() async {
+        let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
+        if let user = user {
+            planOwner = user
+        }
     }
 
     func fetchVersionedPlansAndListen() async {
@@ -134,6 +94,7 @@ extension PlanViewModel: PlanEventDelegate {
 
         loadLatestVersionedPlan(plans)
         await updateDelegates()
+        await updatePlanLastModifier()
     }
 
 }
@@ -156,13 +117,6 @@ extension PlanViewModel {
     private func updateDelegates() async {
         for eventDelegate in self.planEventDelegates {
             await eventDelegate.update(plan: self.plan, errorMessage: "")
-        }
-    }
-
-    private func updatePlanOwner() async {
-        let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
-        if let user = user {
-            planOwner = user
         }
     }
 

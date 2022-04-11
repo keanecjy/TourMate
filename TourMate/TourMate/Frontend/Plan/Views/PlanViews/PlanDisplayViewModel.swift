@@ -11,16 +11,18 @@ import Foundation
 class PlanDisplayViewModel: ObservableObject {
     @Published var plan: Plan
     @Published var planOwner: User
+    @Published var planLastModifier: User
 
-    var allPlans: [Plan]
+    var allVersionedPlans: [Plan]
 
     private(set) var displayMode: DisplayMode
 
     init(plan: Plan) {
         self.plan = plan
-        self.allPlans = [plan]
+        self.allVersionedPlans = [plan]
         self.displayMode = .latestVersion
         self.planOwner = User.defaultUser()
+        self.planLastModifier = User.defaultUser()
     }
 
     var creationDateDisplay: String {
@@ -40,7 +42,7 @@ class PlanDisplayViewModel: ObservableObject {
     }
 
     var allVersionNumbers: [Int] {
-        allPlans.map({ $0.versionNumber }).sorted(by: { a, b in a > b })
+        allVersionedPlans.map({ $0.versionNumber }).sorted(by: >)
     }
 
     var nameDisplay: String {
