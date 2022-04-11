@@ -37,20 +37,10 @@ struct PlanCardView: View {
 
                     PlanStatusView(status: plan.status)
 
-                    HStack(spacing: 5.0) {
-                        Image(systemName: "text.bubble")
-
-                        Text(String(commentsViewModel.commentCount))
-                    }
                 }
 
-                HStack(spacing: 10.0) {
-                    Text(plan.name)
-                        .font(.headline)
-
-                    Text("(Version \(String(plan.versionNumber)))")
-                        .font(.caption)
-                }
+                Text(plan.name)
+                    .font(.headline)
             }
             .padding()
 
@@ -58,11 +48,30 @@ struct PlanCardView: View {
 
             VStack {
                 Spacer()
+
                 PlanUpvoteView(viewModel: planUpvoteViewModel, displayName: false)
                     .frame(maxWidth: UIScreen.screenWidth / 3)
+
                 Spacer()
 
             }
+
+            VStack(spacing: 5.0) {
+                Spacer()
+
+                HStack(spacing: 5.0) {
+                    Image(systemName: "text.bubble")
+
+                    Text(String(commentsViewModel.commentCount))
+                }
+
+                Text("(v\(String(plan.versionNumber)))")
+                    .font(.caption)
+
+                Spacer()
+            }
+            .padding([.horizontal])
+
         }
         .contentShape(Rectangle())
         .onAppear {

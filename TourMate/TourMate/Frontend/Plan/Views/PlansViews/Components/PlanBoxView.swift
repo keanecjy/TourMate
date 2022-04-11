@@ -28,25 +28,27 @@ struct PlanBoxView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 5.0) {
             HStack(spacing: 10.0) {
                 Text(DateUtil.shortDurationDesc(from: plan.startDateTime, to: plan.endDateTime, on: date))
                     .font(.caption)
 
                 PlanStatusView(status: plan.status)
 
+            }
+
+            Text(plan.name)
+                .font(.headline)
+
+            HStack(spacing: 10.0) {
+
                 HStack(spacing: 5.0) {
                     Image(systemName: "text.bubble")
 
                     Text(String(commentsViewModel.commentCount))
                 }
-            }
 
-            HStack(spacing: 10.0) {
-                Text(plan.name)
-                    .font(.headline)
-
-                Text("(Version \(String(plan.versionNumber)))")
+                Text("(v\(String(plan.versionNumber)))")
                     .font(.caption)
             }
 
