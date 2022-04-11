@@ -52,7 +52,7 @@ struct EditTripView: View {
                             dismiss()
                         }
                     }
-                    .disabled(viewModel.isLoading || viewModel.hasError)
+                    .disabled(viewModel.isLoading || viewModel.hasError || !viewModel.canDeleteTrip)
                 }
             }
         }
