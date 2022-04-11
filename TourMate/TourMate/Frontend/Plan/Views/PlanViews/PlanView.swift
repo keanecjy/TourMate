@@ -24,6 +24,8 @@ struct PlanView: View {
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
 
         planViewModel.attachDelegate(delegate: commentsViewModel)
+        planViewModel.attachDelegate(delegate: planUpvoteViewModel)
+
         self._planViewModel = StateObject(wrappedValue: planViewModel)
         self._selectedVersion = State(wrappedValue: planViewModel.versionNumber)
     }

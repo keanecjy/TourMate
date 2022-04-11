@@ -16,7 +16,7 @@ class PlanUpvoteViewModel: ObservableObject {
     @Published private(set) var upvotedUsers: [User] = []
 
     let planId: String
-    let planVersion: Int
+    var planVersion: Int
 
     private let userService: UserService
     private var planUpvoteService: PlanUpvoteService
@@ -126,5 +126,27 @@ extension PlanUpvoteViewModel {
     private func handleError() {
         self.hasError = true
         self.isLoading = false
+    }
+}
+
+// MARK: - PlanEventDelegate
+extension PlanUpvoteViewModel: PlanEventDelegate {
+    func update(plans: [Plan], errorMessage: String) async {
+    }
+
+    func update(plan: Plan?, errorMessage: String) async {
+        guard let plan = plan else {
+            return
+        }
+
+        print("[PlanUpvoteViewModel] Updating plan version number")
+
+        // Fetch new version upvotes
+        if planVersion != plan.versionNumber {
+            planVersion = plan.versionNumber
+
+            detachListener()
+            await fetchPlanUpvotesAndListen()
+        }
     }
 }
