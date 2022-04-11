@@ -48,6 +48,13 @@ class EditActivityViewModel: ActivityFormViewModel {
             ownerUserId: ownerUserId,
             location: location)
 
+        guard plan != updatedActivity else {
+            self.isLoading = false
+            return
+        }
+
+        await makeUpdatedPlan(updatedActivity)
+
         let (hasUpdatedActivity, errorMessage) = await planService.updatePlan(plan: updatedActivity)
 
         guard hasUpdatedActivity, errorMessage.isEmpty else {

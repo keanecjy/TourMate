@@ -12,15 +12,21 @@ struct AccommodationView: View {
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
     @State private var isShowingEditPlanSheet = false
+    @State private var selectedVersion: Int
 
     @Environment(\.dismiss) var dismiss
 
     private let viewModelFactory = ViewModelFactory()
 
     init(accommodationViewModel: AccommodationViewModel) {
-        self._accommodationViewModel = StateObject(wrappedValue: accommodationViewModel)
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: accommodationViewModel)
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: accommodationViewModel)
+
+        accommodationViewModel.attachDelegate(delegate: commentsViewModel)
+        accommodationViewModel.attachDelegate(delegate: planUpvoteViewModel)
+
+        self._accommodationViewModel = StateObject(wrappedValue: accommodationViewModel)
+        self._selectedVersion = State(wrappedValue: accommodationViewModel.versionNumber)
     }
 
     var body: some View {
@@ -31,6 +37,16 @@ struct AccommodationView: View {
         } else {
             VStack(alignment: .leading, spacing: 30.0) {
                 // TODO: Show image
+                Picker("Version", selection: $selectedVersion) {
+                    ForEach(accommodationViewModel.allVersionNumbers, id: \.magnitude) { num in
+                        Text("Version: \(String(num))")
+                    }
+                }
+                .pickerStyle(.menu)
+                .padding([.horizontal])
+                .background(
+                    Capsule().fill(Color.primary.opacity(0.25))
+                )
 
                 PlanHeaderView(
                     planStatus: accommodationViewModel.statusDisplay,

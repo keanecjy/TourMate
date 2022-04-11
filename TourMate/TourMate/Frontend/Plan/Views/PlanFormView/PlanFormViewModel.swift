@@ -134,6 +134,18 @@ class PlanFormViewModel: ObservableObject {
         canChangeStatus = allowed
     }
 
+    func makeUpdatedPlan(_ plan: Plan) async {
+        let (currentUser, _) = await userService.getCurrentUser()
+        guard let currentUser = currentUser else {
+            handleError()
+            return
+        }
+
+        plan.modificationDate = Date()
+        plan.modifierUserId = currentUser.id
+        plan.versionNumber += 1
+    }
+
     func deletePlan() async {
         self.isLoading = true
 

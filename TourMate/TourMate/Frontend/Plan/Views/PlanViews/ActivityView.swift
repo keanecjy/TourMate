@@ -12,15 +12,21 @@ struct ActivityView: View {
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
     @State private var isShowingEditPlanSheet = false
+    @State private var selectedVersion: Int
 
     @Environment(\.dismiss) var dismiss
 
     private let viewModelFactory = ViewModelFactory()
 
     init(activityViewModel: ActivityViewModel) {
-        self._activityViewModel = StateObject(wrappedValue: activityViewModel)
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: activityViewModel)
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: activityViewModel)
+
+        activityViewModel.attachDelegate(delegate: commentsViewModel)
+        activityViewModel.attachDelegate(delegate: planUpvoteViewModel)
+
+        self._activityViewModel = StateObject(wrappedValue: activityViewModel)
+        self._selectedVersion = State(wrappedValue: activityViewModel.versionNumber)
     }
 
     var body: some View {
@@ -31,6 +37,16 @@ struct ActivityView: View {
         } else {
             VStack(alignment: .leading, spacing: 30.0) {
                 // TODO: Show image
+                Picker("Version", selection: $selectedVersion) {
+                    ForEach(activityViewModel.allVersionNumbers, id: \.magnitude) { num in
+                        Text("Version: \(String(num))")
+                    }
+                }
+                .pickerStyle(.menu)
+                .padding([.horizontal])
+                .background(
+                    Capsule().fill(Color.primary.opacity(0.25))
+                )
 
                 PlanHeaderView(
                     planStatus: activityViewModel.statusDisplay,
@@ -57,7 +73,6 @@ struct ActivityView: View {
                 Spacer() // Push everything to the top
             }
             .padding()
-            .navigationBarTitle("") // Needed in order to display the nav back button. Best fix is to use .inline
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {

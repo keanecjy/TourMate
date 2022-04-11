@@ -8,8 +8,16 @@
 import Foundation
 
 class Plan: CustomStringConvertible, Equatable {
-    static func == (lhs: Plan, rhs: Plan) -> Bool {
+    static func == <T: Plan>(lhs: Plan, rhs: T) -> Bool {
         lhs.id == rhs.id
+        && lhs.tripId == rhs.tripId
+        && lhs.name == rhs.name
+        && lhs.startDateTime == rhs.startDateTime
+        && lhs.endDateTime == rhs.endDateTime
+        && lhs.creationDate == rhs.creationDate
+        && lhs.additionalInfo == rhs.additionalInfo
+        && lhs.ownerUserId == rhs.ownerUserId
+
     }
 
     var id: String
