@@ -93,7 +93,10 @@ struct PlanView: View {
                     dismiss()
                 }
             }
-            .onDisappear(perform: { () in planViewModel.detachListener() })
+            .onDisappear {
+                planViewModel.detachDelegates()
+                planViewModel.detachListener()
+            }
         }
     }
 }

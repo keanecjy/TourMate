@@ -95,6 +95,10 @@ class PlanViewModel: ObservableObject {
         self.planEventDelegates.append(delegate)
     }
 
+    func detachDelegates() {
+        self.planEventDelegates = []
+    }
+
     func updatePlanOwner() async {
         let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
         if let user = user {
