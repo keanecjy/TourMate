@@ -15,6 +15,7 @@ struct PlanCardView: View {
     let plan: Plan
     let date: Date
     let planUpvoteViewModel: PlanUpvoteViewModel
+    @StateObject var commentsViewModel: CommentsViewModel
 
     init(plansViewModel: PlansViewModel, plan: Plan, date: Date) {
         self.plansViewModel = plansViewModel
@@ -22,20 +23,34 @@ struct PlanCardView: View {
         self.date = date
 
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(plan: plan)
+
+        let commentsViewModel = viewModelFactory.getCommentsViewModel(plan: plan)
+        self._commentsViewModel = StateObject(wrappedValue: commentsViewModel)
     }
 
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
-                HStack(spacing: 0) {
+                HStack(spacing: 10.0) {
                     Text(DateUtil.shortDurationDesc(from: plan.startDateTime, to: plan.endDateTime, on: date))
                         .font(.caption)
 
                     PlanStatusView(status: plan.status)
-                        .padding([.horizontal])
+
+                    HStack(spacing: 5.0) {
+                        Image(systemName: "text.bubble")
+
+                        Text(String(commentsViewModel.commentCount))
+                    }
                 }
-                Text(plan.name)
-                    .font(.headline)
+
+                HStack(spacing: 10.0) {
+                    Text(plan.name)
+                        .font(.headline)
+
+                    Text("(Version \(String(plan.versionNumber)))")
+                        .font(.caption)
+                }
             }
             .padding()
 
@@ -52,9 +67,14 @@ struct PlanCardView: View {
         .contentShape(Rectangle())
         .onAppear {
             plansViewModel.attachDelegate(planId: plan.id, delegate: planUpvoteViewModel)
+
+            Task {
+                await commentsViewModel.fetchCommentsAndListen()
+            }
         }
         .onDisappear {
             plansViewModel.detachDelegate(planId: plan.id)
+            commentsViewModel.detachListener()
         }
     }
 }

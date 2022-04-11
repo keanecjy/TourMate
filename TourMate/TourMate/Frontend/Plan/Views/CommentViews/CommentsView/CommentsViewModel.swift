@@ -20,6 +20,10 @@ class CommentsViewModel: ObservableObject {
 
     private var commentPermissions: [String: (Bool, Bool)] = [:] // canEdit, userHasUpvotedComment
 
+    var commentCount: Int {
+        commentOwnerPairs.count
+    }
+
     init(planId: String,
          planVersionNumber: Int,
          commentService: CommentService,
