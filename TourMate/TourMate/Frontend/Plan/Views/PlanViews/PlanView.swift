@@ -12,15 +12,22 @@ struct PlanView: View {
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
     @State private var isShowingEditPlanSheet = false
+    @State private var selectedVersion: Int
 
     @Environment(\.dismiss) var dismiss
 
-    private let viewModelFactory = ViewModelFactory()
+    private let viewModelFactory: ViewModelFactory
 
     init(planViewModel: PlanViewModel) {
-        self._planViewModel = StateObject(wrappedValue: planViewModel)
+        self.viewModelFactory = ViewModelFactory()
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+
+        planViewModel.attachDelegate(delegate: commentsViewModel)
+        planViewModel.attachDelegate(delegate: planUpvoteViewModel)
+
+        self._planViewModel = StateObject(wrappedValue: planViewModel)
+        self._selectedVersion = State(wrappedValue: planViewModel.versionNumber)
     }
 
     var body: some View {
@@ -30,12 +37,23 @@ struct PlanView: View {
             ProgressView()
         } else {
             VStack(alignment: .leading, spacing: 30.0) {
-                // TODO: Show image
+                Picker("Version", selection: $selectedVersion) {
+                    ForEach(planViewModel.allVersionNumbers, id: \.magnitude) { num in
+                        Text("Version: \(String(num))")
+                    }
+                }
+                .pickerStyle(.menu)
+                .padding([.horizontal])
+                .background(
+                    Capsule().fill(Color.primary.opacity(0.25))
+                )
 
                 PlanHeaderView(planName: planViewModel.nameDisplay,
                                planStatus: planViewModel.statusDisplay,
                                planOwner: planViewModel.planOwner,
-                               creationDateDisplay: planViewModel.creationDateDisplay)
+                               creationDateDisplay: planViewModel.creationDateDisplay,
+                               lastModifiedDateDisplay: planViewModel.lastModifiedDateDisplay,
+                               versionNumberDisplay: planViewModel.versionNumberDisplay)
 
                 PlanUpvoteView(viewModel: planUpvoteViewModel)
 
@@ -67,7 +85,7 @@ struct PlanView: View {
                 }
             }
             .task {
-                await planViewModel.fetchPlanAndListen()
+                await planViewModel.fetchVersionedPlansAndListen()
                 await planViewModel.updatePlanOwner()
             }
             .onReceive(planViewModel.objectWillChange) {
@@ -75,7 +93,10 @@ struct PlanView: View {
                     dismiss()
                 }
             }
-            .onDisappear(perform: { () in planViewModel.detachListener() })
+            .onDisappear {
+                planViewModel.detachDelegates()
+                planViewModel.detachListener()
+            }
         }
     }
 }

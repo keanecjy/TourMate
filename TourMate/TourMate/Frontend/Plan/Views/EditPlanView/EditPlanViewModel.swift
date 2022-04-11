@@ -10,7 +10,6 @@ import Foundation
 @MainActor
 class EditPlanViewModel: PlanFormViewModel {
     @Published private(set) var isLoading = false
-    @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
 
     private(set) var canDeletePlan = false
@@ -62,10 +61,13 @@ class EditPlanViewModel: PlanFormViewModel {
         let imageUrl = planImageUrl
         let status = planStatus
         let creationDate = plan.creationDate
+        let modificationDate = plan.modificationDate
         let additionalInfo = planAdditionalInfo
         let ownerUserId = plan.ownerUserId
+        let versionNumber = plan.versionNumber
+        let modifierUserId = plan.modifierUserId
 
-        let updatedPlan = Plan(id: id,
+        var updatedPlan = Plan(id: id,
                                tripId: tripId,
                                name: name,
                                startDateTime: startDateTime,
@@ -75,9 +77,18 @@ class EditPlanViewModel: PlanFormViewModel {
                                imageUrl: imageUrl,
                                status: status,
                                creationDate: creationDate,
-                               modificationDate: Date(),
+                               modificationDate: modificationDate,
                                additionalInfo: additionalInfo,
-                               ownerUserId: ownerUserId)
+                               ownerUserId: ownerUserId,
+                               modifierUserId: modifierUserId,
+                               versionNumber: versionNumber)
+
+        guard plan != updatedPlan else {
+            self.isLoading = false
+            return
+        }
+
+        await makeUpdatedPlan(&updatedPlan)
 
         let (hasUpdatedPlan, errorMessage) = await planService.updatePlan(plan: updatedPlan)
 
@@ -89,6 +100,18 @@ class EditPlanViewModel: PlanFormViewModel {
         self.isLoading = false
     }
 
+    private func makeUpdatedPlan(_ plan: inout Plan) async {
+        let (currentUser, _) = await userService.getCurrentUser()
+        guard let currentUser = currentUser else {
+            handleError()
+            return
+        }
+
+        plan.modificationDate = Date()
+        plan.modifierUserId = currentUser.id
+        plan.versionNumber += 1
+    }
+
     func deletePlan() async {
         self.isLoading = true
 
@@ -98,7 +121,6 @@ class EditPlanViewModel: PlanFormViewModel {
             handleError()
             return
         }
-        handleDeletion()
     }
 }
 
@@ -106,11 +128,6 @@ class EditPlanViewModel: PlanFormViewModel {
 extension EditPlanViewModel {
     private func handleError() {
         self.hasError = true
-        self.isLoading = false
-    }
-
-    private func handleDeletion() {
-        self.isDeleted = true
         self.isLoading = false
     }
 }

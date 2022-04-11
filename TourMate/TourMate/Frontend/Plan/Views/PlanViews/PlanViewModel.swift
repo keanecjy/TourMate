@@ -15,6 +15,7 @@ class PlanViewModel: ObservableObject {
     @Published private(set) var hasError = false
 
     @Published var plan: Plan
+    var allPlans: [Plan]
 
     @Published private(set) var planOwner = User.defaultUser()
 
@@ -24,25 +25,38 @@ class PlanViewModel: ObservableObject {
     private let userService: UserService
     private var planService: PlanService
 
+    var planEventDelegates: [PlanEventDelegate]
+
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService, userService: UserService) {
         self.plan = plan
+        self.allPlans = [plan]
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
         self.planService = planService
         self.userService = userService
+
+        self.planEventDelegates = []
     }
 
     var creationDateDisplay: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        dateFormatter.timeZone = plan.startDateTime.timeZone
-        return dateFormatter.string(from: plan.creationDate)
+        DateUtil.defaultDateDisplay(date: plan.creationDate, at: plan.startDateTime.timeZone)
+    }
+
+    var lastModifiedDateDisplay: String {
+        DateUtil.defaultDateDisplay(date: plan.modificationDate, at: plan.startDateTime.timeZone)
     }
 
     var planId: String {
         plan.id
+    }
+
+    var versionNumber: Int {
+        plan.versionNumber
+    }
+
+    var allVersionNumbers: [Int] {
+        allPlans.map({ $0.versionNumber }).sorted(by: { a, b in a > b })
     }
 
     var nameDisplay: String {
@@ -51,6 +65,10 @@ class PlanViewModel: ObservableObject {
 
     var statusDisplay: PlanStatus {
         plan.status
+    }
+
+    var versionNumberDisplay: String {
+        String(plan.versionNumber)
     }
 
     var startDateTimeDisplay: DateTime {
@@ -73,6 +91,14 @@ class PlanViewModel: ObservableObject {
         plan.additionalInfo
     }
 
+    func attachDelegate(delegate: PlanEventDelegate) {
+        self.planEventDelegates.append(delegate)
+    }
+
+    func detachDelegates() {
+        self.planEventDelegates = []
+    }
+
     func updatePlanOwner() async {
         let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
         if let user = user {
@@ -80,11 +106,11 @@ class PlanViewModel: ObservableObject {
         }
     }
 
-    func fetchPlanAndListen() async {
+    func fetchVersionedPlansAndListen() async {
         planService.planEventDelegate = self
 
         self.isLoading = true
-        await planService.fetchPlanAndListen(withPlanId: plan.id)
+        await planService.fetchVersionedPlansAndListen(withPlanId: plan.id)
         self.isLoading = false
     }
 
@@ -95,42 +121,50 @@ class PlanViewModel: ObservableObject {
         planService.detachListener()
     }
 
-    // Update all plans
-    private func updatePublishedProperties(plan: Plan) async {
-        print("[PlanViewModel] Publishing plan \(plan) changes")
-        self.plan = plan
-    }
 }
 
 // MARK: - PlanEventDelegate
 extension PlanViewModel: PlanEventDelegate {
-    func update(plan: Plan?, errorMessage: String) async {
-        print("[PlanViewModel] Updating Single Plan")
+    func update(plan: Plan?, errorMessage: String) async {}
+
+    func update(plans: [Plan], errorMessage: String) async {
+        print("[PlansViewModel] Updating Versioned Plans: \(plans)")
 
         guard errorMessage.isEmpty else {
             handleError()
             return
         }
 
-        guard plan != nil else {
+        loadLatestVersionedPlan(plans)
+        await updateDelegates()
+    }
+
+}
+
+// MARK: - Helper Methods
+extension PlanViewModel {
+    private func loadLatestVersionedPlan(_ plans: [Plan]) {
+        guard var latestPlan = plans.first else {
             handleDeletion()
             return
         }
 
-        guard let plan = plan else {
-            handleError()
-            return
+        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
+            latestPlan = plan
         }
 
-        await updatePublishedProperties(plan: plan)
-
-        self.isLoading = false
+        self.plan = latestPlan
+        self.allPlans = plans
     }
 
-    func update(plans: [Plan], errorMessage: String) async {}
+    private func updateDelegates() async {
+        for eventDelegate in self.planEventDelegates {
+            await eventDelegate.update(plan: self.plan, errorMessage: "")
+        }
+    }
 }
 
-// MARK: - Helper Methods
+// MARK: - State changes
 extension PlanViewModel {
     private func handleError() {
         self.hasError = true

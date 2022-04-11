@@ -17,9 +17,10 @@ struct TripView: View {
     @State private var isShowingInviteUsersSheet = false
 
     @State private var selectedPlan: Plan?
-    private let viewModelFactory = ViewModelFactory()
+    private let viewModelFactory: ViewModelFactory
 
     init(tripViewModel: TripViewModel) {
+        self.viewModelFactory = ViewModelFactory()
         self._viewModel = StateObject(wrappedValue: tripViewModel)
     }
 

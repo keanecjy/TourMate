@@ -21,12 +21,18 @@ class PlanUpvoteAdapter {
 
 extension PlanUpvote {
     fileprivate func toData() -> FirebaseAdaptedPlanUpvote {
-        FirebaseAdaptedPlanUpvote(planId: planId, userId: userId)
+        FirebaseAdaptedPlanUpvote(id: id,
+                                  planId: planId,
+                                  userId: userId,
+                                  planVersion: planVersion)
     }
 }
 
 extension FirebaseAdaptedPlanUpvote {
     fileprivate func toItem() -> PlanUpvote {
-        PlanUpvote(planId: planId, userId: userId)
+        PlanUpvote(id: id,
+                   planId: planId,
+                   userId: userId,
+                   planVersion: planVersion)
     }
 }

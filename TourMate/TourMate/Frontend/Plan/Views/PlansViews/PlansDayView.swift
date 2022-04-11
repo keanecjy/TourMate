@@ -146,27 +146,27 @@ struct PlansDayView: View {
                             ZStack(alignment: .topLeading) {
                                 ForEach(plans, id: \.id) { plan in
                                     HStack {
-                                        PlanBoxView(planUpvoteViewModel: viewModelFactory.getPlanUpvoteViewModel(plan: plan),
+                                        PlanBoxView(plansViewModel: viewModel,
                                                     plan: plan, date: date)
-                                        .onTapGesture(perform: {
-                                            if let onSelected = onSelected {
-                                                onSelected(plan)
+                                            .onTapGesture(perform: {
+                                                if let onSelected = onSelected {
+                                                    onSelected(plan)
+                                                }
+                                            })
+                                            .frame(maxWidth: UIScreen.screenWidth / 3,
+                                                   minHeight: CGFloat(getHeight(for: plan)),
+                                                   alignment: .topLeading)
+                                            .readSize { size in
+                                                planIdToSize[plan.id] = size
+                                                calculateOffsets()
                                             }
-                                        })
-                                        .frame(maxWidth: UIScreen.screenWidth / 3,
-                                               minHeight: CGFloat(getHeight(for: plan)),
-                                               alignment: .topLeading)
-                                        .readSize { size in
-                                            planIdToSize[plan.id] = size
-                                            calculateOffsets()
-                                        }
-                                        .buttonStyle(PlainButtonStyle())
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .fill(Color.primary.opacity(0.25))
-                                        )
-                                        .offset(x: CGFloat(planIdToOffset[plan.id]?.x ?? 0),
-                                                y: CGFloat(planIdToOffset[plan.id]?.y ?? 0) + 7)
+                                            .buttonStyle(PlainButtonStyle())
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .fill(Color.primary.opacity(0.25))
+                                            )
+                                            .offset(x: CGFloat(planIdToOffset[plan.id]?.x ?? 0),
+                                                    y: CGFloat(planIdToOffset[plan.id]?.y ?? 0) + 7)
                                         Spacer()
                                     }
                                 }

@@ -9,14 +9,18 @@ import SwiftUI
 @MainActor
 struct PlanBoxView: View {
 
+    @ObservedObject var plansViewModel: PlansViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
+    private let viewModelFactory = ViewModelFactory()
     let plan: Plan
     let date: Date
 
-    init(planUpvoteViewModel: PlanUpvoteViewModel, plan: Plan, date: Date) {
-        self.planUpvoteViewModel = planUpvoteViewModel
+    init(plansViewModel: PlansViewModel, plan: Plan, date: Date) {
+        self.plansViewModel = plansViewModel
         self.plan = plan
         self.date = date
+
+        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(plan: plan)
     }
 
     var body: some View {
@@ -34,5 +38,11 @@ struct PlanBoxView: View {
         }
         .padding()
         .contentShape(Rectangle())
+        .onAppear {
+            plansViewModel.attachDelegate(planId: plan.id, delegate: planUpvoteViewModel)
+        }
+        .onDisappear {
+            plansViewModel.detachDelegate(planId: plan.id)
+        }
     }
 }

@@ -14,11 +14,13 @@ class MockPlanUpvoteService: PlanUpvoteService {
 
     // From MockPlan and MockUsers
     var planUpvotes = [
-        PlanUpvote(planId: "0", userId: "0"),
-        PlanUpvote(planId: "0", userId: "1"),
-        PlanUpvote(planId: "0", userId: "2")
+        PlanUpvote(planId: "0", userId: "0", planVersion: 0),
+        PlanUpvote(planId: "0", userId: "1", planVersion: 0),
+        PlanUpvote(planId: "0", userId: "2", planVersion: 0)
     ]
-    func fetchPlanUpvotesAndListen(withPlanId planId: String) async {
+
+    func fetchPlanUpvotesAndListen(withPlanId planId: String, withPlanVersion planVersion: Int) async {
+
     }
 
     func addPlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {

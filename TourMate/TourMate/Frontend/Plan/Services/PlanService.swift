@@ -10,7 +10,7 @@ import Foundation
 protocol PlanService: Copyable {
     func fetchPlansAndListen(withTripId tripId: String) async
 
-    func fetchPlanAndListen(withPlanId planId: String) async
+    func fetchVersionedPlansAndListen(withPlanId planId: String) async
 
     func addPlan(plan: Plan) async -> (Bool, String)
 

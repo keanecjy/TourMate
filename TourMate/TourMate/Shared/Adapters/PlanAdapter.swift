@@ -27,7 +27,8 @@ extension Plan {
                             imageUrl: imageUrl, status: status.rawValue,
                             creationDate: creationDate, modificationDate: modificationDate,
                             additionalInfo: additionalInfo,
-                            ownerUserId: ownerUserId)
+                            ownerUserId: ownerUserId, modifierUserId: modifierUserId,
+                            versionNumber: versionNumber)
     }
 }
 
@@ -41,7 +42,8 @@ extension FirebaseAdaptedPlan {
              imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
              creationDate: creationDate, modificationDate: modificationDate,
              additionalInfo: additionalInfo,
-             ownerUserId: ownerUserId)
+             ownerUserId: ownerUserId, modifierUserId: modifierUserId,
+             versionNumber: versionNumber)
     }
 }
 
