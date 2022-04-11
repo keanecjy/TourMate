@@ -12,6 +12,7 @@ struct PlanHeaderView<TitleView: View>: View {
     let planStatus: PlanStatus
     let planOwner: User
     let creationDateDisplay: String
+    let lastModifier: User
     let lastModifiedDateDisplay: String
     let versionNumberDisplay: String
 
@@ -36,12 +37,19 @@ struct PlanHeaderView<TitleView: View>: View {
 
             VStack(alignment: .leading, spacing: 5.0) {
                 Text("Created by: \(planOwner.name)")
+                    .font(.callout)
 
                 Text("Creation date: \(creationDateDisplay)")
+                    .font(.callout)
+
+                Text("Last modified by: \(lastModifier.name)")
+                    .font(.callout)
 
                 Text("Last modified: \(lastModifiedDateDisplay)")
+                    .font(.callout)
 
-                Text("Version Number: \(versionNumberDisplay)")
+                Text("Version: \(versionNumberDisplay)")
+                    .font(.callout)
             }
         }
     }

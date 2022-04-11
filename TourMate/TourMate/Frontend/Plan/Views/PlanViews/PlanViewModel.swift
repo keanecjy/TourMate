@@ -31,6 +31,47 @@ class PlanViewModel: PlanDisplayViewModel {
         self.userService = userService
 
         self.planEventDelegates = []
+    }
+
+    var creationDateDisplay: String {
+        DateUtil.defaultDateDisplay(date: plan.creationDate, at: plan.startDateTime.timeZone)
+    }
+
+    var lastModifiedDateDisplay: String {
+        DateUtil.defaultDateDisplay(date: plan.modificationDate, at: plan.startDateTime.timeZone)
+    }
+
+    var planId: String {
+        plan.id
+    }
+
+    var versionNumber: Int {
+        plan.versionNumber
+    }
+
+    var allVersionNumbers: [Int] {
+        allVersionedPlans.map({ $0.versionNumber }).sorted(by: >)
+    }
+
+    var nameDisplay: String {
+        plan.name
+    }
+
+    var statusDisplay: PlanStatus {
+        plan.status
+    }
+
+    var versionNumberDisplay: String {
+        String(plan.versionNumber)
+    }
+
+    var startDateTimeDisplay: DateTime {
+        plan.startDateTime
+    }
+
+    var endDateTimeDisplay: DateTime {
+        plan.endDateTime
+    }
 
         super.init(plan: plan)
     }
@@ -43,11 +84,9 @@ class PlanViewModel: PlanDisplayViewModel {
         self.planEventDelegates = []
     }
 
-    func updatePlanOwner() async {
-        let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
-        if let user = user {
-            planOwner = user
-        }
+    func updatePlanProperties() async {
+        await updatePlanOwner()
+        await updatePlanLastModifier()
     }
 
     func fetchVersionedPlansAndListen() async {
@@ -91,6 +130,7 @@ extension PlanViewModel: PlanEventDelegate {
             handleError()
             return
         }
+        self.allVersionedPlans = plans
 
         loadLatestVersionedPlan(plans)
         await updateDelegates()
@@ -100,11 +140,39 @@ extension PlanViewModel: PlanEventDelegate {
 
 // MARK: - Helper Methods
 extension PlanViewModel {
+    private func loadLatestVersionedPlan(_ plans: [Plan]) {
+        guard var latestPlan = plans.first else {
+            handleDeletion()
+            return
+        }
+
+        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
+            latestPlan = plan
+        }
+
+        self.plan = latestPlan
+    }
+
     private func updateDelegates() async {
         for eventDelegate in self.planEventDelegates {
             await eventDelegate.update(plan: self.plan, errorMessage: "")
         }
     }
+
+    private func updatePlanOwner() async {
+        let (user, _) = await userService.getUser(withUserId: plan.ownerUserId)
+        if let user = user {
+            planOwner = user
+        }
+    }
+
+    private func updatePlanLastModifier() async {
+        let (user, _) = await userService.getUser(withUserId: plan.modifierUserId)
+        if let user = user {
+            planLastModifier = user
+        }
+    }
+
 }
 
 // MARK: - State changes
