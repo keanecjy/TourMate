@@ -12,26 +12,6 @@ struct AddAccommodationView: View {
     @StateObject var viewModel: AddAccommodationViewModel
     var dismissAddPlanView: DismissAction
 
-    var planFormView: some View {
-        PlanFormView(viewModel: viewModel) {
-            Section("Date & Time") {
-                DatePicker("Check-in Date",
-                           selection: $viewModel.planStartDate,
-                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
-                           displayedComponents: [.date, .hourAndMinute])
-
-                DatePicker("Check-out Date",
-                           selection: $viewModel.planEndDate,
-                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
-                           displayedComponents: [.date, .hourAndMinute])
-            }
-
-            Section("Location") {
-                AddressTextField(title: "Address", location: $viewModel.location)
-            }
-        }
-    }
-
     var body: some View {
         NavigationView {
             Group {
@@ -40,7 +20,7 @@ struct AddAccommodationView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    planFormView
+                    AccommodationFormView(viewModel: viewModel)
                 }
             }
             .navigationTitle("New Accommodation")

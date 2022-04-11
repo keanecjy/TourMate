@@ -9,20 +9,16 @@ import Foundation
 import SwiftUI
 
 @MainActor
-class EditTransportViewModel: EditPlanViewModel {
-    @Published var startLocation: Location?
-    @Published var endLocation: Location?
+class EditTransportViewModel: TransportFormViewModel {
 
     init(transport: Transport,
-         lowerBoundDate: DateTime,
-         upperBoundDate: DateTime,
+         lowerBoundDate: Date,
+         upperBoundDate: Date,
          planService: PlanService,
          userService: UserService) {
-        self.startLocation = transport.startLocation
-        self.endLocation = transport.endLocation
-        super.init(plan: transport,
-                   lowerBoundDate: lowerBoundDate,
+        super.init(lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
+                   transport: transport,
                    planService: planService,
                    userService: userService)
     }

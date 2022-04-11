@@ -8,9 +8,17 @@
 import Foundation
 
 @MainActor
-class AddTransportViewModel: AddPlanViewModel {
-    @Published var startLocation: Location?
-    @Published var endLocation: Location?
+class AddTransportViewModel: TransportFormViewModel {
+    var trip: Trip
+
+    init(trip: Trip, planService: PlanService, userService: UserService) {
+        self.trip = trip
+
+        super.init(lowerBoundDate: trip.startDateTime.date,
+                   upperBoundDate: trip.endDateTime.date,
+                   planService: planService,
+                   userService: userService)
+    }
 
     func addTransport() async {
         self.isLoading = true

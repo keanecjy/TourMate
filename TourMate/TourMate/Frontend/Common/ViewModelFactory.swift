@@ -101,10 +101,6 @@ struct ViewModelFactory {
     }
 
     // Add Plan
-    func getAddPlanViewModel(tripViewModel: TripViewModel) -> AddPlanViewModel {
-        AddPlanViewModel(trip: tripViewModel.trip, planService: planService.copy(), userService: userService)
-    }
-
     func getAddActivityViewModel(trip: Trip) -> AddActivityViewModel {
         AddActivityViewModel(trip: trip, planService: planService.copy(), userService: userService)
     }
@@ -118,21 +114,10 @@ struct ViewModelFactory {
     }
 
     // Edit Plan
-    func getEditPlanViewModel(planViewModel: PlanViewModel) -> EditPlanViewModel {
-        let plan = planViewModel.plan
-        let lowerBoundDate = planViewModel.lowerBoundDate
-        let upperBoundDate = planViewModel.upperBoundDate
-
-        return EditPlanViewModel(plan: plan,
-                                 lowerBoundDate: lowerBoundDate,
-                                 upperBoundDate: upperBoundDate,
-                                 planService: planService.copy(), userService: userService)
-    }
-
     func getEditActivityViewModel(activityViewModel: ActivityViewModel) -> EditActivityViewModel {
         let activity = activityViewModel.activity
-        let lowerBoundDate = activityViewModel.lowerBoundDate
-        let upperBoundDate = activityViewModel.upperBoundDate
+        let lowerBoundDate = activityViewModel.lowerBoundDate.date
+        let upperBoundDate = activityViewModel.upperBoundDate.date
 
         return EditActivityViewModel(activity: activity,
                                      lowerBoundDate: lowerBoundDate,
@@ -143,8 +128,8 @@ struct ViewModelFactory {
 
     func getEditAccommodationViewModel(accommodationViewModel: AccommodationViewModel) -> EditAccommodationViewModel {
         let accommodation = accommodationViewModel.accommodation
-        let lowerBoundDate = accommodationViewModel.lowerBoundDate
-        let upperBoundDate = accommodationViewModel.upperBoundDate
+        let lowerBoundDate = accommodationViewModel.lowerBoundDate.date
+        let upperBoundDate = accommodationViewModel.upperBoundDate.date
 
         return EditAccommodationViewModel(
             accommodation: accommodation,
@@ -156,8 +141,8 @@ struct ViewModelFactory {
 
     func getEditTransportViewModel(transportViewModel: TransportViewModel) -> EditTransportViewModel {
         let transport = transportViewModel.transport
-        let lowerBoundDate = transportViewModel.lowerBoundDate
-        let upperBoundDate = transportViewModel.upperBoundDate
+        let lowerBoundDate = transportViewModel.lowerBoundDate.date
+        let upperBoundDate = transportViewModel.upperBoundDate.date
 
         return EditTransportViewModel(
             transport: transport,

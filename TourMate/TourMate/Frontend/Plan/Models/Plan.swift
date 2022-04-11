@@ -36,6 +36,20 @@ class Plan: CustomStringConvertible {
         self.additionalInfo = additionalInfo
         self.ownerUserId = ownerUserId
     }
+
+    init() {
+        self.id = ""
+        self.tripId = ""
+        self.name = ""
+        self.startDateTime = DateTime()
+        self.endDateTime = DateTime()
+        self.imageUrl = ""
+        self.status = .proposed
+        self.creationDate = Date()
+        self.modificationDate = Date()
+        self.additionalInfo = ""
+        self.ownerUserId = ""
+    }
 }
 
 // MARK: - CustomStringConvertible

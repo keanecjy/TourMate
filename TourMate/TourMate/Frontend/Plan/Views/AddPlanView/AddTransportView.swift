@@ -12,27 +12,6 @@ struct AddTransportView: View {
     @StateObject var viewModel: AddTransportViewModel
     var dismissAddPlanView: DismissAction
 
-    var planFormView: some View {
-        PlanFormView(viewModel: viewModel) {
-            Section("Date & Time") {
-                DatePicker("Departure Date",
-                           selection: $viewModel.planStartDate,
-                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
-                           displayedComponents: [.date, .hourAndMinute])
-
-                DatePicker("Arrival Date",
-                           selection: $viewModel.planEndDate,
-                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
-                           displayedComponents: [.date, .hourAndMinute])
-            }
-
-            Section("Location") {
-                AddressTextField(title: "Departure Location", location: $viewModel.startLocation)
-                AddressTextField(title: "Arrival Location", location: $viewModel.endLocation)
-            }
-        }
-    }
-
     var body: some View {
         NavigationView {
             Group {
@@ -41,7 +20,7 @@ struct AddTransportView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    planFormView
+                    TransportFormView(viewModel: viewModel)
                 }
             }
             .navigationTitle("New Transport")

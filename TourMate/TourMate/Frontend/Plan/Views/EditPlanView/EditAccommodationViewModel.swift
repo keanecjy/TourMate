@@ -8,19 +8,16 @@
 import Foundation
 
 @MainActor
-class EditAccommodationViewModel: EditPlanViewModel {
-    @Published var location: Location?
+class EditAccommodationViewModel: AccommodationFormViewModel {
 
     init(accommodation: Accommodation,
-         lowerBoundDate: DateTime,
-         upperBoundDate: DateTime,
+         lowerBoundDate: Date,
+         upperBoundDate: Date,
          planService: PlanService,
          userService: UserService) {
-        self.location = accommodation.location
-        super.init(plan: accommodation,
-                   lowerBoundDate: lowerBoundDate,
+        super.init(lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
-                   planService: planService,
+                   accommodation: accommodation, planService: planService,
                    userService: userService)
     }
 

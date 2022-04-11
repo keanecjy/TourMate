@@ -8,8 +8,17 @@
 import Foundation
 
 @MainActor
-class AddActivityViewModel: AddPlanViewModel {
-    @Published var location: Location?
+class AddActivityViewModel: ActivityFormViewModel {
+    var trip: Trip
+
+    init(trip: Trip, planService: PlanService, userService: UserService) {
+        self.trip = trip
+
+        super.init(lowerBoundDate: trip.startDateTime.date,
+                   upperBoundDate: trip.endDateTime.date,
+                   planService: planService,
+                   userService: userService)
+    }
 
     func addActivity() async {
         self.isLoading = true
