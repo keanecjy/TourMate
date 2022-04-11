@@ -12,17 +12,21 @@ struct StartEndDatePicker: View {
     @Binding var endDate: Date
     let lowerBoundDate: Date
     let upperBoundDate: Date
-
+    let startDateHeader: String
+    let endDateHeader: String
+    
     var body: some View {
-        DatePicker("Start Date",
-                   selection: $startDate,
-                   in: lowerBoundDate...upperBoundDate,
-                   displayedComponents: [.date, .hourAndMinute])
-
-        DatePicker("End Date",
-                   selection: $endDate,
-                   in: lowerBoundDate...upperBoundDate,
-                   displayedComponents: [.date, .hourAndMinute])
+        Section("Date & Time") {
+            DatePicker("Start Date",
+                       selection: $startDate,
+                       in: lowerBoundDate...upperBoundDate,
+                       displayedComponents: [.date, .hourAndMinute])
+            
+            DatePicker("End Date",
+                       selection: $endDate,
+                       in: lowerBoundDate...upperBoundDate,
+                       displayedComponents: [.date, .hourAndMinute])
+        }
     }
 }
 

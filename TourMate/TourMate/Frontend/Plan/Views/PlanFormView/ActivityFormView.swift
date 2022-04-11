@@ -11,18 +11,9 @@ struct ActivityFormView: View {
     @ObservedObject var viewModel: ActivityFormViewModel
 
     var body: some View {
-        PlanFormView(viewModel: viewModel) {
-            Section("Date & Time") {
-                DatePicker("Start Date",
-                           selection: $viewModel.planStartDate,
-                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
-                           displayedComponents: [.date, .hourAndMinute])
-
-                DatePicker("End Date",
-                           selection: $viewModel.planEndDate,
-                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
-                           displayedComponents: [.date, .hourAndMinute])
-            }
+        PlanFormView(viewModel: viewModel,
+                     startDateHeader: "Start Date",
+                     endDateHeader: "End Date") {
 
             Section("Location") {
                 AddressTextField(title: "Address", location: $viewModel.location)
