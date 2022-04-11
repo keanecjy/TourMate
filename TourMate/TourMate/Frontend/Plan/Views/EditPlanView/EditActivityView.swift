@@ -11,10 +11,6 @@ struct EditActivityView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditActivityViewModel
 
-    init(viewModel: EditActivityViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
-
     var body: some View {
         NavigationView {
             Group {

@@ -11,31 +11,6 @@ struct EditTransportView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditTransportViewModel
 
-    init(viewModel: EditTransportViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
-
-    var planFormView: some View {
-        PlanFormView(viewModel: viewModel) {
-            Section("Date & Time") {
-                DatePicker("Departure Date",
-                           selection: $viewModel.planStartDate,
-                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
-                           displayedComponents: [.date, .hourAndMinute])
-
-                DatePicker("Arrival Date",
-                           selection: $viewModel.planEndDate,
-                           in: viewModel.lowerBoundDate...viewModel.upperBoundDate,
-                           displayedComponents: [.date, .hourAndMinute])
-            }
-
-            Section("Location") {
-                AddressTextField(title: "Departure Location", location: $viewModel.startLocation)
-                AddressTextField(title: "Arrival Location", location: $viewModel.endLocation)
-            }
-        }
-    }
-
     var body: some View {
         NavigationView {
             Group {
@@ -44,7 +19,7 @@ struct EditTransportView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    planFormView
+                    TransportFormView(viewModel: viewModel)
                 }
             }
             .navigationTitle("Edit Transport")
