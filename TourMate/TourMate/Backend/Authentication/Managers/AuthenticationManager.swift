@@ -6,9 +6,17 @@
 //
 
 import Foundation
+import Firebase
 
 protocol AuthenticationManager {
-    func checkIfUserIsLoggedIn() -> Bool
+
+    var authManagerDelegate: AuthenticationManagerDelegate? { get set }
+
+    func getCurrentAuthenticatedUser() -> AuthenticatedUser?
+    func hasLoggedInUser() -> Bool
+
+    func fetchLogInStateAndListen()
+    func detachListener()
 
     // Google Authentication
     func logIn()

@@ -35,7 +35,9 @@ struct AccommodationView: View {
                 PlanHeaderView(
                     planStatus: accommodationViewModel.statusDisplay,
                     planOwner: accommodationViewModel.planOwner,
-                    creationDateDisplay: accommodationViewModel.creationDateDisplay) {
+                    creationDateDisplay: accommodationViewModel.creationDateDisplay,
+                    lastModifiedDateDisplay: accommodationViewModel.lastModifiedDateDisplay,
+                    versionNumberDisplay: accommodationViewModel.versionNumberDisplay) {
                         Text(accommodationViewModel.nameDisplay)
                             .bold()
                             .prefixedWithIcon(named: "bed.double.circle.fill")
@@ -70,7 +72,7 @@ struct AccommodationView: View {
                 }
             }
             .task {
-                await accommodationViewModel.fetchPlanAndListen()
+                await accommodationViewModel.fetchVersionedPlansAndListen()
                 await accommodationViewModel.updatePlanOwner()
             }
             .onReceive(accommodationViewModel.objectWillChange) {

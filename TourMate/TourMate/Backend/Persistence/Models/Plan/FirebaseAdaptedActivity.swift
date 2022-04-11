@@ -17,6 +17,7 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
          imageUrl: String, status: String,
          creationDate: Date, modificationDate: Date,
          additionalInfo: String, ownerUserId: String,
+         modifierUserId: String, versionNumber: Int,
          location: JsonAdaptedLocation?) {
         self.location = location
         super.init(id: id, tripId: tripId, name: name,
@@ -26,7 +27,9 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
                    creationDate: creationDate,
                    modificationDate: modificationDate,
                    additionalInfo: additionalInfo,
-                   ownerUserId: ownerUserId)
+                   ownerUserId: ownerUserId,
+                   modifierUserId: modifierUserId,
+                   versionNumber: versionNumber)
 
     }
 

@@ -14,16 +14,23 @@ class CommentsViewModel: ObservableObject {
     @Published var hasError: Bool
 
     private let planId: String
+    private var planVersionNumber: Int
     private var commentService: CommentService
     private let userService: UserService
 
     private var commentPermissions: [String: (Bool, Bool)] = [:] // canEdit, userHasUpvotedComment
 
+    var commentCount: Int {
+        commentOwnerPairs.count
+    }
+
     init(planId: String,
+         planVersionNumber: Int,
          commentService: CommentService,
          userService: UserService) {
 
         self.planId = planId
+        self.planVersionNumber = planVersionNumber
         self.commentService = commentService
         self.userService = userService
 
@@ -59,6 +66,7 @@ class CommentsViewModel: ObservableObject {
         let commentId = planId + UUID().uuidString
 
         let comment = Comment(planId: planId,
+                              planVersionNumber: planVersionNumber,
                               id: commentId,
                               userId: userId,
                               message: commentMessage,
@@ -119,6 +127,7 @@ class CommentsViewModel: ObservableObject {
         }
 
         let updatedComment = Comment(planId: comment.planId,
+                                     planVersionNumber: planVersionNumber,
                                      id: comment.id,
                                      userId: comment.userId,
                                      message: message,
@@ -258,5 +267,21 @@ extension CommentsViewModel {
     private func handleError() {
         self.hasError = true
         self.isLoading = false
+    }
+}
+
+// MARK: PlanEventDelegate
+extension CommentsViewModel: PlanEventDelegate {
+    func update(plans: [Plan], errorMessage: String) async {
+    }
+
+    func update(plan: Plan?, errorMessage: String) async {
+        guard let plan = plan else {
+            return
+        }
+
+        print("[CommentsViewModel] Updating plan version number")
+
+        planVersionNumber = plan.versionNumber
     }
 }

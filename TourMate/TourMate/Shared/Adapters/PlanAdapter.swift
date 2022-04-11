@@ -46,7 +46,10 @@ extension Activity {
                                 creationDate: creationDate,
                                 modificationDate: modificationDate,
                                 additionalInfo: additionalInfo,
-                                ownerUserId: ownerUserId, location: location?.toData())
+                                ownerUserId: ownerUserId,
+                                modifierUserId: modifierUserId,
+                                versionNumber: versionNumber,
+                                location: location?.toData())
     }
 }
 
@@ -58,6 +61,7 @@ extension FirebaseAdaptedActivity {
                  imageUrl: imageUrl, status: PlanStatus(rawValue: status)!,
                  creationDate: creationDate, modificationDate: modificationDate,
                  additionalInfo: additionalInfo, ownerUserId: ownerUserId,
+                 modifierUserId: modifierUserId, versionNumber: versionNumber,
                  location: location?.toItem())
     }
 }
@@ -73,6 +77,8 @@ extension Accommodation {
             modificationDate: modificationDate,
             additionalInfo: additionalInfo,
             ownerUserId: ownerUserId,
+            modifierUserId: modifierUserId,
+            versionNumber: versionNumber,
             location: location?.toData())
     }
 }
@@ -87,6 +93,8 @@ extension FirebaseAdaptedAccommodation {
                       modificationDate: modificationDate,
                       additionalInfo: additionalInfo,
                       ownerUserId: ownerUserId,
+                      modifierUserId: modifierUserId,
+                      versionNumber: versionNumber,
                       location: location?.toItem())
     }
 }
@@ -102,6 +110,8 @@ extension Transport {
             modificationDate: modificationDate,
             additionalInfo: additionalInfo,
             ownerUserId: ownerUserId,
+            modifierUserId: modifierUserId,
+            versionNumber: versionNumber,
             startLocation: startLocation?.toData(),
             endLocation: endLocation?.toData())
     }
@@ -117,6 +127,8 @@ extension FirebaseAdaptedTransport {
                   modificationDate: modificationDate,
                   additionalInfo: additionalInfo,
                   ownerUserId: ownerUserId,
+                  modifierUserId: modifierUserId,
+                  versionNumber: versionNumber,
                   startLocation: startLocation?.toItem(),
                   endLocation: endLocation?.toItem())
     }

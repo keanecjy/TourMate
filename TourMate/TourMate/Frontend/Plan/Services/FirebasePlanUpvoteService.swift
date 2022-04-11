@@ -18,11 +18,12 @@ class FirebasePlanUpvoteService: PlanUpvoteService {
 
     weak var planUpvoteEventDelegate: PlanUpvoteEventDelegate?
 
-    func fetchPlanUpvotesAndListen(withPlanId planId: String) async {
+    func fetchPlanUpvotesAndListen(withPlanId planId: String, withPlanVersion planVersion: Int) async {
         print("[FirebasePlanUpvoteService] Fetching and listening to plan upvotes")
 
         planUpvoteRepository.eventDelegate = self
-        await planUpvoteRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId)
+        await planUpvoteRepository.fetchItemsAndListen(field1: "planId", isEqualTo: planId,
+                                                       field2: "planVersion", isEqualTo: planVersion)
     }
 
     func addPlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {

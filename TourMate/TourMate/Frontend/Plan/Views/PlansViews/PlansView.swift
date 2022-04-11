@@ -43,6 +43,9 @@ struct PlansView: View {
             await plansViewModel.fetchPlansAndListen()
             print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
         }
-        .onDisappear(perform: { () in plansViewModel.detachListener() })
+        .onDisappear {
+            plansViewModel.detachDelegates()
+            plansViewModel.detachListener()
+        }
     }
 }

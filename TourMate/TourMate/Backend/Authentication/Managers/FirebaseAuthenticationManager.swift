@@ -10,25 +10,58 @@ import Firebase
 import FirebaseAuth
 import GoogleSignIn
 
-// https://peterfriese.dev/posts/firebase-async-calls-swift/
-struct FirebaseAuthenticationManager: AuthenticationManager {
+class FirebaseAuthenticationManager: AuthenticationManager {
 
     private let userService: UserService
+
+    private var authStateListenerHandle: AuthStateDidChangeListenerHandle?
+    weak var authManagerDelegate: AuthenticationManagerDelegate?
 
     init(userService: UserService) {
         self.userService = userService
     }
 
-    func checkIfUserIsLoggedIn() -> Bool {
+    func getCurrentAuthenticatedUser() -> AuthenticatedUser? {
+        guard let currentUser = Auth.auth().currentUser,
+              let name = currentUser.displayName,
+              let email = currentUser.email else {
+            return nil
+        }
+
+        return AuthenticatedUser(id: currentUser.uid,
+                                 name: name,
+                                 email: email,
+                                 imageUrl: currentUser.photoURL?.absoluteString ?? "")
+    }
+
+    func hasLoggedInUser() -> Bool {
         Auth.auth().currentUser != nil
     }
 
+    func fetchLogInStateAndListen() {
+        self.authStateListenerHandle = Auth.auth().addStateDidChangeListener { _, user in
+            self.authManagerDelegate?.update(isLoggedIn: user != nil)
+        }
+    }
+
+    func detachListener() {
+        if let handle = authStateListenerHandle {
+            Auth.auth().removeStateDidChangeListener(handle)
+        }
+        authStateListenerHandle = nil
+    }
+
     func logIn() {
+        print("[FirebaseAuthenticationManager] logging in")
         if GIDSignIn.sharedInstance.hasPreviousSignIn() {
+            print("[AuthenticationManager] Has previous sign in. Restoring...")
+
             GIDSignIn.sharedInstance.restorePreviousSignIn { [self] user, error in
                 authenticateUserWithFirebase(for: user, with: error)
             }
         } else {
+            print("[FirebaseAuthenticationManager] New Sign In")
+
             guard let clientID = FirebaseApp.app()?.options.clientID else {
                 print("[FirebaseAuthenticationManager] Unable to get ClientID")
                 return
@@ -63,6 +96,8 @@ struct FirebaseAuthenticationManager: AuthenticationManager {
     }
 
     private func authenticateUserWithFirebase(for user: GIDGoogleUser?, with googleAuthError: Error?) {
+        print("[FirebaseAuthenticationManager] Authenticating with Firebase")
+
         if let error = googleAuthError {
             print("[FirebaseAuthenticationManager] Google authentication failed: \(error.localizedDescription)")
             return
@@ -96,7 +131,7 @@ struct FirebaseAuthenticationManager: AuthenticationManager {
                     let newUser = User(id: user.uid, name: name, email: email, imageUrl: imageUrl)
 
                     Task {
-                        let (success, errorMessage) = await userService.addUser(newUser)
+                        let (success, errorMessage) = await self.userService.addUser(newUser)
 
                         if !success {
                             print("[FirebaseAuthenticationManager] User creation failed: \(errorMessage)")

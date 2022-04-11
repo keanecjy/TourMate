@@ -35,7 +35,9 @@ struct TransportView: View {
                 PlanHeaderView(
                     planStatus: transportViewModel.statusDisplay,
                     planOwner: transportViewModel.planOwner,
-                    creationDateDisplay: transportViewModel.creationDateDisplay) {
+                    creationDateDisplay: transportViewModel.creationDateDisplay,
+                    lastModifiedDateDisplay: transportViewModel.lastModifiedDateDisplay,
+                    versionNumberDisplay: transportViewModel.versionNumberDisplay) {
                         Text(transportViewModel.nameDisplay)
                             .bold()
                             .prefixedWithIcon(named: "car.circle.fill")
@@ -72,7 +74,7 @@ struct TransportView: View {
                 }
             }
             .task {
-                await transportViewModel.fetchPlanAndListen()
+                await transportViewModel.fetchVersionedPlansAndListen()
                 await transportViewModel.updatePlanOwner()
             }
             .onReceive(transportViewModel.objectWillChange) {

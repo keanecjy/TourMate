@@ -40,4 +40,14 @@ final class DateUtil {
 
         return "\(start) - \(end)"
     }
+
+    static func defaultDateDisplay(date: Date, at timeZone: TimeZone,
+                                   dateStyle: DateFormatter.Style = .long,
+                                   timeStyle: DateFormatter.Style = .short) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = dateStyle
+        dateFormatter.timeStyle = timeStyle
+        dateFormatter.timeZone = timeZone
+        return dateFormatter.string(from: date)
+    }
 }

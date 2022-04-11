@@ -13,6 +13,7 @@ class FirebaseTripService: TripService {
     }
 
     private let tripRepository = FirebaseRepository(collectionId: FirebaseConfig.tripCollectionId)
+    @Injected(\.authenticationService) var authenticationService: AuthenticationService
 
     private let tripAdapter = TripAdapter()
 
@@ -26,7 +27,7 @@ class FirebaseTripService: TripService {
     }
 
     func fetchTripsAndListen() async {
-        guard let user = Auth.auth().currentUser else {
+        guard let user = authenticationService.getCurrentAuthenticatedUser() else {
             print(Constants.messageUserNotLoggedIn)
             return
         }
@@ -34,7 +35,7 @@ class FirebaseTripService: TripService {
         print("[FirebaseTripService] Fetching and listening to trips")
 
         tripRepository.eventDelegate = self
-        await tripRepository.fetchItemsAndListen(field: "attendeesUserIds", arrayContains: user.uid)
+        await tripRepository.fetchItemsAndListen(field: "attendeesUserIds", arrayContains: user.id)
     }
 
     func fetchTripAndListen(withTripId tripId: String) async {
@@ -68,7 +69,7 @@ extension FirebaseTripService: FirebaseEventDelegate {
     func update(items: [FirebaseAdaptedData], errorMessage: String) async {
         print("[FirebaseTripService] Updating trips")
 
-        guard Auth.auth().currentUser != nil else {
+        guard authenticationService.hasLoggedInUser() else {
             await tripEventDelegate?.update(trips: [], errorMessage: Constants.messageUserNotLoggedIn)
             return
         }
@@ -93,7 +94,7 @@ extension FirebaseTripService: FirebaseEventDelegate {
     func update(item: FirebaseAdaptedData?, errorMessage: String) async {
         print("[FirebaseTripService] Updating single trip")
 
-        guard let user = Auth.auth().currentUser else {
+        guard let user = authenticationService.getCurrentAuthenticatedUser() else {
             await tripEventDelegate?.update(trip: nil, errorMessage: Constants.messageUserNotLoggedIn)
             return
         }
@@ -108,8 +109,8 @@ extension FirebaseTripService: FirebaseEventDelegate {
             return
         }
 
-        guard adaptedTrip.attendeesUserIds.contains(user.uid) else {
-            let errorMsg = "[FirebaseTripService] Error user \(user.uid) is not an attendee of trip \(adaptedTrip.id)"
+        guard adaptedTrip.attendeesUserIds.contains(user.id) else {
+            let errorMsg = "[FirebaseTripService] Error user \(user.id) is not an attendee of trip \(adaptedTrip.id)"
             await tripEventDelegate?.update(trip: nil, errorMessage: errorMsg)
             return
         }

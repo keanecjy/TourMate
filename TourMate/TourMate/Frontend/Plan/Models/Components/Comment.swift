@@ -9,6 +9,7 @@ import Foundation
 
 struct Comment {
     let planId: String
+    let planVersionNumber: Int
     let id: String
     let userId: String
     var message: String

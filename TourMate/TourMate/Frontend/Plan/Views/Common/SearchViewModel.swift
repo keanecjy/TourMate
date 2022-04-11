@@ -44,7 +44,7 @@ class SearchViewModel: ObservableObject {
         task?.cancel()
 
         task = Task {
-            await Task.sleep(seconds: 1)
+            await Task.sleep(seconds: 0.5)
 
             if Task.isCancelled {
                 return

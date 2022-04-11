@@ -159,14 +159,21 @@ struct ViewModelFactory {
 
     // PlansView - PlanUpvotes
     func getPlanUpvoteViewModel(plan: Plan) -> PlanUpvoteViewModel {
-        PlanUpvoteViewModel(planId: plan.id, userService: userService, planUpvoteService: planUpvoteService.copy())
+        PlanUpvoteViewModel(planId: plan.id, planVersionNumber: plan.versionNumber,
+                            userService: userService, planUpvoteService: planUpvoteService.copy())
     }
 
     // Comments
     func getCommentsViewModel(planViewModel: PlanViewModel) -> CommentsViewModel {
-        CommentsViewModel(planId: planViewModel.planId, commentService: commentService.copy(), userService: userService)
+        getCommentsViewModel(plan: planViewModel.plan)
     }
 
+    func getCommentsViewModel(plan: Plan) -> CommentsViewModel {
+        CommentsViewModel(planId: plan.id, planVersionNumber: plan.versionNumber,
+                          commentService: commentService.copy(), userService: userService)
+    }
+
+    // Search
     func getSearchViewModel() -> SearchViewModel {
         SearchViewModel(locationService: locationService)
     }

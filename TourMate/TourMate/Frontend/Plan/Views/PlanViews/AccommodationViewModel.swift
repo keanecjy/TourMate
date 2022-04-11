@@ -28,14 +28,21 @@ class AccommodationViewModel: PlanViewModel {
         accommodation.location
     }
 
-    override func updatePublishedProperties(plan: Plan) async {
-        if let plan = plan as? Accommodation {
-            print("[AccommodationViewModel] Publishing accommodation \(plan) changes")
-            self.accommodation = plan
-            self.plan = plan
-        } else {
-            print("[AccommodationViewModel] Failed to update accommodation, shall update plan instead")
-            await super.updatePublishedProperties(plan: plan)
+    override func loadLatestVersionedPlan(_ plans: [Plan]) {
+        guard var latestPlan = plans.first else {
+            handleDeletion()
+            return
         }
+
+        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
+            latestPlan = plan
+        }
+
+        if let accommodation = latestPlan as? Accommodation {
+            self.accommodation = accommodation
+        }
+
+        self.plan = latestPlan
+        self.allPlans = plans
     }
 }

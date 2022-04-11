@@ -31,12 +31,21 @@ class TransportViewModel: PlanViewModel {
         transport.endLocation
     }
 
-    override func updatePublishedProperties(plan: Plan) async {
-        if let plan = plan as? Transport {
-            self.transport = plan
-            self.plan = plan
-        } else {
-            await super.updatePublishedProperties(plan: plan)
+    override func loadLatestVersionedPlan(_ plans: [Plan]) {
+        guard var latestPlan = plans.first else {
+            handleDeletion()
+            return
         }
+
+        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
+            latestPlan = plan
+        }
+
+        if let transport = latestPlan as? Transport {
+            self.transport = transport
+        }
+
+        self.plan = latestPlan
+        self.allPlans = plans
     }
 }

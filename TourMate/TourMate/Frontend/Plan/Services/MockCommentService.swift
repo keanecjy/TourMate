@@ -13,13 +13,13 @@ class MockCommentService: CommentService {
     }
 
     var comments: [Comment] = [
-        Comment(planId: "0", id: "0", userId: "0", message: "Testing by 0!",
+        Comment(planId: "0", planVersionNumber: 1, id: "0", userId: "0", message: "Testing by 0!",
                 creationDate: Date(timeIntervalSince1970: 1_651_400_000), upvotedUserIds: ["0", " 1"]),
-        Comment(planId: "0", id: "1", userId: "1", message: "Testing by 1!",
+        Comment(planId: "0", planVersionNumber: 1, id: "1", userId: "1", message: "Testing by 1!",
                 creationDate: Date(timeIntervalSince1970: 1_851_400_000), upvotedUserIds: ["0", " 1", "2"]),
-        Comment(planId: "0", id: "2", userId: "0", message: "Testing again by 0!",
+        Comment(planId: "0", planVersionNumber: 1, id: "2", userId: "0", message: "Testing again by 0!",
                 creationDate: Date(timeIntervalSince1970: 1_853_400_000), upvotedUserIds: ["2"]),
-        Comment(planId: "0", id: "3", userId: "2",
+        Comment(planId: "0", planVersionNumber: 1, id: "3", userId: "2",
                 message: "This is a very very very very very very very very very very very very " +
                 "very very very very very very very very very very very very very very very very " +
                 "very very very very very long string",

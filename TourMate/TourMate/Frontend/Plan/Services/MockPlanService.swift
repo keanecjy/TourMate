@@ -19,7 +19,7 @@ class MockPlanService: PlanService {
                  startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
                  endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400)),
                  imageUrl: "", status: .proposed, creationDate: Date(), modificationDate: Date(),
-                 additionalInfo: "", ownerUserId: "0", location: nil),
+                 additionalInfo: "", ownerUserId: "0", modifierUserId: "1", versionNumber: 0, location: nil),
         Accommodation(id: "1", tripId: "0", name: "Holiday Inn",
                       startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
                       endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400)),
@@ -29,7 +29,8 @@ class MockPlanService: PlanService {
                   startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
                   endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_461_400)),
                   imageUrl: "", status: .confirmed, creationDate: Date(), modificationDate: Date(),
-                  additionalInfo: "", ownerUserId: "0", startLocation: nil, endLocation: nil),
+                  additionalInfo: "", ownerUserId: "0", modifierUserId: "1",
+                  versionNumber: 0, startLocation: nil, endLocation: nil),
         Transport(id: "3", tripId: "1", name: "Flight to Japan",
                   startDateTime: DateTime(
                     date: Date(timeIntervalSince1970: 1_651_440_400),
@@ -38,7 +39,8 @@ class MockPlanService: PlanService {
                     date: Date(timeIntervalSince1970: 1_651_460_400),
                     timeZone: TimeZone(abbreviation: "MST")!),
                   imageUrl: "", status: .confirmed, creationDate: Date(), modificationDate: Date(),
-                  additionalInfo: "", ownerUserId: "0", startLocation: nil, endLocation: nil),
+                  additionalInfo: "", ownerUserId: "0", modifierUserId: "1",
+                  versionNumber: 0, startLocation: nil, endLocation: nil),
         Activity(id: "4", tripId: "1", name: "Movie",
                  startDateTime: DateTime(
                     date: Date(timeIntervalSince1970: 1_651_460_400),
@@ -47,7 +49,8 @@ class MockPlanService: PlanService {
                     date: Date(timeIntervalSince1970: 1_651_480_400),
                     timeZone: TimeZone(abbreviation: "MST")!),
                  imageUrl: "", status: .proposed, creationDate: Date(), modificationDate: Date(),
-                 additionalInfo: "", ownerUserId: "0", location: nil)
+                 additionalInfo: "", ownerUserId: "0", modifierUserId: "1",
+                 versionNumber: 0, location: nil)
     ]
 
     func addPlan(plan: Plan) async -> (Bool, String) {
@@ -73,7 +76,7 @@ class MockPlanService: PlanService {
 
     func fetchPlansAndListen(withTripId tripId: String) async {}
 
-    func fetchPlanAndListen(withPlanId planId: String) async {}
+    func fetchVersionedPlansAndListen(withPlanId planId: String) async {}
 
     func detachListener() {}
 

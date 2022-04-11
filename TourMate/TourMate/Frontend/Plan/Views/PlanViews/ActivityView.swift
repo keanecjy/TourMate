@@ -35,7 +35,9 @@ struct ActivityView: View {
                 PlanHeaderView(
                     planStatus: activityViewModel.statusDisplay,
                     planOwner: activityViewModel.planOwner,
-                    creationDateDisplay: activityViewModel.creationDateDisplay) {
+                    creationDateDisplay: activityViewModel.creationDateDisplay,
+                    lastModifiedDateDisplay: activityViewModel.lastModifiedDateDisplay,
+                    versionNumberDisplay: activityViewModel.versionNumberDisplay) {
                         Text(activityViewModel.nameDisplay)
                             .bold()
                             .prefixedWithIcon(named: "figure.walk.circle.fill")
@@ -71,7 +73,7 @@ struct ActivityView: View {
                 }
             }
             .task {
-                await activityViewModel.fetchPlanAndListen()
+                await activityViewModel.fetchVersionedPlansAndListen()
                 await activityViewModel.updatePlanOwner()
             }
             .onReceive(activityViewModel.objectWillChange) {

@@ -5,34 +5,30 @@
 //  Created by Tan Rui Quan on 19/3/22.
 //
 
-// import SwiftUI
-//
-// struct PlanView<Content: View>: View {
-//    let locationContent: Content
+import SwiftUI
+
+/// Not used
+// struct PlanView: View {
 //    @StateObject var planViewModel: PlanViewModel
 //    let commentsViewModel: CommentsViewModel
 //    let planUpvoteViewModel: PlanUpvoteViewModel
 //    @State private var isShowingEditPlanSheet = false
+//    @State private var selectedVersion: Int
 //
 //    @Environment(\.dismiss) var dismiss
 //
-//    private let viewModelFactory = ViewModelFactory()
+//    private let viewModelFactory: ViewModelFactory
 //
-//    init(planViewModel: PlanViewModel, @ViewBuilder content: () -> Content) {
-//        self.locationContent = content()
-//        self._planViewModel = StateObject(wrappedValue: planViewModel)
+//    init(planViewModel: PlanViewModel) {
+//        self.viewModelFactory = ViewModelFactory()
 //        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
 //        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
-//    }
 //
-//    // TODO: Push to XXEditView level
-//    func getEditPlanView() -> some View {
-//        switch planViewModel.plan {
-//        case _ as Activity:
-//            return AnyView(EditActivityView(viewModel: viewModelFactory.getEditActivityViewModel(planViewModel: planViewModel)))
-//        default:
-//            preconditionFailure("Such plan do not exists")
-//        }
+//        planViewModel.attachDelegate(delegate: commentsViewModel)
+//        planViewModel.attachDelegate(delegate: planUpvoteViewModel)
+//
+//        self._planViewModel = StateObject(wrappedValue: planViewModel)
+//        self._selectedVersion = State(wrappedValue: planViewModel.versionNumber)
 //    }
 //
 //    var body: some View {
@@ -42,19 +38,31 @@
 //            ProgressView()
 //        } else {
 //            VStack(alignment: .leading, spacing: 30.0) {
-//                // TODO: Show image
+//                Picker("Version", selection: $selectedVersion) {
+//                    ForEach(planViewModel.allVersionNumbers, id: \.magnitude) { num in
+//                        Text("Version: \(String(num))")
+//                    }
+//                }
+//                .pickerStyle(.menu)
+//                .padding([.horizontal])
+//                .background(
+//                    Capsule().fill(Color.primary.opacity(0.25))
+//                )
 //
 //                PlanHeaderView(planName: planViewModel.nameDisplay,
 //                               planStatus: planViewModel.statusDisplay,
 //                               planOwner: planViewModel.planOwner,
-//                               creationDateDisplay: planViewModel.creationDateDisplay)
+//                               creationDateDisplay: planViewModel.creationDateDisplay,
+//                               lastModifiedDateDisplay: planViewModel.lastModifiedDateDisplay,
+//                               versionNumberDisplay: planViewModel.versionNumberDisplay)
 //
 //                PlanUpvoteView(viewModel: planUpvoteViewModel)
 //
 //                TimingView(startDate: planViewModel.startDateTimeDisplay,
 //                           endDate: planViewModel.endDateTimeDisplay)
 //
-//                locationContent
+//                LocationView(startLocation: planViewModel.startLocationDisplay,
+//                             endLocation: planViewModel.endLocationDisplay)
 //
 //                InfoView(additionalInfo: planViewModel.additionalInfoDisplay)
 //
@@ -73,12 +81,12 @@
 //                        Image(systemName: "pencil")
 //                    }
 //                    .sheet(isPresented: $isShowingEditPlanSheet) {
-//                        getEditPlanView()
+//                        EditPlanView(viewModel: viewModelFactory.getEditPlanViewModel(planViewModel: planViewModel))
 //                    }
 //                }
 //            }
 //            .task {
-//                await planViewModel.fetchPlanAndListen()
+//                await planViewModel.fetchVersionedPlansAndListen()
 //                await planViewModel.updatePlanOwner()
 //            }
 //            .onReceive(planViewModel.objectWillChange) {
@@ -86,13 +94,10 @@
 //                    dismiss()
 //                }
 //            }
-//            .onDisappear(perform: { () in planViewModel.detachListener() })
+//            .onDisappear {
+//                planViewModel.detachDelegates()
+//                planViewModel.detachListener()
+//            }
 //        }
-//    }
-// }
-
-// struct PlanView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlanView()
 //    }
 // }

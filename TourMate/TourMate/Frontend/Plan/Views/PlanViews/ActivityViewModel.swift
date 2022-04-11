@@ -28,14 +28,21 @@ class ActivityViewModel: PlanViewModel {
         activity.location
     }
 
-    override func updatePublishedProperties(plan: Plan) async {
-        if let plan = plan as? Activity {
-            print("[ActivityViewModel] Publishing activity \(plan) changes")
-            self.activity = plan
-            self.plan = plan
-        } else {
-            print("[ActivityViewModel] Failed to update activity, shall update plan instead")
-            await super.updatePublishedProperties(plan: plan)
+    override func loadLatestVersionedPlan(_ plans: [Plan]) {
+        guard var latestPlan = plans.first else {
+            handleDeletion()
+            return
         }
+
+        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
+            latestPlan = plan
+        }
+
+        if let activity = latestPlan as? Activity {
+            self.activity = activity
+        }
+
+        self.plan = latestPlan
+        self.allPlans = plans
     }
 }

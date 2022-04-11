@@ -11,6 +11,7 @@ class FirebaseRepository: Repository {
     private let collectionId: String
 
     private let db = Firestore.firestore()
+    @Injected(\.authenticationService) var authenticationService: AuthenticationService
 
     weak var eventDelegate: FirebaseEventDelegate?
 
@@ -22,7 +23,7 @@ class FirebaseRepository: Repository {
 
     @MainActor
     func addItem<T: FirebaseAdaptedData>(id: String, item: T) async -> (hasAddedItem: Bool, errorMessage: String) {
-        guard Auth.auth().currentUser != nil else {
+        guard authenticationService.hasLoggedInUser() else {
             return (false, Constants.messageUserNotLoggedIn)
         }
 
@@ -42,7 +43,7 @@ class FirebaseRepository: Repository {
 
     @MainActor
     func fetchItem(id: String) async -> (item: FirebaseAdaptedData?, errorMessage: String) {
-        guard Auth.auth().currentUser != nil else {
+        guard authenticationService.hasLoggedInUser() else {
             return (nil, Constants.messageUserNotLoggedIn)
         }
 
@@ -83,6 +84,14 @@ class FirebaseRepository: Repository {
     }
 
     @MainActor
+    func fetchItemsAndListen(field1: String, isEqualTo id1: String, field2: String, isEqualTo id2: Int) async {
+        let query = db.collection(collectionId).whereField(FirebaseConfig.fieldPath(field: field1), isEqualTo: id1)
+            .whereField(FirebaseConfig.fieldPath(field: field2), isEqualTo: id2)
+
+        fetchItemsAndListen(from: query)
+    }
+
+    @MainActor
     func fetchItemAndListen(id: String) async {
         let itemRef = db.collection(collectionId).document(id)
 
@@ -98,12 +107,12 @@ class FirebaseRepository: Repository {
         self.listener?.remove()
         self.listener = nil
 
-        print("[FirebaseRepository]: Successfully removed listener on \(collectionId)")
+        print("[FirebaseRepository] Successfully removed listener on \(collectionId)")
     }
 
     @MainActor
     func deleteItem(id: String) async -> (hasDeletedItem: Bool, errorMessage: String) {
-        guard Auth.auth().currentUser != nil else {
+        guard authenticationService.hasLoggedInUser() else {
             return (false, Constants.messageUserNotLoggedIn)
         }
 
@@ -132,7 +141,7 @@ class FirebaseRepository: Repository {
 extension FirebaseRepository {
     @MainActor
     private func fetchItems(from query: Query) async -> (items: [FirebaseAdaptedData], errorMessage: String) {
-        guard Auth.auth().currentUser != nil else {
+        guard authenticationService.hasLoggedInUser() else {
             return ([], Constants.messageUserNotLoggedIn)
         }
 
@@ -149,7 +158,7 @@ extension FirebaseRepository {
 
     @MainActor
     private func fetchItemsAndListen(from query: Query) {
-        guard Auth.auth().currentUser != nil else {
+        guard authenticationService.hasLoggedInUser() else {
             print("Unable to listen", Constants.messageUserNotLoggedIn)
             return
         }
@@ -171,7 +180,7 @@ extension FirebaseRepository {
 
     @MainActor
     private func fetchItemAndListen(from document: DocumentReference) {
-        guard Auth.auth().currentUser != nil else {
+        guard authenticationService.hasLoggedInUser() else {
             print("Unable to listen", Constants.messageUserNotLoggedIn)
             return
         }

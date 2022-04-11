@@ -20,6 +20,8 @@ class PlansViewModel: ObservableObject {
 
     private var planService: PlanService
 
+    private(set) var planEventDelegates: [String: PlanEventDelegate]
+
     // sort and display Plans by Date
     typealias Day = (date: Date, plans: [Plan])
     var days: [Day] {
@@ -63,6 +65,20 @@ class PlansViewModel: ObservableObject {
         self.tripEndDateTime = tripEndDateTime
 
         self.planService = planService
+
+        self.planEventDelegates = [:]
+    }
+
+    func attachDelegate(planId: String, delegate: PlanEventDelegate) {
+        planEventDelegates[planId] = delegate
+    }
+
+    func detachDelegate(planId: String) {
+        planEventDelegates[planId] = nil
+    }
+
+    func detachDelegates() {
+        planEventDelegates = [:]
     }
 
     func fetchPlansAndListen() async {
@@ -85,7 +101,7 @@ extension PlansViewModel: PlanEventDelegate {
     func update(plans: [Plan], errorMessage: String) async {
         print("[PlansViewModel] Updating Plans: \(plans)")
 
-        loadPlans(plans: plans, errorMessage: errorMessage)
+        await loadLatestVersionedPlans(plans: plans, errorMessage: errorMessage)
     }
 
     func update(plan: Plan?, errorMessage: String) async {}
@@ -93,13 +109,34 @@ extension PlansViewModel: PlanEventDelegate {
 
 // MARK: - Helper Methods
 extension PlansViewModel {
-    private func loadPlans(plans: [Plan], errorMessage: String) {
+    private func loadLatestVersionedPlans(plans: [Plan], errorMessage: String) async {
         guard errorMessage.isEmpty else {
             self.isLoading = false
             self.hasError = true
             return
         }
-        self.plans = plans
+
+        var latestPlanMap: [String: Plan] = [:]
+
+        for plan in plans {
+            // First occurence of plan
+            guard let latestPlan = latestPlanMap[plan.id] else {
+                latestPlanMap[plan.id] = plan
+                continue
+            }
+
+            // Replace with latest plan
+            if plan.versionNumber > latestPlan.versionNumber {
+                latestPlanMap[plan.id] = plan
+            }
+        }
+
+        self.plans = Array(latestPlanMap.values)
+
+        for plan in self.plans {
+            await planEventDelegates[plan.id]?.update(plan: plan, errorMessage: "")
+        }
+
         self.isLoading = false
     }
 }

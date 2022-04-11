@@ -5,6 +5,10 @@
 //  Created by Keane Chan on 8/4/22.
 //
 
+private struct AuthenticationServiceKey: InjectionKey {
+    static var currentValue: AuthenticationService = FirebaseAuthenticationService()
+}
+
 private struct UserServiceKey: InjectionKey {
     static var currentValue: UserService = FirebaseUserService()
 }
@@ -34,6 +38,11 @@ private struct AuthenticationManagerKey: InjectionKey {
 }
 
 extension InjectedValues {
+    var authenticationService: AuthenticationService {
+        get { Self[AuthenticationServiceKey.self] }
+        set { Self[AuthenticationServiceKey.self] = newValue }
+    }
+
     var userService: UserService {
         get { Self[UserServiceKey.self] }
         set { Self[UserServiceKey.self] = newValue }

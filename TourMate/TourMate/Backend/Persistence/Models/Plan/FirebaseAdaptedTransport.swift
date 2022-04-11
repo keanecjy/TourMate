@@ -17,6 +17,7 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
          imageUrl: String, status: String,
          creationDate: Date, modificationDate: Date,
          additionalInfo: String, ownerUserId: String,
+         modifierUserId: String, versionNumber: Int,
          startLocation: JsonAdaptedLocation?,
          endLocation: JsonAdaptedLocation?) {
         self.startLocation = startLocation
@@ -28,7 +29,9 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
                    creationDate: creationDate,
                    modificationDate: modificationDate,
                    additionalInfo: additionalInfo,
-                   ownerUserId: ownerUserId)
+                   ownerUserId: ownerUserId,
+                   modifierUserId: modifierUserId,
+                   versionNumber: versionNumber)
     }
 
     private enum CodingKeys: String, CodingKey {

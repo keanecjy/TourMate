@@ -16,15 +16,18 @@ class PlanUpvoteViewModel: ObservableObject {
     @Published private(set) var upvotedUsers: [User] = []
 
     let planId: String
+    var planVersion: Int
 
     private let userService: UserService
     private var planUpvoteService: PlanUpvoteService
 
     init(planId: String,
+         planVersionNumber: Int,
          userService: UserService,
          planUpvoteService: PlanUpvoteService) {
 
         self.planId = planId
+        self.planVersion = planVersionNumber
         self.userService = userService
         self.planUpvoteService = planUpvoteService
     }
@@ -33,7 +36,8 @@ class PlanUpvoteViewModel: ObservableObject {
         planUpvoteService.planUpvoteEventDelegate = self
 
         self.isLoading = true
-        await planUpvoteService.fetchPlanUpvotesAndListen(withPlanId: planId)
+        await planUpvoteService.fetchPlanUpvotesAndListen(withPlanId: planId,
+                                                          withPlanVersion: planVersion)
     }
 
     func detachListener() {
@@ -54,7 +58,7 @@ class PlanUpvoteViewModel: ObservableObject {
         }
 
         let userId = user.id
-        let planUpvote = PlanUpvote(planId: planId, userId: userId)
+        let planUpvote = PlanUpvote(planId: planId, userId: userId, planVersion: planVersion)
 
         var updateSuccess: Bool
         var errorMessage: String
@@ -122,5 +126,27 @@ extension PlanUpvoteViewModel {
     private func handleError() {
         self.hasError = true
         self.isLoading = false
+    }
+}
+
+// MARK: - PlanEventDelegate
+extension PlanUpvoteViewModel: PlanEventDelegate {
+    func update(plans: [Plan], errorMessage: String) async {
+    }
+
+    func update(plan: Plan?, errorMessage: String) async {
+        guard let plan = plan else {
+            return
+        }
+
+        print("[PlanUpvoteViewModel] Updating plan version number")
+
+        // Fetch new version upvotes
+        if planVersion != plan.versionNumber {
+            planVersion = plan.versionNumber
+
+            detachListener()
+            await fetchPlanUpvotesAndListen()
+        }
     }
 }

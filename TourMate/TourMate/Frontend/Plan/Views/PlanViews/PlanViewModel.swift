@@ -9,14 +9,10 @@ import Foundation
 import Combine
 
 @MainActor
-class PlanViewModel: ObservableObject {
+class PlanViewModel: PlanDisplayViewModel {
     @Published private(set) var isLoading = false
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
-
-    @Published var plan: Plan
-
-    @Published private(set) var planOwner = User.defaultUser()
 
     let lowerBoundDate: DateTime
     let upperBoundDate: DateTime
@@ -24,45 +20,27 @@ class PlanViewModel: ObservableObject {
     private let userService: UserService
     private var planService: PlanService
 
+    var planEventDelegates: [PlanEventDelegate]
+
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService, userService: UserService) {
-        self.plan = plan
+
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
         self.planService = planService
         self.userService = userService
+
+        self.planEventDelegates = []
+
+        super.init(plan: plan)
     }
 
-    var creationDateDisplay: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        dateFormatter.timeZone = plan.startDateTime.timeZone
-        return dateFormatter.string(from: plan.creationDate)
+    func attachDelegate(delegate: PlanEventDelegate) {
+        self.planEventDelegates.append(delegate)
     }
 
-    var planId: String {
-        plan.id
-    }
-
-    var nameDisplay: String {
-        plan.name
-    }
-
-    var statusDisplay: PlanStatus {
-        plan.status
-    }
-
-    var startDateTimeDisplay: DateTime {
-        plan.startDateTime
-    }
-
-    var endDateTimeDisplay: DateTime {
-        plan.endDateTime
-    }
-
-    var additionalInfoDisplay: String {
-        plan.additionalInfo
+    func detachDelegates() {
+        self.planEventDelegates = []
     }
 
     func updatePlanOwner() async {
@@ -72,11 +50,11 @@ class PlanViewModel: ObservableObject {
         }
     }
 
-    func fetchPlanAndListen() async {
+    func fetchVersionedPlansAndListen() async {
         planService.planEventDelegate = self
 
         self.isLoading = true
-        await planService.fetchPlanAndListen(withPlanId: plan.id)
+        await planService.fetchVersionedPlansAndListen(withPlanId: plan.id)
         self.isLoading = false
     }
 
@@ -87,49 +65,56 @@ class PlanViewModel: ObservableObject {
         planService.detachListener()
     }
 
-    // Update all plans
-    func updatePublishedProperties(plan: Plan) async {
-        print("[PlanViewModel] Publishing plan \(plan) changes")
-        self.plan = plan
+    func loadLatestVersionedPlan(_ plans: [Plan]) {
+        guard var latestPlan = plans.first else {
+            handleDeletion()
+            return
+        }
+
+        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
+            latestPlan = plan
+        }
+
+        self.plan = latestPlan
+        self.allPlans = plans
     }
 }
 
 // MARK: - PlanEventDelegate
 extension PlanViewModel: PlanEventDelegate {
-    func update(plan: Plan?, errorMessage: String) async {
-        print("[PlanViewModel] Updating Single Plan")
+    func update(plan: Plan?, errorMessage: String) async {}
+
+    func update(plans: [Plan], errorMessage: String) async {
+        print("[PlansViewModel] Updating Versioned Plans: \(plans)")
 
         guard errorMessage.isEmpty else {
             handleError()
             return
         }
 
-        guard plan != nil else {
-            handleDeletion()
-            return
-        }
-
-        guard let plan = plan else {
-            handleError()
-            return
-        }
-
-        await updatePublishedProperties(plan: plan)
-
-        self.isLoading = false
+        loadLatestVersionedPlan(plans)
+        await updateDelegates()
     }
 
-    func update(plans: [Plan], errorMessage: String) async {}
 }
 
 // MARK: - Helper Methods
+extension PlanViewModel {
+    private func updateDelegates() async {
+        for eventDelegate in self.planEventDelegates {
+            await eventDelegate.update(plan: self.plan, errorMessage: "")
+        }
+    }
+}
+
+// MARK: - State changes
 extension PlanViewModel {
     private func handleError() {
         self.hasError = true
         self.isLoading = false
     }
 
-    private func handleDeletion() {
+    func handleDeletion() {
         self.isDeleted = true
         self.isLoading = false
     }
