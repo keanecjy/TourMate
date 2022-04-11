@@ -75,7 +75,7 @@ class PlanViewModel: PlanDisplayViewModel {
         }
 
         self.plan = latestPlan
-        self.allPlans = plans
+        self.allVersionedPlans = plans
     }
 }
 
@@ -101,19 +101,6 @@ extension PlanViewModel: PlanEventDelegate {
 
 // MARK: - Helper Methods
 extension PlanViewModel {
-    private func loadLatestVersionedPlan(_ plans: [Plan]) {
-        guard var latestPlan = plans.first else {
-            handleDeletion()
-            return
-        }
-
-        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
-            latestPlan = plan
-        }
-
-        self.plan = latestPlan
-    }
-
     private func updateDelegates() async {
         for eventDelegate in self.planEventDelegates {
             await eventDelegate.update(plan: self.plan, errorMessage: "")

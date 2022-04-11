@@ -16,11 +16,12 @@ struct PlanHeaderView<TitleView: View>: View {
     let lastModifiedDateDisplay: String
     let versionNumberDisplay: String
 
-    init(planStatus: PlanStatus, planOwner: User, creationDateDisplay: String,
+    init(planStatus: PlanStatus, planOwner: User, creationDateDisplay: String, lastModifier: User,
          lastModifiedDateDisplay: String, versionNumberDisplay: String, @ViewBuilder title: () -> TitleView) {
         self.planStatus = planStatus
         self.planOwner = planOwner
         self.creationDateDisplay = creationDateDisplay
+        self.lastModifier = lastModifier
         self.lastModifiedDateDisplay = lastModifiedDateDisplay
         self.versionNumberDisplay = versionNumberDisplay
         self.title = title()

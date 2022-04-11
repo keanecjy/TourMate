@@ -30,12 +30,11 @@ struct AccommodationView: View {
             ProgressView()
         } else {
             VStack(alignment: .leading, spacing: 30.0) {
-                // TODO: Show image
-
                 PlanHeaderView(
                     planStatus: accommodationViewModel.statusDisplay,
                     planOwner: accommodationViewModel.planOwner,
                     creationDateDisplay: accommodationViewModel.creationDateDisplay,
+                    lastModifier: accommodationViewModel.planLastModifier,
                     lastModifiedDateDisplay: accommodationViewModel.lastModifiedDateDisplay,
                     versionNumberDisplay: accommodationViewModel.versionNumberDisplay) {
                         Text(accommodationViewModel.nameDisplay)

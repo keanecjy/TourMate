@@ -43,6 +43,6 @@ class AccommodationViewModel: PlanViewModel {
         }
 
         self.plan = latestPlan
-        self.allPlans = plans
+        self.allVersionedPlans = plans
     }
 }

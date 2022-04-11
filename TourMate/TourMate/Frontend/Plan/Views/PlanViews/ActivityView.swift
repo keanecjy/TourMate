@@ -30,12 +30,11 @@ struct ActivityView: View {
             ProgressView()
         } else {
             VStack(alignment: .leading, spacing: 30.0) {
-                // TODO: Show image
-
                 PlanHeaderView(
                     planStatus: activityViewModel.statusDisplay,
                     planOwner: activityViewModel.planOwner,
                     creationDateDisplay: activityViewModel.creationDateDisplay,
+                    lastModifier: activityViewModel.planLastModifier,
                     lastModifiedDateDisplay: activityViewModel.lastModifiedDateDisplay,
                     versionNumberDisplay: activityViewModel.versionNumberDisplay) {
                         Text(activityViewModel.nameDisplay)

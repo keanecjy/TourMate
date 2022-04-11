@@ -46,6 +46,6 @@ class TransportViewModel: PlanViewModel {
         }
 
         self.plan = latestPlan
-        self.allPlans = plans
+        self.allVersionedPlans = plans
     }
 }
