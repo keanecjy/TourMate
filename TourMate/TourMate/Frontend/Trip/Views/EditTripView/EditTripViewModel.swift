@@ -27,6 +27,8 @@ class EditTripViewModel: TripFormViewModel {
         self.userService = userService
 
         super.init(trip: trip)
+
+        updatePermissions()
     }
 
     private func updatePermissions() {
