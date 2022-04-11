@@ -43,7 +43,7 @@ struct PlanBoxView: View {
             HStack(spacing: 10.0) {
 
                 HStack(spacing: 5.0) {
-                    Image(systemName: "text.bubble")
+                    Image(systemName: "text.bubble.fill")
 
                     Text(String(commentsViewModel.commentCount))
                 }

@@ -60,7 +60,7 @@ struct PlanCardView: View {
                 Spacer()
 
                 HStack(spacing: 5.0) {
-                    Image(systemName: "text.bubble")
+                    Image(systemName: "text.bubble.fill")
 
                     Text(String(commentsViewModel.commentCount))
                 }
