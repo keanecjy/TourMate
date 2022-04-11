@@ -7,14 +7,16 @@
 
 import Foundation
 
-struct Plan: CustomStringConvertible, Equatable {
-    let id: String
-    let tripId: String
+class Plan: CustomStringConvertible, Equatable {
+    static func == (lhs: Plan, rhs: Plan) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    var id: String
+    var tripId: String
     var name: String
     var startDateTime: DateTime
     var endDateTime: DateTime
-    var startLocation: Location?
-    var endLocation: Location?
     var imageUrl: String
     var status: PlanStatus
     let creationDate: Date
@@ -31,16 +33,13 @@ struct Plan: CustomStringConvertible, Equatable {
     // Plan creation
     init(id: String, tripId: String, name: String,
          startDateTime: DateTime, endDateTime: DateTime,
-         startLocation: Location? = nil, endLocation: Location? = nil,
-         imageUrl: String = "", status: PlanStatus, additionalInfo: String = "",
-         ownerUserId: String) {
+         imageUrl: String, status: PlanStatus, creationDate: Date,
+         modificationDate: Date, additionalInfo: String, ownerUserId: String) {
         self.id = id
         self.tripId = tripId
         self.name = name
         self.startDateTime = startDateTime
         self.endDateTime = endDateTime
-        self.startLocation = startLocation
-        self.endLocation = endLocation
         self.imageUrl = imageUrl
         self.status = status
         self.creationDate = Date()
@@ -54,7 +53,6 @@ struct Plan: CustomStringConvertible, Equatable {
     // All fields
     init(id: String, tripId: String, name: String,
          startDateTime: DateTime, endDateTime: DateTime,
-         startLocation: Location? = nil, endLocation: Location? = nil,
          imageUrl: String = "", status: PlanStatus,
          creationDate: Date, modificationDate: Date,
          additionalInfo: String = "",
@@ -65,8 +63,6 @@ struct Plan: CustomStringConvertible, Equatable {
         self.name = name
         self.startDateTime = startDateTime
         self.endDateTime = endDateTime
-        self.startLocation = startLocation
-        self.endLocation = endLocation
         self.imageUrl = imageUrl
         self.status = status
         self.creationDate = creationDate
@@ -77,6 +73,21 @@ struct Plan: CustomStringConvertible, Equatable {
         self.versionNumber = versionNumber
     }
 
+    init() {
+        self.id = ""
+        self.tripId = ""
+        self.name = ""
+        self.startDateTime = DateTime()
+        self.endDateTime = DateTime()
+        self.imageUrl = ""
+        self.status = .proposed
+        self.creationDate = Date()
+        self.modificationDate = Date()
+        self.additionalInfo = ""
+        self.ownerUserId = ""
+        self.modifierUserId = ""
+        self.versionNumber = 0
+    }
 }
 
 // MARK: - CustomStringConvertible

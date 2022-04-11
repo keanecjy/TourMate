@@ -13,6 +13,14 @@ class PlanFormViewModel: ObservableObject {
     let lowerBoundDate: Date
     let upperBoundDate: Date
 
+    let plan: Plan
+    let planService: PlanService
+    let userService: UserService
+
+    @Published var isLoading = false
+    @Published private(set) var hasError = false
+    @Published private(set) var isDeleted = false
+
     @Published var isPlanNameValid: Bool
     @Published var isPlanDurationValid: Bool
     @Published var canSubmitPlan: Bool
@@ -21,17 +29,20 @@ class PlanFormViewModel: ObservableObject {
     @Published var planName: String
     @Published var planStartDate: Date
     @Published var planEndDate: Date
-    @Published var planStartLocation: Location?
-    @Published var planEndLocation: Location?
     @Published var planImageUrl: String
     @Published var planAdditionalInfo: String
 
     @Published var canChangeStatus = true
+    private(set) var canDeletePlan = false
 
     private var cancellableSet: Set<AnyCancellable> = []
 
     // Adding Plan
-    init(lowerBoundDate: Date, upperBoundDate: Date) {
+    init(lowerBoundDate: Date, upperBoundDate: Date, planService: PlanService, userService: UserService) {
+        self.plan = Plan()
+        self.planService = planService
+        self.userService = userService
+
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
 
@@ -50,7 +61,11 @@ class PlanFormViewModel: ObservableObject {
     }
 
     // Editing Plan
-    init(lowerBoundDate: Date, upperBoundDate: Date, plan: Plan) {
+    init(lowerBoundDate: Date, upperBoundDate: Date, plan: Plan, planService: PlanService, userService: UserService) {
+        self.plan = plan
+        self.planService = planService
+        self.userService = userService
+
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
 
@@ -62,12 +77,11 @@ class PlanFormViewModel: ObservableObject {
         self.planName = plan.name
         self.planStartDate = plan.startDateTime.date
         self.planEndDate = plan.endDateTime.date
-        self.planStartLocation = plan.startLocation
-        self.planEndLocation = plan.endLocation
         self.planImageUrl = plan.imageUrl
         self.planAdditionalInfo = plan.additionalInfo
 
         validate()
+        updatePermissions()
     }
 
     private func validate() {
@@ -101,5 +115,46 @@ class PlanFormViewModel: ObservableObject {
             .assign(to: \.canSubmitPlan, on: self)
             .store(in: &cancellableSet)
 
+    }
+
+    private func updatePermissions() {
+        Task {
+            let (currentUser, _) = await userService.getCurrentUser()
+            if let currentUser = currentUser,
+               currentUser.id == plan.ownerUserId {
+                setSpecialPermissions(true)
+            } else {
+                setSpecialPermissions(false)
+            }
+        }
+    }
+
+    private func setSpecialPermissions(_ allowed: Bool) {
+        canDeletePlan = allowed
+        canChangeStatus = allowed
+    }
+
+    func deletePlan() async {
+        self.isLoading = true
+
+        let (hasDeleted, errorMessage) = await planService.deletePlan(plan: plan)
+
+        guard hasDeleted, errorMessage.isEmpty else {
+            handleError()
+            return
+        }
+        handleDeletion()
+    }
+}
+
+extension PlanFormViewModel {
+    func handleError() {
+        self.hasError = true
+        self.isLoading = false
+    }
+
+    private func handleDeletion() {
+        self.isDeleted = true
+        self.isLoading = false
     }
 }

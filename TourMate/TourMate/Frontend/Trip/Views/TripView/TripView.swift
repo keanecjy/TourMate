@@ -24,6 +24,23 @@ struct TripView: View {
         self._viewModel = StateObject(wrappedValue: tripViewModel)
     }
 
+    // TODO: Abstract into factory
+    func getPlanView(plan: Plan) -> some View {
+        switch plan {
+        case let plan as Activity:
+            let activityViewModel = viewModelFactory.getActivityViewModel(activity: plan, tripViewModel: viewModel)
+            return AnyView(ActivityView(activityViewModel: activityViewModel))
+        case let plan as Accommodation:
+            let viewModel = viewModelFactory.getAccommodationViewModel(accommodation: plan, tripViewModel: viewModel)
+            return AnyView(AccommodationView(accommodationViewModel: viewModel))
+        case let plan as Transport:
+            let viewModel = viewModelFactory.getTransportViewModel(transport: plan, tripViewModel: viewModel)
+            return AnyView(TransportView(transportViewModel: viewModel))
+        default:
+            preconditionFailure("Plan don't exists")
+        }
+    }
+
     @ViewBuilder
     var body: some View {
         Group {
@@ -49,8 +66,7 @@ struct TripView: View {
 
                         if let selectedPlan = selectedPlan {
                             NavigationLink(isActive: .constant(true)) {
-                                PlanView(planViewModel: viewModelFactory.getPlanViewModel(plan: selectedPlan,
-                                                                                          tripViewModel: viewModel))
+                                getPlanView(plan: selectedPlan)
                             } label: {
                                 EmptyView()
                             }
@@ -92,7 +108,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingAddPlanSheet) {
-                    AddPlanView(viewModel: viewModelFactory.getAddPlanViewModel(tripViewModel: viewModel))
+                    AddPlanView(trip: viewModel.trip)
                 }
             }
         }

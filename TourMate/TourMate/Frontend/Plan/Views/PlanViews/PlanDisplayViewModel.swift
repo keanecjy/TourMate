@@ -63,14 +63,6 @@ class PlanDisplayViewModel: ObservableObject {
         plan.endDateTime
     }
 
-    var startLocationDisplay: Location? {
-        plan.startLocation
-    }
-
-    var endLocationDisplay: Location? {
-        plan.endLocation
-    }
-
     var additionalInfoDisplay: String {
         plan.additionalInfo
     }

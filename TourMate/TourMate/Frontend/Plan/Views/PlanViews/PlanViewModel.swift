@@ -65,6 +65,19 @@ class PlanViewModel: PlanDisplayViewModel {
         planService.detachListener()
     }
 
+    func loadLatestVersionedPlan(_ plans: [Plan]) {
+        guard var latestPlan = plans.first else {
+            handleDeletion()
+            return
+        }
+
+        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
+            latestPlan = plan
+        }
+
+        self.plan = latestPlan
+        self.allPlans = plans
+    }
 }
 
 // MARK: - PlanEventDelegate
@@ -87,20 +100,6 @@ extension PlanViewModel: PlanEventDelegate {
 
 // MARK: - Helper Methods
 extension PlanViewModel {
-    private func loadLatestVersionedPlan(_ plans: [Plan]) {
-        guard var latestPlan = plans.first else {
-            handleDeletion()
-            return
-        }
-
-        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
-            latestPlan = plan
-        }
-
-        self.plan = latestPlan
-        self.allPlans = plans
-    }
-
     private func updateDelegates() async {
         for eventDelegate in self.planEventDelegates {
             await eventDelegate.update(plan: self.plan, errorMessage: "")
@@ -115,7 +114,7 @@ extension PlanViewModel {
         self.isLoading = false
     }
 
-    private func handleDeletion() {
+    func handleDeletion() {
         self.isDeleted = true
         self.isLoading = false
     }
