@@ -85,7 +85,7 @@ extension PlanViewModel: PlanEventDelegate {
     func update(plan: Plan?, errorMessage: String) async {}
 
     func update(plans: [Plan], errorMessage: String) async {
-        print("[PlansViewModel] Updating Versioned Plans: \(plans)")
+        print("[PlanViewModel] Updating Versioned Plans: \(plans)")
 
         guard errorMessage.isEmpty else {
             handleError()
