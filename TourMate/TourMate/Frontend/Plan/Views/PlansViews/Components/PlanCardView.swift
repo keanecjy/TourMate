@@ -11,7 +11,6 @@ import SwiftUI
 struct PlanCardView: View {
 
     @ObservedObject var plansViewModel: PlansViewModel
-    private let viewModelFactory = ViewModelFactory()
     let plan: Plan
     let date: Date
     let planUpvoteViewModel: PlanUpvoteViewModel
@@ -22,6 +21,7 @@ struct PlanCardView: View {
         self.plan = plan
         self.date = date
 
+        let viewModelFactory = ViewModelFactory()
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(plan: plan)
 
         let commentsViewModel = viewModelFactory.getCommentsViewModel(plan: plan)

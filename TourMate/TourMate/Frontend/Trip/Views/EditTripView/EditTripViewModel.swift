@@ -10,7 +10,6 @@ import Foundation
 @MainActor
 class EditTripViewModel: TripFormViewModel {
     @Published private(set) var isLoading = false
-    @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
 
     private(set) var canDeleteTrip = false
@@ -87,17 +86,11 @@ class EditTripViewModel: TripFormViewModel {
             handleError()
             return
         }
-        handleDeletion()
     }
 }
 
 // MARK: - State changes
 extension EditTripViewModel {
-    private func handleDeletion() {
-        self.isDeleted = true
-        self.isLoading = false
-    }
-
     private func handleError() {
         self.isLoading = false
         self.hasError = true
