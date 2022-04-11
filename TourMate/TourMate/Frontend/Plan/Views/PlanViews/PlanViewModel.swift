@@ -9,15 +9,10 @@ import Foundation
 import Combine
 
 @MainActor
-class PlanViewModel: ObservableObject {
+class PlanViewModel: PlanDisplayViewModel {
     @Published private(set) var isLoading = false
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
-
-    @Published var plan: Plan
-    var allPlans: [Plan]
-
-    @Published private(set) var planOwner = User.defaultUser()
 
     let lowerBoundDate: DateTime
     let upperBoundDate: DateTime
@@ -29,66 +24,15 @@ class PlanViewModel: ObservableObject {
 
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService, userService: UserService) {
-        self.plan = plan
-        self.allPlans = [plan]
+
         self.lowerBoundDate = lowerBoundDate
         self.upperBoundDate = upperBoundDate
         self.planService = planService
         self.userService = userService
 
         self.planEventDelegates = []
-    }
 
-    var creationDateDisplay: String {
-        DateUtil.defaultDateDisplay(date: plan.creationDate, at: plan.startDateTime.timeZone)
-    }
-
-    var lastModifiedDateDisplay: String {
-        DateUtil.defaultDateDisplay(date: plan.modificationDate, at: plan.startDateTime.timeZone)
-    }
-
-    var planId: String {
-        plan.id
-    }
-
-    var versionNumber: Int {
-        plan.versionNumber
-    }
-
-    var allVersionNumbers: [Int] {
-        allPlans.map({ $0.versionNumber }).sorted(by: { a, b in a > b })
-    }
-
-    var nameDisplay: String {
-        plan.name
-    }
-
-    var statusDisplay: PlanStatus {
-        plan.status
-    }
-
-    var versionNumberDisplay: String {
-        String(plan.versionNumber)
-    }
-
-    var startDateTimeDisplay: DateTime {
-        plan.startDateTime
-    }
-
-    var endDateTimeDisplay: DateTime {
-        plan.endDateTime
-    }
-
-    var startLocationDisplay: Location? {
-        plan.startLocation
-    }
-
-    var endLocationDisplay: Location? {
-        plan.endLocation
-    }
-
-    var additionalInfoDisplay: String {
-        plan.additionalInfo
+        super.init(plan: plan)
     }
 
     func attachDelegate(delegate: PlanEventDelegate) {

@@ -42,6 +42,8 @@
 		004C7C5B2802742200B432C7 /* AuthenticationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C7C5A2802742200B432C7 /* AuthenticationManagerDelegate.swift */; };
 		004C7C5D2802770E00B432C7 /* AuthenticationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C7C5C2802770E00B432C7 /* AuthenticationServiceDelegate.swift */; };
 		004C7C6B28029D1400B432C7 /* AuthenticatedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C7C6A28029D1400B432C7 /* AuthenticatedUser.swift */; };
+		004C7C6D2804195300B432C7 /* PlanDisplayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C7C6C2804195300B432C7 /* PlanDisplayViewModel.swift */; };
+		004C7C6F28041A6F00B432C7 /* DisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C7C6E28041A6F00B432C7 /* DisplayMode.swift */; };
 		00582F7027E70C97008756E9 /* EditPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00582F6F27E70C97008756E9 /* EditPlanView.swift */; };
 		0066355927F6D61A00166655 /* EditTripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0066355827F6D61A00166655 /* EditTripViewModel.swift */; };
 		0066355D27F6F30100166655 /* PlanFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0066355C27F6F30100166655 /* PlanFormView.swift */; };
@@ -213,6 +215,8 @@
 		004C7C5A2802742200B432C7 /* AuthenticationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManagerDelegate.swift; sourceTree = "<group>"; };
 		004C7C5C2802770E00B432C7 /* AuthenticationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationServiceDelegate.swift; sourceTree = "<group>"; };
 		004C7C6A28029D1400B432C7 /* AuthenticatedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatedUser.swift; sourceTree = "<group>"; };
+		004C7C6C2804195300B432C7 /* PlanDisplayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDisplayViewModel.swift; sourceTree = "<group>"; };
+		004C7C6E28041A6F00B432C7 /* DisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMode.swift; sourceTree = "<group>"; };
 		00582F6F27E70C97008756E9 /* EditPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanView.swift; sourceTree = "<group>"; };
 		0066355827F6D61A00166655 /* EditTripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTripViewModel.swift; sourceTree = "<group>"; };
 		0066355C27F6F30100166655 /* PlanFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanFormView.swift; sourceTree = "<group>"; };
@@ -1005,6 +1009,7 @@
 				B9AF3B4E27EF6FC600A3C82E /* Components */,
 				B9A04FAF27E5875A007D4303 /* PlanView.swift */,
 				B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */,
+				004C7C6C2804195300B432C7 /* PlanDisplayViewModel.swift */,
 			);
 			path = PlanViews;
 			sourceTree = "<group>";
@@ -1119,6 +1124,7 @@
 				4C55E7DA27F97AD20032D1D8 /* UIScreen+Extensions.swift */,
 				4CD10A7727FF3A310060C5AC /* DateUtil.swift */,
 				4C16604F2800A4BD00195DF8 /* Copyable.swift */,
+				004C7C6E28041A6F00B432C7 /* DisplayMode.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1546,6 +1552,7 @@
 				4CEC5CC227FFEB87007CEF2A /* AppConfig.swift in Sources */,
 				B9AF3B5027EF6FD600A3C82E /* MapView.swift in Sources */,
 				B98910C127F858BA00476794 /* MapViewModel.swift in Sources */,
+				004C7C6D2804195300B432C7 /* PlanDisplayViewModel.swift in Sources */,
 				B9A04FAA27E4F584007D4303 /* AddPlanViewModel.swift in Sources */,
 				4CEC5CBE27FFEA8D007CEF2A /* InjectedKey.swift in Sources */,
 				95DEA1EB27E721EB00A74ED2 /* BindingNilCoalescing.swift in Sources */,
@@ -1572,6 +1579,7 @@
 				00062B4227EECDBA00267960 /* UpvotedUsersView.swift in Sources */,
 				4CB954E027DDFFC7001410AD /* User.swift in Sources */,
 				000AB55127EE14EE00FF0ED3 /* UserIconView.swift in Sources */,
+				004C7C6F28041A6F00B432C7 /* DisplayMode.swift in Sources */,
 				B9B6B3EF27F48CE800B0F5F4 /* LocationAdapter.swift in Sources */,
 				4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */,
 				000F3BEF27F1659A00E7E2ED /* CommentIconView.swift in Sources */,
