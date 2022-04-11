@@ -7,19 +7,25 @@
 
 import Foundation
 
-struct Transport: Plan {
-    var id: String
-    var tripId: String
-    var name: String
-    var startDateTime: DateTime
-    var endDateTime: DateTime
-    var imageUrl: String
-    var status: PlanStatus
-    var creationDate: Date
-    var modificationDate: Date
-    var additionalInfo: String
-    var ownerUserId: String
-
+class Transport: Plan {
     var startLocation: Location?
     var endLocation: Location?
+
+    init(id: String, tripId: String, name: String,
+         startDateTime: DateTime, endDateTime: DateTime,
+         imageUrl: String, status: PlanStatus, creationDate: Date,
+         modificationDate: Date, additionalInfo: String,
+         ownerUserId: String, startLocation: Location?,
+         endLocation: Location?) {
+        self.startLocation = startLocation
+        self.endLocation = endLocation
+        super.init(id: id, tripId: tripId, name: name,
+                   startDateTime: startDateTime,
+                   endDateTime: endDateTime,
+                   imageUrl: imageUrl, status: status,
+                   creationDate: creationDate,
+                   modificationDate: modificationDate,
+                   additionalInfo: additionalInfo,
+                   ownerUserId: ownerUserId)
+    }
 }

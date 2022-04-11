@@ -7,18 +7,35 @@
 
 import Foundation
 
-protocol Plan: CustomStringConvertible {
-    var id: String { get }
-    var tripId: String { get }
-    var name: String { get set }
-    var startDateTime: DateTime { get set }
-    var endDateTime: DateTime { get set }
-    var imageUrl: String { get set }
-    var status: PlanStatus { get set }
-    var creationDate: Date { get }
-    var modificationDate: Date { get }
-    var additionalInfo: String { get set }
-    var ownerUserId: String { get set }
+class Plan: CustomStringConvertible {
+    var id: String
+    var tripId: String
+    var name: String
+    var startDateTime: DateTime
+    var endDateTime: DateTime
+    var imageUrl: String
+    var status: PlanStatus
+    var creationDate: Date
+    var modificationDate: Date
+    var additionalInfo: String
+    var ownerUserId: String
+
+    init(id: String, tripId: String, name: String,
+         startDateTime: DateTime, endDateTime: DateTime,
+         imageUrl: String, status: PlanStatus, creationDate: Date,
+         modificationDate: Date, additionalInfo: String, ownerUserId: String) {
+        self.id = id
+        self.tripId = tripId
+        self.name = name
+        self.startDateTime = startDateTime
+        self.endDateTime = endDateTime
+        self.imageUrl = imageUrl
+        self.status = status
+        self.creationDate = creationDate
+        self.modificationDate = modificationDate
+        self.additionalInfo = additionalInfo
+        self.ownerUserId = ownerUserId
+    }
 }
 
 // MARK: - CustomStringConvertible

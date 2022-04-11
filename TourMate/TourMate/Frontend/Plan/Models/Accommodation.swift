@@ -7,18 +7,22 @@
 
 import Foundation
 
-struct Accommodation: Plan {
-    var id: String
-    var tripId: String
-    var name: String
-    var startDateTime: DateTime
-    var endDateTime: DateTime
-    var imageUrl: String
-    var status: PlanStatus
-    var creationDate: Date
-    var modificationDate: Date
-    var additionalInfo: String
-    var ownerUserId: String
-
+class Accommodation: Plan {
     var location: Location?
+
+    init(id: String, tripId: String, name: String,
+         startDateTime: DateTime, endDateTime: DateTime,
+         imageUrl: String, status: PlanStatus, creationDate: Date,
+         modificationDate: Date, additionalInfo: String,
+         ownerUserId: String, location: Location?) {
+        self.location = location
+        super.init(id: id, tripId: tripId, name: name,
+                   startDateTime: startDateTime,
+                   endDateTime: endDateTime,
+                   imageUrl: imageUrl, status: status,
+                   creationDate: creationDate,
+                   modificationDate: modificationDate,
+                   additionalInfo: additionalInfo,
+                   ownerUserId: ownerUserId)
+    }
 }
