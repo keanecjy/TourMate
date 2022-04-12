@@ -13,9 +13,9 @@ struct AddTransportView: View {
     var dismissAddPlanView: DismissAction
 
     var body: some View {
-        GenericAddPlanView(viewModel: viewModel,
-                           dismissAddPlanView: dismissAddPlanView,
-                           planName: "Transport") {
+        AddPlanView(viewModel: viewModel,
+                    dismissAddPlanView: dismissAddPlanView,
+                    planName: "Transport") {
             PlanFormView(viewModel: viewModel,
                          startDateHeader: "Departure Date",
                          endDateHeader: "Arrival Date") {

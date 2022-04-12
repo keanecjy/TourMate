@@ -13,9 +13,9 @@ struct AddActivityView: View {
     var dismissAddPlanView: DismissAction
 
     var body: some View {
-        GenericAddPlanView(viewModel: viewModel,
-                           dismissAddPlanView: dismissAddPlanView,
-                           planName: "Activity") {
+        AddPlanView(viewModel: viewModel,
+                    dismissAddPlanView: dismissAddPlanView,
+                    planName: "Activity") {
             PlanFormView<Activity, Section>(viewModel: viewModel,
                                             startDateHeader: "Start Date",
                                             endDateHeader: "End Date") {

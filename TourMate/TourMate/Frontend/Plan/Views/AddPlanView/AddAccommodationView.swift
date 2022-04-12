@@ -13,7 +13,7 @@ struct AddAccommodationView: View {
     var dismissAddPlanView: DismissAction
 
     var body: some View {
-        GenericAddPlanView(viewModel: viewModel,
+        AddPlanView(viewModel: viewModel,
                            dismissAddPlanView: dismissAddPlanView,
                            planName: "Accommodation") {
             PlanFormView(viewModel: viewModel,
