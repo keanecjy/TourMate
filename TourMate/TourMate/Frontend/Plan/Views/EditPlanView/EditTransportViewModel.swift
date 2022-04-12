@@ -49,6 +49,13 @@ class EditTransportViewModel: TransportFormViewModel {
             startLocation: startLocation,
             endLocation: endLocation)
 
+        guard !plan.equals(other: updatedTransport) else {
+            self.isLoading = false
+            return
+        }
+
+        await makeUpdatedPlan(updatedTransport)
+
         let (hasUpdatedTransport, errorMessage) = await planService.updatePlan(plan: updatedTransport)
 
         guard hasUpdatedTransport, errorMessage.isEmpty else {

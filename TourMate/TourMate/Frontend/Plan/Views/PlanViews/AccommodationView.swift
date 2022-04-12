@@ -8,48 +8,53 @@
 import SwiftUI
 
 struct AccommodationView: View {
-    @StateObject var accommodationViewModel: AccommodationViewModel
+    @StateObject var planViewModel: AccommodationViewModel
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
     @State private var isShowingEditPlanSheet = false
 
     @Environment(\.dismiss) var dismiss
 
-    private let viewModelFactory = ViewModelFactory()
+    private let viewModelFactory: ViewModelFactory
 
-    init(accommodationViewModel: AccommodationViewModel) {
-        self._accommodationViewModel = StateObject(wrappedValue: accommodationViewModel)
-        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: accommodationViewModel)
-        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: accommodationViewModel)
+    init(planViewModel: AccommodationViewModel) {
+        self.viewModelFactory = ViewModelFactory()
+        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
+        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+
+        planViewModel.attachDelegate(delegate: commentsViewModel)
+        planViewModel.attachDelegate(delegate: planUpvoteViewModel)
+
+        self._planViewModel = StateObject(wrappedValue: planViewModel)
     }
 
     var body: some View {
-        if accommodationViewModel.hasError {
+        if planViewModel.hasError {
             Text("Error occurred")
-        } else if accommodationViewModel.isLoading {
+        } else if planViewModel.isLoading {
             ProgressView()
         } else {
             VStack(alignment: .leading, spacing: 30.0) {
                 PlanHeaderView(
-                    planStatus: accommodationViewModel.statusDisplay,
-                    planOwner: accommodationViewModel.planOwner,
-                    creationDateDisplay: accommodationViewModel.creationDateDisplay,
-                    lastModifier: accommodationViewModel.planLastModifier,
-                    lastModifiedDateDisplay: accommodationViewModel.lastModifiedDateDisplay,
-                    versionNumberDisplay: accommodationViewModel.versionNumberDisplay) {
-                        Text(accommodationViewModel.nameDisplay)
+                    planStatus: planViewModel.statusDisplay,
+                    planOwner: planViewModel.planOwner,
+                    creationDateDisplay: planViewModel.creationDateDisplay,
+                    lastModifier: planViewModel.planLastModifier,
+                    lastModifiedDateDisplay: planViewModel.lastModifiedDateDisplay,
+                    versionNumberDisplay: planViewModel.versionNumberDisplay) {
+                        Text(planViewModel.nameDisplay)
                             .bold()
                             .prefixedWithIcon(named: "bed.double.circle.fill")
                 }
 
                 PlanUpvoteView(viewModel: planUpvoteViewModel)
 
-                TimingView(startDate: accommodationViewModel.startDateTimeDisplay,
-                           endDate: accommodationViewModel.endDateTimeDisplay)
+                TimingView(startDate: planViewModel.startDateTimeDisplay,
+                           endDate: planViewModel.endDateTimeDisplay)
 
-                LocationView(startLocation: accommodationViewModel.location, endLocation: nil)
+                LocationView(startLocation: planViewModel.location, endLocation: nil)
 
-                InfoView(additionalInfo: accommodationViewModel.additionalInfoDisplay)
+                InfoView(additionalInfo: planViewModel.additionalInfoDisplay)
 
                 CommentsView(viewModel: commentsViewModel)
 
@@ -65,21 +70,21 @@ struct AccommodationView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        let viewModel = viewModelFactory.getEditAccommodationViewModel(accommodationViewModel: accommodationViewModel)
+                        let viewModel = viewModelFactory.getEditAccommodationViewModel(accommodationViewModel: planViewModel)
                         EditAccommodationView(viewModel: viewModel)
                     }
                 }
             }
             .task {
-                await accommodationViewModel.fetchVersionedPlansAndListen()
-                await accommodationViewModel.updatePlanOwner()
+                await planViewModel.fetchVersionedPlansAndListen()
+                await planViewModel.updatePlanOwner()
             }
-            .onReceive(accommodationViewModel.objectWillChange) {
-                if accommodationViewModel.isDeleted {
+            .onReceive(planViewModel.objectWillChange) {
+                if planViewModel.isDeleted {
                     dismiss()
                 }
             }
-            .onDisappear(perform: { () in accommodationViewModel.detachListener() })
+            .onDisappear(perform: { () in planViewModel.detachListener() })
         }
     }
 }

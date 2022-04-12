@@ -7,11 +7,7 @@
 
 import Foundation
 
-class Plan: CustomStringConvertible, Equatable {
-    static func == (lhs: Plan, rhs: Plan) -> Bool {
-        lhs.id == rhs.id
-    }
-
+class Plan: CustomStringConvertible {
     var id: String
     var tripId: String
     var name: String
@@ -73,7 +69,7 @@ class Plan: CustomStringConvertible, Equatable {
         self.versionNumber = versionNumber
     }
 
-    init() {
+    required init() {
         self.id = ""
         self.tripId = ""
         self.name = ""
@@ -87,6 +83,22 @@ class Plan: CustomStringConvertible, Equatable {
         self.ownerUserId = ""
         self.modifierUserId = ""
         self.versionNumber = 0
+    }
+
+    func equals<T: Plan>(other: T) -> Bool {
+        id == other.id
+        && tripId == other.tripId
+        && name == other.name
+        && startDateTime == other.startDateTime
+        && endDateTime == other.endDateTime
+        && imageUrl == other.imageUrl
+        && status == other.status
+        && creationDate == other.creationDate
+        && modificationDate == other.modificationDate
+        && additionalInfo == other.additionalInfo
+        && ownerUserId == other.ownerUserId
+        && modifierUserId == other.modifierUserId
+        && versionNumber == other.versionNumber
     }
 }
 

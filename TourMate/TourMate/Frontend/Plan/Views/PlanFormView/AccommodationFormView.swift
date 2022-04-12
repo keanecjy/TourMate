@@ -11,10 +11,10 @@ struct AccommodationFormView: View {
     @ObservedObject var viewModel: AccommodationFormViewModel
 
     var body: some View {
-        PlanFormView(viewModel: viewModel,
-                     startDateHeader: "Check-in Date",
-                     endDateHeader: "Check-out Date") {
-            
+        PlanFormView<Accommodation, Section>(viewModel: viewModel,
+                                             startDateHeader: "Check-in Date",
+                                             endDateHeader: "Check-out Date") {
+
             Section("Location") {
                 AddressTextField(title: "Address", location: $viewModel.location)
             }

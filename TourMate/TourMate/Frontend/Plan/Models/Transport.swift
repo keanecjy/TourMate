@@ -66,4 +66,21 @@ class Transport: Plan {
                    modifierUserId: modifierUserId,
                    versionNumber: versionNumber)
     }
+
+    required init() {
+        self.startLocation = nil
+        self.endLocation = nil
+        super.init()
+    }
+
+    override func equals<T>(other: T) -> Bool where T: Plan {
+        guard super.equals(other: other),
+              let otherTransport = other as? Transport
+        else {
+            return false
+        }
+
+        return startLocation == otherTransport.startLocation
+        && endLocation == otherTransport.endLocation
+    }
 }

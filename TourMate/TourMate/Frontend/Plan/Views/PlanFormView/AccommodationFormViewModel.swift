@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-class AccommodationFormViewModel: PlanFormViewModel {
+class AccommodationFormViewModel: PlanFormViewModel<Accommodation> {
     @Published var location: Location?
 
     // Adding Accommodation

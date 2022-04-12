@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-class TransportFormViewModel: PlanFormViewModel {
+class TransportFormViewModel: PlanFormViewModel<Transport> {
     @Published var startLocation: Location?
     @Published var endLocation: Location?
 

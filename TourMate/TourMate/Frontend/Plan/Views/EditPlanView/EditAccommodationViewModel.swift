@@ -47,6 +47,13 @@ class EditAccommodationViewModel: AccommodationFormViewModel {
             ownerUserId: ownerUserId,
             location: location)
 
+        guard !plan.equals(other: updatedAccommodation) else {
+            self.isLoading = false
+            return
+        }
+
+        await makeUpdatedPlan(updatedAccommodation)
+
         let (hasUpdatedAccommodation, errorMessage) = await planService.updatePlan(plan: updatedAccommodation)
 
         guard hasUpdatedAccommodation, errorMessage.isEmpty else {

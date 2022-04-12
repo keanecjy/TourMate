@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-class ActivityFormViewModel: PlanFormViewModel {
+class ActivityFormViewModel: PlanFormViewModel<Activity> {
     @Published var location: Location?
 
     // Adding Activity

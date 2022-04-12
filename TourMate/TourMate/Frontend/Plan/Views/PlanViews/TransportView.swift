@@ -8,49 +8,54 @@
 import SwiftUI
 
 struct TransportView: View {
-    @StateObject var transportViewModel: TransportViewModel
+    @StateObject var planViewModel: TransportViewModel
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
     @State private var isShowingEditPlanSheet = false
 
     @Environment(\.dismiss) var dismiss
 
-    private let viewModelFactory = ViewModelFactory()
+    private let viewModelFactory: ViewModelFactory
 
-    init(transportViewModel: TransportViewModel) {
-        self._transportViewModel = StateObject(wrappedValue: transportViewModel)
-        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: transportViewModel)
-        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: transportViewModel)
+    init(planViewModel: TransportViewModel) {
+        self.viewModelFactory = ViewModelFactory()
+        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
+        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+
+        planViewModel.attachDelegate(delegate: commentsViewModel)
+        planViewModel.attachDelegate(delegate: planUpvoteViewModel)
+
+        self._planViewModel = StateObject(wrappedValue: planViewModel)
     }
 
     var body: some View {
-        if transportViewModel.hasError {
+        if planViewModel.hasError {
             Text("Error occurred")
-        } else if transportViewModel.isLoading {
+        } else if planViewModel.isLoading {
             ProgressView()
         } else {
             VStack(alignment: .leading, spacing: 30.0) {
                 PlanHeaderView(
-                    planStatus: transportViewModel.statusDisplay,
-                    planOwner: transportViewModel.planOwner,
-                    creationDateDisplay: transportViewModel.creationDateDisplay,
-                    lastModifier: transportViewModel.planLastModifier,
-                    lastModifiedDateDisplay: transportViewModel.lastModifiedDateDisplay,
-                    versionNumberDisplay: transportViewModel.versionNumberDisplay) {
-                        Text(transportViewModel.nameDisplay)
+                    planStatus: planViewModel.statusDisplay,
+                    planOwner: planViewModel.planOwner,
+                    creationDateDisplay: planViewModel.creationDateDisplay,
+                    lastModifier: planViewModel.planLastModifier,
+                    lastModifiedDateDisplay: planViewModel.lastModifiedDateDisplay,
+                    versionNumberDisplay: planViewModel.versionNumberDisplay) {
+                        Text(planViewModel.nameDisplay)
                             .bold()
                             .prefixedWithIcon(named: "car.circle.fill")
                 }
 
                 PlanUpvoteView(viewModel: planUpvoteViewModel)
 
-                TimingView(startDate: transportViewModel.startDateTimeDisplay,
-                           endDate: transportViewModel.endDateTimeDisplay)
+                TimingView(startDate: planViewModel.startDateTimeDisplay,
+                           endDate: planViewModel.endDateTimeDisplay)
 
-                LocationView(startLocation: transportViewModel.startLocation,
-                             endLocation: transportViewModel.endLocation)
+                LocationView(startLocation: planViewModel.startLocation,
+                             endLocation: planViewModel.endLocation)
 
-                InfoView(additionalInfo: transportViewModel.additionalInfoDisplay)
+                InfoView(additionalInfo: planViewModel.additionalInfoDisplay)
 
                 CommentsView(viewModel: commentsViewModel)
 
@@ -67,21 +72,21 @@ struct TransportView: View {
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
                         let viewModel = viewModelFactory
-                            .getEditTransportViewModel(transportViewModel: transportViewModel)
+                            .getEditTransportViewModel(transportViewModel: planViewModel)
                         EditTransportView(viewModel: viewModel)
                     }
                 }
             }
             .task {
-                await transportViewModel.fetchVersionedPlansAndListen()
-                await transportViewModel.updatePlanOwner()
+                await planViewModel.fetchVersionedPlansAndListen()
+                await planViewModel.updatePlanOwner()
             }
-            .onReceive(transportViewModel.objectWillChange) {
-                if transportViewModel.isDeleted {
+            .onReceive(planViewModel.objectWillChange) {
+                if planViewModel.isDeleted {
                     dismiss()
                 }
             }
-            .onDisappear(perform: { () in transportViewModel.detachListener() })
+            .onDisappear(perform: { () in planViewModel.detachListener() })
         }
     }
 }

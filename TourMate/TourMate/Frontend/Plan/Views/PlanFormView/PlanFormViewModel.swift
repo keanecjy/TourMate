@@ -9,17 +9,16 @@ import Foundation
 import Combine
 
 @MainActor
-class PlanFormViewModel: ObservableObject {
+class PlanFormViewModel<T: Plan>: ObservableObject {
     let lowerBoundDate: Date
     let upperBoundDate: Date
 
-    let plan: Plan
+    let plan: T
     let planService: PlanService
     let userService: UserService
 
     @Published var isLoading = false
     @Published private(set) var hasError = false
-    @Published private(set) var isDeleted = false
 
     @Published var isPlanNameValid: Bool
     @Published var isPlanDurationValid: Bool
@@ -39,7 +38,7 @@ class PlanFormViewModel: ObservableObject {
 
     // Adding Plan
     init(lowerBoundDate: Date, upperBoundDate: Date, planService: PlanService, userService: UserService) {
-        self.plan = Plan()
+        self.plan = T()
         self.planService = planService
         self.userService = userService
 
@@ -61,7 +60,7 @@ class PlanFormViewModel: ObservableObject {
     }
 
     // Editing Plan
-    init(lowerBoundDate: Date, upperBoundDate: Date, plan: Plan, planService: PlanService, userService: UserService) {
+    init(lowerBoundDate: Date, upperBoundDate: Date, plan: T, planService: PlanService, userService: UserService) {
         self.plan = plan
         self.planService = planService
         self.userService = userService
@@ -134,6 +133,18 @@ class PlanFormViewModel: ObservableObject {
         canChangeStatus = allowed
     }
 
+    func makeUpdatedPlan(_ plan: T) async {
+        let (currentUser, _) = await userService.getCurrentUser()
+        guard let currentUser = currentUser else {
+            handleError()
+            return
+        }
+
+        plan.modificationDate = Date()
+        plan.modifierUserId = currentUser.id
+        plan.versionNumber += 1
+    }
+
     func deletePlan() async {
         self.isLoading = true
 
@@ -143,7 +154,6 @@ class PlanFormViewModel: ObservableObject {
             handleError()
             return
         }
-        handleDeletion()
     }
 }
 
@@ -153,8 +163,4 @@ extension PlanFormViewModel {
         self.isLoading = false
     }
 
-    private func handleDeletion() {
-        self.isDeleted = true
-        self.isLoading = false
-    }
 }

@@ -14,14 +14,14 @@ struct StartEndDatePicker: View {
     let upperBoundDate: Date
     let startDateHeader: String
     let endDateHeader: String
-    
+
     var body: some View {
         Section("Date & Time") {
             DatePicker("Start Date",
                        selection: $startDate,
                        in: lowerBoundDate...upperBoundDate,
                        displayedComponents: [.date, .hourAndMinute])
-            
+
             DatePicker("End Date",
                        selection: $endDate,
                        in: lowerBoundDate...upperBoundDate,

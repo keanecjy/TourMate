@@ -7,15 +7,12 @@
 
 import Foundation
 
-class TransportViewModel: PlanViewModel {
-    @Published var transport: Transport
-
+class TransportViewModel: PlanViewModel<Transport> {
     init(transport: Transport,
          lowerBoundDate: DateTime,
          upperBoundDate: DateTime,
          planService: PlanService,
          userService: UserService) {
-        self.transport = transport
         super.init(plan: transport,
                    lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
@@ -24,28 +21,11 @@ class TransportViewModel: PlanViewModel {
     }
 
     var startLocation: Location? {
-        transport.startLocation
+        plan.startLocation
     }
 
     var endLocation: Location? {
-        transport.endLocation
+        plan.endLocation
     }
 
-    override func loadLatestVersionedPlan(_ plans: [Plan]) {
-        guard var latestPlan = plans.first else {
-            handleDeletion()
-            return
-        }
-
-        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
-            latestPlan = plan
-        }
-
-        if let transport = latestPlan as? Transport {
-            self.transport = transport
-        }
-
-        self.plan = latestPlan
-        self.allVersionedPlans = plans
-    }
 }

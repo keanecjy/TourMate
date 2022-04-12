@@ -12,15 +12,15 @@ class Activity: Plan {
 
     // Activity creation
     init(id: String, tripId: String, name: String,
-                  startDateTime: DateTime,
-                  endDateTime: DateTime,
-                  imageUrl: String,
-                  status: PlanStatus,
-                  creationDate: Date,
-                  modificationDate: Date,
-                  additionalInfo: String,
-                  ownerUserId: String,
-                  location: Location?) {
+         startDateTime: DateTime,
+         endDateTime: DateTime,
+         imageUrl: String,
+         status: PlanStatus,
+         creationDate: Date,
+         modificationDate: Date,
+         additionalInfo: String,
+         ownerUserId: String,
+         location: Location?) {
         self.location = location
         super.init(id: id, tripId: tripId, name: name,
                    startDateTime: startDateTime,
@@ -59,5 +59,20 @@ class Activity: Plan {
                    ownerUserId: ownerUserId,
                    modifierUserId: modifierUserId,
                    versionNumber: versionNumber)
+    }
+
+    required init() {
+        self.location = nil
+        super.init()
+    }
+
+    override func equals<T>(other: T) -> Bool where T: Plan {
+        guard super.equals(other: other),
+              let otherActivity = other as? Activity
+        else {
+            return false
+        }
+
+        return location == otherActivity.location
     }
 }

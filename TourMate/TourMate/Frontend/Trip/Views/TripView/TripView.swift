@@ -29,13 +29,13 @@ struct TripView: View {
         switch plan {
         case let plan as Activity:
             let activityViewModel = viewModelFactory.getActivityViewModel(activity: plan, tripViewModel: viewModel)
-            return AnyView(ActivityView(activityViewModel: activityViewModel))
+            return AnyView(ActivityView(planViewModel: activityViewModel))
         case let plan as Accommodation:
             let viewModel = viewModelFactory.getAccommodationViewModel(accommodation: plan, tripViewModel: viewModel)
-            return AnyView(AccommodationView(accommodationViewModel: viewModel))
+            return AnyView(AccommodationView(planViewModel: viewModel))
         case let plan as Transport:
             let viewModel = viewModelFactory.getTransportViewModel(transport: plan, tripViewModel: viewModel)
-            return AnyView(TransportView(transportViewModel: viewModel))
+            return AnyView(TransportView(planViewModel: viewModel))
         default:
             preconditionFailure("Plan don't exists")
         }

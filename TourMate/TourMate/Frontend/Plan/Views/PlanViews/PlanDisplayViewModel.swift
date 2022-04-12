@@ -8,16 +8,16 @@
 import Foundation
 
 @MainActor
-class PlanDisplayViewModel: ObservableObject {
-    @Published var plan: Plan
+class PlanDisplayViewModel<T: Plan>: ObservableObject {
+    @Published var plan: T
     @Published var planOwner: User
     @Published var planLastModifier: User
 
-    var allVersionedPlans: [Plan]
+    var allVersionedPlans: [T]
 
     private(set) var displayMode: DisplayMode
 
-    init(plan: Plan) {
+    init(plan: T) {
         self.plan = plan
         self.allVersionedPlans = [plan]
         self.displayMode = .latestVersion

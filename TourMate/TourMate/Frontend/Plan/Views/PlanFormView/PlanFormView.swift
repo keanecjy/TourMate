@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct PlanFormView<Content: View>: View {
+struct PlanFormView<T: Plan, Content: View>: View {
     let content: Content
-    @ObservedObject var viewModel: PlanFormViewModel
+    @ObservedObject var viewModel: PlanFormViewModel<T>
     let startDateHeader: String
     let endDateHeader: String
 
-    init(viewModel: PlanFormViewModel,
+    init(viewModel: PlanFormViewModel<T>,
          startDateHeader: String,
          endDateHeader: String,
          @ViewBuilder content: () -> Content) {
@@ -39,6 +39,8 @@ struct PlanFormView<Content: View>: View {
                                upperBoundDate: viewModel.upperBoundDate,
                                startDateHeader: startDateHeader,
                                endDateHeader: startDateHeader)
+
+            content
 
             Section("Additional Notes") {
                 ZStack {

@@ -8,15 +8,12 @@
 import Foundation
 
 @MainActor
-class AccommodationViewModel: PlanViewModel {
-    @Published var accommodation: Accommodation
-
+class AccommodationViewModel: PlanViewModel<Accommodation> {
     init(accommodation: Accommodation,
          lowerBoundDate: DateTime,
          upperBoundDate: DateTime,
          planService: PlanService,
          userService: UserService) {
-        self.accommodation = accommodation
         super.init(plan: accommodation,
                    lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
@@ -25,24 +22,7 @@ class AccommodationViewModel: PlanViewModel {
     }
 
     var location: Location? {
-        accommodation.location
+        plan.location
     }
 
-    override func loadLatestVersionedPlan(_ plans: [Plan]) {
-        guard var latestPlan = plans.first else {
-            handleDeletion()
-            return
-        }
-
-        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
-            latestPlan = plan
-        }
-
-        if let accommodation = latestPlan as? Accommodation {
-            self.accommodation = accommodation
-        }
-
-        self.plan = latestPlan
-        self.allVersionedPlans = plans
-    }
 }

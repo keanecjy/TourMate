@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 @MainActor
-class PlanViewModel: PlanDisplayViewModel {
+class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
     @Published private(set) var isLoading = false
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
@@ -22,7 +22,7 @@ class PlanViewModel: PlanDisplayViewModel {
 
     var planEventDelegates: [PlanEventDelegate]
 
-    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
+    init(plan: T, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService, userService: UserService) {
 
         self.lowerBoundDate = lowerBoundDate
@@ -64,19 +64,6 @@ class PlanViewModel: PlanDisplayViewModel {
         planService.detachListener()
     }
 
-    func loadLatestVersionedPlan(_ plans: [Plan]) {
-        guard var latestPlan = plans.first else {
-            handleDeletion()
-            return
-        }
-
-        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
-            latestPlan = plan
-        }
-
-        self.plan = latestPlan
-        self.allVersionedPlans = plans
-    }
 }
 
 // MARK: - PlanEventDelegate
@@ -90,9 +77,16 @@ extension PlanViewModel: PlanEventDelegate {
             handleError()
             return
         }
+
+        guard let plans = plans as? [T] else {
+            handleError()
+            return
+        }
+
         self.allVersionedPlans = plans
 
         loadLatestVersionedPlan(plans)
+
         await updateDelegates()
         await updatePlanLastModifier()
     }
@@ -101,6 +95,19 @@ extension PlanViewModel: PlanEventDelegate {
 
 // MARK: - Helper Methods
 extension PlanViewModel {
+    private func loadLatestVersionedPlan(_ plans: [T]) {
+        guard var latestPlan = plans.first else {
+            handleDeletion()
+            return
+        }
+
+        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
+            latestPlan = plan
+        }
+
+        self.plan = latestPlan
+    }
+
     private func updateDelegates() async {
         for eventDelegate in self.planEventDelegates {
             await eventDelegate.update(plan: self.plan, errorMessage: "")
