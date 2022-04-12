@@ -20,6 +20,12 @@ class PlansViewModel: ObservableObject {
 
     private var planService: PlanService
 
+    var sortedPlans: [Plan] {
+        plans.sorted { plan1, plan2 in
+            plan1.startDateTime.date < plan2.startDateTime.date
+        }
+    }
+
     // sort and display Plans by Date
     typealias Day = (date: Date, plans: [Plan])
     var days: [Day] {

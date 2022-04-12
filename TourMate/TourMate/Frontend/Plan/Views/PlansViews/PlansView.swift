@@ -9,7 +9,7 @@ import SwiftUI
 typealias Day = (date: Date, plans: [Plan])
 
 enum PlansViewMode: String, CaseIterable {
-    case list, calendar
+    case list, calendar, map
 }
 
 struct PlansView: View {
@@ -28,6 +28,7 @@ struct PlansView: View {
             Picker("View Mode", selection: $selectedViewMode) {
                 Label("Itinerary", systemImage: "list.bullet.rectangle").tag(PlansViewMode.list)
                 Label("Calendar", systemImage: "calendar.day.timeline.left").tag(PlansViewMode.calendar)
+                Label("Map", systemImage: "calendar.day.timeline.left").tag(PlansViewMode.map)
             }
             .pickerStyle(.segmented)
             .padding()
@@ -36,12 +37,14 @@ struct PlansView: View {
                     PlansListView(viewModel: plansViewModel, onSelected: onSelected)
                 } else if selectedViewMode == .calendar {
                     PlansCalendarView(viewModel: plansViewModel, onSelected: onSelected)
+                } else if selectedViewMode == .map {
+                    PlansMapView(viewModel: plansViewModel, onSelected: onSelected)
                 }
             }
         }
         .task {
             await plansViewModel.fetchPlansAndListen()
-            print("[PlansListView] Fetched plans: \(plansViewModel.plans)")
+            print("[PlansView] Fetched plans: \(plansViewModel.plans)")
         }
         .onDisappear(perform: { () in plansViewModel.detachListener() })
     }
