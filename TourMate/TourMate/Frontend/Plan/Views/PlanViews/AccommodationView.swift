@@ -70,8 +70,8 @@ struct AccommodationView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        let viewModel = viewModelFactory.getEditAccommodationViewModel(accommodationViewModel: planViewModel)
-                        EditAccommodationView(viewModel: viewModel)
+                        // let viewModel = viewModelFactory.getEditAccommodationViewModel(accommodationViewModel: planViewModel)
+                        // EditAccommodationView(viewModel: viewModel)
                     }
                 }
             }

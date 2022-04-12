@@ -71,8 +71,8 @@ struct ActivityView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        let viewModel = viewModelFactory.getEditActivityViewModel(activityViewModel: planViewModel)
-                        EditActivityView(viewModel: viewModel)
+                        // let viewModel = viewModelFactory.getEditPlanViewModel(planViewModel: planViewModel)
+                        // EditActivityView(viewModel: viewModel)
                     }
                 }
             }

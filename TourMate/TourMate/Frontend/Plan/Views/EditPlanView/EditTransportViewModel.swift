@@ -17,9 +17,9 @@ class EditTransportViewModel: EditPlanViewModel<Transport> {
          upperBoundDate: Date,
          planService: PlanService,
          userService: UserService) {
-        super.init(lowerBoundDate: lowerBoundDate,
+        super.init(plan: transport,
+                   lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
-                   plan: transport,
                    planService: planService,
                    userService: userService)
     }

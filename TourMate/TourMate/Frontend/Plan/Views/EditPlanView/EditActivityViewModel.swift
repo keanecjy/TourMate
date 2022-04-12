@@ -18,9 +18,9 @@ class EditActivityViewModel: EditPlanViewModel<Activity> {
          userService: UserService) {
         self.location = activity.location
 
-        super.init(lowerBoundDate: lowerBoundDate,
+        super.init(plan: activity,
+                   lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
-                   plan: activity,
                    planService: planService,
                    userService: userService)
     }

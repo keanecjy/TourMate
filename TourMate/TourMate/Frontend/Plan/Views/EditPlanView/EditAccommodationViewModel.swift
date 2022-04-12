@@ -18,9 +18,9 @@ class EditAccommodationViewModel: EditPlanViewModel<Accommodation> {
          userService: UserService) {
         self.location = accommodation.location
 
-        super.init(lowerBoundDate: lowerBoundDate,
+        super.init(plan: accommodation,
+                   lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
-                   plan: accommodation,
                    planService: planService,
                    userService: userService)
     }

@@ -15,7 +15,7 @@ struct AddAccommodationView: View {
     var body: some View {
         AddPlanView(viewModel: viewModel,
                            dismissAddPlanView: dismissAddPlanView,
-                           planName: "Accommodation") {
+                           planType: "Accommodation") {
             PlanFormView(viewModel: viewModel,
                          startDateHeader: "Check-in Date",
                          endDateHeader: "Check-out Date") {

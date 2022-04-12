@@ -15,7 +15,7 @@ struct AddActivityView: View {
     var body: some View {
         AddPlanView(viewModel: viewModel,
                     dismissAddPlanView: dismissAddPlanView,
-                    planName: "Activity") {
+                    planType: "Activity") {
             PlanFormView<Activity, Section>(viewModel: viewModel,
                                             startDateHeader: "Start Date",
                                             endDateHeader: "End Date") {
@@ -27,9 +27,3 @@ struct AddActivityView: View {
         }
     }
 }
-
-// struct AddActivityView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddActivityView()
-//    }
-// }

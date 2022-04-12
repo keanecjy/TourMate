@@ -71,9 +71,9 @@ struct TransportView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        let viewModel = viewModelFactory
-                            .getEditTransportViewModel(transportViewModel: planViewModel)
-                        EditTransportView(viewModel: viewModel)
+                        // let viewModel = viewModelFactory
+                            // .getEditTransportViewModel(transportViewModel: planViewModel)
+                        // EditTransportView(viewModel: viewModel)
                     }
                 }
             }

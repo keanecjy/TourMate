@@ -101,44 +101,17 @@ struct ViewModelFactory {
     func getAddTransportViewModel(trip: Trip) -> AddTransportViewModel {
         AddTransportViewModel(trip: trip, planService: planService.copy(), userService: userService)
     }
-
-    // Edit Plan
-    func getEditActivityViewModel(activityViewModel: ActivityViewModel) -> EditActivityViewModel {
-        let activity = activityViewModel.plan
-        let lowerBoundDate = activityViewModel.lowerBoundDate.date
-        let upperBoundDate = activityViewModel.upperBoundDate.date
-
-        return EditActivityViewModel(activity: activity,
-                                     lowerBoundDate: lowerBoundDate,
-                                     upperBoundDate: upperBoundDate,
-                                     planService: planService.copy(),
-                                     userService: userService)
-    }
-
-    func getEditAccommodationViewModel(accommodationViewModel: AccommodationViewModel) -> EditAccommodationViewModel {
-        let accommodation = accommodationViewModel.plan
-        let lowerBoundDate = accommodationViewModel.lowerBoundDate.date
-        let upperBoundDate = accommodationViewModel.upperBoundDate.date
-
-        return EditAccommodationViewModel(
-            accommodation: accommodation,
-            lowerBoundDate: lowerBoundDate,
-            upperBoundDate: upperBoundDate,
-            planService: planService.copy(),
-            userService: userService)
-    }
-
-    func getEditTransportViewModel(transportViewModel: TransportViewModel) -> EditTransportViewModel {
-        let transport = transportViewModel.plan
-        let lowerBoundDate = transportViewModel.lowerBoundDate.date
-        let upperBoundDate = transportViewModel.upperBoundDate.date
-
-        return EditTransportViewModel(
-            transport: transport,
-            lowerBoundDate: lowerBoundDate,
-            upperBoundDate: upperBoundDate,
-            planService: planService.copy(),
-            userService: userService)
+    
+    func getEditPlanViewModel<T: Plan>(planViewModel: PlanViewModel<T>) -> EditPlanViewModel<T> {
+        let plan = planViewModel.plan
+        let lowerBoundDate = planViewModel.lowerBoundDate.date
+        let upperBoundDate = planViewModel.upperBoundDate.date
+        
+        return EditPlanViewModel(plan: plan,
+                                 lowerBoundDate: lowerBoundDate,
+                                 upperBoundDate: upperBoundDate,
+                                 planService: planService.copy(),
+                                 userService: userService)
     }
 
     // PlanView - PlanUpvotes

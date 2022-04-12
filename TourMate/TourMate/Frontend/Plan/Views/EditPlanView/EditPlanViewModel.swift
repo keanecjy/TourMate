@@ -17,7 +17,7 @@ class EditPlanViewModel<T: Plan>: PlanFormViewModel<T> {
 
     private(set) var canDeletePlan = false
 
-    init(lowerBoundDate: Date, upperBoundDate: Date, plan: T,
+    init(plan: T, lowerBoundDate: Date, upperBoundDate: Date,
          planService: PlanService, userService: UserService) {
 
         self.plan = plan

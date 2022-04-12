@@ -12,7 +12,7 @@ struct EditActivityView: View {
     @StateObject var viewModel: EditActivityViewModel
 
     var body: some View {
-        EditPlanView(viewModel: viewModel, planName: "Activity") {
+        EditPlanView(viewModel: viewModel, planType: "Activity") {
             PlanFormView(viewModel: viewModel,
                          startDateHeader: "Start Date",
                          endDateHeader: "End Date") {

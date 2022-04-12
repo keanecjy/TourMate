@@ -12,7 +12,7 @@ struct EditTransportView: View {
     @StateObject var viewModel: EditTransportViewModel
 
     var body: some View {
-        EditPlanView(viewModel: viewModel, planName: "Transport") {
+        EditPlanView(viewModel: viewModel, planType: "Transport") {
             PlanFormView(viewModel: viewModel,
                          startDateHeader: "Departure Date",
                          endDateHeader: "Arrival Date") {
