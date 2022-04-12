@@ -25,6 +25,14 @@ class FirebaseCommentService: CommentService {
         await commentRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId)
     }
 
+    func fetchVersionedCommentsAndListen(withPlanId planId: String, versionNumber: Int) async {
+        print("[FirebaseCommentService] Fetching and listening to versioned comments")
+
+        commentRepository.eventDelegate = self
+        await commentRepository.fetchItemsAndListen(field1: "planId", isEqualTo: planId,
+                                                    field2: "planVersionNumber", isEqualTo: versionNumber)
+    }
+
     func addComment(comment: Comment) async -> (Bool, String) {
         await commentRepository.addItem(id: comment.id, item: commentAdapter.toAdaptedComment(comment: comment))
     }

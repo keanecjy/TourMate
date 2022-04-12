@@ -40,11 +40,22 @@ class CommentsViewModel: ObservableObject {
         self.hasError = false
     }
 
+    // TODO: Ensure that we detach and attach listeners properly when switching
+    // from fetchCommentsAndListen() to fetchVersionedCommentsAndListen() and vice versa
+    // If need be, we can call detachListener() in each function
+
     func fetchCommentsAndListen() async {
         commentService.commentEventDelegate = self
 
         self.isLoading = true
         await commentService.fetchCommentsAndListen(withPlanId: planId)
+    }
+
+    func fetchVersionedCommentsAndListen() async {
+        commentService.commentEventDelegate = self
+
+        self.isLoading = true
+        await commentService.fetchVersionedCommentsAndListen(withPlanId: planId, versionNumber: planVersionNumber)
     }
 
     func addComment(commentMessage: String) async {

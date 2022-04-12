@@ -48,6 +48,8 @@ class MockCommentService: CommentService {
     // UNUSED
     func fetchCommentsAndListen(withPlanId planId: String) async {}
 
+    func fetchVersionedCommentsAndListen(withPlanId planId: String, versionNumber: Int) async {}
+
     weak var commentEventDelegate: CommentEventDelegate?
 
     func detachListener() {}
