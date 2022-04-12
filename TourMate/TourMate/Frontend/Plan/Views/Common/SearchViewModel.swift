@@ -13,7 +13,7 @@ import Combine
 class SearchViewModel: ObservableObject {
     @Published private(set) var hasError = false
 
-    @Published var suggestedLocations: [Location] = []
+    @Published var suggestions: [Location] = []
     @Published var query: String = ""
 
     private let locationService: LocationService
@@ -35,8 +35,16 @@ class SearchViewModel: ObservableObject {
     private var task: Task<Void, Never>?
 
     func fetchLocations() {
+        fetchSuggestions(action: locationService.fetchLocations)
+    }
+
+    func fetchCities() {
+        fetchSuggestions(action: locationService.fetchCities)
+    }
+
+    private func fetchSuggestions(action: @escaping (String) async -> ([Location], String)) {
         if query.isEmpty {
-            suggestedLocations = []
+            suggestions = []
             task?.cancel()
             return
         }
@@ -50,14 +58,14 @@ class SearchViewModel: ObservableObject {
                 return
             }
 
-            let (suggestedLocations, errorMessage) = await locationService.fetchLocations(query: query)
+            let (suggestedLocations, errorMessage) = await action(query)
 
             guard errorMessage.isEmpty else {
                 self.hasError = true
                 print("[SearchViewModel] Error: \(errorMessage)")
                 return
             }
-            self.suggestedLocations = suggestedLocations
+            self.suggestions = suggestedLocations
         }
     }
 }

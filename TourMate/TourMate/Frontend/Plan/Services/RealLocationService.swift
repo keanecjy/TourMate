@@ -13,11 +13,18 @@ struct RealLocationService: LocationService {
     private let locationAdapter = LocationAdapter()
 
     func fetchLocations(query: String) async -> ([Location], String) {
-        print("[LocationService] Fetching Locations")
-
         let autocompleteQuery = AutocompleteQuery(apiKey: ApiKeys.geopifyApiKey, text: query)
+        return await fetchSuggestions(query: autocompleteQuery)
+    }
 
-        let (adaptedLocations, errorMessage) = await locationWebRepository.fetchLocations(query: autocompleteQuery)
+    func fetchCities(query: String) async -> ([Location], String) {
+        let autocompleteQuery = AutocompleteQuery(apiKey: ApiKeys.geopifyApiKey, text: query, type: "city")
+        return await fetchSuggestions(query: autocompleteQuery)
+
+    }
+
+    private func fetchSuggestions(query: AutocompleteQuery) async -> ([Location], String) {
+        let (adaptedLocations, errorMessage) = await locationWebRepository.fetchLocations(query: query)
 
         guard errorMessage.isEmpty else {
             return ([], errorMessage)

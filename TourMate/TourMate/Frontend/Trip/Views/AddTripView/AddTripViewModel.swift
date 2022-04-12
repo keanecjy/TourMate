@@ -16,7 +16,8 @@ class AddTripViewModel: TripFormViewModel {
     let tripService: TripService
     let userService: UserService
 
-    init(tripService: TripService, userService: UserService) {
+    init(tripService: TripService,
+         userService: UserService) {
         self.tripService = tripService
         self.userService = userService
 

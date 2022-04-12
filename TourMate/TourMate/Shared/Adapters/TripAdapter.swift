@@ -65,7 +65,6 @@ extension FirebaseAdaptedDateTime {
 extension Location {
     fileprivate func toData() -> JsonAdaptedLocation {
         JsonAdaptedLocation(country: country,
-                            city: city,
                             address_line1: addressLineOne,
                             address_line2: addressLineTwo,
                             formatted: addressFull,
@@ -77,7 +76,6 @@ extension Location {
 extension JsonAdaptedLocation {
     fileprivate func toItem() -> Location {
         Location(country: country,
-                 city: city,
                  addressLineOne: address_line1,
                  addressLineTwo: address_line2,
                  addressFull: formatted,
