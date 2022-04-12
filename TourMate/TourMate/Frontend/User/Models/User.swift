@@ -14,7 +14,7 @@ struct User: CustomStringConvertible {
     let imageUrl: String
 
     static func defaultUser() -> User {
-        User(id: "0", name: "Empty", email: "", imageUrl: "")
+        User(id: "Not found", name: "Not found", email: "Not found", imageUrl: "Not found")
     }
 }
 

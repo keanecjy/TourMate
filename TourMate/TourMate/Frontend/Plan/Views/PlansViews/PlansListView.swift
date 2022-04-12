@@ -27,16 +27,15 @@ struct PlansListView: View {
                     PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     ForEach(day.plans, id: \.id) { plan in
-                        PlanCardView(planUpvoteViewModel: viewModelFactory.getPlanUpvoteViewModel(plan: plan),
-                                     plan: plan, date: day.date)
-                        .onTapGesture(perform: {
-                            if let onSelected = onSelected {
-                                onSelected(plan)
-                            }
-                        })
-                        .buttonStyle(PlainButtonStyle())
-                        .frame(maxWidth: .infinity, maxHeight: 100.0)
-                        .background(RoundedRectangle(cornerRadius: 16)
+                        PlanCardView(plansViewModel: viewModel, plan: plan, date: day.date)
+                            .onTapGesture(perform: {
+                                if let onSelected = onSelected {
+                                    onSelected(plan)
+                                }
+                            })
+                            .buttonStyle(PlainButtonStyle())
+                            .frame(maxWidth: .infinity, maxHeight: 100.0)
+                            .background(RoundedRectangle(cornerRadius: 16)
                             .fill(Color.primary.opacity(0.1)))
                     }
                 }

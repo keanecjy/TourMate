@@ -13,9 +13,10 @@ struct TripsView: View {
 
     let onSelected: ((Trip) -> Void)?
 
-    private let viewModelFactory = ViewModelFactory()
+    private let viewModelFactory: ViewModelFactory
 
     init(viewModel: TripsViewModel, onSelected: ((Trip) -> Void)? = nil) {
+        self.viewModelFactory = ViewModelFactory()
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.onSelected = onSelected
     }

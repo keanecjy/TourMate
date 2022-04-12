@@ -13,35 +13,35 @@ class FirebaseAdaptedPlan: FirebaseAdaptedData {
     let name: String
     let startDateTime: FirebaseAdaptedDateTime
     let endDateTime: FirebaseAdaptedDateTime
-    let startLocation: JsonAdaptedLocation?
-    let endLocation: JsonAdaptedLocation?
     let imageUrl: String
     let status: String
     let creationDate: Date
     let modificationDate: Date
     var additionalInfo: String
     var ownerUserId: String
+    var modifierUserId: String
+    var versionNumber: Int
 
     init(id: String, tripId: String, name: String,
          startDateTime: FirebaseAdaptedDateTime,
          endDateTime: FirebaseAdaptedDateTime,
-         startLocation: JsonAdaptedLocation?, endLocation: JsonAdaptedLocation?,
          imageUrl: String, status: String,
          creationDate: Date, modificationDate: Date,
-         additionalInfo: String, ownerUserId: String) {
+         additionalInfo: String, ownerUserId: String, modifierUserId: String,
+         versionNumber: Int) {
         self.id = id
         self.tripId = tripId
         self.name = name
         self.startDateTime = startDateTime
         self.endDateTime = endDateTime
-        self.startLocation = startLocation
-        self.endLocation = endLocation
         self.imageUrl = imageUrl
         self.status = status
         self.creationDate = creationDate
         self.modificationDate = modificationDate
         self.additionalInfo = additionalInfo
         self.ownerUserId = ownerUserId
+        self.modifierUserId = modifierUserId
+        self.versionNumber = versionNumber
     }
 
     func getType() -> FirebaseAdaptedType {

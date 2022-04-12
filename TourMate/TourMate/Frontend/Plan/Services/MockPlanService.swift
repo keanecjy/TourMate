@@ -15,47 +15,39 @@ class MockPlanService: PlanService {
     static let creationDate = Date(timeIntervalSince1970: 1_651_400_000)
 
     var plans: [Plan] = [
-        Plan(id: "0", tripId: "0", name: "Hotel Z",
-             startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
-             endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400)),
-             status: .confirmed,
-             creationDate: creationDate,
-             modificationDate: creationDate,
-             ownerUserId: "1"),
-        Plan(id: "1", tripId: "0", name: "Visit Tower Bridge",
-             startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400),
-                                     timeZone: TimeZone(abbreviation: "PST")!),
-             endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_467_600),
-                                   timeZone: TimeZone(abbreviation: "PST")!),
-             imageUrl: "https://source.unsplash.com/qxstzQ__HMk",
-             status: .confirmed, creationDate: creationDate,
-             modificationDate: creationDate,
-             ownerUserId: "1"),
-        Plan(id: "2", tripId: "0", name: "Dinner at Spago",
-             startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400),
-                                     timeZone: TimeZone(abbreviation: "PST")!),
-             endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_461_400),
-                                   timeZone: TimeZone(abbreviation: "PST")!),
-             status: .confirmed, creationDate: creationDate,
-             modificationDate: creationDate,
-             ownerUserId: "1"),
-        Plan(id: "3", tripId: "1", name: "Travel to Kyoto",
-             startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400),
-                                     timeZone: TimeZone(abbreviation: "MST")!),
-             endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400),
-                                   timeZone: TimeZone(abbreviation: "MST")!),
-             status: .confirmed, creationDate: creationDate,
-             modificationDate: creationDate,
-             ownerUserId: "1"),
-        Plan(id: "4", tripId: "1", name: "Flight to Japan",
-             startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_440_400),
-                                     timeZone: TimeZone(abbreviation: "MST")!),
-             endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400),
-                                   timeZone: TimeZone(abbreviation: "MST")!),
-             imageUrl: "https://source.unsplash.com/pT0qBgNa0VU",
-             status: .confirmed, creationDate: creationDate,
-             modificationDate: creationDate,
-             ownerUserId: "1")
+        Activity(tripId: "0", name: "Run",
+                 startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
+                 endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400)),
+                 imageUrl: "", status: .proposed,
+                 additionalInfo: "", ownerUserId: "0", location: nil),
+        Accommodation(tripId: "0", name: "Holiday Inn",
+                      startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
+                      endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400)),
+                      imageUrl: "", status: .confirmed,
+                      additionalInfo: "", ownerUserId: "0", location: nil),
+        Transport(tripId: "0", name: "Travel to Spago",
+                  startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
+                  endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_461_400)),
+                  imageUrl: "", status: .confirmed,
+                  additionalInfo: "", ownerUserId: "0", startLocation: nil, endLocation: nil),
+        Transport(tripId: "1", name: "Flight to Japan",
+                  startDateTime: DateTime(
+                    date: Date(timeIntervalSince1970: 1_651_440_400),
+                    timeZone: TimeZone(abbreviation: "MST")!),
+                  endDateTime: DateTime(
+                    date: Date(timeIntervalSince1970: 1_651_460_400),
+                    timeZone: TimeZone(abbreviation: "MST")!),
+                  imageUrl: "", status: .confirmed,
+                  additionalInfo: "", ownerUserId: "0", startLocation: nil, endLocation: nil),
+        Activity(tripId: "1", name: "Movie",
+                 startDateTime: DateTime(
+                    date: Date(timeIntervalSince1970: 1_651_460_400),
+                    timeZone: TimeZone(abbreviation: "MST")!),
+                 endDateTime: DateTime(
+                    date: Date(timeIntervalSince1970: 1_651_480_400),
+                    timeZone: TimeZone(abbreviation: "MST")!),
+                 imageUrl: "", status: .proposed,
+                 additionalInfo: "", ownerUserId: "0", location: nil)
     ]
 
     func addPlan(plan: Plan) async -> (Bool, String) {
@@ -81,7 +73,7 @@ class MockPlanService: PlanService {
 
     func fetchPlansAndListen(withTripId tripId: String) async {}
 
-    func fetchPlanAndListen(withPlanId planId: String) async {}
+    func fetchVersionedPlansAndListen(withPlanId planId: String) async {}
 
     func detachListener() {}
 

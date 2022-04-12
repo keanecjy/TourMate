@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PlanUpvoteService: Copyable {
-    func fetchPlanUpvotesAndListen(withPlanId planId: String) async
+    func fetchPlanUpvotesAndListen(withPlanId planId: String, withPlanVersion planVersion: Int) async
 
     func addPlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String)
 

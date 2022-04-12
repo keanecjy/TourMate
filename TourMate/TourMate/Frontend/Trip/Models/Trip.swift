@@ -13,6 +13,7 @@ struct Trip: CustomStringConvertible {
     var startDateTime: DateTime
     var endDateTime: DateTime
     var imageUrl: String
+    var creatorUserId: String
     var attendeesUserIds: [String]
     var invitedUserIds: [String]
     let creationDate: Date
@@ -36,6 +37,7 @@ struct Trip: CustomStringConvertible {
          startDateTime: DateTime,
          endDateTime: DateTime,
          imageUrl: String,
+         creatorUserId: String,
          attendeesUserIds: [String],
          invitedUserIds: [String],
          creationDate: Date,
@@ -45,6 +47,7 @@ struct Trip: CustomStringConvertible {
         self.startDateTime = startDateTime
         self.endDateTime = endDateTime
         self.imageUrl = imageUrl
+        self.creatorUserId = creatorUserId
         self.attendeesUserIds = attendeesUserIds
         self.invitedUserIds = invitedUserIds
         self.creationDate = creationDate
@@ -62,10 +65,24 @@ struct Trip: CustomStringConvertible {
         self.startDateTime = startDateTime
         self.endDateTime = endDateTime
         self.imageUrl = imageUrl
+        self.creatorUserId = creatorUserId
         self.attendeesUserIds = [creatorUserId]
         self.invitedUserIds = []
         self.creationDate = Date.now
         self.modificationDate = Date.now
+    }
+
+    init() {
+        self.id = ""
+        self.name = ""
+        self.startDateTime = DateTime()
+        self.endDateTime = DateTime()
+        self.imageUrl = ""
+        self.creatorUserId = ""
+        self.attendeesUserIds = []
+        self.invitedUserIds = []
+        self.creationDate = Date()
+        self.modificationDate = Date()
     }
 }
 

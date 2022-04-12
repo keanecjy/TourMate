@@ -9,6 +9,7 @@ import Foundation
 
 struct FirebaseAdaptedComment: FirebaseAdaptedData {
     let planId: String
+    let planVersionNumber: Int
     let id: String
     let userId: String
     let message: String

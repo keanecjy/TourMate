@@ -10,8 +10,9 @@ import Foundation
 @MainActor
 class EditTripViewModel: TripFormViewModel {
     @Published private(set) var isLoading = false
-    @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
+
+    private(set) var canDeleteTrip = false
 
     private let trip: Trip
 
@@ -25,6 +26,24 @@ class EditTripViewModel: TripFormViewModel {
         self.userService = userService
 
         super.init(trip: trip)
+
+        updatePermissions()
+    }
+
+    private func updatePermissions() {
+        Task {
+            let (currentUser, _) = await userService.getCurrentUser()
+            if let currentUser = currentUser,
+                currentUser.id == trip.creatorUserId {
+                setSpecialPermissions(true)
+            } else {
+                setSpecialPermissions(false)
+            }
+        }
+    }
+
+    private func setSpecialPermissions(_ allowed: Bool) {
+        canDeleteTrip = allowed
     }
 
     func updateTrip() async {
@@ -33,6 +52,7 @@ class EditTripViewModel: TripFormViewModel {
         let id = trip.id
         let name = tripName
         let imageUrl = tripImageURL
+        let creatorUserId = trip.creatorUserId
         let attendeesUserIds = trip.attendeesUserIds
         let invitedUserIds = trip.invitedUserIds
         let creationDate = trip.creationDate
@@ -45,6 +65,7 @@ class EditTripViewModel: TripFormViewModel {
                                startDateTime: startDateTime,
                                endDateTime: endDateTime,
                                imageUrl: imageUrl,
+                               creatorUserId: creatorUserId,
                                attendeesUserIds: attendeesUserIds,
                                invitedUserIds: invitedUserIds,
                                creationDate: creationDate,
@@ -65,17 +86,11 @@ class EditTripViewModel: TripFormViewModel {
             handleError()
             return
         }
-        handleDeletion()
     }
 }
 
 // MARK: - State changes
 extension EditTripViewModel {
-    private func handleDeletion() {
-        self.isDeleted = true
-        self.isLoading = false
-    }
-
     private func handleError() {
         self.isLoading = false
         self.hasError = true
