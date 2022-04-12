@@ -8,6 +8,8 @@
 import Foundation
 
 struct Location: Equatable {
+    var country: String = ""
+    var city: String = ""
     var addressLineOne: String = ""
     var addressLineTwo: String = ""
     // full = address line one + address line two

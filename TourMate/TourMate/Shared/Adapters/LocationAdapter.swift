@@ -21,7 +21,9 @@ class LocationAdapter {
 
 extension Location {
     fileprivate func toData() -> JsonAdaptedLocation {
-        JsonAdaptedLocation(address_line1: addressLineOne,
+        JsonAdaptedLocation(country: country,
+                            city: city,
+                            address_line1: addressLineOne,
                             address_line2: addressLineTwo,
                             formatted: addressFull,
                             lon: longitude,
@@ -31,7 +33,9 @@ extension Location {
 
 extension JsonAdaptedLocation {
     fileprivate func toItem() -> Location {
-        Location(addressLineOne: address_line1,
+        Location(country: country,
+                 city: city,
+                 addressLineOne: address_line1,
                  addressLineTwo: address_line2,
                  addressFull: formatted,
                  longitude: lon,
