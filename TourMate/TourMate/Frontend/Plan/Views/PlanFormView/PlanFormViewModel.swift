@@ -133,7 +133,7 @@ class PlanFormViewModel<T: Plan>: ObservableObject {
         canChangeStatus = allowed
     }
 
-    func makeUpdatedPlan(_ plan: T) async {
+    private func makeUpdatedPlan(_ plan: T) async {
         let (currentUser, _) = await userService.getCurrentUser()
         guard let currentUser = currentUser else {
             handleError()
@@ -143,6 +143,22 @@ class PlanFormViewModel<T: Plan>: ObservableObject {
         plan.modificationDate = Date()
         plan.modifierUserId = currentUser.id
         plan.versionNumber += 1
+    }
+
+    func getPlanWithUpdatedFields() -> Plan {
+        Plan(id: plan.id,
+             tripId: plan.tripId,
+             name: planName,
+             startDateTime: DateTime(date: planStartDate, timeZone: plan.startDateTime.timeZone),
+             endDateTime: DateTime(date: planEndDate, timeZone: plan.endDateTime.timeZone),
+             imageUrl: planImageUrl,
+             status: planStatus,
+             creationDate: plan.creationDate,
+             modificationDate: plan.modificationDate,
+             additionalInfo: planAdditionalInfo,
+             ownerUserId: plan.ownerUserId,
+             modifierUserId: plan.modifierUserId,
+             versionNumber: plan.versionNumber)
     }
 
     func deletePlan() async {
@@ -155,8 +171,37 @@ class PlanFormViewModel<T: Plan>: ObservableObject {
             return
         }
     }
+
+    func addPlan(_ plan: T) async {
+        let (hasAddedActivity, errorMessage) = await planService.addPlan(plan: plan)
+        guard hasAddedActivity, errorMessage.isEmpty else {
+            handleError()
+            return
+        }
+
+        self.isLoading = false
+    }
+
+    func updatePlan(_ updatedPlan: T) async {
+        guard !plan.equals(other: updatedPlan) else {
+            self.isLoading = false
+            return
+        }
+
+        await makeUpdatedPlan(updatedPlan)
+
+        let (hasUpdatedPlan, errorMessage) = await planService.updatePlan(plan: updatedPlan)
+
+        guard hasUpdatedPlan, errorMessage.isEmpty else {
+            handleError()
+            return
+        }
+
+        self.isLoading = false
+    }
 }
 
+// MARK: - State Changes
 extension PlanFormViewModel {
     func handleError() {
         self.hasError = true

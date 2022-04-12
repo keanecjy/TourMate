@@ -26,6 +26,22 @@ class Plan: CustomStringConvertible {
         id + "-" + String(versionNumber)
     }
 
+    init(plan: Plan) {
+        self.id = plan.id
+        self.tripId = plan.tripId
+        self.name = plan.name
+        self.startDateTime = plan.startDateTime
+        self.endDateTime = plan.endDateTime
+        self.imageUrl = plan.imageUrl
+        self.status = plan.status
+        self.creationDate = plan.creationDate
+        self.modificationDate = plan.modificationDate
+        self.additionalInfo = plan.additionalInfo
+        self.ownerUserId = plan.ownerUserId
+        self.modifierUserId = plan.modifierUserId
+        self.versionNumber = plan.versionNumber
+    }
+
     // Plan creation
     init(tripId: String, name: String,
          startDateTime: DateTime, endDateTime: DateTime,

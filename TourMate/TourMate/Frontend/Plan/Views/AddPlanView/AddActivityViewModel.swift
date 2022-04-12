@@ -48,12 +48,6 @@ class AddActivityViewModel: ActivityFormViewModel {
                                 ownerUserId: ownerUserId,
                                 location: location)
 
-        let (hasAddedActivity, errorMessage) = await planService.addPlan(plan: activity)
-        guard hasAddedActivity, errorMessage.isEmpty else {
-            handleError()
-            return
-        }
-
-        self.isLoading = false
+        await addPlan(activity)
     }
 }

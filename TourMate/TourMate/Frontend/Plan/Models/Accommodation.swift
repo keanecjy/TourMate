@@ -31,6 +31,11 @@ class Accommodation: Plan {
                    ownerUserId: ownerUserId)
     }
 
+    init(plan: Plan, location: Location?) {
+        self.location = location
+        super.init(plan: plan)
+    }
+
     // All fields
     init(id: String, tripId: String, name: String,
          startDateTime: DateTime,

@@ -11,7 +11,7 @@ class Activity: Plan {
     var location: Location?
 
     // Activity creation
-    init(tripId: String
+    init(tripId: String,
          name: String,
          startDateTime: DateTime,
          endDateTime: DateTime,
@@ -29,6 +29,11 @@ class Activity: Plan {
                    status: status,
                    additionalInfo: additionalInfo,
                    ownerUserId: ownerUserId)
+    }
+
+    init(plan: Plan, location: Location?) {
+        self.location = location
+        super.init(plan: plan)
     }
 
     // All fields

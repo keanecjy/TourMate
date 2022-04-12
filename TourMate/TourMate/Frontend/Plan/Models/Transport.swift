@@ -35,6 +35,12 @@ class Transport: Plan {
                    ownerUserId: ownerUserId)
     }
 
+    init(plan: Plan, startLocation: Location?, endLocation: Location?) {
+        self.startLocation = startLocation
+        self.endLocation = endLocation
+        super.init(plan: plan)
+    }
+
     // All fields
     init(id: String, tripId: String, name: String,
          startDateTime: DateTime,

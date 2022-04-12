@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 class EditAccommodationViewModel: AccommodationFormViewModel {
-    
+
     init(accommodation: Accommodation,
          lowerBoundDate: Date,
          upperBoundDate: Date,
@@ -20,53 +20,13 @@ class EditAccommodationViewModel: AccommodationFormViewModel {
                    accommodation: accommodation, planService: planService,
                    userService: userService)
     }
-    
+
     func updateAccommodation() async {
         self.isLoading = true
-        
-        let planId = plan.id
-        let tripId = plan.tripId
-        let name = planName
-        let startDateTime = DateTime(date: planStartDate, timeZone: plan.startDateTime.timeZone)
-        let endDateTime = DateTime(date: planEndDate, timeZone: plan.endDateTime.timeZone)
-        let imageUrl = planImageUrl
-        let status = planStatus
-        let creationDate = plan.creationDate
-        let modificationDate = plan.modificationDate
-        let additionalInfo = planAdditionalInfo
-        let ownerUserId = plan.ownerUserId
-        let versionNumber = plan.versionNumber
-        let modifierUserId = plan.modifierUserId
-        
-        let updatedAccommodation = Accommodation(id: planId,
-                                                 tripId: tripId,
-                                                 name: name,
-                                                 startDateTime: startDateTime,
-                                                 endDateTime: endDateTime,
-                                                 imageUrl: imageUrl,
-                                                 status: status,
-                                                 creationDate: creationDate,
-                                                 modificationDate: modificationDate,
-                                                 additionalInfo: additionalInfo,
-                                                 ownerUserId: ownerUserId,
-                                                 modifierUserId: modifierUserId,
-                                                 versionNumber: versionNumber,
+
+        let updatedAccommodation = Accommodation(plan: getPlanWithUpdatedFields(),
                                                  location: location)
-        
-        guard !plan.equals(other: updatedAccommodation) else {
-            self.isLoading = false
-            return
-        }
-        
-        await makeUpdatedPlan(updatedAccommodation)
-        
-        let (hasUpdatedAccommodation, errorMessage) = await planService.updatePlan(plan: updatedAccommodation)
-        
-        guard hasUpdatedAccommodation, errorMessage.isEmpty else {
-            handleError()
-            return
-        }
-        
-        self.isLoading = false
+
+        await updatePlan(updatedAccommodation)
     }
 }
