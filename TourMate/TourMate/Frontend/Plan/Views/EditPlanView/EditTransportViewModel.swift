@@ -23,8 +23,6 @@ class EditTransportViewModel: TransportFormViewModel {
     }
 
     func updateTransport() async {
-        self.isLoading = true
-
         let updatedTransport = Transport(plan: getPlanWithUpdatedFields(),
                                          startLocation: startLocation,
                                          endLocation: endLocation)

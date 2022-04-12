@@ -13,12 +13,13 @@ class TransportFormViewModel: PlanFormViewModel<Transport> {
     @Published var endLocation: Location?
 
     // Adding Transport
-    override init(lowerBoundDate: Date, upperBoundDate: Date, planService: PlanService, userService: UserService) {
+    override init(trip: Trip,
+                  planService: PlanService,
+                  userService: UserService) {
         self.startLocation = nil
         self.endLocation = nil
 
-        super.init(lowerBoundDate: lowerBoundDate,
-                   upperBoundDate: upperBoundDate,
+        super.init(trip: trip,
                    planService: planService,
                    userService: userService)
     }

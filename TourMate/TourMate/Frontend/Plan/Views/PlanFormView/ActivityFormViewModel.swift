@@ -12,11 +12,12 @@ class ActivityFormViewModel: PlanFormViewModel<Activity> {
     @Published var location: Location?
 
     // Adding Activity
-    override init(lowerBoundDate: Date, upperBoundDate: Date, planService: PlanService, userService: UserService) {
+    override init(trip: Trip,
+                  planService: PlanService,
+                  userService: UserService) {
         self.location = nil
 
-        super.init(lowerBoundDate: lowerBoundDate,
-                   upperBoundDate: upperBoundDate,
+        super.init(trip: trip,
                    planService: planService,
                    userService: userService)
     }

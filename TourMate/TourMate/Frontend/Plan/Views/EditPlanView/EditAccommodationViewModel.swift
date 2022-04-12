@@ -22,8 +22,6 @@ class EditAccommodationViewModel: AccommodationFormViewModel {
     }
 
     func updateAccommodation() async {
-        self.isLoading = true
-
         let updatedAccommodation = Accommodation(plan: getPlanWithUpdatedFields(),
                                                  location: location)
 

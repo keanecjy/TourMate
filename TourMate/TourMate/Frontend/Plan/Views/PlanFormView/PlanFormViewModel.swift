@@ -13,7 +13,8 @@ class PlanFormViewModel<T: Plan>: ObservableObject {
     let lowerBoundDate: Date
     let upperBoundDate: Date
 
-    let plan: T
+    let plan: T // Store initial plan for edit
+    let trip: Trip // Store trip details
     let planService: PlanService
     let userService: UserService
 
@@ -37,13 +38,14 @@ class PlanFormViewModel<T: Plan>: ObservableObject {
     private var cancellableSet: Set<AnyCancellable> = []
 
     // Adding Plan
-    init(lowerBoundDate: Date, upperBoundDate: Date, planService: PlanService, userService: UserService) {
+    init(trip: Trip, planService: PlanService, userService: UserService) {
         self.plan = T()
+        self.trip = trip
         self.planService = planService
         self.userService = userService
 
-        self.lowerBoundDate = lowerBoundDate
-        self.upperBoundDate = upperBoundDate
+        self.lowerBoundDate = trip.startDateTime.date
+        self.upperBoundDate = trip.endDateTime.date
 
         self.isPlanNameValid = false
         self.isPlanDurationValid = true
@@ -60,8 +62,10 @@ class PlanFormViewModel<T: Plan>: ObservableObject {
     }
 
     // Editing Plan
-    init(lowerBoundDate: Date, upperBoundDate: Date, plan: T, planService: PlanService, userService: UserService) {
+    init(lowerBoundDate: Date, upperBoundDate: Date, plan: T,
+         planService: PlanService, userService: UserService) {
         self.plan = plan
+        self.trip = Trip()
         self.planService = planService
         self.userService = userService
 
@@ -133,18 +137,6 @@ class PlanFormViewModel<T: Plan>: ObservableObject {
         canChangeStatus = allowed
     }
 
-    private func makeUpdatedPlan(_ plan: T) async {
-        let (currentUser, _) = await userService.getCurrentUser()
-        guard let currentUser = currentUser else {
-            handleError()
-            return
-        }
-
-        plan.modificationDate = Date()
-        plan.modifierUserId = currentUser.id
-        plan.versionNumber += 1
-    }
-
     func getPlanWithUpdatedFields() -> Plan {
         Plan(id: plan.id,
              tripId: plan.tripId,
@@ -161,6 +153,23 @@ class PlanFormViewModel<T: Plan>: ObservableObject {
              versionNumber: plan.versionNumber)
     }
 
+    func getPlanForAdding() async -> Plan {
+        let (user, userErrorMessage) = await userService.getCurrentUser()
+        guard let user = user, userErrorMessage.isEmpty else {
+            handleError()
+            preconditionFailure()
+        }
+
+        return Plan(tripId: trip.id,
+                    name: planName,
+                    startDateTime: DateTime(date: planStartDate, timeZone: trip.startDateTime.timeZone),
+                    endDateTime: DateTime(date: planStartDate, timeZone: trip.endDateTime.timeZone),
+                    imageUrl: planImageUrl,
+                    status: planStatus,
+                    additionalInfo: planAdditionalInfo,
+                    ownerUserId: user.id)
+    }
+
     func deletePlan() async {
         self.isLoading = true
 
@@ -173,8 +182,10 @@ class PlanFormViewModel<T: Plan>: ObservableObject {
     }
 
     func addPlan(_ plan: T) async {
-        let (hasAddedActivity, errorMessage) = await planService.addPlan(plan: plan)
-        guard hasAddedActivity, errorMessage.isEmpty else {
+        self.isLoading = false
+
+        let (hasAddedPlan, errorMessage) = await planService.addPlan(plan: plan)
+        guard hasAddedPlan, errorMessage.isEmpty else {
             handleError()
             return
         }
@@ -198,6 +209,18 @@ class PlanFormViewModel<T: Plan>: ObservableObject {
         }
 
         self.isLoading = false
+    }
+
+    private func makeUpdatedPlan(_ plan: T) async {
+        let (currentUser, _) = await userService.getCurrentUser()
+        guard let currentUser = currentUser else {
+            handleError()
+            return
+        }
+
+        plan.modificationDate = Date()
+        plan.modifierUserId = currentUser.id
+        plan.versionNumber += 1
     }
 }
 

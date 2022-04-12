@@ -71,6 +71,19 @@ struct Trip: CustomStringConvertible {
         self.creationDate = Date.now
         self.modificationDate = Date.now
     }
+
+    init() {
+        self.id = ""
+        self.name = ""
+        self.startDateTime = DateTime()
+        self.endDateTime = DateTime()
+        self.imageUrl = ""
+        self.creatorUserId = ""
+        self.attendeesUserIds = []
+        self.invitedUserIds = []
+        self.creationDate = Date()
+        self.modificationDate = Date()
+    }
 }
 
 // MARK: - CustomStringConvertible

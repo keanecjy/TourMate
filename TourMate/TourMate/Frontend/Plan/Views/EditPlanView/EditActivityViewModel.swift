@@ -23,11 +23,9 @@ class EditActivityViewModel: ActivityFormViewModel {
     }
 
     func updateActivity() async {
-        self.isLoading = true
+        let updatedActivity = Activity(plan: getPlanWithUpdatedFields(),
+                                       location: location)
 
-        let updateActivity = Activity(plan: getPlanWithUpdatedFields(),
-                                      location: location)
-
-        await updatePlan(updateActivity)
+        await updatePlan(updatedActivity)
     }
 }
