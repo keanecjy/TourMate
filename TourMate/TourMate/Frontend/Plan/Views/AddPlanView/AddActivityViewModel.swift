@@ -29,25 +29,21 @@ class AddActivityViewModel: ActivityFormViewModel {
             return
         }
 
-        let planId = trip.id + UUID().uuidString
         let tripId = trip.id
         let name = planName
         let startDateTime = DateTime(date: planStartDate, timeZone: trip.startDateTime.timeZone)
         let endDateTime = DateTime(date: planEndDate, timeZone: trip.endDateTime.timeZone)
         let imageUrl = planImageUrl
         let status = planStatus
-        let creationDate = Date()
-        let modificationDate = Date()
         let additionalInfo = planAdditionalInfo
         let ownerUserId = user.id
 
-        let activity = Activity(id: planId,
-                                tripId: tripId,
+        let activity = Activity(tripId: tripId,
                                 name: name,
                                 startDateTime: startDateTime,
                                 endDateTime: endDateTime,
-                                imageUrl: imageUrl, status: status, creationDate: creationDate,
-                                modificationDate: modificationDate,
+                                imageUrl: imageUrl,
+                                status: status,
                                 additionalInfo: additionalInfo,
                                 ownerUserId: ownerUserId,
                                 location: location)

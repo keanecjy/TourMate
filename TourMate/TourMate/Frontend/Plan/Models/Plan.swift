@@ -27,11 +27,11 @@ class Plan: CustomStringConvertible {
     }
 
     // Plan creation
-    init(id: String, tripId: String, name: String,
+    init(tripId: String, name: String,
          startDateTime: DateTime, endDateTime: DateTime,
-         imageUrl: String, status: PlanStatus, creationDate: Date,
-         modificationDate: Date, additionalInfo: String, ownerUserId: String) {
-        self.id = id
+         imageUrl: String, status: PlanStatus,
+         additionalInfo: String, ownerUserId: String) {
+        self.id = tripId + "-" + UUID().uuidString
         self.tripId = tripId
         self.name = name
         self.startDateTime = startDateTime

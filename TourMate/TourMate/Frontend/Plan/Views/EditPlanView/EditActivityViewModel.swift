@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 class EditActivityViewModel: ActivityFormViewModel {
-
+    
     init(activity: Activity,
          lowerBoundDate: Date,
          upperBoundDate: Date,
@@ -21,11 +21,11 @@ class EditActivityViewModel: ActivityFormViewModel {
                    planService: planService,
                    userService: userService)
     }
-
+    
     func updateActivity() async {
         self.isLoading = true
-
-        let id = plan.id
+        
+        let planId = plan.id
         let tripId = plan.tripId
         let name = planName
         let startDateTime = DateTime(date: planStartDate, timeZone: plan.startDateTime.timeZone)
@@ -33,35 +33,41 @@ class EditActivityViewModel: ActivityFormViewModel {
         let imageUrl = planImageUrl
         let status = planStatus
         let creationDate = plan.creationDate
-        let modificationDate = Date()
+        let modificationDate = plan.modificationDate
         let additionalInfo = planAdditionalInfo
         let ownerUserId = plan.ownerUserId
-
-        let updatedActivity = Activity(
-            id: id, tripId: tripId, name: name,
-            startDateTime: startDateTime,
-            endDateTime: endDateTime,
-            imageUrl: imageUrl, status: status,
-            creationDate: creationDate,
-            modificationDate: modificationDate,
-            additionalInfo: additionalInfo,
-            ownerUserId: ownerUserId,
-            location: location)
-
+        let versionNumber = plan.versionNumber
+        let modifierUserId = plan.modifierUserId
+        
+        let updatedActivity = Activity(id: planId,
+                                       tripId: tripId,
+                                       name: name,
+                                       startDateTime: startDateTime,
+                                       endDateTime: endDateTime,
+                                       imageUrl: imageUrl,
+                                       status: status,
+                                       creationDate: creationDate,
+                                       modificationDate: modificationDate,
+                                       additionalInfo: additionalInfo,
+                                       ownerUserId: ownerUserId,
+                                       modifierUserId: modifierUserId,
+                                       versionNumber: versionNumber,
+                                       location: location)
+        
         guard !plan.equals(other: updatedActivity) else {
             self.isLoading = false
             return
         }
-
+        
         await makeUpdatedPlan(updatedActivity)
-
+        
         let (hasUpdatedActivity, errorMessage) = await planService.updatePlan(plan: updatedActivity)
-
+        
         guard hasUpdatedActivity, errorMessage.isEmpty else {
             handleError()
             return
         }
-
+        
         self.isLoading = false
     }
 }

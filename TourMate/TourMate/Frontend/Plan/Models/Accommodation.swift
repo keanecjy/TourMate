@@ -11,24 +11,22 @@ class Accommodation: Plan {
     var location: Location?
 
     // Accommodation creation
-    init(id: String, tripId: String, name: String,
+    init(tripId: String,
+         name: String,
          startDateTime: DateTime,
          endDateTime: DateTime,
          imageUrl: String,
          status: PlanStatus,
-         creationDate: Date,
-         modificationDate: Date,
          additionalInfo: String,
          ownerUserId: String,
          location: Location?) {
         self.location = location
-        super.init(id: id, tripId: tripId, name: name,
+        super.init(tripId: tripId,
+                   name: name,
                    startDateTime: startDateTime,
                    endDateTime: endDateTime,
                    imageUrl: imageUrl,
                    status: status,
-                   creationDate: creationDate,
-                   modificationDate: modificationDate,
                    additionalInfo: additionalInfo,
                    ownerUserId: ownerUserId)
     }

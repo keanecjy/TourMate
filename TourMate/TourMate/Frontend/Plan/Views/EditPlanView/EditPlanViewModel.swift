@@ -8,16 +8,11 @@
 import Foundation
 
 @MainActor
-class EditPlanViewModel: PlanFormViewModel {
+class EditPlanViewModel<T: Plan>: PlanFormViewModel<T> {
     @Published private(set) var isLoading = false
     @Published private(set) var hasError = false
 
     private(set) var canDeletePlan = false
-
-    private let plan: Plan
-
-    private let planService: PlanService
-    private let userService: UserService
 
     init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService, userService: UserService) {

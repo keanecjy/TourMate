@@ -10,7 +10,7 @@ import SwiftUI
 
 @MainActor
 class EditTransportViewModel: TransportFormViewModel {
-
+    
     init(transport: Transport,
          lowerBoundDate: Date,
          upperBoundDate: Date,
@@ -22,10 +22,10 @@ class EditTransportViewModel: TransportFormViewModel {
                    planService: planService,
                    userService: userService)
     }
-
+    
     func updateTransport() async {
         self.isLoading = true
-
+        
         let planId = plan.id
         let tripId = plan.tripId
         let name = planName
@@ -34,35 +34,41 @@ class EditTransportViewModel: TransportFormViewModel {
         let imageUrl = planImageUrl
         let status = planStatus
         let creationDate = plan.creationDate
-        let modificationDate = Date()
+        let modificationDate = plan.modificationDate
         let additionalInfo = planAdditionalInfo
         let ownerUserId = plan.ownerUserId
-
-        let updatedTransport = Transport(
-            id: planId, tripId: tripId,
-            name: name, startDateTime: startDateTime,
-            endDateTime: endDateTime, imageUrl: imageUrl,
-            status: status, creationDate: creationDate,
-            modificationDate: modificationDate,
-            additionalInfo: additionalInfo,
-            ownerUserId: ownerUserId,
-            startLocation: startLocation,
-            endLocation: endLocation)
-
+        let versionNumber = plan.versionNumber
+        let modifierUserId = plan.modifierUserId
+        
+        let updatedTransport = Transport(id: planId,
+                                         tripId: tripId,
+                                         name: name,
+                                         startDateTime: startDateTime,
+                                         endDateTime: endDateTime,
+                                         imageUrl: imageUrl,
+                                         status: status,
+                                         creationDate: creationDate,
+                                         modificationDate: modificationDate,
+                                         additionalInfo: additionalInfo,
+                                         ownerUserId: ownerUserId,
+                                         modifierUserId: modifierUserId,
+                                         versionNumber: versionNumber,
+                                         location: location)
+        
         guard !plan.equals(other: updatedTransport) else {
             self.isLoading = false
             return
         }
-
+        
         await makeUpdatedPlan(updatedTransport)
-
+        
         let (hasUpdatedTransport, errorMessage) = await planService.updatePlan(plan: updatedTransport)
-
+        
         guard hasUpdatedTransport, errorMessage.isEmpty else {
             handleError()
             return
         }
-
+        
         self.isLoading = false
     }
 }
