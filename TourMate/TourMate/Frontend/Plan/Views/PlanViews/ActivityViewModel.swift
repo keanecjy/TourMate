@@ -8,15 +8,12 @@
 import Foundation
 
 @MainActor
-class ActivityViewModel: PlanViewModel {
-    @Published var activity: Activity
-
+class ActivityViewModel: PlanViewModel<Activity> {
     init(activity: Activity,
          lowerBoundDate: DateTime,
          upperBoundDate: DateTime,
          planService: PlanService,
          userService: UserService) {
-        self.activity = activity
         super.init(plan: activity,
                    lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
@@ -25,24 +22,7 @@ class ActivityViewModel: PlanViewModel {
     }
 
     var location: Location? {
-        activity.location
+        plan.location
     }
 
-    override func loadLatestVersionedPlan(_ plans: [Plan]) {
-        guard var latestPlan = plans.first else {
-            handleDeletion()
-            return
-        }
-
-        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
-            latestPlan = plan
-        }
-
-        if let activity = latestPlan as? Activity {
-            self.activity = activity
-        }
-
-        self.plan = latestPlan
-        self.allPlans = plans
-    }
 }

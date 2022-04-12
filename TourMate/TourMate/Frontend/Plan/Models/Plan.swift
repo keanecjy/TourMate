@@ -7,11 +7,7 @@
 
 import Foundation
 
-class Plan: CustomStringConvertible, Equatable {
-    static func == (lhs: Plan, rhs: Plan) -> Bool {
-        lhs.id == rhs.id
-    }
-
+class Plan: CustomStringConvertible {
     var id: String
     var tripId: String
     var name: String
@@ -30,12 +26,28 @@ class Plan: CustomStringConvertible, Equatable {
         id + "-" + String(versionNumber)
     }
 
+    init(plan: Plan) {
+        self.id = plan.id
+        self.tripId = plan.tripId
+        self.name = plan.name
+        self.startDateTime = plan.startDateTime
+        self.endDateTime = plan.endDateTime
+        self.imageUrl = plan.imageUrl
+        self.status = plan.status
+        self.creationDate = plan.creationDate
+        self.modificationDate = plan.modificationDate
+        self.additionalInfo = plan.additionalInfo
+        self.ownerUserId = plan.ownerUserId
+        self.modifierUserId = plan.modifierUserId
+        self.versionNumber = plan.versionNumber
+    }
+
     // Plan creation
-    init(id: String, tripId: String, name: String,
+    init(tripId: String, name: String,
          startDateTime: DateTime, endDateTime: DateTime,
-         imageUrl: String, status: PlanStatus, creationDate: Date,
-         modificationDate: Date, additionalInfo: String, ownerUserId: String) {
-        self.id = id
+         imageUrl: String, status: PlanStatus,
+         additionalInfo: String, ownerUserId: String) {
+        self.id = tripId + "-" + UUID().uuidString
         self.tripId = tripId
         self.name = name
         self.startDateTime = startDateTime
@@ -73,7 +85,7 @@ class Plan: CustomStringConvertible, Equatable {
         self.versionNumber = versionNumber
     }
 
-    init() {
+    required init() {
         self.id = ""
         self.tripId = ""
         self.name = ""
@@ -87,6 +99,22 @@ class Plan: CustomStringConvertible, Equatable {
         self.ownerUserId = ""
         self.modifierUserId = ""
         self.versionNumber = 0
+    }
+
+    func equals<T: Plan>(other: T) -> Bool {
+        id == other.id
+        && tripId == other.tripId
+        && name == other.name
+        && startDateTime == other.startDateTime
+        && endDateTime == other.endDateTime
+        && imageUrl == other.imageUrl
+        && status == other.status
+        && creationDate == other.creationDate
+        && modificationDate == other.modificationDate
+        && additionalInfo == other.additionalInfo
+        && ownerUserId == other.ownerUserId
+        && modifierUserId == other.modifierUserId
+        && versionNumber == other.versionNumber
     }
 }
 

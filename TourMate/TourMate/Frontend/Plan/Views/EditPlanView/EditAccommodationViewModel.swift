@@ -22,38 +22,9 @@ class EditAccommodationViewModel: AccommodationFormViewModel {
     }
 
     func updateAccommodation() async {
-        self.isLoading = true
+        let updatedAccommodation = Accommodation(plan: getPlanWithUpdatedFields(),
+                                                 location: location)
 
-        let planId = plan.id
-        let tripId = plan.tripId
-        let name = planName
-        let startDateTime = DateTime(date: planStartDate, timeZone: plan.startDateTime.timeZone)
-        let endDateTime = DateTime(date: planEndDate, timeZone: plan.endDateTime.timeZone)
-        let imageUrl = planImageUrl
-        let status = planStatus
-        let creationDate = plan.creationDate
-        let modificationDate = Date()
-        let additionalInfo = planAdditionalInfo
-        let ownerUserId = plan.ownerUserId
-
-        let updatedAccommodation = Accommodation(
-            id: planId, tripId: tripId, name: name,
-            startDateTime: startDateTime,
-            endDateTime: endDateTime,
-            imageUrl: imageUrl, status: status,
-            creationDate: creationDate,
-            modificationDate: modificationDate,
-            additionalInfo: additionalInfo,
-            ownerUserId: ownerUserId,
-            location: location)
-
-        let (hasUpdatedAccommodation, errorMessage) = await planService.updatePlan(plan: updatedAccommodation)
-
-        guard hasUpdatedAccommodation, errorMessage.isEmpty else {
-            handleError()
-            return
-        }
-
-        self.isLoading = false
+        await updatePlan(updatedAccommodation)
     }
 }

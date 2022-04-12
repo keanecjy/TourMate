@@ -7,12 +7,19 @@
 
 import SwiftUI
 
-struct PlanFormView<Content: View>: View {
+struct PlanFormView<T: Plan, Content: View>: View {
     let content: Content
-    @ObservedObject var viewModel: PlanFormViewModel
+    @ObservedObject var viewModel: PlanFormViewModel<T>
+    let startDateHeader: String
+    let endDateHeader: String
 
-    init(viewModel: PlanFormViewModel, @ViewBuilder content: () -> Content) {
+    init(viewModel: PlanFormViewModel<T>,
+         startDateHeader: String,
+         endDateHeader: String,
+         @ViewBuilder content: () -> Content) {
         self.viewModel = viewModel
+        self.startDateHeader = startDateHeader
+        self.endDateHeader = endDateHeader
         self.content = content()
     }
 
@@ -25,6 +32,13 @@ struct PlanFormView<Content: View>: View {
 
                 TextField("Image URL", text: $viewModel.planImageUrl)
             }
+
+            StartEndDatePicker(startDate: $viewModel.planStartDate,
+                               endDate: $viewModel.planEndDate,
+                               lowerBoundDate: viewModel.lowerBoundDate,
+                               upperBoundDate: viewModel.upperBoundDate,
+                               startDateHeader: startDateHeader,
+                               endDateHeader: startDateHeader)
 
             content
 

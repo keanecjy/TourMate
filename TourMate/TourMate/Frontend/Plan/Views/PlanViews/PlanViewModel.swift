@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 @MainActor
-class PlanViewModel: PlanDisplayViewModel {
+class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
     @Published private(set) var isLoading = false
     @Published private(set) var isDeleted = false
     @Published private(set) var hasError = false
@@ -22,7 +22,7 @@ class PlanViewModel: PlanDisplayViewModel {
 
     var planEventDelegates: [PlanEventDelegate]
 
-    init(plan: Plan, lowerBoundDate: DateTime, upperBoundDate: DateTime,
+    init(plan: T, lowerBoundDate: DateTime, upperBoundDate: DateTime,
          planService: PlanService, userService: UserService) {
 
         self.lowerBoundDate = lowerBoundDate
@@ -31,7 +31,6 @@ class PlanViewModel: PlanDisplayViewModel {
         self.userService = userService
 
         self.planEventDelegates = []
-
         super.init(plan: plan)
     }
 
@@ -65,7 +64,38 @@ class PlanViewModel: PlanDisplayViewModel {
         planService.detachListener()
     }
 
-    func loadLatestVersionedPlan(_ plans: [Plan]) {
+}
+
+// MARK: - PlanEventDelegate
+extension PlanViewModel: PlanEventDelegate {
+    func update(plan: Plan?, errorMessage: String) async {}
+
+    func update(plans: [Plan], errorMessage: String) async {
+        print("[PlanViewModel] Updating Versioned Plans: \(plans)")
+
+        guard errorMessage.isEmpty else {
+            handleError()
+            return
+        }
+
+        guard let plans = plans as? [T] else {
+            handleError()
+            return
+        }
+
+        self.allVersionedPlans = plans
+
+        loadLatestVersionedPlan(plans)
+
+        await updateDelegates()
+        await updatePlanLastModifier()
+    }
+
+}
+
+// MARK: - Helper Methods
+extension PlanViewModel {
+    private func loadLatestVersionedPlan(_ plans: [T]) {
         guard var latestPlan = plans.first else {
             handleDeletion()
             return
@@ -76,35 +106,21 @@ class PlanViewModel: PlanDisplayViewModel {
         }
 
         self.plan = latestPlan
-        self.allPlans = plans
-    }
-}
-
-// MARK: - PlanEventDelegate
-extension PlanViewModel: PlanEventDelegate {
-    func update(plan: Plan?, errorMessage: String) async {}
-
-    func update(plans: [Plan], errorMessage: String) async {
-        print("[PlansViewModel] Updating Versioned Plans: \(plans)")
-
-        guard errorMessage.isEmpty else {
-            handleError()
-            return
-        }
-
-        loadLatestVersionedPlan(plans)
-        await updateDelegates()
     }
 
-}
-
-// MARK: - Helper Methods
-extension PlanViewModel {
     private func updateDelegates() async {
         for eventDelegate in self.planEventDelegates {
             await eventDelegate.update(plan: self.plan, errorMessage: "")
         }
     }
+
+    private func updatePlanLastModifier() async {
+        let (user, _) = await userService.getUser(withUserId: plan.modifierUserId)
+        if let user = user {
+            planLastModifier = user
+        }
+    }
+
 }
 
 // MARK: - State changes

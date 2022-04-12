@@ -12,13 +12,12 @@ class Transport: Plan {
     var endLocation: Location?
 
     // Transport creation
-    init(id: String, tripId: String, name: String,
+    init(tripId: String,
+         name: String,
          startDateTime: DateTime,
          endDateTime: DateTime,
          imageUrl: String,
          status: PlanStatus,
-         creationDate: Date,
-         modificationDate: Date,
          additionalInfo: String,
          ownerUserId: String,
          startLocation: Location?,
@@ -26,15 +25,20 @@ class Transport: Plan {
         self.startLocation = startLocation
         self.endLocation = endLocation
 
-        super.init(id: id, tripId: tripId, name: name,
+        super.init(tripId: tripId,
+                   name: name,
                    startDateTime: startDateTime,
                    endDateTime: endDateTime,
                    imageUrl: imageUrl,
                    status: status,
-                   creationDate: creationDate,
-                   modificationDate: modificationDate,
                    additionalInfo: additionalInfo,
                    ownerUserId: ownerUserId)
+    }
+
+    init(plan: Plan, startLocation: Location?, endLocation: Location?) {
+        self.startLocation = startLocation
+        self.endLocation = endLocation
+        super.init(plan: plan)
     }
 
     // All fields
@@ -65,5 +69,22 @@ class Transport: Plan {
                    ownerUserId: ownerUserId,
                    modifierUserId: modifierUserId,
                    versionNumber: versionNumber)
+    }
+
+    required init() {
+        self.startLocation = nil
+        self.endLocation = nil
+        super.init()
+    }
+
+    override func equals<T>(other: T) -> Bool where T: Plan {
+        guard super.equals(other: other),
+              let otherTransport = other as? Transport
+        else {
+            return false
+        }
+
+        return startLocation == otherTransport.startLocation
+        && endLocation == otherTransport.endLocation
     }
 }

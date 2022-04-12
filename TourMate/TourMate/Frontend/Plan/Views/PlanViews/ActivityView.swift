@@ -8,49 +8,53 @@
 import SwiftUI
 
 struct ActivityView: View {
-    @StateObject var activityViewModel: ActivityViewModel
+    @StateObject var planViewModel: ActivityViewModel
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
     @State private var isShowingEditPlanSheet = false
 
     @Environment(\.dismiss) var dismiss
 
-    private let viewModelFactory = ViewModelFactory()
+    private let viewModelFactory: ViewModelFactory
 
-    init(activityViewModel: ActivityViewModel) {
-        self._activityViewModel = StateObject(wrappedValue: activityViewModel)
-        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: activityViewModel)
-        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: activityViewModel)
+    init(planViewModel: ActivityViewModel) {
+        self.viewModelFactory = ViewModelFactory()
+        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
+        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+
+        planViewModel.attachDelegate(delegate: commentsViewModel)
+        planViewModel.attachDelegate(delegate: planUpvoteViewModel)
+
+        self._planViewModel = StateObject(wrappedValue: planViewModel)
     }
 
     var body: some View {
-        if activityViewModel.hasError {
+        if planViewModel.hasError {
             Text("Error occurred")
-        } else if activityViewModel.isLoading {
+        } else if planViewModel.isLoading {
             ProgressView()
         } else {
             VStack(alignment: .leading, spacing: 30.0) {
-                // TODO: Show image
-
                 PlanHeaderView(
-                    planStatus: activityViewModel.statusDisplay,
-                    planOwner: activityViewModel.planOwner,
-                    creationDateDisplay: activityViewModel.creationDateDisplay,
-                    lastModifiedDateDisplay: activityViewModel.lastModifiedDateDisplay,
-                    versionNumberDisplay: activityViewModel.versionNumberDisplay) {
-                        Text(activityViewModel.nameDisplay)
+                    planStatus: planViewModel.statusDisplay,
+                    planOwner: planViewModel.planOwner,
+                    creationDateDisplay: planViewModel.creationDateDisplay,
+                    lastModifier: planViewModel.planLastModifier,
+                    lastModifiedDateDisplay: planViewModel.lastModifiedDateDisplay,
+                    versionNumberDisplay: planViewModel.versionNumberDisplay) {
+                        Text(planViewModel.nameDisplay)
                             .bold()
                             .prefixedWithIcon(named: "figure.walk.circle.fill")
                 }
 
                 PlanUpvoteView(viewModel: planUpvoteViewModel)
 
-                TimingView(startDate: activityViewModel.startDateTimeDisplay,
-                           endDate: activityViewModel.endDateTimeDisplay)
+                TimingView(startDate: planViewModel.startDateTimeDisplay,
+                           endDate: planViewModel.endDateTimeDisplay)
 
-                LocationView(startLocation: activityViewModel.location, endLocation: nil)
+                LocationView(startLocation: planViewModel.location, endLocation: nil)
 
-                InfoView(additionalInfo: activityViewModel.additionalInfoDisplay)
+                InfoView(additionalInfo: planViewModel.additionalInfoDisplay)
 
                 CommentsView(viewModel: commentsViewModel)
 
@@ -67,21 +71,21 @@ struct ActivityView: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        let viewModel = viewModelFactory.getEditActivityViewModel(activityViewModel: activityViewModel)
+                        let viewModel = viewModelFactory.getEditActivityViewModel(activityViewModel: planViewModel)
                         EditActivityView(viewModel: viewModel)
                     }
                 }
             }
             .task {
-                await activityViewModel.fetchVersionedPlansAndListen()
-                await activityViewModel.updatePlanOwner()
+                await planViewModel.fetchVersionedPlansAndListen()
+                await planViewModel.updatePlanOwner()
             }
-            .onReceive(activityViewModel.objectWillChange) {
-                if activityViewModel.isDeleted {
+            .onReceive(planViewModel.objectWillChange) {
+                if planViewModel.isDeleted {
                     dismiss()
                 }
             }
-            .onDisappear(perform: { () in activityViewModel.detachListener() })
+            .onDisappear(perform: { () in planViewModel.detachListener() })
         }
     }
 }

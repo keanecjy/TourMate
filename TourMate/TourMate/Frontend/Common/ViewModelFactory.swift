@@ -54,17 +54,6 @@ struct ViewModelFactory {
                               planService: planService.copy())
     }
 
-    // Plan
-    func getPlanViewModel(plan: Plan, tripViewModel: TripViewModel) -> PlanViewModel {
-        let lowerBoundDate = tripViewModel.startDateTime
-        let upperBoundDate = tripViewModel.endDateTime
-
-        return PlanViewModel(plan: plan,
-                             lowerBoundDate: lowerBoundDate,
-                             upperBoundDate: upperBoundDate,
-                             planService: planService.copy(), userService: userService)
-    }
-
     func getActivityViewModel(activity: Activity, tripViewModel: TripViewModel) -> ActivityViewModel {
         let lowerBoundDate = tripViewModel.startDateTime
         let upperBoundDate = tripViewModel.endDateTime
@@ -115,7 +104,7 @@ struct ViewModelFactory {
 
     // Edit Plan
     func getEditActivityViewModel(activityViewModel: ActivityViewModel) -> EditActivityViewModel {
-        let activity = activityViewModel.activity
+        let activity = activityViewModel.plan
         let lowerBoundDate = activityViewModel.lowerBoundDate.date
         let upperBoundDate = activityViewModel.upperBoundDate.date
 
@@ -127,7 +116,7 @@ struct ViewModelFactory {
     }
 
     func getEditAccommodationViewModel(accommodationViewModel: AccommodationViewModel) -> EditAccommodationViewModel {
-        let accommodation = accommodationViewModel.accommodation
+        let accommodation = accommodationViewModel.plan
         let lowerBoundDate = accommodationViewModel.lowerBoundDate.date
         let upperBoundDate = accommodationViewModel.upperBoundDate.date
 
@@ -140,7 +129,7 @@ struct ViewModelFactory {
     }
 
     func getEditTransportViewModel(transportViewModel: TransportViewModel) -> EditTransportViewModel {
-        let transport = transportViewModel.transport
+        let transport = transportViewModel.plan
         let lowerBoundDate = transportViewModel.lowerBoundDate.date
         let upperBoundDate = transportViewModel.upperBoundDate.date
 
@@ -153,7 +142,7 @@ struct ViewModelFactory {
     }
 
     // PlanView - PlanUpvotes
-    func getPlanUpvoteViewModel(planViewModel: PlanViewModel) -> PlanUpvoteViewModel {
+    func getPlanUpvoteViewModel<T: Plan>(planViewModel: PlanViewModel<T>) -> PlanUpvoteViewModel {
         getPlanUpvoteViewModel(plan: planViewModel.plan)
     }
 
@@ -164,7 +153,7 @@ struct ViewModelFactory {
     }
 
     // Comments
-    func getCommentsViewModel(planViewModel: PlanViewModel) -> CommentsViewModel {
+    func getCommentsViewModel<T: Plan>(planViewModel: PlanViewModel<T>) -> CommentsViewModel {
         getCommentsViewModel(plan: planViewModel.plan)
     }
 
