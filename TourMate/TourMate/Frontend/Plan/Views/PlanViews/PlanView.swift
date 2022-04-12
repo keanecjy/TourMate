@@ -7,9 +7,11 @@
 import SwiftUI
 
 struct PlanView<T: Plan, Content: View>: View {
+
     @StateObject var planViewModel: PlanViewModel<T>
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
+
     @State private var isShowingEditPlanSheet = false
     @State private var selectedVersion: Int
 

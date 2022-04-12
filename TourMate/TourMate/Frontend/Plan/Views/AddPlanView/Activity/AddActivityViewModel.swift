@@ -20,9 +20,9 @@ class AddActivityViewModel: AddPlanViewModel<Activity> {
     }
 
     override func addPlan() async {
-        let accommodation = Activity(plan: await getPlanForAdding(),
-                                     location: location)
+        let activity = Activity(plan: await getPlanForAdding(),
+                                location: location)
 
-        await addPlan(accommodation)
+        await addPlan(activity)
     }
 }

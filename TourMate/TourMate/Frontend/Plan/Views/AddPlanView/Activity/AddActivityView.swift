@@ -15,9 +15,9 @@ struct AddActivityView: View {
         AddPlanView(viewModel: viewModel,
                     dismissAddPlanView: dismissAddPlanView,
                     planType: "Activity") {
-            PlanFormView<Activity, Section>(viewModel: viewModel,
-                                            startDateHeader: "Start Date",
-                                            endDateHeader: "End Date") {
+            PlanFormView(viewModel: viewModel,
+                         startDateHeader: "Start Date",
+                         endDateHeader: "End Date") {
 
                 Section("Location") {
                     AddressTextField(title: "Address", location: $viewModel.location)

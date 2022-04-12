@@ -9,12 +9,12 @@ import SwiftUI
 
 @MainActor
 struct ViewFactory {
-    
+
     func getEditPlanView<T: Plan>(planViewModel: PlanViewModel<T>) -> some View {
         let viewModelFactory = ViewModelFactory()
         let lowerBoundDate = planViewModel.lowerBoundDate.date
         let upperBoundDate = planViewModel.upperBoundDate.date
-        
+
         switch planViewModel.plan {
         case let activity as Activity:
             let activityViewModel = viewModelFactory.getEditActivityViewModel(activity: activity,
@@ -35,10 +35,10 @@ struct ViewFactory {
             preconditionFailure("Plan don't exists")
         }
     }
-    
+
     func getPlanView(plan: Plan, tripViewModel: TripViewModel) -> some View {
         let viewModelFactory = ViewModelFactory()
-        
+
         switch plan {
         case let plan as Activity:
             let viewModel = viewModelFactory.getActivityViewModel(activity: plan,

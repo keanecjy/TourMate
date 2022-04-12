@@ -85,22 +85,6 @@ class Plan: CustomStringConvertible {
         self.versionNumber = versionNumber
     }
 
-    required init() {
-        self.id = ""
-        self.tripId = ""
-        self.name = ""
-        self.startDateTime = DateTime()
-        self.endDateTime = DateTime()
-        self.imageUrl = ""
-        self.status = .proposed
-        self.creationDate = Date()
-        self.modificationDate = Date()
-        self.additionalInfo = ""
-        self.ownerUserId = ""
-        self.modifierUserId = ""
-        self.versionNumber = 0
-    }
-
     func equals<T: Plan>(other: T) -> Bool {
         id == other.id
         && tripId == other.tripId
@@ -116,10 +100,7 @@ class Plan: CustomStringConvertible {
         && modifierUserId == other.modifierUserId
         && versionNumber == other.versionNumber
     }
-}
 
-// MARK: - CustomStringConvertible
-extension Plan {
     public var description: String {
         "(id: \(id), name: \(name), version: \(versionNumber))"
     }

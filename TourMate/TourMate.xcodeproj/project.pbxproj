@@ -544,13 +544,10 @@
 		00582F7327E70F49008756E9 /* EditPlanView */ = {
 			isa = PBXGroup;
 			children = (
-				B9B4671F28007A5E003D07F5 /* EditActivityView.swift */,
-				B9B4671B280070A7003D07F5 /* EditActivityViewModel.swift */,
+				4C9021992805BB8E00054F0A /* Activity */,
+				4C90219A2805BBBC00054F0A /* Accommodation */,
+				4C90219B2805BBE300054F0A /* Transport */,
 				4CB32D6F28055F8100681E5B /* EditPlanViewModel.swift */,
-				B9B467312801EBBD003D07F5 /* EditAccommodationView.swift */,
-				B9B467332801EBDF003D07F5 /* EditAccommodationViewModel.swift */,
-				B9B4673D2801F8F8003D07F5 /* EditTransportViewModel.swift */,
-				B9B4673F2801F9F9003D07F5 /* EditTransportView.swift */,
 				4CB32D7528056DFA00681E5B /* EditPlanView.swift */,
 			);
 			path = EditPlanView;
@@ -759,6 +756,87 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		4C9021962805BB2800054F0A /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				B9B4671228003174003D07F5 /* AddActivityView.swift */,
+				B9B4670E280028BE003D07F5 /* AddActivityViewModel.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		4C9021972805BB5D00054F0A /* Accommodation */ = {
+			isa = PBXGroup;
+			children = (
+				B9B467232801D8FE003D07F5 /* AddAccommodationView.swift */,
+				B9B467252801DA61003D07F5 /* AddAccommodationViewModel.swift */,
+			);
+			path = Accommodation;
+			sourceTree = "<group>";
+		};
+		4C9021982805BB6E00054F0A /* Transport */ = {
+			isa = PBXGroup;
+			children = (
+				B9B467352801EEF3003D07F5 /* AddTransportView.swift */,
+				B9B467372801EFCE003D07F5 /* AddTransportViewModel.swift */,
+			);
+			path = Transport;
+			sourceTree = "<group>";
+		};
+		4C9021992805BB8E00054F0A /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				B9B4671F28007A5E003D07F5 /* EditActivityView.swift */,
+				B9B4671B280070A7003D07F5 /* EditActivityViewModel.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		4C90219A2805BBBC00054F0A /* Accommodation */ = {
+			isa = PBXGroup;
+			children = (
+				B9B467312801EBBD003D07F5 /* EditAccommodationView.swift */,
+				B9B467332801EBDF003D07F5 /* EditAccommodationViewModel.swift */,
+			);
+			path = Accommodation;
+			sourceTree = "<group>";
+		};
+		4C90219B2805BBE300054F0A /* Transport */ = {
+			isa = PBXGroup;
+			children = (
+				B9B4673F2801F9F9003D07F5 /* EditTransportView.swift */,
+				B9B4673D2801F8F8003D07F5 /* EditTransportViewModel.swift */,
+			);
+			path = Transport;
+			sourceTree = "<group>";
+		};
+		4C90219C2805BC2300054F0A /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				B9B46717280068DC003D07F5 /* ActivityView.swift */,
+				B9B4671928006976003D07F5 /* ActivityViewModel.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		4C90219D2805BC2800054F0A /* Accommodation */ = {
+			isa = PBXGroup;
+			children = (
+				B9B4672F2801E374003D07F5 /* AccommodationView.swift */,
+				B9B4672B2801E1CE003D07F5 /* AccommodationViewModel.swift */,
+			);
+			path = Accommodation;
+			sourceTree = "<group>";
+		};
+		4C90219E2805BC3000054F0A /* Transport */ = {
+			isa = PBXGroup;
+			children = (
+				B9B4673B2801F6F8003D07F5 /* TransportView.swift */,
+				B9B467392801F219003D07F5 /* TransportViewModel.swift */,
+			);
+			path = Transport;
+			sourceTree = "<group>";
+		};
 		4CDE841727EF0E2F001F58C5 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -778,14 +856,11 @@
 		4CE02B6D27EAC6B000480D73 /* AddPlanView */ = {
 			isa = PBXGroup;
 			children = (
+				4C9021962805BB2800054F0A /* Activity */,
+				4C9021972805BB5D00054F0A /* Accommodation */,
+				4C9021982805BB6E00054F0A /* Transport */,
 				B967C33927DDD71B0023B34D /* AddPlanSelectionView.swift */,
 				4CB32D732805690200681E5B /* AddPlanView.swift */,
-				B9B4670E280028BE003D07F5 /* AddActivityViewModel.swift */,
-				B9B4671228003174003D07F5 /* AddActivityView.swift */,
-				B9B467252801DA61003D07F5 /* AddAccommodationViewModel.swift */,
-				B9B467232801D8FE003D07F5 /* AddAccommodationView.swift */,
-				B9B467352801EEF3003D07F5 /* AddTransportView.swift */,
-				B9B467372801EFCE003D07F5 /* AddTransportViewModel.swift */,
 				4CB32D712805631600681E5B /* AddPlanViewModel.swift */,
 			);
 			path = AddPlanView;
@@ -1083,14 +1158,11 @@
 			isa = PBXGroup;
 			children = (
 				B9AF3B4E27EF6FC600A3C82E /* Components */,
+				4C90219C2805BC2300054F0A /* Activity */,
+				4C90219D2805BC2800054F0A /* Accommodation */,
+				4C90219E2805BC3000054F0A /* Transport */,
 				B9A04FAF27E5875A007D4303 /* PlanView.swift */,
-				B9B4672B2801E1CE003D07F5 /* AccommodationViewModel.swift */,
-				B9B4672F2801E374003D07F5 /* AccommodationView.swift */,
 				B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */,
-				B9B46717280068DC003D07F5 /* ActivityView.swift */,
-				B9B4671928006976003D07F5 /* ActivityViewModel.swift */,
-				B9B467392801F219003D07F5 /* TransportViewModel.swift */,
-				B9B4673B2801F6F8003D07F5 /* TransportView.swift */,
 				004C7C6C2804195300B432C7 /* PlanDisplayViewModel.swift */,
 			);
 			path = PlanViews;
