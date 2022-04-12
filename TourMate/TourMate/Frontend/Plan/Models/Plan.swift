@@ -101,7 +101,7 @@ class Plan: CustomStringConvertible {
         && versionNumber == other.versionNumber
     }
 
-    public var description: String {
+    var description: String {
         "(id: \(id), name: \(name), version: \(versionNumber))"
     }
 }

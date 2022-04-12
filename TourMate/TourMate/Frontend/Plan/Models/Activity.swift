@@ -54,7 +54,7 @@ class Activity: Plan {
         return location == otherActivity.location
     }
 
-    override public var description: String {
+    override var description: String {
         "(Activity: \(super.description))"
     }
 }

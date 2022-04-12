@@ -59,7 +59,7 @@ class Transport: Plan {
         && endLocation == otherTransport.endLocation
     }
 
-    override public var description: String {
+    override var description: String {
         "(Transport: \(super.description))"
     }
 }

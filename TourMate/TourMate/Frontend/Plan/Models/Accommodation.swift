@@ -54,7 +54,7 @@ class Accommodation: Plan {
         return location == otherAccommodation.location
     }
 
-    override public var description: String {
+    override var description: String {
         "(Accommodation: \(super.description))"
     }
 }
