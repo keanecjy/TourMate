@@ -16,6 +16,7 @@ class TripFormViewModel: ObservableObject {
     @Published var tripName: String
     @Published var tripStartDate: Date
     @Published var tripEndDate: Date
+    @Published var tripLocation: Location
     @Published var tripImageURL: String
     @Published var fromStartDate: PartialRangeFrom<Date>
 
@@ -29,6 +30,7 @@ class TripFormViewModel: ObservableObject {
         self.tripName = ""
         self.tripStartDate = Date()
         self.tripEndDate = Date()
+        self.tripLocation = Location()
         self.tripImageURL = ""
         self.fromStartDate = Date()...
 
@@ -43,6 +45,7 @@ class TripFormViewModel: ObservableObject {
         self.tripName = trip.name
         self.tripStartDate = trip.startDateTime.date
         self.tripEndDate = trip.endDateTime.date
+        self.tripLocation = trip.location
         self.tripImageURL = trip.imageUrl
         self.fromStartDate = trip.startDateTime.date...
 

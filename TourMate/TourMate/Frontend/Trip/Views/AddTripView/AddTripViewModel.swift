@@ -34,6 +34,7 @@ class AddTripViewModel: TripFormViewModel {
         let creatorUserId = user.id
         let uuid = UUID().uuidString
         let name = tripName
+        let location = tripLocation
         let imageUrl = tripImageURL
 
         let (startDateTime, endDateTime) = generateDateTimes()
@@ -42,6 +43,7 @@ class AddTripViewModel: TripFormViewModel {
                            name: name,
                            startDateTime: startDateTime,
                            endDateTime: endDateTime,
+                           location: location,
                            imageUrl: imageUrl,
                            creatorUserId: creatorUserId)
 

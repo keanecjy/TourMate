@@ -25,6 +25,7 @@ extension Trip {
         FirebaseAdaptedTrip(id: id, name: name,
                             startDateTime: startDateTime.toData(),
                             endDateTime: endDateTime.toData(),
+                            location: location.toData(),
                             imageUrl: imageUrl,
                             creatorUserId: creatorUserId,
                             attendeesUserIds: attendeesUserIds,
@@ -39,6 +40,7 @@ extension FirebaseAdaptedTrip {
         Trip(id: id, name: name,
              startDateTime: startDateTime.toItem(),
              endDateTime: endDateTime.toItem(),
+             location: location.toItem(),
              imageUrl: imageUrl,
              creatorUserId: creatorUserId,
              attendeesUserIds: attendeesUserIds,
@@ -57,5 +59,29 @@ extension DateTime {
 extension FirebaseAdaptedDateTime {
     fileprivate func toItem() -> DateTime {
         DateTime(date: date, timeZone: timeZone)
+    }
+}
+
+extension Location {
+    fileprivate func toData() -> JsonAdaptedLocation {
+        JsonAdaptedLocation(country: country,
+                            city: city,
+                            address_line1: addressLineOne,
+                            address_line2: addressLineTwo,
+                            formatted: addressFull,
+                            lon: longitude,
+                            lat: latitude)
+    }
+}
+
+extension JsonAdaptedLocation {
+    fileprivate func toItem() -> Location {
+        Location(country: country,
+                 city: city,
+                 addressLineOne: address_line1,
+                 addressLineTwo: address_line2,
+                 addressFull: formatted,
+                 longitude: lon,
+                 latitude: lat)
     }
 }
