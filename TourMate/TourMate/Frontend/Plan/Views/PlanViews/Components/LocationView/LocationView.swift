@@ -11,6 +11,11 @@ struct LocationView: View {
     let startLocation: Location?
     let endLocation: Location?
 
+    internal init(startLocation: Location?, endLocation: Location? = nil) {
+        self.startLocation = startLocation
+        self.endLocation = endLocation
+    }
+
     var body: some View {
         if let location = startLocation {
             MapView(startLocation: location,

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AddTransportView: View {
-    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: AddTransportViewModel
     var dismissAddPlanView: DismissAction
 

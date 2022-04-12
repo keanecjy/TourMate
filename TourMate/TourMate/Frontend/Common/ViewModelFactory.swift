@@ -101,17 +101,39 @@ struct ViewModelFactory {
     func getAddTransportViewModel(trip: Trip) -> AddTransportViewModel {
         AddTransportViewModel(trip: trip, planService: planService.copy(), userService: userService)
     }
-    
-    func getEditPlanViewModel<T: Plan>(planViewModel: PlanViewModel<T>) -> EditPlanViewModel<T> {
-        let plan = planViewModel.plan
-        let lowerBoundDate = planViewModel.lowerBoundDate.date
-        let upperBoundDate = planViewModel.upperBoundDate.date
-        
-        return EditPlanViewModel(plan: plan,
-                                 lowerBoundDate: lowerBoundDate,
-                                 upperBoundDate: upperBoundDate,
-                                 planService: planService.copy(),
-                                 userService: userService)
+
+    // Edit Plan
+    func getEditActivityViewModel(activity: Activity,
+                                  lowerBoundDate: Date,
+                                  upperBoundDate: Date) -> EditActivityViewModel {
+        EditActivityViewModel(
+            activity: activity,
+            lowerBoundDate: lowerBoundDate,
+            upperBoundDate: upperBoundDate,
+            planService: planService.copy(),
+            userService: userService)
+    }
+
+    func getEditAccommodationViewModel(accommodation: Accommodation,
+                                       lowerBoundDate: Date,
+                                       upperBoundDate: Date) -> EditAccommodationViewModel {
+        EditAccommodationViewModel(
+            accommodation: accommodation,
+            lowerBoundDate: lowerBoundDate,
+            upperBoundDate: upperBoundDate,
+            planService: planService.copy(),
+            userService: userService)
+    }
+
+    func getEditTransportViewModel(transport: Transport,
+                                   lowerBoundDate: Date,
+                                   upperBoundDate: Date) -> EditTransportViewModel {
+        EditTransportViewModel(
+            transport: transport,
+            lowerBoundDate: lowerBoundDate,
+            upperBoundDate: upperBoundDate,
+            planService: planService.copy(),
+            userService: userService)
     }
 
     // PlanView - PlanUpvotes

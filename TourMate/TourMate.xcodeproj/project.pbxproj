@@ -75,6 +75,7 @@
 		4CB32D722805631600681E5B /* AddPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D712805631600681E5B /* AddPlanViewModel.swift */; };
 		4CB32D742805690200681E5B /* AddPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D732805690200681E5B /* AddPlanView.swift */; };
 		4CB32D7628056DFA00681E5B /* EditPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D7528056DFA00681E5B /* EditPlanView.swift */; };
+		4CB32D78280576A800681E5B /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D77280576A800681E5B /* ViewFactory.swift */; };
 		4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954D127DDE039001410AD /* FirebaseConfig.swift */; };
 		4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954D927DDF499001410AD /* FirebaseAdaptedUser.swift */; };
 		4CB954DC27DDFAA8001410AD /* FirebaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954DB27DDFAA8001410AD /* FirebaseRepository.swift */; };
@@ -275,6 +276,7 @@
 		4CB32D712805631600681E5B /* AddPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewModel.swift; sourceTree = "<group>"; };
 		4CB32D732805690200681E5B /* AddPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanView.swift; sourceTree = "<group>"; };
 		4CB32D7528056DFA00681E5B /* EditPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanView.swift; sourceTree = "<group>"; };
+		4CB32D77280576A800681E5B /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
 		4CB954D127DDE039001410AD /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		4CB954D927DDF499001410AD /* FirebaseAdaptedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedUser.swift; sourceTree = "<group>"; };
 		4CB954DB27DDFAA8001410AD /* FirebaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRepository.swift; sourceTree = "<group>"; };
@@ -1204,6 +1206,7 @@
 				4CD10A7727FF3A310060C5AC /* DateUtil.swift */,
 				4C16604F2800A4BD00195DF8 /* Copyable.swift */,
 				004C7C6E28041A6F00B432C7 /* DisplayMode.swift */,
+				4CB32D77280576A800681E5B /* ViewFactory.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1618,6 +1621,7 @@
 				004C7C572802701A00B432C7 /* AuthenticationViewModel.swift in Sources */,
 				4C1C70D327FE82C800203694 /* PlanHeaderView.swift in Sources */,
 				4C09661527F33F6400A00CE5 /* PlanEventDelegate.swift in Sources */,
+				4CB32D78280576A800681E5B /* ViewFactory.swift in Sources */,
 				B9A04FAC27E5567F007D4303 /* MockPlanService.swift in Sources */,
 				4C1660502800A4BD00195DF8 /* Copyable.swift in Sources */,
 				4C09373B27F83654001C2575 /* TripImage.swift in Sources */,

@@ -1,4 +1,3 @@
-//
 //  PlanView.swift
 //  TourMate
 //
@@ -7,7 +6,7 @@
 
 import SwiftUI
 
-struct PlanView<T: Plan>: View {
+struct PlanView<T: Plan, Content: View>: View {
     @StateObject var planViewModel: PlanViewModel<T>
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
@@ -17,9 +16,12 @@ struct PlanView<T: Plan>: View {
     @Environment(\.dismiss) var dismiss
 
     private let viewModelFactory: ViewModelFactory
+    private let viewFactory: ViewFactory
+    private let content: Content
 
-    init(planViewModel: PlanViewModel<T>) {
+    init(planViewModel: PlanViewModel<T>, @ViewBuilder content: () -> Content) {
         self.viewModelFactory = ViewModelFactory()
+        self.viewFactory = ViewFactory()
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
 
@@ -28,6 +30,7 @@ struct PlanView<T: Plan>: View {
 
         self._planViewModel = StateObject(wrappedValue: planViewModel)
         self._selectedVersion = State(wrappedValue: planViewModel.versionNumber)
+        self.content = content()
     }
 
     var body: some View {
@@ -65,8 +68,7 @@ struct PlanView<T: Plan>: View {
                 TimingView(startDate: planViewModel.startDateTimeDisplay,
                            endDate: planViewModel.endDateTimeDisplay)
 
-                // LocationView(startLocation: planViewModel.startLocationDisplay,
-                //              endLocation: planViewModel.endLocationDisplay)
+                content
 
                 InfoView(additionalInfo: planViewModel.additionalInfoDisplay)
 
@@ -84,7 +86,7 @@ struct PlanView<T: Plan>: View {
                         Image(systemName: "pencil")
                     }
                     .sheet(isPresented: $isShowingEditPlanSheet) {
-                        // EditPlanView(viewModel: viewModelFactory.getEditPlanViewModel(planViewModel: planViewModel))
+                        viewFactory.getEditPlanView(planViewModel: planViewModel)
                     }
                 }
             }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EditTransportView: View {
-    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditTransportViewModel
 
     var body: some View {

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EditActivityView: View {
-    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditActivityViewModel
 
     var body: some View {

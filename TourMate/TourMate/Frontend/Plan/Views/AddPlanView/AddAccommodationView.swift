@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct AddAccommodationView: View {
-    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: AddAccommodationViewModel
     var dismissAddPlanView: DismissAction
 
     var body: some View {
         AddPlanView(viewModel: viewModel,
-                           dismissAddPlanView: dismissAddPlanView,
-                           planType: "Accommodation") {
+                    dismissAddPlanView: dismissAddPlanView,
+                    planType: "Accommodation") {
             PlanFormView(viewModel: viewModel,
                          startDateHeader: "Check-in Date",
                          endDateHeader: "Check-out Date") {

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AddActivityView: View {
-    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: AddActivityViewModel
     var dismissAddPlanView: DismissAction
 
