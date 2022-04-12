@@ -13,35 +13,16 @@ struct AddTransportView: View {
     var dismissAddPlanView: DismissAction
 
     var body: some View {
-        NavigationView {
-            Group {
-                if viewModel.hasError {
-                    Text("Error Occurred")
-                } else if viewModel.isLoading {
-                    ProgressView()
-                } else {
-                    TransportFormView(viewModel: viewModel)
-                }
-            }
-            .navigationTitle("New Transport")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Add") {
-                        Task {
-                            await viewModel.addTransport()
-                            dismiss()
-                            dismissAddPlanView()
-                        }
-                    }
-                    .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)
-                }
+        GenericAddPlanView(viewModel: viewModel,
+                           dismissAddPlanView: dismissAddPlanView,
+                           planName: "Transport") {
+            PlanFormView(viewModel: viewModel,
+                         startDateHeader: "Departure Date",
+                         endDateHeader: "Arrival Date") {
 
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", role: .destructive) {
-                        dismiss()
-                    }
-                    .disabled(viewModel.isLoading)
+                Section("Location") {
+                    AddressTextField(title: "Departure Location", location: $viewModel.startLocation)
+                    AddressTextField(title: "Arrival Location", location: $viewModel.endLocation)
                 }
             }
         }

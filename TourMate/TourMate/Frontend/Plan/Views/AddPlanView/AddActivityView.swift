@@ -13,35 +13,15 @@ struct AddActivityView: View {
     var dismissAddPlanView: DismissAction
 
     var body: some View {
-        NavigationView {
-            Group {
-                if viewModel.hasError {
-                    Text("Error Occurred")
-                } else if viewModel.isLoading {
-                    ProgressView()
-                } else {
-                    ActivityFormView(viewModel: viewModel)
-                }
-            }
-            .navigationTitle("New Activity")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Add") {
-                        Task {
-                            await viewModel.addActivity()
-                            dismiss()
-                            dismissAddPlanView()
-                        }
-                    }
-                    .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)
-                }
+        GenericAddPlanView(viewModel: viewModel,
+                           dismissAddPlanView: dismissAddPlanView,
+                           planName: "Activity") {
+            PlanFormView<Activity, Section>(viewModel: viewModel,
+                                            startDateHeader: "Start Date",
+                                            endDateHeader: "End Date") {
 
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", role: .destructive) {
-                        dismiss()
-                    }
-                    .disabled(viewModel.isLoading)
+                Section("Location") {
+                    AddressTextField(title: "Address", location: $viewModel.location)
                 }
             }
         }

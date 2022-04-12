@@ -13,43 +13,17 @@ struct AddAccommodationView: View {
     var dismissAddPlanView: DismissAction
 
     var body: some View {
-        NavigationView {
-            Group {
-                if viewModel.hasError {
-                    Text("Error Occurred")
-                } else if viewModel.isLoading {
-                    ProgressView()
-                } else {
-                    AccommodationFormView(viewModel: viewModel)
-                }
-            }
-            .navigationTitle("New Accommodation")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Add") {
-                        Task {
-                            await viewModel.addAccommodation()
-                            dismiss()
-                            dismissAddPlanView()
-                        }
-                    }
-                    .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)
-                }
+        GenericAddPlanView(viewModel: viewModel,
+                           dismissAddPlanView: dismissAddPlanView,
+                           planName: "Accommodation") {
+            PlanFormView(viewModel: viewModel,
+                         startDateHeader: "Check-in Date",
+                         endDateHeader: "Check-out Date") {
 
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", role: .destructive) {
-                        dismiss()
-                    }
-                    .disabled(viewModel.isLoading)
+                Section("Location") {
+                    AddressTextField(title: "Address", location: $viewModel.location)
                 }
             }
         }
     }
 }
-
-// struct AddAccommodationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddAccommodationView()
-//    }
-// }

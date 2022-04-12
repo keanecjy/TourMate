@@ -12,43 +12,14 @@ struct EditTransportView: View {
     @StateObject var viewModel: EditTransportViewModel
 
     var body: some View {
-        NavigationView {
-            Group {
-                if viewModel.hasError {
-                    Text("Error Occurred")
-                } else if viewModel.isLoading {
-                    ProgressView()
-                } else {
-                    TransportFormView(viewModel: viewModel)
-                }
-            }
-            .navigationTitle("Edit Transport")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
-                        Task {
-                            await viewModel.updateTransport()
-                            dismiss()
-                        }
-                    }
-                    .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)
-                }
+        EditPlanView(viewModel: viewModel, planName: "Transport") {
+            PlanFormView(viewModel: viewModel,
+                         startDateHeader: "Departure Date",
+                         endDateHeader: "Arrival Date") {
 
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", role: .destructive) {
-                        dismiss()
-                    }
-                    .disabled(viewModel.isLoading)
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Button("Delete Transport", role: .destructive) {
-                        Task {
-                            await viewModel.deletePlan()
-                            dismiss()
-                        }
-                    }
-                    .disabled(viewModel.isLoading || viewModel.hasError || !viewModel.canDeletePlan)
+                Section("Location") {
+                    AddressTextField(title: "Departure Location", location: $viewModel.startLocation)
+                    AddressTextField(title: "Arrival Location", location: $viewModel.endLocation)
                 }
             }
         }

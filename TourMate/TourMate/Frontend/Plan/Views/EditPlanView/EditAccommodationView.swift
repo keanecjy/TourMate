@@ -12,43 +12,13 @@ struct EditAccommodationView: View {
     @StateObject var viewModel: EditAccommodationViewModel
 
     var body: some View {
-        NavigationView {
-            Group {
-                if viewModel.hasError {
-                    Text("Error Occurred")
-                } else if viewModel.isLoading {
-                    ProgressView()
-                } else {
-                    AccommodationFormView(viewModel: viewModel)
-                }
-            }
-            .navigationTitle("Edit Accommodation")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
-                        Task {
-                            await viewModel.updateAccommodation()
-                            dismiss()
-                        }
-                    }
-                    .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)
-                }
+        EditPlanView(viewModel: viewModel, planName: "Accommodation") {
+            PlanFormView(viewModel: viewModel,
+                         startDateHeader: "Check-in Date",
+                         endDateHeader: "Check-out Date") {
 
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", role: .destructive) {
-                        dismiss()
-                    }
-                    .disabled(viewModel.isLoading)
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Button("Delete Accommodation", role: .destructive) {
-                        Task {
-                            await viewModel.deletePlan()
-                            dismiss()
-                        }
-                    }
-                    .disabled(viewModel.isLoading || viewModel.hasError || !viewModel.canDeletePlan)
+                Section("Location") {
+                    AddressTextField(title: "Address", location: $viewModel.location)
                 }
             }
         }

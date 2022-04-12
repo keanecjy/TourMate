@@ -21,6 +21,10 @@ class AccommodationViewModel: PlanViewModel<Accommodation> {
                    userService: userService)
     }
 
+    override var prefixedNameDisplay: String {
+        "bed.double.circle.fill"
+    }
+
     var location: Location? {
         plan.location
     }

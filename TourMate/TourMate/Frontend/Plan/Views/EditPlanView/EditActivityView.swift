@@ -12,50 +12,15 @@ struct EditActivityView: View {
     @StateObject var viewModel: EditActivityViewModel
 
     var body: some View {
-        NavigationView {
-            Group {
-                if viewModel.hasError {
-                    Text("Error occured")
-                } else if viewModel.isLoading {
-                    ProgressView()
-                } else {
-                    ActivityFormView(viewModel: viewModel)
-                }
-            }
-            .navigationTitle("Edit Activity")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
-                        Task {
-                            await viewModel.updateActivity()
-                            dismiss()
-                        }
-                    }
-                    .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)
-                }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", role: .destructive) {
-                        dismiss()
-                    }
-                    .disabled(viewModel.isLoading)
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Button("Delete Activity", role: .destructive) {
-                        Task {
-                            await viewModel.deletePlan()
-                            dismiss()
-                        }
-                    }
-                    .disabled(viewModel.isLoading || viewModel.hasError || !viewModel.canDeletePlan)
+        EditPlanView(viewModel: viewModel, planName: "Activity") {
+            PlanFormView(viewModel: viewModel,
+                         startDateHeader: "Start Date",
+                         endDateHeader: "End Date") {
+
+                Section("Location") {
+                    AddressTextField(title: "Address", location: $viewModel.location)
                 }
             }
         }
     }
 }
-
-// struct EditActivityView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EditActivityView()
-//    }
-// }

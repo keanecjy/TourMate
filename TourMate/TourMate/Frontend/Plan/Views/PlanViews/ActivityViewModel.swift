@@ -21,6 +21,10 @@ class ActivityViewModel: PlanViewModel<Activity> {
                    userService: userService)
     }
 
+    override var prefixedNameDisplay: String {
+        "figure.walk.circle.fill"
+    }
+
     var location: Location? {
         plan.location
     }
