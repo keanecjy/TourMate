@@ -17,6 +17,9 @@ class EditTransportViewModel: EditPlanViewModel<Transport> {
          upperBoundDate: Date,
          planService: PlanService,
          userService: UserService) {
+        self.startLocation = transport.startLocation
+        self.endLocation = transport.endLocation
+
         super.init(plan: transport,
                    lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
