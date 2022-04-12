@@ -9,13 +9,13 @@ import Foundation
 
 @MainActor
 class AccommodationFormViewModel: PlanFormViewModel<Accommodation> {
-    @Published var location: Location?
+    @Published var location: Location
 
     // Adding Accommodation
     override init(trip: Trip,
                   planService: PlanService,
                   userService: UserService) {
-        self.location = nil
+        self.location = Location()
 
         super.init(trip: trip,
                    planService: planService,

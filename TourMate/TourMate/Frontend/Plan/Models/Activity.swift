@@ -8,7 +8,7 @@
 import Foundation
 
 class Activity: Plan {
-    var location: Location?
+    var location: Location
 
     // Activity creation
     init(tripId: String,
@@ -19,7 +19,7 @@ class Activity: Plan {
          status: PlanStatus,
          additionalInfo: String,
          ownerUserId: String,
-         location: Location?) {
+         location: Location) {
         self.location = location
         super.init(tripId: tripId,
                    name: name,
@@ -31,7 +31,7 @@ class Activity: Plan {
                    ownerUserId: ownerUserId)
     }
 
-    init(plan: Plan, location: Location?) {
+    init(plan: Plan, location: Location) {
         self.location = location
         super.init(plan: plan)
     }
@@ -48,7 +48,7 @@ class Activity: Plan {
          ownerUserId: String,
          modifierUserId: String,
          versionNumber: Int,
-         location: Location?) {
+         location: Location) {
         self.location = location
 
         super.init(id: id, tripId: tripId, name: name,
@@ -65,7 +65,7 @@ class Activity: Plan {
     }
 
     required init() {
-        self.location = nil
+        self.location = Location()
         super.init()
     }
 

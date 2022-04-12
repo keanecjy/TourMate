@@ -15,6 +15,8 @@ struct TripFormView: View {
         Form {
             TextField("Trip Name*", text: $viewModel.tripName)
 
+            AddressTextField(title: "Destination city*", location: $viewModel.tripLocation)
+
             DatePicker(
                 "Start Date",
                 selection: $viewModel.tripStartDate,

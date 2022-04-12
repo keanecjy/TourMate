@@ -8,8 +8,8 @@
 import Foundation
 
 class Transport: Plan {
-    var startLocation: Location?
-    var endLocation: Location?
+    var startLocation: Location
+    var endLocation: Location
 
     // Transport creation
     init(tripId: String,
@@ -20,8 +20,8 @@ class Transport: Plan {
          status: PlanStatus,
          additionalInfo: String,
          ownerUserId: String,
-         startLocation: Location?,
-         endLocation: Location?) {
+         startLocation: Location,
+         endLocation: Location) {
         self.startLocation = startLocation
         self.endLocation = endLocation
 
@@ -35,7 +35,7 @@ class Transport: Plan {
                    ownerUserId: ownerUserId)
     }
 
-    init(plan: Plan, startLocation: Location?, endLocation: Location?) {
+    init(plan: Plan, startLocation: Location, endLocation: Location) {
         self.startLocation = startLocation
         self.endLocation = endLocation
         super.init(plan: plan)
@@ -53,8 +53,8 @@ class Transport: Plan {
          ownerUserId: String,
          modifierUserId: String,
          versionNumber: Int,
-         startLocation: Location?,
-         endLocation: Location?) {
+         startLocation: Location,
+         endLocation: Location) {
         self.startLocation = startLocation
         self.endLocation = endLocation
 
@@ -72,8 +72,8 @@ class Transport: Plan {
     }
 
     required init() {
-        self.startLocation = nil
-        self.endLocation = nil
+        self.startLocation = Location()
+        self.endLocation = Location()
         super.init()
     }
 

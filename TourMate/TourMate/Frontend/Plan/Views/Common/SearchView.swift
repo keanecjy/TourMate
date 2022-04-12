@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: SearchViewModel
-    @Binding var location: Location?
+    @Binding var location: Location
 
     var searchTextField: some View {
         HStack {

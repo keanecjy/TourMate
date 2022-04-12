@@ -16,6 +16,10 @@ struct Location: Equatable {
     var addressFull: String = ""
     var longitude: Double = 0.0
     var latitude: Double = 0.0
+
+    func isPresent() -> Bool {
+        self.id != "0.0-0.0"
+    }
 }
 
 extension Location: Identifiable {

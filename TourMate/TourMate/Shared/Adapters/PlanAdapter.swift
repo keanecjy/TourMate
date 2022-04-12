@@ -49,7 +49,7 @@ extension Activity {
                                 ownerUserId: ownerUserId,
                                 modifierUserId: modifierUserId,
                                 versionNumber: versionNumber,
-                                location: location?.toData())
+                                location: location.toData())
     }
 }
 
@@ -62,7 +62,7 @@ extension FirebaseAdaptedActivity {
                  creationDate: creationDate, modificationDate: modificationDate,
                  additionalInfo: additionalInfo, ownerUserId: ownerUserId,
                  modifierUserId: modifierUserId, versionNumber: versionNumber,
-                 location: location?.toItem())
+                 location: location.toItem())
     }
 }
 
@@ -79,7 +79,7 @@ extension Accommodation {
             ownerUserId: ownerUserId,
             modifierUserId: modifierUserId,
             versionNumber: versionNumber,
-            location: location?.toData())
+            location: location.toData())
     }
 }
 
@@ -95,7 +95,7 @@ extension FirebaseAdaptedAccommodation {
                       ownerUserId: ownerUserId,
                       modifierUserId: modifierUserId,
                       versionNumber: versionNumber,
-                      location: location?.toItem())
+                      location: location.toItem())
     }
 }
 
@@ -112,8 +112,8 @@ extension Transport {
             ownerUserId: ownerUserId,
             modifierUserId: modifierUserId,
             versionNumber: versionNumber,
-            startLocation: startLocation?.toData(),
-            endLocation: endLocation?.toData())
+            startLocation: startLocation.toData(),
+            endLocation: endLocation.toData())
     }
 }
 
@@ -129,8 +129,8 @@ extension FirebaseAdaptedTransport {
                   ownerUserId: ownerUserId,
                   modifierUserId: modifierUserId,
                   versionNumber: versionNumber,
-                  startLocation: startLocation?.toItem(),
-                  endLocation: endLocation?.toItem())
+                  startLocation: startLocation.toItem(),
+                  endLocation: endLocation.toItem())
     }
 }
 

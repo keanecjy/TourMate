@@ -9,15 +9,15 @@ import Foundation
 
 @MainActor
 class TransportFormViewModel: PlanFormViewModel<Transport> {
-    @Published var startLocation: Location?
-    @Published var endLocation: Location?
+    @Published var startLocation: Location
+    @Published var endLocation: Location
 
     // Adding Transport
     override init(trip: Trip,
                   planService: PlanService,
                   userService: UserService) {
-        self.startLocation = nil
-        self.endLocation = nil
+        self.startLocation = Location()
+        self.endLocation = Location()
 
         super.init(trip: trip,
                    planService: planService,
