@@ -10,6 +10,14 @@ import Foundation
 class Accommodation: Plan {
     var location: Location?
 
+    override var locations: [Location] {
+        if let location = location {
+            return [ location ]
+        } else {
+            return []
+        }
+    }
+
     // Accommodation creation
     init(tripId: String,
          name: String,

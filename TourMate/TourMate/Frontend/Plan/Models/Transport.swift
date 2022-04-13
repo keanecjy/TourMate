@@ -11,6 +11,14 @@ class Transport: Plan {
     var startLocation: Location?
     var endLocation: Location?
 
+    override var locations: [Location] {
+        if let startLocation = startLocation, let endLocation = endLocation {
+            return [ startLocation, endLocation ]
+        } else {
+            return []
+        }
+    }
+
     // Transport creation
     init(tripId: String,
          name: String,

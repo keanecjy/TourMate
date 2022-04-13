@@ -10,6 +10,14 @@ import Foundation
 class Activity: Plan {
     var location: Location?
 
+    override var locations: [Location] {
+        if let location = location {
+            return [ location ]
+        } else {
+            return []
+        }
+    }
+
     // Activity creation
     init(tripId: String,
          name: String,
