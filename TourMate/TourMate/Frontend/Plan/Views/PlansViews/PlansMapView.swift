@@ -18,8 +18,9 @@ struct PlansMapView: View {
         self.onSelected = onSelected
     }
 
-    func getPlans(for date: Date) -> [Plan] {
-        viewModel.days.first { $0.date == date }?.plans ?? []
+    func getPlans(for date: Date) -> [(Int, Plan)] {
+        let plans = viewModel.days.first { $0.date == date }?.plans ?? []
+        return Array(zip(plans.indices, plans))
     }
 
     var body: some View {
@@ -42,7 +43,6 @@ struct PlansMapView: View {
                             date: selectedDate,
                             plans: getPlans(for: selectedDate),
                             onSelected: onSelected)
-            .padding()
         }
         .task {
             selectedDate = viewModel.days.first?.date ?? Date()

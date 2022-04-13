@@ -8,15 +8,35 @@
 import SwiftUI
 import MapKit
 
+struct IdentifiableLocation: Identifiable {
+    let id: Int
+    let coordinate: CLLocationCoordinate2D
+}
+
 struct PlansMapDayView: View {
     @ObservedObject var viewModel: PlansViewModel
     private let viewModelFactory = ViewModelFactory()
 
     let date: Date
-    let plans: [Plan]
+    let plans: [(Int, Plan)]
     let onSelected: ((Plan) -> Void)?
 
-    @State private var selectedItem = 1
+    var locations: [IdentifiableLocation] {
+        plans.compactMap { index, plan in
+            guard let location = plan.locations.first else {
+                return nil
+            }
+            return IdentifiableLocation(
+                id: index,
+                coordinate: CLLocationCoordinate2D(
+                    latitude: location.latitude,
+                    longitude: location.longitude
+                )
+            )
+        }
+    }
+
+    @State private var selectedItem = 0
     @State private var region = MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 37.334_900,
                                            longitude: -122.009_020),
@@ -26,7 +46,7 @@ struct PlansMapDayView: View {
 
     init(viewModel: PlansViewModel,
          date: Date,
-         plans: [Plan] = [],
+         plans: [(Int, Plan)] = [],
          onSelected: ((Plan) -> Void)? = nil) {
         self.viewModel = viewModel
         self.date = date
@@ -34,42 +54,68 @@ struct PlansMapDayView: View {
         self.onSelected = onSelected
     }
 
+    func handleSelectedItemChanged(_ value: Int) {
+        guard plans.indices.contains(value) else {
+            return
+        }
+        let plan = plans[value].1
+        guard let location = plan.locations.first else {
+            return
+        }
+        region = MKCoordinateRegion(
+            center: CLLocationCoordinate2D(
+                latitude: location.latitude,
+                longitude: location.longitude
+            ),
+            latitudinalMeters: 750,
+            longitudinalMeters: 750
+        )
+    }
+
     var body: some View {
         VStack {
-            Map(coordinateRegion: $region)
-                .frame(maxWidth: .infinity, minHeight: 400)
-            /*
+            Map(coordinateRegion: $region, annotationItems: locations) { location in
+                MapAnnotation(coordinate: location.coordinate) {
+                    ZStack {
+                        Image(systemName: "circle.fill")
+                            .font(.title)
+                            .foregroundColor(.red)
+                        Image(systemName: "arrowtriangle.down.fill")
+                            .font(.caption)
+                            .foregroundColor(.red)
+                            .offset(x: 0, y: 16)
+                        Text(String(location.id + 1))
+                            .foregroundColor(.white)
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, minHeight: 300)
+
             TabView(selection: $selectedItem) {
-                ForEach(0..<plans.count, id: \.self) { number in
-                    PlanCardView(planUpvoteViewModel: viewModelFactory.getPlanUpvoteViewModel(plan: plans[number]),
-                                 plan: plans[number],
+                ForEach(plans, id: \.0) { index, plan in
+                    PlanCardView(plansViewModel: viewModel,
+                                 plan: plan,
                                  date: date)
                     .onTapGesture(perform: {
                         if let onSelected = onSelected {
-                            onSelected(plans[number])
+                            onSelected(plan)
                         }
                     })
                     .buttonStyle(PlainButtonStyle())
                     .background(RoundedRectangle(cornerRadius: 16)
                         .fill(Color.primary.opacity(0.1)))
-                    .tag(number)
+                    .padding()
+                    .tag(index)
                 }
             }
-            .tabViewStyle(.page)
             .tabViewStyle(.page(indexDisplayMode: .never))
             .frame(height: 100.0)
             .onChange(of: selectedItem) { value in
-                print("selected tab = \(value)")
-                region = MKCoordinateRegion(
-                    center: CLLocationCoordinate2D(
-                        latitude: viewModel.sortedPlans[value].startLocation?.latitude ?? 0,
-                        longitude: viewModel.sortedPlans[value].startLocation?.longitude ?? 0
-                    ),
-                    latitudinalMeters: 750,
-                    longitudinalMeters: 750
-                )
+                handleSelectedItemChanged(value)
             }
-            */
+        }
+        .onAppear {
+            handleSelectedItemChanged(selectedItem)
         }
     }
 }

@@ -20,7 +20,7 @@ class PlansViewModel: ObservableObject {
 
     private var planService: PlanService
     private(set) var planEventDelegates: [String: PlanEventDelegate]
-    
+
     var sortedPlans: [Plan] {
         plans.sorted { plan1, plan2 in
             plan1.startDateTime.date < plan2.startDateTime.date
