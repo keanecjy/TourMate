@@ -44,6 +44,11 @@ class MockLocationService: LocationService {
         return (suggestedLocations, "")
     }
 
+    func fetchLocations(query: String, near location: Location) async -> ([Location], String) {
+        let suggestedLocations = locations
+        return (suggestedLocations, "")
+    }
+
     func fetchCities(query: String) async -> ([Location], String) {
         let suggestions = locations.filter({
             $0.country

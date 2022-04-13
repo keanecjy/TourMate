@@ -12,6 +12,8 @@ struct AddActivityView: View {
     @StateObject var viewModel: AddActivityViewModel
     var dismissAddPlanView: DismissAction
 
+    private let viewModelFactory = ViewModelFactory()
+
     var body: some View {
         NavigationView {
             Group {
@@ -20,7 +22,9 @@ struct AddActivityView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    ActivityFormView(viewModel: viewModel)
+                    ActivityFormView(
+                        activityFormViewModel: viewModel,
+                        searchViewModel: viewModelFactory.getSearchViewModel(location: viewModel.trip.location))
                 }
             }
             .navigationTitle("New Activity")

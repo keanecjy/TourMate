@@ -12,6 +12,8 @@ struct AddAccommodationView: View {
     @StateObject var viewModel: AddAccommodationViewModel
     var dismissAddPlanView: DismissAction
 
+    private let viewModelFactory = ViewModelFactory()
+
     var body: some View {
         NavigationView {
             Group {
@@ -20,7 +22,9 @@ struct AddAccommodationView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    AccommodationFormView(viewModel: viewModel)
+                    AccommodationFormView(
+                        accommodationFormViewModel: viewModel,
+                        searchViewModel: viewModelFactory.getSearchViewModel(location: viewModel.trip.location))
                 }
             }
             .navigationTitle("New Accommodation")

@@ -11,6 +11,8 @@ struct EditActivityView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditActivityViewModel
 
+    private let viewModelFactory = ViewModelFactory()
+
     var body: some View {
         NavigationView {
             Group {
@@ -19,7 +21,9 @@ struct EditActivityView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    ActivityFormView(viewModel: viewModel)
+                    ActivityFormView(
+                        activityFormViewModel: viewModel,
+                        searchViewModel: viewModelFactory.getSearchViewModel(location: viewModel.trip.location))
                 }
             }
             .navigationTitle("Edit Activity")

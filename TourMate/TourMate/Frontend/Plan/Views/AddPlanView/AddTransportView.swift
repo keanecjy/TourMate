@@ -12,6 +12,8 @@ struct AddTransportView: View {
     @StateObject var viewModel: AddTransportViewModel
     var dismissAddPlanView: DismissAction
 
+    private let viewModelFactory = ViewModelFactory()
+
     var body: some View {
         NavigationView {
             Group {
@@ -20,7 +22,9 @@ struct AddTransportView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    TransportFormView(viewModel: viewModel)
+                    TransportFormView(
+                        transportFormViewModel: viewModel,
+                        searchViewModel: viewModelFactory.getSearchViewModel(location: viewModel.trip.location))
                 }
             }
             .navigationTitle("New Transport")

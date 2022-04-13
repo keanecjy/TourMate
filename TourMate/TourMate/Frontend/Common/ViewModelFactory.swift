@@ -166,4 +166,8 @@ struct ViewModelFactory {
     func getSearchViewModel() -> SearchViewModel {
         SearchViewModel(locationService: locationService)
     }
+
+    func getSearchViewModel(location: Location) -> SearchViewModel {
+        SearchViewModel(locationService: locationService, location: location)
+    }
 }

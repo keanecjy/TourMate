@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ActivityFormView: View {
-    @ObservedObject var viewModel: ActivityFormViewModel
-    @StateObject var searchViewModel: SearchViewModel = ViewModelFactory().getSearchViewModel()
+    @ObservedObject var activityFormViewModel: ActivityFormViewModel
+    @ObservedObject var searchViewModel: SearchViewModel
 
     var body: some View {
-        PlanFormView<Activity, Section>(viewModel: viewModel,
+        PlanFormView<Activity, Section>(viewModel: activityFormViewModel,
                                         startDateHeader: "Start Date",
                                         endDateHeader: "End Date") {
 
             Section("Location") {
                 AddressTextField(title: "Address",
-                                 location: $viewModel.location,
+                                 location: $activityFormViewModel.location,
                                  viewModel: searchViewModel,
                                  query: $searchViewModel.locationQuery)
             }

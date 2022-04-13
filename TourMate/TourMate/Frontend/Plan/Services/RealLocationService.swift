@@ -17,6 +17,12 @@ struct RealLocationService: LocationService {
         return await fetchSuggestions(query: autocompleteQuery)
     }
 
+    func fetchLocations(query: String, near location: Location) async -> ([Location], String) {
+        let bias = "proximity:\(location.longitude),\(location.latitude)"
+        let autocompleteQuery = AutocompleteQuery(apiKey: ApiKeys.geopifyApiKey, text: query, bias: bias)
+        return await fetchSuggestions(query: autocompleteQuery)
+    }
+
     func fetchCities(query: String) async -> ([Location], String) {
         let autocompleteQuery = AutocompleteQuery(apiKey: ApiKeys.geopifyApiKey, text: query, type: "city")
         return await fetchSuggestions(query: autocompleteQuery)

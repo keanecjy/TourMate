@@ -14,13 +14,14 @@ struct AutocompleteQuery {
     let type: String
     let lang: String = ""
     let filter: String = ""
-    let bias: String = ""
+    let bias: String
     let format: String = "json"
 
-    init(apiKey: String, text: String, type: String = "") {
+    init(apiKey: String, text: String, type: String = "", bias: String = "") {
         self.apiKey = apiKey
         self.text = text
         self.type = type
+        self.bias = bias
     }
 
     func getQuery() -> String {

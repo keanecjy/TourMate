@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct TransportFormView: View {
-    @ObservedObject var viewModel: TransportFormViewModel
-    @StateObject var searchViewModel: SearchViewModel = ViewModelFactory().getSearchViewModel()
+    @ObservedObject var transportFormViewModel: TransportFormViewModel
+    @ObservedObject var searchViewModel: SearchViewModel
 
     var body: some View {
-        PlanFormView<Transport, Section>(viewModel: viewModel,
+        PlanFormView<Transport, Section>(viewModel: transportFormViewModel,
                                          startDateHeader: "Departure Date",
                                          endDateHeader: "Arrival Date") {
             Section("Location") {
                 AddressTextField(title: "Departure Location",
-                                 location: $viewModel.startLocation,
+                                 location: $transportFormViewModel.startLocation,
                                  viewModel: searchViewModel,
                                  query: $searchViewModel.locationQuery)
                 AddressTextField(title: "Arrival Location",
-                                 location: $viewModel.endLocation,
+                                 location: $transportFormViewModel.endLocation,
                                  viewModel: searchViewModel,
                                  query: $searchViewModel.locationQuery)
             }

@@ -11,6 +11,8 @@ struct EditTransportView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditTransportViewModel
 
+    private let viewModelFactory = ViewModelFactory()
+
     var body: some View {
         NavigationView {
             Group {
@@ -19,7 +21,9 @@ struct EditTransportView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    TransportFormView(viewModel: viewModel)
+                    TransportFormView(
+                        transportFormViewModel: viewModel,
+                        searchViewModel: viewModelFactory.getSearchViewModel(location: viewModel.trip.location))
                 }
             }
             .navigationTitle("Edit Transport")

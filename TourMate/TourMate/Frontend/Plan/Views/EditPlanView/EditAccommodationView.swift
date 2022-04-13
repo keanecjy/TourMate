@@ -11,6 +11,8 @@ struct EditAccommodationView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditAccommodationViewModel
 
+    private let viewModelFactory = ViewModelFactory()
+
     var body: some View {
         NavigationView {
             Group {
@@ -19,7 +21,9 @@ struct EditAccommodationView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    AccommodationFormView(viewModel: viewModel)
+                    AccommodationFormView(
+                        accommodationFormViewModel: viewModel,
+                        searchViewModel: viewModelFactory.getSearchViewModel(location: viewModel.trip.location))
                 }
             }
             .navigationTitle("Edit Accommodation")
