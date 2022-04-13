@@ -7,18 +7,19 @@
 
 import SwiftUI
 
-struct SearchView: View {
+struct SearchView<Content: View>: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: SearchViewModel
     @Binding var location: Location
+    let searchTextField: Content
 
-    var searchTextField: some View {
-        HStack {
-            Image(systemName: "magnifyingglass")
-            TextField("Enter Location", text: $viewModel.query)
-        }
-        .padding()
-        .textFieldStyle(.roundedBorder)
+    init(viewModel: SearchViewModel,
+         location: Binding<Location>,
+         @ViewBuilder content: () -> Content) {
+        self._dismiss = Environment(\.dismiss)
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self._location = location
+        self.searchTextField = content()
     }
 
     var body: some View {

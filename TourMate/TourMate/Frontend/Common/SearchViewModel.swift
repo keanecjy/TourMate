@@ -14,7 +14,8 @@ class SearchViewModel: ObservableObject {
     @Published private(set) var hasError = false
 
     @Published var suggestions: [Location] = []
-    @Published var query: String = ""
+    @Published var locationQuery: String = ""
+    @Published var cityQuery: String = ""
 
     private let locationService: LocationService
 
@@ -26,8 +27,13 @@ class SearchViewModel: ObservableObject {
     }
 
     func addSubscriptions() {
-        $query.sink { [unowned self] _ in
+        $locationQuery.sink { [unowned self] _ in
             self.fetchLocations()
+        }
+        .store(in: &cancellableSet)
+
+        $cityQuery.sink { [unowned self] _ in
+            self.fetchCities()
         }
         .store(in: &cancellableSet)
     }
@@ -35,15 +41,18 @@ class SearchViewModel: ObservableObject {
     private var task: Task<Void, Never>?
 
     func fetchLocations() {
-        fetchSuggestions(action: locationService.fetchLocations)
+        fetchSuggestions(action: locationService.fetchLocations,
+                         query: locationQuery)
     }
 
     func fetchCities() {
-        fetchSuggestions(action: locationService.fetchCities)
+        fetchSuggestions(action: locationService.fetchCities,
+                         query: cityQuery)
     }
 
-    private func fetchSuggestions(action: @escaping (String) async -> ([Location], String)) {
-        if query.isEmpty {
+    private func fetchSuggestions(action: @escaping (String) async -> ([Location], String), query: String) {
+        if locationQuery.isEmpty,
+           cityQuery.isEmpty {
             suggestions = []
             task?.cancel()
             return
@@ -58,14 +67,14 @@ class SearchViewModel: ObservableObject {
                 return
             }
 
-            let (suggestedLocations, errorMessage) = await action(query)
+            let (suggestions, errorMessage) = await action(query)
 
             guard errorMessage.isEmpty else {
                 self.hasError = true
                 print("[SearchViewModel] Error: \(errorMessage)")
                 return
             }
-            self.suggestions = suggestedLocations
+            self.suggestions = suggestions
         }
     }
 }

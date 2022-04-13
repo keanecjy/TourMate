@@ -1136,8 +1136,6 @@
 			isa = PBXGroup;
 			children = (
 				000AB55927EE242500FF0ED3 /* PlanStatusView.swift */,
-				B98F35E627F01F53000AFE53 /* SearchView.swift */,
-				B98F35EF27F0602E000AFE53 /* SearchViewModel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1213,6 +1211,8 @@
 				4CD10A7727FF3A310060C5AC /* DateUtil.swift */,
 				4C16604F2800A4BD00195DF8 /* Copyable.swift */,
 				004C7C6E28041A6F00B432C7 /* DisplayMode.swift */,
+				B98F35E627F01F53000AFE53 /* SearchView.swift */,
+				B98F35EF27F0602E000AFE53 /* SearchViewModel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
