@@ -63,7 +63,7 @@ class CommentsViewModel: ObservableObject {
         }
 
         let userId = user.id
-        let commentId = planId + UUID().uuidString
+        let commentId = planId + "-" + String(planVersionNumber) + "-" + UUID().uuidString
 
         let comment = Comment(planId: planId,
                               planVersionNumber: planVersionNumber,
