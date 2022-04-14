@@ -89,6 +89,17 @@ struct ViewModelFactory {
             userService: userService)
     }
 
+    func copyPlanViewModel<T: Plan>(_ planViewModel: PlanViewModel<T>) -> PlanViewModel<T> {
+        PlanViewModel(plan: planViewModel.plan,
+                      allVersionedPlans: planViewModel.allVersionedPlans,
+                      lowerBoundDate: planViewModel.lowerBoundDate,
+                      upperBoundDate: planViewModel.lowerBoundDate,
+                      planOwner: planViewModel.planOwner,
+                      planLastModifier: planViewModel.planLastModifier,
+                      planService: planService.copy(),
+                      userService: userService)
+    }
+
     // Add Plan
     func getAddActivityViewModel(trip: Trip) -> AddActivityViewModel {
         AddActivityViewModel(trip: trip, planService: planService.copy(), userService: userService)

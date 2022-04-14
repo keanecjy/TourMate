@@ -37,10 +37,3 @@ struct TimingView: View {
         }
     }
 }
-
-// struct TimingView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        @ObservedObject var planViewModel = PlanViewModel(plan: MockPlanService().plans[0], trip: MockTripService().trips[0])
-//        return TimingView(plan: $planViewModel.plan)
-//    }
-// }

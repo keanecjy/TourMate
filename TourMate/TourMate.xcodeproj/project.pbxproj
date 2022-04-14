@@ -25,7 +25,6 @@
 		000AB55127EE14EE00FF0ED3 /* UserIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55027EE14EE00FF0ED3 /* UserIconView.swift */; };
 		000AB55427EE184F00FF0ED3 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55327EE184F00FF0ED3 /* AttendeesView.swift */; };
 		000AB55A27EE242500FF0ED3 /* PlanStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000AB55927EE242500FF0ED3 /* PlanStatusView.swift */; };
-		000F3BEF27F1659A00E7E2ED /* CommentIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000F3BED27F1659A00E7E2ED /* CommentIconView.swift */; };
 		000F3BF027F1659A00E7E2ED /* CommentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000F3BEE27F1659A00E7E2ED /* CommentTextView.swift */; };
 		00148C952807E5A60091C28B /* AddCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00148C942807E5A60091C28B /* AddCommentView.swift */; };
 		00148C982807E6720091C28B /* AddCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00148C972807E6720091C28B /* AddCommentViewModel.swift */; };
@@ -86,6 +85,7 @@
 		4CB6F8EC2807EB5A0029960B /* PlanDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6F8EB2807EB5A0029960B /* PlanDisplayView.swift */; };
 		4CB6F8EE2807EE490029960B /* PlanDiffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6F8ED2807EE490029960B /* PlanDiffView.swift */; };
 		4CB6F8F02807F76D0029960B /* PlanDiffSingleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6F8EF2807F76D0029960B /* PlanDiffSingleView.swift */; };
+		4CB6F8F62808082F0029960B /* SimplePlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6F8F52808082F0029960B /* SimplePlanView.swift */; };
 		4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954D127DDE039001410AD /* FirebaseConfig.swift */; };
 		4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954D927DDF499001410AD /* FirebaseAdaptedUser.swift */; };
 		4CB954DC27DDFAA8001410AD /* FirebaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954DB27DDFAA8001410AD /* FirebaseRepository.swift */; };
@@ -235,7 +235,6 @@
 		000AB55027EE14EE00FF0ED3 /* UserIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIconView.swift; sourceTree = "<group>"; };
 		000AB55327EE184F00FF0ED3 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
 		000AB55927EE242500FF0ED3 /* PlanStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStatusView.swift; sourceTree = "<group>"; };
-		000F3BED27F1659A00E7E2ED /* CommentIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentIconView.swift; path = Components/CommentIconView.swift; sourceTree = "<group>"; };
 		000F3BEE27F1659A00E7E2ED /* CommentTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentTextView.swift; path = Components/CommentTextView.swift; sourceTree = "<group>"; };
 		00148C942807E5A60091C28B /* AddCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentView.swift; sourceTree = "<group>"; };
 		00148C972807E6720091C28B /* AddCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentViewModel.swift; sourceTree = "<group>"; };
@@ -297,6 +296,7 @@
 		4CB6F8EB2807EB5A0029960B /* PlanDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDisplayView.swift; sourceTree = "<group>"; };
 		4CB6F8ED2807EE490029960B /* PlanDiffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDiffView.swift; sourceTree = "<group>"; };
 		4CB6F8EF2807F76D0029960B /* PlanDiffSingleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDiffSingleView.swift; sourceTree = "<group>"; };
+		4CB6F8F52808082F0029960B /* SimplePlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePlanView.swift; sourceTree = "<group>"; };
 		4CB954D127DDE039001410AD /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		4CB954D927DDF499001410AD /* FirebaseAdaptedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedUser.swift; sourceTree = "<group>"; };
 		4CB954DB27DDFAA8001410AD /* FirebaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRepository.swift; sourceTree = "<group>"; };
@@ -498,7 +498,6 @@
 		00062B6927F01A6900267960 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				000F3BED27F1659A00E7E2ED /* CommentIconView.swift */,
 				000F3BEE27F1659A00E7E2ED /* CommentTextView.swift */,
 				00148CA628080A260091C28B /* CommentInteractionView.swift */,
 			);
@@ -880,6 +879,16 @@
 			path = Transport;
 			sourceTree = "<group>";
 		};
+		4CB6F8F12807FE2F0029960B /* PlanDiffView */ = {
+			isa = PBXGroup;
+			children = (
+				4CB6F8EF2807F76D0029960B /* PlanDiffSingleView.swift */,
+				4CB6F8ED2807EE490029960B /* PlanDiffView.swift */,
+				4CB6F8F52808082F0029960B /* SimplePlanView.swift */,
+			);
+			path = PlanDiffView;
+			sourceTree = "<group>";
+		};
 		4CDE841727EF0E2F001F58C5 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -988,6 +997,7 @@
 				B98F35EE27F05FEC000AFE53 /* Common */,
 				00062B5427EF344900267960 /* CommentViews */,
 				00062B4727EEEB3B00267960 /* PlanUpvoteView */,
+				4CB6F8F12807FE2F0029960B /* PlanDiffView */,
 				95779BD627E76728001FF602 /* PlanViews */,
 				4CE02B6D27EAC6B000480D73 /* AddPlanView */,
 				00582F7327E70F49008756E9 /* EditPlanView */,
@@ -1205,8 +1215,6 @@
 				4C90219D2805BC2800054F0A /* Accommodation */,
 				4C90219E2805BC3000054F0A /* Transport */,
 				B9A04FAF27E5875A007D4303 /* PlanView.swift */,
-				4CB6F8ED2807EE490029960B /* PlanDiffView.swift */,
-				4CB6F8EF2807F76D0029960B /* PlanDiffSingleView.swift */,
 				4CB6F8EB2807EB5A0029960B /* PlanDisplayView.swift */,
 				B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */,
 				004C7C6C2804195300B432C7 /* PlanDisplayViewModel.swift */,
@@ -1819,7 +1827,6 @@
 				004C7C6F28041A6F00B432C7 /* DisplayMode.swift in Sources */,
 				B9B6B3EF27F48CE800B0F5F4 /* LocationAdapter.swift in Sources */,
 				4CCBBD2327DE687B00F9C250 /* Comment.swift in Sources */,
-				000F3BEF27F1659A00E7E2ED /* CommentIconView.swift in Sources */,
 				4CDE841C27EF12C7001F58C5 /* FirebaseEventDelegate.swift in Sources */,
 				001D223F27FEF5A400F42DB4 /* FirebasePlanUpvoteService.swift in Sources */,
 				001D223B27FEF47900F42DB4 /* PlanUpvoteEventDelegate.swift in Sources */,
@@ -1849,6 +1856,7 @@
 				4C8639A327DF37DA000566FB /* Constants.swift in Sources */,
 				00148CA728080A260091C28B /* CommentInteractionView.swift in Sources */,
 				B9B4671A28006976003D07F5 /* ActivityViewModel.swift in Sources */,
+				4CB6F8F62808082F0029960B /* SimplePlanView.swift in Sources */,
 				001D224127FEF7D800F42DB4 /* MockPlanUpvoteService.swift in Sources */,
 				B9B4671E280075E0003D07F5 /* FirebaseAdaptedActivity.swift in Sources */,
 				00F83BB827DC46E4003A28AA /* AuthenticationButton.swift in Sources */,

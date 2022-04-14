@@ -48,10 +48,7 @@ struct PlanView<T: Plan, Content: View>: View {
             .toolbar {
                 ToolbarItemGroup(placement: .primaryAction) {
                     NavigationLink {
-                        PlanDiffView(planDisplayViewModel: planViewModel,
-                                     commentsViewModel: commentsViewModel,
-                                     planUpvoteViewModel: planUpvoteViewModel,
-                                     content: content)
+                        PlanDiffView(planViewModel: planViewModel)
                     } label: {
                         Image(systemName: "arrow.left.arrow.right")
                     }
