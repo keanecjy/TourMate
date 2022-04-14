@@ -273,6 +273,12 @@ extension CommentsViewModel: PlanEventDelegate {
 
         print("[CommentsViewModel] Updating plan version number")
 
-        planVersionNumber = plan.versionNumber
+        // Fetch new version comments
+        if planVersionNumber != plan.versionNumber {
+            planVersionNumber = plan.versionNumber
+
+            detachListener()
+            await fetchCommentsAndListen()
+        }
     }
 }

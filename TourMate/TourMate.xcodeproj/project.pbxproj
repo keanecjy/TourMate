@@ -84,8 +84,9 @@
 		4CB32D78280576A800681E5B /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D77280576A800681E5B /* ViewFactory.swift */; };
 		4CB6F8EC2807EB5A0029960B /* PlanDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6F8EB2807EB5A0029960B /* PlanDisplayView.swift */; };
 		4CB6F8EE2807EE490029960B /* PlanDiffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6F8ED2807EE490029960B /* PlanDiffView.swift */; };
-		4CB6F8F02807F76D0029960B /* PlanDiffSingleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6F8EF2807F76D0029960B /* PlanDiffSingleView.swift */; };
-		4CB6F8F62808082F0029960B /* SimplePlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6F8F52808082F0029960B /* SimplePlanView.swift */; };
+		4CB6F8F02807F76D0029960B /* SimplePlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6F8EF2807F76D0029960B /* SimplePlanView.swift */; };
+		4CB6F8F62808082F0029960B /* SimplePlanDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6F8F52808082F0029960B /* SimplePlanDisplayView.swift */; };
+		4CB6F8F828081B520029960B /* SimpleCommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6F8F728081B520029960B /* SimpleCommentsView.swift */; };
 		4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954D127DDE039001410AD /* FirebaseConfig.swift */; };
 		4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954D927DDF499001410AD /* FirebaseAdaptedUser.swift */; };
 		4CB954DC27DDFAA8001410AD /* FirebaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB954DB27DDFAA8001410AD /* FirebaseRepository.swift */; };
@@ -295,8 +296,9 @@
 		4CB32D77280576A800681E5B /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
 		4CB6F8EB2807EB5A0029960B /* PlanDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDisplayView.swift; sourceTree = "<group>"; };
 		4CB6F8ED2807EE490029960B /* PlanDiffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDiffView.swift; sourceTree = "<group>"; };
-		4CB6F8EF2807F76D0029960B /* PlanDiffSingleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDiffSingleView.swift; sourceTree = "<group>"; };
-		4CB6F8F52808082F0029960B /* SimplePlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePlanView.swift; sourceTree = "<group>"; };
+		4CB6F8EF2807F76D0029960B /* SimplePlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePlanView.swift; sourceTree = "<group>"; };
+		4CB6F8F52808082F0029960B /* SimplePlanDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePlanDisplayView.swift; sourceTree = "<group>"; };
+		4CB6F8F728081B520029960B /* SimpleCommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleCommentsView.swift; sourceTree = "<group>"; };
 		4CB954D127DDE039001410AD /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		4CB954D927DDF499001410AD /* FirebaseAdaptedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdaptedUser.swift; sourceTree = "<group>"; };
 		4CB954DB27DDFAA8001410AD /* FirebaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRepository.swift; sourceTree = "<group>"; };
@@ -879,12 +881,21 @@
 			path = Transport;
 			sourceTree = "<group>";
 		};
+		4CB405B6280824E200FF52D1 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4CB6F8F728081B520029960B /* SimpleCommentsView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		4CB6F8F12807FE2F0029960B /* PlanDiffView */ = {
 			isa = PBXGroup;
 			children = (
-				4CB6F8EF2807F76D0029960B /* PlanDiffSingleView.swift */,
+				4CB405B6280824E200FF52D1 /* Components */,
 				4CB6F8ED2807EE490029960B /* PlanDiffView.swift */,
-				4CB6F8F52808082F0029960B /* SimplePlanView.swift */,
+				4CB6F8EF2807F76D0029960B /* SimplePlanView.swift */,
+				4CB6F8F52808082F0029960B /* SimplePlanDisplayView.swift */,
 			);
 			path = PlanDiffView;
 			sourceTree = "<group>";
@@ -1800,7 +1811,7 @@
 				001D224327FEF8CC00F42DB4 /* PlanUpvoteViewModel.swift in Sources */,
 				001D223527FEF11D00F42DB4 /* FirebaseAdaptedPlanUpvote.swift in Sources */,
 				4CE02B8D27EAE9CD00480D73 /* UserAdapter.swift in Sources */,
-				4CB6F8F02807F76D0029960B /* PlanDiffSingleView.swift in Sources */,
+				4CB6F8F02807F76D0029960B /* SimplePlanView.swift in Sources */,
 				95D43CCF27F1703500B2E9FD /* PlansDayView.swift in Sources */,
 				B9B6B3EB27F46CC100B0F5F4 /* GeoapifyResult.swift in Sources */,
 				95D4261227F893750077A037 /* PlansView.swift in Sources */,
@@ -1822,6 +1833,7 @@
 				00F83BC027DC528F003A28AA /* FirebaseAuthenticationManager.swift in Sources */,
 				00062B4227EECDBA00267960 /* UpvotedUsersView.swift in Sources */,
 				B9B467302801E374003D07F5 /* AccommodationView.swift in Sources */,
+				4CB6F8F828081B520029960B /* SimpleCommentsView.swift in Sources */,
 				4CB954E027DDFFC7001410AD /* User.swift in Sources */,
 				000AB55127EE14EE00FF0ED3 /* UserIconView.swift in Sources */,
 				004C7C6F28041A6F00B432C7 /* DisplayMode.swift in Sources */,
@@ -1856,7 +1868,7 @@
 				4C8639A327DF37DA000566FB /* Constants.swift in Sources */,
 				00148CA728080A260091C28B /* CommentInteractionView.swift in Sources */,
 				B9B4671A28006976003D07F5 /* ActivityViewModel.swift in Sources */,
-				4CB6F8F62808082F0029960B /* SimplePlanView.swift in Sources */,
+				4CB6F8F62808082F0029960B /* SimplePlanDisplayView.swift in Sources */,
 				001D224127FEF7D800F42DB4 /* MockPlanUpvoteService.swift in Sources */,
 				B9B4671E280075E0003D07F5 /* FirebaseAdaptedActivity.swift in Sources */,
 				00F83BB827DC46E4003A28AA /* AuthenticationButton.swift in Sources */,

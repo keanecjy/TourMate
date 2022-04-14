@@ -22,14 +22,15 @@ struct PlanDiffView<T: Plan>: View {
 
     var body: some View {
         HStack(spacing: 5.0) {
-            PlanDiffSingleView(planViewModel: viewModelFactory.copyPlanViewModel(viewModel),
+            SimplePlanView(planViewModel: viewModelFactory.copyPlanViewModel(viewModel),
                                initialVersion: viewModel.versionNumber > 1 ?
                                viewModel.versionNumber - 1 : viewModel.versionNumber)
 
             Divider()
 
-            PlanDiffSingleView(planViewModel: viewModelFactory.copyPlanViewModel(viewModel),
+            SimplePlanView(planViewModel: viewModelFactory.copyPlanViewModel(viewModel),
                                initialVersion: viewModel.versionNumber)
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

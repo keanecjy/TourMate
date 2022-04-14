@@ -80,7 +80,7 @@ class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
     }
 
     func setVersionNumber(_ versionNumber: Int) async {
-        print("Updating plan to version: \(versionNumber)")
+        print("[PlanViewModel] Updating plan to version: \(versionNumber)")
 
         guard let plan = allVersionedPlans.first(where: { $0.versionNumber == versionNumber }) else {
             print("[PlanViewModel] Not able to find plan with version \(versionNumber)")

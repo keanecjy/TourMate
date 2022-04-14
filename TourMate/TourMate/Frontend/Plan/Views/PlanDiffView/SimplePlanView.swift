@@ -7,14 +7,17 @@
 
 import SwiftUI
 
+@MainActor
 struct SimplePlanView<T: Plan>: View {
-    @ObservedObject var planViewModel: PlanViewModel<T>
+    @StateObject var planViewModel: PlanViewModel<T>
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
 
+    @State private var selectedVersion: Int
+
     private let viewModelFactory: ViewModelFactory
 
-    init(planViewModel: PlanViewModel<T>) {
+    init(planViewModel: PlanViewModel<T>, initialVersion: Int) {
         self.viewModelFactory = ViewModelFactory()
 
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
@@ -23,27 +26,39 @@ struct SimplePlanView<T: Plan>: View {
         planViewModel.attachDelegate(delegate: commentsViewModel)
         planViewModel.attachDelegate(delegate: planUpvoteViewModel)
 
-        self.planViewModel = planViewModel
+        self._planViewModel = StateObject(wrappedValue: planViewModel)
+        self._selectedVersion = State(initialValue: initialVersion)
     }
 
     var body: some View {
-        HStack(spacing: 10.0) {
-            Text(planViewModel.nameDisplay).font(.title3).bold()
+        VStack(alignment: .leading, spacing: 30.0) {
+            Picker("Version", selection: $selectedVersion) {
+                ForEach(planViewModel.allVersionNumbers, id: \.self) { num in
+                    Text("Version: \(String(num))").tag(num)
+                }
+            }
+            .pickerStyle(.menu)
+            .padding([.horizontal])
+            .background(
+                Capsule().fill(Color.primary.opacity(0.25))
+            )
+            .onChange(of: selectedVersion, perform: { val in
+                Task {
+                    await planViewModel.setVersionNumber(val)
+                }
+            })
 
-            PlanStatusView(status: planViewModel.statusDisplay)
+            SimplePlanDisplayView(planDisplayViewModel: planViewModel,
+                                  commentsViewModel: commentsViewModel,
+                                  planUpvoteViewModel: planUpvoteViewModel)
         }
-
-        PlanUpvoteView(viewModel: planUpvoteViewModel)
-            .allowsHitTesting(false)
-
-        TimingView(startDate: planViewModel.startDateTimeDisplay,
-                   endDate: planViewModel.endDateTimeDisplay)
-
-        // Show location view
-
-        InfoView(additionalInfo: planViewModel.additionalInfoDisplay)
-
-        CommentsView(viewModel: commentsViewModel)
-
+        .padding()
+        .navigationBarTitleDisplayMode(.inline)
+        .task {
+            await planViewModel.setVersionNumber(selectedVersion)
+        }
+        .onDisappear {
+            planViewModel.detachDelegates()
+        }
     }
 }
