@@ -11,6 +11,7 @@ import SwiftUI
 struct CommentsView: View {
     @StateObject var viewModel: CommentsViewModel
     @State var commentMessage: String = ""
+    private let viewModelFactory = ViewModelFactory()
 
     var body: some View {
         if viewModel.hasError {
@@ -19,22 +20,7 @@ struct CommentsView: View {
             VStack(spacing: 15.0) {
                 CommentListView(viewModel: viewModel)
 
-                HStack {
-                    TextField("Add a comment", text: $commentMessage)
-                        .padding()
-                        .background(.white)
-                        .cornerRadius(20.0)
-
-                    Button {
-                        Task {
-                            await viewModel.addComment(commentMessage: commentMessage)
-                            commentMessage = ""
-                        }
-                    } label: {
-                        Image(systemName: "paperplane.fill")
-                    }
-                    .disabled(viewModel.isLoading || viewModel.hasError)
-                }
+                AddCommentView(viewModel: viewModelFactory.getAddCommentViewModel(commentsViewModel: viewModel))
             }
             .padding()
             .background(.thinMaterial)
