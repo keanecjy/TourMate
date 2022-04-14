@@ -45,6 +45,10 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
         allVersionedPlans.map({ $0.versionNumber }).sorted(by: >)
     }
 
+    var prefixedNameDisplay: String {
+        ""
+    }
+
     var nameDisplay: String {
         plan.name
     }

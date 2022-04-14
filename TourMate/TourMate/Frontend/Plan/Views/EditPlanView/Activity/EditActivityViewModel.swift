@@ -8,24 +8,31 @@
 import Foundation
 
 @MainActor
-class EditActivityViewModel: ActivityFormViewModel {
+class EditActivityViewModel: EditPlanViewModel<Activity> {
+    @Published var location: Location
 
     init(activity: Activity,
          lowerBoundDate: Date,
          upperBoundDate: Date,
          planService: PlanService,
          userService: UserService) {
-        super.init(lowerBoundDate: lowerBoundDate,
+        self.location = activity.location
+
+        super.init(plan: activity,
+                   lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
-                   activity: activity,
                    planService: planService,
                    userService: userService)
     }
 
-    func updateActivity() async {
+    override func updatePlan() async {
         let updatedActivity = Activity(plan: getPlanWithUpdatedFields(),
                                        location: location)
 
         await updatePlan(updatedActivity)
+    }
+
+    override func getTripLocation() -> Location {
+         location
     }
 }

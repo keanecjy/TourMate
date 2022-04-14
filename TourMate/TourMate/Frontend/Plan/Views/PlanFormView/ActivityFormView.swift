@@ -2,23 +2,24 @@
 //  ActivityFormView.swift
 //  TourMate
 //
-//  Created by Tan Rui Quan on 11/4/22.
+//  Created by Keane Chan on 14/4/22.
 //
 
 import SwiftUI
 
 struct ActivityFormView: View {
-    @ObservedObject var activityFormViewModel: ActivityFormViewModel
+    @ObservedObject var viewModel: PlanFormViewModel<Activity>
+    @Binding var location: Location
     @ObservedObject var searchViewModel: SearchViewModel
 
     var body: some View {
-        PlanFormView<Activity, Section>(viewModel: activityFormViewModel,
+        PlanFormView<Activity, Section>(viewModel: viewModel,
                                         startDateHeader: "Start Date",
                                         endDateHeader: "End Date") {
 
             Section("Location") {
                 AddressTextField(title: "Address",
-                                 location: $activityFormViewModel.location,
+                                 location: $location,
                                  viewModel: searchViewModel,
                                  query: $searchViewModel.locationQuery)
             }

@@ -15,41 +15,44 @@ class MockPlanService: PlanService {
     static let creationDate = Date(timeIntervalSince1970: 1_651_400_000)
 
     var plans: [Plan] = [
-        Activity(tripId: "0", name: "Run",
-                 startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
-                 endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400)),
-                 imageUrl: "", status: .proposed,
-                 additionalInfo: "", ownerUserId: "0", location: Location()),
-        Accommodation(tripId: "0", name: "Holiday Inn",
-                      startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
-                      endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400)),
-                      imageUrl: "", status: .confirmed,
-                      additionalInfo: "", ownerUserId: "0", location: Location()),
-        Transport(tripId: "0", name: "Travel to Spago",
-                  startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
-                  endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_461_400)),
-                  imageUrl: "", status: .confirmed,
-                  additionalInfo: "", ownerUserId: "0",
+        Activity(plan: Plan(tripId: "0", name: "Run",
+                            startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
+                            endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400)),
+                            imageUrl: "", status: .proposed,
+                            additionalInfo: "", ownerUserId: "0"),
+                 location: Location()),
+        Accommodation(plan: Plan(tripId: "0", name: "Holiday Inn",
+                                 startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
+                                 endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_480_400)),
+                                 imageUrl: "", status: .confirmed,
+                                 additionalInfo: "", ownerUserId: "0"),
+                      location: Location()),
+        Transport(plan: Plan(tripId: "0", name: "Travel to Spago",
+                             startDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_460_400)),
+                             endDateTime: DateTime(date: Date(timeIntervalSince1970: 1_651_461_400)),
+                             imageUrl: "", status: .confirmed,
+                             additionalInfo: "", ownerUserId: "0"),
                   startLocation: Location(), endLocation: Location()),
-        Transport(tripId: "1", name: "Flight to Japan",
-                  startDateTime: DateTime(
-                    date: Date(timeIntervalSince1970: 1_651_440_400),
-                    timeZone: TimeZone(abbreviation: "MST")!),
-                  endDateTime: DateTime(
-                    date: Date(timeIntervalSince1970: 1_651_460_400),
-                    timeZone: TimeZone(abbreviation: "MST")!),
-                  imageUrl: "", status: .confirmed,
-                  additionalInfo: "", ownerUserId: "0",
+        Transport(plan: Plan(tripId: "1", name: "Flight to Japan",
+                             startDateTime: DateTime(
+                                date: Date(timeIntervalSince1970: 1_651_440_400),
+                                timeZone: TimeZone(abbreviation: "MST")!),
+                             endDateTime: DateTime(
+                                date: Date(timeIntervalSince1970: 1_651_460_400),
+                                timeZone: TimeZone(abbreviation: "MST")!),
+                             imageUrl: "", status: .confirmed,
+                             additionalInfo: "", ownerUserId: "0"),
                   startLocation: Location(), endLocation: Location()),
-        Activity(tripId: "1", name: "Movie",
-                 startDateTime: DateTime(
-                    date: Date(timeIntervalSince1970: 1_651_460_400),
-                    timeZone: TimeZone(abbreviation: "MST")!),
-                 endDateTime: DateTime(
-                    date: Date(timeIntervalSince1970: 1_651_480_400),
-                    timeZone: TimeZone(abbreviation: "MST")!),
-                 imageUrl: "", status: .proposed,
-                 additionalInfo: "", ownerUserId: "0", location: Location())
+        Activity(plan: Plan(tripId: "1", name: "Movie",
+                            startDateTime: DateTime(
+                                date: Date(timeIntervalSince1970: 1_651_460_400),
+                                timeZone: TimeZone(abbreviation: "MST")!),
+                            endDateTime: DateTime(
+                                date: Date(timeIntervalSince1970: 1_651_480_400),
+                                timeZone: TimeZone(abbreviation: "MST")!),
+                            imageUrl: "", status: .proposed,
+                            additionalInfo: "", ownerUserId: "0"),
+                 location: Location())
     ]
 
     func addPlan(plan: Plan) async -> (Bool, String) {

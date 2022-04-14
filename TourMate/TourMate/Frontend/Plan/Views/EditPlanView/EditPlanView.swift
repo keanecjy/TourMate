@@ -1,15 +1,23 @@
 //
-//  EditActivityView.swift
+//  EditPlanView.swift
 //  TourMate
 //
-//  Created by Tan Rui Quan on 8/4/22.
+//  Created by Keane Chan on 12/4/22.
 //
 
 import SwiftUI
 
-struct EditActivityView: View {
+struct EditPlanView<T: Plan, Content: View>: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: EditActivityViewModel
+    @ObservedObject var viewModel: EditPlanViewModel<T>
+
+    private let content: Content
+
+    init(viewModel: EditPlanViewModel<T>,
+         @ViewBuilder content: () -> Content) {
+        self.viewModel = viewModel
+        self.content = content()
+    }
 
     private let viewModelFactory = ViewModelFactory()
 
@@ -21,18 +29,16 @@ struct EditActivityView: View {
                 } else if viewModel.isLoading {
                     ProgressView()
                 } else {
-                    ActivityFormView(
-                        activityFormViewModel: viewModel,
-                        searchViewModel: viewModelFactory.getSearchViewModel(location: viewModel.trip.location))
+                    content
                 }
             }
-            .navigationTitle("Edit Activity")
+            .navigationTitle("Edit \(viewModel.planType)")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") {
                         Task {
-                            await viewModel.updateActivity()
+                            await viewModel.updatePlan()
                             dismiss()
                         }
                     }
@@ -45,7 +51,7 @@ struct EditActivityView: View {
                     .disabled(viewModel.isLoading)
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    Button("Delete Activity", role: .destructive) {
+                    Button("Delete \(viewModel.planType)", role: .destructive) {
                         Task {
                             await viewModel.deletePlan()
                             dismiss()
@@ -57,9 +63,3 @@ struct EditActivityView: View {
         }
     }
 }
-
-// struct EditActivityView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EditActivityView()
-//    }
-// }

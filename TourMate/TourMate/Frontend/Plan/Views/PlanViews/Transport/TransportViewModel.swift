@@ -20,6 +20,10 @@ class TransportViewModel: PlanViewModel<Transport> {
                    userService: userService)
     }
 
+    override var prefixedNameDisplay: String {
+        "car.circle.fill"
+    }
+
     var startLocation: Location? {
         plan.startLocation
     }
