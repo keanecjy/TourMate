@@ -20,6 +20,12 @@ struct CommentListView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading) // Push all comments to leading
         }
         .frame(maxWidth: .infinity, maxHeight: 500.0, alignment: .leading) // push VStack to leading
+        .onAppear {
+            Task {
+                await viewModel.fetchCommentsAndListen()
+            }
+        }
+        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }
 

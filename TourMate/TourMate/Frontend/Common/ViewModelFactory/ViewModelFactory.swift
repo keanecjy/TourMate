@@ -147,16 +147,6 @@ struct ViewModelFactory {
                             userService: userService, planUpvoteService: planUpvoteService.copy())
     }
 
-    // Comments
-    func getCommentsViewModel<T: Plan>(planViewModel: PlanViewModel<T>) -> CommentsViewModel {
-        getCommentsViewModel(plan: planViewModel.plan)
-    }
-
-    func getCommentsViewModel(plan: Plan) -> CommentsViewModel {
-        CommentsViewModel(planId: plan.id, planVersionNumber: plan.versionNumber,
-                          commentService: commentService.copy(), userService: userService)
-    }
-
     // Search
     func getSearchViewModel() -> SearchViewModel {
         SearchViewModel(locationService: locationService)

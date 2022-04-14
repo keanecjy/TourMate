@@ -13,12 +13,13 @@ class CommentsViewModel: ObservableObject {
     @Published var isLoading: Bool
     @Published var hasError: Bool
 
-    private let planId: String
-    private var planVersionNumber: Int
-    private var commentService: CommentService
-    private let userService: UserService
+    let planId: String
+    private(set) var planVersionNumber: Int
+    private(set) var commentService: CommentService
+    let userService: UserService
 
-    private var commentPermissions: [String: (Bool, Bool)] = [:] // canEdit, userHasUpvotedComment
+    private var commentPermissions: [String: (Bool, Bool)] // canEdit, userHasUpvotedComment
+    var allowUserInteraction: Bool
 
     var commentCount: Int {
         commentOwnerPairs.count
@@ -27,17 +28,20 @@ class CommentsViewModel: ObservableObject {
     init(planId: String,
          planVersionNumber: Int,
          commentService: CommentService,
-         userService: UserService) {
+         userService: UserService,
+         allowUserInteraction: Bool = true) {
+
+        self.commentOwnerPairs = []
+        self.isLoading = false
+        self.hasError = false
 
         self.planId = planId
         self.planVersionNumber = planVersionNumber
         self.commentService = commentService
         self.userService = userService
 
-        self.commentOwnerPairs = []
-
-        self.isLoading = false
-        self.hasError = false
+        self.commentPermissions = [:]
+        self.allowUserInteraction = allowUserInteraction
     }
 
     // TODO: Ensure that we detach and attach listeners properly when switching
@@ -56,43 +60,6 @@ class CommentsViewModel: ObservableObject {
 
         self.isLoading = true
         await commentService.fetchVersionedCommentsAndListen(withPlanId: planId, versionNumber: planVersionNumber)
-    }
-
-    func addComment(commentMessage: String) async {
-        guard !commentMessage.isEmpty else {
-            return
-        }
-
-        self.isLoading = true
-
-        let (user, userErrorMessage) = await userService.getCurrentUser()
-
-        guard let user = user, userErrorMessage.isEmpty else {
-            print("[CommentsViewModel] fetch user failed in addComment()")
-            handleError()
-            return
-        }
-
-        let userId = user.id
-        let commentId = planId + "-" + String(planVersionNumber) + "-" + UUID().uuidString
-
-        let comment = Comment(planId: planId,
-                              planVersionNumber: planVersionNumber,
-                              id: commentId,
-                              userId: userId,
-                              message: commentMessage,
-                              creationDate: Date(),
-                              upvotedUserIds: [])
-
-        let (hasAdded, commentErrorMessage) = await commentService.addComment(comment: comment)
-
-        guard hasAdded, commentErrorMessage.isEmpty else {
-            print("[CommentsViewModel] add comment failed in addComment()")
-            handleError()
-            return
-        }
-
-        self.isLoading = false
     }
 
     func deleteComment(comment: Comment) async {
@@ -166,6 +133,19 @@ class CommentsViewModel: ObservableObject {
         }
 
         return canEdit
+    }
+
+    func getUpvoteImageNameDisplay(comment: Comment) -> String {
+        let userHasUpvotedComment = getUserHasUpvotedComment(comment: comment)
+        if userHasUpvotedComment {
+            return "hand.thumbsup.fill"
+        } else {
+            return "hand.thumbsup"
+        }
+    }
+
+    func getUpvoteUserCountDisplay(comment: Comment) -> String {
+        String(comment.upvotedUserIds.count)
     }
 
     func detachListener() {
