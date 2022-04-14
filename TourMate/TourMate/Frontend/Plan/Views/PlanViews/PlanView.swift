@@ -13,7 +13,6 @@ struct PlanView<T: Plan, Content: View>: View {
     let planUpvoteViewModel: PlanUpvoteViewModel
 
     @State private var isShowingEditPlanSheet = false
-    @State private var selectedVersion: Int
 
     @Environment(\.dismiss) var dismiss
 
@@ -31,7 +30,6 @@ struct PlanView<T: Plan, Content: View>: View {
         planViewModel.attachDelegate(delegate: planUpvoteViewModel)
 
         self._planViewModel = StateObject(wrappedValue: planViewModel)
-        self._selectedVersion = State(wrappedValue: planViewModel.versionNumber)
         self.content = content()
     }
 
@@ -41,47 +39,23 @@ struct PlanView<T: Plan, Content: View>: View {
         } else if planViewModel.isLoading {
             ProgressView()
         } else {
-            VStack(alignment: .leading, spacing: 30.0) {
-                Picker("Version", selection: $selectedVersion) {
-                    ForEach(planViewModel.allVersionNumbers, id: \.magnitude) { num in
-                        Text("Version: \(String(num))")
-                    }
-                }
-                .pickerStyle(.menu)
-                .padding([.horizontal])
-                .background(
-                    Capsule().fill(Color.primary.opacity(0.25))
-                )
-
-                PlanHeaderView(
-                    planStatus: planViewModel.statusDisplay,
-                    planOwner: planViewModel.planOwner,
-                    creationDateDisplay: planViewModel.creationDateDisplay,
-                    lastModifier: planViewModel.planLastModifier,
-                    lastModifiedDateDisplay: planViewModel.lastModifiedDateDisplay,
-                    versionNumberDisplay: planViewModel.versionNumberDisplay) {
-                        Text(planViewModel.nameDisplay)
-                            .bold()
-                            .prefixedWithIcon(named: planViewModel.prefixedNameDisplay)
-                }
-
-                PlanUpvoteView(viewModel: planUpvoteViewModel)
-
-                TimingView(startDate: planViewModel.startDateTimeDisplay,
-                           endDate: planViewModel.endDateTimeDisplay)
-
-                content
-
-                InfoView(additionalInfo: planViewModel.additionalInfoDisplay)
-
-                CommentsView(viewModel: commentsViewModel)
-
-                Spacer() // Push everything to the top
-            }
+            PlanDisplayView(planDisplayViewModel: planViewModel,
+                            commentsViewModel: commentsViewModel,
+                            planUpvoteViewModel: planUpvoteViewModel,
+                            content: content)
             .padding()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
+                ToolbarItemGroup(placement: .primaryAction) {
+                    NavigationLink {
+                        PlanDiffView(planDisplayViewModel: planViewModel,
+                                     commentsViewModel: commentsViewModel,
+                                     planUpvoteViewModel: planUpvoteViewModel,
+                                     content: content)
+                    } label: {
+                        Image(systemName: "arrow.left.arrow.right")
+                    }
+
                     Button {
                         isShowingEditPlanSheet.toggle()
                     } label: {
