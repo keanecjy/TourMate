@@ -37,7 +37,6 @@ struct SimplePlanDisplayView<T: Plan>: View {
         InfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
 
         SimpleCommentsView(viewModel: commentsViewModel)
-            .disabled(false)
 
         Spacer()
     }

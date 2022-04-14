@@ -44,10 +44,6 @@ class CommentsViewModel: ObservableObject {
         self.allowUserInteraction = allowUserInteraction
     }
 
-    // TODO: Ensure that we detach and attach listeners properly when switching
-    // from fetchCommentsAndListen() to fetchVersionedCommentsAndListen() and vice versa
-    // If need be, we can call detachListener() in each function
-
     func fetchCommentsAndListen() async {
         commentService.commentEventDelegate = self
 

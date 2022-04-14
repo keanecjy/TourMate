@@ -21,6 +21,7 @@ struct SimplePlanView<T: Plan>: View {
         self.viewModelFactory = ViewModelFactory()
 
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
+        commentsViewModel.allowUserInteraction = false
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
 
         self._planViewModel = StateObject(wrappedValue: planViewModel)
