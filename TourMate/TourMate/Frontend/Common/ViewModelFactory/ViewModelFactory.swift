@@ -89,15 +89,28 @@ struct ViewModelFactory {
             userService: userService)
     }
 
-    func copyPlanViewModel<T: Plan>(_ planViewModel: PlanViewModel<T>) -> PlanViewModel<T> {
-        PlanViewModel(plan: planViewModel.plan,
-                      allVersionedPlans: planViewModel.allVersionedPlans,
-                      lowerBoundDate: planViewModel.lowerBoundDate,
-                      upperBoundDate: planViewModel.lowerBoundDate,
-                      planOwner: planViewModel.planOwner,
-                      planLastModifier: planViewModel.planLastModifier,
-                      planService: planService.copy(),
-                      userService: userService)
+    func getActivityViewModel(planViewModel: PlanViewModel<Activity>) -> ActivityViewModel {
+        ActivityViewModel(activity: planViewModel.plan,
+                          versionedActivities: planViewModel.allVersionedPlans,
+                          lowerBoundDate: planViewModel.lowerBoundDate, upperBoundDate: planViewModel.upperBoundDate,
+                          planOwner: planViewModel.planOwner, planLastModifier: planViewModel.planLastModifier,
+                          planService: planService.copy(), userService: userService)
+    }
+
+    func getAccommodationViewModel(planViewModel: PlanViewModel<Accommodation>) -> AccommodationViewModel {
+        AccommodationViewModel(accommodation: planViewModel.plan,
+                               versionedAccommodations: planViewModel.allVersionedPlans,
+                               lowerBoundDate: planViewModel.lowerBoundDate, upperBoundDate: planViewModel.upperBoundDate,
+                               planOwner: planViewModel.planOwner, planLastModifier: planViewModel.planLastModifier,
+                               planService: planService.copy(), userService: userService)
+    }
+
+    func getTransportViewModel(planViewModel: PlanViewModel<Transport>) -> TransportViewModel {
+        TransportViewModel(transport: planViewModel.plan,
+                           versionedTransports: planViewModel.allVersionedPlans,
+                           lowerBoundDate: planViewModel.lowerBoundDate, upperBoundDate: planViewModel.upperBoundDate,
+                           planOwner: planViewModel.planOwner, planLastModifier: planViewModel.planLastModifier,
+                           planService: planService.copy(), userService: userService)
     }
 
     // Add Plan

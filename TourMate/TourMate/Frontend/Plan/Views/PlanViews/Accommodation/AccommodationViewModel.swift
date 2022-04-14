@@ -21,6 +21,22 @@ class AccommodationViewModel: PlanViewModel<Accommodation> {
                    userService: userService)
     }
 
+    init(accommodation: Accommodation,
+         versionedAccommodations: [Accommodation],
+         lowerBoundDate: DateTime,
+         upperBoundDate: DateTime,
+         planOwner: User,
+         planLastModifier: User,
+         planService: PlanService,
+         userService: UserService) {
+        super.init(plan: accommodation,
+                   allVersionedPlans: versionedAccommodations,
+                   lowerBoundDate: lowerBoundDate,
+                   upperBoundDate: upperBoundDate,
+                   planOwner: planOwner, planLastModifier: planLastModifier,
+                   planService: planService, userService: userService)
+    }
+
     override var prefixedNameDisplay: String {
         "bed.double.circle.fill"
     }

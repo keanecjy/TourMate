@@ -273,6 +273,7 @@ extension CommentsViewModel: PlanEventDelegate {
         if planVersionNumber != plan.versionNumber {
             planVersionNumber = plan.versionNumber
 
+            // TODO: Change to filter only comments for the current version
             detachListener()
             await fetchVersionedCommentsAndListen()
         }

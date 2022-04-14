@@ -10,13 +10,22 @@ import SwiftUI
 struct TimingView: View {
     let startDate: DateTime
     let endDate: DateTime
+    let displayIcon: Bool
 
     @State private var dateFormatter = DateFormatter()
 
+    init(startDate: DateTime, endDate: DateTime, displayIcon: Bool = true) {
+        self.startDate = startDate
+        self.endDate = endDate
+        self.displayIcon = displayIcon
+    }
+
     var body: some View {
         HStack(alignment: .top) {
-            Image(systemName: "clock")
-                .font(.title)
+            if displayIcon {
+                Image(systemName: "clock")
+                    .font(.title)
+            }
 
             VStack(alignment: .leading) {
                 Text("From").font(.body).bold()
