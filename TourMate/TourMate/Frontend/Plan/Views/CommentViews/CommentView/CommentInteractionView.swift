@@ -13,15 +13,6 @@ struct CommentInteractionView: View {
 
     @State var isShowingEditCommentSheet = false
 
-    var upvoteImageName: String {
-        let userHasUpvotedComment = viewModel.getUserHasUpvotedComment(comment: comment)
-        if userHasUpvotedComment {
-            return "hand.thumbsup.fill"
-        } else {
-            return "hand.thumbsup"
-        }
-    }
-
     var body: some View {
         HStack(spacing: 10.0) {
             if viewModel.getUserCanEditComment(comment: comment) {
@@ -40,10 +31,10 @@ struct CommentInteractionView: View {
                 }
             } label: {
                 HStack {
-                    Image(systemName: upvoteImageName)
+                    Image(systemName: viewModel.getUpvoteImageNameDisplay(comment: comment))
                         .foregroundColor(.blue)
 
-                    Text(String(comment.upvotedUserIds.count))
+                    Text(viewModel.getUpvoteUserCountDisplay(comment: comment))
                         .foregroundColor(.black)
                 }
                 .padding([.horizontal], 10.0)

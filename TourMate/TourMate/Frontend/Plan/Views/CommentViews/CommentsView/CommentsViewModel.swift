@@ -131,6 +131,19 @@ class CommentsViewModel: ObservableObject {
         return canEdit
     }
 
+    func getUpvoteImageNameDisplay(comment: Comment) -> String {
+        let userHasUpvotedComment = getUserHasUpvotedComment(comment: comment)
+        if userHasUpvotedComment {
+            return "hand.thumbsup.fill"
+        } else {
+            return "hand.thumbsup"
+        }
+    }
+
+    func getUpvoteUserCountDisplay(comment: Comment) -> String {
+        String(comment.upvotedUserIds.count)
+    }
+
     func detachListener() {
         commentService.commentEventDelegate = nil
         self.isLoading = false
