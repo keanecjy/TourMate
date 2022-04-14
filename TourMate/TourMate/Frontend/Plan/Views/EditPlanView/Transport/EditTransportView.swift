@@ -11,16 +11,10 @@ struct EditTransportView: View {
     @StateObject var viewModel: EditTransportViewModel
 
     var body: some View {
-        EditPlanView(viewModel: viewModel, planType: "Transport") {
-            PlanFormView(viewModel: viewModel,
-                         startDateHeader: "Departure Date",
-                         endDateHeader: "Arrival Date") {
-
-                Section("Location") {
-                    AddressTextField(title: "Departure Location", location: $viewModel.startLocation)
-                    AddressTextField(title: "Arrival Location", location: $viewModel.endLocation)
-                }
-            }
+        EditPlanView(viewModel: viewModel) {
+            TransportFormView(viewModel: viewModel,
+                              startLocation: $viewModel.startLocation,
+                              endLocation: $viewModel.endLocation)
         }
     }
 }

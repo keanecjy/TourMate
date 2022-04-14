@@ -12,18 +12,10 @@ struct AddTransportView: View {
     var dismissAddPlanView: DismissAction
 
     var body: some View {
-        AddPlanView(viewModel: viewModel,
-                    dismissAddPlanView: dismissAddPlanView,
-                    planType: "Transport") {
-            PlanFormView(viewModel: viewModel,
-                         startDateHeader: "Departure Date",
-                         endDateHeader: "Arrival Date") {
-
-                Section("Location") {
-                    AddressTextField(title: "Departure Location", location: $viewModel.startLocation)
-                    AddressTextField(title: "Arrival Location", location: $viewModel.endLocation)
-                }
-            }
+        AddPlanView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView) {
+            TransportFormView(viewModel: viewModel,
+                              startLocation: $viewModel.startLocation,
+                              endLocation: $viewModel.endLocation)
         }
     }
 }

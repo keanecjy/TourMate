@@ -12,17 +12,8 @@ struct AddAccommodationView: View {
     var dismissAddPlanView: DismissAction
 
     var body: some View {
-        AddPlanView(viewModel: viewModel,
-                    dismissAddPlanView: dismissAddPlanView,
-                    planType: "Accommodation") {
-            PlanFormView(viewModel: viewModel,
-                         startDateHeader: "Check-in Date",
-                         endDateHeader: "Check-out Date") {
-
-                Section("Location") {
-                    AddressTextField(title: "Address", location: $viewModel.location)
-                }
-            }
+        AddPlanView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView) {
+            AccommodationFormView(viewModel: viewModel, location: $viewModel.location)
         }
     }
 }

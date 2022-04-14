@@ -12,16 +12,13 @@ struct AddPlanView<T: Plan, Content: View>: View {
     @ObservedObject var viewModel: AddPlanViewModel<T>
     var dismissAddPlanView: DismissAction
 
-    private let planType: String
     private let content: Content
 
     init(viewModel: AddPlanViewModel<T>,
          dismissAddPlanView: DismissAction,
-         planType: String,
          @ViewBuilder content: () -> Content) {
         self.viewModel = viewModel
         self.dismissAddPlanView = dismissAddPlanView
-        self.planType = planType
         self.content = content()
     }
 
@@ -36,7 +33,7 @@ struct AddPlanView<T: Plan, Content: View>: View {
                     content
                 }
             }
-            .navigationTitle("New \(planType)")
+            .navigationTitle("New \(viewModel.planType)")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {

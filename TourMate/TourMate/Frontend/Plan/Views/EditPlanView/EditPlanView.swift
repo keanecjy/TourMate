@@ -11,14 +11,11 @@ struct EditPlanView<T: Plan, Content: View>: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: EditPlanViewModel<T>
 
-    private let planType: String
     private let content: Content
 
     init(viewModel: EditPlanViewModel<T>,
-         planType: String,
          @ViewBuilder content: () -> Content) {
         self.viewModel = viewModel
-        self.planType = planType
         self.content = content()
     }
 
@@ -33,7 +30,7 @@ struct EditPlanView<T: Plan, Content: View>: View {
                     content
                 }
             }
-            .navigationTitle("Edit \(planType)")
+            .navigationTitle("Edit \(viewModel.planType)")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
@@ -52,7 +49,7 @@ struct EditPlanView<T: Plan, Content: View>: View {
                     .disabled(viewModel.isLoading)
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    Button("Delete \(planType)", role: .destructive) {
+                    Button("Delete \(viewModel.planType)", role: .destructive) {
                         Task {
                             await viewModel.deletePlan()
                             dismiss()
