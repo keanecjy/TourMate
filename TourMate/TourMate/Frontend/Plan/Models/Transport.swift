@@ -11,30 +11,7 @@ class Transport: Plan {
     var startLocation: Location?
     var endLocation: Location?
 
-    // Transport creation
-    init(tripId: String,
-         name: String,
-         startDateTime: DateTime,
-         endDateTime: DateTime,
-         imageUrl: String,
-         status: PlanStatus,
-         additionalInfo: String,
-         ownerUserId: String,
-         startLocation: Location?,
-         endLocation: Location?) {
-        self.startLocation = startLocation
-        self.endLocation = endLocation
-
-        super.init(tripId: tripId,
-                   name: name,
-                   startDateTime: startDateTime,
-                   endDateTime: endDateTime,
-                   imageUrl: imageUrl,
-                   status: status,
-                   additionalInfo: additionalInfo,
-                   ownerUserId: ownerUserId)
-    }
-
+    // Creation
     init(plan: Plan, startLocation: Location?, endLocation: Location?) {
         self.startLocation = startLocation
         self.endLocation = endLocation
@@ -71,12 +48,6 @@ class Transport: Plan {
                    versionNumber: versionNumber)
     }
 
-    required init() {
-        self.startLocation = nil
-        self.endLocation = nil
-        super.init()
-    }
-
     override func equals<T>(other: T) -> Bool where T: Plan {
         guard super.equals(other: other),
               let otherTransport = other as? Transport
@@ -86,5 +57,9 @@ class Transport: Plan {
 
         return startLocation == otherTransport.startLocation
         && endLocation == otherTransport.endLocation
+    }
+
+    override var description: String {
+        "(Transport: \(super.description))"
     }
 }

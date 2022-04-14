@@ -8,20 +8,24 @@
 import Foundation
 
 @MainActor
-class EditAccommodationViewModel: AccommodationFormViewModel {
+class EditAccommodationViewModel: EditPlanViewModel<Accommodation> {
+    @Published var location: Location?
 
     init(accommodation: Accommodation,
          lowerBoundDate: Date,
          upperBoundDate: Date,
          planService: PlanService,
          userService: UserService) {
-        super.init(lowerBoundDate: lowerBoundDate,
+        self.location = accommodation.location
+
+        super.init(plan: accommodation,
+                   lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
-                   accommodation: accommodation, planService: planService,
+                   planService: planService,
                    userService: userService)
     }
 
-    func updateAccommodation() async {
+    override func updatePlan() async {
         let updatedAccommodation = Accommodation(plan: getPlanWithUpdatedFields(),
                                                  location: location)
 

@@ -8,7 +8,9 @@
 import Foundation
 
 @MainActor
-class AddTransportViewModel: TransportFormViewModel {
+class AddTransportViewModel: AddPlanViewModel<Transport> {
+    @Published var startLocation: Location?
+    @Published var endLocation: Location?
 
     override init(trip: Trip, planService: PlanService, userService: UserService) {
         super.init(trip: trip,
@@ -16,7 +18,7 @@ class AddTransportViewModel: TransportFormViewModel {
                    userService: userService)
     }
 
-    func addTransport() async {
+    override func addPlan() async {
         let transport = Transport(plan: await getPlanForAdding(),
                                   startLocation: startLocation,
                                   endLocation: endLocation)

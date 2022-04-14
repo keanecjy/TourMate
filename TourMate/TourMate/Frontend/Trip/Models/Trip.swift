@@ -33,6 +33,7 @@ struct Trip: CustomStringConvertible {
         return startDateString + " - " + endDateString
     }
 
+    // All fields
     init(id: String, name: String,
          startDateTime: DateTime,
          endDateTime: DateTime,
@@ -54,7 +55,7 @@ struct Trip: CustomStringConvertible {
         self.modificationDate = modificationDate
     }
 
-    // For initialization
+    // Creation
     init(id: String, name: String,
          startDateTime: DateTime,
          endDateTime: DateTime,
@@ -70,19 +71,6 @@ struct Trip: CustomStringConvertible {
         self.invitedUserIds = []
         self.creationDate = Date.now
         self.modificationDate = Date.now
-    }
-
-    init() {
-        self.id = ""
-        self.name = ""
-        self.startDateTime = DateTime()
-        self.endDateTime = DateTime()
-        self.imageUrl = ""
-        self.creatorUserId = ""
-        self.attendeesUserIds = []
-        self.invitedUserIds = []
-        self.creationDate = Date()
-        self.modificationDate = Date()
     }
 }
 

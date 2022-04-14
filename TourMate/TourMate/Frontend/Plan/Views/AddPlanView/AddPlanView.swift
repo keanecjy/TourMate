@@ -1,75 +1,59 @@
 //
-//  PlanFormView.swift
+//  AddPlanView.swift
 //  TourMate
 //
-//  Created by Tan Rui Quan on 13/3/22.
+//  Created by Keane Chan on 12/4/22.
 //
 
 import SwiftUI
 
-@MainActor
-struct AddPlanView: View {
-    @Environment(\.dismiss) var dismissAddPlanView
+struct AddPlanView<T: Plan, Content: View>: View {
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var viewModel: AddPlanViewModel<T>
+    var dismissAddPlanView: DismissAction
 
-    let trip: Trip
-    private let viewModelFactory = ViewModelFactory()
+    private let content: Content
 
-    @State private var isShowingAddActivitySheet = false
-    @State private var isShowingAddAccommodationSheet = false
-    @State private var isShowingAddTransportSheet = false
+    init(viewModel: AddPlanViewModel<T>,
+         dismissAddPlanView: DismissAction,
+         @ViewBuilder content: () -> Content) {
+        self.viewModel = viewModel
+        self.dismissAddPlanView = dismissAddPlanView
+        self.content = content()
+    }
 
     var body: some View {
         NavigationView {
-            List {
-                Button {
-                    isShowingAddActivitySheet.toggle()
-                } label: {
-                    Text("Activity")
-                        .prefixedWithIcon(named: "figure.walk.circle.fill")
-                }
-                .sheet(isPresented: $isShowingAddActivitySheet) {
-                    let viewModel = viewModelFactory.getAddActivityViewModel(trip: trip)
-                    AddActivityView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView)
-                }
-
-                Button {
-                    isShowingAddAccommodationSheet.toggle()
-                } label: {
-                    Text("Accommodation")
-                        .prefixedWithIcon(named: "bed.double.circle.fill")
-                }
-                .sheet(isPresented: $isShowingAddAccommodationSheet) {
-                    let viewModel = viewModelFactory.getAddAccommodationViewModel(trip: trip)
-                    AddAccommodationView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView)
-                }
-
-                Button {
-                    isShowingAddTransportSheet.toggle()
-                } label: {
-                    Text("Transport")
-                        .prefixedWithIcon(named: "car.circle.fill")
-                }
-                .sheet(isPresented: $isShowingAddTransportSheet) {
-                    let viewModel = viewModelFactory.getAddTransportViewModel(trip: trip)
-                    AddTransportView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView)
+            Group {
+                if viewModel.hasError {
+                    Text("Error Occurred")
+                } else if viewModel.isLoading {
+                    ProgressView()
+                } else {
+                    content
                 }
             }
-            .listStyle(.plain)
-            .navigationTitle("Add a Plan")
+            .navigationTitle("New \(viewModel.planType)")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Add") {
+                        Task {
+                            await viewModel.addPlan()
+                            dismiss()
+                            dismissAddPlanView()
+                        }
+                    }
+                    .disabled(!viewModel.canSubmitPlan || viewModel.isLoading || viewModel.hasError)
+                }
+
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .destructive) {
-                        dismissAddPlanView()
+                        dismiss()
                     }
+                    .disabled(viewModel.isLoading)
                 }
             }
         }
     }
 }
-
-// struct PlanFormView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlanFormView()
-//    }
-// }

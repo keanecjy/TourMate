@@ -10,27 +10,7 @@ import Foundation
 class Activity: Plan {
     var location: Location?
 
-    // Activity creation
-    init(tripId: String,
-         name: String,
-         startDateTime: DateTime,
-         endDateTime: DateTime,
-         imageUrl: String,
-         status: PlanStatus,
-         additionalInfo: String,
-         ownerUserId: String,
-         location: Location?) {
-        self.location = location
-        super.init(tripId: tripId,
-                   name: name,
-                   startDateTime: startDateTime,
-                   endDateTime: endDateTime,
-                   imageUrl: imageUrl,
-                   status: status,
-                   additionalInfo: additionalInfo,
-                   ownerUserId: ownerUserId)
-    }
-
+    // Creation
     init(plan: Plan, location: Location?) {
         self.location = location
         super.init(plan: plan)
@@ -64,11 +44,6 @@ class Activity: Plan {
                    versionNumber: versionNumber)
     }
 
-    required init() {
-        self.location = nil
-        super.init()
-    }
-
     override func equals<T>(other: T) -> Bool where T: Plan {
         guard super.equals(other: other),
               let otherActivity = other as? Activity
@@ -77,5 +52,9 @@ class Activity: Plan {
         }
 
         return location == otherActivity.location
+    }
+
+    override var description: String {
+        "(Activity: \(super.description))"
     }
 }

@@ -11,10 +11,12 @@ import SwiftUI
 struct PlanCardView: View {
 
     @ObservedObject var plansViewModel: PlansViewModel
+    @StateObject var commentsViewModel: CommentsViewModel
+
+    let planUpvoteViewModel: PlanUpvoteViewModel
+
     let plan: Plan
     let date: Date
-    let planUpvoteViewModel: PlanUpvoteViewModel
-    @StateObject var commentsViewModel: CommentsViewModel
 
     init(plansViewModel: PlansViewModel, plan: Plan, date: Date) {
         self.plansViewModel = plansViewModel

@@ -8,15 +8,18 @@
 import Foundation
 
 @MainActor
-class AddAccommodationViewModel: AccommodationFormViewModel {
+class AddAccommodationViewModel: AddPlanViewModel<Accommodation> {
+    @Published var location: Location?
 
     override init(trip: Trip, planService: PlanService, userService: UserService) {
+        self.location = nil
+
         super.init(trip: trip,
                    planService: planService,
                    userService: userService)
     }
 
-    func addAccommodation() async {
+    override func addPlan() async {
         let accommodation = Accommodation(plan: await getPlanForAdding(),
                                           location: location)
 

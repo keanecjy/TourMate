@@ -51,7 +51,7 @@ struct MapView: View {
                 Image(systemName: "location.fill")
                     .font(.title)
                 VStack(alignment: .leading) {
-                    Text("Location").font(.caption)
+                    Text("Location").font(.body).bold()
                     Text(startLocation.addressLineOne)
                     Text(startLocation.addressLineTwo)
                     Map(coordinateRegion: region, annotationItems: [startLocation]) {

@@ -8,15 +8,18 @@
 import Foundation
 
 @MainActor
-class AddActivityViewModel: ActivityFormViewModel {
+class AddActivityViewModel: AddPlanViewModel<Activity> {
+    @Published var location: Location?
 
     override init(trip: Trip, planService: PlanService, userService: UserService) {
+        self.location = nil
+
         super.init(trip: trip,
                    planService: planService,
                    userService: userService)
     }
 
-    func addActivity() async {
+    override func addPlan() async {
         let activity = Activity(plan: await getPlanForAdding(),
                                 location: location)
 

@@ -8,21 +8,26 @@
 import Foundation
 
 @MainActor
-class EditTransportViewModel: TransportFormViewModel {
+class EditTransportViewModel: EditPlanViewModel<Transport> {
+    @Published var startLocation: Location?
+    @Published var endLocation: Location?
 
     init(transport: Transport,
          lowerBoundDate: Date,
          upperBoundDate: Date,
          planService: PlanService,
          userService: UserService) {
-        super.init(lowerBoundDate: lowerBoundDate,
+        self.startLocation = transport.startLocation
+        self.endLocation = transport.endLocation
+
+        super.init(plan: transport,
+                   lowerBoundDate: lowerBoundDate,
                    upperBoundDate: upperBoundDate,
-                   transport: transport,
                    planService: planService,
                    userService: userService)
     }
 
-    func updateTransport() async {
+    override func updatePlan() async {
         let updatedTransport = Transport(plan: getPlanWithUpdatedFields(),
                                          startLocation: startLocation,
                                          endLocation: endLocation)
