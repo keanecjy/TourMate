@@ -30,6 +30,10 @@ class PlanFormViewModel<T: Plan>: ObservableObject {
 
     private var cancellableSet: Set<AnyCancellable> = []
 
+    var planType: String {
+        String(describing: T.self)
+    }
+
     // Editing Plan
     init(lowerBoundDate: Date, upperBoundDate: Date, plan: T) {
         self.lowerBoundDate = lowerBoundDate
