@@ -26,9 +26,6 @@ struct PlanView<T: Plan, Content: View>: View {
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
 
-        planViewModel.attachDelegate(delegate: commentsViewModel)
-        planViewModel.attachDelegate(delegate: planUpvoteViewModel)
-
         self._planViewModel = StateObject(wrappedValue: planViewModel)
         self.content = content()
     }
@@ -64,6 +61,8 @@ struct PlanView<T: Plan, Content: View>: View {
                 }
             }
             .task {
+                planViewModel.attachDelegate(delegate: commentsViewModel)
+                planViewModel.attachDelegate(delegate: planUpvoteViewModel)
                 await planViewModel.fetchVersionedPlansAndListen()
                 await planViewModel.updatePlanOwner()
             }

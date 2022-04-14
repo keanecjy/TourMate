@@ -23,9 +23,6 @@ struct SimplePlanView<T: Plan>: View {
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
 
-        planViewModel.attachDelegate(delegate: commentsViewModel)
-        planViewModel.attachDelegate(delegate: planUpvoteViewModel)
-
         self._planViewModel = StateObject(wrappedValue: planViewModel)
         self._selectedVersion = State(initialValue: initialVersion)
     }
@@ -55,6 +52,8 @@ struct SimplePlanView<T: Plan>: View {
         .padding()
         .navigationBarTitleDisplayMode(.inline)
         .task {
+            planViewModel.attachDelegate(delegate: commentsViewModel)
+            planViewModel.attachDelegate(delegate: planUpvoteViewModel)
             await planViewModel.setVersionNumber(selectedVersion)
         }
         .onDisappear {

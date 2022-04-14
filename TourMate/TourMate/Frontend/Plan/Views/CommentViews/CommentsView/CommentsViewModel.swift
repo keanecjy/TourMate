@@ -278,7 +278,7 @@ extension CommentsViewModel: PlanEventDelegate {
             planVersionNumber = plan.versionNumber
 
             detachListener()
-            await fetchCommentsAndListen()
+            await fetchVersionedCommentsAndListen()
         }
     }
 }
