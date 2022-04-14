@@ -10,7 +10,6 @@ import SwiftUI
 // Entire Comments View
 struct CommentsView: View {
     @StateObject var viewModel: CommentsViewModel
-    @State var commentMessage: String = ""
     private let viewModelFactory = ViewModelFactory()
 
     var body: some View {
