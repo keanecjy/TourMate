@@ -21,6 +21,11 @@ class CommentsViewModel: ObservableObject {
     private var commentPermissions: [String: (Bool, Bool)] // canEdit, userHasUpvotedComment
     var allowUserInteraction: Bool
 
+    // TODO: Fix after Terence changes for comments
+    var fetchAllVersions: Bool {
+        allowUserInteraction
+    }
+
     var commentCount: Int {
         commentOwnerPairs.count
     }

@@ -43,6 +43,7 @@ struct PlanDisplayView<T: Plan, Content: View>: View {
 
             content
 
+            // TODO: Use text view instead
             InfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
 
             CommentsView(viewModel: commentsViewModel)
