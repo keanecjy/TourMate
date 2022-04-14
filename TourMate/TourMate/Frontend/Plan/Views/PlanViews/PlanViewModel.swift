@@ -49,6 +49,14 @@ class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
                    planOwner: planOwner, planLastModifier: planLastModifier)
     }
 
+    func copy() -> PlanViewModel<T> {
+        PlanViewModel(plan: plan, allVersionedPlans: allVersionedPlans,
+                      lowerBoundDate: lowerBoundDate,
+                      upperBoundDate: upperBoundDate,
+                      planOwner: planOwner, planLastModifier: planLastModifier,
+                      planService: planService.copy(), userService: userService)
+    }
+
     func attachDelegate(delegate: PlanEventDelegate) {
         self.planEventDelegates.append(delegate)
     }

@@ -9,8 +9,6 @@ import SwiftUI
 
 @MainActor
 struct PlanDiffView<T: Plan>: View {
-    @Environment(\.dismiss) var dismiss
-
     var viewModel: PlanViewModel<T>
 
     private let viewModelFactory: ViewModelFactory
@@ -22,14 +20,14 @@ struct PlanDiffView<T: Plan>: View {
 
     var body: some View {
         HStack(spacing: 5.0) {
-            SimplePlanView(planViewModel: viewModelFactory.copyPlanViewModel(viewModel),
-                               initialVersion: viewModel.versionNumber > 1 ?
-                               viewModel.versionNumber - 1 : viewModel.versionNumber)
+            SimplePlanView(planViewModel: viewModel.copy(),
+                           initialVersion: viewModel.versionNumber > 1 ?
+                           viewModel.versionNumber - 1 : viewModel.versionNumber)
 
             Divider()
 
-            SimplePlanView(planViewModel: viewModelFactory.copyPlanViewModel(viewModel),
-                               initialVersion: viewModel.versionNumber)
+            SimplePlanView(planViewModel: viewModel.copy(),
+                           initialVersion: viewModel.versionNumber)
         }
         .navigationBarTitleDisplayMode(.inline)
     }
