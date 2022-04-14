@@ -24,12 +24,6 @@ struct CommentsView: View {
             .padding()
             .background(.thinMaterial)
             .cornerRadius(20.0)
-            .onAppear {
-                Task {
-                    await viewModel.fetchCommentsAndListen()
-                }
-            }
-            .onDisappear(perform: { () in viewModel.detachListener() })
         }
     }
 }
