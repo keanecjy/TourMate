@@ -18,7 +18,8 @@ class CommentsViewModel: ObservableObject {
     private(set) var commentService: CommentService
     let userService: UserService
 
-    private var commentPermissions: [String: (Bool, Bool)] = [:] // canEdit, userHasUpvotedComment
+    private var commentPermissions: [String: (Bool, Bool)] // canEdit, userHasUpvotedComment
+    var allowUserInteraction: Bool
 
     var commentCount: Int {
         commentOwnerPairs.count
@@ -27,17 +28,20 @@ class CommentsViewModel: ObservableObject {
     init(planId: String,
          planVersionNumber: Int,
          commentService: CommentService,
-         userService: UserService) {
+         userService: UserService,
+         allowUserInteraction: Bool = true) {
+
+        self.commentOwnerPairs = []
+        self.isLoading = false
+        self.hasError = false
 
         self.planId = planId
         self.planVersionNumber = planVersionNumber
         self.commentService = commentService
         self.userService = userService
 
-        self.commentOwnerPairs = []
-
-        self.isLoading = false
-        self.hasError = false
+        self.commentPermissions = [:]
+        self.allowUserInteraction = allowUserInteraction
     }
 
     // TODO: Ensure that we detach and attach listeners properly when switching
