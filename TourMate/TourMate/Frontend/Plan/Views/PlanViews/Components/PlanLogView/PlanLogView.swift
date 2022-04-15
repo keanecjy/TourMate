@@ -10,6 +10,8 @@ import SwiftUI
 struct PlanLogView<T: Plan>: View {
 
     private let viewModelFactory: ViewModelFactory
+    private let viewFactory: ViewFactory
+
     @ObservedObject var planDisplayViewModel: PlanDisplayViewModel<T>
     @ObservedObject var commentsViewModel: CommentsViewModel
     @ObservedObject var planUpvoteViewModel: PlanUpvoteViewModel
@@ -20,46 +22,12 @@ struct PlanLogView<T: Plan>: View {
          planUpvoteViewModel: PlanUpvoteViewModel) {
 
         self.viewModelFactory = ViewModelFactory()
+        self.viewFactory = ViewFactory()
+
         self.planDisplayViewModel = planDisplayViewModel
         self.commentsViewModel = commentsViewModel
         self.planUpvoteViewModel = planUpvoteViewModel
         self.addCommentViewModel = viewModelFactory.getAddCommentViewModel(commentsViewModel: commentsViewModel)
-    }
-
-    func getPlanVersionView(plan: T) -> some View {
-        let action = plan.versionNumber == 1 ? "created" : "updated"
-        let username = planDisplayViewModel.getPlanModifier(version: plan.versionNumber)?.name ?? "someone..."
-        return HStack {
-            Spacer()
-            Text("Plan version \(plan.versionNumber) \(action) by \(username)")
-                .bold()
-            Spacer()
-        }
-    }
-
-    // Will be empty if there are no views to display
-    @ViewBuilder
-    func getUpvotedUsersView(version: Int) -> some View {
-        let upvotedUsers = planUpvoteViewModel.getUpvotedUsersForVersion(version: version)
-
-        if !upvotedUsers.isEmpty {
-            let upvotedUsersText = upvotedUsers.map({ $0.name }).joined(separator: ", ")
-            let displayText = upvotedUsersText + " liked this version :)"
-
-            HStack {
-                Spacer()
-                Text(displayText)
-                Spacer()
-            }
-        }
-    }
-
-    func getComments(version: Int) -> some View {
-        let commentOwnerPairs = commentsViewModel.getCommentsForVersion(version: version)
-
-        return ForEach(commentOwnerPairs, id: \.0.id) { comment, user in
-            CommentView(viewModel: commentsViewModel, comment: comment, user: user)
-        }
     }
 
     var body: some View {
@@ -71,13 +39,16 @@ struct PlanLogView<T: Plan>: View {
                         VStack(alignment: .leading, spacing: 10.0) { // Each Version's section
 
                             // Plan Version Header
-                            getPlanVersionView(plan: versionedPlan)
+                            viewFactory.getPlanVersionView(planDisplayViewModel: planDisplayViewModel,
+                                                           plan: versionedPlan)
 
                             // Likes
-                            getUpvotedUsersView(version: versionedPlan.versionNumber)
+                            viewFactory.getUpvotedUsersView(planUpvoteViewModel: planUpvoteViewModel,
+                                                            version: versionedPlan.versionNumber)
 
                             // Comments
-                            getComments(version: versionedPlan.versionNumber)
+                            viewFactory.getComments(commentsViewModel: commentsViewModel,
+                                                    version: versionedPlan.versionNumber)
                         }
                     }
                 }
