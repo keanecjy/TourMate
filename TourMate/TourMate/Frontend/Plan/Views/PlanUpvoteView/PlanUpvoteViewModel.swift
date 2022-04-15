@@ -139,7 +139,7 @@ extension PlanUpvoteViewModel: PlanEventDelegate {
             return
         }
 
-        print("[PlanUpvoteViewModel] Updating plan version number")
+        print("[PlanUpvoteViewModel] Updating to plan version number \(plan.versionNumber)")
 
         // Fetch new version upvotes
         if planVersion != plan.versionNumber {
