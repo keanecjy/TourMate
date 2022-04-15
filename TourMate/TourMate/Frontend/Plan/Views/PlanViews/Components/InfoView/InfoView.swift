@@ -8,24 +8,15 @@
 import SwiftUI
 
 struct InfoView: View {
-    @State private var isShowingAdditionalInfoSheet = false
 
     let additionalInfo: String
 
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             Image(systemName: "newspaper")
                 .font(.title)
 
-            Button {
-                isShowingAdditionalInfoSheet.toggle()
-            } label: {
-                Text("Additional Notes")
-            }
-            .sheet(isPresented: $isShowingAdditionalInfoSheet) {
-                AdditionalInfoView(additionalInfo: additionalInfo)
-            }
+            AdditionalInfoView(additionalInfo: additionalInfo)
         }
-
     }
 }
