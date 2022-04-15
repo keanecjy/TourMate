@@ -10,8 +10,8 @@ import SwiftUI
 struct PlanDisplayView<T: Plan, Content: View>: View {
 
     @ObservedObject var planDisplayViewModel: PlanDisplayViewModel<T>
-    let commentsViewModel: CommentsViewModel
-    let planUpvoteViewModel: PlanUpvoteViewModel
+    @ObservedObject var commentsViewModel: CommentsViewModel
+    @ObservedObject var planUpvoteViewModel: PlanUpvoteViewModel
     private let content: Content
 
     init(planDisplayViewModel: PlanDisplayViewModel<T>, commentsViewModel: CommentsViewModel,
@@ -46,7 +46,11 @@ struct PlanDisplayView<T: Plan, Content: View>: View {
 
                 InfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
 
-                CommentsView(viewModel: commentsViewModel)
+//                CommentsView(viewModel: commentsViewModel)
+
+                PlanLogView(planDisplayViewModel: planDisplayViewModel,
+                            commentsViewModel: commentsViewModel,
+                            planUpvoteViewModel: planUpvoteViewModel)
             }
         }
     }

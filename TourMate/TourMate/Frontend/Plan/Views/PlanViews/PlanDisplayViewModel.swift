@@ -15,6 +15,10 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
 
     var allVersionedPlans: [T]
 
+    var allVersionedPlansSorted: [T] {
+        allVersionedPlans.sorted(by: { $0.versionNumber < $1.versionNumber })
+    }
+
     init(plan: T) {
         self.plan = plan
         self.allVersionedPlans = [plan]

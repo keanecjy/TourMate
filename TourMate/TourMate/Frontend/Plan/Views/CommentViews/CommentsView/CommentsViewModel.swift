@@ -23,6 +23,8 @@ class CommentsViewModel: ObservableObject {
 
     private var allVersionedComments: [(Comment, User)]
 
+    private var planEventDelegates: [PlanEventDelegate]
+
     var commentCount: Int {
         commentOwnerPairs.count
     }
@@ -45,6 +47,8 @@ class CommentsViewModel: ObservableObject {
         self.commentPermissions = [:]
         self.allowUserInteraction = allowUserInteraction
         self.allVersionedComments = []
+
+        self.planEventDelegates = []
     }
 
     func fetchCommentsAndListen() async {
@@ -103,8 +107,9 @@ class CommentsViewModel: ObservableObject {
             return
         }
 
+        // the comment should stay within its own version?
         let updatedComment = Comment(planId: comment.planId,
-                                     planVersionNumber: planVersionNumber,
+                                     planVersionNumber: comment.planVersionNumber,
                                      id: comment.id,
                                      userId: comment.userId,
                                      message: message,
@@ -155,11 +160,15 @@ class CommentsViewModel: ObservableObject {
     }
 
     func filterSpecificVersionComments(version: Int) async {
-        var versionedComments = allVersionedComments.filter({ $0.0.planVersionNumber == version })
+        var versionedComments = getCommentsForVersion(version: version)
 
         sortByCreationDateDesc(&versionedComments)
 
         self.commentOwnerPairs = versionedComments
+    }
+
+    func getCommentsForVersion(version: Int) -> [(Comment, User)] {
+        allVersionedComments.filter({ $0.0.planVersionNumber == version })
     }
 }
 
@@ -183,6 +192,20 @@ extension CommentsViewModel: CommentEventDelegate {
 
 // MARK: PlanEventDelegate
 extension CommentsViewModel: PlanEventDelegate {
+    func attachDelegate(delegate: PlanEventDelegate) {
+        self.planEventDelegates.append(delegate)
+    }
+
+    func detachDelegates() {
+        self.planEventDelegates = []
+    }
+
+    func updateDelegates(plan: Plan, errorMessage: String) async {
+        for planEventDelegate in self.planEventDelegates {
+            await planEventDelegate.update(plan: plan, errorMessage: errorMessage)
+        }
+    }
+
     func update(plans: [Plan], errorMessage: String) async {
     }
 
@@ -194,6 +217,8 @@ extension CommentsViewModel: PlanEventDelegate {
         print("[CommentsViewModel] Updating to plan version number \(plan.versionNumber)")
 
         planVersionNumber = plan.versionNumber
+
+        await updateDelegates(plan: plan, errorMessage: errorMessage)
     }
 }
 
