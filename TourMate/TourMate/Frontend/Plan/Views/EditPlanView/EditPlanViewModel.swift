@@ -95,6 +95,10 @@ class EditPlanViewModel<T: Plan>: PlanFormViewModel<T> {
 
     func updatePlan() async {}
 
+    func getTripLocation() -> Location {
+        Location()
+    }
+
     private func makeUpdatedPlan(_ plan: T) async {
         let (currentUser, _) = await userService.getCurrentUser()
         guard let currentUser = currentUser else {

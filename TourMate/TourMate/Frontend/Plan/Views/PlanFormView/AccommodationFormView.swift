@@ -9,15 +9,19 @@ import SwiftUI
 
 struct AccommodationFormView: View {
     @ObservedObject var viewModel: PlanFormViewModel<Accommodation>
-    @Binding var location: Location?
+    @Binding var location: Location
+    @ObservedObject var searchViewModel: SearchViewModel
 
     var body: some View {
-        PlanFormView(viewModel: viewModel,
-                     startDateHeader: "Check-in Date",
-                     endDateHeader: "Check-out Date") {
+        PlanFormView<Accommodation, Section>(viewModel: viewModel,
+                                             startDateHeader: "Check-in Date",
+                                             endDateHeader: "Check-out Date") {
 
             Section("Location") {
-                AddressTextField(title: "Address", location: $location)
+                AddressTextField(title: "Address",
+                                 location: $location,
+                                 viewModel: searchViewModel,
+                                 query: $searchViewModel.locationQuery)
             }
         }
     }

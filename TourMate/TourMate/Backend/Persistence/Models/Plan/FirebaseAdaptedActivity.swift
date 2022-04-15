@@ -9,7 +9,7 @@ import Foundation
 
 class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
 
-    let location: JsonAdaptedLocation?
+    let location: JsonAdaptedLocation
 
     init(id: String, tripId: String, name: String,
          startDateTime: FirebaseAdaptedDateTime,
@@ -18,7 +18,7 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
          creationDate: Date, modificationDate: Date,
          additionalInfo: String, ownerUserId: String,
          modifierUserId: String, versionNumber: Int,
-         location: JsonAdaptedLocation?) {
+         location: JsonAdaptedLocation) {
         self.location = location
         super.init(id: id, tripId: tripId, name: name,
                    startDateTime: startDateTime,
@@ -40,7 +40,7 @@ class FirebaseAdaptedActivity: FirebaseAdaptedPlan {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        location = try container.decode(JsonAdaptedLocation?.self, forKey: .location)
+        location = try container.decode(JsonAdaptedLocation.self, forKey: .location)
 
         try super.init(from: decoder)
     }

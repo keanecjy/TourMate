@@ -10,9 +10,14 @@ import SwiftUI
 struct EditActivityView: View {
     @StateObject var viewModel: EditActivityViewModel
 
+    private let viewModelFactory = ViewModelFactory()
+
     var body: some View {
         EditPlanView(viewModel: viewModel) {
-            ActivityFormView(viewModel: viewModel, location: $viewModel.location)
+            ActivityFormView(
+                viewModel: viewModel,
+                location: $viewModel.location,
+                searchViewModel: viewModelFactory.getSearchViewModel(location: viewModel.getTripLocation()))
         }
     }
 }

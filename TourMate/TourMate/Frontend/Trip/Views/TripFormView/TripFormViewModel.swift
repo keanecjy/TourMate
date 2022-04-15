@@ -11,11 +11,13 @@ import Combine
 @MainActor
 class TripFormViewModel: ObservableObject {
     @Published var isTripNameValid: Bool
+    @Published var hasLocation: Bool
     @Published var canSubmitTrip: Bool
 
     @Published var tripName: String
     @Published var tripStartDate: Date
     @Published var tripEndDate: Date
+    @Published var tripLocation: Location
     @Published var tripImageURL: String
     @Published var fromStartDate: PartialRangeFrom<Date>
 
@@ -24,11 +26,13 @@ class TripFormViewModel: ObservableObject {
     // Adding trip
     init() {
         self.isTripNameValid = false
+        self.hasLocation = false
         self.canSubmitTrip = false
 
         self.tripName = ""
         self.tripStartDate = Date()
         self.tripEndDate = Date()
+        self.tripLocation = Location()
         self.tripImageURL = ""
         self.fromStartDate = Date()...
 
@@ -38,11 +42,13 @@ class TripFormViewModel: ObservableObject {
     // Editing trip
     init(trip: Trip) {
         self.isTripNameValid = !trip.name.isEmpty
-        self.canSubmitTrip = !trip.name.isEmpty
+        self.hasLocation = trip.location.isPresent()
+        self.canSubmitTrip = !trip.name.isEmpty && trip.location.isPresent()
 
         self.tripName = trip.name
         self.tripStartDate = trip.startDateTime.date
         self.tripEndDate = trip.endDateTime.date
+        self.tripLocation = trip.location
         self.tripImageURL = trip.imageUrl
         self.fromStartDate = trip.startDateTime.date...
 
@@ -60,7 +66,14 @@ class TripFormViewModel: ObservableObject {
             .assign(to: \.fromStartDate, on: self)
             .store(in: &cancellableSet)
 
-        $isTripNameValid
+        $tripLocation
+            .map({ $0.isPresent() })
+            .assign(to: \.hasLocation, on: self)
+            .store(in: &cancellableSet)
+
+        Publishers
+            .CombineLatest($isTripNameValid, $hasLocation)
+            .map({ $0 && $1 })
             .assign(to: \.canSubmitTrip, on: self)
             .store(in: &cancellableSet)
 

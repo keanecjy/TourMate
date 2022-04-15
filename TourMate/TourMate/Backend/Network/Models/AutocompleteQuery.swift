@@ -8,13 +8,21 @@
 import Foundation
 
 struct AutocompleteQuery {
+
     let apiKey: String
     let text: String
-    let type: String = ""
+    let type: String
     let lang: String = ""
     let filter: String = ""
-    let bias: String = ""
+    let bias: String
     let format: String = "json"
+
+    init(apiKey: String, text: String, type: String = "", bias: String = "") {
+        self.apiKey = apiKey
+        self.text = text
+        self.type = type
+        self.bias = bias
+    }
 
     func getQuery() -> String {
         var query = "?text=\(getUrlString(text))"

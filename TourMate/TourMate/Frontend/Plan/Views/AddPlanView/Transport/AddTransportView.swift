@@ -11,11 +11,15 @@ struct AddTransportView: View {
     @StateObject var viewModel: AddTransportViewModel
     var dismissAddPlanView: DismissAction
 
+    private let viewModelFactory = ViewModelFactory()
+
     var body: some View {
         AddPlanView(viewModel: viewModel, dismissAddPlanView: dismissAddPlanView) {
-            TransportFormView(viewModel: viewModel,
-                              startLocation: $viewModel.startLocation,
-                              endLocation: $viewModel.endLocation)
+            TransportFormView(
+                viewModel: viewModel,
+                startLocation: $viewModel.startLocation,
+                endLocation: $viewModel.endLocation,
+                searchViewModel: viewModelFactory.getSearchViewModel(location: viewModel.getTripLocation()))
         }
     }
 }

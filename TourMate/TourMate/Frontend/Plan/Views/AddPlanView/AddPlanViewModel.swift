@@ -53,6 +53,10 @@ class AddPlanViewModel<T: Plan>: PlanFormViewModel<T> {
         self.isLoading = false
     }
 
+    func getTripLocation() -> Location {
+        trip.location
+    }
+
     func addPlan() async {}
 
 }

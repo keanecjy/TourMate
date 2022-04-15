@@ -12,6 +12,7 @@ struct FirebaseAdaptedTrip: FirebaseAdaptedData {
     let name: String
     let startDateTime: FirebaseAdaptedDateTime
     let endDateTime: FirebaseAdaptedDateTime
+    let location: JsonAdaptedLocation
     let imageUrl: String
     let creatorUserId: String
     let attendeesUserIds: [String]

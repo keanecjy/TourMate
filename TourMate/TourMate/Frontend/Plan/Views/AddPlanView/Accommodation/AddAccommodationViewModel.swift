@@ -9,10 +9,10 @@ import Foundation
 
 @MainActor
 class AddAccommodationViewModel: AddPlanViewModel<Accommodation> {
-    @Published var location: Location?
+    @Published var location: Location
 
     override init(trip: Trip, planService: PlanService, userService: UserService) {
-        self.location = nil
+        self.location = Location()
 
         super.init(trip: trip,
                    planService: planService,

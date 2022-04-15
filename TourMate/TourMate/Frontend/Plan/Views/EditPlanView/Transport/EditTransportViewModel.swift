@@ -9,8 +9,8 @@ import Foundation
 
 @MainActor
 class EditTransportViewModel: EditPlanViewModel<Transport> {
-    @Published var startLocation: Location?
-    @Published var endLocation: Location?
+    @Published var startLocation: Location
+    @Published var endLocation: Location
 
     init(transport: Transport,
          lowerBoundDate: Date,
@@ -33,5 +33,13 @@ class EditTransportViewModel: EditPlanViewModel<Transport> {
                                          endLocation: endLocation)
 
         await updatePlan(updatedTransport)
+    }
+
+    override func getTripLocation() -> Location {
+        if startLocation.isPresent() {
+            return startLocation
+        } else {
+            return endLocation
+        }
     }
 }

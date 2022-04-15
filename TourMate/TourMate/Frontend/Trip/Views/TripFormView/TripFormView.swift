@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct TripFormView: View {
-
     @ObservedObject var viewModel: TripFormViewModel
+    @StateObject var searchViewModel: SearchViewModel = ViewModelFactory().getSearchViewModel()
 
     var body: some View {
         Form {
             TextField("Trip Name*", text: $viewModel.tripName)
+
+            AddressTextField(title: "Destination city*",
+                             location: $viewModel.tripLocation,
+                             viewModel: searchViewModel,
+                             query: $searchViewModel.cityQuery)
 
             DatePicker(
                 "Start Date",

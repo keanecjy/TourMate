@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 class EditActivityViewModel: EditPlanViewModel<Activity> {
-    @Published var location: Location?
+    @Published var location: Location
 
     init(activity: Activity,
          lowerBoundDate: Date,
@@ -30,5 +30,9 @@ class EditActivityViewModel: EditPlanViewModel<Activity> {
                                        location: location)
 
         await updatePlan(updatedActivity)
+    }
+
+    override func getTripLocation() -> Location {
+         location
     }
 }

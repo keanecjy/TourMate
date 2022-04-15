@@ -10,11 +10,15 @@ import SwiftUI
 struct EditTransportView: View {
     @StateObject var viewModel: EditTransportViewModel
 
+    private let viewModelFactory = ViewModelFactory()
+
     var body: some View {
         EditPlanView(viewModel: viewModel) {
-            TransportFormView(viewModel: viewModel,
-                              startLocation: $viewModel.startLocation,
-                              endLocation: $viewModel.endLocation)
+            TransportFormView(
+                viewModel: viewModel,
+                startLocation: $viewModel.startLocation,
+                endLocation: $viewModel.endLocation,
+                searchViewModel: viewModelFactory.getSearchViewModel(location: viewModel.getTripLocation()))
         }
     }
 }
