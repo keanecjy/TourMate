@@ -40,7 +40,7 @@ struct SimplePlanDisplayView<T: Plan, Content: View>: View {
 
                 content
 
-                InfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
+                AdditionalInfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
 
                 CommentsView(viewModel: commentsViewModel)
 
