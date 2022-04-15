@@ -30,11 +30,13 @@ struct TimingView: View {
             VStack(alignment: .leading) {
                 Text("From").font(.body).bold()
                 Text(startDate.date, formatter: dateFormatter)
+                    .fixedSize(horizontal: false, vertical: true) // wrap if text is too long
             }
 
             VStack(alignment: .leading) {
                 Text("To").font(.body).bold()
                 Text(endDate.date, formatter: dateFormatter)
+                    .fixedSize(horizontal: false, vertical: true) // wrap if text is too long
             }
         }
         .onAppear {

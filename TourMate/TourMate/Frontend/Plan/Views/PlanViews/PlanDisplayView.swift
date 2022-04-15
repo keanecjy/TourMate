@@ -23,32 +23,32 @@ struct PlanDisplayView<T: Plan, Content: View>: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 30.0) {
-            PlanHeaderView(
-                planStatus: planDisplayViewModel.statusDisplay,
-                planOwner: planDisplayViewModel.planOwner,
-                creationDateDisplay: planDisplayViewModel.creationDateDisplay,
-                lastModifier: planDisplayViewModel.planLastModifier,
-                lastModifiedDateDisplay: planDisplayViewModel.lastModifiedDateDisplay,
-                versionNumberDisplay: planDisplayViewModel.versionNumberDisplay) {
-                    Text(planDisplayViewModel.nameDisplay)
-                        .bold()
-                        .prefixedWithIcon(named: planDisplayViewModel.prefixedNameDisplay)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 30.0) {
+                PlanHeaderView(
+                    planStatus: planDisplayViewModel.statusDisplay,
+                    planOwner: planDisplayViewModel.planOwner,
+                    creationDateDisplay: planDisplayViewModel.creationDateDisplay,
+                    lastModifier: planDisplayViewModel.planLastModifier,
+                    lastModifiedDateDisplay: planDisplayViewModel.lastModifiedDateDisplay,
+                    versionNumberDisplay: planDisplayViewModel.versionNumberDisplay) {
+                        Text(planDisplayViewModel.nameDisplay)
+                            .bold()
+                            .prefixedWithIcon(named: planDisplayViewModel.prefixedNameDisplay)
+                }
+
+                PlanUpvoteView(viewModel: planUpvoteViewModel)
+
+                TimingView(startDate: planDisplayViewModel.startDateTimeDisplay,
+                           endDate: planDisplayViewModel.endDateTimeDisplay)
+
+                content
+
+                // TODO: Use text view instead
+                InfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
+
+                CommentsView(viewModel: commentsViewModel)
             }
-
-            PlanUpvoteView(viewModel: planUpvoteViewModel)
-
-            TimingView(startDate: planDisplayViewModel.startDateTimeDisplay,
-                       endDate: planDisplayViewModel.endDateTimeDisplay)
-
-            content
-
-            // TODO: Use text view instead
-            InfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
-
-            CommentsView(viewModel: commentsViewModel)
-
-            Spacer() // Push everything to the top
         }
     }
 }
