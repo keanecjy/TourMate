@@ -24,8 +24,17 @@ struct PlansMapView: View {
     }
 
     var body: some View {
-        LazyVStack {
-            HStack {
+        PlansMapDayView(viewModel: viewModel,
+                        date: selectedDate,
+                        plans: getPlans(for: selectedDate),
+                        onSelected: onSelected)
+        .task {
+            selectedDate = viewModel.days.first?.date ?? Date()
+        }
+        .navigationTitle("Map View")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
                 Picker("Date", selection: $selectedDate) {
                     ForEach(viewModel.days, id: \.date) { day in
                         PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
@@ -34,18 +43,9 @@ struct PlansMapView: View {
                 .pickerStyle(.menu)
                 .padding([.horizontal])
                 .background(
-                    Capsule().fill(Color.primary.opacity(0.25))
+                    Capsule().strokeBorder(Color(.link), lineWidth: 1)
                 )
-                Spacer()
             }
-            .padding()
-            PlansMapDayView(viewModel: viewModel,
-                            date: selectedDate,
-                            plans: getPlans(for: selectedDate),
-                            onSelected: onSelected)
-        }
-        .task {
-            selectedDate = viewModel.days.first?.date ?? Date()
         }
     }
 }

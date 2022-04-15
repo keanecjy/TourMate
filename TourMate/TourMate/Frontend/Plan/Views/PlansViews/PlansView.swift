@@ -25,13 +25,23 @@ struct PlansView: View {
 
     var body: some View {
         VStack {
-            Picker("View Mode", selection: $selectedViewMode) {
-                Label("Itinerary", systemImage: "list.bullet.rectangle").tag(PlansViewMode.list)
-                Label("Calendar", systemImage: "calendar.day.timeline.left").tag(PlansViewMode.calendar)
-                Label("Map", systemImage: "calendar.day.timeline.left").tag(PlansViewMode.map)
+            HStack {
+                Picker("View Mode", selection: $selectedViewMode) {
+                    Label("Itinerary", systemImage: "list.bullet.rectangle").tag(PlansViewMode.list)
+                    Label("Calendar", systemImage: "calendar.day.timeline.left").tag(PlansViewMode.calendar)
+
+                }
+                .pickerStyle(.segmented)
+
+                NavigationLink {
+                    PlansMapView(viewModel: plansViewModel, onSelected: onSelected)
+                } label: {
+                    Label("Map", systemImage: "map.fill")
+
+                }
             }
-            .pickerStyle(.segmented)
             .padding()
+
             Group {
                 if selectedViewMode == .list {
                     PlansListView(viewModel: plansViewModel, onSelected: onSelected)

@@ -73,7 +73,7 @@ struct PlansMapDayView: View {
     }
 
     var body: some View {
-        VStack {
+        ZStack(alignment: .bottom) {
             Map(coordinateRegion: $region, annotationItems: locations) { location in
                 MapAnnotation(coordinate: location.coordinate) {
                     ZStack {
@@ -89,7 +89,7 @@ struct PlansMapDayView: View {
                     }
                 }
             }
-            .frame(maxWidth: .infinity, minHeight: 300)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             TabView(selection: $selectedItem) {
                 ForEach(plans, id: \.0) { index, plan in
@@ -103,7 +103,9 @@ struct PlansMapDayView: View {
                     })
                     .buttonStyle(PlainButtonStyle())
                     .background(RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.primary.opacity(0.1)))
+                                    .fill(Color(.systemBackground))
+                                    .shadow(color: Color.primary.opacity(0.5), radius: 4)
+                    )
                     .padding()
                     .tag(index)
                 }
