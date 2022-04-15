@@ -89,6 +89,30 @@ struct ViewModelFactory {
             userService: userService)
     }
 
+    func getActivityViewModel(planViewModel: PlanViewModel<Activity>) -> ActivityViewModel {
+        ActivityViewModel(activity: planViewModel.plan,
+                          versionedActivities: planViewModel.allVersionedPlans,
+                          lowerBoundDate: planViewModel.lowerBoundDate, upperBoundDate: planViewModel.upperBoundDate,
+                          planOwner: planViewModel.planOwner, planLastModifier: planViewModel.planLastModifier,
+                          planService: planService.copy(), userService: userService)
+    }
+
+    func getAccommodationViewModel(planViewModel: PlanViewModel<Accommodation>) -> AccommodationViewModel {
+        AccommodationViewModel(accommodation: planViewModel.plan,
+                               versionedAccommodations: planViewModel.allVersionedPlans,
+                               lowerBoundDate: planViewModel.lowerBoundDate, upperBoundDate: planViewModel.upperBoundDate,
+                               planOwner: planViewModel.planOwner, planLastModifier: planViewModel.planLastModifier,
+                               planService: planService.copy(), userService: userService)
+    }
+
+    func getTransportViewModel(planViewModel: PlanViewModel<Transport>) -> TransportViewModel {
+        TransportViewModel(transport: planViewModel.plan,
+                           versionedTransports: planViewModel.allVersionedPlans,
+                           lowerBoundDate: planViewModel.lowerBoundDate, upperBoundDate: planViewModel.upperBoundDate,
+                           planOwner: planViewModel.planOwner, planLastModifier: planViewModel.planLastModifier,
+                           planService: planService.copy(), userService: userService)
+    }
+
     // Add Plan
     func getAddActivityViewModel(trip: Trip) -> AddActivityViewModel {
         AddActivityViewModel(trip: trip, planService: planService.copy(), userService: userService)
@@ -145,16 +169,6 @@ struct ViewModelFactory {
     func getPlanUpvoteViewModel(plan: Plan) -> PlanUpvoteViewModel {
         PlanUpvoteViewModel(planId: plan.id, planVersionNumber: plan.versionNumber,
                             userService: userService, planUpvoteService: planUpvoteService.copy())
-    }
-
-    // Comments
-    func getCommentsViewModel<T: Plan>(planViewModel: PlanViewModel<T>) -> CommentsViewModel {
-        getCommentsViewModel(plan: planViewModel.plan)
-    }
-
-    func getCommentsViewModel(plan: Plan) -> CommentsViewModel {
-        CommentsViewModel(planId: plan.id, planVersionNumber: plan.versionNumber,
-                          commentService: commentService.copy(), userService: userService)
     }
 
     // Search

@@ -20,6 +20,22 @@ class TransportViewModel: PlanViewModel<Transport> {
                    userService: userService)
     }
 
+    init(transport: Transport,
+         versionedTransports: [Transport],
+         lowerBoundDate: DateTime,
+         upperBoundDate: DateTime,
+         planOwner: User,
+         planLastModifier: User,
+         planService: PlanService,
+         userService: UserService) {
+        super.init(plan: transport,
+                   allVersionedPlans: versionedTransports,
+                   lowerBoundDate: lowerBoundDate,
+                   upperBoundDate: upperBoundDate,
+                   planOwner: planOwner, planLastModifier: planLastModifier,
+                   planService: planService, userService: userService)
+    }
+
     override var prefixedNameDisplay: String {
         "car.circle.fill"
     }

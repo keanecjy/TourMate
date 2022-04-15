@@ -8,12 +8,11 @@ import SwiftUI
 
 struct PlanView<T: Plan, Content: View>: View {
 
-    @StateObject var planViewModel: PlanViewModel<T>
+    @ObservedObject var planViewModel: PlanViewModel<T>
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
 
     @State private var isShowingEditPlanSheet = false
-    @State private var selectedVersion: Int
 
     @Environment(\.dismiss) var dismiss
 
@@ -27,11 +26,7 @@ struct PlanView<T: Plan, Content: View>: View {
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
 
-        planViewModel.attachDelegate(delegate: commentsViewModel)
-        planViewModel.attachDelegate(delegate: planUpvoteViewModel)
-
-        self._planViewModel = StateObject(wrappedValue: planViewModel)
-        self._selectedVersion = State(wrappedValue: planViewModel.versionNumber)
+        self.planViewModel = planViewModel
         self.content = content()
     }
 
@@ -41,47 +36,20 @@ struct PlanView<T: Plan, Content: View>: View {
         } else if planViewModel.isLoading {
             ProgressView()
         } else {
-            VStack(alignment: .leading, spacing: 30.0) {
-                Picker("Version", selection: $selectedVersion) {
-                    ForEach(planViewModel.allVersionNumbers, id: \.magnitude) { num in
-                        Text("Version: \(String(num))")
-                    }
-                }
-                .pickerStyle(.menu)
-                .padding([.horizontal])
-                .background(
-                    Capsule().fill(Color.primary.opacity(0.25))
-                )
-
-                PlanHeaderView(
-                    planStatus: planViewModel.statusDisplay,
-                    planOwner: planViewModel.planOwner,
-                    creationDateDisplay: planViewModel.creationDateDisplay,
-                    lastModifier: planViewModel.planLastModifier,
-                    lastModifiedDateDisplay: planViewModel.lastModifiedDateDisplay,
-                    versionNumberDisplay: planViewModel.versionNumberDisplay) {
-                        Text(planViewModel.nameDisplay)
-                            .bold()
-                            .prefixedWithIcon(named: planViewModel.prefixedNameDisplay)
-                }
-
-                PlanUpvoteView(viewModel: planUpvoteViewModel)
-
-                TimingView(startDate: planViewModel.startDateTimeDisplay,
-                           endDate: planViewModel.endDateTimeDisplay)
-
-                content
-
-                InfoView(additionalInfo: planViewModel.additionalInfoDisplay)
-
-                CommentsView(viewModel: commentsViewModel)
-
-                Spacer() // Push everything to the top
-            }
+            PlanDisplayView(planDisplayViewModel: planViewModel,
+                            commentsViewModel: commentsViewModel,
+                            planUpvoteViewModel: planUpvoteViewModel,
+                            content: content)
             .padding()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
+                ToolbarItemGroup(placement: .primaryAction) {
+                    NavigationLink {
+                        PlanDiffView(planViewModel: planViewModel)
+                    } label: {
+                        Image(systemName: "arrow.left.arrow.right")
+                    }
+
                     Button {
                         isShowingEditPlanSheet.toggle()
                     } label: {
@@ -93,6 +61,8 @@ struct PlanView<T: Plan, Content: View>: View {
                 }
             }
             .task {
+                planViewModel.attachDelegate(delegate: commentsViewModel)
+                planViewModel.attachDelegate(delegate: planUpvoteViewModel)
                 await planViewModel.fetchVersionedPlansAndListen()
                 await planViewModel.updatePlanOwner()
             }
