@@ -14,7 +14,7 @@ struct AdditionalInfoView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10.0) {
             Text("Additional Info")
-                .underline()
+                .bold()
 
             ExpandableTextView(content: additionalInfo)
                 .fixedSize(horizontal: false, vertical: true)
