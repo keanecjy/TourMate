@@ -154,8 +154,8 @@ class CommentsViewModel: ObservableObject {
         commentService.detachListener()
     }
 
-    func filterSpecificVersionComments() async {
-        var versionedComments = allVersionedComments.filter({ $0.0.planVersionNumber == planVersionNumber })
+    func filterSpecificVersionComments(version: Int) async {
+        var versionedComments = allVersionedComments.filter({ $0.0.planVersionNumber == version })
 
         sortByCreationDateDesc(&versionedComments)
 

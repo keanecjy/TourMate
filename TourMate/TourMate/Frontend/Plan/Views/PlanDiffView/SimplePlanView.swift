@@ -45,7 +45,7 @@ struct SimplePlanView<T: Plan>: View {
                 .onChange(of: selectedVersion, perform: { val in
                     Task {
                         await planViewModel.setVersionNumber(val)
-                        await commentsViewModel.filterSpecificVersionComments()
+                        await commentsViewModel.filterSpecificVersionComments(version: val)
                     }
                 })
 
@@ -68,7 +68,7 @@ struct SimplePlanView<T: Plan>: View {
                     planViewModel.attachDelegate(delegate: commentsViewModel)
                     planViewModel.attachDelegate(delegate: planUpvoteViewModel)
                     await planViewModel.setVersionNumber(selectedVersion)
-                    await commentsViewModel.filterSpecificVersionComments()
+                    await commentsViewModel.filterSpecificVersionComments(version: selectedVersion)
                 }
             }
         }
