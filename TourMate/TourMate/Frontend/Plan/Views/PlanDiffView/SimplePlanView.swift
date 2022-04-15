@@ -9,6 +9,8 @@ import SwiftUI
 
 @MainActor
 struct SimplePlanView<T: Plan>: View {
+    @Environment(\.dismiss) var dismiss
+
     @StateObject var planViewModel: PlanViewModel<T>
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
@@ -31,7 +33,7 @@ struct SimplePlanView<T: Plan>: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 30.0) {
-            HStack {
+            HStack(spacing: 5.0) {
                 Picker("Version", selection: $selectedVersion) {
                     ForEach(planViewModel.allVersionNumbers, id: \.self) { num in
                         Text("Version: \(String(num))").tag(num)
@@ -48,6 +50,23 @@ struct SimplePlanView<T: Plan>: View {
                         await commentsViewModel.filterSpecificVersionComments(version: val)
                     }
                 })
+
+                if !planViewModel.isLatest {
+                    // Restore version button
+                    Button {
+                        Task {
+                            await planViewModel.restoreToCurrentVersion()
+                            dismiss()
+                        }
+                    } label: {
+                        Text("Restore")
+                            .font(.caption).bold()
+                            .padding(5.0)
+                            .foregroundColor(.white)
+                            .background(Color.primary.opacity(0.25))
+                            .cornerRadius(20.0)
+                    }
+                }
 
                 Spacer()
 
@@ -70,6 +89,11 @@ struct SimplePlanView<T: Plan>: View {
                     await planViewModel.setVersionNumber(selectedVersion)
                     await commentsViewModel.filterSpecificVersionComments(version: selectedVersion)
                 }
+            }
+        }
+        .onReceive(planViewModel.objectWillChange) {
+            if planViewModel.isDeleted {
+                dismiss()
             }
         }
         .onDisappear {

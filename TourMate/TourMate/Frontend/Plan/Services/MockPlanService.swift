@@ -60,6 +60,11 @@ class MockPlanService: PlanService {
         return (true, "")
     }
 
+    func deleteSinglePlan(plan: Plan) async -> (Bool, String) {
+        plans = plans.filter({ $0.id != plan.id })
+        return (true, "")
+    }
+
     func deletePlan(plan: Plan) async -> (Bool, String) {
         plans = plans.filter({ $0.id != plan.id })
         return (true, "")

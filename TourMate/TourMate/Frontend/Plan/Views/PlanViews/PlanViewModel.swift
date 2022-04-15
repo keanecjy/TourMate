@@ -98,6 +98,31 @@ class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
         await update(plan: plan, errorMessage: "")
     }
 
+    func restoreToCurrentVersion() async {
+        guard let latestVersion = allVersionNumbers.max() else {
+            handleError()
+            return
+        }
+
+        let (currentUser, userError) = await userService.getCurrentUser()
+
+        guard let currentUser = currentUser, userError.isEmpty else {
+            handleError()
+            return
+        }
+
+        plan.versionNumber = latestVersion + 1
+        plan.creationDate = Date()
+        plan.modificationDate = Date()
+        plan.modifierUserId = currentUser.id
+
+        let (additionSuccess, additionError) = await planService.addPlan(plan: plan)
+        guard additionSuccess, additionError.isEmpty else {
+            handleError()
+            return
+        }
+    }
+
 }
 
 // MARK: - PlanEventDelegate

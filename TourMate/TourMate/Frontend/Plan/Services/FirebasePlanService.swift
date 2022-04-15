@@ -56,6 +56,11 @@ class FirebasePlanService: PlanService {
         return (plans, errorMessage)
     }
 
+    func deleteSinglePlan(plan: Plan) async -> (Bool, String) {
+        print("[FirebasePlanService] Deleting single plan")
+        return await planRepository.deleteItem(id: plan.versionedId)
+    }
+
     func deletePlan(plan: Plan) async -> (Bool, String) {
         let (plans, errorMessage) = await fetchPlans(withPlanId: plan.id)
 
@@ -78,6 +83,7 @@ class FirebasePlanService: PlanService {
             guard hasDeletedItem,
                   errorMessage.isEmpty
             else {
+                // Keep track of any failed deletions and continue to delete rest of the plans
                 hasDeletedAllPlans = hasDeletedAllPlans && hasDeletedItem
                 err = errorMessage
                 continue

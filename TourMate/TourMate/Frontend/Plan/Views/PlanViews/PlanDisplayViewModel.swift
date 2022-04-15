@@ -50,6 +50,13 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
         allVersionedPlans.map({ $0.versionNumber }).sorted(by: >)
     }
 
+    var isLatest: Bool {
+        guard let latestVersion = allVersionNumbers.max() else {
+            return true
+        }
+        return versionNumber == latestVersion
+    }
+
     var prefixedNameDisplay: String {
         ""
     }
