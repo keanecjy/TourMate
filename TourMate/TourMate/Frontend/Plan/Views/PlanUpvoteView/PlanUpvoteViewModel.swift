@@ -112,6 +112,27 @@ extension PlanUpvoteViewModel: PlanUpvoteEventDelegate {
     }
 }
 
+// MARK: - PlanEventDelegate
+extension PlanUpvoteViewModel: PlanEventDelegate {
+    func update(plans: [Plan], errorMessage: String) async {
+    }
+
+    func update(plan: Plan?, errorMessage: String) async {
+        guard let plan = plan else {
+            return
+        }
+
+        print("[PlanUpvoteViewModel] Updating to plan version number \(plan.versionNumber)")
+
+        // Fetch new version upvotes
+        if planVersion != plan.versionNumber {
+            planVersion = plan.versionNumber
+
+            await updateCurrentVersionUpvotedUsers()
+        }
+    }
+}
+
 // MARK: - Helper Methods
 extension PlanUpvoteViewModel {
     private func fetchUsers(from planUpvotes: [PlanUpvote]) async -> [String: User] {
@@ -156,29 +177,12 @@ extension PlanUpvoteViewModel {
         return currentUser
     }
 
+}
+
+// MARK: - State changes
+extension PlanUpvoteViewModel {
     private func handleError() {
         self.hasError = true
         self.isLoading = false
-    }
-}
-
-// MARK: - PlanEventDelegate
-extension PlanUpvoteViewModel: PlanEventDelegate {
-    func update(plans: [Plan], errorMessage: String) async {
-    }
-
-    func update(plan: Plan?, errorMessage: String) async {
-        guard let plan = plan else {
-            return
-        }
-
-        print("[PlanUpvoteViewModel] Updating to plan version number \(plan.versionNumber)")
-
-        // Fetch new version upvotes
-        if planVersion != plan.versionNumber {
-            planVersion = plan.versionNumber
-
-            await updateCurrentVersionUpvotedUsers()
-        }
     }
 }
