@@ -23,11 +23,6 @@ class CommentsViewModel: ObservableObject {
 
     private var allVersionedComments: [(Comment, User)]
 
-    // TODO: Fix after Terence changes for comments
-    var fetchAllVersions: Bool {
-        allowUserInteraction
-    }
-
     var commentCount: Int {
         commentOwnerPairs.count
     }
