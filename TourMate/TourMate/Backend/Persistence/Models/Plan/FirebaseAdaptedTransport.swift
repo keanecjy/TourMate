@@ -8,8 +8,8 @@
 import Foundation
 
 class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
-    let startLocation: JsonAdaptedLocation?
-    let endLocation: JsonAdaptedLocation?
+    let startLocation: JsonAdaptedLocation
+    let endLocation: JsonAdaptedLocation
 
     init(id: String, tripId: String, name: String,
          startDateTime: FirebaseAdaptedDateTime,
@@ -18,8 +18,8 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
          creationDate: Date, modificationDate: Date,
          additionalInfo: String, ownerUserId: String,
          modifierUserId: String, versionNumber: Int,
-         startLocation: JsonAdaptedLocation?,
-         endLocation: JsonAdaptedLocation?) {
+         startLocation: JsonAdaptedLocation,
+         endLocation: JsonAdaptedLocation) {
         self.startLocation = startLocation
         self.endLocation = endLocation
         super.init(id: id, tripId: tripId, name: name,
@@ -42,8 +42,8 @@ class FirebaseAdaptedTransport: FirebaseAdaptedPlan {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        startLocation = try container.decode(JsonAdaptedLocation?.self, forKey: .startLocation)
-        endLocation = try container.decode(JsonAdaptedLocation?.self, forKey: .endLocation)
+        startLocation = try container.decode(JsonAdaptedLocation.self, forKey: .startLocation)
+        endLocation = try container.decode(JsonAdaptedLocation.self, forKey: .endLocation)
 
         try super.init(from: decoder)
     }

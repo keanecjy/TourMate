@@ -2,13 +2,15 @@
 //  AccommodationFormView.swift
 //  TourMate
 //
-//  Created by Tan Rui Quan on 11/4/22.
+//  Created by Keane Chan on 14/4/22.
 //
 
 import SwiftUI
 
 struct AccommodationFormView: View {
-    @ObservedObject var viewModel: AccommodationFormViewModel
+    @ObservedObject var viewModel: PlanFormViewModel<Accommodation>
+    @Binding var location: Location
+    @ObservedObject var searchViewModel: SearchViewModel
 
     var body: some View {
         PlanFormView<Accommodation, Section>(viewModel: viewModel,
@@ -16,7 +18,10 @@ struct AccommodationFormView: View {
                                              endDateHeader: "Check-out Date") {
 
             Section("Location") {
-                AddressTextField(title: "Address", location: $viewModel.location)
+                AddressTextField(title: "Address",
+                                 location: $location,
+                                 viewModel: searchViewModel,
+                                 query: $searchViewModel.locationQuery)
             }
         }
     }

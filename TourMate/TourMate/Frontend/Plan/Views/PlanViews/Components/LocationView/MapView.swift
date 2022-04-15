@@ -12,6 +12,14 @@ struct MapView: View {
     let startLocation: Location
     let endLocation: Location?
 
+    var locations: [Location] {
+        if let endLocation = endLocation {
+            return [startLocation, endLocation]
+        } else {
+            return [startLocation]
+        }
+    }
+
     var body: some View {
         let region = Binding<MKCoordinateRegion>(
             get: {
@@ -23,42 +31,16 @@ struct MapView: View {
             set: { _ in }
         )
 
-        if let endLocation = endLocation {
-            HStack(alignment: .top) {
-                Image(systemName: "location.fill")
-                    .font(.title)
-                VStack(alignment: .leading) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Start Location").font(.body).bold()
-                            Text(startLocation.addressLineOne)
-                            Text(startLocation.addressLineTwo)
-                        }
-                        VStack(alignment: .leading) {
-                            Text("End Location").font(.body).bold()
-                            Text(endLocation.addressLineOne)
-                            Text(endLocation.addressLineTwo)
-                        }
-                    }
-                    Map(coordinateRegion: region, annotationItems: [startLocation, endLocation]) {
-                        MapMarker(coordinate: CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude))
-                    }
-                    .cornerRadius(15)
+        HStack(alignment: .top) {
+            Image(systemName: "location.fill")
+                .font(.title)
+            VStack(alignment: .leading) {
+                LocationHeaderView(startLocation: startLocation, endLocation: endLocation)
+                Map(coordinateRegion: region, annotationItems: locations) {
+                    MapMarker(coordinate: CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude))
                 }
-            }
-        } else {
-            HStack(alignment: .top) {
-                Image(systemName: "location.fill")
-                    .font(.title)
-                VStack(alignment: .leading) {
-                    Text("Location").font(.caption)
-                    Text(startLocation.addressLineOne)
-                    Text(startLocation.addressLineTwo)
-                    Map(coordinateRegion: region, annotationItems: [startLocation]) {
-                        MapMarker(coordinate: CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude))
-                    }
-                    .cornerRadius(15)
-                }
+                .frame(height: 400) // need an explicit height to prevent Map from collapsing in ScrollViews
+                .cornerRadius(15)
             }
         }
     }

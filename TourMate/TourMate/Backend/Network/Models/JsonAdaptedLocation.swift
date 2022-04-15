@@ -8,6 +8,7 @@
 import Foundation
 
 struct JsonAdaptedLocation: Codable {
+    let country: String
     let address_line1: String
     let address_line2: String
     // formatted = address_line1 + address_line2

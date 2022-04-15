@@ -18,27 +18,12 @@ struct TripView: View {
 
     @State private var selectedPlan: Plan?
     private let viewModelFactory: ViewModelFactory
+    private let viewFactory: ViewFactory
 
     init(tripViewModel: TripViewModel) {
         self.viewModelFactory = ViewModelFactory()
+        self.viewFactory = ViewFactory()
         self._viewModel = StateObject(wrappedValue: tripViewModel)
-    }
-
-    // TODO: Abstract into factory
-    func getPlanView(plan: Plan) -> some View {
-        switch plan {
-        case let plan as Activity:
-            let activityViewModel = viewModelFactory.getActivityViewModel(activity: plan, tripViewModel: viewModel)
-            return AnyView(ActivityView(planViewModel: activityViewModel))
-        case let plan as Accommodation:
-            let viewModel = viewModelFactory.getAccommodationViewModel(accommodation: plan, tripViewModel: viewModel)
-            return AnyView(AccommodationView(planViewModel: viewModel))
-        case let plan as Transport:
-            let viewModel = viewModelFactory.getTransportViewModel(transport: plan, tripViewModel: viewModel)
-            return AnyView(TransportView(planViewModel: viewModel))
-        default:
-            preconditionFailure("Plan don't exists")
-        }
     }
 
     @ViewBuilder
@@ -66,7 +51,7 @@ struct TripView: View {
 
                         if let selectedPlan = selectedPlan {
                             NavigationLink(isActive: .constant(true)) {
-                                getPlanView(plan: selectedPlan)
+                                viewFactory.getPlanView(plan: selectedPlan, tripViewModel: viewModel)
                             } label: {
                                 EmptyView()
                             }
@@ -108,7 +93,7 @@ struct TripView: View {
                 }
                 .disabled(viewModel.isDeleted || viewModel.isLoading)
                 .sheet(isPresented: $isShowingAddPlanSheet) {
-                    AddPlanView(trip: viewModel.trip)
+                    AddPlanSelectionView(trip: viewModel.trip)
                 }
             }
         }

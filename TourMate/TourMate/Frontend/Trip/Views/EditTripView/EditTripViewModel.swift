@@ -51,6 +51,7 @@ class EditTripViewModel: TripFormViewModel {
 
         let id = trip.id
         let name = tripName
+        let location = tripLocation
         let imageUrl = tripImageURL
         let creatorUserId = trip.creatorUserId
         let attendeesUserIds = trip.attendeesUserIds
@@ -64,6 +65,7 @@ class EditTripViewModel: TripFormViewModel {
                                name: name,
                                startDateTime: startDateTime,
                                endDateTime: endDateTime,
+                               location: location,
                                imageUrl: imageUrl,
                                creatorUserId: creatorUserId,
                                attendeesUserIds: attendeesUserIds,

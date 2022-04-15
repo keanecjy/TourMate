@@ -10,17 +10,19 @@ import SwiftUI
 struct PlanBoxView: View {
 
     @ObservedObject var plansViewModel: PlansViewModel
+    @StateObject var commentsViewModel: CommentsViewModel
+
     let planUpvoteViewModel: PlanUpvoteViewModel
-    private let viewModelFactory = ViewModelFactory()
+
     let plan: Plan
     let date: Date
-    @StateObject var commentsViewModel: CommentsViewModel
 
     init(plansViewModel: PlansViewModel, plan: Plan, date: Date) {
         self.plansViewModel = plansViewModel
         self.plan = plan
         self.date = date
 
+        let viewModelFactory = ViewModelFactory()
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(plan: plan)
 
         let commentsViewModel = viewModelFactory.getCommentsViewModel(plan: plan)

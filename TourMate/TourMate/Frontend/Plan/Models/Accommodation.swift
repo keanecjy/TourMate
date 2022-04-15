@@ -8,38 +8,13 @@
 import Foundation
 
 class Accommodation: Plan {
-    var location: Location?
+    var location: Location
 
     override var locations: [Location] {
-        if let location = location {
-            return [ location ]
-        } else {
-            return []
-        }
+        return [ location ]
     }
 
-    // Accommodation creation
-    init(tripId: String,
-         name: String,
-         startDateTime: DateTime,
-         endDateTime: DateTime,
-         imageUrl: String,
-         status: PlanStatus,
-         additionalInfo: String,
-         ownerUserId: String,
-         location: Location?) {
-        self.location = location
-        super.init(tripId: tripId,
-                   name: name,
-                   startDateTime: startDateTime,
-                   endDateTime: endDateTime,
-                   imageUrl: imageUrl,
-                   status: status,
-                   additionalInfo: additionalInfo,
-                   ownerUserId: ownerUserId)
-    }
-
-    init(plan: Plan, location: Location?) {
+    init(plan: Plan, location: Location) {
         self.location = location
         super.init(plan: plan)
     }
@@ -56,7 +31,7 @@ class Accommodation: Plan {
          ownerUserId: String,
          modifierUserId: String,
          versionNumber: Int,
-         location: Location?) {
+         location: Location) {
         self.location = location
 
         super.init(id: id, tripId: tripId, name: name,
@@ -72,11 +47,6 @@ class Accommodation: Plan {
                    versionNumber: versionNumber)
     }
 
-    required init() {
-        self.location = nil
-        super.init()
-    }
-
     override func equals<T>(other: T) -> Bool where T: Plan {
         guard super.equals(other: other),
               let otherAccommodation = other as? Accommodation
@@ -85,5 +55,9 @@ class Accommodation: Plan {
         }
 
         return location == otherAccommodation.location
+    }
+
+    override var description: String {
+        "(Accommodation: \(super.description))"
     }
 }

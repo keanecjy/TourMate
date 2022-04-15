@@ -30,7 +30,7 @@ private struct PlanUpvoteServiceKey: InjectionKey {
 }
 
 private struct LocationServiceKey: InjectionKey {
-    static var currentValue: LocationService = MockLocationService()
+    static var currentValue: LocationService = RealLocationService()
 }
 
 private struct AuthenticationManagerKey: InjectionKey {

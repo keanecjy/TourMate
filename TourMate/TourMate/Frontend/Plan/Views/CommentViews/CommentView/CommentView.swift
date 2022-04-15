@@ -16,13 +16,19 @@ struct CommentView: View {
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 10.0) { // telegram style alignment
-            CommentIconView(imageUrl: user.imageUrl)
+            UserIconView(imageUrl: user.imageUrl, name: user.name, imageHeight: 40.0, displayName: false)
 
-            CommentTextView(viewModel: viewModel, user: user, comment: comment)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-                .background(.white)
-                .cornerRadius(20)
+            VStack(alignment: .leading, spacing: 10.0) {
+                CommentTextView(user: user, comment: comment)
+
+                if viewModel.allowUserInteraction {
+                    CommentInteractionView(viewModel: viewModel, comment: comment)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+            .background(.white)
+            .cornerRadius(20)
         }
     }
 }

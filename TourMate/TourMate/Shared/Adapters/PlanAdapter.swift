@@ -49,7 +49,7 @@ extension Activity {
                                 ownerUserId: ownerUserId,
                                 modifierUserId: modifierUserId,
                                 versionNumber: versionNumber,
-                                location: location?.toData())
+                                location: location.toData())
     }
 }
 
@@ -62,7 +62,7 @@ extension FirebaseAdaptedActivity {
                  creationDate: creationDate, modificationDate: modificationDate,
                  additionalInfo: additionalInfo, ownerUserId: ownerUserId,
                  modifierUserId: modifierUserId, versionNumber: versionNumber,
-                 location: location?.toItem())
+                 location: location.toItem())
     }
 }
 
@@ -79,7 +79,7 @@ extension Accommodation {
             ownerUserId: ownerUserId,
             modifierUserId: modifierUserId,
             versionNumber: versionNumber,
-            location: location?.toData())
+            location: location.toData())
     }
 }
 
@@ -95,7 +95,7 @@ extension FirebaseAdaptedAccommodation {
                       ownerUserId: ownerUserId,
                       modifierUserId: modifierUserId,
                       versionNumber: versionNumber,
-                      location: location?.toItem())
+                      location: location.toItem())
     }
 }
 
@@ -112,8 +112,8 @@ extension Transport {
             ownerUserId: ownerUserId,
             modifierUserId: modifierUserId,
             versionNumber: versionNumber,
-            startLocation: startLocation?.toData(),
-            endLocation: endLocation?.toData())
+            startLocation: startLocation.toData(),
+            endLocation: endLocation.toData())
     }
 }
 
@@ -129,8 +129,8 @@ extension FirebaseAdaptedTransport {
                   ownerUserId: ownerUserId,
                   modifierUserId: modifierUserId,
                   versionNumber: versionNumber,
-                  startLocation: startLocation?.toItem(),
-                  endLocation: endLocation?.toItem())
+                  startLocation: startLocation.toItem(),
+                  endLocation: endLocation.toItem())
     }
 }
 
@@ -148,7 +148,8 @@ extension FirebaseAdaptedDateTime {
 
 extension Location {
     fileprivate func toData() -> JsonAdaptedLocation {
-        JsonAdaptedLocation(address_line1: addressLineOne,
+        JsonAdaptedLocation(country: country,
+                            address_line1: addressLineOne,
                             address_line2: addressLineTwo,
                             formatted: addressFull,
                             lon: longitude, lat: latitude)
@@ -157,7 +158,8 @@ extension Location {
 
 extension JsonAdaptedLocation {
     fileprivate func toItem() -> Location {
-        Location(addressLineOne: address_line1,
+        Location(country: country,
+                 addressLineOne: address_line1,
                  addressLineTwo: address_line2,
                  addressFull: formatted,
                  longitude: lon, latitude: lat)

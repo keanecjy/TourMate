@@ -15,14 +15,19 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
 
     var allVersionedPlans: [T]
 
-    private(set) var displayMode: DisplayMode
-
     init(plan: T) {
         self.plan = plan
         self.allVersionedPlans = [plan]
-        self.displayMode = .latestVersion
         self.planOwner = User.defaultUser()
         self.planLastModifier = User.defaultUser()
+    }
+
+    init(plan: T, allVersionedPlans: [T],
+         planOwner: User, planLastModifier: User) {
+        self.plan = plan
+        self.allVersionedPlans = allVersionedPlans
+        self.planOwner = planOwner
+        self.planLastModifier = planLastModifier
     }
 
     var creationDateDisplay: String {
@@ -43,6 +48,10 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
 
     var allVersionNumbers: [Int] {
         allVersionedPlans.map({ $0.versionNumber }).sorted(by: >)
+    }
+
+    var prefixedNameDisplay: String {
+        ""
     }
 
     var nameDisplay: String {
