@@ -160,15 +160,14 @@ class CommentsViewModel: ObservableObject {
     }
 
     func filterSpecificVersionComments(version: Int) async {
-        var versionedComments = getCommentsForVersion(version: version)
-
-        sortByCreationDateDesc(&versionedComments)
-
-        self.commentOwnerPairs = versionedComments
+        let sortedVersionedComments = getCommentsForVersion(version: version)
+        self.commentOwnerPairs = sortedVersionedComments
     }
 
     func getCommentsForVersion(version: Int) -> [(Comment, User)] {
-        allVersionedComments.filter({ $0.0.planVersionNumber == version })
+        var versionedComments = allVersionedComments.filter({ $0.0.planVersionNumber == version })
+        sortByCreationDateDesc(&versionedComments)
+        return versionedComments
     }
 }
 

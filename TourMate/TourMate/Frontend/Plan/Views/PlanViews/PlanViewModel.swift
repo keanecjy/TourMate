@@ -113,6 +113,7 @@ extension PlanViewModel: PlanEventDelegate {
         print("[PlanViewModel] Updating plan: \(plan)")
 
         self.plan = plan
+
         await updateDelegates()
         await updatePlanLastModifier()
     }
@@ -128,11 +129,11 @@ extension PlanViewModel: PlanEventDelegate {
         }
 
         self.allVersionedPlans = plans
-
         loadLatestVersionedPlan(plans)
 
         await updateDelegates()
         await updatePlanLastModifier()
+        await updatePlanModifierMap()
     }
 
 }
@@ -162,6 +163,22 @@ extension PlanViewModel {
         let (user, _) = await userService.getUser(withUserId: plan.modifierUserId)
         if let user = user {
             planLastModifier = user
+        }
+    }
+
+    private func updatePlanModifierMap() async {
+        var seenUsers: [String: User] = [:]
+
+        for plan in allVersionedPlans {
+            if let user = seenUsers[plan.modifierUserId] {
+                planModifierMap[plan.versionNumber] = user
+            } else {
+                let (user, _) = await userService.getUser(withUserId: plan.modifierUserId)
+                if let user = user {
+                    planModifierMap[plan.versionNumber] = user
+                    seenUsers[user.id] = user
+                }
+            }
         }
     }
 

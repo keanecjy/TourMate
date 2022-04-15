@@ -28,14 +28,16 @@ struct PlanLogView<T: Plan>: View {
 
     func getPlanVersionView(plan: T) -> some View {
         let action = plan.versionNumber == 1 ? "created" : "updated"
+        let username = planDisplayViewModel.getPlanModifier(version: plan.versionNumber)?.name ?? "someone..."
         return HStack {
             Spacer()
-            Text("Plan version \(plan.versionNumber) \(action) by <User.name>")
+            Text("Plan version \(plan.versionNumber) \(action) by \(username)")
                 .bold()
             Spacer()
         }
     }
 
+    // Will be empty if there are no views to display
     @ViewBuilder
     func getUpvotedUsersView(version: Int) -> some View {
         let upvotedUsers = planUpvoteViewModel.getUpvotedUsersForVersion(version: version)
@@ -46,9 +48,7 @@ struct PlanLogView<T: Plan>: View {
 
             HStack {
                 Spacer()
-
                 Text(displayText)
-
                 Spacer()
             }
         }
@@ -66,7 +66,7 @@ struct PlanLogView<T: Plan>: View {
         VStack(spacing: 15.0) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20.0) {
-                    ForEach(planDisplayViewModel.allVersionedPlansSorted, id: \.versionNumber) { versionedPlan in
+                    ForEach(planDisplayViewModel.allVersionedPlansSortedDesc, id: \.versionNumber) { versionedPlan in
 
                         VStack(alignment: .leading, spacing: 10.0) { // Each Version's section
 
