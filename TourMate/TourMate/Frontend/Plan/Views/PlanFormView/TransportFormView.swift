@@ -11,7 +11,7 @@ struct TransportFormView: View {
     @ObservedObject var viewModel: PlanFormViewModel<Transport>
     @Binding var startLocation: Location
     @Binding var endLocation: Location
-    @ObservedObject var searchViewModel: SearchViewModel
+    @StateObject var searchViewModel: SearchViewModel
 
     var body: some View {
         PlanFormView<Transport, Section>(viewModel: viewModel,
