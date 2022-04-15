@@ -19,8 +19,6 @@ struct EditPlanView<T: Plan, Content: View>: View {
         self.content = content()
     }
 
-    private let viewModelFactory = ViewModelFactory()
-
     var body: some View {
         NavigationView {
             Group {
