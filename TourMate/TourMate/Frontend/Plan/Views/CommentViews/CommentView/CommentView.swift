@@ -16,12 +16,14 @@ struct CommentView: View {
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 10.0) { // telegram style alignment
-            CommentIconView(imageUrl: user.imageUrl)
+            UserIconView(imageUrl: user.imageUrl, name: user.name, imageHeight: 40.0, displayName: false)
 
             VStack(alignment: .leading, spacing: 10.0) {
                 CommentTextView(user: user, comment: comment)
 
-                CommentInteractionView(viewModel: viewModel, comment: comment)
+                if viewModel.allowUserInteraction {
+                    CommentInteractionView(viewModel: viewModel, comment: comment)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()

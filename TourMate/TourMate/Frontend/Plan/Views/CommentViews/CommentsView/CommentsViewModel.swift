@@ -21,6 +21,11 @@ class CommentsViewModel: ObservableObject {
     private var commentPermissions: [String: (Bool, Bool)] // canEdit, userHasUpvotedComment
     var allowUserInteraction: Bool
 
+    // TODO: Fix after Terence changes for comments
+    var fetchAllVersions: Bool {
+        allowUserInteraction
+    }
+
     var commentCount: Int {
         commentOwnerPairs.count
     }
@@ -43,10 +48,6 @@ class CommentsViewModel: ObservableObject {
         self.commentPermissions = [:]
         self.allowUserInteraction = allowUserInteraction
     }
-
-    // TODO: Ensure that we detach and attach listeners properly when switching
-    // from fetchCommentsAndListen() to fetchVersionedCommentsAndListen() and vice versa
-    // If need be, we can call detachListener() in each function
 
     func fetchCommentsAndListen() async {
         commentService.commentEventDelegate = self
@@ -273,6 +274,13 @@ extension CommentsViewModel: PlanEventDelegate {
 
         print("[CommentsViewModel] Updating plan version number")
 
-        planVersionNumber = plan.versionNumber
+        // Fetch new version comments
+        if planVersionNumber != plan.versionNumber {
+            planVersionNumber = plan.versionNumber
+
+            // TODO: Change to filter only comments for the current version
+            detachListener()
+            await fetchVersionedCommentsAndListen()
+        }
     }
 }

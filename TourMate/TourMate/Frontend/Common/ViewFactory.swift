@@ -56,4 +56,33 @@ struct ViewFactory {
             preconditionFailure("Plan don't exists")
         }
     }
+
+    func getSimplePlanDisplayView<T: Plan>(planViewModel: PlanViewModel<T>,
+                                           commentsViewModel: CommentsViewModel,
+                                           planUpvoteViewModel: PlanUpvoteViewModel) -> some View {
+        let viewModelFactory = ViewModelFactory()
+
+        switch planViewModel.plan {
+        case is Activity:
+            let viewModel = viewModelFactory
+                .getActivityViewModel(planViewModel: planViewModel as! PlanViewModel<Activity>)
+            return AnyView(SimpleActivityDisplayView(planViewModel: viewModel,
+                                                     commentsViewModel: commentsViewModel,
+                                                     planUpvoteViewModel: planUpvoteViewModel))
+        case is Accommodation:
+            let viewModel = viewModelFactory
+                .getAccommodationViewModel(planViewModel: planViewModel as! PlanViewModel<Accommodation>)
+            return AnyView(SimpleAccommodationDisplayView(planViewModel: viewModel,
+                                                          commentsViewModel: commentsViewModel,
+                                                          planUpvoteViewModel: planUpvoteViewModel))
+        case is Transport:
+            let viewModel = viewModelFactory
+                .getTransportViewModel(planViewModel: planViewModel as! PlanViewModel<Transport>)
+            return AnyView(SimpleTransportDisplayView(planViewModel: viewModel,
+                                                      commentsViewModel: commentsViewModel,
+                                                      planUpvoteViewModel: planUpvoteViewModel))
+        default:
+            preconditionFailure("Plan don't exists")
+        }
+    }
 }

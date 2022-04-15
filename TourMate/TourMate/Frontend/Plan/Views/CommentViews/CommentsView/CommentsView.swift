@@ -19,7 +19,9 @@ struct CommentsView: View {
             VStack(spacing: 15.0) {
                 CommentListView(viewModel: viewModel)
 
-                AddCommentView(viewModel: viewModelFactory.getAddCommentViewModel(commentsViewModel: viewModel))
+                if viewModel.allowUserInteraction {
+                    AddCommentView(viewModel: viewModelFactory.getAddCommentViewModel(commentsViewModel: viewModel))
+                }
             }
             .padding()
             .background(.thinMaterial)

@@ -145,6 +145,7 @@ extension PlanUpvoteViewModel: PlanEventDelegate {
         if planVersion != plan.versionNumber {
             planVersion = plan.versionNumber
 
+            // TODO: Change to filter only upvotes for the current version
             detachListener()
             await fetchPlanUpvotesAndListen()
         }

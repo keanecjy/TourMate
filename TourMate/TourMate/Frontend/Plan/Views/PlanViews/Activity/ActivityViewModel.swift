@@ -21,6 +21,22 @@ class ActivityViewModel: PlanViewModel<Activity> {
                    userService: userService)
     }
 
+    init(activity: Activity,
+         versionedActivities: [Activity],
+         lowerBoundDate: DateTime,
+         upperBoundDate: DateTime,
+         planOwner: User,
+         planLastModifier: User,
+         planService: PlanService,
+         userService: UserService) {
+        super.init(plan: activity,
+                   allVersionedPlans: versionedActivities,
+                   lowerBoundDate: lowerBoundDate,
+                   upperBoundDate: upperBoundDate,
+                   planOwner: planOwner, planLastModifier: planLastModifier,
+                   planService: planService, userService: userService)
+    }
+
     override var prefixedNameDisplay: String {
         "figure.walk.circle.fill"
     }
