@@ -104,7 +104,7 @@ struct PlansMapDayView: View {
                     .buttonStyle(PlainButtonStyle())
                     .background(RoundedRectangle(cornerRadius: 16)
                                     .fill(Color(.systemBackground))
-                                    .shadow(color: Color.primary.opacity(0.5), radius: 4)
+                                    .shadow(color: Color.primary.opacity(0.25), radius: 4)
                     )
                     .padding()
                     .tag(index)
@@ -115,9 +115,6 @@ struct PlansMapDayView: View {
             .onChange(of: selectedItem) { value in
                 handleSelectedItemChanged(value)
             }
-        }
-        .onAppear {
-            handleSelectedItemChanged(selectedItem)
         }
     }
 }

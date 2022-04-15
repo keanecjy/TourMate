@@ -125,6 +125,7 @@
 		95779BDB27E76B1A001FF602 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95779BDA27E76B1A001FF602 /* AuthenticationService.swift */; };
 		9586652528040C7100DCDB15 /* PlansMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9586652428040C7100DCDB15 /* PlansMapView.swift */; };
 		958665292804259700DCDB15 /* PlansMapDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958665282804259700DCDB15 /* PlansMapDayView.swift */; };
+		959DC41628098716005CFCBC /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC41528098716005CFCBC /* Coordinates.swift */; };
 		95CB3F7427D8E79C0086E9E3 /* PlanDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6A27D8E79B0086E9E3 /* PlanDateView.swift */; };
 		95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */; };
 		95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */; };
@@ -347,6 +348,7 @@
 		95779BDA27E76B1A001FF602 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		9586652428040C7100DCDB15 /* PlansMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansMapView.swift; sourceTree = "<group>"; };
 		958665282804259700DCDB15 /* PlansMapDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansMapDayView.swift; sourceTree = "<group>"; };
+		959DC41528098716005CFCBC /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		95CB3F6A27D8E79B0086E9E3 /* PlanDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanDateView.swift; sourceTree = "<group>"; };
 		95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardView.swift; sourceTree = "<group>"; };
 		95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlansListView.swift; sourceTree = "<group>"; };
@@ -1269,6 +1271,7 @@
 				95DEA1EA27E721EB00A74ED2 /* BindingNilCoalescing.swift */,
 				B98F35EA27F0511A000AFE53 /* TaskExtensions.swift */,
 				B9B46721280182A4003D07F5 /* ViewExtension.swift */,
+				959DC41528098716005CFCBC /* Coordinates.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1832,6 +1835,7 @@
 				004ACDB627F83DC60015CDD8 /* ViewModelFactory.swift in Sources */,
 				4CEC5CC227FFEB87007CEF2A /* AppConfig.swift in Sources */,
 				B9AF3B5027EF6FD600A3C82E /* MapView.swift in Sources */,
+				959DC41628098716005CFCBC /* Coordinates.swift in Sources */,
 				B98910C127F858BA00476794 /* MapViewModel.swift in Sources */,
 				004C7C6D2804195300B432C7 /* PlanDisplayViewModel.swift in Sources */,
 				4CEC5CBE27FFEA8D007CEF2A /* InjectedKey.swift in Sources */,
@@ -2078,7 +2082,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
 				DEVELOPMENT_TEAM = JH4N7Z4FH9;
-				DEVELOPMENT_TEAM = 9T2CK64XKZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TourMate/Misc/Info.plist;
@@ -2093,7 +2096,6 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rlrh;
-				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.terence;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -2111,7 +2113,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
 				DEVELOPMENT_TEAM = JH4N7Z4FH9;
-				DEVELOPMENT_TEAM = T83L3FZCTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TourMate/Misc/Info.plist;
@@ -2126,7 +2127,6 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rlrh;
-				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

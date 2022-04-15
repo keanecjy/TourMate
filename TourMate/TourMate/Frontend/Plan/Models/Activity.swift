@@ -11,7 +11,7 @@ class Activity: Plan {
     var location: Location
 
     override var locations: [Location] {
-        return [ location ]
+        [ location ]
     }
 
     init(plan: Plan, location: Location) {

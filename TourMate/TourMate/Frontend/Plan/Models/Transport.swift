@@ -12,7 +12,7 @@ class Transport: Plan {
     var endLocation: Location
 
     override var locations: [Location] {
-        return [ startLocation, endLocation ]
+        [ startLocation, endLocation ]
     }
 
     init(plan: Plan, startLocation: Location, endLocation: Location) {
