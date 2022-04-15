@@ -10,7 +10,7 @@ import SwiftUI
 struct ActivityFormView: View {
     @ObservedObject var viewModel: PlanFormViewModel<Activity>
     @Binding var location: Location
-    @ObservedObject var searchViewModel: SearchViewModel
+    @StateObject var searchViewModel: SearchViewModel
 
     var body: some View {
         PlanFormView<Activity, Section>(viewModel: viewModel,

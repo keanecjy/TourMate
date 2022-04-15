@@ -23,27 +23,29 @@ struct SimplePlanDisplayView<T: Plan, Content: View>: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 30.0) {
-            HStack(spacing: 10.0) {
-                Text(planDisplayViewModel.nameDisplay).font(.title).bold()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 30.0) {
+                HStack(spacing: 10.0) {
+                    Text(planDisplayViewModel.nameDisplay).font(.title).bold()
 
-                PlanStatusView(status: planDisplayViewModel.statusDisplay)
+                    PlanStatusView(status: planDisplayViewModel.statusDisplay)
+                }
+
+                PlanUpvoteView(viewModel: planUpvoteViewModel)
+                    .allowsHitTesting(false)
+
+                TimingView(startDate: planDisplayViewModel.startDateTimeDisplay,
+                           endDate: planDisplayViewModel.endDateTimeDisplay,
+                           displayIcon: false)
+
+                content
+
+                AdditionalInfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
+
+                CommentsView(viewModel: commentsViewModel)
+
+                Spacer()
             }
-
-            PlanUpvoteView(viewModel: planUpvoteViewModel)
-                .allowsHitTesting(false)
-
-            TimingView(startDate: planDisplayViewModel.startDateTimeDisplay,
-                       endDate: planDisplayViewModel.endDateTimeDisplay,
-                       displayIcon: false)
-
-            content
-
-            InfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
-
-            CommentsView(viewModel: commentsViewModel)
-
-            Spacer()
         }
     }
 }

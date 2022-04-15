@@ -39,7 +39,7 @@ struct MapView: View {
                 Map(coordinateRegion: region, annotationItems: locations) {
                     MapMarker(coordinate: CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude))
                 }
-                .frame(height: 400) // need an explicit height to prevent Map from collapsing in ScrollViews
+                .frame(height: 300) // need an explicit height to prevent Map from collapsing in ScrollViews
                 .cornerRadius(15)
             }
         }

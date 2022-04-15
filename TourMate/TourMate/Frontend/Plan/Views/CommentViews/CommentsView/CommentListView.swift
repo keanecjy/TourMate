@@ -20,14 +20,8 @@ struct CommentListView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading) // Push all comments to leading
         }
         .frame(height: 500.0, alignment: .leading) // push VStack to leading
-        .onAppear {
-            Task {
-                if viewModel.fetchAllVersions {
-                    await viewModel.fetchCommentsAndListen()
-                } else {
-                    await viewModel.fetchVersionedCommentsAndListen()
-                }
-            }
+        .task {
+            await viewModel.fetchCommentsAndListen()
         }
         .onDisappear(perform: { () in viewModel.detachListener() })
     }

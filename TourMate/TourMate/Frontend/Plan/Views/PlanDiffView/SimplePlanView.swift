@@ -45,6 +45,7 @@ struct SimplePlanView<T: Plan>: View {
                 .onChange(of: selectedVersion, perform: { val in
                     Task {
                         await planViewModel.setVersionNumber(val)
+                        await commentsViewModel.filterSpecificVersionComments(version: val)
                     }
                 })
 
@@ -60,10 +61,16 @@ struct SimplePlanView<T: Plan>: View {
         }
         .padding()
         .navigationBarTitleDisplayMode(.inline)
-        .task {
-            planViewModel.attachDelegate(delegate: commentsViewModel)
-            planViewModel.attachDelegate(delegate: planUpvoteViewModel)
-            await planViewModel.setVersionNumber(selectedVersion)
+        .onAppear {
+            // Load in after inner views are fully loaded
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                Task {
+                    planViewModel.attachDelegate(delegate: commentsViewModel)
+                    planViewModel.attachDelegate(delegate: planUpvoteViewModel)
+                    await planViewModel.setVersionNumber(selectedVersion)
+                    await commentsViewModel.filterSpecificVersionComments(version: selectedVersion)
+                }
+            }
         }
         .onDisappear {
             planViewModel.detachDelegates()
