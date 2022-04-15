@@ -14,7 +14,7 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
     @Published var planLastModifier: User
 
     var allVersionedPlans: [T]
-    var planModifierMap: [Int: User] // version to user map
+    @Published var planModifierMap: [Int: User] // version to user map
 
     var allVersionedPlansSortedDesc: [T] {
         allVersionedPlans.sorted(by: { $0.versionNumber > $1.versionNumber })
