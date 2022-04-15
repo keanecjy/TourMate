@@ -194,13 +194,6 @@
 		B9B4673C2801F6F8003D07F5 /* TransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4673B2801F6F8003D07F5 /* TransportView.swift */; };
 		B9B4673E2801F8F9003D07F5 /* EditTransportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4673D2801F8F8003D07F5 /* EditTransportViewModel.swift */; };
 		B9B467402801F9F9003D07F5 /* EditTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4673F2801F9F9003D07F5 /* EditTransportView.swift */; };
-		B9B467422804144D003D07F5 /* ActivityFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B467412804144C003D07F5 /* ActivityFormView.swift */; };
-		B9B467442804153A003D07F5 /* ActivityFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B467432804153A003D07F5 /* ActivityFormViewModel.swift */; };
-		B9B46746280429DD003D07F5 /* AccommodationFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B46745280429DD003D07F5 /* AccommodationFormView.swift */; };
-		B9B4674A28042A5B003D07F5 /* AccommodationFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4674928042A5B003D07F5 /* AccommodationFormViewModel.swift */; };
-		B9B4674C28042C4A003D07F5 /* TransportFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4674B28042C4A003D07F5 /* TransportFormView.swift */; };
-		B9B4674E28042C8B003D07F5 /* TransportFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4674D28042C8B003D07F5 /* TransportFormViewModel.swift */; };
-		B9B467502805FD3F003D07F5 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4674F2805FD3E003D07F5 /* ImageService.swift */; };
 		B9B6B3E127F43BEF00B0F5F4 /* AutocompleteQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E027F43BEF00B0F5F4 /* AutocompleteQuery.swift */; };
 		B9B6B3E327F4473E00B0F5F4 /* JsonAdaptedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E227F4473E00B0F5F4 /* JsonAdaptedLocation.swift */; };
 		B9B6B3E627F44F9D00B0F5F4 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6B3E527F44F9D00B0F5F4 /* ApiConfig.swift */; };
@@ -424,13 +417,6 @@
 		B9B4673B2801F6F8003D07F5 /* TransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportView.swift; sourceTree = "<group>"; };
 		B9B4673D2801F8F8003D07F5 /* EditTransportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransportViewModel.swift; sourceTree = "<group>"; };
 		B9B4673F2801F9F9003D07F5 /* EditTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransportView.swift; sourceTree = "<group>"; };
-		B9B467412804144C003D07F5 /* ActivityFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFormView.swift; sourceTree = "<group>"; };
-		B9B467432804153A003D07F5 /* ActivityFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFormViewModel.swift; sourceTree = "<group>"; };
-		B9B46745280429DD003D07F5 /* AccommodationFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccommodationFormView.swift; sourceTree = "<group>"; };
-		B9B4674928042A5B003D07F5 /* AccommodationFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccommodationFormViewModel.swift; sourceTree = "<group>"; };
-		B9B4674B28042C4A003D07F5 /* TransportFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportFormView.swift; sourceTree = "<group>"; };
-		B9B4674D28042C8B003D07F5 /* TransportFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportFormViewModel.swift; sourceTree = "<group>"; };
-		B9B4674F2805FD3E003D07F5 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		B9B6B3E027F43BEF00B0F5F4 /* AutocompleteQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteQuery.swift; sourceTree = "<group>"; };
 		B9B6B3E227F4473E00B0F5F4 /* JsonAdaptedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonAdaptedLocation.swift; sourceTree = "<group>"; };
 		B9B6B3E527F44F9D00B0F5F4 /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
@@ -776,7 +762,6 @@
 				95FAE40C27E247F800F4AB01 /* TripService.swift */,
 				95FAE40A27E245D200F4AB01 /* MockTripService.swift */,
 				4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */,
-				B9B4674F2805FD3E003D07F5 /* ImageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1864,7 +1849,6 @@
 				4C4A9E9F2807C8140040EE24 /* ActivityFormView.swift in Sources */,
 				00062B5E27F009F000267960 /* CommentListView.swift in Sources */,
 				4C55E7DB27F97AD30032D1D8 /* UIScreen+Extensions.swift in Sources */,
-				B9B467502805FD3F003D07F5 /* ImageService.swift in Sources */,
 				0092523827DA573500F4F029 /* LaunchView.swift in Sources */,
 				001D223727FEF3D600F42DB4 /* PlanUpvote.swift in Sources */,
 				B9B467262801DA61003D07F5 /* AddAccommodationViewModel.swift in Sources */,
@@ -2091,7 +2075,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
-				DEVELOPMENT_TEAM = T83L3FZCTV;
 				DEVELOPMENT_TEAM = 9T2CK64XKZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2106,7 +2089,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rq;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.terence;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
