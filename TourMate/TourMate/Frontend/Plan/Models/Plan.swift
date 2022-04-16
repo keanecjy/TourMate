@@ -15,7 +15,7 @@ class Plan: CustomStringConvertible {
     var endDateTime: DateTime
     var imageUrl: String
     var status: PlanStatus
-    let creationDate: Date
+    var creationDate: Date
     var modificationDate: Date
     var additionalInfo: String
     var ownerUserId: String

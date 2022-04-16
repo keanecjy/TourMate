@@ -77,6 +77,10 @@ class PlanUpvoteViewModel: ObservableObject {
 
         self.isLoading = false
     }
+
+    func getUpvotedUsersForVersion(version: Int) -> [User] {
+        upvotedUsersPerVersion[version] ?? []
+    }
 }
 
 // MARK: - PlanUpvoteEventDelegate

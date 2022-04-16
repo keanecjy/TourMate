@@ -78,6 +78,7 @@ class FirebasePlanService: PlanService {
             guard hasDeletedItem,
                   errorMessage.isEmpty
             else {
+                // Keep track of any failed deletions and continue to delete rest of the plans
                 hasDeletedAllPlans = hasDeletedAllPlans && hasDeletedItem
                 err = errorMessage
                 continue

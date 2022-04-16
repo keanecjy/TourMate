@@ -9,11 +9,11 @@ import SwiftUI
 
 struct PlanUpvoteView: View {
 
-    @StateObject var viewModel: PlanUpvoteViewModel
+    @ObservedObject var viewModel: PlanUpvoteViewModel
     let displayName: Bool
 
     init(viewModel: PlanUpvoteViewModel, displayName: Bool = true) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
         self.displayName = displayName
     }
 

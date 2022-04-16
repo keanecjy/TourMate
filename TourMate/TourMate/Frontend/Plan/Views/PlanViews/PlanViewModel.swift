@@ -98,6 +98,25 @@ class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
         await update(plan: plan, errorMessage: "")
     }
 
+    func restoreToCurrentVersion() async {
+        let (currentUser, userError) = await userService.getCurrentUser()
+
+        guard let currentUser = currentUser, userError.isEmpty else {
+            handleError()
+            return
+        }
+
+        plan.versionNumber = latestVersionNumber + 1
+        plan.modificationDate = Date()
+        plan.modifierUserId = currentUser.id
+
+        let (additionSuccess, additionError) = await planService.addPlan(plan: plan)
+        guard additionSuccess, additionError.isEmpty else {
+            handleError()
+            return
+        }
+    }
+
 }
 
 // MARK: - PlanEventDelegate
@@ -113,6 +132,7 @@ extension PlanViewModel: PlanEventDelegate {
         print("[PlanViewModel] Updating plan: \(plan)")
 
         self.plan = plan
+
         await updateDelegates()
         await updatePlanLastModifier()
     }
@@ -128,11 +148,11 @@ extension PlanViewModel: PlanEventDelegate {
         }
 
         self.allVersionedPlans = plans
-
         loadLatestVersionedPlan(plans)
 
         await updateDelegates()
         await updatePlanLastModifier()
+        await updatePlanModifierMap()
     }
 
 }
@@ -162,6 +182,22 @@ extension PlanViewModel {
         let (user, _) = await userService.getUser(withUserId: plan.modifierUserId)
         if let user = user {
             planLastModifier = user
+        }
+    }
+
+    private func updatePlanModifierMap() async {
+        var seenUsers: [String: User] = [:]
+
+        for plan in allVersionedPlans {
+            if let user = seenUsers[plan.modifierUserId] {
+                planModifierMap[plan.versionNumber] = user
+            } else {
+                let (user, _) = await userService.getUser(withUserId: plan.modifierUserId)
+                if let user = user {
+                    planModifierMap[plan.versionNumber] = user
+                    seenUsers[user.id] = user
+                }
+            }
         }
     }
 

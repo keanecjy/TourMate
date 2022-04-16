@@ -14,12 +14,18 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
     @Published var planLastModifier: User
 
     var allVersionedPlans: [T]
+    @Published var planModifierMap: [Int: User] // version to user map
+
+    var allVersionedPlansSortedDesc: [T] {
+        allVersionedPlans.sorted(by: { $0.versionNumber > $1.versionNumber })
+    }
 
     init(plan: T) {
         self.plan = plan
         self.allVersionedPlans = [plan]
         self.planOwner = User.defaultUser()
         self.planLastModifier = User.defaultUser()
+        self.planModifierMap = [:]
     }
 
     init(plan: T, allVersionedPlans: [T],
@@ -28,6 +34,7 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
         self.allVersionedPlans = allVersionedPlans
         self.planOwner = planOwner
         self.planLastModifier = planLastModifier
+        self.planModifierMap = [:]
     }
 
     var creationDateDisplay: String {
@@ -48,6 +55,14 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
 
     var allVersionNumbers: [Int] {
         allVersionedPlans.map({ $0.versionNumber }).sorted(by: >)
+    }
+
+    var latestVersionNumber: Int {
+        allVersionNumbers.max() ?? versionNumber // Assume current version is latest
+    }
+
+    var isLatest: Bool {
+        versionNumber == latestVersionNumber
     }
 
     var prefixedNameDisplay: String {
@@ -76,5 +91,9 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
 
     var additionalInfoDisplay: String {
         plan.additionalInfo
+    }
+
+    func getPlanModifier(version: Int) -> User? {
+        planModifierMap[version]
     }
 }
