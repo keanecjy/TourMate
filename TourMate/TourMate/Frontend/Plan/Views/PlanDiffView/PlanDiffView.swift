@@ -11,11 +11,8 @@ import SwiftUI
 struct PlanDiffView<T: Plan>: View {
     var viewModel: PlanViewModel<T>
 
-    private let viewModelFactory: ViewModelFactory
-
     init(planViewModel: PlanViewModel<T>) {
         self.viewModel = planViewModel
-        self.viewModelFactory = ViewModelFactory()
     }
 
     var body: some View {

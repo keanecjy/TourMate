@@ -23,31 +23,28 @@ struct SimplePlanView<T: Plan>: View {
 
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
         commentsViewModel.allowUserInteraction = false
+
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
 
         self._planViewModel = StateObject(wrappedValue: planViewModel)
         self._selectedVersion = State(wrappedValue: initialVersion)
     }
 
+    func handleVersionChange(version: Int) {
+        Task {
+            await planViewModel.setVersionNumber(version)
+            await commentsViewModel.filterSpecificVersionComments(version: version)
+        }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 30.0) {
-            HStack {
-                Picker("Version", selection: $selectedVersion) {
-                    ForEach(planViewModel.allVersionNumbers, id: \.self) { num in
-                        Text("Version: \(String(num))").tag(num)
-                    }
-                }
-                .pickerStyle(.menu)
-                .padding([.horizontal])
-                .background(
-                    Capsule().fill(Color.primary.opacity(0.25))
-                )
-                .onChange(of: selectedVersion, perform: { val in
-                    Task {
-                        await planViewModel.setVersionNumber(val)
-                        await commentsViewModel.filterSpecificVersionComments(version: val)
-                    }
-                })
+            HStack(spacing: 5.0) {
+                VersionPickerView(selectedVersion: $selectedVersion,
+                                  onChange: { val in handleVersionChange(version: val) },
+                                  versionNumbers: planViewModel.allVersionNumbers)
+
+                RestoreButtonView(planViewModel: planViewModel)
 
                 Spacer()
 
@@ -67,8 +64,7 @@ struct SimplePlanView<T: Plan>: View {
                 Task {
                     planViewModel.attachDelegate(delegate: commentsViewModel)
                     planViewModel.attachDelegate(delegate: planUpvoteViewModel)
-                    await planViewModel.setVersionNumber(selectedVersion)
-                    await commentsViewModel.filterSpecificVersionComments(version: selectedVersion)
+                    handleVersionChange(version: selectedVersion)
                 }
             }
         }
