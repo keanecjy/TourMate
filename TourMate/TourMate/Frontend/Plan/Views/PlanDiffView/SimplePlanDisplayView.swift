@@ -28,7 +28,7 @@ struct SimplePlanDisplayView<T: Plan, Content: View>: View {
                 SimplePlanHeader(name: planDisplayViewModel.nameDisplay, status: planDisplayViewModel.statusDisplay)
 
                 PlanUpvoteView(viewModel: planUpvoteViewModel)
-                    .disabled(false)
+                    .allowsHitTesting(false)
 
                 TimingView(startDate: planDisplayViewModel.startDateTimeDisplay,
                            endDate: planDisplayViewModel.endDateTimeDisplay,
