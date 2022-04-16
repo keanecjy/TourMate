@@ -18,8 +18,6 @@ struct PlanDiffView<T: Plan>: View {
     @State private var leftVersion: Int
     @State private var rightVersion: Int
 
-    let planDiffUtil: PlanDiffUtil
-
     init(planViewModel: PlanViewModel<T>, commentsViewModel: CommentsViewModel,
          planUpvoteViewModel: PlanUpvoteViewModel) {
         let currentVersion = planViewModel.versionNumber
@@ -32,8 +30,6 @@ struct PlanDiffView<T: Plan>: View {
 
         self.commentsViewModel = commentsViewModel
         self.planUpvoteViewModel = planUpvoteViewModel
-
-        self.planDiffUtil = PlanDiffUtil(wordLimit: Int.max)
     }
 
     var body: some View {
@@ -51,7 +47,7 @@ struct PlanDiffView<T: Plan>: View {
                                commentsViewModel: commentsViewModel.copy(),
                                planUpvoteViewModel: planUpvoteViewModel.copy())
             }
-            Text(planDiffUtil.getDiff(plan1: leftViewModel.plan, plan2: rightViewModel.plan))
+            PlanDiffTextView(planDiffMap: leftViewModel.diffPlan(with: rightViewModel), spacing: 5.0)
         }
         .navigationBarTitleDisplayMode(.inline)
     }

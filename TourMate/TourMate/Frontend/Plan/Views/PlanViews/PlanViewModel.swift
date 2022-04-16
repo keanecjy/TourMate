@@ -117,6 +117,10 @@ class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
         }
     }
 
+    func diffPlan(with viewModel: PlanViewModel) -> PlanDiffMap {
+        plan.diff(other: viewModel.plan)
+    }
+
 }
 
 // MARK: - PlanEventDelegate
