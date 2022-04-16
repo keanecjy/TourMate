@@ -10,7 +10,7 @@ import SwiftUI
 struct SimplePlanDisplayView<T: Plan, Content: View>: View {
     @ObservedObject var planDisplayViewModel: PlanDisplayViewModel<T>
     let commentsViewModel: CommentsViewModel
-    let planUpvoteViewModel: PlanUpvoteViewModel
+    @StateObject var planUpvoteViewModel: PlanUpvoteViewModel
 
     private let content: Content
 
@@ -18,7 +18,7 @@ struct SimplePlanDisplayView<T: Plan, Content: View>: View {
          planUpvoteViewModel: PlanUpvoteViewModel, @ViewBuilder content: () -> Content) {
         self.planDisplayViewModel = planDisplayViewModel
         self.commentsViewModel = commentsViewModel
-        self.planUpvoteViewModel = planUpvoteViewModel
+        self._planUpvoteViewModel = StateObject(wrappedValue: planUpvoteViewModel)
         self.content = content()
     }
 
