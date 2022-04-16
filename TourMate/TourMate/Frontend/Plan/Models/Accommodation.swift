@@ -53,7 +53,7 @@ class Accommodation: Plan {
         return location == otherAccommodation.location
     }
 
-    override func diff<T>(other: T) -> [String: (String, String)] where T: Plan {
+    override func diff<T>(other: T) -> PlanDiffMap where T: Plan {
         var diffMap = super.diff(other: other)
 
         guard let otherAccommodation = other as? Accommodation else {

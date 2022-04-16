@@ -72,6 +72,7 @@
 		43CA47F6D2378990F041943C /* Pods_TourMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */; };
 		4C09373B27F83654001C2575 /* TripImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C09373A27F83654001C2575 /* TripImage.swift */; };
 		4C09661527F33F6400A00CE5 /* PlanEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C09661427F33F6300A00CE5 /* PlanEventDelegate.swift */; };
+		4C119058280B0FC9003D0488 /* PlanDiffTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C119057280B0FC9003D0488 /* PlanDiffTextView.swift */; };
 		4C1660502800A4BD00195DF8 /* Copyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C16604F2800A4BD00195DF8 /* Copyable.swift */; };
 		4C1C70CD27FE7F4B00203694 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C70CC27FE7F4B00203694 /* InfoView.swift */; };
 		4C1C70CF27FE800E00203694 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C70CE27FE800E00203694 /* LocationView.swift */; };
@@ -89,7 +90,6 @@
 		4C5DD160280A5CCB00636E22 /* VersionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */; };
 		4C5DD162280A5EFC00636E22 /* SimplePlanHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */; };
 		4C8639A327DF37DA000566FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8639A227DF37DA000566FB /* Constants.swift */; };
-		4C8AB6B3280AA6B3006DE6CF /* PlanDiffUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8AB6B2280AA6B3006DE6CF /* PlanDiffUtil.swift */; };
 		4CB32D7028055F8100681E5B /* EditPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D6F28055F8100681E5B /* EditPlanViewModel.swift */; };
 		4CB32D722805631600681E5B /* AddPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D712805631600681E5B /* AddPlanViewModel.swift */; };
 		4CB32D742805690200681E5B /* AddPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D732805690200681E5B /* AddPlanView.swift */; };
@@ -301,6 +301,7 @@
 		1DBB3372EFB870D2316CAA4E /* Pods-TourMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate.release.xcconfig"; path = "Target Support Files/Pods-TourMate/Pods-TourMate.release.xcconfig"; sourceTree = "<group>"; };
 		4C09373A27F83654001C2575 /* TripImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripImage.swift; sourceTree = "<group>"; };
 		4C09661427F33F6300A00CE5 /* PlanEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanEventDelegate.swift; sourceTree = "<group>"; };
+		4C119057280B0FC9003D0488 /* PlanDiffTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDiffTextView.swift; sourceTree = "<group>"; };
 		4C16604F2800A4BD00195DF8 /* Copyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copyable.swift; sourceTree = "<group>"; };
 		4C1C70CC27FE7F4B00203694 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		4C1C70CE27FE800E00203694 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
@@ -318,7 +319,6 @@
 		4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionPickerView.swift; sourceTree = "<group>"; };
 		4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePlanHeader.swift; sourceTree = "<group>"; };
 		4C8639A227DF37DA000566FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		4C8AB6B2280AA6B3006DE6CF /* PlanDiffUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDiffUtil.swift; sourceTree = "<group>"; };
 		4CB32D6F28055F8100681E5B /* EditPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewModel.swift; sourceTree = "<group>"; };
 		4CB32D712805631600681E5B /* AddPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewModel.swift; sourceTree = "<group>"; };
 		4CB32D732805690200681E5B /* AddPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanView.swift; sourceTree = "<group>"; };
@@ -984,6 +984,7 @@
 				4C5DD15A280A5B2300636E22 /* RestoreButtonView.swift */,
 				4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */,
 				4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */,
+				4C119057280B0FC9003D0488 /* PlanDiffTextView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1449,7 +1450,6 @@
 				B98F35EF27F0602E000AFE53 /* SearchViewModel.swift */,
 				00711D692809CBA400F629C6 /* ViewFactory */,
 				00148CB1280903A50091C28B /* ExpandableTextView.swift */,
-				4C8AB6B2280AA6B3006DE6CF /* PlanDiffUtil.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1835,6 +1835,7 @@
 				004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */,
 				00B4CECE27F5E0CA004A6126 /* TripFormView.swift in Sources */,
 				004C7C5B2802742200B432C7 /* AuthenticationManagerDelegate.swift in Sources */,
+				4C119058280B0FC9003D0488 /* PlanDiffTextView.swift in Sources */,
 				4CB954D227DDE039001410AD /* FirebaseConfig.swift in Sources */,
 				4CB954E627DE0066001410AD /* FirebaseUserService.swift in Sources */,
 				4CB405BD28086B8D00FF52D1 /* SimpleAccommodationDisplayView.swift in Sources */,
@@ -1973,7 +1974,6 @@
 				B9A04FB027E5875A007D4303 /* PlanView.swift in Sources */,
 				4C26970E28087A4200FCEC34 /* LocationTextView.swift in Sources */,
 				B9A04FB027E5875A007D4303 /* PlanView.swift in Sources */,
-				4C8AB6B3280AA6B3006DE6CF /* PlanDiffUtil.swift in Sources */,
 				B9B4670B280026B7003D07F5 /* Accommodation.swift in Sources */,
 				00062B5627EF345A00267960 /* CommentsViewModel.swift in Sources */,
 				4CEC5CBB27FFEA6C007CEF2A /* InjectedValues.swift in Sources */,

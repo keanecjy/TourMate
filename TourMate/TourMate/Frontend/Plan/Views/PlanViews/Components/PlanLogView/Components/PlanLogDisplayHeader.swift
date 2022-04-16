@@ -10,18 +10,17 @@ import SwiftUI
 struct PlanLogDisplayHeader: View {
 
     let header: String
-    let subheader: String
+    let planDiffMap: PlanDiffMap
 
     var body: some View {
         HStack {
             Spacer()
 
-            VStack(spacing: 10.0) {
+            VStack(spacing: 5.0) {
                 Text(header)
                     .bold()
 
-                Text(subheader)
-                    .opacity(0.6)
+                PlanDiffTextView(planDiffMap: planDiffMap)
             }
 
             Spacer()

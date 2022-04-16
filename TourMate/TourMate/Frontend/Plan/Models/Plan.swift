@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias PlanDiffMap = [String: (String, String)]
+
 class Plan: CustomStringConvertible {
     var id: String
     var tripId: String
@@ -114,7 +116,7 @@ class Plan: CustomStringConvertible {
         return diffMap
     }
 
-    func addDifference<T: Equatable>(diffMap: inout [String: (String, String)], name: String, item1: T, item2: T) {
+    func addDifference<T: Equatable>(diffMap: inout PlanDiffMap, name: String, item1: T, item2: T) {
         guard item1 != item2 else {
             return
         }
