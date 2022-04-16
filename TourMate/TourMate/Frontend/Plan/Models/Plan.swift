@@ -101,6 +101,27 @@ class Plan: CustomStringConvertible {
         && versionNumber == other.versionNumber
     }
 
+    func diff<T: Plan>(other: T) -> [String: (Any, Any)] {
+        var diffMap: [String: (Any, Any)] = [:]
+
+        addDifference(diffMap: &diffMap, name: "Name", item1: name, item2: other.name)
+        addDifference(diffMap: &diffMap, name: "Status", item1: status, item2: other.status)
+        addDifference(diffMap: &diffMap, name: "Start Date", item1: startDateTime, item2: other.startDateTime)
+        addDifference(diffMap: &diffMap, name: "End Date", item1: endDateTime, item2: other.endDateTime)
+        addDifference(diffMap: &diffMap, name: "Image URL", item1: imageUrl, item2: other.imageUrl)
+        addDifference(diffMap: &diffMap, name: "Additional Info", item1: additionalInfo, item2: other.additionalInfo)
+
+        return diffMap
+    }
+
+    func addDifference<T: Equatable>(diffMap: inout [String: (Any, Any)], name: String, item1: T, item2: T) {
+        guard item1 != item2 else {
+            return
+        }
+
+        diffMap[name] = (item1, item2)
+    }
+
     var description: String {
         "(id: \(id), name: \(name), version: \(versionNumber))"
     }
