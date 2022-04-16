@@ -12,7 +12,7 @@ struct PlanDiffTextView: View {
     let wordLimit: Int
     let spacing: Double
 
-    init(planDiffMap: PlanDiffMap, spacing: Double = 2.0, wordLimit: Int = 80) {
+    init(planDiffMap: PlanDiffMap, spacing: Double = 2.0, wordLimit: Int = 200) {
         self.planDiffMap = planDiffMap
         self.spacing = spacing
         self.wordLimit = wordLimit
@@ -25,8 +25,6 @@ struct PlanDiffTextView: View {
                     Text("> ").bold()
 
                     Text(field).bold()
-
-                    Text(" Change").bold()
 
                     if (change.0.count + change.1.count) < wordLimit {
                         Text(": ").bold()
