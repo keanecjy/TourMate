@@ -13,8 +13,20 @@ extension ViewFactory {
 
     func getPlanVersionView<T: Plan>(planDisplayViewModel: PlanDisplayViewModel<T>, plan: T) -> some View {
         let action = plan.versionNumber == 1 ? "created" : "updated"
+
         let username = planDisplayViewModel.getPlanModifier(version: plan.versionNumber)?.name ?? "someone..."
-        return PlanLogDisplayHeader(header: "Plan version \(plan.versionNumber) \(action) by \(username)")
+        let diffMap = getDiffFromPreviousPlan(plans: planDisplayViewModel.allVersionedPlansSortedDesc, plan: plan)
+
+        return PlanLogDisplayHeader(header: "Plan version \(plan.versionNumber) \(action) by \(username)",
+                                    planDiffMap: diffMap)
+    }
+
+    private func getDiffFromPreviousPlan<T: Plan>(plans: [T], plan: T) -> PlanDiffMap {
+        guard let previousPlan = plans.first(where: { $0.versionNumber < plan.versionNumber }) else {
+            return [:]
+        }
+
+        return previousPlan.diff(other: plan)
     }
 
     // Will be empty if there are no views to display

@@ -38,7 +38,7 @@ struct SimplePlanDisplayView<T: Plan, Content: View>: View {
 
                 AdditionalInfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
 
-                CommentsView(viewModel: commentsViewModel)
+                CommentsView(viewModel: commentsViewModel, versionNumber: planDisplayViewModel.versionNumber)
 
                 Spacer()
             }

@@ -31,7 +31,7 @@ struct PlanLogView<T: Plan>: View {
     }
 
     var body: some View {
-        ActionableContentView { // content
+        ActionableContentView {
             ScrollableContentView {
                 PlanLogListView(planDisplayViewModel: planDisplayViewModel,
                                 commentsViewModel: commentsViewModel,
