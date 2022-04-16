@@ -112,7 +112,8 @@ struct PlansMapDayView: View {
                 ForEach(idPlans, id: \.id) { idPlan in
                     PlanCardView(plansViewModel: viewModel,
                                  plan: idPlan.plan,
-                                 date: date)
+                                 date: date,
+                                 index: idPlan.id + 1)
                     .onTapGesture(perform: {
                         if let onSelected = onSelected {
                             onSelected(idPlan.plan)
