@@ -14,6 +14,7 @@ struct PlansCalendarView: View {
     @State private var isShowingTransportationOptionsSheet = false
 
     let onSelected: ((Plan) -> Void)?
+    private let viewModelFactory = ViewModelFactory()
 
     init(viewModel: PlansViewModel, onSelected: ((Plan) -> Void)? = nil) {
         self.viewModel = viewModel
@@ -50,7 +51,8 @@ struct PlansCalendarView: View {
                     Capsule().fill(Color.primary.opacity(0.25))
                 )
                 .sheet(isPresented: $isShowingTransportationOptionsSheet) {
-                    TransportationOptionsView()
+                    let viewModel = viewModelFactory.getTransportationOptionsViewModel(plans: viewModel.plans)
+                    TransportationOptionsView(viewModel: viewModel)
                 }
 
                 Spacer()

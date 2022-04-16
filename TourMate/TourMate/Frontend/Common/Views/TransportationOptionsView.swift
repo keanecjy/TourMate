@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TransportationOptionsView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel = TransportationOptionsViewModel(plans: [], routingService: MockRoutingService())
+    @StateObject var viewModel: TransportationOptionsViewModel
 
     var body: some View {
         NavigationView {
