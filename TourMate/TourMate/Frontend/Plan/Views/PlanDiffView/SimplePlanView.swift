@@ -42,7 +42,7 @@ struct SimplePlanView<T: Plan>: View {
             HStack(spacing: 5.0) {
                 VersionPickerView(selectedVersion: $selectedVersion,
                                   onChange: { val in handleVersionChange(version: val) },
-                                  versionNumbers: planViewModel.allVersionNumbers)
+                                  versionNumbers: planViewModel.allVersionNumbersSortedDesc)
 
                 RestoreButtonView(planViewModel: planViewModel)
 
