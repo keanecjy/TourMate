@@ -162,7 +162,8 @@ struct ViewModelFactory {
 
     // PlanView - PlanUpvotes
     func getPlanUpvoteViewModel<T: Plan>(planViewModel: PlanViewModel<T>) -> PlanUpvoteViewModel {
-        getPlanUpvoteViewModel(plan: planViewModel.plan)
+        print("[ViewModelFactory] Making upvote view model")
+        return getPlanUpvoteViewModel(plan: planViewModel.plan)
     }
 
     // PlansView - PlanUpvotes

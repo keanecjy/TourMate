@@ -28,7 +28,7 @@ struct SimplePlanDisplayView<T: Plan, Content: View>: View {
                 SimplePlanHeader(name: planDisplayViewModel.nameDisplay, status: planDisplayViewModel.statusDisplay)
 
                 PlanUpvoteView(viewModel: planUpvoteViewModel)
-                    .allowsHitTesting(false)
+                    .disabled(false)
 
                 TimingView(startDate: planDisplayViewModel.startDateTimeDisplay,
                            endDate: planDisplayViewModel.endDateTimeDisplay,
@@ -38,7 +38,7 @@ struct SimplePlanDisplayView<T: Plan, Content: View>: View {
 
                 AdditionalInfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
 
-                CommentsView(viewModel: commentsViewModel)
+                CommentsView(viewModel: commentsViewModel, versionNumber: planDisplayViewModel.versionNumber)
 
                 Spacer()
             }

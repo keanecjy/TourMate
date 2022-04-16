@@ -10,7 +10,8 @@ import Foundation
 extension ViewModelFactory {
     // Comments
     func getCommentsViewModel<T: Plan>(planViewModel: PlanViewModel<T>) -> CommentsViewModel {
-        getCommentsViewModel(plan: planViewModel.plan)
+        print("[ViewModelFactory] Making comments view model")
+        return getCommentsViewModel(plan: planViewModel.plan)
     }
 
     func getCommentsViewModel(plan: Plan) -> CommentsViewModel {

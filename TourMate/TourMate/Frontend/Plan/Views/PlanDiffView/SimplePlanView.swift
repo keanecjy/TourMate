@@ -17,23 +17,22 @@ struct SimplePlanView<T: Plan>: View {
 
     private let viewFactory: ViewFactory
 
-    init(planViewModel: PlanViewModel<T>, initialVersion: Binding<Int>) {
+    init(planViewModel: PlanViewModel<T>, initialVersion: Binding<Int>,
+         commentsViewModel: CommentsViewModel, planUpvoteViewModel: PlanUpvoteViewModel) {
         self.planViewModel = planViewModel
         self._selectedVersion = initialVersion
 
-        let viewModelFactory = ViewModelFactory()
         viewFactory = ViewFactory()
 
-        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
-        commentsViewModel.allowUserInteraction = false
+        self.commentsViewModel = commentsViewModel
+        self.commentsViewModel.allowUserInteraction = false
 
-        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+        self.planUpvoteViewModel = planUpvoteViewModel
     }
 
     func handleVersionChange(version: Int) {
         Task {
             await planViewModel.setVersionNumber(version)
-            await commentsViewModel.filterSpecificVersionComments(version: version)
         }
     }
 
@@ -59,14 +58,8 @@ struct SimplePlanView<T: Plan>: View {
         .padding()
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            // Load in after inner views are fully loaded
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                Task {
-                    planViewModel.attachDelegate(delegate: commentsViewModel)
-                    planViewModel.attachDelegate(delegate: planUpvoteViewModel)
-                    handleVersionChange(version: selectedVersion)
-                }
-            }
+            planViewModel.attachDelegate(delegate: planUpvoteViewModel)
+            handleVersionChange(version: selectedVersion)
         }
         .onDisappear {
             planViewModel.detachDelegates()

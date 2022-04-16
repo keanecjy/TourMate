@@ -12,41 +12,46 @@ struct PlanDiffView<T: Plan>: View {
     @StateObject var leftViewModel: PlanViewModel<T>
     @StateObject var rightViewModel: PlanViewModel<T>
 
+    let commentsViewModel: CommentsViewModel
+    let planUpvoteViewModel: PlanUpvoteViewModel
+
     @State private var leftVersion: Int
     @State private var rightVersion: Int
 
     let planDiffUtil: PlanDiffUtil
 
-    init(planViewModel: PlanViewModel<T>) {
+    init(planViewModel: PlanViewModel<T>, commentsViewModel: CommentsViewModel,
+         planUpvoteViewModel: PlanUpvoteViewModel) {
         let currentVersion = planViewModel.versionNumber
 
-        self._leftVersion = State(wrappedValue: planViewModel.isLatest ? currentVersion : currentVersion - 1)
+        self._leftVersion = State(wrappedValue: planViewModel.isLatest ? currentVersion - 1 : currentVersion)
         self._rightVersion = State(wrappedValue: planViewModel.versionNumber)
 
         self._leftViewModel = StateObject(wrappedValue: planViewModel.copy())
         self._rightViewModel = StateObject(wrappedValue: planViewModel.copy())
+
+        self.commentsViewModel = commentsViewModel
+        self.planUpvoteViewModel = planUpvoteViewModel
 
         self.planDiffUtil = PlanDiffUtil(wordLimit: Int.max)
     }
 
     var body: some View {
         ScrollView {
-            VStack {
+            HStack(spacing: 5.0) {
+                SimplePlanView(planViewModel: leftViewModel,
+                               initialVersion: $leftVersion,
+                               commentsViewModel: commentsViewModel.copy(),
+                               planUpvoteViewModel: planUpvoteViewModel.copy())
 
-                HStack(spacing: 5.0) {
-                    SimplePlanView(planViewModel: leftViewModel,
-                                   initialVersion: $leftVersion)
+                Divider()
 
-                    Divider()
-
-                    SimplePlanView(planViewModel: rightViewModel,
-                                   initialVersion: $rightVersion)
-                }
-
-                Text(planDiffUtil.getDiff(plan1: leftViewModel.plan, plan2: rightViewModel.plan))
-
-                Spacer()
+                SimplePlanView(planViewModel: rightViewModel,
+                               initialVersion: $rightVersion,
+                               commentsViewModel: commentsViewModel.copy(),
+                               planUpvoteViewModel: planUpvoteViewModel.copy())
             }
+            Text(planDiffUtil.getDiff(plan1: leftViewModel.plan, plan2: rightViewModel.plan))
         }
         .navigationBarTitleDisplayMode(.inline)
     }

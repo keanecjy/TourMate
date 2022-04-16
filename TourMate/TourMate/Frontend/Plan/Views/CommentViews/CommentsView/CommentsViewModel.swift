@@ -51,6 +51,13 @@ class CommentsViewModel: ObservableObject {
         self.planEventDelegates = []
     }
 
+    func copy() -> CommentsViewModel {
+        CommentsViewModel(planId: planId,
+                          planVersionNumber: planVersionNumber,
+                          commentService: commentService.copy(),
+                          userService: userService)
+    }
+
     func fetchCommentsAndListen() async {
         commentService.commentEventDelegate = self
 
@@ -161,8 +168,10 @@ class CommentsViewModel: ObservableObject {
 
     func filterSpecificVersionComments(version: Int) async {
         print("[CommentsViewModel] Filtering comments")
-        
+
         let sortedVersionedComments = getCommentsForVersion(version: version)
+        print(sortedVersionedComments)
+
         self.commentOwnerPairs = sortedVersionedComments
     }
 
