@@ -32,9 +32,11 @@ struct PlanLogView<T: Plan>: View {
 
     var body: some View {
         ActionableContentView { // content
-            PlanLogListView(planDisplayViewModel: planDisplayViewModel,
-                            commentsViewModel: commentsViewModel,
-                            planUpvoteViewModel: planUpvoteViewModel)
+            ScrollableContentView {
+                PlanLogListView(planDisplayViewModel: planDisplayViewModel,
+                                commentsViewModel: commentsViewModel,
+                                planUpvoteViewModel: planUpvoteViewModel)
+            }
         } actionContent: {
             if commentsViewModel.allowUserInteraction {
                 AddCommentView(viewModel: addCommentViewModel)

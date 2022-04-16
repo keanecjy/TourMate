@@ -27,22 +27,20 @@ struct PlanLogListView<T: Plan>: View {
     }
 
     var body: some View {
-        ScrollableContentView {
-            ForEach(planDisplayViewModel.allVersionedPlansSortedDesc, id: \.versionNumber) { versionedPlan in
-                VStack(alignment: .leading, spacing: 10.0) { // Each Version's section
+        ForEach(planDisplayViewModel.allVersionedPlansSortedDesc, id: \.versionNumber) { versionedPlan in
+            VStack(alignment: .leading, spacing: 10.0) { // Each Version's section
 
-                    // Plan Version Header
-                    viewFactory.getPlanVersionView(planDisplayViewModel: planDisplayViewModel,
-                                                   plan: versionedPlan)
+                // Plan Version Header
+                viewFactory.getPlanVersionView(planDisplayViewModel: planDisplayViewModel,
+                                               plan: versionedPlan)
 
-                    // Likes
-                    viewFactory.getUpvotedUsersView(planUpvoteViewModel: planUpvoteViewModel,
-                                                    version: versionedPlan.versionNumber)
+                // Likes
+                viewFactory.getUpvotedUsersView(planUpvoteViewModel: planUpvoteViewModel,
+                                                version: versionedPlan.versionNumber)
 
-                    // Comments
-                    viewFactory.getComments(commentsViewModel: commentsViewModel,
-                                            version: versionedPlan.versionNumber)
-                }
+                // Comments
+                CommentListView(viewModel: commentsViewModel,
+                                forVersion: versionedPlan.versionNumber)
             }
         }
     }

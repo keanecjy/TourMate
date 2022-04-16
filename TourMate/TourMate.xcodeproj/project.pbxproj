@@ -56,6 +56,8 @@
 		00711D6F280A655300F629C6 /* ActionableContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00711D6E280A655300F629C6 /* ActionableContentView.swift */; };
 		00711D71280A682100F629C6 /* ScrollableContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00711D70280A682100F629C6 /* ScrollableContentView.swift */; };
 		00711D73280A6A2700F629C6 /* PlanLogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00711D72280A6A2700F629C6 /* PlanLogListView.swift */; };
+		00711D76280A701700F629C6 /* PlanLogDisplayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00711D75280A701700F629C6 /* PlanLogDisplayHeader.swift */; };
+		00711D7A280A70F400F629C6 /* PlanLogDisplaySubHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00711D79280A70F400F629C6 /* PlanLogDisplaySubHeader.swift */; };
 		0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092522F27DA573500F4F029 /* TourMateTitleView.swift */; };
 		0092523827DA573500F4F029 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523127DA573500F4F029 /* LaunchView.swift */; };
 		0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092523D27DA574800F4F029 /* FirebaseAuthenticationService.swift */; };
@@ -279,6 +281,8 @@
 		00711D6E280A655300F629C6 /* ActionableContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionableContentView.swift; sourceTree = "<group>"; };
 		00711D70280A682100F629C6 /* ScrollableContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableContentView.swift; sourceTree = "<group>"; };
 		00711D72280A6A2700F629C6 /* PlanLogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanLogListView.swift; sourceTree = "<group>"; };
+		00711D75280A701700F629C6 /* PlanLogDisplayHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanLogDisplayHeader.swift; sourceTree = "<group>"; };
+		00711D79280A70F400F629C6 /* PlanLogDisplaySubHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanLogDisplaySubHeader.swift; sourceTree = "<group>"; };
 		0092522F27DA573500F4F029 /* TourMateTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourMateTitleView.swift; sourceTree = "<group>"; };
 		0092523127DA573500F4F029 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		0092523D27DA574800F4F029 /* FirebaseAuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationService.swift; sourceTree = "<group>"; };
@@ -632,6 +636,7 @@
 		00711D662809915F00F629C6 /* PlanLogView */ = {
 			isa = PBXGroup;
 			children = (
+				00711D74280A700C00F629C6 /* Components */,
 				00711D672809919800F629C6 /* PlanLogView.swift */,
 				00711D72280A6A2700F629C6 /* PlanLogListView.swift */,
 			);
@@ -645,6 +650,15 @@
 				00711D6A2809CBB300F629C6 /* ViewFactory+PlanLogView.swift */,
 			);
 			path = ViewFactory;
+			sourceTree = "<group>";
+		};
+		00711D74280A700C00F629C6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				00711D75280A701700F629C6 /* PlanLogDisplayHeader.swift */,
+				00711D79280A70F400F629C6 /* PlanLogDisplaySubHeader.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		00B4CECF27F5E0D4004A6126 /* TripFormView */ = {
@@ -1763,6 +1777,7 @@
 				B98F35E927F02015000AFE53 /* Location.swift in Sources */,
 				4CD10A7827FF3A310060C5AC /* DateUtil.swift in Sources */,
 				B99D5BA827EF1ADF003B99FB /* ConfirmedToggle.swift in Sources */,
+				00711D76280A701700F629C6 /* PlanLogDisplayHeader.swift in Sources */,
 				4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */,
 				B9B46718280068DC003D07F5 /* ActivityView.swift in Sources */,
 				B98F35E727F01F53000AFE53 /* SearchView.swift in Sources */,
@@ -1893,6 +1908,7 @@
 				B9B467262801DA61003D07F5 /* AddAccommodationViewModel.swift in Sources */,
 				00062B5227EF116F00267960 /* FirebaseAdaptedComment.swift in Sources */,
 				00148C982807E6720091C28B /* AddCommentViewModel.swift in Sources */,
+				00711D7A280A70F400F629C6 /* PlanLogDisplaySubHeader.swift in Sources */,
 				00711D6F280A655300F629C6 /* ActionableContentView.swift in Sources */,
 				B9B46722280182A4003D07F5 /* ViewExtension.swift in Sources */,
 				004C7C5D2802770E00B432C7 /* AuthenticationServiceDelegate.swift in Sources */,

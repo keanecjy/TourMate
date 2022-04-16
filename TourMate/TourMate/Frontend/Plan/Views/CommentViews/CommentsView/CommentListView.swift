@@ -9,12 +9,21 @@ import SwiftUI
 
 struct CommentListView: View {
     @ObservedObject var viewModel: CommentsViewModel
+    let commentOwnerPairs: [(Comment, User)]
+
+    init(viewModel: CommentsViewModel) {
+        self.viewModel = viewModel
+        self.commentOwnerPairs = viewModel.commentOwnerPairs
+    }
+
+    init(viewModel: CommentsViewModel, forVersion version: Int) {
+        self.viewModel = viewModel
+        self.commentOwnerPairs = viewModel.getCommentsForVersion(version: version)
+    }
 
     var body: some View {
-        ScrollableContentView {
-            ForEach(viewModel.commentOwnerPairs, id: \.0.id) { comment, user in
-                CommentView(viewModel: viewModel, comment: comment, user: user)
-            }
+        ForEach(commentOwnerPairs, id: \.0.id) { comment, user in
+            CommentView(viewModel: viewModel, comment: comment, user: user)
         }
     }
 }

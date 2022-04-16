@@ -17,7 +17,9 @@ struct CommentsView: View {
             Text("Error Occurred")
         } else {
             ActionableContentView {
-                CommentListView(viewModel: viewModel)
+                ScrollableContentView {
+                    CommentListView(viewModel: viewModel)
+                }
             } actionContent: {
                 if viewModel.allowUserInteraction {
                     AddCommentView(viewModel: viewModelFactory.getAddCommentViewModel(commentsViewModel: viewModel))
