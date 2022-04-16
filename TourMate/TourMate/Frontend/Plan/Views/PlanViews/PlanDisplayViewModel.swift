@@ -20,6 +20,26 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
         allVersionedPlans.sorted(by: { $0.versionNumber > $1.versionNumber })
     }
 
+    let defaultVersionNumberChoice = 0
+
+    var versionNumberChoices: [Int] {
+        var choices = [0]
+        choices.append(contentsOf: allVersionNumbers)
+        return choices
+    }
+
+    var versionLabels: [Int: String] {
+        var labels: [Int: String] = [:]
+        for choice in versionNumberChoices {
+            if choice == 0 {
+                labels[choice] = "all"
+            } else {
+                labels[choice] = String(choice)
+            }
+        }
+        return labels
+    }
+
     init(plan: T) {
         self.plan = plan
         self.allVersionedPlans = [plan]

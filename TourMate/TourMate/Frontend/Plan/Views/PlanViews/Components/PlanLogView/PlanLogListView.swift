@@ -9,6 +9,9 @@ import SwiftUI
 
 struct PlanLogListView<T: Plan>: View {
 
+    @State private var selectedVersion: Int
+    @State private var showChanges: Bool
+
     private let viewFactory: ViewFactory
 
     @ObservedObject var planDisplayViewModel: PlanDisplayViewModel<T>
@@ -19,6 +22,9 @@ struct PlanLogListView<T: Plan>: View {
          commentsViewModel: CommentsViewModel,
          planUpvoteViewModel: PlanUpvoteViewModel) {
 
+        self.selectedVersion = planDisplayViewModel.defaultVersionNumberChoice
+        self.showChanges = false
+
         self.viewFactory = ViewFactory()
 
         self.planDisplayViewModel = planDisplayViewModel
@@ -27,20 +33,59 @@ struct PlanLogListView<T: Plan>: View {
     }
 
     var body: some View {
-        ForEach(planDisplayViewModel.allVersionedPlansSortedDesc, id: \.versionNumber) { versionedPlan in
-            VStack(alignment: .leading, spacing: 10.0) { // Each Version's section
+        ScrollableContentView {
+            VStack(alignment: .trailing, spacing: 10.0) {
+                Toggle(isOn: $showChanges) {
+                    Text("Show Changes")
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
 
-                // Plan Version Header
-                viewFactory.getPlanVersionView(planDisplayViewModel: planDisplayViewModel,
-                                               plan: versionedPlan)
+                if showChanges {
+                    HStack {
+                        Image(systemName: "slider.horizontal.3")
 
-                // Likes
-                viewFactory.getUpvotedUsersView(planUpvoteViewModel: planUpvoteViewModel,
-                                                version: versionedPlan.versionNumber)
+                        VersionPickerView(selectedVersion: $selectedVersion,
+                                          onChange: { _ in },
+                                          versionNumbers: planDisplayViewModel.versionNumberChoices,
+                                          labels: planDisplayViewModel.versionLabels)
 
-                // Comments
-                CommentListView(viewModel: commentsViewModel,
-                                forVersion: versionedPlan.versionNumber)
+                        if selectedVersion != planDisplayViewModel.defaultVersionNumberChoice {
+                            Button {
+                                self.selectedVersion = planDisplayViewModel.defaultVersionNumberChoice
+                            } label: {
+                                Image(systemName: "clear.fill")
+
+                            }
+                        }
+                    }
+                }
+            }
+            .padding([.horizontal])
+
+            Divider()
+
+            if showChanges {
+                ForEach(planDisplayViewModel.allVersionedPlansSortedDesc, id: \.versionNumber) { versionedPlan in
+
+                    if selectedVersion == 0 || selectedVersion == versionedPlan.versionNumber {
+                        VStack(alignment: .leading, spacing: 10.0) { // Each Version's section
+
+                            // Plan Version Header
+                            viewFactory.getPlanVersionView(planDisplayViewModel: planDisplayViewModel,
+                                                           plan: versionedPlan)
+
+                            // Likes
+                            viewFactory.getUpvotedUsersView(planUpvoteViewModel: planUpvoteViewModel,
+                                                            version: versionedPlan.versionNumber)
+
+                            // Comments
+                            CommentListView(viewModel: commentsViewModel,
+                                            forVersion: versionedPlan.versionNumber)
+                        }
+                    }
+                }
+            } else {
+                CommentListView(viewModel: commentsViewModel)
             }
         }
     }
