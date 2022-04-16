@@ -58,7 +58,7 @@ class Transport: Plan {
         && endLocation == otherTransport.endLocation
     }
 
-    override func diff<T>(other: T) -> [String: (Any, Any)] where T: Plan {
+    override func diff<T>(other: T) -> [String: (String, String)] where T: Plan {
         var diffMap = super.diff(other: other)
 
         guard let otherTransport = other as? Transport else {

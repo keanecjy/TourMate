@@ -89,6 +89,7 @@
 		4C5DD160280A5CCB00636E22 /* VersionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */; };
 		4C5DD162280A5EFC00636E22 /* SimplePlanHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */; };
 		4C8639A327DF37DA000566FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8639A227DF37DA000566FB /* Constants.swift */; };
+		4C8AB6B3280AA6B3006DE6CF /* PlanDiffUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8AB6B2280AA6B3006DE6CF /* PlanDiffUtil.swift */; };
 		4CB32D7028055F8100681E5B /* EditPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D6F28055F8100681E5B /* EditPlanViewModel.swift */; };
 		4CB32D722805631600681E5B /* AddPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D712805631600681E5B /* AddPlanViewModel.swift */; };
 		4CB32D742805690200681E5B /* AddPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D732805690200681E5B /* AddPlanView.swift */; };
@@ -317,6 +318,7 @@
 		4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionPickerView.swift; sourceTree = "<group>"; };
 		4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePlanHeader.swift; sourceTree = "<group>"; };
 		4C8639A227DF37DA000566FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4C8AB6B2280AA6B3006DE6CF /* PlanDiffUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDiffUtil.swift; sourceTree = "<group>"; };
 		4CB32D6F28055F8100681E5B /* EditPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewModel.swift; sourceTree = "<group>"; };
 		4CB32D712805631600681E5B /* AddPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewModel.swift; sourceTree = "<group>"; };
 		4CB32D732805690200681E5B /* AddPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanView.swift; sourceTree = "<group>"; };
@@ -1436,9 +1438,9 @@
 		B9A360BF27EC075500030769 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				00148C992807E7900091C28B /* ViewModelFactory */,
 				B9A360C027EC076500030769 /* DateTime.swift */,
 				95D4260F27F891FB0077A037 /* View+readSize.swift */,
-				00148C992807E7900091C28B /* ViewModelFactory */,
 				4C55E7DA27F97AD20032D1D8 /* UIScreen+Extensions.swift */,
 				4CD10A7727FF3A310060C5AC /* DateUtil.swift */,
 				4C16604F2800A4BD00195DF8 /* Copyable.swift */,
@@ -1447,6 +1449,7 @@
 				B98F35EF27F0602E000AFE53 /* SearchViewModel.swift */,
 				00711D692809CBA400F629C6 /* ViewFactory */,
 				00148CB1280903A50091C28B /* ExpandableTextView.swift */,
+				4C8AB6B2280AA6B3006DE6CF /* PlanDiffUtil.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1970,6 +1973,7 @@
 				B9A04FB027E5875A007D4303 /* PlanView.swift in Sources */,
 				4C26970E28087A4200FCEC34 /* LocationTextView.swift in Sources */,
 				B9A04FB027E5875A007D4303 /* PlanView.swift in Sources */,
+				4C8AB6B3280AA6B3006DE6CF /* PlanDiffUtil.swift in Sources */,
 				B9B4670B280026B7003D07F5 /* Accommodation.swift in Sources */,
 				00062B5627EF345A00267960 /* CommentsViewModel.swift in Sources */,
 				4CEC5CBB27FFEA6C007CEF2A /* InjectedValues.swift in Sources */,

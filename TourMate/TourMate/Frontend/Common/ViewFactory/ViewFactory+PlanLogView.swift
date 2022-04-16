@@ -26,9 +26,9 @@ extension ViewFactory {
             return ""
         }
 
-        let differenceMap = plan.diff(other: previousPlan)
+        let planDiffUtil = PlanDiffUtil()
 
-        return differenceMap.map({ "\($0) changed from \($1.0) to \($1.1)" }).joined(separator: "\n")
+       return planDiffUtil.getDiff(plan1: plan, plan2: previousPlan)
     }
 
     // Will be empty if there are no views to display
