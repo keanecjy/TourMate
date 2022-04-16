@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct DateTime: Equatable {
+struct DateTime: Equatable, CustomStringConvertible {
     var date = Date()
     var timeZone = TimeZone.current
+
+    var description: String {
+        DateUtil.defaultDateDisplay(date: date, at: timeZone, dateStyle: .short)
+    }
 }

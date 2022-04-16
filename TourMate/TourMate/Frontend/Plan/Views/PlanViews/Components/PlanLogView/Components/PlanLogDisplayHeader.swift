@@ -10,13 +10,19 @@ import SwiftUI
 struct PlanLogDisplayHeader: View {
 
     let header: String
+    let subheader: String
 
     var body: some View {
         HStack {
             Spacer()
 
-            Text(header)
-                .bold()
+            VStack(spacing: 10.0) {
+                Text(header)
+                    .bold()
+
+                Text(subheader)
+                    .opacity(0.6)
+            }
 
             Spacer()
         }
