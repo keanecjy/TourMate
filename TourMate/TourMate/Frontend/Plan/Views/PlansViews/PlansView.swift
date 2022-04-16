@@ -29,7 +29,6 @@ struct PlansView: View {
                 Picker("View Mode", selection: $selectedViewMode) {
                     Label("Itinerary", systemImage: "list.bullet.rectangle").tag(PlansViewMode.list)
                     Label("Calendar", systemImage: "calendar.day.timeline.left").tag(PlansViewMode.calendar)
-
                 }
                 .pickerStyle(.segmented)
 
@@ -37,7 +36,6 @@ struct PlansView: View {
                     PlansMapView(viewModel: plansViewModel, onSelected: onSelected)
                 } label: {
                     Label("Map", systemImage: "map.fill")
-
                 }
             }
             .padding()
@@ -47,8 +45,6 @@ struct PlansView: View {
                     PlansListView(viewModel: plansViewModel, onSelected: onSelected)
                 } else if selectedViewMode == .calendar {
                     PlansCalendarView(viewModel: plansViewModel, onSelected: onSelected)
-                } else if selectedViewMode == .map {
-                    PlansMapView(viewModel: plansViewModel, onSelected: onSelected)
                 }
             }
         }

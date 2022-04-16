@@ -85,7 +85,7 @@ struct PlansMapDayView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            Map(coordinateRegion: $region.animation(), annotationItems: getLocations(from: idPlans)) { location in
+            Map(coordinateRegion: $region, annotationItems: getLocations(from: idPlans)) { location in
                 MapAnnotation(coordinate: location.coordinate) {
                     ZStack {
                         Image(systemName: "circle.fill")
@@ -108,31 +108,49 @@ struct PlansMapDayView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            TabView(selection: $selectedItem) {
-                ForEach(idPlans, id: \.id) { idPlan in
-                    PlanCardView(plansViewModel: viewModel,
-                                 plan: idPlan.plan,
-                                 date: date,
-                                 index: idPlan.id + 1)
-                    .onTapGesture(perform: {
-                        if let onSelected = onSelected {
-                            onSelected(idPlan.plan)
+            VStack {
+                HStack {
+                    Spacer()
+                    Button("Re-center") {
+                        withAnimation {
+                            handlePlansChanged(idPlans)
                         }
-                    })
-                    .buttonStyle(PlainButtonStyle())
-                    .background(RoundedRectangle(cornerRadius: 16)
-                                    .fill(Color(.systemBackground))
-                                    .shadow(color: Color.primary.opacity(0.25), radius: 4)
-                    )
+                    }
                     .padding()
-                    .tag(idPlan.id)
+                    .background(
+                        Capsule()
+                            .fill(Color(.systemBackground))
+                            .shadow(color: Color.primary.opacity(0.2), radius: 2)
+                    )
                 }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .frame(height: 100.0)
-            .onChange(of: selectedItem) { value in
-                withAnimation {
-                    handleSelectedItemChanged(value)
+                .padding([.horizontal])
+
+                TabView(selection: $selectedItem) {
+                    ForEach(idPlans, id: \.id) { idPlan in
+                        PlanCardView(plansViewModel: viewModel,
+                                     plan: idPlan.plan,
+                                     date: date,
+                                     index: idPlan.id + 1)
+                        .onTapGesture(perform: {
+                            if let onSelected = onSelected {
+                                onSelected(idPlan.plan)
+                            }
+                        })
+                        .buttonStyle(PlainButtonStyle())
+                        .background(RoundedRectangle(cornerRadius: 16)
+                                        .fill(Color(.systemBackground))
+                                        .shadow(color: Color.primary.opacity(0.25), radius: 4)
+                        )
+                        .padding()
+                        .tag(idPlan.id)
+                    }
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .frame(height: 100.0)
+                .onChange(of: selectedItem) { value in
+                    withAnimation {
+                        handleSelectedItemChanged(value)
+                    }
                 }
             }
         }

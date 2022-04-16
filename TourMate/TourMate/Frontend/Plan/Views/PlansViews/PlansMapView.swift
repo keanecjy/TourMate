@@ -68,7 +68,18 @@ struct PlansMapView: View {
                 )
             }
             ToolbarItem(placement: .primaryAction) {
-                Toggle(showProposedPlans ? "Hide Proposed Plans" : "Show Proposed Plans", isOn: $showProposedPlans)
+                Toggle(isOn: $showProposedPlans) {
+                    Text("Show Proposed Plans")
+                        .font(.subheadline)
+                        .foregroundColor(Color(.link))
+                        .padding([.leading])
+                }
+                .toggleStyle(.switch)
+                .background(
+                   Capsule()
+                    .fill(Color(.systemBackground))
+                    .shadow(color: Color.primary.opacity(0.2), radius: 2)
+                )
             }
         }
         .ignoresSafeArea()
