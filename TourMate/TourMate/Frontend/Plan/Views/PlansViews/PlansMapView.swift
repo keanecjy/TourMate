@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-struct IdentifiablePlan: Identifiable {
+struct IdentifiablePlan: Identifiable, Equatable {
+    static func == (lhs: IdentifiablePlan, rhs: IdentifiablePlan) -> Bool {
+        lhs.id == rhs.id
+    }
+
     let id: Int
     let plan: Plan
 }
@@ -24,17 +28,19 @@ struct PlansMapView: View {
         self.onSelected = onSelected
     }
 
-    func getPlans(for date: Date) -> [(Int, Plan)] {
+    func getIdentifiablePlans(for date: Date) -> [IdentifiablePlan] {
         let plans = viewModel.days.first { $0.date == date }?.plans ?? []
-        return Array(zip(plans.indices, plans))
+        return Array(zip(plans.indices, plans)).map { index, plan in
+            IdentifiablePlan(id: index, plan: plan)
+        }
     }
 
     var body: some View {
         PlansMapDayView(viewModel: viewModel,
                         date: selectedDate,
-                        plans: getPlans(for: selectedDate),
+                        idPlans: getIdentifiablePlans(for: selectedDate),
                         onSelected: onSelected)
-        .task {
+        .onAppear {
             selectedDate = viewModel.days.first?.date ?? Date()
         }
         .navigationTitle("Map View")

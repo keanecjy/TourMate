@@ -23,11 +23,6 @@ func getGeographicMidpoint(betweenCoordinates coordinates: [CLLocationCoordinate
             CLLocationCoordinate2D(latitude: 0, longitude: 0) // return null island if no coordinates were given
     }
 
-    guard coordinates.count > 1 else {
-        return coordinates.first ?? // return the only coordinate
-            CLLocationCoordinate2D(latitude: 0, longitude: 0) // return null island if no coordinates were given
-    }
-
     var x = Double(0)
     var y = Double(0)
     var z = Double(0)
@@ -49,4 +44,20 @@ func getGeographicMidpoint(betweenCoordinates coordinates: [CLLocationCoordinate
     let lat = atan2(z, hyp)
 
     return CLLocationCoordinate2D(latitude: radiansToDegrees(lat), longitude: radiansToDegrees(lon))
+}
+
+func getMaximumDistance(betweenCoordinates coordinates: [CLLocationCoordinate2D]) -> CLLocationDistance {
+    guard coordinates.count > 1 else {
+        return 0
+    }
+    var maximumDistance = 0.0
+    for coordinate1 in coordinates {
+        for coordinate2 in coordinates {
+            let clCoordinate1 = CLLocation(latitude: coordinate1.latitude, longitude: coordinate1.longitude)
+            let clCoordinate2 = CLLocation(latitude: coordinate2.latitude, longitude: coordinate2.longitude)
+            let distance = clCoordinate1.distance(from: clCoordinate2)
+            maximumDistance = max(distance, maximumDistance)
+        }
+    }
+    return maximumDistance
 }

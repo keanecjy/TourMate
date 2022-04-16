@@ -9,8 +9,8 @@ import SwiftUI
 import MapKit
 
 struct IdentifiableLocation: Identifiable {
-    let id: Int
-    let coordinate: CLLocationCoordinate2D
+    var id: Int
+    var coordinate: CLLocationCoordinate2D
 }
 
 struct PlansMapDayView: View {
@@ -18,23 +18,8 @@ struct PlansMapDayView: View {
     private let viewModelFactory = ViewModelFactory()
 
     let date: Date
-    let plans: [(Int, Plan)]
+    let idPlans: [IdentifiablePlan]
     let onSelected: ((Plan) -> Void)?
-
-    var locations: [IdentifiableLocation] {
-        plans.compactMap { index, plan in
-            guard let location = plan.locations.first else {
-                return nil
-            }
-            return IdentifiableLocation(
-                id: index,
-                coordinate: CLLocationCoordinate2D(
-                    latitude: location.latitude,
-                    longitude: location.longitude
-                )
-            )
-        }
-    }
 
     @State private var selectedItem = 0
     @State private var region = MKCoordinateRegion(
@@ -46,19 +31,34 @@ struct PlansMapDayView: View {
 
     init(viewModel: PlansViewModel,
          date: Date,
-         plans: [(Int, Plan)] = [],
+         idPlans: [IdentifiablePlan] = [],
          onSelected: ((Plan) -> Void)? = nil) {
         self.viewModel = viewModel
         self.date = date
-        self.plans = plans
+        self.idPlans = idPlans
         self.onSelected = onSelected
     }
 
+    func getLocations(from plans: [IdentifiablePlan]) -> [IdentifiableLocation] {
+        plans.compactMap { idPlan in
+            guard let location = idPlan.plan.locations.first else {
+                return nil
+            }
+            return IdentifiableLocation(
+                id: idPlan.id,
+                coordinate: CLLocationCoordinate2D(
+                    latitude: location.latitude,
+                    longitude: location.longitude
+                )
+            )
+        }
+    }
+
     func handleSelectedItemChanged(_ value: Int) {
-        guard plans.indices.contains(value) else {
+        guard idPlans.indices.contains(value) else {
             return
         }
-        let plan = plans[value].1
+        let plan = idPlans[value].plan
         guard let location = plan.locations.first else {
             return
         }
@@ -67,14 +67,24 @@ struct PlansMapDayView: View {
                 latitude: location.latitude,
                 longitude: location.longitude
             ),
-            latitudinalMeters: 750,
-            longitudinalMeters: 750
+            span: region.span
+        )
+    }
+
+    func handlePlansChanged(_ idPlans: [IdentifiablePlan]) {
+        let coordinates = getLocations(from: idPlans).map { $0.coordinate }
+        let midpoint = getGeographicMidpoint(betweenCoordinates: coordinates)
+        let maxDistance = getMaximumDistance(betweenCoordinates: coordinates)
+        region = MKCoordinateRegion(
+            center: midpoint,
+            latitudinalMeters: maxDistance * 4,
+            longitudinalMeters: maxDistance * 4
         )
     }
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            Map(coordinateRegion: $region, annotationItems: locations) { location in
+            Map(coordinateRegion: $region.animation(), annotationItems: getLocations(from: idPlans)) { location in
                 MapAnnotation(coordinate: location.coordinate) {
                     ZStack {
                         Image(systemName: "circle.fill")
@@ -87,18 +97,21 @@ struct PlansMapDayView: View {
                         Text(String(location.id + 1))
                             .foregroundColor(.white)
                     }
+                    .onTapGesture {
+                        selectedItem = location.id
+                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             TabView(selection: $selectedItem) {
-                ForEach(plans, id: \.0) { index, plan in
+                ForEach(idPlans, id: \.id) { idPlan in
                     PlanCardView(plansViewModel: viewModel,
-                                 plan: plan,
+                                 plan: idPlan.plan,
                                  date: date)
                     .onTapGesture(perform: {
                         if let onSelected = onSelected {
-                            onSelected(plan)
+                            onSelected(idPlan.plan)
                         }
                     })
                     .buttonStyle(PlainButtonStyle())
@@ -107,14 +120,19 @@ struct PlansMapDayView: View {
                                     .shadow(color: Color.primary.opacity(0.25), radius: 4)
                     )
                     .padding()
-                    .tag(index)
+                    .tag(idPlan.id)
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .frame(height: 100.0)
             .onChange(of: selectedItem) { value in
-                handleSelectedItemChanged(value)
+                withAnimation {
+                    handleSelectedItemChanged(value)
+                }
             }
+        }
+        .onChange(of: idPlans) { newPlans in
+            handlePlansChanged(newPlans)
         }
     }
 }

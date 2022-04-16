@@ -124,8 +124,8 @@
 		95779BD927E769FD001FF602 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95779BD827E769FD001FF602 /* UserService.swift */; };
 		95779BDB27E76B1A001FF602 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95779BDA27E76B1A001FF602 /* AuthenticationService.swift */; };
 		9586652528040C7100DCDB15 /* PlansMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9586652428040C7100DCDB15 /* PlansMapView.swift */; };
-		958665292804259700DCDB15 /* PlansMapDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958665282804259700DCDB15 /* PlansMapDayView.swift */; };
 		959DC41628098716005CFCBC /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC41528098716005CFCBC /* Coordinates.swift */; };
+		959DC4182809BC3C005CFCBC /* PlansMapDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC4172809BC3C005CFCBC /* PlansMapDayView.swift */; };
 		95CB3F7427D8E79C0086E9E3 /* PlanDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6A27D8E79B0086E9E3 /* PlanDateView.swift */; };
 		95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */; };
 		95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */; };
@@ -347,8 +347,8 @@
 		95779BD827E769FD001FF602 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		95779BDA27E76B1A001FF602 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		9586652428040C7100DCDB15 /* PlansMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansMapView.swift; sourceTree = "<group>"; };
-		958665282804259700DCDB15 /* PlansMapDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansMapDayView.swift; sourceTree = "<group>"; };
 		959DC41528098716005CFCBC /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
+		959DC4172809BC3C005CFCBC /* PlansMapDayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlansMapDayView.swift; sourceTree = "<group>"; };
 		95CB3F6A27D8E79B0086E9E3 /* PlanDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanDateView.swift; sourceTree = "<group>"; };
 		95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardView.swift; sourceTree = "<group>"; };
 		95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlansListView.swift; sourceTree = "<group>"; };
@@ -1243,7 +1243,7 @@
 				95D4261127F893750077A037 /* PlansView.swift */,
 				95CB3F6D27D8E79B0086E9E3 /* PlansListView.swift */,
 				9586652428040C7100DCDB15 /* PlansMapView.swift */,
-				958665282804259700DCDB15 /* PlansMapDayView.swift */,
+				959DC4172809BC3C005CFCBC /* PlansMapDayView.swift */,
 				95D43CCC27F16B7B00B2E9FD /* PlansCalendarView.swift */,
 				95D43CCE27F1703500B2E9FD /* PlansDayView.swift */,
 			);
@@ -1726,6 +1726,7 @@
 				4CB32D742805690200681E5B /* AddPlanView.swift in Sources */,
 				B9B4673C2801F6F8003D07F5 /* TransportView.swift in Sources */,
 				00062B4027EEC9A600267960 /* UpvoteButton.swift in Sources */,
+				959DC4182809BC3C005CFCBC /* PlansMapDayView.swift in Sources */,
 				95EB6A8C27E45B53008C1103 /* AddTripViewModel.swift in Sources */,
 				4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */,
 				B98F35E927F02015000AFE53 /* Location.swift in Sources */,
@@ -1800,7 +1801,6 @@
 				B9B4670D28002725003D07F5 /* Transport.swift in Sources */,
 				B9B6B3E627F44F9D00B0F5F4 /* ApiConfig.swift in Sources */,
 				00F83BC227DC5296003A28AA /* AuthenticationManager.swift in Sources */,
-				958665292804259700DCDB15 /* PlansMapDayView.swift in Sources */,
 				00062B4627EEE8F300267960 /* PlanUpvoteView.swift in Sources */,
 				0066356027F6F6FE00166655 /* PlanFormViewModel.swift in Sources */,
 				B9A04FA427E364AB007D4303 /* PlansViewModel.swift in Sources */,
