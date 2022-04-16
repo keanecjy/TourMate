@@ -50,7 +50,7 @@ class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
     }
 
     func copy() -> PlanViewModel<T> {
-        PlanViewModel(plan: plan, allVersionedPlans: allVersionedPlans,
+        PlanViewModel(plan: plan, allVersionedPlans: allVersionedPlansSortedDesc,
                       lowerBoundDate: lowerBoundDate,
                       upperBoundDate: upperBoundDate,
                       planOwner: planOwner, planLastModifier: planLastModifier,
@@ -90,7 +90,7 @@ class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
     func setVersionNumber(_ versionNumber: Int) async {
         print("[PlanViewModel] Changing plan to version: \(versionNumber)")
 
-        guard let plan = allVersionedPlans.first(where: { $0.versionNumber == versionNumber }) else {
+        guard let plan = allVersionedPlansSortedDesc.first(where: { $0.versionNumber == versionNumber }) else {
             print("[PlanViewModel] Not able to find plan with version \(versionNumber)")
             return
         }
@@ -115,6 +115,10 @@ class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
             handleError()
             return
         }
+    }
+
+    func diffPlan(with viewModel: PlanViewModel) -> PlanDiffMap {
+        plan.diff(other: viewModel.plan)
     }
 
 }
@@ -147,9 +151,9 @@ extension PlanViewModel: PlanEventDelegate {
             return
         }
 
-        self.allVersionedPlans = plans
-        loadLatestVersionedPlan(plans)
+        self.allVersionedPlansSortedDesc = plans.sorted(by: { $0.versionNumber > $1.versionNumber })
 
+        await loadLatestVersionedPlan()
         await updateDelegates()
         await updatePlanLastModifier()
         await updatePlanModifierMap()
@@ -159,14 +163,10 @@ extension PlanViewModel: PlanEventDelegate {
 
 // MARK: - Helper Methods
 extension PlanViewModel {
-    private func loadLatestVersionedPlan(_ plans: [T]) {
-        guard var latestPlan = plans.first else {
+    private func loadLatestVersionedPlan() async {
+        guard let latestPlan = allVersionedPlansSortedDesc.first else {
             handleDeletion()
             return
-        }
-
-        for plan in plans where plan.versionNumber > latestPlan.versionNumber {
-            latestPlan = plan
         }
 
         self.plan = latestPlan
@@ -188,7 +188,7 @@ extension PlanViewModel {
     private func updatePlanModifierMap() async {
         var seenUsers: [String: User] = [:]
 
-        for plan in allVersionedPlans {
+        for plan in allVersionedPlansSortedDesc {
             if let user = seenUsers[plan.modifierUserId] {
                 planModifierMap[plan.versionNumber] = user
             } else {

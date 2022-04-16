@@ -34,7 +34,7 @@ class AddPlanViewModel<T: Plan>: PlanFormViewModel<T> {
         return Plan(tripId: trip.id,
                     name: planName,
                     startDateTime: DateTime(date: planStartDate, timeZone: trip.startDateTime.timeZone),
-                    endDateTime: DateTime(date: planStartDate, timeZone: trip.endDateTime.timeZone),
+                    endDateTime: DateTime(date: planEndDate, timeZone: trip.endDateTime.timeZone),
                     imageUrl: planImageUrl,
                     status: planStatus,
                     additionalInfo: planAdditionalInfo,
