@@ -15,6 +15,10 @@ struct PlanDiffUtil {
 
     func getDiff<T: Plan>(plan1: T, plan2: T) -> String {
         let differenceMap = plan1.diff(other: plan2)
+        
+        guard !differenceMap.isEmpty else {
+            return "Plan was restored"
+        }
 
         return differenceMap
             .map({ "\($0) changed \(truncateString(str1: $1.0, str2: $1.1))" })
