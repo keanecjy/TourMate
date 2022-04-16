@@ -14,8 +14,6 @@ protocol PlanService: Copyable {
 
     func addPlan(plan: Plan) async -> (Bool, String)
 
-    func deleteSinglePlan(plan: Plan) async -> (Bool, String)
-
     func deletePlan(plan: Plan) async -> (Bool, String)
 
     func updatePlan(plan: Plan) async -> (Bool, String)

@@ -21,9 +21,11 @@ struct RestoreButtonView<T: Plan>: View {
                 }
             } label: {
                 Text("Restore")
-                    .font(.caption).bold()
+                    .font(.caption)
+                    .bold()
                     .padding(5.0)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
+                    .colorInvert()
                     .background(Color.primary.opacity(0.25))
                     .cornerRadius(20.0)
             }

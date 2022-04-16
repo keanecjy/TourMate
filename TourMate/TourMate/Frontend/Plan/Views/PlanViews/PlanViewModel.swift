@@ -107,7 +107,6 @@ class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
         }
 
         plan.versionNumber = latestVersionNumber + 1
-        plan.creationDate = Date()
         plan.modificationDate = Date()
         plan.modifierUserId = currentUser.id
 
