@@ -9,8 +9,6 @@ import SwiftUI
 
 @MainActor
 struct SimplePlanView<T: Plan>: View {
-    @Environment(\.dismiss) var dismiss
-
     @StateObject var planViewModel: PlanViewModel<T>
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
@@ -25,48 +23,28 @@ struct SimplePlanView<T: Plan>: View {
 
         self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
         commentsViewModel.allowUserInteraction = false
+
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
 
         self._planViewModel = StateObject(wrappedValue: planViewModel)
         self._selectedVersion = State(wrappedValue: initialVersion)
     }
 
+    func handleVersionChange(version: Int) {
+        Task {
+            await planViewModel.setVersionNumber(version)
+            await commentsViewModel.filterSpecificVersionComments(version: version)
+        }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 30.0) {
             HStack(spacing: 5.0) {
-                Picker("Version", selection: $selectedVersion) {
-                    ForEach(planViewModel.allVersionNumbers, id: \.self) { num in
-                        Text("Version: \(String(num))").tag(num)
-                    }
-                }
-                .pickerStyle(.menu)
-                .padding([.horizontal])
-                .background(
-                    Capsule().fill(Color.primary.opacity(0.25))
-                )
-                .onChange(of: selectedVersion, perform: { val in
-                    Task {
-                        await planViewModel.setVersionNumber(val)
-                        await commentsViewModel.filterSpecificVersionComments(version: val)
-                    }
-                })
+                VersionPickerView(selectedVersion: $selectedVersion,
+                                  onChange: { val in handleVersionChange(version: val) },
+                                  versionNumbers: planViewModel.allVersionNumbers)
 
-                if !planViewModel.isLatest {
-                    // Restore version button
-                    Button {
-                        Task {
-                            await planViewModel.restoreToCurrentVersion()
-                            dismiss()
-                        }
-                    } label: {
-                        Text("Restore")
-                            .font(.caption).bold()
-                            .padding(5.0)
-                            .foregroundColor(.white)
-                            .background(Color.primary.opacity(0.25))
-                            .cornerRadius(20.0)
-                    }
-                }
+                RestoreButtonView(planViewModel: planViewModel)
 
                 Spacer()
 
@@ -86,14 +64,8 @@ struct SimplePlanView<T: Plan>: View {
                 Task {
                     planViewModel.attachDelegate(delegate: commentsViewModel)
                     planViewModel.attachDelegate(delegate: planUpvoteViewModel)
-                    await planViewModel.setVersionNumber(selectedVersion)
-                    await commentsViewModel.filterSpecificVersionComments(version: selectedVersion)
+                    handleVersionChange(version: selectedVersion)
                 }
-            }
-        }
-        .onReceive(planViewModel.objectWillChange) {
-            if planViewModel.isDeleted {
-                dismiss()
             }
         }
         .onDisappear {

@@ -78,6 +78,9 @@
 		4C4A9EA12807C9340040EE24 /* AccommodationFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A9EA02807C9340040EE24 /* AccommodationFormView.swift */; };
 		4C4A9EA32807C9A50040EE24 /* TransportFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A9EA22807C9A50040EE24 /* TransportFormView.swift */; };
 		4C55E7DB27F97AD30032D1D8 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C55E7DA27F97AD20032D1D8 /* UIScreen+Extensions.swift */; };
+		4C5DD15B280A5B2300636E22 /* RestoreButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DD15A280A5B2300636E22 /* RestoreButtonView.swift */; };
+		4C5DD160280A5CCB00636E22 /* VersionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */; };
+		4C5DD162280A5EFC00636E22 /* SimplePlanHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */; };
 		4C8639A327DF37DA000566FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8639A227DF37DA000566FB /* Constants.swift */; };
 		4CB32D7028055F8100681E5B /* EditPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D6F28055F8100681E5B /* EditPlanViewModel.swift */; };
 		4CB32D722805631600681E5B /* AddPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D712805631600681E5B /* AddPlanViewModel.swift */; };
@@ -296,6 +299,9 @@
 		4C4A9EA02807C9340040EE24 /* AccommodationFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccommodationFormView.swift; sourceTree = "<group>"; };
 		4C4A9EA22807C9A50040EE24 /* TransportFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportFormView.swift; sourceTree = "<group>"; };
 		4C55E7DA27F97AD20032D1D8 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
+		4C5DD15A280A5B2300636E22 /* RestoreButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreButtonView.swift; sourceTree = "<group>"; };
+		4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionPickerView.swift; sourceTree = "<group>"; };
+		4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePlanHeader.swift; sourceTree = "<group>"; };
 		4C8639A227DF37DA000566FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4CB32D6F28055F8100681E5B /* EditPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewModel.swift; sourceTree = "<group>"; };
 		4CB32D712805631600681E5B /* AddPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewModel.swift; sourceTree = "<group>"; };
@@ -814,6 +820,30 @@
 			path = TimingView;
 			sourceTree = "<group>";
 		};
+		4C5DD15C280A5C7700636E22 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				4CB405BA2808693100FF52D1 /* SimpleActivityDisplayView.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		4C5DD15D280A5C7D00636E22 /* Accommodation */ = {
+			isa = PBXGroup;
+			children = (
+				4CB405BC28086B8D00FF52D1 /* SimpleAccommodationDisplayView.swift */,
+			);
+			path = Accommodation;
+			sourceTree = "<group>";
+		};
+		4C5DD15E280A5C8300636E22 /* Transport */ = {
+			isa = PBXGroup;
+			children = (
+				4CB405BE28086BAB00FF52D1 /* SimpleTransportDisplayView.swift */,
+			);
+			path = Transport;
+			sourceTree = "<group>";
+		};
 		4C8639A127DF37D3000566FB /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -907,9 +937,9 @@
 			isa = PBXGroup;
 			children = (
 				4CB405B82808663C00FF52D1 /* SimplePlanModifierView.swift */,
-				4CB405BA2808693100FF52D1 /* SimpleActivityDisplayView.swift */,
-				4CB405BC28086B8D00FF52D1 /* SimpleAccommodationDisplayView.swift */,
-				4CB405BE28086BAB00FF52D1 /* SimpleTransportDisplayView.swift */,
+				4C5DD15A280A5B2300636E22 /* RestoreButtonView.swift */,
+				4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */,
+				4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -918,6 +948,9 @@
 			isa = PBXGroup;
 			children = (
 				4CB405B7280865FF00FF52D1 /* Components */,
+				4C5DD15C280A5C7700636E22 /* Activity */,
+				4C5DD15D280A5C7D00636E22 /* Accommodation */,
+				4C5DD15E280A5C8300636E22 /* Transport */,
 				4CB6F8ED2807EE490029960B /* PlanDiffView.swift */,
 				4CB6F8EF2807F76D0029960B /* SimplePlanView.swift */,
 				4CB6F8F52808082F0029960B /* SimplePlanDisplayView.swift */,
@@ -1780,6 +1813,7 @@
 				4CB6F8EE2807EE490029960B /* PlanDiffView.swift in Sources */,
 				95FAE40927E2447400F4AB01 /* TripsViewModel.swift in Sources */,
 				B9B4672A2801DDFD003D07F5 /* FirebaseAdaptedTransport.swift in Sources */,
+				4C5DD162280A5EFC00636E22 /* SimplePlanHeader.swift in Sources */,
 				B9A360C427EC23BA00030769 /* FirebaseAdaptedDateTime.swift in Sources */,
 				4C4A9EA32807C9A50040EE24 /* TransportFormView.swift in Sources */,
 				4CB405B92808663C00FF52D1 /* SimplePlanModifierView.swift in Sources */,
@@ -1876,6 +1910,8 @@
 				B9B4672028007A5E003D07F5 /* EditActivityView.swift in Sources */,
 				95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */,
 				4CB954DE27DDFDB2001410AD /* Repository.swift in Sources */,
+				4C5DD15B280A5B2300636E22 /* RestoreButtonView.swift in Sources */,
+				4C5DD160280A5CCB00636E22 /* VersionPickerView.swift in Sources */,
 				0066355927F6D61A00166655 /* EditTripViewModel.swift in Sources */,
 				B9B467322801EBBD003D07F5 /* EditAccommodationView.swift in Sources */,
 				B98F35F927F42E00000AFE53 /* APICall.swift in Sources */,

@@ -25,11 +25,7 @@ struct SimplePlanDisplayView<T: Plan, Content: View>: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 30.0) {
-                HStack(spacing: 10.0) {
-                    Text(planDisplayViewModel.nameDisplay).font(.title).bold()
-
-                    PlanStatusView(status: planDisplayViewModel.statusDisplay)
-                }
+                SimplePlanHeader(name: planDisplayViewModel.nameDisplay, status: planDisplayViewModel.statusDisplay)
 
                 PlanUpvoteView(viewModel: planUpvoteViewModel)
                     .allowsHitTesting(false)

@@ -99,11 +99,6 @@ class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
     }
 
     func restoreToCurrentVersion() async {
-        guard let latestVersion = allVersionNumbers.max() else {
-            handleError()
-            return
-        }
-
         let (currentUser, userError) = await userService.getCurrentUser()
 
         guard let currentUser = currentUser, userError.isEmpty else {
@@ -111,7 +106,7 @@ class PlanViewModel<T: Plan>: PlanDisplayViewModel<T> {
             return
         }
 
-        plan.versionNumber = latestVersion + 1
+        plan.versionNumber = latestVersionNumber + 1
         plan.creationDate = Date()
         plan.modificationDate = Date()
         plan.modifierUserId = currentUser.id
