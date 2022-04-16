@@ -28,7 +28,7 @@ class SearchViewModel: ObservableObject {
         addSubscriptions()
     }
 
-    func addSubscriptions() {
+    private func addSubscriptions() {
         $locationQuery.sink { [unowned self] _ in
             self.fetchLocations()
         }

@@ -10,11 +10,22 @@ import Foundation
 class MockRoutingService: RoutingService {
     // Results for from NUS to NTU
     let results: [RoutingResult] = [
-        RoutingResult(mode: .drive, distance: 13_000, time: 900),
-        RoutingResult(mode: .motorcycle, distance: 13_000, time: 900),
-        RoutingResult(mode: .transit, distance: 14_000, time: 3_480),
-        RoutingResult(mode: .walk, distance: 16_000, time: 12_360),
-        RoutingResult(mode: .bicycle, distance: 14_000, time: 2_760)
+        RoutingResult(
+            mode: .drive,
+            distance: Measurement(value: 13_000, unit: UnitLength.meters),
+            time: Measurement(value: 900, unit: UnitDuration.seconds)),
+        RoutingResult(
+            mode: .transit,
+            distance: Measurement(value: 14_000, unit: UnitLength.meters),
+            time: Measurement(value: 3_480, unit: UnitDuration.seconds)),
+        RoutingResult(
+            mode: .walk,
+            distance: Measurement(value: 16_000, unit: UnitLength.meters),
+            time: Measurement(value: 12_360, unit: UnitDuration.seconds)),
+        RoutingResult(
+            mode: .bicycle,
+            distance: Measurement(value: 14_000, unit: UnitLength.meters),
+            time: Measurement(value: 2_760, unit: UnitDuration.seconds))
     ]
 
     func fetchTransportationOptions(from: Location, to: Location) async -> ([RoutingResult], String) {

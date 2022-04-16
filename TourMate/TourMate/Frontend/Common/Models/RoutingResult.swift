@@ -7,19 +7,16 @@
 
 import Foundation
 
-enum TravelMode {
-    case drive
-    case motorcycle
-    // transit is public transport
-    case transit
-    case walk
-    case bicycle
-}
-
 struct RoutingResult {
     let mode: TravelMode
     // Distance in meters
-    let distance: Int
+    let distance: Measurement<UnitLength>
     // Time in seconds
-    let time: Double
+    let time: Measurement<UnitDuration>
+}
+
+extension RoutingResult: Identifiable {
+    var id: UUID {
+        UUID()
+    }
 }
