@@ -11,6 +11,7 @@ import MapKit
 struct IdentifiableLocation: Identifiable {
     var id: Int
     var coordinate: CLLocationCoordinate2D
+    var status: PlanStatus
 }
 
 struct PlansMapDayView: View {
@@ -40,17 +41,17 @@ struct PlansMapDayView: View {
     }
 
     func getLocations(from plans: [IdentifiablePlan]) -> [IdentifiableLocation] {
-        plans.compactMap { idPlan in
-            guard let location = idPlan.plan.locations.first else {
-                return nil
-            }
-            return IdentifiableLocation(
-                id: idPlan.id,
-                coordinate: CLLocationCoordinate2D(
-                    latitude: location.latitude,
-                    longitude: location.longitude
+        plans.flatMap { idPlan in
+            idPlan.plan.locations.map { location in
+                IdentifiableLocation(
+                    id: idPlan.id,
+                    coordinate: CLLocationCoordinate2D(
+                        latitude: location.latitude,
+                        longitude: location.longitude
+                    ),
+                    status: idPlan.plan.status
                 )
-            )
+            }
         }
     }
 
@@ -89,16 +90,19 @@ struct PlansMapDayView: View {
                     ZStack {
                         Image(systemName: "circle.fill")
                             .font(.title)
-                            .foregroundColor(.red)
+                            .foregroundColor(location.status == .confirmed ? .green : .red)
                         Image(systemName: "arrowtriangle.down.fill")
                             .font(.caption)
-                            .foregroundColor(.red)
+                            .foregroundColor(location.status == .confirmed ? .green : .red)
                             .offset(x: 0, y: 16)
                         Text(String(location.id + 1))
                             .foregroundColor(.white)
                     }
                     .onTapGesture {
-                        selectedItem = location.id
+                        withAnimation {
+                            selectedItem = location.id
+                            handleSelectedItemChanged(location.id)
+                        }
                     }
                 }
             }

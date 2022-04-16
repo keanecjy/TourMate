@@ -28,17 +28,21 @@ struct PlansMapView: View {
         self.onSelected = onSelected
     }
 
-    func getIdentifiablePlans(for date: Date) -> [IdentifiablePlan] {
-        let plans = viewModel.days.first { $0.date == date }?.plans ?? []
-        return Array(zip(plans.indices, plans)).map { index, plan in
+    func getIdentifiablePlans(for date: Date, includingProposedPlans: Bool = false) -> [IdentifiablePlan] {
+        var plans = viewModel.days.first { $0.date == date }?.plans ?? []
+        if !includingProposedPlans {
+            plans = plans.filter { $0.status == .confirmed }
+        }
+        let idPlans = Array(zip(plans.indices, plans)).map { index, plan in
             IdentifiablePlan(id: index, plan: plan)
         }
+        return idPlans
     }
 
     var body: some View {
         PlansMapDayView(viewModel: viewModel,
                         date: selectedDate,
-                        idPlans: getIdentifiablePlans(for: selectedDate),
+                        idPlans: getIdentifiablePlans(for: selectedDate, includingProposedPlans: showProposedPlans),
                         onSelected: onSelected)
         .onAppear {
             selectedDate = viewModel.days.first?.date ?? Date()
