@@ -9,22 +9,44 @@ import SwiftUI
 
 @MainActor
 struct PlanDiffView<T: Plan>: View {
-    var viewModel: PlanViewModel<T>
+    @StateObject var leftViewModel: PlanViewModel<T>
+    @StateObject var rightViewModel: PlanViewModel<T>
+
+    @State private var leftVersion: Int
+    @State private var rightVersion: Int
+
+    let planDiffUtil: PlanDiffUtil
 
     init(planViewModel: PlanViewModel<T>) {
-        self.viewModel = planViewModel
+        let currentVersion = planViewModel.versionNumber
+
+        self._leftVersion = State(wrappedValue: planViewModel.isLatest ? currentVersion : currentVersion - 1)
+        self._rightVersion = State(wrappedValue: planViewModel.versionNumber)
+
+        self._leftViewModel = StateObject(wrappedValue: planViewModel.copy())
+        self._rightViewModel = StateObject(wrappedValue: planViewModel.copy())
+
+        self.planDiffUtil = PlanDiffUtil(wordLimit: Int.max)
     }
 
     var body: some View {
-        HStack(spacing: 5.0) {
-            SimplePlanView(planViewModel: viewModel.copy(),
-                           initialVersion: viewModel.versionNumber > 1 ?
-                           viewModel.versionNumber - 1 : viewModel.versionNumber)
+        ScrollView {
+            VStack {
 
-            Divider()
+                HStack(spacing: 5.0) {
+                    SimplePlanView(planViewModel: leftViewModel,
+                                   initialVersion: $leftVersion)
 
-            SimplePlanView(planViewModel: viewModel.copy(),
-                           initialVersion: viewModel.versionNumber)
+                    Divider()
+
+                    SimplePlanView(planViewModel: rightViewModel,
+                                   initialVersion: $rightVersion)
+                }
+
+                Text(planDiffUtil.getDiff(plan1: leftViewModel.plan, plan2: rightViewModel.plan))
+
+                Spacer()
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
     }

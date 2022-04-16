@@ -160,6 +160,8 @@ class CommentsViewModel: ObservableObject {
     }
 
     func filterSpecificVersionComments(version: Int) async {
+        print("[CommentsViewModel] Filtering comments")
+        
         let sortedVersionedComments = getCommentsForVersion(version: version)
         self.commentOwnerPairs = sortedVersionedComments
     }

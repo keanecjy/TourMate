@@ -9,15 +9,18 @@ import SwiftUI
 
 @MainActor
 struct SimplePlanView<T: Plan>: View {
-    @StateObject var planViewModel: PlanViewModel<T>
+    @ObservedObject var planViewModel: PlanViewModel<T>
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
 
-    @State private var selectedVersion: Int
+    @Binding var selectedVersion: Int
 
     private let viewFactory: ViewFactory
 
-    init(planViewModel: PlanViewModel<T>, initialVersion: Int) {
+    init(planViewModel: PlanViewModel<T>, initialVersion: Binding<Int>) {
+        self.planViewModel = planViewModel
+        self._selectedVersion = initialVersion
+
         let viewModelFactory = ViewModelFactory()
         viewFactory = ViewFactory()
 
@@ -25,9 +28,6 @@ struct SimplePlanView<T: Plan>: View {
         commentsViewModel.allowUserInteraction = false
 
         self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
-
-        self._planViewModel = StateObject(wrappedValue: planViewModel)
-        self._selectedVersion = State(wrappedValue: initialVersion)
     }
 
     func handleVersionChange(version: Int) {
