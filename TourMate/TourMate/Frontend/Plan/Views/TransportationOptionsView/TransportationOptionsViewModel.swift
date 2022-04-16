@@ -17,7 +17,7 @@ class TransportationOptionsViewModel: ObservableObject {
     @Published var toLocation: Location
     @Published var suggestions: [RoutingResult]
 
-    private let plans: [Plan]
+    let plans: [Plan]
     private var routingService: RoutingService
 
     private var cancellableSet: Set<AnyCancellable> = []

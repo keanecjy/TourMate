@@ -12,7 +12,7 @@ struct TextFieldButton: View {
     let text: String
     let action: () -> Void
 
-    init(_ title: String, text: String, action: @escaping () -> Void = { print("Press") }) {
+    init(_ title: String, text: String, action: @escaping () -> Void) {
         self.title = title
         self.text = text
         self.action = action
