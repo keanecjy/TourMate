@@ -16,16 +16,17 @@ struct CommentsView: View {
         if viewModel.hasError {
             Text("Error Occurred")
         } else {
-            VStack(spacing: 15.0) {
+            ActionableContentView {
                 CommentListView(viewModel: viewModel)
-
+            } actionContent: {
                 if viewModel.allowUserInteraction {
                     AddCommentView(viewModel: viewModelFactory.getAddCommentViewModel(commentsViewModel: viewModel))
                 }
             }
-            .padding()
-            .background(.thinMaterial)
-            .cornerRadius(20.0)
+            .task {
+                await viewModel.fetchCommentsAndListen()
+            }
+            .onDisappear(perform: { () in viewModel.detachListener() })
         }
     }
 }
