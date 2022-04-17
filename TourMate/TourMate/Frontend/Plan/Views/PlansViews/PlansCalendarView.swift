@@ -67,7 +67,7 @@ struct PlansCalendarView: View {
 
                 Spacer()
             }
-            .padding()
+            .padding([.horizontal, .bottom])
 
             Divider()
 
