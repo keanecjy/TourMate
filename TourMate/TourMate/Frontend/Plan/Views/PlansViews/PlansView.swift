@@ -25,20 +25,6 @@ struct PlansView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-
-            if !plansViewModel.overlappingPlans.isEmpty {
-                HStack {
-                    Text("You have overlapping plans. View overlapping plans")
-
-                    Button {
-
-                    } label: {
-                        Text("here")
-                    }
-                }
-                .padding([.top, .horizontal])
-            }
-
             HStack {
                 Picker("View Mode", selection: $selectedViewMode) {
                     Label("Itinerary", systemImage: "list.bullet.rectangle").tag(PlansViewMode.list)
