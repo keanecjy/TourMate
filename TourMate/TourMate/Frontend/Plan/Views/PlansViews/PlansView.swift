@@ -43,7 +43,10 @@ struct PlansView: View {
                             TransportationOptionsView(viewModel: viewModel)
                         }
 
-                    SuggestionButton(title: "Conflict", subtitle: "There are clashing confirmed plans") {
+                    SuggestionButton(
+                        title: "Suggestions",
+                        subtitle: "Recommendations of nearby places",
+                        iconName: "building.2.fill") {
                         print("Implement conflict page")
                     }
                 }
