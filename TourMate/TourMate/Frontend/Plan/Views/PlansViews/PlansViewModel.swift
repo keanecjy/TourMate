@@ -82,6 +82,14 @@ class PlansViewModel: ObservableObject {
         self.planEventDelegates = [:]
     }
 
+    func getPlans(for date: Date) -> [Plan] {
+        days.first { $0.date == date }?.plans ?? []
+    }
+
+    func getInitialDate() -> Date {
+        days.first?.date ?? Date()
+    }
+
     func attachDelegate(planId: String, delegate: PlanEventDelegate) {
         planEventDelegates[planId] = delegate
     }

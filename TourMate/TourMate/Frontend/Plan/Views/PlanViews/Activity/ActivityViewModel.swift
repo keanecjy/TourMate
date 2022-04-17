@@ -38,7 +38,7 @@ class ActivityViewModel: PlanViewModel<Activity> {
     }
 
     override var prefixedNameDisplay: String {
-        "figure.walk.circle.fill"
+        "theatermasks.circle.fill"
     }
 
     var location: Location? {
