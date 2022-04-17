@@ -1,15 +1,6 @@
 @startuml
-!include DefaultStyle.puml
 
 hide footbox
-
-box Publish-Subscribe LOGIC_COLOR_T1
-participant ":PlanView" as PlanView LOGIC_COLOR
-participant ":PlanViewModel" as PlanViewModel LOGIC_COLOR
-participant ":FirebasePlanService" as FirebasePlanService LOGIC_COLOR
-participant ":FirebaseRepository" as FirebaseRepository LOGIC_COLOR
-participant "Firebase" as Firebase LOGIC_COLOR
-end box
 
 create PlanView
 [-> PlanView : User enters plan view

@@ -1,0 +1,60 @@
+@startuml
+
+hide empty members
+
+class PlanView {}
+
+class PlanViewModel {
+    - var planEventDelegates: [PlanEventDelegate]
+
+    + attachDelegate(delegate: PlanEventDelegate)
+    + update(plan: Plan?, errorMessage: String)
+}
+
+class PlanUpvoteViewModel {
+    + update(plan: Plan?, errorMessage: String)
+}
+
+class CommentsViewModel {
+    + update(plan: Plan?, errorMessage: String)
+}
+
+interface PlanEventDelegate {
+    + update(plan: Plan?, errorMessage: String)
+}
+
+interface FirebaseEventDelegate {
+    + update(item: FirebaseAdaptedData?, errorMessage: String) async
+}
+
+class FirebasePlanService {
+    + fetchPlanAndListen(withPlanId planId: String)
+    + detachListener()
+    + update(item: FirebaseAdaptedData?, errorMessage: String)
+}
+
+class FirebaseRepository {}
+
+PlanView --> PlanViewModel
+
+PlanView --> PlanUpvoteViewModel
+
+PlanView --> CommentsViewModel
+
+PlanViewModel --|> PlanEventDelegate
+
+CommentsViewModel --|> PlanEventDelegate
+
+PlanUpvoteViewModel --|> PlanEventDelegate
+
+FirebasePlanService --|> FirebaseEventDelegate
+
+PlanViewModel --> FirebasePlanService
+
+PlanEventDelegate <.right. FirebasePlanService
+
+FirebasePlanService --> FirebaseRepository
+
+FirebaseEventDelegate <.right. FirebaseRepository
+
+@enduml

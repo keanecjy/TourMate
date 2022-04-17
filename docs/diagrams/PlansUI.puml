@@ -2,37 +2,34 @@
 
 hide empty members
 
-class TripsView
-class TripCardView
-class TripView
-class AttendeesView
+PlanView --> PlanDiffView
+PlanView *--> EditPlanViewButton
 
-class PlansView
-class PlansListView
-class PlansCalendarView
-class PlansDayView
-class PlanCardView
+PlanDiffView *--> SimplePlanView
 
-TripsView *--> TripCardView
-TripsView --> TripView  : navigation
-TripView *--> AttendeesView
-TripView --> PlansView : navigation
+SimplePlanView *--> VersionPickerView
+SimplePlanView *--> RestoreButtonView
+SimplePlanView *--> SimplePlanModifierView
+SimplePlanView *--> SimplePlanDisplayView
+SimplePlanDisplayView *--> SimplePlanHeader
+SimplePlanDisplayView *--> PlanUpvoteView
+SimplePlanDisplayView *--> TimingView
+SimplePlanDisplayView *--> InfoView
+SimplePlanDisplayView *--> CommentsView
+CommentsView *--> CommentListView
+CommentsView *--> AddCommentView
 
-PlansView *--> PlansCalendarView
-PlansView *--> PlansListView
-PlansCalendarView *--> PlansDayView
+PlanView *--> PlanDisplayView
+PlanDisplayView *--> PlanHeaderView
+PlanDisplayView *--> PlanUpvoteView
+PlanDisplayView *--> TimingView
+PlanDisplayView *--> InfoView
+PlanDisplayView *--> PlanLogView
+PlanLogView *--> PlanLogListView
+PlanLogView *--> AddCommentView
+PlanLogListView *--> VersionPickerView
+PlanLogListView *--> CommentListView
 
-PlansListView *--> PlanCardView
-PlansDayView *--> PlanCardView
-
-PlanCardView *--> UpvotePlanView
-PlanCardView *--> PlanStatusView
-
-PlanCardView --> PlanView: navigation
-
-PlanView *--> MapView
-PlanView *--> UpvotePlanView
-PlanView *--> CommentsView
-PlanView *--> PlanStatusView
+CommentsView *--> CommentView
 
 @enduml

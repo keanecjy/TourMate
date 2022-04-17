@@ -2,7 +2,15 @@
 
 hide empty members
 
-class PlansView {}
+class XXXView
+class AddXXXView
+class EditXXXView
+
+class XXXViewModel
+class AddXXXViewModel
+class EditXXXViewModel
+
+class XXXFormView
 
 class PlanView {}
 
@@ -10,61 +18,56 @@ class AddPlanView {}
 
 class EditPlanView {}
 
-class PlansViewModel {
-    + fetchPlansAndListen()
-    + update(plans: [Plan], errorMessage: String)
-    + detachListener()
-}
+class PlanFormView
 
 class PlanViewModel {
-    + fetchPlanAndListen()
-    + upvotePlan()
-    + detachListener()
 }
 
 class AddPlanViewModel {
-    + addPlan()
 }
 
 class EditPlanViewModel {
-    + updatePlan()
-    + deletePlan()
 }
 
 class PlanFormViewModel {
-    - validate()
 }
 
-class FirebasePlanService {
-    + fetchPlansAndListen()
-    + fetchPlanAndListen(withPlanId planId: String)
-    + addPlan(plan: Plan) -> (Bool, String)
-    + deletePlan(plan: Plan) -> (Bool, String)
-    + updatePlan(plan: Plan) -> (Bool, String)
-    + detachListener()
+class PlanService {
 }
 
-class FirebaseUserService {
-}
+class Repository {}
 
-class FirebaseRepository {}
 
-PlansView --> PlansViewModel
+XXXView --> XXXViewModel
+XXXView *--> PlanView
+XXXViewModel --|> PlanViewModel
+
+AddXXXView *--> AddPlanView
+EditXXXView *--> EditPlanView
+
+XXXFormView *--> PlanFormView
+PlanFormView --> PlanFormViewModel
+
+EditXXXView --> EditXXXViewModel
+AddXXXView --> AddXXXViewModel
+
+EditPlanView *--> XXXFormView
+AddPlanView *--> XXXFormView
+
 PlanView --> PlanViewModel
 AddPlanView --> AddPlanViewModel
 EditPlanView --> EditPlanViewModel
 
-PlansViewModel --> FirebasePlanService
-PlanViewModel --> FirebasePlanService
-AddPlanViewModel --> FirebasePlanService
-EditPlanViewModel --> FirebasePlanService
+PlanViewModel --> PlanService
+AddPlanViewModel --> PlanService
+EditPlanViewModel --> PlanService
+
+AddXXXViewModel --|> AddPlanViewModel
+EditXXXViewModel --|> EditPlanViewModel
 
 AddPlanViewModel --|> PlanFormViewModel
 EditPlanViewModel --|> PlanFormViewModel
 
-PlanViewModel --> FirebaseUserService
-
-FirebaseUserService --> FirebaseRepository
-FirebasePlanService --> FirebaseRepository
+PlanService --> Repository
 
 @enduml
