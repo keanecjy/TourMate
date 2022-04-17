@@ -128,6 +128,9 @@
 		4CEC5CC027FFEA98007CEF2A /* Injected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CBF27FFEA98007CEF2A /* Injected.swift */; };
 		4CEC5CC227FFEB87007CEF2A /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CC127FFEB87007CEF2A /* AppConfig.swift */; };
 		4CFF78FA280BB9D50072AEB6 /* EditPlanViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */; };
+		4CFF78FD280BBB690072AEB6 /* EditTripButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF78FC280BBB690072AEB6 /* EditTripButton.swift */; };
+		4CFF78FF280BBC270072AEB6 /* InviteUserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF78FE280BBC270072AEB6 /* InviteUserButton.swift */; };
+		4CFF7901280BBC880072AEB6 /* AddPlanSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF7900280BBC880072AEB6 /* AddPlanSelectionButton.swift */; };
 		953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E627E5BFBF000DF0C2 /* TripsView.swift */; };
 		953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E827E5BFC7000DF0C2 /* TripCard.swift */; };
 		953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570EA27E5BFD1000DF0C2 /* AddTripView.swift */; };
@@ -371,6 +374,9 @@
 		4CEC5CBF27FFEA98007CEF2A /* Injected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injected.swift; sourceTree = "<group>"; };
 		4CEC5CC127FFEB87007CEF2A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewButton.swift; sourceTree = "<group>"; };
+		4CFF78FC280BBB690072AEB6 /* EditTripButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTripButton.swift; sourceTree = "<group>"; };
+		4CFF78FE280BBC270072AEB6 /* InviteUserButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUserButton.swift; sourceTree = "<group>"; };
+		4CFF7900280BBC880072AEB6 /* AddPlanSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanSelectionButton.swift; sourceTree = "<group>"; };
 		720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0AD6F3D818D6A89B4B41BF /* Pods-TourMate-TourMateUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.release.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.release.xcconfig"; sourceTree = "<group>"; };
 		953570E627E5BFBF000DF0C2 /* TripsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
@@ -1322,6 +1328,16 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		4CFF78FB280BBB5C0072AEB6 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				4CFF78FC280BBB690072AEB6 /* EditTripButton.swift */,
+				4CFF78FE280BBC270072AEB6 /* InviteUserButton.swift */,
+				4CFF7900280BBC880072AEB6 /* AddPlanSelectionButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		9538546127E449E500AFDED8 /* AddTripView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1364,7 +1380,6 @@
 				4C90219D2805BC2800054F0A /* Accommodation */,
 				4C90219E2805BC3000054F0A /* Transport */,
 				B9A04FAF27E5875A007D4303 /* PlanView.swift */,
-				4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */,
 				4CB6F8EB2807EB5A0029960B /* PlanDisplayView.swift */,
 				B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */,
 				004C7C6C2804195300B432C7 /* PlanDisplayViewModel.swift */,
@@ -1386,6 +1401,7 @@
 		95EB6A8D27E4B3A8008C1103 /* TripView */ = {
 			isa = PBXGroup;
 			children = (
+				4CFF78FB280BBB5C0072AEB6 /* Buttons */,
 				000AB54D27ED9BD200FF0ED3 /* InviteUserView */,
 				000AB55227EE183A00FF0ED3 /* AttendeesView */,
 				95DEA1E727E6FCC500A74ED2 /* TripViewModel.swift */,
@@ -1513,6 +1529,7 @@
 		B9AF3B4E27EF6FC600A3C82E /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */,
 				00711D662809915F00F629C6 /* PlanLogView */,
 				4C26970F28087D0400FCEC34 /* TimingView */,
 				4C1C70D127FE820400203694 /* InfoView */,
@@ -1922,6 +1939,7 @@
 				B9A360C427EC23BA00030769 /* FirebaseAdaptedDateTime.swift in Sources */,
 				4C4A9EA32807C9A50040EE24 /* TransportFormView.swift in Sources */,
 				4CB405B92808663C00FF52D1 /* SimplePlanModifierView.swift in Sources */,
+				4CFF78FD280BBB690072AEB6 /* EditTripButton.swift in Sources */,
 				00711D682809919800F629C6 /* PlanLogView.swift in Sources */,
 				4C26B46A27F5D14800B8319E /* CommentEventDelegate.swift in Sources */,
 				B9B4670F280028BE003D07F5 /* AddActivityViewModel.swift in Sources */,
@@ -1960,9 +1978,11 @@
 				4CEC5CC027FFEA98007CEF2A /* Injected.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
 				953570ED27E5BFDE000DF0C2 /* TripView.swift in Sources */,
+				4CFF78FF280BBC270072AEB6 /* InviteUserButton.swift in Sources */,
 				004C7C6B28029D1400B432C7 /* AuthenticatedUser.swift in Sources */,
 				4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */,
 				001D223D27FEF4CE00F42DB4 /* PlanUpvoteAdapter.swift in Sources */,
+				4CFF7901280BBC880072AEB6 /* AddPlanSelectionButton.swift in Sources */,
 				B9B6B40227F5AA5000B0F5F4 /* APIError.swift in Sources */,
 				4CB405BF28086BAB00FF52D1 /* SimpleTransportDisplayView.swift in Sources */,
 				B9B467362801EEF3003D07F5 /* AddTransportView.swift in Sources */,
