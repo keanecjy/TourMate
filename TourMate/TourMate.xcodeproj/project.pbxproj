@@ -85,6 +85,7 @@
 		4C3672AE280BC3E1003B0AD4 /* TripDurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672AD280BC3E1003B0AD4 /* TripDurationView.swift */; };
 		4C3672B2280BC618003B0AD4 /* CalendarDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */; };
 		4C3672B4280BCDFE003B0AD4 /* PlanDiffButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672B3280BCDFE003B0AD4 /* PlanDiffButton.swift */; };
+		4C3672B7280BF20F003B0AD4 /* PlansViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672B6280BF20F003B0AD4 /* PlansViewMode.swift */; };
 		4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */; };
 		4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */; };
 		4C4A9E9F2807C8140040EE24 /* ActivityFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A9E9E2807C8140040EE24 /* ActivityFormView.swift */; };
@@ -340,6 +341,7 @@
 		4C3672AD280BC3E1003B0AD4 /* TripDurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDurationView.swift; sourceTree = "<group>"; };
 		4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatePicker.swift; sourceTree = "<group>"; };
 		4C3672B3280BCDFE003B0AD4 /* PlanDiffButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDiffButton.swift; sourceTree = "<group>"; };
+		4C3672B6280BF20F003B0AD4 /* PlansViewMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansViewMode.swift; sourceTree = "<group>"; };
 		4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTripService.swift; sourceTree = "<group>"; };
 		4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAdapter.swift; sourceTree = "<group>"; };
 		4C4A9E9E2807C8140040EE24 /* ActivityFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFormView.swift; sourceTree = "<group>"; };
@@ -910,6 +912,7 @@
 				B978919E280BBA2D00AC4632 /* SuggestionButton.swift */,
 				4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */,
 				0028ADA7280BF36E00F86965 /* PlanWarningView.swift */,
+				4C3672B6280BF20F003B0AD4 /* PlansViewMode.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2060,6 +2063,7 @@
 				B9B6B3EB27F46CC100B0F5F4 /* GeoapifyResult.swift in Sources */,
 				95D4261227F893750077A037 /* PlansView.swift in Sources */,
 				001D223927FEF42B00F42DB4 /* PlanUpvoteService.swift in Sources */,
+				4C3672B7280BF20F003B0AD4 /* PlansViewMode.swift in Sources */,
 				B98F35F227F07D30000AFE53 /* AddressTextField.swift in Sources */,
 				95CB3F7727D8E79C0086E9E3 /* PlansListView.swift in Sources */,
 				4C4A9E9F2807C8140040EE24 /* ActivityFormView.swift in Sources */,
