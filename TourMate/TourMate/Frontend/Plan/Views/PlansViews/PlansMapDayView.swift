@@ -78,8 +78,8 @@ struct PlansMapDayView: View {
         let maxDistance = getMaximumDistance(betweenCoordinates: coordinates)
         region = MKCoordinateRegion(
             center: midpoint,
-            latitudinalMeters: maxDistance * 4,
-            longitudinalMeters: maxDistance * 4
+            latitudinalMeters: maxDistance,
+            longitudinalMeters: maxDistance
         )
     }
 
