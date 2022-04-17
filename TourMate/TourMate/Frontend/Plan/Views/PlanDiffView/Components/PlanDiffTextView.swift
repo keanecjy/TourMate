@@ -20,23 +20,27 @@ struct PlanDiffTextView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: spacing) {
-            ForEach(planDiffMap.sorted(by: { $0.key > $1.key }), id: \.key) { field, change in
-                HStack(spacing: 0.0) {
-                    Text("> ").bold()
+            if planDiffMap.isEmpty {
+                Text("There are no changes between these versions")
+            } else {
+                ForEach(planDiffMap.sorted(by: { $0.key > $1.key }), id: \.key) { field, change in
+                    HStack(spacing: 0.0) {
+                        Text("> ").bold()
 
-                    Text(field).bold()
+                        Text(field).bold()
 
-                    if (change.0.count + change.1.count) < wordLimit {
-                        Text(": ").bold()
+                        if (change.0.count + change.1.count) < wordLimit {
+                            Text(": ").bold()
 
-                        Text(change.0).italic().bold()
+                            Text(change.0).italic().bold()
 
-                        Text(" -> ").bold()
+                            Text(" -> ").bold()
 
-                        Text(change.1).italic().bold()
+                            Text(change.1).italic().bold()
+                        }
                     }
+                    .opacity(0.6)
                 }
-                .opacity(0.6)
             }
         }
     }

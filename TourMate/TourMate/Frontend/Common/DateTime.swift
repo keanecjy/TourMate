@@ -12,6 +12,6 @@ struct DateTime: Equatable, CustomStringConvertible {
     var timeZone = TimeZone.current
 
     var description: String {
-        DateUtil.defaultDateDisplay(date: date, at: timeZone, dateStyle: .short)
+        DateUtil.defaultDateDisplay(date: date, at: timeZone)
     }
 }

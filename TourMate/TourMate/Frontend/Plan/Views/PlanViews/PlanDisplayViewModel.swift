@@ -16,6 +16,26 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
     var allVersionedPlansSortedDesc: [T]
     @Published var planModifierMap: [Int: User] // version to user map
 
+    let defaultVersionNumberChoice = 0
+
+    var versionNumberChoices: [Int] {
+        var choices = [0]
+        choices.append(contentsOf: allVersionNumbersSortedDesc)
+        return choices
+    }
+
+    var versionLabels: [Int: String] {
+        var labels: [Int: String] = [:]
+        for choice in versionNumberChoices {
+            if choice == 0 {
+                labels[choice] = "all"
+            } else {
+                labels[choice] = String(choice)
+            }
+        }
+        return labels
+    }
+
     init(plan: T) {
         self.plan = plan
         self.allVersionedPlansSortedDesc = [plan]

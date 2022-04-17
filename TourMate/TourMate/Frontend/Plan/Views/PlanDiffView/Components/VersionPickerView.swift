@@ -14,16 +14,30 @@ struct VersionPickerView: View {
 
     var versionNumbers: [Int]
 
+    var labels: [Int: String]
+
     internal init(selectedVersion: Binding<Int>, onChange: @escaping (Int) -> Void, versionNumbers: [Int]) {
         self._selectedVersion = selectedVersion
         self.onVersionChange = onChange
         self.versionNumbers = versionNumbers
+        self.labels = [:]
+
+        for versionNumber in versionNumbers {
+            labels[versionNumber] = String(versionNumber)
+        }
+    }
+
+    init(selectedVersion: Binding<Int>, onChange: @escaping (Int) -> Void, versionNumbers: [Int], labels: [Int: String]) {
+        self._selectedVersion = selectedVersion
+        self.onVersionChange = onChange
+        self.versionNumbers = versionNumbers
+        self.labels = labels
     }
 
     var body: some View {
         Picker("Version", selection: $selectedVersion) {
             ForEach(versionNumbers, id: \.self) { num in
-                Text("Version: \(String(num))").tag(num)
+                Text("Version: \(self.labels[num] ?? String(num))").tag(num)
             }
         }
         .pickerStyle(.menu)
