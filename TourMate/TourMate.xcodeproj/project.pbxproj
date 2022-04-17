@@ -154,7 +154,6 @@
 		959DC41628098716005CFCBC /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC41528098716005CFCBC /* Coordinates.swift */; };
 		959DC4182809BC3C005CFCBC /* PlansMapDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC4172809BC3C005CFCBC /* PlansMapDayView.swift */; };
 		959FB4EC280BC9B000422A26 /* PlansCalendarAllDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959FB4EB280BC9B000422A26 /* PlansCalendarAllDayView.swift */; };
-		95BBDD3C280B16E600DFC3B0 /* PlansNewCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BBDD3B280B16E600DFC3B0 /* PlansNewCalendarView.swift */; };
 		95BBDD3E280B16F400DFC3B0 /* PlansCalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BBDD3D280B16F400DFC3B0 /* PlansCalendarDayView.swift */; };
 		95CB3F7427D8E79C0086E9E3 /* PlanDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6A27D8E79B0086E9E3 /* PlanDateView.swift */; };
 		95CB3F7627D8E79C0086E9E3 /* PlanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */; };
@@ -424,7 +423,6 @@
 		959DC41528098716005CFCBC /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		959DC4172809BC3C005CFCBC /* PlansMapDayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlansMapDayView.swift; sourceTree = "<group>"; };
 		959FB4EB280BC9B000422A26 /* PlansCalendarAllDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansCalendarAllDayView.swift; sourceTree = "<group>"; };
-		95BBDD3B280B16E600DFC3B0 /* PlansNewCalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlansNewCalendarView.swift; sourceTree = "<group>"; };
 		95BBDD3D280B16F400DFC3B0 /* PlansCalendarDayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlansCalendarDayView.swift; sourceTree = "<group>"; };
 		95CB3F6A27D8E79B0086E9E3 /* PlanDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanDateView.swift; sourceTree = "<group>"; };
 		95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardView.swift; sourceTree = "<group>"; };
@@ -1440,7 +1438,6 @@
 				9586652428040C7100DCDB15 /* PlansMapView.swift */,
 				959DC4172809BC3C005CFCBC /* PlansMapDayView.swift */,
 				95D43CCC27F16B7B00B2E9FD /* PlansCalendarView.swift */,
-				95BBDD3B280B16E600DFC3B0 /* PlansNewCalendarView.swift */,
 				95BBDD3D280B16F400DFC3B0 /* PlansCalendarDayView.swift */,
 				959FB4EB280BC9B000422A26 /* PlansCalendarAllDayView.swift */,
 			);
@@ -2078,7 +2075,6 @@
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
 				00148CB2280903A50091C28B /* ExpandableTextView.swift in Sources */,
 				B98F35ED27F05F0D000AFE53 /* MockLocationService.swift in Sources */,
-				95BBDD3C280B16E600DFC3B0 /* PlansNewCalendarView.swift in Sources */,
 				B9B4671328003174003D07F5 /* AddActivityView.swift in Sources */,
 				4CB6F8EC2807EB5A0029960B /* PlanDisplayView.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserService.swift in Sources */,
@@ -2373,7 +2369,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
-				DEVELOPMENT_TEAM = JH4N7Z4FH9;
 				DEVELOPMENT_TEAM = T83L3FZCTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2388,7 +2383,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rlrh;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2406,7 +2400,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
-				DEVELOPMENT_TEAM = JH4N7Z4FH9;
 				DEVELOPMENT_TEAM = T83L3FZCTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2421,7 +2414,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rlrh;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
