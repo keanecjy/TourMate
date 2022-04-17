@@ -17,6 +17,7 @@ struct ViewModelFactory {
     @Injected(\.planUpvoteService) var planUpvoteService: PlanUpvoteService
     @Injected(\.locationService) var locationService: LocationService
     @Injected(\.routingService) var routingService: RoutingService
+    @Injected(\.placeService) var placeService: PlaceService
 
     // Trips
     func getTripsViewModel() -> TripsViewModel {
@@ -188,5 +189,10 @@ struct ViewModelFactory {
     // Transport option
     func getTransportationOptionsViewModel(plans: [Plan]) -> TransportationOptionsViewModel {
         TransportationOptionsViewModel(plans: plans, routingService: routingService)
+    }
+
+    // Places recommendation
+    func getNearbyPlacesViewModel(plans: [Plan]) -> NearbyPlacesViewModel {
+        NearbyPlacesViewModel(plans: plans, placeService: placeService)
     }
 }

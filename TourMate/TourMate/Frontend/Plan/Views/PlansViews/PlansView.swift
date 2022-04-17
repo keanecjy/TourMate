@@ -10,6 +10,7 @@ struct PlansView: View {
     @StateObject var plansViewModel: PlansViewModel
     @State private var selectedViewMode: PlansViewMode = .list
     @State private var isShowingTransportationOptionsSheet = false
+    @State private var isShowingNearbyPlacesSheet = false
 
     let onSelected: ((Plan) -> Void)?
     private let viewModelFactory: ViewModelFactory
@@ -41,8 +42,12 @@ struct PlansView: View {
                         title: "Suggestions",
                         subtitle: "Recommendations of nearby places",
                         iconName: "building.2.fill") {
-                        print("Implement conflict page")
+                            self.isShowingNearbyPlacesSheet.toggle()
                     }
+                        .sheet(isPresented: $isShowingNearbyPlacesSheet) {
+                            let viewModel = viewModelFactory.getNearbyPlacesViewModel(plans: plansViewModel.plans)
+                            NearbyPlacesView(viewModel: viewModel)
+                        }
                 }
             }
         }
