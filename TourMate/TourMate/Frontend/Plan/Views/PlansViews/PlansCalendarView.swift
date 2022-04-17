@@ -26,44 +26,46 @@ struct PlansCalendarView: View {
     }
 
     var body: some View {
-        LazyVStack {
-            HStack {
-                Picker("Date", selection: $selectedDate) {
-                    ForEach(viewModel.days, id: \.date) { day in
-                        PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
+        ScrollView {
+            VStack {
+                HStack {
+                    Picker("Date", selection: $selectedDate) {
+                        ForEach(viewModel.days, id: \.date) { day in
+                            PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
+                        }
                     }
-                }
-                .pickerStyle(.menu)
-                .padding([.horizontal])
-                .background(
-                    Capsule().fill(Color.primary.opacity(0.25))
-                )
+                    .pickerStyle(.menu)
+                    .padding([.horizontal])
+                    .background(
+                        Capsule().fill(Color.primary.opacity(0.25))
+                    )
 
-                Button {
-                    isShowingTransportationOptionsSheet.toggle()
-                } label: {
-                    Text("Search for Transportation")
+                    Button {
+                        isShowingTransportationOptionsSheet.toggle()
+                    } label: {
+                        Text("Search for Transportation")
 
-                }
-                .font(.system(size: 15))
-                .padding(6)
-                .background(
-                    Capsule().fill(Color.primary.opacity(0.25))
-                )
-                .sheet(isPresented: $isShowingTransportationOptionsSheet) {
-                    let viewModel = viewModelFactory.getTransportationOptionsViewModel(plans: viewModel.plans)
-                    TransportationOptionsView(viewModel: viewModel)
-                }
+                    }
+                    .font(.system(size: 15))
+                    .padding(6)
+                    .background(
+                        Capsule().fill(Color.primary.opacity(0.25))
+                    )
+                    .sheet(isPresented: $isShowingTransportationOptionsSheet) {
+                        let viewModel = viewModelFactory.getTransportationOptionsViewModel(plans: viewModel.plans)
+                        TransportationOptionsView(viewModel: viewModel)
+                    }
 
-                Spacer()
+                    Spacer()
+                }
+                .padding()
+
+                PlansDayView(viewModel: viewModel,
+                             date: selectedDate,
+                             plans: getPlans(for: selectedDate),
+                             onSelected: onSelected)
+                .padding()
             }
-            .padding()
-
-            PlansDayView(viewModel: viewModel,
-                         date: selectedDate,
-                         plans: getPlans(for: selectedDate),
-                         onSelected: onSelected)
-            .padding()
         }
         .task {
             selectedDate = viewModel.days.first?.date ?? Date()
