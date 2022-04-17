@@ -154,11 +154,13 @@ struct PlansCalendarDayView: View {
                                                     onSelected(plan)
                                                 }
                                             }
+                                        /*
                                             .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                                                             .updating($offset, body: {t, state, _ in
                                                                 // print(t.translation)
                                                                 state = t.translation
                                                         }))
+                                         */
                                             .frame(maxWidth: UIScreen.screenWidth / 3,
                                                    minHeight: CGFloat(getHeight(for: plan)),
                                                    alignment: .topLeading)
