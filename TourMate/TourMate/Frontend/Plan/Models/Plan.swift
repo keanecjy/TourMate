@@ -7,9 +7,7 @@
 
 import Foundation
 
-typealias PlanDiffMap = [String: (String, String)]
-
-class Plan: CustomStringConvertible, DateTimeRangeOwner {
+class Plan: CustomStringConvertible, DateTimeRangeOwner  {
     var id: String
     var tripId: String
     var name: String
@@ -130,5 +128,27 @@ class Plan: CustomStringConvertible, DateTimeRangeOwner {
 
     var description: String {
         "(id: \(id), name: \(name), version: \(versionNumber))"
+    }
+}
+
+extension Plan: Equatable {
+    // Currently using equals method instead
+    static func == (lhs: Plan, rhs: Plan) -> Bool {
+        lhs.id == rhs.id
+        && lhs.versionNumber == rhs.versionNumber
+    }
+}
+
+extension Plan: Comparable {
+    static func < (lhs: Plan, rhs: Plan) -> Bool {
+        guard lhs.startDateTime.date == rhs.startDateTime.date else {
+            return lhs.startDateTime.date < rhs.startDateTime.date
+        }
+
+        guard lhs.endDateTime.date == rhs.endDateTime.date else {
+            return lhs.endDateTime.date < rhs.endDateTime.date
+        }
+
+        return lhs.creationDate < rhs.creationDate
     }
 }

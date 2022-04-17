@@ -6,12 +6,6 @@
 //
 import SwiftUI
 
-typealias Day = (date: Date, plans: [Plan])
-
-enum PlansViewMode: String, CaseIterable {
-    case list, calendar, map
-}
-
 struct PlansView: View {
     @StateObject var plansViewModel: PlansViewModel
     @State private var selectedViewMode: PlansViewMode = .list
