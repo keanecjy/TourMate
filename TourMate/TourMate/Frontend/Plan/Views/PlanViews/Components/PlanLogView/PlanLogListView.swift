@@ -42,8 +42,6 @@ struct PlanLogListView<T: Plan>: View {
 
                 if showChanges {
                     HStack {
-                        Image(systemName: "slider.horizontal.3")
-
                         VersionPickerView(selectedVersion: $selectedVersion,
                                           onChange: { _ in },
                                           versionNumbers: planDisplayViewModel.versionNumberChoices,

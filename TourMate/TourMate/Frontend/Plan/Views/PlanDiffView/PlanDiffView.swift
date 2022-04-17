@@ -35,6 +35,7 @@ struct PlanDiffView<T: Plan>: View {
     var body: some View {
         VStack {
             Text("Summary of changes")
+                .font(.title2)
                 .bold()
 
             PlanDiffTextView(planDiffMap: leftViewModel.diffPlan(with: rightViewModel), spacing: 5.0)
