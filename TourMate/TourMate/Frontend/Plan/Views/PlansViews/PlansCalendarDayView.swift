@@ -1,5 +1,5 @@
 //
-//  PlansDayView.swift
+//  PlansCalendarDayView.swift
 //  TourMate
 //
 //  Created by Rayner Lim on 28/3/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlansDayView: View {
+struct PlansCalendarDayView: View {
     @ObservedObject var viewModel: PlansViewModel
 
     let date: Date
@@ -20,6 +20,7 @@ struct PlansDayView: View {
     @State var planIdToSize: [String: CGSize] = [:]
     @State var planIdToOffset: [String: CGPoint] = [:]
     @State var minWidth: CGFloat = 0
+    @GestureState var offset = CGSize.zero
 
     private let viewModelFactory = ViewModelFactory()
 
@@ -128,73 +129,71 @@ struct PlansDayView: View {
     }
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 0) {
-                ForEach(0...24, id: \.self) { hour in
-                    VStack {
-                        Text(getHourString(for: hour))
-                            .font(.caption)
-                        Spacer()
-                    }
-                    .frame(height: CGFloat(hourHeight))
-                }
-            }
-            ZStack {
-                ScrollView(.horizontal) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        ZStack(alignment: .topLeading) {
-                            ForEach(plans, id: \.id) { plan in
-                                HStack {
-                                    PlanBoxView(plansViewModel: viewModel,
-                                                plan: plan, date: date)
-                                        .onTapGesture(perform: {
-                                            if let onSelected = onSelected {
-                                                onSelected(plan)
-                                            }
-                                        })
-                                        .frame(maxWidth: UIScreen.screenWidth / 3,
-                                               minHeight: CGFloat(getHeight(for: plan)),
-                                               alignment: .topLeading)
-                                        .readSize { size in
-                                            planIdToSize[plan.id] = size
-                                            calculateOffsets()
-                                        }
-                                        .buttonStyle(PlainButtonStyle())
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .fill(Color.primary.opacity(0.25))
-                                        )
-                                        .offset(x: CGFloat(planIdToOffset[plan.id]?.x ?? 0),
-                                                y: CGFloat(planIdToOffset[plan.id]?.y ?? 0) + 7)
-                                    Spacer()
-                                }
-                            }
-                        }
-                        Spacer()
-                    }
-                    .frame(minWidth: minWidth)
-                }
+        ScrollView {
+            HStack {
                 VStack(alignment: .leading, spacing: 0) {
-                    ForEach(0...24, id: \.self) { _ in
-                        VStack(alignment: .leading, spacing: 0) {
-                            Rectangle()
-                                .fill(Color.primary.opacity(0.1))
-                                .frame(height: 2)
+                    ForEach(0...24, id: \.self) { hour in
+                        VStack {
+                            Text(getHourString(for: hour))
+                                .font(.caption)
                             Spacer()
                         }
                         .frame(height: CGFloat(hourHeight))
-                        .offset(y: 6)
+                    }
+                }
+                ZStack {
+                    ScrollView(.horizontal) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            ZStack(alignment: .topLeading) {
+                                ForEach(plans, id: \.id) { plan in
+                                    HStack {
+                                        PlanBoxView(plansViewModel: viewModel,
+                                                    plan: plan, date: date)
+                                            .onTapGesture {
+                                                if let onSelected = onSelected {
+                                                    onSelected(plan)
+                                                }
+                                            }
+                                            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                                                            .updating($offset, body: {t, state, _ in
+                                                                // print(t.translation)
+                                                                state = t.translation
+                                                        }))
+                                            .frame(maxWidth: UIScreen.screenWidth / 3,
+                                                   minHeight: CGFloat(getHeight(for: plan)),
+                                                   alignment: .topLeading)
+                                            .readSize { size in
+                                                planIdToSize[plan.id] = size
+                                                calculateOffsets()
+                                            }
+                                            .buttonStyle(PlainButtonStyle())
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .fill(Color.primary.opacity(0.25))
+                                            )
+                                            .offset(x: CGFloat(planIdToOffset[plan.id]?.x ?? 0) + offset.width,
+                                                    y: CGFloat(planIdToOffset[plan.id]?.y ?? 0) + 6 + offset.height)
+                                        Spacer()
+                                    }
+                                }
+                            }
+                            Spacer()
+                        }
+                        .frame(minWidth: minWidth)
+                    }
+                    VStack(alignment: .leading, spacing: 0) {
+                        ForEach(0...24, id: \.self) { _ in
+                            VStack(alignment: .leading, spacing: 0) {
+                                Divider()
+                                Spacer()
+                            }
+                            .frame(height: CGFloat(hourHeight))
+                            .offset(y: 6)
+                        }
                     }
                 }
             }
+            .padding()
         }
     }
 }
-
-/*
- struct PlansDayView_Previews: PreviewProvider {
- static var previews: some View {
- PlansDayView()
- }
- }
- */
