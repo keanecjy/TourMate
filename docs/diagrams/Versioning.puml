@@ -1,0 +1,66 @@
+@startuml
+
+hide empty members
+
+class PlanView
+
+class PlanDiffView {
+    + @StateObject var leftViewModel: PlanViewModel
+    + @StateObject var rightViewModel: PlanViewModel
+
+    + @State private var leftVersion: Int
+    + @State private var rightVersion: Int
+}
+
+class PlanDisplayViewModel
+
+class PlanViewModel
+
+class SimplePlanView {
+    + @ObservedObject var planViewModel: PlanViewModel
+    + @Binding var selectedVersion: Int
+}
+
+class VersionPickerView {
+    + @Binding var selectedVersion: Int
+}
+
+class RestoreButtonView {
+    + @ObservedObject var planViewModel: PlanViewModel
+}
+
+class SimplePlanModifierView
+
+class SimplePlanDisplayView
+
+class CommentsView
+
+class PlanUpvoteView
+
+PlanView --> PlanDiffView
+
+PlanView --> PlanViewModel
+
+PlanDiffView --> PlanDiffTextView
+
+PlanDiffView "1" --> "2" SimplePlanView
+
+PlanDiffView "1" --> "2" PlanViewModel
+
+SimplePlanView *--> VersionPickerView
+
+SimplePlanView *--> RestoreButtonView
+
+SimplePlanView -left-> PlanViewModel
+
+SimplePlanView *--> SimplePlanDisplayView
+
+SimplePlanView *--> SimplePlanModifierView
+
+SimplePlanDisplayView *--> PlanUpvoteView
+
+SimplePlanDisplayView *--> CommentsView
+
+SimplePlanDisplayView -left-> PlanDisplayViewModel
+
+@enduml

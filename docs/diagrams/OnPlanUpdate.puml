@@ -1,0 +1,49 @@
+@startuml
+
+hide footbox
+
+create PlanView
+[-> PlanView : User enters plan view
+
+create PlanViewModel
+PlanView -> PlanViewModel
+
+create CommentsViewModel
+PlanView -> CommentsViewModel
+
+create PlanUpvoteViewModel
+PlanView -> PlanUpvoteViewModel
+
+PlanView -> PlanViewModel: attachDelegate(commentsVM)
+PlanView -> PlanViewModel: attachDelegate(planUpvoteVM)
+
+PlanViewModel -> PlanService : fetchVersionedPlansAndListen()
+
+PlanViewModel -> PlanViewModel : planService.eventDelegate = self
+
+PlanService -> Repository : fetchItemsAndListen()
+
+PlanService -> PlanService : repository.eventDelegate = self
+
+Repository ->  Firebase: Listen to Plans
+
+Firebase -> Repository : Plans gets updated, publishes event
+
+Repository -> PlanService : eventDelegate.update(plans)
+
+PlanService -> PlanViewModel : eventDelegate.update(plans)
+
+PlanViewModel -> PlanViewModel : self.plan = loadLatestVersionedPlan()
+
+PlanViewModel -> PlanViewModel : updateDelegates()
+
+PlanViewModel -> CommentsViewModel: planEventDelegate.update(plan)
+
+PlanViewModel -> PlanUpvoteViewModel: planEventDelegate.update(plan)
+
+PlanViewModel -> PlanView : @Published
+
+[<--PlanView : View gets updated
+
+deactivate PlanView
+@enduml

@@ -35,9 +35,6 @@ class PlanFormViewModel {
 class PlanService {
 }
 
-class UserService {
-}
-
 class Repository {}
 
 
@@ -71,9 +68,6 @@ EditXXXViewModel --|> EditPlanViewModel
 AddPlanViewModel --|> PlanFormViewModel
 EditPlanViewModel --|> PlanFormViewModel
 
-PlanViewModel --> UserService
-
-UserService --> Repository
 PlanService --> Repository
 
 @enduml
