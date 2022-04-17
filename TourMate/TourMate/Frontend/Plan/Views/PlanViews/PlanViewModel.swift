@@ -210,7 +210,7 @@ extension PlanViewModel {
         self.isLoading = false
     }
 
-    func handleDeletion() {
+    private func handleDeletion() {
         self.isDeleted = true
         self.isLoading = false
     }
