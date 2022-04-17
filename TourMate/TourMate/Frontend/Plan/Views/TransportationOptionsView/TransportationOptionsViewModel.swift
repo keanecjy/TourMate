@@ -77,7 +77,7 @@ class TransportationOptionsViewModel: ObservableObject {
         }
     }
 
-    private func getSymbolString(_ mode: TravelMode) -> String {
+    func getSymbolString(_ mode: TravelMode) -> String {
         switch mode {
         case .drive:
             return "car.circle.fill"
@@ -88,21 +88,5 @@ class TransportationOptionsViewModel: ObservableObject {
         case .bicycle:
             return "bicycle.circle.fill"
         }
-    }
-
-    func makeTransportationOptionsCellView(_ result: RoutingResult) -> some View {
-        let formatter = MeasurementFormatter()
-        formatter.unitOptions = .naturalScale
-        formatter.unitStyle = .medium
-
-        return VStack(alignment: .leading) {
-            Text(result.mode.rawValue)
-                .font(.title2)
-            Text("\(formatter.string(from: result.time)), \(result.distance.formatted())")
-                .font(.title3)
-                .foregroundColor(.gray)
-        }
-        .prefixedWithIcon(named: getSymbolString(result.mode))
-        .font(.title)
     }
 }

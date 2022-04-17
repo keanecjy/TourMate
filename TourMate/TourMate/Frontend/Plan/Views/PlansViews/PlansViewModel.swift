@@ -12,7 +12,6 @@ class PlansViewModel: ObservableObject {
     @Published private(set) var plans: [Plan]
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
-    @Published var isShowingTransportationOptionsSheet: Bool
 
     // Information needed by Plans
     let tripId: String
@@ -20,7 +19,6 @@ class PlansViewModel: ObservableObject {
     let tripEndDateTime: DateTime
 
     private var planService: PlanService
-    private let viewModelFactory: ViewModelFactory
 
     private(set) var planEventDelegates: [String: PlanEventDelegate]
 
@@ -70,14 +68,12 @@ class PlansViewModel: ObservableObject {
         self.plans = []
         self.isLoading = false
         self.hasError = false
-        self.isShowingTransportationOptionsSheet = false
 
         self.tripId = tripId
         self.tripStartDateTime = tripStartDateTime
         self.tripEndDateTime = tripEndDateTime
 
         self.planService = planService
-        self.viewModelFactory = ViewModelFactory()
 
         self.planEventDelegates = [:]
     }
@@ -159,37 +155,5 @@ extension PlansViewModel {
         }
 
         self.isLoading = false
-    }
-}
-
-// MARK: - View Methods
-extension PlansViewModel {
-    func makeSuggestionsView() -> some View {
-        let binding = Binding(
-            get: { self.isShowingTransportationOptionsSheet },
-            set: { self.isShowingTransportationOptionsSheet = $0 })
-
-        return VStack(alignment: .leading) {
-            Text("TOURMATE ASSISTANT").font(.subheadline)
-            ScrollView([.horizontal]) {
-                HStack {
-                    SuggestionButton(
-                        title: "Navigator",
-                        subtitle: "Search for transportation options",
-                        iconName: "car.fill") {
-                        self.isShowingTransportationOptionsSheet.toggle()
-                    }
-                        .sheet(isPresented: binding) {
-                            let viewModel = self.viewModelFactory.getTransportationOptionsViewModel(plans: self.plans)
-                            TransportationOptionsView(viewModel: viewModel)
-                        }
-
-                    SuggestionButton(title: "Conflict", subtitle: "There are clashing confirmed plans") {
-                        print("Implement conflict page")
-                    }
-                }
-            }
-        }
-        .padding()
     }
 }
