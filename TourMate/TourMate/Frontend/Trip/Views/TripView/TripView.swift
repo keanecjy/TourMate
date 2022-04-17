@@ -33,7 +33,7 @@ struct TripView: View {
                 VStack {
                     ZStack(alignment: .bottomLeading) {
                         TripImage(imageUrl: viewModel.imageUrlDisplay)
-                            .overlay(Color.primary.colorInvert().opacity(0.5))
+                            .overlay(Color.primary.colorInvert().opacity(0.75))
                         HStack(alignment: .center) {
                             Text(viewModel.durationDisplay)
                                 .font(.headline)
