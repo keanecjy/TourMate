@@ -176,8 +176,7 @@ extension PlansViewModel {
     }
 
     private func generateOverlapSummary(overlappingPlans: [(Plan, Plan)], forDate date: Date) -> String {
-
-        let summary = overlappingPlans.map { plan1, plan2 in
+        overlappingPlans.map { plan1, plan2 in
 
             let plan1Duration = DateUtil.shortDurationDesc(from: plan1.startDateTime, to: plan1.endDateTime, on: date)
             let plan2Duration = DateUtil.shortDurationDesc(from: plan2.startDateTime, to: plan2.endDateTime, on: date)
@@ -185,7 +184,5 @@ extension PlansViewModel {
             return "Plan \(plan1.name) (\(plan1Duration)) <-> Plan \(plan2.name) (\(plan2Duration))"
         }
         .joined(separator: "\n")
-
-        return summary
     }
 }
