@@ -12,17 +12,13 @@ struct PlanView<T: Plan, Content: View>: View {
     @StateObject var commentsViewModel: CommentsViewModel
     @StateObject var planUpvoteViewModel: PlanUpvoteViewModel
 
-    @State private var isShowingEditPlanSheet = false
-
     @Environment(\.dismiss) var dismiss
 
     private let viewModelFactory: ViewModelFactory
-    private let viewFactory: ViewFactory
     private let content: Content
 
     init(planViewModel: PlanViewModel<T>, @ViewBuilder content: () -> Content) {
         self.viewModelFactory = ViewModelFactory()
-        self.viewFactory = ViewFactory()
 
         let commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
         let planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
@@ -48,22 +44,11 @@ struct PlanView<T: Plan, Content: View>: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .primaryAction) {
-                    NavigationLink {
-                        PlanDiffView(planViewModel: planViewModel,
-                                     commentsViewModel: commentsViewModel,
-                                     planUpvoteViewModel: planUpvoteViewModel)
-                    } label: {
-                        Image(systemName: "arrow.left.arrow.right")
-                    }
+                    PlanDiffButton(planViewModel: planViewModel,
+                                   commentsViewModel: commentsViewModel,
+                                   planUpvoteViewModel: planUpvoteViewModel)
 
-                    Button {
-                        isShowingEditPlanSheet.toggle()
-                    } label: {
-                        Image(systemName: "pencil")
-                    }
-                    .sheet(isPresented: $isShowingEditPlanSheet) {
-                        viewFactory.getEditPlanView(planViewModel: planViewModel)
-                    }
+                    EditPlanViewButton(planViewModel: planViewModel)
                 }
             }
             .task {
