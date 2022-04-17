@@ -21,6 +21,11 @@ struct DateTime: Equatable, Comparable, CustomStringConvertible {
         return epochDate + Double(timezoneOffset)
     }
 
+    func revertEpochOffset(offset: Double) -> Double {
+        let timezoneOffset = Double(timeZone.secondsFromGMT())
+        return offset - timezoneOffset
+    }
+
     // compare absolute time differences from 0-GMT
     // https://www.agnosticdev.com/content/how-convert-swift-dates-timezone
     static func < (lhs: DateTime, rhs: DateTime) -> Bool {

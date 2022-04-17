@@ -57,18 +57,23 @@ struct DateTimeSmartEngine {
         let average = totalTimeLength / 2.0
 
         let newMinTime = overallAverage - average
-        var current = newMinTime
+        let initialMinTime = sortedDateTimeRangeOwners.first?.startDateTime.timezoneEpochOffset ?? newMinTime
+        var current = min(newMinTime, initialMinTime)
 
         for owner in sortedDateTimeRangeOwners {
             var newOwner = owner
+            let difference = newOwner.endDateTime.timezoneEpochOffset - newOwner.startDateTime.timezoneEpochOffset
 
             let newStart = current
-            let newEnd = current + (newOwner.endDateTime.timezoneEpochOffset - newOwner.startDateTime.timezoneEpochOffset)
+            let newEnd = current + difference
 
             current = newEnd
 
-            newOwner.startDateTime.date = Date(timeIntervalSince1970: newStart)
-            newOwner.endDateTime.date = Date(timeIntervalSince1970: newEnd)
+            let newStartTimezoned = newOwner.startDateTime.revertEpochOffset(offset: newStart)
+            let newEndTimezoned = newOwner.endDateTime.revertEpochOffset(offset: newEnd)
+
+            newOwner.startDateTime.date = Date(timeIntervalSince1970: newStartTimezoned)
+            newOwner.endDateTime.date = Date(timeIntervalSince1970: newEndTimezoned)
 
             newTimings.append(newOwner)
         }
