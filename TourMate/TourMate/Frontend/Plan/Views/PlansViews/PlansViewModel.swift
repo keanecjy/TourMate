@@ -5,7 +5,7 @@
 //  Created by Tan Rui Quan on 17/3/22.
 //
 
-import Foundation
+import SwiftUI
 
 @MainActor
 class PlansViewModel: ObservableObject {
@@ -21,6 +21,7 @@ class PlansViewModel: ObservableObject {
     let tripEndDateTime: DateTime
 
     private var planService: PlanService
+
     private(set) var planEventDelegates: [String: PlanEventDelegate]
 
     var sortedPlans: [Plan] {
@@ -179,7 +180,7 @@ extension PlansViewModel {
         var latestPlanMap: [String: Plan] = [:]
 
         for plan in plans {
-            // First occurence of plan
+            // First occurrence of plan
             guard let latestPlan = latestPlanMap[plan.id] else {
                 latestPlanMap[plan.id] = plan
                 continue
