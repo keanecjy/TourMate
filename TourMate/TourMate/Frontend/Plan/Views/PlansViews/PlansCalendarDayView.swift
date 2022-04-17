@@ -41,7 +41,6 @@ struct PlansCalendarDayView: View {
         self.hourHeight = hourHeight
     }
 
-    // TODO: use DateFormatter
     func getHourString(for hour: Int) -> String {
         if hour == 0 || hour == 24 {
             return "12 AM"
@@ -142,7 +141,7 @@ struct PlansCalendarDayView: View {
         return totalOffset
     }
 
-    func handlePlanDragEnded(plan: Plan, offset: Float) {
+    func handlePlanDragEnded(plan: Plan, offset: Float) async {
         let hoursOffset = offset / hourHeight
         let minutesOffset = Int(60 * hoursOffset)
         let originalStartDateTime = plan.startDateTime.date
@@ -153,10 +152,19 @@ struct PlansCalendarDayView: View {
         let newEndDateTime = Calendar.current.date(byAdding: .minute,
                                                    value: minutesOffset,
                                                    to: originalEndDateTime)!
-        print(originalStartDateTime.description)
-        print(newStartDateTime.description)
-        print(originalEndDateTime.description)
-        print(newEndDateTime.description)
+
+        let tripStartDateTime = viewModel.tripStartDateTime
+        let tripEndDateTime = viewModel.tripEndDateTime
+
+        let editPlanViewModel = viewModelFactory
+            .getEditPlanViewModel(plan: plan.copy(),
+                                  lowerBoundDate: tripStartDateTime.date,
+                                  upperBoundDate: tripEndDateTime.date)
+
+        plan.startDateTime = DateTime(date: newStartDateTime, timeZone: tripStartDateTime.timeZone)
+        plan.endDateTime = DateTime(date: newEndDateTime, timeZone: tripEndDateTime.timeZone)
+
+        await editPlanViewModel.updatePlan(plan)
     }
 
     var body: some View {
@@ -194,7 +202,7 @@ struct PlansCalendarDayView: View {
                                                         draggingPlanId = plan.id
                                                     }
                                                     .onEnded { gesture in
-                                                        handlePlanDragEnded(plan: plan, offset: Float(gesture.translation.height))
+                                                        Task { await handlePlanDragEnded(plan: plan, offset: Float(gesture.translation.height)) }
                                                         draggingPlanId = ""
                                                     }
                                             )

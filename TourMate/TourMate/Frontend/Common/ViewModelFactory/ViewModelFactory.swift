@@ -133,6 +133,16 @@ struct ViewModelFactory {
     }
 
     // Edit Plan
+    func getEditPlanViewModel<T: Plan>(plan: T,
+                              lowerBoundDate: Date,
+                              upperBoundDate: Date) -> EditPlanViewModel<T> {
+        EditPlanViewModel(plan: plan,
+                          lowerBoundDate: lowerBoundDate,
+                          upperBoundDate: upperBoundDate,
+                          planService: planService.copy(),
+                          userService: userService)
+    }
+
     func getEditActivityViewModel(activity: Activity,
                                   lowerBoundDate: Date,
                                   upperBoundDate: Date) -> EditActivityViewModel {
