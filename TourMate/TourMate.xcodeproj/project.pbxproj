@@ -80,6 +80,10 @@
 		4C26970E28087A4200FCEC34 /* LocationTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C26970D28087A4200FCEC34 /* LocationTextView.swift */; };
 		4C26B46A27F5D14800B8319E /* CommentEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C26B46927F5D14800B8319E /* CommentEventDelegate.swift */; };
 		4C2FB3422801606D00B0D0E1 /* RealLocationWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2FB3412801606D00B0D0E1 /* RealLocationWebRepository.swift */; };
+		4C3672AE280BC3E1003B0AD4 /* TripDurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672AD280BC3E1003B0AD4 /* TripDurationView.swift */; };
+		4C3672B0280BC525003B0AD4 /* TransportationOptionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672AF280BC525003B0AD4 /* TransportationOptionsButton.swift */; };
+		4C3672B2280BC618003B0AD4 /* CalendarDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */; };
+		4C3672B4280BCDFE003B0AD4 /* PlanDiffButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672B3280BCDFE003B0AD4 /* PlanDiffButton.swift */; };
 		4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */; };
 		4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */; };
 		4C4A9E9F2807C8140040EE24 /* ActivityFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A9E9E2807C8140040EE24 /* ActivityFormView.swift */; };
@@ -127,6 +131,10 @@
 		4CEC5CBE27FFEA8D007CEF2A /* InjectedKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CBD27FFEA8D007CEF2A /* InjectedKey.swift */; };
 		4CEC5CC027FFEA98007CEF2A /* Injected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CBF27FFEA98007CEF2A /* Injected.swift */; };
 		4CEC5CC227FFEB87007CEF2A /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CC127FFEB87007CEF2A /* AppConfig.swift */; };
+		4CFF78FA280BB9D50072AEB6 /* EditPlanViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */; };
+		4CFF78FD280BBB690072AEB6 /* EditTripButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF78FC280BBB690072AEB6 /* EditTripButton.swift */; };
+		4CFF78FF280BBC270072AEB6 /* InviteUserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF78FE280BBC270072AEB6 /* InviteUserButton.swift */; };
+		4CFF7901280BBC880072AEB6 /* AddPlanSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF7900280BBC880072AEB6 /* AddPlanSelectionButton.swift */; };
 		953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E627E5BFBF000DF0C2 /* TripsView.swift */; };
 		953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E827E5BFC7000DF0C2 /* TripCard.swift */; };
 		953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570EA27E5BFD1000DF0C2 /* AddTripView.swift */; };
@@ -324,6 +332,10 @@
 		4C26970D28087A4200FCEC34 /* LocationTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTextView.swift; sourceTree = "<group>"; };
 		4C26B46927F5D14800B8319E /* CommentEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentEventDelegate.swift; sourceTree = "<group>"; };
 		4C2FB3412801606D00B0D0E1 /* RealLocationWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealLocationWebRepository.swift; sourceTree = "<group>"; };
+		4C3672AD280BC3E1003B0AD4 /* TripDurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDurationView.swift; sourceTree = "<group>"; };
+		4C3672AF280BC525003B0AD4 /* TransportationOptionsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportationOptionsButton.swift; sourceTree = "<group>"; };
+		4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatePicker.swift; sourceTree = "<group>"; };
+		4C3672B3280BCDFE003B0AD4 /* PlanDiffButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDiffButton.swift; sourceTree = "<group>"; };
 		4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTripService.swift; sourceTree = "<group>"; };
 		4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAdapter.swift; sourceTree = "<group>"; };
 		4C4A9E9E2807C8140040EE24 /* ActivityFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFormView.swift; sourceTree = "<group>"; };
@@ -371,6 +383,10 @@
 		4CEC5CBD27FFEA8D007CEF2A /* InjectedKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedKey.swift; sourceTree = "<group>"; };
 		4CEC5CBF27FFEA98007CEF2A /* Injected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injected.swift; sourceTree = "<group>"; };
 		4CEC5CC127FFEB87007CEF2A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewButton.swift; sourceTree = "<group>"; };
+		4CFF78FC280BBB690072AEB6 /* EditTripButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTripButton.swift; sourceTree = "<group>"; };
+		4CFF78FE280BBC270072AEB6 /* InviteUserButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUserButton.swift; sourceTree = "<group>"; };
+		4CFF7900280BBC880072AEB6 /* AddPlanSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanSelectionButton.swift; sourceTree = "<group>"; };
 		720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0AD6F3D818D6A89B4B41BF /* Pods-TourMate-TourMateUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.release.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.release.xcconfig"; sourceTree = "<group>"; };
 		953570E627E5BFBF000DF0C2 /* TripsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
@@ -875,6 +891,8 @@
 				95CB3F6A27D8E79B0086E9E3 /* PlanDateView.swift */,
 				95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */,
 				95FE172B27F2BBC900407B51 /* PlanBoxView.swift */,
+				4C3672AF280BC525003B0AD4 /* TransportationOptionsButton.swift */,
+				4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -894,6 +912,15 @@
 				B9B6B40727F719FF00B0F5F4 /* TimingView.swift */,
 			);
 			path = TimingView;
+			sourceTree = "<group>";
+		};
+		4C3672B5280BCE07003B0AD4 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				4C3672B3280BCDFE003B0AD4 /* PlanDiffButton.swift */,
+				4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		4C5DD15C280A5C7700636E22 /* Activity */ = {
@@ -1324,6 +1351,16 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		4CFF78FB280BBB5C0072AEB6 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				4CFF78FC280BBB690072AEB6 /* EditTripButton.swift */,
+				4CFF78FE280BBC270072AEB6 /* InviteUserButton.swift */,
+				4CFF7900280BBC880072AEB6 /* AddPlanSelectionButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		9538546127E449E500AFDED8 /* AddTripView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1363,6 +1400,7 @@
 		95779BD627E76728001FF602 /* PlanViews */ = {
 			isa = PBXGroup;
 			children = (
+				4C3672B5280BCE07003B0AD4 /* Buttons */,
 				B9AF3B4E27EF6FC600A3C82E /* Components */,
 				4C90219C2805BC2300054F0A /* Activity */,
 				4C90219D2805BC2800054F0A /* Accommodation */,
@@ -1389,10 +1427,12 @@
 		95EB6A8D27E4B3A8008C1103 /* TripView */ = {
 			isa = PBXGroup;
 			children = (
+				4CFF78FB280BBB5C0072AEB6 /* Buttons */,
 				000AB54D27ED9BD200FF0ED3 /* InviteUserView */,
 				000AB55227EE183A00FF0ED3 /* AttendeesView */,
 				95DEA1E727E6FCC500A74ED2 /* TripViewModel.swift */,
 				953570EC27E5BFDE000DF0C2 /* TripView.swift */,
+				4C3672AD280BC3E1003B0AD4 /* TripDurationView.swift */,
 			);
 			path = TripView;
 			sourceTree = "<group>";
@@ -1905,6 +1945,7 @@
 				4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */,
 				95779BD327E76687001FF602 /* EditTripView.swift in Sources */,
 				B9B467282801DCC7003D07F5 /* FirebaseAdaptedAccommodation.swift in Sources */,
+				4C3672B4280BCDFE003B0AD4 /* PlanDiffButton.swift in Sources */,
 				4CB405C32808787F00FF52D1 /* LocationHeaderView.swift in Sources */,
 				B9B6B40027F5A95000B0F5F4 /* RealLocationService.swift in Sources */,
 				4CDE841927EF0E54001F58C5 /* TripEventDelegate.swift in Sources */,
@@ -1918,6 +1959,7 @@
 				95FAE40B27E245D200F4AB01 /* MockTripService.swift in Sources */,
 				B98F35F027F0602E000AFE53 /* SearchViewModel.swift in Sources */,
 				B9A360C127EC076500030769 /* DateTime.swift in Sources */,
+				4C3672B2280BC618003B0AD4 /* CalendarDatePicker.swift in Sources */,
 				4CB6F8EE2807EE490029960B /* PlanDiffView.swift in Sources */,
 				95FAE40927E2447400F4AB01 /* TripsViewModel.swift in Sources */,
 				B9B4672A2801DDFD003D07F5 /* FirebaseAdaptedTransport.swift in Sources */,
@@ -1925,6 +1967,7 @@
 				B9A360C427EC23BA00030769 /* FirebaseAdaptedDateTime.swift in Sources */,
 				4C4A9EA32807C9A50040EE24 /* TransportFormView.swift in Sources */,
 				4CB405B92808663C00FF52D1 /* SimplePlanModifierView.swift in Sources */,
+				4CFF78FD280BBB690072AEB6 /* EditTripButton.swift in Sources */,
 				00711D682809919800F629C6 /* PlanLogView.swift in Sources */,
 				4C26B46A27F5D14800B8319E /* CommentEventDelegate.swift in Sources */,
 				B9B4670F280028BE003D07F5 /* AddActivityViewModel.swift in Sources */,
@@ -1934,6 +1977,7 @@
 				4CB405BB2808693100FF52D1 /* SimpleActivityDisplayView.swift in Sources */,
 				4C1C70D327FE82C800203694 /* PlanHeaderView.swift in Sources */,
 				4C09661527F33F6400A00CE5 /* PlanEventDelegate.swift in Sources */,
+				4C3672AE280BC3E1003B0AD4 /* TripDurationView.swift in Sources */,
 				4CB32D78280576A800681E5B /* ViewFactory.swift in Sources */,
 				00148C952807E5A60091C28B /* AddCommentView.swift in Sources */,
 				00148C9B2807E7A60091C28B /* ViewModelFactory+Comments.swift in Sources */,
@@ -1952,6 +1996,7 @@
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserService.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
+				4C3672B0280BC525003B0AD4 /* TransportationOptionsButton.swift in Sources */,
 				00148CB2280903A50091C28B /* ExpandableTextView.swift in Sources */,
 				B98F35ED27F05F0D000AFE53 /* MockLocationService.swift in Sources */,
 				95BBDD3C280B16E600DFC3B0 /* PlansNewCalendarView.swift in Sources */,
@@ -1964,12 +2009,15 @@
 				4CEC5CC027FFEA98007CEF2A /* Injected.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
 				953570ED27E5BFDE000DF0C2 /* TripView.swift in Sources */,
+				4CFF78FF280BBC270072AEB6 /* InviteUserButton.swift in Sources */,
 				004C7C6B28029D1400B432C7 /* AuthenticatedUser.swift in Sources */,
 				4CB954DA27DDF499001410AD /* FirebaseAdaptedUser.swift in Sources */,
 				001D223D27FEF4CE00F42DB4 /* PlanUpvoteAdapter.swift in Sources */,
+				4CFF7901280BBC880072AEB6 /* AddPlanSelectionButton.swift in Sources */,
 				B9B6B40227F5AA5000B0F5F4 /* APIError.swift in Sources */,
 				4CB405BF28086BAB00FF52D1 /* SimpleTransportDisplayView.swift in Sources */,
 				B9B467362801EEF3003D07F5 /* AddTransportView.swift in Sources */,
+				4CFF78FA280BB9D50072AEB6 /* EditPlanViewButton.swift in Sources */,
 				95DEA1E827E6FCC500A74ED2 /* TripViewModel.swift in Sources */,
 				B9B467382801EFCF003D07F5 /* AddTransportViewModel.swift in Sources */,
 				B9B6B3E327F4473E00B0F5F4 /* JsonAdaptedLocation.swift in Sources */,
@@ -2244,7 +2292,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2255,7 +2303,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -2275,7 +2323,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2286,7 +2334,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

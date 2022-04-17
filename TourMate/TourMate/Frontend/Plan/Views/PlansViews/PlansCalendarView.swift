@@ -15,7 +15,6 @@ struct PlansCalendarView: View {
     @State private var isShowingTransportationOptionsSheet = false
 
     let onSelected: ((Plan) -> Void)?
-    private let viewModelFactory = ViewModelFactory()
 
     init(viewModel: PlansViewModel, onSelected: ((Plan) -> Void)? = nil) {
         self.viewModel = viewModel
@@ -52,34 +51,11 @@ struct PlansCalendarView: View {
     var body: some View {
         VStack {
             HStack {
-                Picker("Date", selection: $selectedDate) {
-                    ForEach(viewModel.days, id: \.date) { day in
-                        PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
-                    }
-                }
-                .pickerStyle(.menu)
-                .padding([.horizontal])
-                .background(
-                    Capsule().fill(Color.primary.opacity(0.25))
-                )
-
-                Button {
-                    isShowingTransportationOptionsSheet.toggle()
-                } label: {
-                    Text("Search for Transportation")
-
-                }
-                .font(.system(size: 15))
-                .padding(6)
-                .background(
-                    Capsule().fill(Color.primary.opacity(0.25))
-                )
-                .sheet(isPresented: $isShowingTransportationOptionsSheet) {
-                    let viewModel = viewModelFactory.getTransportationOptionsViewModel(plans: viewModel.plans)
-                    TransportationOptionsView(viewModel: viewModel)
-                }
+                CalendarDatePicker(selectedDate: $selectedDate, days: viewModel.days)
 
                 Spacer()
+
+                TransportationOptionsButton(viewModel: viewModel)
             }
             .padding()
 
@@ -98,7 +74,7 @@ struct PlansCalendarView: View {
                                     onSelected: onSelected)
         }
         .onAppear {
-            selectedDate = viewModel.days.first?.date ?? Date()
+            selectedDate = viewModel.getInitialDate()
         }
     }
 }

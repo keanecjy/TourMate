@@ -12,10 +12,6 @@ struct TripView: View {
 
     @StateObject var viewModel: TripViewModel
 
-    @State private var isShowingAddPlanSheet = false
-    @State private var isShowingEditTripSheet = false
-    @State private var isShowingInviteUsersSheet = false
-
     @State private var selectedPlan: Plan?
     private let viewModelFactory: ViewModelFactory
     private let viewFactory: ViewFactory
@@ -37,10 +33,7 @@ struct TripView: View {
                 VStack {
                     ZStack(alignment: .bottomLeading) {
                         TripImage(imageUrl: viewModel.imageUrlDisplay)
-                            .overlay(Color.primary
-                                            .colorInvert()
-                                            .opacity(0.5))
-
+                            .overlay(Color.primary.colorInvert().opacity(0.5))
                         HStack(alignment: .center) {
                             Text(viewModel.durationDisplay)
                                 .font(.headline)
@@ -72,35 +65,12 @@ struct TripView: View {
         .navigationTitle(viewModel.nameDisplay)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
-                Button {
-                    isShowingEditTripSheet.toggle()
-                } label: {
-                    Image(systemName: "pencil").contentShape(Rectangle())
-                }
-                .disabled(viewModel.isDeleted || viewModel.isLoading)
-                .sheet(isPresented: $isShowingEditTripSheet) {
-                    EditTripView(viewModel: viewModelFactory.getEditTripViewModel(tripViewModel: viewModel))
-                }
 
-                Button {
-                    isShowingInviteUsersSheet.toggle()
-                } label: {
-                    Image(systemName: "person.crop.circle.badge.plus")
-                }
-                .disabled(viewModel.isDeleted || viewModel.isLoading)
-                .sheet(isPresented: $isShowingInviteUsersSheet) {
-                    InviteUserView(viewModel: viewModelFactory.copyTripViewModel(tripViewModel: viewModel))
-                }
+                EditTripButton(viewModel: viewModel)
 
-                Button {
-                    isShowingAddPlanSheet.toggle()
-                } label: {
-                    Image(systemName: "note.text.badge.plus")
-                }
-                .disabled(viewModel.isDeleted || viewModel.isLoading)
-                .sheet(isPresented: $isShowingAddPlanSheet) {
-                    AddPlanSelectionView(trip: viewModel.trip)
-                }
+                InviteUserButton(viewModel: viewModel)
+
+                AddPlanSelectionButton(viewModel: viewModel)
             }
         }
         .task {

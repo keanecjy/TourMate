@@ -48,10 +48,10 @@ struct PlansNewCalendarView: View {
 
     var body: some View {
         VStack {
-            PlansNewCalendarDayView(viewModel: viewModel,
-                                    date: selectedDate,
-                                    plans: getNonAllDayPlans(for: selectedDate, includingProposedPlans: showProposedPlans),
-                                    onSelected: onSelected)
+            PlansCalendarDayView(viewModel: viewModel,
+                                 date: selectedDate,
+                                 plans: getNonAllDayPlans(for: selectedDate, includingProposedPlans: showProposedPlans),
+                                 onSelected: onSelected)
             Divider()
             PlansCalendarAllDayView(viewModel: viewModel,
                                     date: selectedDate,

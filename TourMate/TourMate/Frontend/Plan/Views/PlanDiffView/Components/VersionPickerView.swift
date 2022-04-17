@@ -16,7 +16,7 @@ struct VersionPickerView: View {
 
     var labels: [Int: String]
 
-    internal init(selectedVersion: Binding<Int>, onChange: @escaping (Int) -> Void, versionNumbers: [Int]) {
+    init(selectedVersion: Binding<Int>, onChange: @escaping (Int) -> Void, versionNumbers: [Int]) {
         self._selectedVersion = selectedVersion
         self.onVersionChange = onChange
         self.versionNumbers = versionNumbers
@@ -27,7 +27,8 @@ struct VersionPickerView: View {
         }
     }
 
-    init(selectedVersion: Binding<Int>, onChange: @escaping (Int) -> Void, versionNumbers: [Int], labels: [Int: String]) {
+    init(selectedVersion: Binding<Int>, onChange: @escaping (Int) -> Void,
+         versionNumbers: [Int], labels: [Int: String]) {
         self._selectedVersion = selectedVersion
         self.onVersionChange = onChange
         self.versionNumbers = versionNumbers
