@@ -60,7 +60,7 @@ struct PlansMapView: View {
                         idPlans: getIdentifiablePlans(for: selectedDate, includingProposedPlans: showProposedPlans),
                         onSelected: onSelected)
         .onAppear {
-            selectedDate = viewModel.days.first?.date ?? Date()
+            selectedDate = viewModel.getInitialDate()
         }
         .navigationTitle("Map View")
         .navigationBarTitleDisplayMode(.inline)

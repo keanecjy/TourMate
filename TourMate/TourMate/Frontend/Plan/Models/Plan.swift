@@ -7,9 +7,7 @@
 
 import Foundation
 
-typealias PlanDiffMap = [String: (String, String)]
-
-class Plan: CustomStringConvertible, DateTimeRangeOwner {
+class Plan: CustomStringConvertible, DateTimeRangeOwner  {
     var id: String
     var tripId: String
     var name: String

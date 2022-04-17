@@ -24,21 +24,21 @@ class PlansViewModel: ObservableObject {
 
     private(set) var planEventDelegates: [String: PlanEventDelegate]
 
-    var sortedPlans: [Plan] {
-        plans.sorted { plan1, plan2 in
-            plan1.startDateTime.date < plan2.startDateTime.date
+    func compare(_ plan1: Plan, _ plan2: Plan) -> Bool {
+        guard plan1.startDateTime.date == plan2.startDateTime.date else {
+            return plan1.startDateTime.date < plan2.startDateTime.date
         }
+
+        guard plan1.endDateTime.date == plan2.endDateTime.date else {
+            return plan1.endDateTime.date < plan2.endDateTime.date
+        }
+
+        return plan1.creationDate < plan2.creationDate
     }
 
     // sort and display Plans by Date
-    typealias Day = (date: Date, plans: [Plan])
     var days: [Day] {
-        let sortedPlans = plans.sorted { plan1, plan2 in
-            if plan1.startDateTime.date == plan2.startDateTime.date {
-                return plan1.endDateTime.date < plan2.endDateTime.date
-            }
-            return plan1.startDateTime.date < plan2.startDateTime.date
-        }
+        let sortedPlans = plans.sorted(by: { compare($0, $1) })
 
         let plansByDay: [Date: [Plan]] = sortedPlans.reduce(into: [:]) { acc, cur in
             let components = Calendar
