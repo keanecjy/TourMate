@@ -9,31 +9,30 @@ import SwiftUI
 
 @MainActor
 struct SimplePlanView<T: Plan>: View {
-    @StateObject var planViewModel: PlanViewModel<T>
+    @ObservedObject var planViewModel: PlanViewModel<T>
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
 
-    @State private var selectedVersion: Int
+    @Binding var selectedVersion: Int
 
     private let viewFactory: ViewFactory
 
-    init(planViewModel: PlanViewModel<T>, initialVersion: Int) {
-        let viewModelFactory = ViewModelFactory()
+    init(planViewModel: PlanViewModel<T>, initialVersion: Binding<Int>,
+         commentsViewModel: CommentsViewModel, planUpvoteViewModel: PlanUpvoteViewModel) {
+        self.planViewModel = planViewModel
+        self._selectedVersion = initialVersion
+
         viewFactory = ViewFactory()
 
-        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
-        commentsViewModel.allowUserInteraction = false
+        self.commentsViewModel = commentsViewModel
+        self.commentsViewModel.allowUserInteraction = false
 
-        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
-
-        self._planViewModel = StateObject(wrappedValue: planViewModel)
-        self._selectedVersion = State(wrappedValue: initialVersion)
+        self.planUpvoteViewModel = planUpvoteViewModel
     }
 
     func handleVersionChange(version: Int) {
         Task {
             await planViewModel.setVersionNumber(version)
-            await commentsViewModel.filterSpecificVersionComments(version: version)
         }
     }
 
@@ -42,7 +41,7 @@ struct SimplePlanView<T: Plan>: View {
             HStack(spacing: 5.0) {
                 VersionPickerView(selectedVersion: $selectedVersion,
                                   onChange: { val in handleVersionChange(version: val) },
-                                  versionNumbers: planViewModel.allVersionNumbers)
+                                  versionNumbers: planViewModel.allVersionNumbersSortedDesc)
 
                 RestoreButtonView(planViewModel: planViewModel)
 
@@ -59,14 +58,8 @@ struct SimplePlanView<T: Plan>: View {
         .padding()
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            // Load in after inner views are fully loaded
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                Task {
-                    planViewModel.attachDelegate(delegate: commentsViewModel)
-                    planViewModel.attachDelegate(delegate: planUpvoteViewModel)
-                    handleVersionChange(version: selectedVersion)
-                }
-            }
+            planViewModel.attachDelegate(delegate: planUpvoteViewModel)
+            handleVersionChange(version: selectedVersion)
         }
         .onDisappear {
             planViewModel.detachDelegates()

@@ -34,6 +34,13 @@ class PlanUpvoteViewModel: ObservableObject {
         self.planUpvoteService = planUpvoteService
     }
 
+    func copy() -> PlanUpvoteViewModel {
+        PlanUpvoteViewModel(planId: planId,
+                            planVersionNumber: planVersion,
+                            userService: userService,
+                            planUpvoteService: planUpvoteService.copy())
+    }
+
     func fetchPlanUpvotesAndListen() async {
         planUpvoteService.planUpvoteEventDelegate = self
 

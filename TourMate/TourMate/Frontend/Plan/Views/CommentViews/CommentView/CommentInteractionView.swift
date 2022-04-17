@@ -15,7 +15,7 @@ struct CommentInteractionView: View {
 
     var body: some View {
         HStack(spacing: 10.0) {
-            if viewModel.getUserCanEditComment(comment: comment) {
+            if viewModel.getUserCanEditComment(comment: comment) && viewModel.allowUserInteraction {
                 Button {
                     self.isShowingEditCommentSheet = true
                 } label: {
@@ -42,14 +42,12 @@ struct CommentInteractionView: View {
                 .background(.white)
                 .cornerRadius(20.0)
             }
+            .allowsHitTesting(viewModel.allowUserInteraction)
 
             Spacer()
         }
         .disabled(viewModel.isLoading || viewModel.hasError)
         .sheet(isPresented: $isShowingEditCommentSheet) {
-            // on dismiss
-            print("Sheet dismissed")
-        } content: {
             EditCommentView(viewModel: viewModel, comment: comment)
         }
     }

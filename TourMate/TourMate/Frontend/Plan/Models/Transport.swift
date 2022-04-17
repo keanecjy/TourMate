@@ -11,6 +11,10 @@ class Transport: Plan {
     var startLocation: Location
     var endLocation: Location
 
+    override var locations: [Location] {
+        [ startLocation, endLocation ]
+    }
+
     init(plan: Plan, startLocation: Location, endLocation: Location) {
         self.startLocation = startLocation
         self.endLocation = endLocation
@@ -56,6 +60,22 @@ class Transport: Plan {
 
         return startLocation == otherTransport.startLocation
         && endLocation == otherTransport.endLocation
+    }
+
+    override func diff<T>(other: T) -> PlanDiffMap where T: Plan {
+        var diffMap = super.diff(other: other)
+
+        guard let otherTransport = other as? Transport else {
+            return diffMap
+        }
+
+        addDifference(diffMap: &diffMap, name: "Start Location", item1: startLocation,
+                      item2: otherTransport.startLocation)
+
+        addDifference(diffMap: &diffMap, name: "End Location", item1: endLocation,
+                      item2: otherTransport.endLocation)
+
+        return diffMap
     }
 
     override var description: String {

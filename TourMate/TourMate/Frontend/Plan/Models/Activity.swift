@@ -10,6 +10,10 @@ import Foundation
 class Activity: Plan {
     var location: Location
 
+    override var locations: [Location] {
+        [ location ]
+    }
+
     init(plan: Plan, location: Location) {
         self.location = location
         super.init(plan: plan)
@@ -51,6 +55,19 @@ class Activity: Plan {
         }
 
         return location == otherActivity.location
+    }
+
+    override func diff<T>(other: T) -> PlanDiffMap where T: Plan {
+        var diffMap = super.diff(other: other)
+
+        guard let otherActivity = other as? Activity else {
+            return diffMap
+        }
+
+        addDifference(diffMap: &diffMap, name: "Location", item1: location,
+                      item2: otherActivity.location)
+
+        return diffMap
     }
 
     override var description: String {

@@ -19,7 +19,7 @@ struct PlanStatusView: View {
     }
 
     var statusText: String {
-        status.rawValue.capitalized
+        status.rawValue
     }
 
     var body: some View {
