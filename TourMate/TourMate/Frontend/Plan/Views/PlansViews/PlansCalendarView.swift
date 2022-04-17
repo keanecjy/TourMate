@@ -26,7 +26,7 @@ struct PlansCalendarView: View {
 
                 Spacer()
 
-                TransporationOptionsButton(viewModel: viewModel)
+                TransportationOptionsButton(viewModel: viewModel)
             }
             .padding()
 

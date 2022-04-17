@@ -1,5 +1,5 @@
 //
-//  TransporationOptionsButton.swift
+//  TransportationOptionsButton.swift
 //  TourMate
 //
 //  Created by Keane Chan on 17/4/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TransporationOptionsButton: View {
+struct TransportationOptionsButton: View {
 
     @ObservedObject var viewModel: PlansViewModel
 
