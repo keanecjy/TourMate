@@ -13,6 +13,9 @@ class PlansViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
+    @Published private(set) var overlappingPlans: [(Plan, Plan, String)]
+    private let planSmartEngine: PlanSmartEngine
+
     // Information needed by Plans
     let tripId: String
     let tripStartDateTime: DateTime
@@ -75,6 +78,9 @@ class PlansViewModel: ObservableObject {
         self.planService = planService
 
         self.planEventDelegates = [:]
+
+        self.overlappingPlans = []
+        self.planSmartEngine = PlanSmartEngine()
     }
 
     func getPlans(for date: Date) -> [Plan] {
@@ -118,6 +124,7 @@ extension PlansViewModel: PlanEventDelegate {
         print("[PlansViewModel] Updating Plans: \(plans)")
 
         await loadLatestVersionedPlans(plans: plans, errorMessage: errorMessage)
+        self.overlappingPlans = planSmartEngine.computeOverlap(plans: plans)
     }
 
     func update(plan: Plan?, errorMessage: String) async {}

@@ -41,6 +41,7 @@
 		001D224327FEF8CC00F42DB4 /* PlanUpvoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D224227FEF8CC00F42DB4 /* PlanUpvoteViewModel.swift */; };
 		0028AD99280BBC4500F86965 /* DateTimeRangeOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028AD98280BBC4500F86965 /* DateTimeRangeOwner.swift */; };
 		0028AD9B280BBCA800F86965 /* DateTimeSmartEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028AD9A280BBCA800F86965 /* DateTimeSmartEngine.swift */; };
+		0028AD9E280BD60B00F86965 /* PlanSmartEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028AD9D280BD60B00F86965 /* PlanSmartEngine.swift */; };
 		004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004981AA27E2FF3C007BDB2E /* SettingsView.swift */; };
 		004ACDB627F83DC60015CDD8 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004ACDB527F83DC60015CDD8 /* ViewModelFactory.swift */; };
 		004ACDB827F89F370015CDD8 /* AdditionalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004ACDB727F89F370015CDD8 /* AdditionalInfoView.swift */; };
@@ -293,6 +294,7 @@
 		001D224227FEF8CC00F42DB4 /* PlanUpvoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanUpvoteViewModel.swift; sourceTree = "<group>"; };
 		0028AD98280BBC4500F86965 /* DateTimeRangeOwner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeRangeOwner.swift; sourceTree = "<group>"; };
 		0028AD9A280BBCA800F86965 /* DateTimeSmartEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeSmartEngine.swift; sourceTree = "<group>"; };
+		0028AD9D280BD60B00F86965 /* PlanSmartEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanSmartEngine.swift; sourceTree = "<group>"; };
 		004981AA27E2FF3C007BDB2E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		004981AC27E3237A007BDB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		004ACDB527F83DC60015CDD8 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
@@ -638,6 +640,16 @@
 				001D223427FEF11D00F42DB4 /* FirebaseAdaptedPlanUpvote.swift */,
 			);
 			path = PlanUpvote;
+			sourceTree = "<group>";
+		};
+		0028AD9C280BD60000F86965 /* SmartEngine */ = {
+			isa = PBXGroup;
+			children = (
+				0028AD98280BBC4500F86965 /* DateTimeRangeOwner.swift */,
+				0028AD9A280BBCA800F86965 /* DateTimeSmartEngine.swift */,
+				0028AD9D280BD60B00F86965 /* PlanSmartEngine.swift */,
+			);
+			path = SmartEngine;
 			sourceTree = "<group>";
 		};
 		004C7C582802740D00B432C7 /* Delegates */ = {
@@ -1544,6 +1556,7 @@
 				B97891A0280BF79700AC4632 /* IconUtil.swift */,
 				0028AD98280BBC4500F86965 /* DateTimeRangeOwner.swift */,
 				0028AD9A280BBCA800F86965 /* DateTimeSmartEngine.swift */,
+				0028AD9C280BD60000F86965 /* SmartEngine */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2000,6 +2013,7 @@
 				95CB3F7427D8E79C0086E9E3 /* PlanDateView.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserService.swift in Sources */,
+				0028AD9E280BD60B00F86965 /* PlanSmartEngine.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
 				4C3672B0280BC525003B0AD4 /* TransportationOptionsButton.swift in Sources */,
 				00148CB2280903A50091C28B /* ExpandableTextView.swift in Sources */,
