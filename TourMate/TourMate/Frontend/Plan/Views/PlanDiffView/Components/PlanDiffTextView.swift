@@ -25,7 +25,7 @@ struct PlanDiffTextView: View {
             } else {
                 ForEach(planDiffMap.sorted(by: { $0.key > $1.key }), id: \.key) { field, change in
                     HStack(spacing: 0.0) {
-                        Text("> ").bold()
+                        Text("\u{2022} ").font(.title).bold()
 
                         Text(field).bold()
 

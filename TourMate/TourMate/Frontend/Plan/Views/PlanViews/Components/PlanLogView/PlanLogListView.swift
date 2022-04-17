@@ -68,15 +68,12 @@ struct PlanLogListView<T: Plan>: View {
                     if selectedVersion == 0 || selectedVersion == versionedPlan.versionNumber {
                         VStack(alignment: .leading, spacing: 10.0) { // Each Version's section
 
-                            // Plan Version Header
                             viewFactory.getPlanVersionView(planDisplayViewModel: planDisplayViewModel,
                                                            plan: versionedPlan)
 
-                            // Likes
                             viewFactory.getUpvotedUsersView(planUpvoteViewModel: planUpvoteViewModel,
                                                             version: versionedPlan.versionNumber)
 
-                            // Comments
                             CommentListView(viewModel: commentsViewModel,
                                             forVersion: versionedPlan.versionNumber)
                         }
