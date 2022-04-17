@@ -28,17 +28,15 @@ struct SuggestionButton: View {
         } label: {
             VStack(alignment: .leading) {
                 Text(title)
-                    .font(.subheadline)
                     .bold()
                 Text(subtitle)
-                    .font(.subheadline)
                     .foregroundColor(.gray)
 
             }
+            .font(.caption)
             .prefixedWithIcon(named: iconName)
-            .padding()
+            .padding(7)
             .foregroundColor(.black)
-            .font(.title3)
             .overlay(RoundedRectangle(cornerRadius: 8)
                         .fill(Color.primary.opacity(0.25)))
         }
