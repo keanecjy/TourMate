@@ -51,7 +51,7 @@ struct PlansView: View {
                 }
             }
         }
-        .padding()
+        .padding([.horizontal, .top])
     }
 
     var body: some View {
