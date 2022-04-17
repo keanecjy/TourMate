@@ -23,4 +23,27 @@ struct PlanSmartEngine {
             return (plan1, plan2)
         }
     }
+
+    func suggestNewTiming(plans: [Plan], forDate date: Date) -> [Plan] {
+        let filteredPlans = plans.filter { plan in
+
+            // ignore suggestion for all day plans
+            let dayStartDate = date
+            let dayEndDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+
+            if plan.startDateTime.date < dayStartDate && plan.endDateTime.date >= dayEndDate {
+                return false
+            }
+
+            return !(plan is Accommodation)
+        }
+        .map { plan in
+            plan.copy()
+        }
+
+        let suggestedTimings = dateTimeSmartEngine.suggestNewTimings(dateTimeRangeOwners: filteredPlans)
+        return suggestedTimings.map { plan in
+            plan as! Plan
+        }
+    }
 }

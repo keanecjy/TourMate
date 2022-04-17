@@ -39,6 +39,8 @@
 		001D223F27FEF5A400F42DB4 /* FirebasePlanUpvoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D223E27FEF5A400F42DB4 /* FirebasePlanUpvoteService.swift */; };
 		001D224127FEF7D800F42DB4 /* MockPlanUpvoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D224027FEF7D800F42DB4 /* MockPlanUpvoteService.swift */; };
 		001D224327FEF8CC00F42DB4 /* PlanUpvoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D224227FEF8CC00F42DB4 /* PlanUpvoteViewModel.swift */; };
+		0028AD99280BBC4500F86965 /* DateTimeRangeOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028AD98280BBC4500F86965 /* DateTimeRangeOwner.swift */; };
+		0028AD9B280BBCA800F86965 /* DateTimeSmartEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028AD9A280BBCA800F86965 /* DateTimeSmartEngine.swift */; };
 		0028AD9E280BD60B00F86965 /* PlanSmartEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028AD9D280BD60B00F86965 /* PlanSmartEngine.swift */; };
 		0028ADA8280BF36E00F86965 /* PlanWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028ADA7280BF36E00F86965 /* PlanWarningView.swift */; };
 		004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004981AA27E2FF3C007BDB2E /* SettingsView.swift */; };
@@ -295,6 +297,8 @@
 		001D223E27FEF5A400F42DB4 /* FirebasePlanUpvoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlanUpvoteService.swift; sourceTree = "<group>"; };
 		001D224027FEF7D800F42DB4 /* MockPlanUpvoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlanUpvoteService.swift; sourceTree = "<group>"; };
 		001D224227FEF8CC00F42DB4 /* PlanUpvoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanUpvoteViewModel.swift; sourceTree = "<group>"; };
+		0028AD98280BBC4500F86965 /* DateTimeRangeOwner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeRangeOwner.swift; sourceTree = "<group>"; };
+		0028AD9A280BBCA800F86965 /* DateTimeSmartEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeSmartEngine.swift; sourceTree = "<group>"; };
 		0028AD9D280BD60B00F86965 /* PlanSmartEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanSmartEngine.swift; sourceTree = "<group>"; };
 		0028ADA7280BF36E00F86965 /* PlanWarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanWarningView.swift; sourceTree = "<group>"; };
 		004981AA27E2FF3C007BDB2E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -651,6 +655,8 @@
 		0028AD9C280BD60000F86965 /* SmartEngine */ = {
 			isa = PBXGroup;
 			children = (
+				0028AD98280BBC4500F86965 /* DateTimeRangeOwner.swift */,
+				0028AD9A280BBCA800F86965 /* DateTimeSmartEngine.swift */,
 				4CA18D5B280C07A10094944F /* DateTimeSmartEngine.swift */,
 				4CA18D59280C079D0094944F /* DateTimeRangeOwner.swift */,
 				0028AD9D280BD60B00F86965 /* PlanSmartEngine.swift */,
@@ -911,6 +917,8 @@
 				95CB3F6A27D8E79B0086E9E3 /* PlanDateView.swift */,
 				95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */,
 				95FE172B27F2BBC900407B51 /* PlanBoxView.swift */,
+				0028ADA7280BF36E00F86965 /* PlanWarningView.swift */,
+				4C3672AF280BC525003B0AD4 /* TransportationOptionsButton.swift */,
 				B978919E280BBA2D00AC4632 /* SuggestionButton.swift */,
 				4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */,
 				0028ADA7280BF36E00F86965 /* PlanWarningView.swift */,
@@ -1936,6 +1944,7 @@
 				B98F35E727F01F53000AFE53 /* SearchView.swift in Sources */,
 				4C2FB3422801606D00B0D0E1 /* RealLocationWebRepository.swift in Sources */,
 				00F83BC727DC62BF003A28AA /* LogOutView.swift in Sources */,
+				0028AD9B280BBCA800F86965 /* DateTimeSmartEngine.swift in Sources */,
 				B9B6B40827F719FF00B0F5F4 /* TimingView.swift in Sources */,
 				000F3BF027F1659A00E7E2ED /* CommentTextView.swift in Sources */,
 				B9A04FA627E42234007D4303 /* PlanService.swift in Sources */,
@@ -1981,6 +1990,7 @@
 				B967C33A27DDD71C0023B34D /* AddPlanSelectionView.swift in Sources */,
 				95FAE40B27E245D200F4AB01 /* MockTripService.swift in Sources */,
 				95FAE40B27E245D200F4AB01 /* MockTripService.swift in Sources */,
+				0028AD99280BBC4500F86965 /* DateTimeRangeOwner.swift in Sources */,
 				B98F35F027F0602E000AFE53 /* SearchViewModel.swift in Sources */,
 				B9A360C127EC076500030769 /* DateTime.swift in Sources */,
 				4C3672B2280BC618003B0AD4 /* CalendarDatePicker.swift in Sources */,

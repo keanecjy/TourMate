@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Plan: CustomStringConvertible, DateTimeRangeOwner  {
+class Plan: CustomStringConvertible, DateTimeRangeOwner {
     var id: String
     var tripId: String
     var name: String
@@ -87,6 +87,22 @@ class Plan: CustomStringConvertible, DateTimeRangeOwner  {
         self.ownerUserId = ownerUserId
         self.modifierUserId = modifierUserId
         self.versionNumber = versionNumber
+    }
+
+    func copy() -> Plan {
+        Plan(id: id,
+             tripId: tripId,
+             name: name,
+             startDateTime: startDateTime,
+             endDateTime: endDateTime,
+             imageUrl: imageUrl,
+             status: status,
+             creationDate: creationDate,
+             modificationDate: modificationDate,
+             additionalInfo: additionalInfo,
+             ownerUserId: ownerUserId,
+             modifierUserId: modifierUserId,
+             versionNumber: versionNumber)
     }
 
     func equals<T: Plan>(other: T) -> Bool {
