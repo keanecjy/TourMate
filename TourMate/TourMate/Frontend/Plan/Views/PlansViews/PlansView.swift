@@ -56,6 +56,7 @@ struct PlansView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
+
             suggestionsView
 
             HStack {

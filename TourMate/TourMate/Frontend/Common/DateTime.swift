@@ -15,17 +15,23 @@ struct DateTime: Equatable, Comparable, CustomStringConvertible {
         DateUtil.defaultDateDisplay(date: date, at: timeZone)
     }
 
-    static func < (lhs: DateTime, rhs: DateTime) -> Bool {
-        generateTimezoneOffsetDate(dateTime: lhs) < generateTimezoneOffsetDate(dateTime: rhs)
+    var timezoneEpochOffset: Double {
+        let timezoneOffset = timeZone.secondsFromGMT()
+        let epochDate = date.timeIntervalSince1970
+        return epochDate + Double(timezoneOffset)
+    }
+
+    func revertEpochOffset(offset: Double) -> Double {
+        let timezoneOffset = Double(timeZone.secondsFromGMT())
+        return offset - timezoneOffset
     }
 
     // compare absolute time differences from 0-GMT
     // https://www.agnosticdev.com/content/how-convert-swift-dates-timezone
-    private static func generateTimezoneOffsetDate(dateTime: DateTime) -> Date {
-        let timezoneOffset = dateTime.timeZone.secondsFromGMT()
-        let epochDate = dateTime.date.timeIntervalSince1970
-        let timezoneEpochOffset = epochDate + Double(timezoneOffset)
-        let timezoneOffsetDate = Date(timeIntervalSince1970: timezoneEpochOffset)
-        return timezoneOffsetDate
+    static func < (lhs: DateTime, rhs: DateTime) -> Bool {
+        let lhsTimezoneOffsetDate = Date(timeIntervalSince1970: lhs.timezoneEpochOffset)
+        let rhsTimezoneOffsetDate = Date(timeIntervalSince1970: rhs.timezoneEpochOffset)
+
+        return lhsTimezoneOffsetDate < rhsTimezoneOffsetDate
     }
 }
