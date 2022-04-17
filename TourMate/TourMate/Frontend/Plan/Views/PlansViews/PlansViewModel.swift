@@ -61,6 +61,22 @@ class PlansViewModel: ObservableObject {
             .sorted(by: { $0.date < $1.date })
     }
 
+    var daysWithOverlapSummary: [(Day, String)] {
+        var summarisedDays: [(Day, String)] = []
+
+        for day in days {
+            let date = day.date
+            let plans = day.plans
+
+            let overlappingPlans = planSmartEngine.computeOverlap(plans: plans)
+            let overlapSummary = generateOverlapSummary(overlappingPlans: overlappingPlans, forDate: date)
+
+            summarisedDays.append((day, overlapSummary))
+        }
+
+        return summarisedDays
+    }
+
     init(tripId: String,
          tripStartDateTime: DateTime,
          tripEndDateTime: DateTime,
@@ -149,5 +165,19 @@ extension PlansViewModel {
         }
 
         self.isLoading = false
+    }
+
+    private func generateOverlapSummary(overlappingPlans: [(Plan, Plan)], forDate date: Date) -> String {
+
+        let summary = overlappingPlans.map { plan1, plan2 in
+
+            let plan1Duration = DateUtil.shortDurationDesc(from: plan1.startDateTime, to: plan1.endDateTime, on: date)
+            let plan2Duration = DateUtil.shortDurationDesc(from: plan2.startDateTime, to: plan2.endDateTime, on: date)
+
+            return "Plan \(plan1.name) (\(plan1Duration)) <-> Plan \(plan2.name) (\(plan2Duration))"
+        }
+        .joined(separator: "\n")
+
+        return summary
     }
 }
