@@ -20,9 +20,5 @@ struct CalendarDatePicker: View {
         }
         .pickerStyle(.menu)
         .padding([.horizontal])
-        .background(
-            Capsule().fill(Color.primary.opacity(0.2))
-        )
-
     }
 }

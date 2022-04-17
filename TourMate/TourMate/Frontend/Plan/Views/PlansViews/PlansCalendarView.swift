@@ -52,6 +52,19 @@ struct PlansCalendarView: View {
         VStack {
             HStack {
                 CalendarDatePicker(selectedDate: $selectedDate, days: viewModel.days)
+                    .background(
+                        Capsule()
+                            .strokeBorder(Color(.link), lineWidth: 1)
+                            .background(Capsule().fill(Color(.systemBackground)))
+                    )
+
+                HStack {
+                    Text("Show Proposed Plans")
+                        .font(.subheadline)
+                        .foregroundColor(Color(.link))
+                    Toggle("Show Proposed Plans", isOn: $showProposedPlans)
+                        .labelsHidden()
+                }
 
                 Spacer()
 
