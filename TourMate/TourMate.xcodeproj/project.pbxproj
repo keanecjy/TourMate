@@ -127,6 +127,7 @@
 		4CEC5CBE27FFEA8D007CEF2A /* InjectedKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CBD27FFEA8D007CEF2A /* InjectedKey.swift */; };
 		4CEC5CC027FFEA98007CEF2A /* Injected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CBF27FFEA98007CEF2A /* Injected.swift */; };
 		4CEC5CC227FFEB87007CEF2A /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC5CC127FFEB87007CEF2A /* AppConfig.swift */; };
+		4CFF78FA280BB9D50072AEB6 /* EditPlanViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */; };
 		953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E627E5BFBF000DF0C2 /* TripsView.swift */; };
 		953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E827E5BFC7000DF0C2 /* TripCard.swift */; };
 		953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570EA27E5BFD1000DF0C2 /* AddTripView.swift */; };
@@ -369,6 +370,7 @@
 		4CEC5CBD27FFEA8D007CEF2A /* InjectedKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedKey.swift; sourceTree = "<group>"; };
 		4CEC5CBF27FFEA98007CEF2A /* Injected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injected.swift; sourceTree = "<group>"; };
 		4CEC5CC127FFEB87007CEF2A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewButton.swift; sourceTree = "<group>"; };
 		720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0AD6F3D818D6A89B4B41BF /* Pods-TourMate-TourMateUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.release.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.release.xcconfig"; sourceTree = "<group>"; };
 		953570E627E5BFBF000DF0C2 /* TripsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
@@ -1362,6 +1364,7 @@
 				4C90219D2805BC2800054F0A /* Accommodation */,
 				4C90219E2805BC3000054F0A /* Transport */,
 				B9A04FAF27E5875A007D4303 /* PlanView.swift */,
+				4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */,
 				4CB6F8EB2807EB5A0029960B /* PlanDisplayView.swift */,
 				B9A1037B27E61E9200829BF4 /* PlanViewModel.swift */,
 				004C7C6C2804195300B432C7 /* PlanDisplayViewModel.swift */,
@@ -1963,6 +1966,7 @@
 				B9B6B40227F5AA5000B0F5F4 /* APIError.swift in Sources */,
 				4CB405BF28086BAB00FF52D1 /* SimpleTransportDisplayView.swift in Sources */,
 				B9B467362801EEF3003D07F5 /* AddTransportView.swift in Sources */,
+				4CFF78FA280BB9D50072AEB6 /* EditPlanViewButton.swift in Sources */,
 				95DEA1E827E6FCC500A74ED2 /* TripViewModel.swift in Sources */,
 				B9B467382801EFCF003D07F5 /* AddTransportViewModel.swift in Sources */,
 				B9B6B3E327F4473E00B0F5F4 /* JsonAdaptedLocation.swift in Sources */,
