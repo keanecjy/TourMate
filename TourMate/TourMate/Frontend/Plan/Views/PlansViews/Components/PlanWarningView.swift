@@ -30,7 +30,7 @@ struct PlanWarningView<Content: View, ButtonLabel: View>: View {
             }
             .foregroundColor(.red)
         }
-        .padding([.vertical], 5.0)
+        .padding([.horizontal, .top])
         .popover(isPresented: $showPopover) {
             content
                 .padding()

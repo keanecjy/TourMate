@@ -14,8 +14,8 @@ struct NearbyPlacesView: View {
     private func makeNearbyPlacesCellView(_ place: NearbyPlace) -> some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(place.name).font(.title2).bold()
-                Text(place.location.addressFull).font(.callout).foregroundColor(.gray)
+                Text(place.name).font(.headline)
+                Text(place.location.addressFull).font(.subheadline).foregroundColor(.gray)
             }
 
             Spacer()
