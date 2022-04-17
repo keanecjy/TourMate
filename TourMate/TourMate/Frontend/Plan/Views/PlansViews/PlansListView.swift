@@ -27,12 +27,12 @@ struct PlansListView: View {
                     PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
 
                     if !summary.isEmpty {
-                        Text("Take note: Some plans are overlapping!")
-                            .font(.subheadline)
-                            .foregroundColor(.red)
-                            .padding([.vertical], 2.0)
-
-                        ExpandableTextView(content: summary, allowedLineLimit: 0, font: .subheadline)
+                        PlanWarningView {
+                            ExpandableTextView(content: summary, font: .subheadline)
+                        } buttonLabel: {
+                            Text("Some plans are overlapping! Tap to see more")
+                                .font(.subheadline)
+                        }
                     }
 
                     ForEach(day.plans, id: \.id) { plan in
