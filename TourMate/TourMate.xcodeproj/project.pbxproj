@@ -80,6 +80,9 @@
 		4C26970E28087A4200FCEC34 /* LocationTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C26970D28087A4200FCEC34 /* LocationTextView.swift */; };
 		4C26B46A27F5D14800B8319E /* CommentEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C26B46927F5D14800B8319E /* CommentEventDelegate.swift */; };
 		4C2FB3422801606D00B0D0E1 /* RealLocationWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2FB3412801606D00B0D0E1 /* RealLocationWebRepository.swift */; };
+		4C3672AE280BC3E1003B0AD4 /* TripDurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672AD280BC3E1003B0AD4 /* TripDurationView.swift */; };
+		4C3672B0280BC525003B0AD4 /* TransporationOptionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672AF280BC525003B0AD4 /* TransporationOptionsButton.swift */; };
+		4C3672B2280BC618003B0AD4 /* CalendarDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */; };
 		4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */; };
 		4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */; };
 		4C4A9E9F2807C8140040EE24 /* ActivityFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A9E9E2807C8140040EE24 /* ActivityFormView.swift */; };
@@ -326,6 +329,9 @@
 		4C26970D28087A4200FCEC34 /* LocationTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTextView.swift; sourceTree = "<group>"; };
 		4C26B46927F5D14800B8319E /* CommentEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentEventDelegate.swift; sourceTree = "<group>"; };
 		4C2FB3412801606D00B0D0E1 /* RealLocationWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealLocationWebRepository.swift; sourceTree = "<group>"; };
+		4C3672AD280BC3E1003B0AD4 /* TripDurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDurationView.swift; sourceTree = "<group>"; };
+		4C3672AF280BC525003B0AD4 /* TransporationOptionsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransporationOptionsButton.swift; sourceTree = "<group>"; };
+		4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatePicker.swift; sourceTree = "<group>"; };
 		4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTripService.swift; sourceTree = "<group>"; };
 		4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAdapter.swift; sourceTree = "<group>"; };
 		4C4A9E9E2807C8140040EE24 /* ActivityFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFormView.swift; sourceTree = "<group>"; };
@@ -879,6 +885,8 @@
 				95CB3F6A27D8E79B0086E9E3 /* PlanDateView.swift */,
 				95CB3F6C27D8E79B0086E9E3 /* PlanCardView.swift */,
 				95FE172B27F2BBC900407B51 /* PlanBoxView.swift */,
+				4C3672AF280BC525003B0AD4 /* TransporationOptionsButton.swift */,
+				4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1406,6 +1414,7 @@
 				000AB55227EE183A00FF0ED3 /* AttendeesView */,
 				95DEA1E727E6FCC500A74ED2 /* TripViewModel.swift */,
 				953570EC27E5BFDE000DF0C2 /* TripView.swift */,
+				4C3672AD280BC3E1003B0AD4 /* TripDurationView.swift */,
 			);
 			path = TripView;
 			sourceTree = "<group>";
@@ -1932,6 +1941,7 @@
 				95FAE40B27E245D200F4AB01 /* MockTripService.swift in Sources */,
 				B98F35F027F0602E000AFE53 /* SearchViewModel.swift in Sources */,
 				B9A360C127EC076500030769 /* DateTime.swift in Sources */,
+				4C3672B2280BC618003B0AD4 /* CalendarDatePicker.swift in Sources */,
 				4CB6F8EE2807EE490029960B /* PlanDiffView.swift in Sources */,
 				95FAE40927E2447400F4AB01 /* TripsViewModel.swift in Sources */,
 				B9B4672A2801DDFD003D07F5 /* FirebaseAdaptedTransport.swift in Sources */,
@@ -1949,6 +1959,7 @@
 				4CB405BB2808693100FF52D1 /* SimpleActivityDisplayView.swift in Sources */,
 				4C1C70D327FE82C800203694 /* PlanHeaderView.swift in Sources */,
 				4C09661527F33F6400A00CE5 /* PlanEventDelegate.swift in Sources */,
+				4C3672AE280BC3E1003B0AD4 /* TripDurationView.swift in Sources */,
 				4CB32D78280576A800681E5B /* ViewFactory.swift in Sources */,
 				00148C952807E5A60091C28B /* AddCommentView.swift in Sources */,
 				00148C9B2807E7A60091C28B /* ViewModelFactory+Comments.swift in Sources */,
@@ -1967,6 +1978,7 @@
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserService.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
+				4C3672B0280BC525003B0AD4 /* TransporationOptionsButton.swift in Sources */,
 				00148CB2280903A50091C28B /* ExpandableTextView.swift in Sources */,
 				B98F35ED27F05F0D000AFE53 /* MockLocationService.swift in Sources */,
 				B9B4671328003174003D07F5 /* AddActivityView.swift in Sources */,

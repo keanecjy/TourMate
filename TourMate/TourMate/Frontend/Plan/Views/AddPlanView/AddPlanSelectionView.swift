@@ -25,7 +25,7 @@ struct AddPlanSelectionView: View {
                     isShowingAddActivitySheet.toggle()
                 } label: {
                     Text("Activity")
-                        .prefixedWithIcon(named: "figure.walk.circle.fill")
+                        .prefixedWithIcon(named: "theatermasks.circle.fill")
                 }
                 .sheet(isPresented: $isShowingAddActivitySheet) {
                     let viewModel = viewModelFactory.getAddActivityViewModel(trip: trip)
