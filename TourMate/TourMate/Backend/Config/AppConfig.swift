@@ -34,7 +34,12 @@ private struct LocationServiceKey: InjectionKey {
 }
 
 private struct AuthenticationManagerKey: InjectionKey {
-    static var currentValue: AuthenticationManager = FirebaseAuthenticationManager(userService: InjectedValues[\.userService])
+    static var currentValue: AuthenticationManager = FirebaseAuthenticationManager(
+        userService: InjectedValues[\.userService])
+}
+
+private struct RoutingServiceKey: InjectionKey {
+    static var currentValue: RoutingService = MockRoutingService()
 }
 
 extension InjectedValues {
@@ -76,5 +81,10 @@ extension InjectedValues {
     var authenticationManager: AuthenticationManager {
         get { Self[AuthenticationManagerKey.self] }
         set { Self[AuthenticationManagerKey.self] = newValue }
+    }
+
+    var routingService: RoutingService {
+        get { Self[RoutingServiceKey.self] }
+        set { Self[RoutingServiceKey.self] = newValue }
     }
 }
