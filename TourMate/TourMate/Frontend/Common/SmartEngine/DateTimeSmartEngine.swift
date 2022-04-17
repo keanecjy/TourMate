@@ -58,7 +58,7 @@ struct DateTimeSmartEngine {
 
         let newMinTime = overallAverage - average
         let initialMinTime = sortedDateTimeRangeOwners.first?.startDateTime.timezoneEpochOffset ?? newMinTime
-        var current = min(newMinTime, initialMinTime)
+        var current = initialMinTime
 
         for owner in sortedDateTimeRangeOwners {
             var newOwner = owner
