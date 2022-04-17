@@ -36,6 +36,7 @@ struct PlansView: View {
                     PlansNewCalendarView(viewModel: plansViewModel, onSelected: onSelected)
                 } label: {
                     Label("Calendar", systemImage: "calendar.day.timeline.left")
+                }
 
                 NavigationLink {
                     PlansMapView(viewModel: plansViewModel, onSelected: onSelected)
