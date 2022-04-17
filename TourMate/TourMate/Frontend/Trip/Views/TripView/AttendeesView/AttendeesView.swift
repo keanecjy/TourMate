@@ -12,13 +12,9 @@ struct AttendeesView: View {
     let attendees: [User]
 
     var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView(.horizontal) {
-                LazyHStack {
-                    ForEach(attendees, id: \.id) { user in
-                        UserIconView(imageUrl: user.imageUrl, name: user.name)
-                    }
-                }
+        HStack {
+            ForEach(attendees, id: \.id) { user in
+                UserIconView(imageUrl: user.imageUrl, name: user.name)
             }
         }
         .padding()

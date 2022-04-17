@@ -1,5 +1,5 @@
 //
-//  PlansDayView.swift
+//  PlansCalendarDayView.swift
 //  TourMate
 //
 //  Created by Rayner Lim on 28/3/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlansDayView: View {
+struct PlansCalendarDayView: View {
     @ObservedObject var viewModel: PlansViewModel
 
     let date: Date
@@ -18,8 +18,11 @@ struct PlansDayView: View {
     let onSelected: ((Plan) -> Void)?
 
     @State var planIdToSize: [String: CGSize] = [:]
-    @State var planIdToOffset: [String: CGPoint] = [:]
+    @State var planIdToOffset: [String: CGSize] = [:]
     @State var minWidth: CGFloat = 0
+
+    @State var draggingPlanId: String = ""
+    @GestureState var draggingOffset = CGSize.zero
 
     private let viewModelFactory = ViewModelFactory()
 
@@ -95,7 +98,7 @@ struct PlansDayView: View {
         // Set Y offset for first plan
         if !planIdRect.isEmpty {
             let firstPlanIdRect = planIdRect[0]
-            planIdToOffset[firstPlanIdRect.planId] = CGPoint(x: 0, y: firstPlanIdRect.rect.origin.y)
+            planIdToOffset[firstPlanIdRect.planId] = CGSize(width: 0, height: firstPlanIdRect.rect.origin.y)
             minWidth = firstPlanIdRect.rect.width
         }
 
@@ -116,15 +119,32 @@ struct PlansDayView: View {
                 if currentStartY < prevEndY {
                     var prevEndX = prevRect.origin.x + prevRect.size.width
                     if let offset = planIdToOffset[prevPlanId] {
-                        prevEndX += offset.x
+                        prevEndX += offset.width
                     }
-                    planIdToOffset[currentPlanId] = CGPoint(x: prevEndX, y: currentStartY)
+                    planIdToOffset[currentPlanId] = CGSize(width: prevEndX, height: currentStartY)
                     minWidth = max(minWidth, prevEndX + currentRect.width)
                 } else if planIdToOffset[currentPlanId] == nil {
-                    planIdToOffset[currentPlanId] = CGPoint(x: 0, y: currentStartY)
+                    planIdToOffset[currentPlanId] = CGSize(width: 0, height: currentStartY)
                 }
             }
         }
+    }
+
+    func getOffset(for planId: String) -> CGSize {
+        var totalOffset = CGSize(width: 0, height: 6)
+        if let offset = planIdToOffset[planId] {
+            totalOffset.width += offset.width
+            totalOffset.height += offset.height
+        }
+        if planId == draggingPlanId {
+            totalOffset.height += draggingOffset.height
+        }
+        return totalOffset
+    }
+
+    func handlePlanDrag(offset: Float) {
+        let mins = offset / hourHeight
+        print(mins)
     }
 
     var body: some View {
@@ -148,11 +168,24 @@ struct PlansDayView: View {
                                     HStack {
                                         PlanBoxView(plansViewModel: viewModel,
                                                     plan: plan, date: date)
-                                            .onTapGesture(perform: {
+                                            .onTapGesture {
                                                 if let onSelected = onSelected {
                                                     onSelected(plan)
                                                 }
-                                            })
+                                            }
+                                            .gesture(
+                                                DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                                                    .updating($draggingOffset) { value, state, _ in
+                                                        state = value.translation
+                                                    }
+                                                    .onChanged { _ in
+                                                        draggingPlanId = plan.id
+                                                    }
+                                                    .onEnded { gesture in
+                                                        draggingPlanId = ""
+                                                        handlePlanDrag(offset: Float(gesture.translation.height))
+                                                    }
+                                            )
                                             .frame(maxWidth: UIScreen.screenWidth / 3,
                                                    minHeight: CGFloat(getHeight(for: plan)),
                                                    alignment: .topLeading)
@@ -165,8 +198,7 @@ struct PlansDayView: View {
                                                 RoundedRectangle(cornerRadius: 8)
                                                     .fill(Color.primary.opacity(0.25))
                                             )
-                                            .offset(x: CGFloat(planIdToOffset[plan.id]?.x ?? 0),
-                                                    y: CGFloat(planIdToOffset[plan.id]?.y ?? 0) + 7)
+                                            .offset(getOffset(for: plan.id))
                                         Spacer()
                                     }
                                 }
@@ -178,9 +210,7 @@ struct PlansDayView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         ForEach(0...24, id: \.self) { _ in
                             VStack(alignment: .leading, spacing: 0) {
-                                Rectangle()
-                                    .fill(Color.primary.opacity(0.1))
-                                    .frame(height: 2)
+                                Divider()
                                 Spacer()
                             }
                             .frame(height: CGFloat(hourHeight))
@@ -189,15 +219,7 @@ struct PlansDayView: View {
                     }
                 }
             }
-
+            .padding()
         }
     }
 }
-
-/*
- struct PlansDayView_Previews: PreviewProvider {
- static var previews: some View {
- PlansDayView()
- }
- }
- */

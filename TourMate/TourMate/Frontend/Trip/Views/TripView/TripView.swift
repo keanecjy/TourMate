@@ -30,30 +30,36 @@ struct TripView: View {
             } else if viewModel.isLoading || viewModel.isDeleted {
                 ProgressView()
             } else {
-                ScrollView {
-                    VStack {
-                        TripDurationView(durationDisplay: viewModel.durationDisplay)
-
-                        AttendeesView(attendees: viewModel.attendees)
-
+                VStack {
+                    ZStack(alignment: .bottomLeading) {
                         TripImage(imageUrl: viewModel.imageUrlDisplay)
-
-                        PlansView(plansViewModel: viewModelFactory.getPlansViewModel(tripViewModel: viewModel)) { plan in
-                            selectedPlan = plan
-                        }
-
-                        if let selectedPlan = selectedPlan {
-                            NavigationLink(isActive: .constant(true)) {
-                                viewFactory.getPlanView(plan: selectedPlan, tripViewModel: viewModel)
-                            } label: {
-                                EmptyView()
+                            .overlay(Color.primary.colorInvert().opacity(0.5))
+                        HStack(alignment: .center) {
+                            Text(viewModel.durationDisplay)
+                                .font(.headline)
+                            ScrollView(.horizontal) {
+                                AttendeesView(attendees: viewModel.attendees)
                             }
                         }
+                        .padding([.horizontal])
                     }
-                    .onAppear(perform: {
-                        selectedPlan = nil
-                    })
+
+                    PlansView(plansViewModel: viewModelFactory.getPlansViewModel(tripViewModel: viewModel)) { plan in
+                        selectedPlan = plan
+                    }
+
+                    if let selectedPlan = selectedPlan {
+                        NavigationLink(isActive: .constant(true)) {
+                            viewFactory.getPlanView(plan: selectedPlan, tripViewModel: viewModel)
+                        } label: {
+                            EmptyView()
+                        }
+                    }
                 }
+                .onAppear(perform: {
+                    selectedPlan = nil
+                })
+                .ignoresSafeArea()
             }
         }
         .navigationTitle(viewModel.nameDisplay)

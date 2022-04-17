@@ -7,13 +7,11 @@
 
 import SwiftUI
 
-struct PlansCalendarView: View {
-    @ObservedObject var viewModel: PlansViewModel
+struct PlansNewCalendarView: View {
 
     @State private var selectedDate = Date()
     @State private var showProposedPlans = false
-    @State private var isShowingTransportationOptionsSheet = false
-
+    @ObservedObject var viewModel: PlansViewModel
     let onSelected: ((Plan) -> Void)?
 
     init(viewModel: PlansViewModel, onSelected: ((Plan) -> Void)? = nil) {
@@ -50,41 +48,39 @@ struct PlansCalendarView: View {
 
     var body: some View {
         VStack {
-            HStack {
-                CalendarDatePicker(selectedDate: $selectedDate, days: viewModel.days)
-                    .background(
-                        Capsule()
-                            .strokeBorder(Color(.link), lineWidth: 1)
-                            .background(Capsule().fill(Color(.systemBackground)))
-                    )
-                HStack {
-                    Text("Show Proposed Plans")
-                        .font(.subheadline)
-                        .foregroundColor(Color(.link))
-                    Toggle("Show Proposed Plans", isOn: $showProposedPlans)
-                        .labelsHidden()
-                }
-
-                Spacer()
-            }
-            .padding()
-
-            Divider()
-
             PlansCalendarDayView(viewModel: viewModel,
                                  date: selectedDate,
                                  plans: getNonAllDayPlans(for: selectedDate, includingProposedPlans: showProposedPlans),
                                  onSelected: onSelected)
-
             Divider()
-
             PlansCalendarAllDayView(viewModel: viewModel,
                                     date: selectedDate,
                                     plans: getAllDayPlans(for: selectedDate, includingProposedPlans: showProposedPlans),
                                     onSelected: onSelected)
         }
         .onAppear {
-            selectedDate = viewModel.getInitialDate()
+            selectedDate = viewModel.days.first?.date ?? Date()
+        }
+        .navigationTitle("Calendar View")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Picker("Date", selection: $selectedDate) {
+                    ForEach(viewModel.days, id: \.date) { day in
+                        PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
+                    }
+                }
+                .pickerStyle(.menu)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Toggle(isOn: $showProposedPlans) {
+                    Text("Show Proposed Plans")
+                        .font(.subheadline)
+                        .foregroundColor(Color(.link))
+                        .padding([.leading])
+                }
+                .toggleStyle(.switch)
+            }
         }
     }
 }

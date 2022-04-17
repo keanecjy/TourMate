@@ -66,13 +66,7 @@ struct PlansMapView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Picker("Date", selection: $selectedDate) {
-                    ForEach(viewModel.days, id: \.date) { day in
-                        PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
-                    }
-                }
-                .pickerStyle(.menu)
-                .padding([.horizontal])
+                CalendarDatePicker(selectedDate: $selectedDate, days: viewModel.days)
                 .background(
                     Capsule()
                         .strokeBorder(Color(.link), lineWidth: 1)
