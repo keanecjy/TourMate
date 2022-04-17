@@ -142,6 +142,7 @@
 		4CFF78FD280BBB690072AEB6 /* EditTripButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF78FC280BBB690072AEB6 /* EditTripButton.swift */; };
 		4CFF78FF280BBC270072AEB6 /* InviteUserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF78FE280BBC270072AEB6 /* InviteUserButton.swift */; };
 		4CFF7901280BBC880072AEB6 /* AddPlanSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFF7900280BBC880072AEB6 /* AddPlanSelectionButton.swift */; };
+		953429C8280C5D440009AEC3 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953429C7280C5D440009AEC3 /* StringExtension.swift */; };
 		953570E727E5BFBF000DF0C2 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E627E5BFBF000DF0C2 /* TripsView.swift */; };
 		953570E927E5BFC7000DF0C2 /* TripCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570E827E5BFC7000DF0C2 /* TripCard.swift */; };
 		953570EB27E5BFD1000DF0C2 /* AddTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953570EA27E5BFD1000DF0C2 /* AddTripView.swift */; };
@@ -411,6 +412,7 @@
 		4CFF7900280BBC880072AEB6 /* AddPlanSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanSelectionButton.swift; sourceTree = "<group>"; };
 		720CE2DA18816A7C56653A32 /* Pods_TourMate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourMate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0AD6F3D818D6A89B4B41BF /* Pods-TourMate-TourMateUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourMate-TourMateUITests.release.xcconfig"; path = "Target Support Files/Pods-TourMate-TourMateUITests/Pods-TourMate-TourMateUITests.release.xcconfig"; sourceTree = "<group>"; };
+		953429C7280C5D440009AEC3 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		953570E627E5BFBF000DF0C2 /* TripsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
 		953570E827E5BFC7000DF0C2 /* TripCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripCard.swift; sourceTree = "<group>"; };
 		953570EA27E5BFD1000DF0C2 /* AddTripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTripView.swift; sourceTree = "<group>"; };
@@ -1468,6 +1470,7 @@
 				B98F35EA27F0511A000AFE53 /* TaskExtensions.swift */,
 				B9B46721280182A4003D07F5 /* ViewExtension.swift */,
 				959DC41528098716005CFCBC /* Coordinates.swift */,
+				953429C7280C5D440009AEC3 /* StringExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2201,6 +2204,7 @@
 				95FAE40D27E247F800F4AB01 /* TripService.swift in Sources */,
 				B98F35F527F416CB000AFE53 /* WebRepository.swift in Sources */,
 				95779BDB27E76B1A001FF602 /* AuthenticationService.swift in Sources */,
+				953429C8280C5D440009AEC3 /* StringExtension.swift in Sources */,
 				4CB32D722805631600681E5B /* AddPlanViewModel.swift in Sources */,
 				B99D967E27D9D82C009B66AE /* Plan.swift in Sources */,
 				B93B489027DA7D4F00478B7B /* FirebaseAdaptedTrip.swift in Sources */,
@@ -2369,6 +2373,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
+				DEVELOPMENT_TEAM = JH4N7Z4FH9;
 				DEVELOPMENT_TEAM = T83L3FZCTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2383,6 +2388,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rlrh;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2400,6 +2406,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
+				DEVELOPMENT_TEAM = JH4N7Z4FH9;
 				DEVELOPMENT_TEAM = T83L3FZCTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2414,6 +2421,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rlrh;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

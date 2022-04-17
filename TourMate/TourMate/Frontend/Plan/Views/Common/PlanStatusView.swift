@@ -23,7 +23,7 @@ struct PlanStatusView: View {
     }
 
     var body: some View {
-        Text(statusText)
+        Text(statusText.capitalizingFirstLetter())
             .font(.caption)
             .padding(5.0)
             .foregroundColor(.white)
