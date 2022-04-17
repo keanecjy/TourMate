@@ -117,7 +117,7 @@ struct PlansCalendarDayView: View {
                 let prevEndY = prevRect.origin.y + prevRect.size.height
                 let currentStartY = currentRect.origin.y
                 if currentStartY < prevEndY {
-                    var prevEndX = prevRect.origin.x + prevRect.size.width
+                    var prevEndX = prevRect.origin.x + prevRect.size.width + 6
                     if let offset = planIdToOffset[prevPlanId] {
                         prevEndX += offset.width
                     }
