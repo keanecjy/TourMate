@@ -42,6 +42,8 @@ struct PlanBoxView: View {
 
             Text(plan.name)
                 .font(.headline)
+                .prefixedWithIcon(named: IconUtil.getIconString(plan))
+                .font(.title)
 
             HStack(spacing: 10.0) {
 

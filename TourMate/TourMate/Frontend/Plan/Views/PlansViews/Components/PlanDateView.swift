@@ -26,6 +26,7 @@ struct PlanDateView: View {
     var body: some View {
         Text(dateString)
             .font(.subheadline)
+            .bold()
     }
 }
 
