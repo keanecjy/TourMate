@@ -12,8 +12,6 @@ struct AddPlanSelectionButton: View {
 
     @ObservedObject var viewModel: TripViewModel
 
-    private let viewModelFactory = ViewModelFactory()
-
     var body: some View {
         Button {
             isShowingAddPlanSheet.toggle()
