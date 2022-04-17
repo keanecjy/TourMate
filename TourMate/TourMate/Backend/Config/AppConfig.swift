@@ -42,6 +42,10 @@ private struct RoutingServiceKey: InjectionKey {
     static var currentValue: RoutingService = MockRoutingService()
 }
 
+private struct PlaceServiceKey: InjectionKey {
+    static var currentValue: PlaceService = MockPlaceService()
+}
+
 extension InjectedValues {
     var authenticationService: AuthenticationService {
         get { Self[AuthenticationServiceKey.self] }
@@ -86,5 +90,10 @@ extension InjectedValues {
     var routingService: RoutingService {
         get { Self[RoutingServiceKey.self] }
         set { Self[RoutingServiceKey.self] = newValue }
+    }
+
+    var placeService: PlaceService {
+        get { Self[PlaceServiceKey.self] }
+        set { Self[PlaceServiceKey.self] = newValue }
     }
 }
