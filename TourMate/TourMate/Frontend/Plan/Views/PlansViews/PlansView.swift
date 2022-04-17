@@ -22,8 +22,8 @@ struct PlansView: View {
     }
 
     var suggestionsView: some View {
-        VStack(alignment: .leading) {
-            Text("TOURMATE ASSISTANT").font(.subheadline)
+        HStack(alignment: .center) {
+            Image(systemName: "wand.and.stars")
             ScrollView([.horizontal]) {
                 HStack {
                     SuggestionButton(
