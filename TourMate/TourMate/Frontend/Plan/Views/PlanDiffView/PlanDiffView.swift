@@ -33,21 +33,28 @@ struct PlanDiffView<T: Plan>: View {
     }
 
     var body: some View {
-        ScrollView {
-            HStack(spacing: 5.0) {
-                SimplePlanView(planViewModel: leftViewModel,
-                               initialVersion: $leftVersion,
-                               commentsViewModel: commentsViewModel.copy(),
-                               planUpvoteViewModel: planUpvoteViewModel.copy())
+        VStack {
+            Text("Summary of changes")
+                .bold()
 
-                Divider()
-
-                SimplePlanView(planViewModel: rightViewModel,
-                               initialVersion: $rightVersion,
-                               commentsViewModel: commentsViewModel.copy(),
-                               planUpvoteViewModel: planUpvoteViewModel.copy())
-            }
             PlanDiffTextView(planDiffMap: leftViewModel.diffPlan(with: rightViewModel), spacing: 5.0)
+                .padding()
+
+            ScrollView {
+                HStack(spacing: 5.0) {
+                    SimplePlanView(planViewModel: leftViewModel,
+                                   initialVersion: $leftVersion,
+                                   commentsViewModel: commentsViewModel.copy(),
+                                   planUpvoteViewModel: planUpvoteViewModel.copy())
+
+                    Divider()
+
+                    SimplePlanView(planViewModel: rightViewModel,
+                                   initialVersion: $rightVersion,
+                                   commentsViewModel: commentsViewModel.copy(),
+                                   planUpvoteViewModel: planUpvoteViewModel.copy())
+                }
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
     }
