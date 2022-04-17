@@ -15,7 +15,7 @@ struct DateTimeSmartEngine {
         guard !dateTimeRangeOwners.isEmpty else {
             return []
         }
-        
+
         let sortedDateTimeRangeOwners = dateTimeRangeOwners.sorted(by: { $0.startDateTime < $1.startDateTime })
 
         var overlappingRanges: [(DateTimeRangeOwner, DateTimeRangeOwner)] = []

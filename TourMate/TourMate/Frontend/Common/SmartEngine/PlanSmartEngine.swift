@@ -28,7 +28,7 @@ struct PlanSmartEngine {
     }
 
     func suggestNewTiming(plans: [Plan], forDate date: Date) -> [Plan] {
-        guard !dateTimeRangeOwners.isEmpty else {
+        guard !plans.isEmpty else {
             return []
         }
 
