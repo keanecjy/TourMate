@@ -32,10 +32,7 @@ struct TripView: View {
             } else {
                 ScrollView {
                     VStack {
-                        Text(viewModel.durationDisplay)
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.horizontal])
+                        TripDurationView(durationDisplay: viewModel.durationDisplay)
 
                         AttendeesView(attendees: viewModel.attendees)
 
