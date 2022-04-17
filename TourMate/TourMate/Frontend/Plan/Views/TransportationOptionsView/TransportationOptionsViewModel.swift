@@ -64,7 +64,8 @@ class TransportationOptionsViewModel: ObservableObject {
                 return
             }
 
-            let (suggestions, errorMessage) = await routingService.fetchTransportationOptions(from: fromLocation, to: toLocation)
+            let (suggestions, errorMessage) =
+            await routingService.fetchTransportationOptions(from: fromLocation, to: toLocation)
 
             guard errorMessage.isEmpty else {
                 self.hasError = true
@@ -89,7 +90,7 @@ class TransportationOptionsViewModel: ObservableObject {
         }
     }
 
-    @ViewBuilder func makeTransportationOptionsCellView(_ result: RoutingResult) -> some View {
+    func makeTransportationOptionsCellView(_ result: RoutingResult) -> some View {
         let formatter = MeasurementFormatter()
         formatter.unitOptions = .naturalScale
         formatter.unitStyle = .medium
@@ -103,16 +104,5 @@ class TransportationOptionsViewModel: ObservableObject {
         }
         .prefixedWithIcon(named: getSymbolString(result.mode))
         .font(.title)
-    }
-
-    func addFromLocation() {
-        let mockLocationService = MockLocationService()
-        self.fromLocation = mockLocationService.locations[0] // NUS
-
-    }
-
-    func addToLocation() {
-        let mockLocationService = MockLocationService()
-        self.toLocation = mockLocationService.locations[1] // NTU
     }
 }

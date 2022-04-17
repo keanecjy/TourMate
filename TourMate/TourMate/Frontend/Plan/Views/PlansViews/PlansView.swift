@@ -24,7 +24,10 @@ struct PlansView: View {
     }
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
+
+            plansViewModel.makeSuggestionsView()
+
             Picker("View Mode", selection: $selectedViewMode) {
                 Label("Itinerary", systemImage: "list.bullet.rectangle").tag(PlansViewMode.list)
                 Label("Calendar", systemImage: "calendar.day.timeline.left").tag(PlansViewMode.calendar)

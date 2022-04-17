@@ -38,23 +38,6 @@ struct PlansCalendarView: View {
                 .background(
                     Capsule().fill(Color.primary.opacity(0.25))
                 )
-
-                Button {
-                    isShowingTransportationOptionsSheet.toggle()
-                } label: {
-                    Text("Search for Transportation")
-
-                }
-                .font(.system(size: 15))
-                .padding(6)
-                .background(
-                    Capsule().fill(Color.primary.opacity(0.25))
-                )
-                .sheet(isPresented: $isShowingTransportationOptionsSheet) {
-                    let viewModel = viewModelFactory.getTransportationOptionsViewModel(plans: viewModel.plans)
-                    TransportationOptionsView(viewModel: viewModel)
-                }
-
                 Spacer()
             }
             .padding()
