@@ -22,9 +22,18 @@ struct PlansListView: View {
 
     var body: some View {
         VStack {
-            ForEach(viewModel.days, id: \.date) { day in
+            ForEach(viewModel.daysWithOverlapSummary, id: \.0.date) { day, summary in
                 VStack(alignment: .leading) {
                     PlanDateView(date: day.date, timeZone: Calendar.current.timeZone)
+
+                    if !summary.isEmpty {
+                        PlanWarningView {
+                            ExpandableTextView(content: summary, font: .subheadline)
+                        } buttonLabel: {
+                            Text("Some plans are overlapping! Tap to see more")
+                                .font(.subheadline)
+                        }
+                    }
 
                     ForEach(day.plans, id: \.id) { plan in
                         PlanCardView(plansViewModel: viewModel, plan: plan, date: day.date)

@@ -39,6 +39,8 @@
 		001D223F27FEF5A400F42DB4 /* FirebasePlanUpvoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D223E27FEF5A400F42DB4 /* FirebasePlanUpvoteService.swift */; };
 		001D224127FEF7D800F42DB4 /* MockPlanUpvoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D224027FEF7D800F42DB4 /* MockPlanUpvoteService.swift */; };
 		001D224327FEF8CC00F42DB4 /* PlanUpvoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D224227FEF8CC00F42DB4 /* PlanUpvoteViewModel.swift */; };
+		0028AD9E280BD60B00F86965 /* PlanSmartEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028AD9D280BD60B00F86965 /* PlanSmartEngine.swift */; };
+		0028ADA8280BF36E00F86965 /* PlanWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028ADA7280BF36E00F86965 /* PlanWarningView.swift */; };
 		004981AB27E2FF3C007BDB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004981AA27E2FF3C007BDB2E /* SettingsView.swift */; };
 		004ACDB627F83DC60015CDD8 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004ACDB527F83DC60015CDD8 /* ViewModelFactory.swift */; };
 		004ACDB827F89F370015CDD8 /* AdditionalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004ACDB727F89F370015CDD8 /* AdditionalInfoView.swift */; };
@@ -94,6 +96,8 @@
 		4C5DD160280A5CCB00636E22 /* VersionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */; };
 		4C5DD162280A5EFC00636E22 /* SimplePlanHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */; };
 		4C8639A327DF37DA000566FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8639A227DF37DA000566FB /* Constants.swift */; };
+		4CA18D5A280C079D0094944F /* DateTimeRangeOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA18D59280C079D0094944F /* DateTimeRangeOwner.swift */; };
+		4CA18D5C280C07A10094944F /* DateTimeSmartEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA18D5B280C07A10094944F /* DateTimeSmartEngine.swift */; };
 		4CB32D7028055F8100681E5B /* EditPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D6F28055F8100681E5B /* EditPlanViewModel.swift */; };
 		4CB32D722805631600681E5B /* AddPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D712805631600681E5B /* AddPlanViewModel.swift */; };
 		4CB32D742805690200681E5B /* AddPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D732805690200681E5B /* AddPlanView.swift */; };
@@ -289,6 +293,8 @@
 		001D223E27FEF5A400F42DB4 /* FirebasePlanUpvoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePlanUpvoteService.swift; sourceTree = "<group>"; };
 		001D224027FEF7D800F42DB4 /* MockPlanUpvoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlanUpvoteService.swift; sourceTree = "<group>"; };
 		001D224227FEF8CC00F42DB4 /* PlanUpvoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanUpvoteViewModel.swift; sourceTree = "<group>"; };
+		0028AD9D280BD60B00F86965 /* PlanSmartEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanSmartEngine.swift; sourceTree = "<group>"; };
+		0028ADA7280BF36E00F86965 /* PlanWarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanWarningView.swift; sourceTree = "<group>"; };
 		004981AA27E2FF3C007BDB2E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		004981AC27E3237A007BDB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		004ACDB527F83DC60015CDD8 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
@@ -345,6 +351,8 @@
 		4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionPickerView.swift; sourceTree = "<group>"; };
 		4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePlanHeader.swift; sourceTree = "<group>"; };
 		4C8639A227DF37DA000566FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4CA18D59280C079D0094944F /* DateTimeRangeOwner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeRangeOwner.swift; sourceTree = "<group>"; };
+		4CA18D5B280C07A10094944F /* DateTimeSmartEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeSmartEngine.swift; sourceTree = "<group>"; };
 		4CB32D6F28055F8100681E5B /* EditPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewModel.swift; sourceTree = "<group>"; };
 		4CB32D712805631600681E5B /* AddPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewModel.swift; sourceTree = "<group>"; };
 		4CB32D732805690200681E5B /* AddPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanView.swift; sourceTree = "<group>"; };
@@ -636,6 +644,16 @@
 			path = PlanUpvote;
 			sourceTree = "<group>";
 		};
+		0028AD9C280BD60000F86965 /* SmartEngine */ = {
+			isa = PBXGroup;
+			children = (
+				4CA18D5B280C07A10094944F /* DateTimeSmartEngine.swift */,
+				4CA18D59280C079D0094944F /* DateTimeRangeOwner.swift */,
+				0028AD9D280BD60B00F86965 /* PlanSmartEngine.swift */,
+			);
+			path = SmartEngine;
+			sourceTree = "<group>";
+		};
 		004C7C582802740D00B432C7 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -891,6 +909,7 @@
 				95FE172B27F2BBC900407B51 /* PlanBoxView.swift */,
 				4C3672AF280BC525003B0AD4 /* TransportationOptionsButton.swift */,
 				4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */,
+				0028ADA7280BF36E00F86965 /* PlanWarningView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1538,6 +1557,7 @@
 				00711D692809CBA400F629C6 /* ViewFactory */,
 				00148CB1280903A50091C28B /* ExpandableTextView.swift */,
 				B97891A0280BF79700AC4632 /* IconUtil.swift */,
+				0028AD9C280BD60000F86965 /* SmartEngine */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1899,6 +1919,7 @@
 				00062B4027EEC9A600267960 /* UpvoteButton.swift in Sources */,
 				959DC4182809BC3C005CFCBC /* PlansMapDayView.swift in Sources */,
 				95EB6A8C27E45B53008C1103 /* AddTripViewModel.swift in Sources */,
+				0028ADA8280BF36E00F86965 /* PlanWarningView.swift in Sources */,
 				4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */,
 				B98F35E927F02015000AFE53 /* Location.swift in Sources */,
 				4CD10A7827FF3A310060C5AC /* DateUtil.swift in Sources */,
@@ -1992,6 +2013,7 @@
 				95CB3F7427D8E79C0086E9E3 /* PlanDateView.swift in Sources */,
 				B99D964927D73503009B66AE /* TourMateApp.swift in Sources */,
 				95779BD927E769FD001FF602 /* UserService.swift in Sources */,
+				0028AD9E280BD60B00F86965 /* PlanSmartEngine.swift in Sources */,
 				0092523E27DA574800F4F029 /* FirebaseAuthenticationService.swift in Sources */,
 				4C3672B0280BC525003B0AD4 /* TransportationOptionsButton.swift in Sources */,
 				00148CB2280903A50091C28B /* ExpandableTextView.swift in Sources */,
@@ -2089,6 +2111,7 @@
 				B9B467242801D8FF003D07F5 /* AddAccommodationView.swift in Sources */,
 				00E2B19527E4C95400B5F449 /* LogInView.swift in Sources */,
 				4CB954EE27DE3FE1001410AD /* FirebaseAdaptedData.swift in Sources */,
+				4CA18D5C280C07A10094944F /* DateTimeSmartEngine.swift in Sources */,
 				B9B467072800249E003D07F5 /* Activity.swift in Sources */,
 				000AB55A27EE242500FF0ED3 /* PlanStatusView.swift in Sources */,
 				0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */,
@@ -2109,6 +2132,7 @@
 				B93B489427DA87A300478B7B /* FirebaseAdaptedPlan.swift in Sources */,
 				B9B4673E2801F8F9003D07F5 /* EditTransportViewModel.swift in Sources */,
 				B9789198280B10C900AC4632 /* TravelMode.swift in Sources */,
+				4CA18D5A280C079D0094944F /* DateTimeRangeOwner.swift in Sources */,
 				00062B6027F00F7700267960 /* CommentView.swift in Sources */,
 				95FAE40D27E247F800F4AB01 /* TripService.swift in Sources */,
 				B98F35F527F416CB000AFE53 /* WebRepository.swift in Sources */,
@@ -2281,7 +2305,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
-				DEVELOPMENT_TEAM = T83L3FZCTV;
+				DEVELOPMENT_TEAM = 9T2CK64XKZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TourMate/Misc/Info.plist;
@@ -2295,7 +2319,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rui;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.terence;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -2312,7 +2336,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TourMate/Preview Content\"";
-				DEVELOPMENT_TEAM = JH4N7Z4FH9;
+				DEVELOPMENT_TEAM = 9T2CK64XKZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TourMate/Misc/Info.plist;
@@ -2326,7 +2350,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.rlrh;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TourMate.terence;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

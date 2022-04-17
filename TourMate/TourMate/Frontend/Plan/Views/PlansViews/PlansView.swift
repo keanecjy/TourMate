@@ -24,7 +24,7 @@ struct PlansView: View {
     }
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 Picker("View Mode", selection: $selectedViewMode) {
                     Label("Itinerary", systemImage: "list.bullet.rectangle").tag(PlansViewMode.list)

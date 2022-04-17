@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Trip: CustomStringConvertible {
+struct Trip: CustomStringConvertible, DateTimeRangeOwner {
     let id: String
     var name: String
     var startDateTime: DateTime
