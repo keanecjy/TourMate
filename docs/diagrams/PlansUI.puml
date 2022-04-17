@@ -1,0 +1,35 @@
+@startuml
+
+hide empty members
+
+PlanView --> PlanDiffView
+PlanView *--> EditPlanViewButton
+
+PlanDiffView *--> SimplePlanView
+
+SimplePlanView *--> VersionPickerView
+SimplePlanView *--> RestoreButtonView
+SimplePlanView *--> SimplePlanModifierView
+SimplePlanView *--> SimplePlanDisplayView
+SimplePlanDisplayView *--> SimplePlanHeader
+SimplePlanDisplayView *--> PlanUpvoteView
+SimplePlanDisplayView *--> TimingView
+SimplePlanDisplayView *--> InfoView
+SimplePlanDisplayView *--> CommentsView
+CommentsView *--> CommentListView
+CommentsView *--> AddCommentView
+
+PlanView *--> PlanDisplayView
+PlanDisplayView *--> PlanHeaderView
+PlanDisplayView *--> PlanUpvoteView
+PlanDisplayView *--> TimingView
+PlanDisplayView *--> InfoView
+PlanDisplayView *--> PlanLogView
+PlanLogView *--> PlanLogListView
+PlanLogView *--> AddCommentView
+PlanLogListView *--> VersionPickerView
+PlanLogListView *--> CommentListView
+
+CommentsView *--> CommentView
+
+@enduml
