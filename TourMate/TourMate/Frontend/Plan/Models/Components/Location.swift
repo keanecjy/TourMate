@@ -21,6 +21,16 @@ struct Location: Equatable {
     }
 }
 
+extension Location: CustomStringConvertible {
+    var description: String {
+        """
+        \(country)
+        \(addressLineOne)
+        \(addressLineTwo)
+        """
+    }
+}
+
 extension Location: Identifiable {
     public var id: String {
         "\(latitude)-\(longitude)"

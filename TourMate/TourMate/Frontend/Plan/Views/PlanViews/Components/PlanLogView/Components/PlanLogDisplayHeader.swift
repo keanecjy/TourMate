@@ -10,13 +10,18 @@ import SwiftUI
 struct PlanLogDisplayHeader: View {
 
     let header: String
+    let planDiffMap: PlanDiffMap
 
     var body: some View {
         HStack {
             Spacer()
 
-            Text(header)
-                .bold()
+            VStack(spacing: 5.0) {
+                Text(header)
+                    .bold()
+
+                PlanDiffTextView(planDiffMap: planDiffMap)
+            }
 
             Spacer()
         }

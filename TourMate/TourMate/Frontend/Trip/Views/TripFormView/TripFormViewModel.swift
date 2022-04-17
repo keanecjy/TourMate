@@ -52,6 +52,7 @@ class TripFormViewModel: ObservableObject {
         self.tripImageURL = trip.imageUrl
         self.fromStartDate = trip.startDateTime.date...
 
+        validate()
     }
 
     private func validate() {

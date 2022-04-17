@@ -13,18 +13,14 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
     @Published var planOwner: User
     @Published var planLastModifier: User
 
-    var allVersionedPlans: [T]
+    var allVersionedPlansSortedDesc: [T]
     @Published var planModifierMap: [Int: User] // version to user map
-
-    var allVersionedPlansSortedDesc: [T] {
-        allVersionedPlans.sorted(by: { $0.versionNumber > $1.versionNumber })
-    }
 
     let defaultVersionNumberChoice = 0
 
     var versionNumberChoices: [Int] {
         var choices = [0]
-        choices.append(contentsOf: allVersionNumbers)
+        choices.append(contentsOf: allVersionNumbersSortedDesc)
         return choices
     }
 
@@ -42,7 +38,7 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
 
     init(plan: T) {
         self.plan = plan
-        self.allVersionedPlans = [plan]
+        self.allVersionedPlansSortedDesc = [plan]
         self.planOwner = User.defaultUser()
         self.planLastModifier = User.defaultUser()
         self.planModifierMap = [:]
@@ -51,7 +47,7 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
     init(plan: T, allVersionedPlans: [T],
          planOwner: User, planLastModifier: User) {
         self.plan = plan
-        self.allVersionedPlans = allVersionedPlans
+        self.allVersionedPlansSortedDesc = allVersionedPlans
         self.planOwner = planOwner
         self.planLastModifier = planLastModifier
         self.planModifierMap = [:]
@@ -73,12 +69,12 @@ class PlanDisplayViewModel<T: Plan>: ObservableObject {
         plan.versionNumber
     }
 
-    var allVersionNumbers: [Int] {
-        allVersionedPlans.map({ $0.versionNumber }).sorted(by: >)
+    var allVersionNumbersSortedDesc: [Int] {
+        allVersionedPlansSortedDesc.map({ $0.versionNumber })
     }
 
     var latestVersionNumber: Int {
-        allVersionNumbers.max() ?? versionNumber // Assume current version is latest
+        allVersionNumbersSortedDesc.first ?? versionNumber // Assume current version is latest
     }
 
     var isLatest: Bool {

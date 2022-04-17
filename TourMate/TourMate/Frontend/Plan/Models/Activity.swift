@@ -53,6 +53,19 @@ class Activity: Plan {
         return location == otherActivity.location
     }
 
+    override func diff<T>(other: T) -> PlanDiffMap where T: Plan {
+        var diffMap = super.diff(other: other)
+
+        guard let otherActivity = other as? Activity else {
+            return diffMap
+        }
+
+        addDifference(diffMap: &diffMap, name: "Location", item1: location,
+                      item2: otherActivity.location)
+
+        return diffMap
+    }
+
     override var description: String {
         "(Activity: \(super.description))"
     }
