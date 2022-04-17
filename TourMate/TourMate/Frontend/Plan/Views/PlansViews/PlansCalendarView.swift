@@ -23,10 +23,7 @@ struct PlansCalendarView: View {
         LazyVStack {
             HStack {
                 CalendarDatePicker(selectedDate: $selectedDate, days: viewModel.days)
-
                 Spacer()
-
-                TransportationOptionsButton(viewModel: viewModel)
             }
             .padding()
 
