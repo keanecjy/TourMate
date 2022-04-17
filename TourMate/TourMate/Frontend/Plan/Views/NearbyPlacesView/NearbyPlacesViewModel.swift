@@ -35,16 +35,17 @@ class NearbyPlacesViewModel: ObservableObject {
 
         self.isLoading = true
 
-        // Use the first location only to reduce api calls
-        let (suggestions, errorMessage) = await placeService.fetchTourismPlaces(near: locations[0])
+        for location in locations {
+            let (suggestions, errorMessage) = await placeService.fetchTourismPlaces(near: location)
 
-        guard errorMessage.isEmpty else {
-            self.hasError = true
-            self.isLoading = false
-            return
+            guard errorMessage.isEmpty else {
+                self.hasError = true
+                self.isLoading = false
+                return
+            }
+
+            self.suggestions.append(contentsOf: suggestions)
         }
-
-        self.suggestions = suggestions
     }
 
     private func getLocations() -> [Location] {

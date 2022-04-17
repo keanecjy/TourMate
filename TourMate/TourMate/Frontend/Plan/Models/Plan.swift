@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Plan: CustomStringConvertible, DateTimeRangeOwner  {
+class Plan: CustomStringConvertible, DateTimeRangeOwner {
     var id: String
     var tripId: String
     var name: String
