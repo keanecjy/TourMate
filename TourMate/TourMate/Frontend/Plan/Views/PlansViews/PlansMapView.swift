@@ -30,6 +30,21 @@ struct PlansMapView: View {
 
     func getIdentifiablePlans(for date: Date, includingProposedPlans: Bool = false) -> [IdentifiablePlan] {
         var plans = viewModel.days.first { $0.date == date }?.plans ?? []
+
+        plans = plans.filter { plan in
+            if plan.locations.isEmpty {
+                return false
+            }
+
+            for loc in plan.locations {
+                if !loc.isPresent() {
+                    return false
+                }
+            }
+
+            return true
+        }
+
         if !includingProposedPlans {
             plans = plans.filter { $0.status == .confirmed }
         }
