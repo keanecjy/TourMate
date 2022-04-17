@@ -35,7 +35,6 @@ struct PlansListView: View {
                                 Text("Some plans are overlapping! Tap to see more")
                                     .font(.subheadline)
                             }
-                            .padding([.horizontal])
                         }
 
                         ForEach(day.plans, id: \.id) { plan in
