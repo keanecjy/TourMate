@@ -47,6 +47,21 @@ class Accommodation: Plan {
                    versionNumber: versionNumber)
     }
 
+    override func copy() -> Plan {
+        Accommodation(id: id,
+                 tripId: tripId,
+                 name: name,
+                 startDateTime: startDateTime,
+                 endDateTime: endDateTime,
+                 status: status,
+                 creationDate: creationDate,
+                 modificationDate: modificationDate,
+                 ownerUserId: ownerUserId,
+                 modifierUserId: modifierUserId,
+                 versionNumber: versionNumber,
+                 location: location)
+    }
+
     override func equals<T>(other: T) -> Bool where T: Plan {
         guard super.equals(other: other),
               let otherAccommodation = other as? Accommodation

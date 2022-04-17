@@ -57,7 +57,6 @@ struct PlansCalendarView: View {
                             .strokeBorder(Color(.link), lineWidth: 1)
                             .background(Capsule().fill(Color(.systemBackground)))
                     )
-
                 HStack {
                     Text("Show Proposed Plans")
                         .font(.subheadline)
@@ -67,8 +66,6 @@ struct PlansCalendarView: View {
                 }
 
                 Spacer()
-
-                TransportationOptionsButton(viewModel: viewModel)
             }
             .padding()
 

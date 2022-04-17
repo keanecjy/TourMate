@@ -5,7 +5,7 @@
 //  Created by Tan Rui Quan on 17/3/22.
 //
 
-import Foundation
+import SwiftUI
 
 @MainActor
 class PlansViewModel: ObservableObject {
@@ -13,29 +13,20 @@ class PlansViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool
     @Published private(set) var hasError: Bool
 
+    private let planSmartEngine: PlanSmartEngine
+
     // Information needed by Plans
     let tripId: String
     let tripStartDateTime: DateTime
     let tripEndDateTime: DateTime
 
     private var planService: PlanService
+
     private(set) var planEventDelegates: [String: PlanEventDelegate]
 
-    var sortedPlans: [Plan] {
-        plans.sorted { plan1, plan2 in
-            plan1.startDateTime.date < plan2.startDateTime.date
-        }
-    }
-
     // sort and display Plans by Date
-    typealias Day = (date: Date, plans: [Plan])
     var days: [Day] {
-        let sortedPlans = plans.sorted { plan1, plan2 in
-            if plan1.startDateTime.date == plan2.startDateTime.date {
-                return plan1.endDateTime.date < plan2.endDateTime.date
-            }
-            return plan1.startDateTime.date < plan2.startDateTime.date
-        }
+        let sortedPlans = plans.sorted(by: <)
 
         let plansByDay: [Date: [Plan]] = sortedPlans.reduce(into: [:]) { acc, cur in
             let components = Calendar
@@ -59,6 +50,47 @@ class PlansViewModel: ObservableObject {
             .sorted(by: { $0.date < $1.date })
     }
 
+    var daysWithOverlapSummary: [(Day, String)] {
+        var summarisedDays: [(Day, String)] = []
+
+        for day in days {
+            let date = day.date
+            let plans = day.plans
+
+            let overlappingPlans = planSmartEngine.computeOverlap(plans: plans)
+
+            var summary = ""
+
+            if !overlappingPlans.isEmpty {
+                let overlapSummary = generateOverlapSummary(overlappingPlans: overlappingPlans, forDate: date)
+                summary += overlapSummary
+
+                var mappedPlans: [Plan] = []
+                for (plan1, plan2) in overlappingPlans {
+                    if !mappedPlans.contains(where: { $0.equals(other: plan1) }) {
+                        mappedPlans.append(plan1)
+                    }
+
+                    if !mappedPlans.contains(where: { $0.equals(other: plan2) }) {
+                        mappedPlans.append(plan2)
+                    }
+                }
+
+                let suggestedTimings = planSmartEngine.suggestNewTiming(plans: mappedPlans, forDate: date)
+                if !suggestedTimings.isEmpty {
+                    var suggestedTimingSummary = "\n\n"
+                    suggestedTimingSummary += generateSuggestedTimingSummary(suggestedTimings: suggestedTimings,
+                                                                             forDate: date)
+                    summary += suggestedTimingSummary
+                }
+            }
+
+            summarisedDays.append((day, summary))
+        }
+
+        return summarisedDays
+    }
+
     init(tripId: String,
          tripStartDateTime: DateTime,
          tripEndDateTime: DateTime,
@@ -75,6 +107,7 @@ class PlansViewModel: ObservableObject {
         self.planService = planService
 
         self.planEventDelegates = [:]
+        self.planSmartEngine = PlanSmartEngine()
     }
 
     func getPlans(for date: Date) -> [Plan] {
@@ -135,7 +168,7 @@ extension PlansViewModel {
         var latestPlanMap: [String: Plan] = [:]
 
         for plan in plans {
-            // First occurence of plan
+            // First occurrence of plan
             guard let latestPlan = latestPlanMap[plan.id] else {
                 latestPlanMap[plan.id] = plan
                 continue
@@ -154,5 +187,29 @@ extension PlansViewModel {
         }
 
         self.isLoading = false
+    }
+
+    private func generateOverlapSummary(overlappingPlans: [(Plan, Plan)], forDate date: Date) -> String {
+        overlappingPlans.map { plan1, plan2 in
+
+            let plan1Duration = DateUtil.shortDurationDesc(from: plan1.startDateTime, to: plan1.endDateTime, on: date)
+            let plan2Duration = DateUtil.shortDurationDesc(from: plan2.startDateTime, to: plan2.endDateTime, on: date)
+
+            return "Plan \(plan1.name) (\(plan1Duration)) <-> Plan \(plan2.name) (\(plan2Duration))"
+        }
+        .joined(separator: "\n")
+    }
+
+    private func generateSuggestedTimingSummary(suggestedTimings: [Plan], forDate date: Date) -> String {
+
+        var summary = "Here are some suggested changes:\n"
+
+        summary += suggestedTimings.map { plan in
+            let duration = DateUtil.shortDurationDesc(from: plan.startDateTime, to: plan.endDateTime, on: date)
+            return "Plan \(plan.name) may be shifted to \(duration)"
+        }
+        .joined(separator: "\n")
+
+        return summary
     }
 }

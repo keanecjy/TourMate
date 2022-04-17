@@ -7,9 +7,7 @@
 
 import Foundation
 
-typealias PlanDiffMap = [String: (String, String)]
-
-class Plan: CustomStringConvertible {
+class Plan: CustomStringConvertible, DateTimeRangeOwner {
     var id: String
     var tripId: String
     var name: String
@@ -91,6 +89,22 @@ class Plan: CustomStringConvertible {
         self.versionNumber = versionNumber
     }
 
+    func copy() -> Plan {
+        Plan(id: id,
+             tripId: tripId,
+             name: name,
+             startDateTime: startDateTime,
+             endDateTime: endDateTime,
+             imageUrl: imageUrl,
+             status: status,
+             creationDate: creationDate,
+             modificationDate: modificationDate,
+             additionalInfo: additionalInfo,
+             ownerUserId: ownerUserId,
+             modifierUserId: modifierUserId,
+             versionNumber: versionNumber)
+    }
+
     func equals<T: Plan>(other: T) -> Bool {
         id == other.id
         && tripId == other.tripId
@@ -130,5 +144,27 @@ class Plan: CustomStringConvertible {
 
     var description: String {
         "(id: \(id), name: \(name), version: \(versionNumber))"
+    }
+}
+
+extension Plan: Equatable {
+    // Currently using equals method instead
+    static func == (lhs: Plan, rhs: Plan) -> Bool {
+        lhs.id == rhs.id
+        && lhs.versionNumber == rhs.versionNumber
+    }
+}
+
+extension Plan: Comparable {
+    static func < (lhs: Plan, rhs: Plan) -> Bool {
+        guard lhs.startDateTime.date == rhs.startDateTime.date else {
+            return lhs.startDateTime.date < rhs.startDateTime.date
+        }
+
+        guard lhs.endDateTime.date == rhs.endDateTime.date else {
+            return lhs.endDateTime.date < rhs.endDateTime.date
+        }
+
+        return lhs.creationDate < rhs.creationDate
     }
 }
