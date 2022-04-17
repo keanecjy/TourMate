@@ -29,7 +29,7 @@ struct PlansMapView: View {
     }
 
     func getIdentifiablePlans(for date: Date, includingProposedPlans: Bool = false) -> [IdentifiablePlan] {
-        var plans = viewModel.days.first { $0.date == date }?.plans ?? []
+        var plans = viewModel.getPlans(for: date)
 
         plans = plans.filter { plan in
             if plan.locations.isEmpty {
