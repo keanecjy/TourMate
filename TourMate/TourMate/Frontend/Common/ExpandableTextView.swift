@@ -12,10 +12,12 @@ struct ExpandableTextView: View {
     @State private var isExpanded = false
     let content: String
     let allowedLineLimit: Int
+    let font: Font
 
-    init(content: String, allowedLineLimit: Int = 3) {
+    init(content: String, allowedLineLimit: Int = 3, font: Font = .body) {
         self.content = content
         self.allowedLineLimit = allowedLineLimit
+        self.font = font
     }
 
     var lineLimit: Int? {
@@ -35,6 +37,7 @@ struct ExpandableTextView: View {
     var body: some View {
         HStack(alignment: .bottom, spacing: 5.0) {
             Text(content)
+                .font(font)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(lineLimit)
@@ -44,7 +47,7 @@ struct ExpandableTextView: View {
             } label: {
                 Text(isExpanded ? "Less" : "More")
                     .font(.caption).bold()
-                    .padding()
+                    .padding([.horizontal])
                     .background(Color.primary.colorInvert())
             }
         }
