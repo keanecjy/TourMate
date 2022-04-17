@@ -35,6 +35,7 @@ class NearbyPlacesViewModel: ObservableObject {
 
         self.isLoading = true
 
+        var result = [NearbyPlace]()
         for location in locations {
             let (suggestions, errorMessage) = await placeService.fetchTourismPlaces(near: location)
 
@@ -43,9 +44,9 @@ class NearbyPlacesViewModel: ObservableObject {
                 self.isLoading = false
                 return
             }
-
-            self.suggestions.append(contentsOf: suggestions)
+            result.append(contentsOf: suggestions)
         }
+        self.suggestions = Array(Set(result))
     }
 
     private func getLocations() -> [Location] {

@@ -14,7 +14,17 @@ struct NearbyPlace {
 }
 
 extension NearbyPlace: Identifiable {
-    var id: UUID {
-        UUID()
+    var id: String {
+        location.id
+    }
+}
+
+extension NearbyPlace: Hashable {
+    static func == (lhs: NearbyPlace, rhs: NearbyPlace) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
