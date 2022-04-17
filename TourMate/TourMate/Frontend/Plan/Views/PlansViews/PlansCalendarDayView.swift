@@ -142,9 +142,21 @@ struct PlansCalendarDayView: View {
         return totalOffset
     }
 
-    func handlePlanDrag(offset: Float) {
-        let mins = offset / hourHeight
-        print(mins)
+    func handlePlanDragEnded(plan: Plan, offset: Float) {
+        let hoursOffset = offset / hourHeight
+        let minutesOffset = Int(60 * hoursOffset)
+        let originalStartDateTime = plan.startDateTime.date
+        let originalEndDateTime = plan.endDateTime.date
+        let newStartDateTime = Calendar.current.date(byAdding: .minute,
+                                                     value: minutesOffset,
+                                                     to: originalStartDateTime)!
+        let newEndDateTime = Calendar.current.date(byAdding: .minute,
+                                                   value: minutesOffset,
+                                                   to: originalEndDateTime)!
+        print(originalStartDateTime.description)
+        print(newStartDateTime.description)
+        print(originalEndDateTime.description)
+        print(newEndDateTime.description)
     }
 
     var body: some View {
@@ -182,8 +194,8 @@ struct PlansCalendarDayView: View {
                                                         draggingPlanId = plan.id
                                                     }
                                                     .onEnded { gesture in
+                                                        handlePlanDragEnded(plan: plan, offset: Float(gesture.translation.height))
                                                         draggingPlanId = ""
-                                                        handlePlanDrag(offset: Float(gesture.translation.height))
                                                     }
                                             )
                                             .frame(maxWidth: UIScreen.screenWidth / 3,
