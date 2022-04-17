@@ -46,7 +46,7 @@ struct PlanCardView: View {
                 .padding([.leading])
             }
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 1.0) {
                 HStack(spacing: 10.0) {
                     Text(DateUtil.shortDurationDesc(from: plan.startDateTime, to: plan.endDateTime, on: date))
                         .font(.caption)
@@ -58,7 +58,9 @@ struct PlanCardView: View {
                 Text(plan.name)
                     .font(.headline)
             }
+            .prefixedWithIcon(named: IconUtil.getIconString(plan))
             .padding()
+            .font(.title)
 
             Spacer()
 

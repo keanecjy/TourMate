@@ -98,6 +98,8 @@
 		4C5DD160280A5CCB00636E22 /* VersionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */; };
 		4C5DD162280A5EFC00636E22 /* SimplePlanHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */; };
 		4C8639A327DF37DA000566FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8639A227DF37DA000566FB /* Constants.swift */; };
+		4CA18D5A280C079D0094944F /* DateTimeRangeOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA18D59280C079D0094944F /* DateTimeRangeOwner.swift */; };
+		4CA18D5C280C07A10094944F /* DateTimeSmartEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA18D5B280C07A10094944F /* DateTimeSmartEngine.swift */; };
 		4CB32D7028055F8100681E5B /* EditPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D6F28055F8100681E5B /* EditPlanViewModel.swift */; };
 		4CB32D722805631600681E5B /* AddPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D712805631600681E5B /* AddPlanViewModel.swift */; };
 		4CB32D742805690200681E5B /* AddPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB32D732805690200681E5B /* AddPlanView.swift */; };
@@ -177,6 +179,7 @@
 		B9789198280B10C900AC4632 /* TravelMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9789197280B10C800AC4632 /* TravelMode.swift */; };
 		B978919A280B2C5700AC4632 /* LocationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9789199280B2C5700AC4632 /* LocationSelectionView.swift */; };
 		B978919C280B2F6300AC4632 /* LocationSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B978919B280B2F6300AC4632 /* LocationSelectionViewModel.swift */; };
+		B97891A1280BF79700AC4632 /* IconUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97891A0280BF79700AC4632 /* IconUtil.swift */; };
 		B98910C127F858BA00476794 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98910C027F858BA00476794 /* MapViewModel.swift */; };
 		B98F35E727F01F53000AFE53 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98F35E627F01F53000AFE53 /* SearchView.swift */; };
 		B98F35E927F02015000AFE53 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98F35E827F02015000AFE53 /* Location.swift */; };
@@ -352,6 +355,8 @@
 		4C5DD15F280A5CCB00636E22 /* VersionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionPickerView.swift; sourceTree = "<group>"; };
 		4C5DD161280A5EFC00636E22 /* SimplePlanHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePlanHeader.swift; sourceTree = "<group>"; };
 		4C8639A227DF37DA000566FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4CA18D59280C079D0094944F /* DateTimeRangeOwner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeRangeOwner.swift; sourceTree = "<group>"; };
+		4CA18D5B280C07A10094944F /* DateTimeSmartEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeSmartEngine.swift; sourceTree = "<group>"; };
 		4CB32D6F28055F8100681E5B /* EditPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlanViewModel.swift; sourceTree = "<group>"; };
 		4CB32D712805631600681E5B /* AddPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewModel.swift; sourceTree = "<group>"; };
 		4CB32D732805690200681E5B /* AddPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanView.swift; sourceTree = "<group>"; };
@@ -433,6 +438,7 @@
 		B9789197280B10C800AC4632 /* TravelMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelMode.swift; sourceTree = "<group>"; };
 		B9789199280B2C5700AC4632 /* LocationSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectionView.swift; sourceTree = "<group>"; };
 		B978919B280B2F6300AC4632 /* LocationSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectionViewModel.swift; sourceTree = "<group>"; };
+		B97891A0280BF79700AC4632 /* IconUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconUtil.swift; sourceTree = "<group>"; };
 		B98910C027F858BA00476794 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		B98F35E627F01F53000AFE53 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B98F35E827F02015000AFE53 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -647,6 +653,8 @@
 			children = (
 				0028AD98280BBC4500F86965 /* DateTimeRangeOwner.swift */,
 				0028AD9A280BBCA800F86965 /* DateTimeSmartEngine.swift */,
+				4CA18D5B280C07A10094944F /* DateTimeSmartEngine.swift */,
+				4CA18D59280C079D0094944F /* DateTimeRangeOwner.swift */,
 				0028AD9D280BD60B00F86965 /* PlanSmartEngine.swift */,
 			);
 			path = SmartEngine;
@@ -908,6 +916,7 @@
 				0028ADA7280BF36E00F86965 /* PlanWarningView.swift */,
 				4C3672AF280BC525003B0AD4 /* TransportationOptionsButton.swift */,
 				4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */,
+				0028ADA7280BF36E00F86965 /* PlanWarningView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1554,6 +1563,7 @@
 				B98F35EF27F0602E000AFE53 /* SearchViewModel.swift */,
 				00711D692809CBA400F629C6 /* ViewFactory */,
 				00148CB1280903A50091C28B /* ExpandableTextView.swift */,
+				B97891A0280BF79700AC4632 /* IconUtil.swift */,
 				0028AD9C280BD60000F86965 /* SmartEngine */,
 			);
 			path = Common;
@@ -2075,6 +2085,7 @@
 				00711D7A280A70F400F629C6 /* PlanLogDisplaySubHeader.swift in Sources */,
 				00711D6F280A655300F629C6 /* ActionableContentView.swift in Sources */,
 				B9B46722280182A4003D07F5 /* ViewExtension.swift in Sources */,
+				B97891A1280BF79700AC4632 /* IconUtil.swift in Sources */,
 				004C7C5D2802770E00B432C7 /* AuthenticationServiceDelegate.swift in Sources */,
 				B9B6B3E127F43BEF00B0F5F4 /* AutocompleteQuery.swift in Sources */,
 				00062B5827EF387300267960 /* CommentsView.swift in Sources */,
@@ -2109,6 +2120,7 @@
 				B9B467242801D8FF003D07F5 /* AddAccommodationView.swift in Sources */,
 				00E2B19527E4C95400B5F449 /* LogInView.swift in Sources */,
 				4CB954EE27DE3FE1001410AD /* FirebaseAdaptedData.swift in Sources */,
+				4CA18D5C280C07A10094944F /* DateTimeSmartEngine.swift in Sources */,
 				B9B467072800249E003D07F5 /* Activity.swift in Sources */,
 				000AB55A27EE242500FF0ED3 /* PlanStatusView.swift in Sources */,
 				0092523627DA573500F4F029 /* TourMateTitleView.swift in Sources */,
@@ -2129,6 +2141,7 @@
 				B93B489427DA87A300478B7B /* FirebaseAdaptedPlan.swift in Sources */,
 				B9B4673E2801F8F9003D07F5 /* EditTransportViewModel.swift in Sources */,
 				B9789198280B10C900AC4632 /* TravelMode.swift in Sources */,
+				4CA18D5A280C079D0094944F /* DateTimeRangeOwner.swift in Sources */,
 				00062B6027F00F7700267960 /* CommentView.swift in Sources */,
 				95FAE40D27E247F800F4AB01 /* TripService.swift in Sources */,
 				B98F35F527F416CB000AFE53 /* WebRepository.swift in Sources */,
