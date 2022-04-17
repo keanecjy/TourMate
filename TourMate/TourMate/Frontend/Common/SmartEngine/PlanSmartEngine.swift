@@ -11,6 +11,9 @@ struct PlanSmartEngine {
     private let dateTimeSmartEngine = DateTimeSmartEngine()
 
     func computeOverlap(plans: [Plan]) -> [(Plan, Plan)] {
+        guard !plans.isEmpty else {
+            return []
+        }
 
         let filteredPlans = plans.filter { plan in
             !(plan is Accommodation)
@@ -25,6 +28,10 @@ struct PlanSmartEngine {
     }
 
     func suggestNewTiming(plans: [Plan], forDate date: Date) -> [Plan] {
+        guard !plans.isEmpty else {
+            return []
+        }
+
         let filteredPlans = plans.filter { plan in
 
             // ignore suggestion for all day plans
