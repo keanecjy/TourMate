@@ -83,6 +83,7 @@
 		4C3672AE280BC3E1003B0AD4 /* TripDurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672AD280BC3E1003B0AD4 /* TripDurationView.swift */; };
 		4C3672B0280BC525003B0AD4 /* TransporationOptionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672AF280BC525003B0AD4 /* TransporationOptionsButton.swift */; };
 		4C3672B2280BC618003B0AD4 /* CalendarDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */; };
+		4C3672B4280BCDFE003B0AD4 /* PlanDiffButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3672B3280BCDFE003B0AD4 /* PlanDiffButton.swift */; };
 		4C3BB2E427E6051C0022C3C1 /* FirebaseTripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */; };
 		4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */; };
 		4C4A9E9F2807C8140040EE24 /* ActivityFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A9E9E2807C8140040EE24 /* ActivityFormView.swift */; };
@@ -332,6 +333,7 @@
 		4C3672AD280BC3E1003B0AD4 /* TripDurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDurationView.swift; sourceTree = "<group>"; };
 		4C3672AF280BC525003B0AD4 /* TransporationOptionsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransporationOptionsButton.swift; sourceTree = "<group>"; };
 		4C3672B1280BC618003B0AD4 /* CalendarDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatePicker.swift; sourceTree = "<group>"; };
+		4C3672B3280BCDFE003B0AD4 /* PlanDiffButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDiffButton.swift; sourceTree = "<group>"; };
 		4C3BB2E327E6051C0022C3C1 /* FirebaseTripService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTripService.swift; sourceTree = "<group>"; };
 		4C3BB2E827E60DD10022C3C1 /* PlanAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAdapter.swift; sourceTree = "<group>"; };
 		4C4A9E9E2807C8140040EE24 /* ActivityFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFormView.swift; sourceTree = "<group>"; };
@@ -908,6 +910,15 @@
 			path = TimingView;
 			sourceTree = "<group>";
 		};
+		4C3672B5280BCE07003B0AD4 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				4C3672B3280BCDFE003B0AD4 /* PlanDiffButton.swift */,
+				4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		4C5DD15C280A5C7700636E22 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1383,6 +1394,7 @@
 		95779BD627E76728001FF602 /* PlanViews */ = {
 			isa = PBXGroup;
 			children = (
+				4C3672B5280BCE07003B0AD4 /* Buttons */,
 				B9AF3B4E27EF6FC600A3C82E /* Components */,
 				4C90219C2805BC2300054F0A /* Activity */,
 				4C90219D2805BC2800054F0A /* Accommodation */,
@@ -1538,7 +1550,6 @@
 		B9AF3B4E27EF6FC600A3C82E /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4CFF78F9280BB9D50072AEB6 /* EditPlanViewButton.swift */,
 				00711D662809915F00F629C6 /* PlanLogView */,
 				4C26970F28087D0400FCEC34 /* TimingView */,
 				4C1C70D127FE820400203694 /* InfoView */,
@@ -1928,6 +1939,7 @@
 				4C3BB2E927E60DD10022C3C1 /* PlanAdapter.swift in Sources */,
 				95779BD327E76687001FF602 /* EditTripView.swift in Sources */,
 				B9B467282801DCC7003D07F5 /* FirebaseAdaptedAccommodation.swift in Sources */,
+				4C3672B4280BCDFE003B0AD4 /* PlanDiffButton.swift in Sources */,
 				4CB405C32808787F00FF52D1 /* LocationHeaderView.swift in Sources */,
 				B9B6B40027F5A95000B0F5F4 /* RealLocationService.swift in Sources */,
 				4CDE841927EF0E54001F58C5 /* TripEventDelegate.swift in Sources */,
