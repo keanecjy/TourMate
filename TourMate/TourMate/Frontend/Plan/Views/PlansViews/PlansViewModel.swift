@@ -69,9 +69,34 @@ class PlansViewModel: ObservableObject {
             let plans = day.plans
 
             let overlappingPlans = planSmartEngine.computeOverlap(plans: plans)
-            let overlapSummary = generateOverlapSummary(overlappingPlans: overlappingPlans, forDate: date)
 
-            summarisedDays.append((day, overlapSummary))
+            var summary = ""
+
+            if !overlappingPlans.isEmpty {
+                let overlapSummary = generateOverlapSummary(overlappingPlans: overlappingPlans, forDate: date)
+                summary += overlapSummary
+
+                var mappedPlans: [Plan] = []
+                for (plan1, plan2) in overlappingPlans {
+                    if !mappedPlans.contains(where: { $0.equals(other: plan1) }) {
+                        mappedPlans.append(plan1)
+                    }
+
+                    if !mappedPlans.contains(where: { $0.equals(other: plan2) }) {
+                        mappedPlans.append(plan2)
+                    }
+                }
+
+                let suggestedTimings = planSmartEngine.suggestNewTiming(plans: mappedPlans, forDate: date)
+                if !suggestedTimings.isEmpty {
+                    var suggestedTimingSummary = "\n\n"
+                    suggestedTimingSummary += generateSuggestedTimingSummary(suggestedTimings: suggestedTimings,
+                                                                             forDate: date)
+                    summary += suggestedTimingSummary
+                }
+            }
+
+            summarisedDays.append((day, summary))
         }
 
         return summarisedDays
@@ -184,5 +209,18 @@ extension PlansViewModel {
             return "Plan \(plan1.name) (\(plan1Duration)) <-> Plan \(plan2.name) (\(plan2Duration))"
         }
         .joined(separator: "\n")
+    }
+
+    private func generateSuggestedTimingSummary(suggestedTimings: [Plan], forDate date: Date) -> String {
+
+        var summary = "Here are some suggested changes:\n"
+
+        summary += suggestedTimings.map { plan in
+            let duration = DateUtil.shortDurationDesc(from: plan.startDateTime, to: plan.endDateTime, on: date)
+            return "Plan \(plan.name) may be shifted to \(duration)"
+        }
+        .joined(separator: "\n")
+
+        return summary
     }
 }

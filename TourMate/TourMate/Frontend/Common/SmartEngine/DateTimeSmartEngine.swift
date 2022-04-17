@@ -29,4 +29,50 @@ struct DateTimeSmartEngine {
 
         return overlappingRanges
     }
+
+    // https://stackoverflow.com/questions/8205662/algorithm-to-shift-overlapping-intervals-until-no-overlap-is-left
+    func suggestNewTimings(dateTimeRangeOwners: [DateTimeRangeOwner]) -> [DateTimeRangeOwner] {
+        guard !dateTimeRangeOwners.isEmpty else {
+            return []
+        }
+
+        var newTimings: [DateTimeRangeOwner] = []
+        let sortedDateTimeRangeOwners = dateTimeRangeOwners.sorted(by: { $0.startDateTime < $1.startDateTime })
+
+        let overallTimeSum = sortedDateTimeRangeOwners.map { owner in
+            owner.startDateTime.timezoneEpochOffset + owner.endDateTime.timezoneEpochOffset
+        }
+        .reduce(into: 0) { acc, curr in
+            acc += curr
+        }
+
+        let totalTimeLength = sortedDateTimeRangeOwners.map { owner in
+            owner.endDateTime.timezoneEpochOffset - owner.startDateTime.timezoneEpochOffset
+        }
+        .reduce(into: 0) { acc, curr in
+            acc += curr
+        }
+
+        let overallAverage = overallTimeSum / (Double(sortedDateTimeRangeOwners.count) * 2.0)
+        let average = totalTimeLength / 2.0
+
+        let newMinTime = overallAverage - average
+        var current = newMinTime
+
+        for owner in sortedDateTimeRangeOwners {
+            var newOwner = owner
+
+            let newStart = current
+            let newEnd = current + (newOwner.endDateTime.timezoneEpochOffset - newOwner.startDateTime.timezoneEpochOffset)
+
+            current = newEnd
+
+            newOwner.startDateTime.date = Date(timeIntervalSince1970: newStart)
+            newOwner.endDateTime.date = Date(timeIntervalSince1970: newEnd)
+
+            newTimings.append(newOwner)
+        }
+
+        return newTimings
+    }
 }
