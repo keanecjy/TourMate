@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User: CustomStringConvertible {
+struct User: CustomStringConvertible, Equatable {
     let id: String
     let name: String
     let email: String
@@ -23,5 +23,4 @@ extension User {
     public var description: String {
         "User: (id: \(id), name: \(name))"
     }
-
 }

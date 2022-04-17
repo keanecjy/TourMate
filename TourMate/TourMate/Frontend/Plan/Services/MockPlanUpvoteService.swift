@@ -8,6 +8,10 @@
 import Foundation
 
 class MockPlanUpvoteService: PlanUpvoteService {
+    func fetchPlanUpvotesAndListen(withPlanId planId: String) async {
+
+    }
+
     required init() {
 
     }

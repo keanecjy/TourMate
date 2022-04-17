@@ -19,11 +19,7 @@ struct PlanStatusView: View {
     }
 
     var statusText: String {
-        if status == .confirmed {
-            return "Confirmed"
-        } else {
-            return "Proposed"
-        }
+        status.rawValue
     }
 
     var body: some View {

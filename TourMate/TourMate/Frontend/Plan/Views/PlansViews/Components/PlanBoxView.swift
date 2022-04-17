@@ -11,8 +11,7 @@ struct PlanBoxView: View {
 
     @ObservedObject var plansViewModel: PlansViewModel
     @StateObject var commentsViewModel: CommentsViewModel
-
-    let planUpvoteViewModel: PlanUpvoteViewModel
+    @StateObject var planUpvoteViewModel: PlanUpvoteViewModel
 
     let plan: Plan
     let date: Date
@@ -23,7 +22,9 @@ struct PlanBoxView: View {
         self.date = date
 
         let viewModelFactory = ViewModelFactory()
-        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(plan: plan)
+
+        let planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(plan: plan)
+        self._planUpvoteViewModel = StateObject(wrappedValue: planUpvoteViewModel)
 
         let commentsViewModel = viewModelFactory.getCommentsViewModel(plan: plan)
         self._commentsViewModel = StateObject(wrappedValue: commentsViewModel)

@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct PlansCalendarView: View {
+    @ObservedObject var viewModel: PlansViewModel
 
     @State private var selectedDate = Date()
-    @ObservedObject var viewModel: PlansViewModel
+    @State private var isShowingTransportationOptionsSheet = false
+
     let onSelected: ((Plan) -> Void)?
+    private let viewModelFactory = ViewModelFactory()
 
     init(viewModel: PlansViewModel, onSelected: ((Plan) -> Void)? = nil) {
         self.viewModel = viewModel
@@ -35,6 +38,23 @@ struct PlansCalendarView: View {
                 .background(
                     Capsule().fill(Color.primary.opacity(0.25))
                 )
+
+                Button {
+                    isShowingTransportationOptionsSheet.toggle()
+                } label: {
+                    Text("Search for Transportation")
+
+                }
+                .font(.system(size: 15))
+                .padding(6)
+                .background(
+                    Capsule().fill(Color.primary.opacity(0.25))
+                )
+                .sheet(isPresented: $isShowingTransportationOptionsSheet) {
+                    let viewModel = viewModelFactory.getTransportationOptionsViewModel(plans: viewModel.plans)
+                    TransportationOptionsView(viewModel: viewModel)
+                }
+
                 Spacer()
             }
             .padding()

@@ -21,9 +21,7 @@ struct CommentView: View {
             VStack(alignment: .leading, spacing: 10.0) {
                 CommentTextView(user: user, comment: comment)
 
-                if viewModel.allowUserInteraction {
-                    CommentInteractionView(viewModel: viewModel, comment: comment)
-                }
+                CommentInteractionView(viewModel: viewModel, comment: comment)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()

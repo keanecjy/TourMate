@@ -15,6 +15,8 @@ class PlanUpvoteViewModel: ObservableObject {
     @Published private(set) var userHasUpvotedPlan = false
     @Published private(set) var upvotedUsers: [User] = []
 
+    var upvotedUsersPerVersion: [Int: [User]] = [:]
+
     let planId: String
     var planVersion: Int
 
@@ -32,12 +34,18 @@ class PlanUpvoteViewModel: ObservableObject {
         self.planUpvoteService = planUpvoteService
     }
 
+    func copy() -> PlanUpvoteViewModel {
+        PlanUpvoteViewModel(planId: planId,
+                            planVersionNumber: planVersion,
+                            userService: userService,
+                            planUpvoteService: planUpvoteService.copy())
+    }
+
     func fetchPlanUpvotesAndListen() async {
         planUpvoteService.planUpvoteEventDelegate = self
 
         self.isLoading = true
-        await planUpvoteService.fetchPlanUpvotesAndListen(withPlanId: planId,
-                                                          withPlanVersion: planVersion)
+        await planUpvoteService.fetchPlanUpvotesAndListen(withPlanId: planId)
     }
 
     func detachListener() {
@@ -76,6 +84,10 @@ class PlanUpvoteViewModel: ObservableObject {
 
         self.isLoading = false
     }
+
+    func getUpvotedUsersForVersion(version: Int) -> [User] {
+        upvotedUsersPerVersion[version] ?? []
+    }
 }
 
 // MARK: - PlanUpvoteEventDelegate
@@ -88,43 +100,25 @@ extension PlanUpvoteViewModel: PlanUpvoteEventDelegate {
             return
         }
 
-        let (currentUser, currentUserErrorMessage) = await userService.getCurrentUser()
+        let userIdMap = await fetchUsers(from: planUpvotes)
 
-        guard let currentUser = currentUser, currentUserErrorMessage.isEmpty else {
-            print("[PlanUpvoteViewModel] fetch user failed as Delegate")
-            handleError()
-            return
-        }
+        var upvotedUsersPerVersion: [Int: [User]] = [:]
 
-        let userIds = planUpvotes.map({ $0.userId })
+        for planUpvote in planUpvotes {
+            let userId = planUpvote.userId
+            let planVersion = planUpvote.planVersion
 
-        self.userHasUpvotedPlan = userIds.contains(currentUser.id)
-
-        var upvotedUsers: [User] = []
-
-        for userId in userIds {
-            let (user, userErrorMessage) = await userService.getUser(withUserId: userId)
-
-            if !userErrorMessage.isEmpty {
-                print("[PlanUpvoteViewModel] User cannot be found, upvote will not render")
+            guard let user = userIdMap[userId] else {
                 continue
             }
 
-            if let user = user {
-                upvotedUsers.append(user)
-            }
+            var arr = upvotedUsersPerVersion[planVersion] ?? []
+            arr.append(user)
+            upvotedUsersPerVersion[planVersion] = arr
         }
 
-        self.upvotedUsers = upvotedUsers
-
-        self.isLoading = false
-    }
-}
-
-// MARK: - Helper Methods
-extension PlanUpvoteViewModel {
-    private func handleError() {
-        self.hasError = true
+        self.upvotedUsersPerVersion = upvotedUsersPerVersion
+        await updateCurrentVersionUpvotedUsers()
         self.isLoading = false
     }
 }
@@ -139,15 +133,67 @@ extension PlanUpvoteViewModel: PlanEventDelegate {
             return
         }
 
-        print("[PlanUpvoteViewModel] Updating plan version number")
+        print("[PlanUpvoteViewModel] Updating to plan version number \(plan.versionNumber)")
 
         // Fetch new version upvotes
         if planVersion != plan.versionNumber {
             planVersion = plan.versionNumber
 
-            // TODO: Change to filter only upvotes for the current version
-            detachListener()
-            await fetchPlanUpvotesAndListen()
+            await updateCurrentVersionUpvotedUsers()
         }
+    }
+}
+
+// MARK: - Helper Methods
+extension PlanUpvoteViewModel {
+    private func fetchUsers(from planUpvotes: [PlanUpvote]) async -> [String: User] {
+        var userIdMap: [String: User] = [:]
+
+        for planUpvote in planUpvotes {
+            guard userIdMap[planUpvote.userId] == nil else {
+                continue
+            }
+
+            let (user, userErrorMessage) = await userService.getUser(withUserId: planUpvote.userId)
+
+            guard let user = user,
+                  userErrorMessage.isEmpty
+            else {
+                print("[PlanUpvoteViewModel] User cannot be found, upvote will not render")
+                continue
+            }
+
+            userIdMap[user.id] = user
+        }
+
+        return userIdMap
+    }
+
+    private func updateCurrentVersionUpvotedUsers() async {
+        let currentUser = await fetchCurrentUser()
+
+        self.upvotedUsers = upvotedUsersPerVersion[planVersion] ?? []
+        self.userHasUpvotedPlan = upvotedUsers.contains(currentUser)
+    }
+
+    private func fetchCurrentUser() async -> User {
+        let (currentUser, currentUserErrorMessage) = await userService.getCurrentUser()
+
+        guard let currentUser = currentUser, currentUserErrorMessage.isEmpty else {
+            print("[PlanUpvoteViewModel] Fetch current user failed")
+            handleError()
+            return User.defaultUser()
+        }
+
+        return currentUser
+    }
+
+}
+
+// MARK: - State changes
+extension PlanUpvoteViewModel {
+    private func handleError() {
+        self.hasError = true
+        self.isLoading = false
     }
 }

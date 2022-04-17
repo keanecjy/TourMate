@@ -81,3 +81,17 @@ extension AddCommentViewModel {
         self.isLoading = false
     }
 }
+
+extension AddCommentViewModel: PlanEventDelegate {
+    func update(plans: [Plan], errorMessage: String) async {
+    }
+
+    func update(plan: Plan?, errorMessage: String) async {
+        guard let plan = plan else {
+            return
+        }
+
+        self.planVersionNumber = plan.versionNumber
+    }
+
+}

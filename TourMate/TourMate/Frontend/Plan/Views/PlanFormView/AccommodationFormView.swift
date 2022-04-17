@@ -10,7 +10,7 @@ import SwiftUI
 struct AccommodationFormView: View {
     @ObservedObject var viewModel: PlanFormViewModel<Accommodation>
     @Binding var location: Location
-    @ObservedObject var searchViewModel: SearchViewModel
+    @StateObject var searchViewModel: SearchViewModel
 
     var body: some View {
         PlanFormView<Accommodation, Section>(viewModel: viewModel,

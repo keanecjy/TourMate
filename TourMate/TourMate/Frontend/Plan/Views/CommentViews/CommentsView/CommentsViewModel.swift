@@ -21,10 +21,9 @@ class CommentsViewModel: ObservableObject {
     private var commentPermissions: [String: (Bool, Bool)] // canEdit, userHasUpvotedComment
     var allowUserInteraction: Bool
 
-    // TODO: Fix after Terence changes for comments
-    var fetchAllVersions: Bool {
-        allowUserInteraction
-    }
+    private var allVersionedComments: [(Comment, User)]
+
+    private var planEventDelegates: [PlanEventDelegate]
 
     var commentCount: Int {
         commentOwnerPairs.count
@@ -47,6 +46,16 @@ class CommentsViewModel: ObservableObject {
 
         self.commentPermissions = [:]
         self.allowUserInteraction = allowUserInteraction
+        self.allVersionedComments = []
+
+        self.planEventDelegates = []
+    }
+
+    func copy() -> CommentsViewModel {
+        CommentsViewModel(planId: planId,
+                          planVersionNumber: planVersionNumber,
+                          commentService: commentService.copy(),
+                          userService: userService)
     }
 
     func fetchCommentsAndListen() async {
@@ -105,8 +114,9 @@ class CommentsViewModel: ObservableObject {
             return
         }
 
+        // the comment should stay within its own version?
         let updatedComment = Comment(planId: comment.planId,
-                                     planVersionNumber: planVersionNumber,
+                                     planVersionNumber: comment.planVersionNumber,
                                      id: comment.id,
                                      userId: comment.userId,
                                      message: message,
@@ -155,6 +165,17 @@ class CommentsViewModel: ObservableObject {
 
         commentService.detachListener()
     }
+
+    func filterSpecificVersionComments(version: Int) async {
+        let sortedVersionedComments = getCommentsForVersion(version: version)
+        self.commentOwnerPairs = sortedVersionedComments
+    }
+
+    func getCommentsForVersion(version: Int) -> [(Comment, User)] {
+        var versionedComments = allVersionedComments.filter({ $0.0.planVersionNumber == version })
+        sortByCreationDateDesc(&versionedComments)
+        return versionedComments
+    }
 }
 
 // MARK: - CommentEventDelegate
@@ -173,6 +194,38 @@ extension CommentsViewModel: CommentEventDelegate {
         self.isLoading = false
     }
 
+}
+
+// MARK: PlanEventDelegate
+extension CommentsViewModel: PlanEventDelegate {
+    func attachDelegate(delegate: PlanEventDelegate) {
+        self.planEventDelegates.append(delegate)
+    }
+
+    func detachDelegates() {
+        self.planEventDelegates = []
+    }
+
+    func updateDelegates(plan: Plan, errorMessage: String) async {
+        for planEventDelegate in self.planEventDelegates {
+            await planEventDelegate.update(plan: plan, errorMessage: errorMessage)
+        }
+    }
+
+    func update(plans: [Plan], errorMessage: String) async {
+    }
+
+    func update(plan: Plan?, errorMessage: String) async {
+        guard let plan = plan else {
+            return
+        }
+
+        print("[CommentsViewModel] Updating to plan version number \(plan.versionNumber)")
+
+        planVersionNumber = plan.versionNumber
+
+        await updateDelegates(plan: plan, errorMessage: errorMessage)
+    }
 }
 
 // MARK: - Helper Methods
@@ -245,11 +298,16 @@ extension CommentsViewModel {
             }
         }
 
+        sortByCreationDateDesc(&fetchedCommentOwnerPairs)
+
+        self.commentOwnerPairs = fetchedCommentOwnerPairs
+        self.allVersionedComments = fetchedCommentOwnerPairs
+    }
+
+    private func sortByCreationDateDesc(_ fetchedCommentOwnerPairs: inout [(Comment, User)]) {
         fetchedCommentOwnerPairs.sort {
             $0.0.creationDate > $1.0.creationDate
         }
-
-        self.commentOwnerPairs = fetchedCommentOwnerPairs
     }
 
 }
@@ -259,28 +317,5 @@ extension CommentsViewModel {
     private func handleError() {
         self.hasError = true
         self.isLoading = false
-    }
-}
-
-// MARK: PlanEventDelegate
-extension CommentsViewModel: PlanEventDelegate {
-    func update(plans: [Plan], errorMessage: String) async {
-    }
-
-    func update(plan: Plan?, errorMessage: String) async {
-        guard let plan = plan else {
-            return
-        }
-
-        print("[CommentsViewModel] Updating plan version number")
-
-        // Fetch new version comments
-        if planVersionNumber != plan.versionNumber {
-            planVersionNumber = plan.versionNumber
-
-            // TODO: Change to filter only comments for the current version
-            detachListener()
-            await fetchVersionedCommentsAndListen()
-        }
     }
 }

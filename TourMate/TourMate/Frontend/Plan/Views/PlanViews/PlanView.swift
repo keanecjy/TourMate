@@ -9,8 +9,8 @@ import SwiftUI
 struct PlanView<T: Plan, Content: View>: View {
 
     @ObservedObject var planViewModel: PlanViewModel<T>
-    let commentsViewModel: CommentsViewModel
-    let planUpvoteViewModel: PlanUpvoteViewModel
+    @StateObject var commentsViewModel: CommentsViewModel
+    @StateObject var planUpvoteViewModel: PlanUpvoteViewModel
 
     @State private var isShowingEditPlanSheet = false
 
@@ -23,8 +23,12 @@ struct PlanView<T: Plan, Content: View>: View {
     init(planViewModel: PlanViewModel<T>, @ViewBuilder content: () -> Content) {
         self.viewModelFactory = ViewModelFactory()
         self.viewFactory = ViewFactory()
-        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
-        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+
+        let commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
+        let planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+
+        self._commentsViewModel = StateObject(wrappedValue: commentsViewModel)
+        self._planUpvoteViewModel = StateObject(wrappedValue: planUpvoteViewModel)
 
         self.planViewModel = planViewModel
         self.content = content()
@@ -45,7 +49,9 @@ struct PlanView<T: Plan, Content: View>: View {
             .toolbar {
                 ToolbarItemGroup(placement: .primaryAction) {
                     NavigationLink {
-                        PlanDiffView(planViewModel: planViewModel)
+                        PlanDiffView(planViewModel: planViewModel,
+                                     commentsViewModel: commentsViewModel,
+                                     planUpvoteViewModel: planUpvoteViewModel)
                     } label: {
                         Image(systemName: "arrow.left.arrow.right")
                     }

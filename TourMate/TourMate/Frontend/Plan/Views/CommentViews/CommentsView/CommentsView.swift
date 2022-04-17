@@ -10,23 +10,24 @@ import SwiftUI
 // Entire Comments View
 struct CommentsView: View {
     @StateObject var viewModel: CommentsViewModel
+    let versionNumber: Int
+
     private let viewModelFactory = ViewModelFactory()
 
     var body: some View {
-        if viewModel.hasError {
-            Text("Error Occurred")
-        } else {
-            VStack(spacing: 15.0) {
-                CommentListView(viewModel: viewModel)
-
-                if viewModel.allowUserInteraction {
-                    AddCommentView(viewModel: viewModelFactory.getAddCommentViewModel(commentsViewModel: viewModel))
-                }
+        ActionableContentView {
+            ScrollableContentView {
+                CommentListView(viewModel: viewModel, forVersion: versionNumber)
             }
-            .padding()
-            .background(.thinMaterial)
-            .cornerRadius(20.0)
+        } actionContent: {
+            if viewModel.allowUserInteraction {
+                AddCommentView(viewModel: viewModelFactory.getAddCommentViewModel(commentsViewModel: viewModel))
+            }
         }
+        .task {
+            await viewModel.fetchCommentsAndListen()
+        }
+        .onDisappear(perform: { () in viewModel.detachListener() })
     }
 }
 

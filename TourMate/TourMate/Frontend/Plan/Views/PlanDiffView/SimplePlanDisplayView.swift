@@ -10,7 +10,7 @@ import SwiftUI
 struct SimplePlanDisplayView<T: Plan, Content: View>: View {
     @ObservedObject var planDisplayViewModel: PlanDisplayViewModel<T>
     let commentsViewModel: CommentsViewModel
-    let planUpvoteViewModel: PlanUpvoteViewModel
+    @StateObject var planUpvoteViewModel: PlanUpvoteViewModel
 
     private let content: Content
 
@@ -18,32 +18,30 @@ struct SimplePlanDisplayView<T: Plan, Content: View>: View {
          planUpvoteViewModel: PlanUpvoteViewModel, @ViewBuilder content: () -> Content) {
         self.planDisplayViewModel = planDisplayViewModel
         self.commentsViewModel = commentsViewModel
-        self.planUpvoteViewModel = planUpvoteViewModel
+        self._planUpvoteViewModel = StateObject(wrappedValue: planUpvoteViewModel)
         self.content = content()
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 30.0) {
-            HStack(spacing: 10.0) {
-                Text(planDisplayViewModel.nameDisplay).font(.title).bold()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 30.0) {
+                SimplePlanHeader(name: planDisplayViewModel.nameDisplay, status: planDisplayViewModel.statusDisplay)
 
-                PlanStatusView(status: planDisplayViewModel.statusDisplay)
+                PlanUpvoteView(viewModel: planUpvoteViewModel)
+                    .allowsHitTesting(false)
+
+                TimingView(startDate: planDisplayViewModel.startDateTimeDisplay,
+                           endDate: planDisplayViewModel.endDateTimeDisplay,
+                           displayIcon: false)
+
+                content
+
+                AdditionalInfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
+
+                CommentsView(viewModel: commentsViewModel, versionNumber: planDisplayViewModel.versionNumber)
+
+                Spacer()
             }
-
-            PlanUpvoteView(viewModel: planUpvoteViewModel)
-                .allowsHitTesting(false)
-
-            TimingView(startDate: planDisplayViewModel.startDateTimeDisplay,
-                       endDate: planDisplayViewModel.endDateTimeDisplay,
-                       displayIcon: false)
-
-            content
-
-            InfoView(additionalInfo: planDisplayViewModel.additionalInfoDisplay)
-
-            CommentsView(viewModel: commentsViewModel)
-
-            Spacer()
         }
     }
 }

@@ -9,44 +9,41 @@ import SwiftUI
 
 @MainActor
 struct SimplePlanView<T: Plan>: View {
-    @StateObject var planViewModel: PlanViewModel<T>
+    @ObservedObject var planViewModel: PlanViewModel<T>
     let commentsViewModel: CommentsViewModel
     let planUpvoteViewModel: PlanUpvoteViewModel
 
-    @State private var selectedVersion: Int
+    @Binding var selectedVersion: Int
 
     private let viewFactory: ViewFactory
 
-    init(planViewModel: PlanViewModel<T>, initialVersion: Int) {
-        let viewModelFactory = ViewModelFactory()
+    init(planViewModel: PlanViewModel<T>, initialVersion: Binding<Int>,
+         commentsViewModel: CommentsViewModel, planUpvoteViewModel: PlanUpvoteViewModel) {
+        self.planViewModel = planViewModel
+        self._selectedVersion = initialVersion
+
         viewFactory = ViewFactory()
 
-        self.commentsViewModel = viewModelFactory.getCommentsViewModel(planViewModel: planViewModel)
-        commentsViewModel.allowUserInteraction = false
-        self.planUpvoteViewModel = viewModelFactory.getPlanUpvoteViewModel(planViewModel: planViewModel)
+        self.commentsViewModel = commentsViewModel
+        self.commentsViewModel.allowUserInteraction = false
 
-        self._planViewModel = StateObject(wrappedValue: planViewModel)
-        self._selectedVersion = State(wrappedValue: initialVersion)
+        self.planUpvoteViewModel = planUpvoteViewModel
+    }
+
+    func handleVersionChange(version: Int) {
+        Task {
+            await planViewModel.setVersionNumber(version)
+        }
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 30.0) {
-            HStack {
-                Picker("Version", selection: $selectedVersion) {
-                    ForEach(planViewModel.allVersionNumbers, id: \.self) { num in
-                        Text("Version: \(String(num))").tag(num)
-                    }
-                }
-                .pickerStyle(.menu)
-                .padding([.horizontal])
-                .background(
-                    Capsule().fill(Color.primary.opacity(0.25))
-                )
-                .onChange(of: selectedVersion, perform: { val in
-                    Task {
-                        await planViewModel.setVersionNumber(val)
-                    }
-                })
+            HStack(spacing: 5.0) {
+                VersionPickerView(selectedVersion: $selectedVersion,
+                                  onChange: { val in handleVersionChange(version: val) },
+                                  versionNumbers: planViewModel.allVersionNumbersSortedDesc)
+
+                RestoreButtonView(planViewModel: planViewModel)
 
                 Spacer()
 
@@ -60,10 +57,9 @@ struct SimplePlanView<T: Plan>: View {
         }
         .padding()
         .navigationBarTitleDisplayMode(.inline)
-        .task {
-            planViewModel.attachDelegate(delegate: commentsViewModel)
+        .onAppear {
             planViewModel.attachDelegate(delegate: planUpvoteViewModel)
-            await planViewModel.setVersionNumber(selectedVersion)
+            handleVersionChange(version: selectedVersion)
         }
         .onDisappear {
             planViewModel.detachDelegates()

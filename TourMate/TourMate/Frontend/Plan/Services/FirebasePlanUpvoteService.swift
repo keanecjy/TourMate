@@ -26,6 +26,11 @@ class FirebasePlanUpvoteService: PlanUpvoteService {
                                                        field2: "planVersion", isEqualTo: planVersion)
     }
 
+    func fetchPlanUpvotesAndListen(withPlanId planId: String) async {
+        planUpvoteRepository.eventDelegate = self
+        await planUpvoteRepository.fetchItemsAndListen(field: "planId", isEqualTo: planId)
+    }
+
     func addPlanUpvote(planUpvote: PlanUpvote) async -> (Bool, String) {
         await planUpvoteRepository.addItem(id: planUpvote.id,
                                            item: planUpvoteAdapter.toAdaptedPlanUpvote(planUpvote: planUpvote))
