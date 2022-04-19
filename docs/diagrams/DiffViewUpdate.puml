@@ -5,43 +5,42 @@ hide footbox
 create PlanView
 
 create PlanDiffView
-PlanView --> PlanDiffView
+PlanView -> PlanDiffView: PlanDiffView(planVM, commentsVM, upvotesVM)
+
+create PlanViewModel
+PlanDiffView -> PlanViewModel: Creates copies of PlanVM
+
+PlanDiffView -> PlanViewModel: leftViewModel.diffPlan(rightViewModel)
+
+PlanViewModel --> PlanDiffView: PlanDiffMap
+
+create PlanDiffTextView
+PlanDiffView -> PlanDiffTextView: PlanDiffTextView(PlanDiffMap)
 
 create SimplePlanView
-PlanDiffView --> SimplePlanView: planViewModel.copy()
+PlanDiffView -> SimplePlanView: SimplePlanView(copiedPlanVM, copiedCommentsVM, copiedUpvotesVM)
 
-SimplePlanView -->
+SimplePlanView -> PlanViewModel: Attach Delegates
 
-PlanView -> PlanViewModel: attachDelegate(commentsVM)
-PlanView -> PlanViewModel: attachDelegate(planUpvoteVM)
+create VersionPickerView
+SimplePlanView -> VersionPickerView: Binds planVersion
 
-PlanViewModel -> PlanService : fetchVersionedPlansAndListen()
+loop
+VersionPickerView -> SimplePlanView: onChange(newVersion)
 
-PlanViewModel -> PlanViewModel : planService.eventDelegate = self
+SimplePlanView -> PlanViewModel: setVersionNumber(newVersion)
 
-PlanService -> Repository : fetchItemsAndListen()
+PlanViewModel -> PlanViewModel: update(planWithVersionNumber)
 
-PlanService -> PlanService : repository.eventDelegate = self
+PlanViewModel -> PlanViewModel: self.plan = plan
 
-Repository ->  Firebase: Listen to Plans
+PlanViewModel -> PlanViewModel: updateDelegates()
 
-Firebase -> Repository : Plans gets updated, publishes event
+PlanViewModel -> SimplePlanView : @Published
 
-Repository -> PlanService : eventDelegate.update(plans)
+PlanViewModel -> PlanDiffTextView : @Published
 
-PlanService -> PlanViewModel : eventDelegate.update(plans)
-
-PlanViewModel -> PlanViewModel : self.plan = loadLatestVersionedPlan()
-
-PlanViewModel -> PlanViewModel : updateDelegates()
-
-PlanViewModel -> CommentsViewModel: planEventDelegate.update(plan)
-
-PlanViewModel -> PlanUpvoteViewModel: planEventDelegate.update(plan)
-
-PlanViewModel -> PlanView : @Published
-
-[<--PlanView : View gets updated
+end loop
 
 deactivate PlanView
 @enduml
